@@ -1,0 +1,42 @@
+##########################################################
+#  English translation of "Das Git-Buch" (the Git Book)  #
+#  https://github.com/tajmone/Git-Buch_EN                #
+##########################################################
+
+## TMP Work Files
+#################
+___*.*
+
+# Links and URLs:
+*.lnk
+*.url
+
+############################
+## COMMON IGNORE PATTERNS ##
+############################
+
+## Linux
+########
+*~
+.directory
+.fuse_hidden*
+.nfs*
+.Trash-*
+
+## macOS
+########
+*.DS_Store
+._*
+.AppleDouble
+.LSOverride
+Icon
+
+## Windows
+##########
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+.BIN/
+
+# EOF #
