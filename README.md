@@ -1,5 +1,6 @@
 [![CC BY-NC-SA 4.0 License][license badge]][CC BY-NC-SA 4.0]&nbsp;
 ![project status][status badge]&nbsp;
+![project branch][branch badge]&nbsp;
 
 # Git-Buch, English Translation
 
@@ -15,6 +16,10 @@ Translation project created by [Tristano Ajmone] in 2020/06/14.
 
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
+- [Repository Info](#repository-info)
+    - [Contents](#contents)
+    - [Branches](#branches)
+    - [Status](#status)
 - [About](#about)
 - [License](#license)
 - [Links](#links)
@@ -23,6 +28,39 @@ Translation project created by [Tristano Ajmone] in 2020/06/14.
 
 -----
 
+
+# Repository Info
+
+Summary info on the repository and its current status.
+
+The current development branch is [`alpha-dev`][alpha-dev].
+
+
+## Contents
+
+- [`README_DE.md`][README_DE] — Upstream README file, German original.
+- [`README_EN.md`][README_EN] — Upstream README file, English translation.
+
+
+## Branches
+
+|                   branch                   |                            description                             |
+|--------------------------------------------|--------------------------------------------------------------------|
+| [`alpha-dev`][alpha-dev] &ast;             | Current dev branch, until Beta stage.                              |
+| [`master`][master]                         | Contains only README and LICENSE, frozen until 1st release.        |
+| [`upstream-de-master`][upstream-de-master] | Orphan mirror of `master` from `gitbuch/gitbuch_cc` upstream repo. |
+
+The [`alpha-dev`][alpha-dev] branch is the current development branch.
+Once the project has been adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) workflow, and we have a buildable English draft, development will switch to the Beta stage and another branch.
+
+The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the `master` branch from the upstream repository, kept as a reference to the original files and in case we'll need to integrate future updates from the upstream project.
+
+
+## Status
+
+The project currently needs to be adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) toolchain.
+
+Once the Asciidoctor toolchain is up and running, we'll first translate all the section titles, then start working on the book translation section by section.
 
 # About
 
@@ -105,10 +143,19 @@ Open Source Press:
 
 [license badge]: https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-00b5da.svg
 [status badge]: https://img.shields.io/badge/status-WIP-orange "Project Status: Work-In-Progress"
+[branch badge]: https://img.shields.io/badge/branch-alpha--dev-yellow "Current Branch: alpha-dev"
 
-<!-- project files -->
+<!-- repo files -->
 
 [LICENSE]: ./LICENSE "View License file"
+[README_DE]: ./README_DE.md "Upstream README file: German original"
+[README_EN]: ./README_EN.md "Upstream README file: English translation"
+
+<!-- repo branches -->
+
+[alpha-dev]: https://github.com/tajmone/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
+[master]: https://github.com/tajmone/Git-Buch_EN/tree/master "View the 'master' branch on GitHub"
+[upstream-de-master]: https://github.com/tajmone/Git-Buch_EN/tree/upstream-de-master "View the 'upstream-de-master' branch on GitHub"
 
 <!-- people -->
 
