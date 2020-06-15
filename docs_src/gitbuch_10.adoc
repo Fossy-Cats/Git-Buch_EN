@@ -11,10 +11,10 @@ sehr hilfreich, um nicht den Überblick zu verlieren.
 In zwei Bereichen kann die Shell Ihnen besonders helfen:
 
 * Anzeige wichtiger Informationen zu einem Repository im
-  'Prompt' (Eingabeaufforderung). So müssen Sie nicht allzu
+  _Prompt_ (Eingabeaufforderung). So müssen Sie nicht allzu
   häufig `git status` und Konsorten aufrufen.
 
-* Eine maßgeschneiderte 'Completion' (automatische
+* Eine maßgeschneiderte _Completion_ (automatische
   Vervollständigung) hilft, Git-Kommandos direkt richtig
   einzugeben, auch wenn die genaue Syntax nicht bekannt ist.
 
@@ -34,8 +34,8 @@ Vervollständigungen sind sinnvoll, z.B. die vorhandenen
 Remotes bei `git push` und `git pull`.
 
 In diesem Kapitel stellen wir grundlegende Rezepte für zwei
-beliebte Shells vor: die 'Bash' und die
-'Z-Shell'. Anleitungen für andere interaktive Shells finden Sie
+beliebte Shells vor: die _Bash_ und die
+_Z-Shell_. Anleitungen für andere interaktive Shells finden Sie
 ggf. im Internet.
 
 Das Thema Shell-Integration ist sehr umfangreich, daher stellen die
@@ -44,7 +44,7 @@ und erheben keinen Anspruch auf Vollständigkeit.  Es kommt erschwerend
 hinzu, dass die Git-Community die Benutzerschnittstelle -- also die
 vorhandenen Subkommandos und deren Optionen -- sehr schnell
 weiterentwickelt. Bitte wundern Sie sich daher nicht, wenn die
-Completion teilweise ``hinterherhinkt'' und brandneue
+Completion teilweise "`hinterherhinkt`" und brandneue
 Subkommandos und Optionen (noch) nicht verfügbar sind.
 
 [[sec.bash-integration]]
@@ -89,9 +89,9 @@ $ *git pu[TAB]*
 pull push
 --------
 +
-Anmerkung: Nur die 'Porcelain'-Kommandos sowie
+Anmerkung: Nur die _Porcelain_-Kommandos sowie
 Benutzeraliase sind verfügbar. Externe- und
-'Plumbing'-Kommandos sind nicht implementiert.  Subkommandos, die
+_Plumbing_-Kommandos sind nicht implementiert.  Subkommandos, die
 selber über weitere Subkommandos verfügen, z.B.{empty}{nbsp}`git remote`
 oder `git stash`, werden ebenfalls vervollständigt:
 +
@@ -128,7 +128,7 @@ github        sourceforge
 
 
 Remote Branches und Tags::  Die Completion kann auch auf der
-Remote-Seite ``nachsehen'', welche Referenzen vorhanden sind.
+Remote-Seite "`nachsehen`", welche Referenzen vorhanden sind.
 Das erfolgt zum Beispiel beim Kommando `git pull`, das eine
 Remote-Referenz bzw. eine Refspec erwartet:
 +
@@ -144,7 +144,7 @@ ist. In den meisten Fällen ist eine Netzwerkverbindung sowie
 mindestens Lesezugriff notwendig.
 
 Optionen::  Die meisten Subkommandos verfügen
-über diverse 'Long Options' wie z.B.{empty}{nbsp}`--bare`.
+über diverse _Long Options_ wie z.B.{empty}{nbsp}`--bare`.
 Die Completion kennt diese in der Regel und vervollständigt sie
 entsprechend:
 +
@@ -154,7 +154,7 @@ $ *git diff --color[TAB]*
 --color         --color-words
 --------
 +
-'Short Options', wie z.B.{empty}{nbsp}`-a`, werden nicht komplettiert.
+_Short Options_, wie z.B.{empty}{nbsp}`-a`, werden nicht komplettiert.
 
 Dateien::  Für Git-Kommandos, die Dateinamen erwarten. Gute
 Beispiele sind `git add` sowie `git checkout`:
@@ -195,13 +195,13 @@ Distribution installiert, z.B. unter `/usr/lib/git-core/git-sh-prompt`).
 Setzen Sie anschließend -- wie in folgendem Beispiel -- einen
 Aufruf der Funktion `__git_ps1` in die Variable `PS1`
 ein.  Als Argument nimmt die Funktion einen sogenannten
-'Format-String-Ausdruck' entgegen -- d.h. die Zeichenfolge
+_Format-String-Ausdruck_ entgegen -- d.h. die Zeichenfolge
 `%s` wird durch Git-Infos ersetzt, alle anderen Zeichen werden
 übernommen.
 
 --------
 source /usr/lib/git-core/git-sh-prompt
-PS1='\u@\h \w$(__git_ps1 " (%s)") $ '
+PS1=_\u@\h \w$(__git_ps1 " (%s)") $ _
 --------
 
 
@@ -222,7 +222,7 @@ Git-Infos an, indem Sie zusätzliche Zeichen oder aber Farbcodes
 nutzen, z.B.  mit folgendem Prompt:
 
 --------
-PS1='\u@\h \w$(__git_ps1 " (git)-[%s]") $ '
+PS1=_\u@\h \w$(__git_ps1 " (git)-[%s]") $ _
 --------
 
 Das sieht dann so aus:
@@ -259,13 +259,13 @@ esc@creche ~/git-working/git (git)-[master|REBASE-i] $
 
 Sie können die Anzeige auch erweitern, um sich den Zustand des Working
 Trees durch verschiedene Symbole anzeigen zu lassen. Sie müssen dazu
-folgende Umgebungsvariablen auf einen 'Non-Empty'-Wert setzen, also
+folgende Umgebungsvariablen auf einen _Non-Empty_-Wert setzen, also
 z.B. auf `1`.
 
 
 `GIT_PS1_SHOWDIRTYSTATE`:: Bei Veränderungen, die noch nicht im Index
-sind ('unstaged'), wird ein Sternchen (`*`) angezeigt. Bei
-Veränderungen, die bereits im Index sind ('staged'), wird ein Plus
+sind (_unstaged_), wird ein Sternchen (`*`) angezeigt. Bei
+Veränderungen, die bereits im Index sind (_staged_), wird ein Plus
 (`+`) angezeigt. Die Anzeige erfordert, dass der Working Tree gelesen
 wird -- dadurch verlangsamt sich die Shell evtl. bei großen
 Repositories (Git muss jede Datei auf Modifikationen überprüfen). Sie
@@ -283,7 +283,7 @@ mehrere Stashes angelegt haben, wird dies im Prompt durch das
 Dollar-Zeichen (`$`) signalisiert.
 
 `GIT_PS1_SHOWUNTRACKEDFILES`::  Die Existenz
-unbekannter Dateien ('untracked files') wird mit
+unbekannter Dateien (_untracked files_) wird mit
 Prozent-Zeichen (`%`) angezeigt.
 
 
@@ -295,8 +295,8 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 --------
 
-Wenn im Repository nun alles zutrifft (also 'unstaged',
-'staged', 'stashed' und 'untracked') werden vier
+Wenn im Repository nun alles zutrifft (also _unstaged_,
+_staged_, _stashed_ und _untracked_) werden vier
 zusätzliche Zeichen (`*`, `+`, `$` und
 `%`) im Prompt angezeigt:
 
@@ -314,10 +314,10 @@ Setzen von `GIT_PS1_SHOWUPSTREAM` auf den Wert
   Vergleich zu verwenden (sofern dieser vorhanden ist), indem Sie die
   Variable auf den Wert `auto` setzen.]  Das Prompt
 signalisiert dann alle Zustände, die in <<sec.remote-branch-vv>>
-beschrieben sind: 'up-to-date' mit dem Gleichheitszeichen
-(`=`); 'ahead' mit dem Größer-als-Zeichen (`>`);
-'behind' mit dem Kleiner-als-Zeichen (`<`);
-'diverged' mit sowohl einem Größer-als-Zeichen und einem
+beschrieben sind: _up-to-date_ mit dem Gleichheitszeichen
+(`=`); _ahead_ mit dem Größer-als-Zeichen (`>`);
+_behind_ mit dem Kleiner-als-Zeichen (`<`);
+_diverged_ mit sowohl einem Größer-als-Zeichen und einem
 Kleiner-als-Zeichen (`><`). Zum Beispiel:
 
 --------
@@ -357,7 +357,7 @@ immer mitgeliefert.
 ========
 Die Z-Shell verfügt über ein sehr nützliches Feature, um Man-Pages
 aufzurufen: die `run-help` Funktion. Sie wird im Emacs-Modus
-standardmäßig mit 'Esc+H' aufgerufen und zeigt für das
+standardmäßig mit _Esc+H_ aufgerufen und zeigt für das
 Kommando, das bereits auf der Kommandozeile steht, die Man-Page an:
 
 [subs="macros,quotes"]
@@ -431,7 +431,7 @@ Sowie auch Benutzeraliase:
 --------
 $ *git t[TAB]*
 tag           -- create tag object signed with GPG
-tree          -- alias for \'log --oneline --graph --decorate -23'
+tree          -- alias for \_log --oneline --graph --decorate -23_
 --------
 
 Lokale Branches und Tags:: Die Z-Shell vervollständigt ebenfalls
@@ -482,7 +482,7 @@ signingkey   -- default GPG key to use when creating signed tags
 
 Ein großer Unterschied bei der Z-Shell ist die Art und Weise, wie
 vervollständigt wird. Die Z-Shell verwendet die sogenannte
-'Menu-Completion'. Das bedeutet, dass Ihnen die Z-Shell durch
+_Menu-Completion_. Das bedeutet, dass Ihnen die Z-Shell durch
 erneutes Drücken der Tab-Taste jeweils die nächste mögliche
 Vervollständigung anbietet.footnote:[Die
   Man-Page `zshcompsys(1)` beschreibt, wie Sie die Completion
@@ -540,7 +540,7 @@ versehen. Die Funktionalität ist Teil des umfangreichen
 Dutzend anderer Programme zur Versionsverwaltung kennt, inklusive
 Subversion, CVS und Mercurial. Die ausführliche Dokumentation finden
 Sie in der Man-Page `zshcontrib(1)`, im Abschnitt
-``Gathering Information From Version Control Systems''. Hier
+"`Gathering Information From Version Control Systems`". Hier
 stellen wir nur die für Git relevanten Einstellungen und
 Anpassungsmöglichkeiten vor.
 
@@ -564,7 +564,7 @@ setopt prompt_subst
 # precmd definieren
 precmd () { vcs_info }
 # Prompt setzten
-PS1='%n@%m %~${vcs_info_msg_0_} $ '
+PS1=_%n@%m %~${vcs_info_msg_0_} $ _
 --------
 
 Das Prompt setzt sich wie folgt zusammen: `%n` ist der
@@ -572,8 +572,8 @@ Benutzername, `%m` ist der Rechnername,
 `%~` das aktuelle Arbeitsverzeichnis und die
 Variable `${vcs_info_msg_0_}` enthält die Git-Infos.
 Wichtig ist dabei, dass das Prompt mit einfachen Anführungszeichen
-('single quotes') angegeben wird. Dadurch wird die
-'Zeichenfolge'{empty}{nbsp}`${vcs_info_msg_0_}` und nicht der
+(_single quotes_) angegeben wird. Dadurch wird die
+_Zeichenfolge_{empty}{nbsp}`${vcs_info_msg_0_}` und nicht der
 Wert der Variablen abgespeichert. Erst bei Anzeige des Prompt wird
 der Wert der Variablen -- also die Git-Infos -- substituiert.
 
@@ -591,7 +591,7 @@ tatsächlich verwenden:footnote:[Eine Liste
   Funktion `vcs_info_printsys`.]
 
 --------
-zstyle ':vcs_info:*' enable git
+zstyle _:vcs_info:*_ enable git
 --------
 
 Zum Anpassen von `vcs_info` verwenden Sie einen sogenannten
@@ -618,12 +618,12 @@ Die Z-Shell kann, wie die Bash auch, Zustände des Working Trees
 anzeigen.  Schalten Sie dies mit folgender Zeile an:
 
 --------
-zstyle ':vcs_info:git*:*' check-for-changes true
+zstyle _:vcs_info:git*:*_ check-for-changes true
 --------
 
 So zeigt `vcs_info` für Veränderungen, die noch nicht im Index
-sind ('unstaged'), ein `U` an und für Veränderungen, die
-Sie im Index aufgenommen haben ('staged'), ein `S`:
+sind (_unstaged_), ein `U` an und für Veränderungen, die
+Sie im Index aufgenommen haben (_staged_), ein `S`:
 
 --------
 esc@creche ~/git-working/git (git)-[master]US- $
@@ -635,8 +635,8 @@ leicht anpassen lässt. Gefallen Ihnen etwa die Buchstaben `U`
 und `S` nicht, können Sie sie durch andere Zeichen z.B.{empty}{nbsp}`*` und `+` ersetzen:
 
 --------
-zstyle ':vcs_info:git*:*' unstagedstr '*'
-zstyle ':vcs_info:git*:*' stagedstr '+'
+zstyle _:vcs_info:git*:*_ unstagedstr _*_
+zstyle _:vcs_info:git*:*_ stagedstr _+_
 
 --------
 
@@ -654,7 +654,7 @@ untersuchen. Da dies bei großen Repositories bekanntlich Probleme
 bereitet, können Sie bestimmte Muster ausschließen:
 
 --------
-zstyle ':vcs_info:*' disable-patterns "/home/esc/git-working/linux-2.6(|/*)"
+zstyle _:vcs_info:*_ disable-patterns "/home/esc/git-working/linux-2.6(|/*)"
 --------
 
 Vielleicht möchten Sie nun noch die Reihenfolge der Zeichen ändern.
@@ -664,8 +664,8 @@ Standardformat, der zweite das Format, wenn Sie sich mitten in einem
 Merge-Vorgang, Rebase oder ähnlichem befinden:
 
 --------
-zstyle ':vcs_info:git*:*' formats " (%s)-[%b%u%c]"
-zstyle ':vcs_info:git*:*' actionformats " (%s)-[%b|%a%u%c]"
+zstyle _:vcs_info:git*:*_ formats " (%s)-[%b%u%c]"
+zstyle _:vcs_info:git*:*_ actionformats " (%s)-[%b|%a%u%c]"
 --------
 
 Eine Auswahl der wichtigsten Zeichen finden Sie in der folgenden
@@ -694,7 +694,7 @@ esc@creche ~/git-working/git (git)-[master*+] $
 Leider kann `vcs_info` standardmäßig die Existenz unbekannter
 Dateien und angelegter Stashes nicht signalisieren. Das System
 unterstützt aber ab Z-Shell Version 4.3.11 sogenannte
-'Hooks' -- Erweiterungen, die zusätzliche Information in das
+_Hooks_ -- Erweiterungen, die zusätzliche Information in das
 Prompt einschleusen. Wir werden nun zwei solcher Hooks vorstellen, die
 die beiden genannten, fehlenden Features implementieren.
 
@@ -715,14 +715,14 @@ auf diverse Plumbing-Kommandos zurück (siehe <<sec.scripting>>).
 
 --------
 +vi-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == _true_ ]] && \
         [[ -n $(git ls-files --others --exclude-standard) ]] ; then
-        hook_com[staged]+='%%'
+        hook_com[staged]+=_%%_
     fi
 }
 +vi-stashed(){
     if git rev-parse --verify refs/stash &> /dev/null ; then
-        hook_com[staged]+='$'
+        hook_com[staged]+=_$_
     fi
 }
 --------
@@ -732,11 +732,11 @@ Wir aktivieren die Hooks, so dass sie beim Setzen der Git-Infos
 ausgewertet werden (`+set-message`):
 
 --------
-zstyle ':vcs_info:git*+set-message:*' hooks stashed untracked
+zstyle _:vcs_info:git*+set-message:*_ hooks stashed untracked
 --------
 
-Wie beim Beispiel zu der Bash oben, werden ggf. ('unstaged',
-'staged', 'stashed' und 'untracked') vier zusätzliche
+Wie beim Beispiel zu der Bash oben, werden ggf. (_unstaged_,
+_staged_, _stashed_ und _untracked_) vier zusätzliche
 Zeichen (`*`, `+`, `$` und `%`) im
 Prompt angezeigt:
 
@@ -753,11 +753,15 @@ diese Signale in das Prompt ein.
 Weitere Beispiele finden sich in der Datei
 `Misc/vcs_info-examples` des Z-Shell Repositorys, unter
 anderem auch ein Hook, der die Beziehung zum Upstream-Branch anzeigt
-(Abschnitt ``Compare local changes to remote changes''). Eine
+(Abschnitt "`Compare local changes to remote changes`"). Eine
 minimale Konfiguration für die Z-Shell entsprechend den Beispielen in
 diesem Abschnitt finden Sie in der Scriptsammlung für dieses
 Buch.footnote:[https://github.com/gitbuch/buch-scripte]
 
 //////////
-FIXME: das muss hier alles ein dritter prüfen, der Ahnung von Shell hat, da kann soviel schief gehen.
+FIXME: Das muss hier alles ein dritter prüfen, der Ahnung von Shell hat, da kann
+       soviel schief gehen.
+
+EN.TRANS: Everything has to be checked by a third party who knows about Shell,
+          so many things can go wrong.
 //////////

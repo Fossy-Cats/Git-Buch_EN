@@ -1,7 +1,8 @@
 // adapted from: "grundlagen.txt"
 
-[[ch.interna]]
-= Grundlagen
+[[ch.basics]]
+= The Basics
+// Grundlagen
 
 In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
 mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar
@@ -26,7 +27,7 @@ die erweiterte Benutzung dieser Kommandos behandeln.
 === Index
 
 Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem
-'Working Tree', dem 'Index' und dem 'Repository'.  Der
+_Working Tree_, dem _Index_ und dem _Repository_.  Der
 Working Tree entspricht den Dateien, wie sie auf dem Dateisystem Ihres
 Arbeitsrechners liegen -- wenn Sie also Dateien mit einem Editor
 bearbeiten, mit `grep` darin suchen etc., operieren Sie immer
@@ -34,13 +35,13 @@ auf dem Working Tree.
 
 Das Repository ist der Sammelbehälter für Commits, also Änderungen,
 versehen mit Angaben zu Autor, Datum und Beschreibung. Die Commits
-ergeben zusammen die 'Versionsgeschichte'.
+ergeben zusammen die _Versionsgeschichte_.
 
 Git führt nun, im Gegensatz zu vielen anderen
 Versionskontrollsystemen, eine Neuerung ein, den Index. Es handelt
 sich um eine etwas schwierig greifbare Zwischenebene zwischen Working
 Tree und Repository. Er dient dazu, Commits vorzubereiten. Das
-bedeutet, dass Sie nicht immer 'alle' Änderungen, die Sie an
+bedeutet, dass Sie nicht immer _alle_ Änderungen, die Sie an
 einer Datei vorgenommen haben, auch als Commit einchecken müssen.
 
 Die Git-Kommandos `add` und `reset` agieren (in ihrer
@@ -54,7 +55,7 @@ image::index.png[id="fig.index",scaledwidth="90%",width="90%"]
 Im Ausgangszustand, das heißt wenn `git status` die Nachricht
 `nothing to commit` ausgibt, sind Working Tree und Index mit
 `HEAD` synchronisiert. Der Index ist also nicht
-``leer'', sondern enthält die Dateien im gleichen Zustand, wie
+"`leer`", sondern enthält die Dateien im gleichen Zustand, wie
 sie im Working Tree vorliegen.
 
 In der Regel ist dann der Arbeitsablauf folgender: Zuerst nehmen Sie mit
@@ -71,7 +72,7 @@ auf Ihrem Arbeitssystem und den Dateien, wie sie eingecheckt würden,
 wenn Sie `git commit` aufrufen würden.
 
 Das Kommando `git diff --staged` zeigt hingegen die
-Unterschiede zwischen Index (der auch 'Staging Area' genannt
+Unterschiede zwischen Index (der auch _Staging Area_ genannt
 wird) und Repository an, also die Unterschiede, die ein Commit ins
 Repository übertragen würde. Im Ausgangszustand, wenn Working Tree und Index
 mit `HEAD` synchron sind, erzeugen weder `git diff` noch
@@ -97,7 +98,7 @@ die Flexibilität.
 ==== Diff auf Wortbasis
 
 Ein alternatives Ausgabeformat für `git diff` ist das
-sog. 'Word-Diff', das über die Option
+sog. _Word-Diff_, das über die Option
 `--word-diff` zur Verfügung steht.  Statt der entfernten
 und hinzugefügten Zeilen zeigt die Ausgabe von `git diff`
 mit einer entsprechenden Syntax sowie farblich kodiert die
@@ -174,7 +175,7 @@ sammeln einige Änderungen im Index und verpacken sie in einem Commit
 -- alle anderen Änderungen bleiben aber nach wie vor in den Dateien
 erhalten.
 
-Wir wollen das anhand des ``Hello World!''-Beispiels aus dem
+Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem
 vorigen Kapitel illustrieren.  Zur Erinnerung der Inhalt der Datei
 `hello.pl`:
 
@@ -184,8 +185,8 @@ print "Hello World!\n";
 --------
 
 Nun präparieren wir die Datei so, dass sie mehrere unabhängige
-Veränderungen hat, die wir 'nicht' in einem einzelnen Commit
-zusammenfassen wollen. Zunächst fügen wir eine 'Shebang'-Zeile
+Veränderungen hat, die wir _nicht_ in einem einzelnen Commit
+zusammenfassen wollen. Zunächst fügen wir eine _Shebang_-Zeile
 am Anfang hinzu.footnote:[Das ist eine Anweisung für
   den Kernel, welches Programm zum Interpretieren des Scripts verwendet
   werden soll. Typische Shebang-Zeilen sind etwa `#!/bin/sh` oder `#!/usr/bin/perl`.] Außerdem
@@ -206,12 +207,12 @@ Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen
 dem Index hinzugefügt -- der Stand der Datei im Index wäre also der
 gleiche wie im Working Tree. Stattdessen verwenden wir die Option
 `--patch` bzw. kurz `-p`.footnote:[Genaugenommen führt die Option
-  `-p` direkt in den 'Patch-Mode' des
-  'Interactive-Mode' von `git add`.  Der Interactive-Mode
+  `-p` direkt in den _Patch-Mode_ des
+  _Interactive-Mode_ von `git add`.  Der Interactive-Mode
   wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr
   selten verwendet und ist deswegen hier nicht weiter beschrieben. Die
   Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im
-  Abschnitt ``Interactive Mode''.]  Dies hat zur Folge, dass
+  Abschnitt "`Interactive Mode`".]  Dies hat zur Folge, dass
 wir interaktiv gefragt werden, welche Veränderungen wir dem Index
 hinzufügen wollen. Git bietet uns jede Veränderung einzeln an, und wir
 können von Fall zu Fall entscheiden, wie wir mit dieser verfahren
@@ -236,7 +237,7 @@ Stage this hunk [y,n,q,a,d,/,s,e,?]?
 Hier zeigt Git alle Änderungen an, da sie im Code sehr nah
 beieinander liegen. Bei weit auseinanderliegenden oder auf
 verschiedene Dateien verteilten Veränderungen werden sie getrennt
-angeboten. Der Begriff 'Hunk' bezeichnet lose zusammenhängende
+angeboten. Der Begriff _Hunk_ bezeichnet lose zusammenhängende
 Zeilen im Quellcode. Wir haben an dieser Stelle unter anderem folgende Optionen:
 
 --------
@@ -244,31 +245,31 @@ Stage this hunk[y,n,q,a,d,/,s,e,?]?
 --------
 
 Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu
-merken. Eine kleine Erinnerung erhalten Sie immer durch '[?]'.
+merken. Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
 Die wichtigsten Optionen haben wir im Folgenden
 zusammengefasst.
 
 
-`y` ('yes'):: Übernimm den aktuellen Hunk in den Index.
+`y` (_yes_):: Übernimm den aktuellen Hunk in den Index.
 
-`n` ('no'):: Übernimm den aktuellen Hunk nicht.
+`n` (_no_):: Übernimm den aktuellen Hunk nicht.
 
-`q` ('quit'):: Übernimm weder den aktuellen Hunk noch einen der folgenden.
+`q` (_quit_):: Übernimm weder den aktuellen Hunk noch einen der folgenden.
 
-`a` ('all'):: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
+`a` (_all_):: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
 
-`s` ('split'):: Versuche, den aktuellen Hunk zu teilen.
+`s` (_split_):: Versuche, den aktuellen Hunk zu teilen.
 
-`e` ('edit'):: Editiere den aktuellen Hunk.footnote:[Git öffnet dann
+`e` (_edit_):: Editiere den aktuellen Hunk.footnote:[Git öffnet dann
 den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den
 Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen –
 also nicht dem Index hinzuzufügen, sie aber im Working Tree zu
 behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die
-Zeile wird zu ``Kontext''). Um `+`-Zeilen zu löschen, entfernen Sie
+Zeile wird zu "`Kontext`"). Um `+`-Zeilen zu löschen, entfernen Sie
 diese einfach aus dem Hunk.]
 
 In dem Beispiel teilen wir den aktuellen Hunk und geben
-`s` für 'split' ein.
+`s` für _split_ ein.
 
 
 [subs="macros,quotes"]
@@ -283,11 +284,11 @@ Split into 2 hunks.
 Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und
 bietet uns nun ein Diff an, das nur die Shebang-Zeile
 enthält.footnote:[Sie können Hunks in der Regel
-aber nicht beliebig teilen. Zumindest eine Zeile 'Kontext',
+aber nicht beliebig teilen. Zumindest eine Zeile _Kontext_,
 also eine Zeile ohne Präfix `+` oder `-`, muss
 dazwischen liegen. Wollen Sie den Hunk dennoch teilen, müssen Sie
-mit `e` für 'edit' arbeiten.]  Wir geben `y` für
-'yes' an und beim nächsten Hunk `q` für 'quit'.  Um
+mit `e` für _edit_ arbeiten.]  Wir geben `y` für
+_yes_ an und beim nächsten Hunk `q` für _quit_.  Um
 zu überprüfen, ob alles geklappt hat, verwenden wir `git diff`
 mit der Option `--staged`, die den Unterschied zwischen
 Index und `HEAD` (dem neuesten Commit)
@@ -306,7 +307,7 @@ pass:quotes[\+++ b/hello.pl]
  print "Hello World!\n";
 --------
 
-Um zu sehen, welche Veränderungen sich noch 'nicht' im Index
+Um zu sehen, welche Veränderungen sich noch _nicht_ im Index
 befinden, reicht ein einfacher Aufruf von `git diff`, der uns
 zeigt, dass sich -- wie erwartet -- noch zwei Zeilen im Working Tree
 befinden:
@@ -344,7 +345,7 @@ befinden; in diesem Fall ist es nur die eine.
 Das Kommando `git reset` ist gewissermaßen das Gegenstück zu
 `git add`: Statt Unterschiede aus dem Working Tree in den Index
 zu übertragen, überträgt `reset` Unterschiede aus dem
-Repository in den Index. Änderungen 'in den' Working Tree zu
+Repository in den Index. Änderungen _in den_ Working Tree zu
 übertragen, ist möglicherweise destruktiv, da Ihre Änderungen
 verlorengehen könnten. Daher ist dies nur mit der Option
 `--hard` möglich, die wir in <<sec.reset>>
@@ -386,8 +387,8 @@ lautet die Frage: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, also
 ob wir den Hunk wieder aus dem Index herausnehmen möchten. Wie gehabt,
 erhalten wir durch die Eingabe des Fragezeichens eine erweiterte
 Beschreibung der verfügbaren Optionen.  Wir drücken an dieser Stelle
-einmal `s` für 'split', einmal `n` für 'no'
-und einmal `y` für 'yes'.  Damit sollte sich jetzt nur die
+einmal `s` für _split_, einmal `n` für _no_
+und einmal `y` für _yes_.  Damit sollte sich jetzt nur die
 Shebang-Zeile im Index befinden:
 
 
@@ -439,7 +440,7 @@ via Bisect (siehe <<sec.bisect>>) ein Problem dar.
 Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und
 Repository austauschen. Wenden wir uns nun dem Kommando `git
   commit` zu, mit dem Sie Änderungen im Repository
-``festschreiben''.
+"`festschreiben`".
 
 Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem
 bestimmten Zeitpunkt fest und enthält zudem
@@ -454,7 +455,7 @@ Metainformationen:footnote:[Sie können
 * Commit-Datum
 
 
-Tatsächlich ist es so, dass der Name des Autors 'nicht' der Name
+Tatsächlich ist es so, dass der Name des Autors _nicht_ der Name
 des Committers (der den Commit einpflegt) sein muss.  Häufig werden
 Commits von Maintainern integriert oder bearbeitet (z.B.
 durch `rebase`, was auch die Committer-Informationen anpasst,
@@ -494,9 +495,9 @@ $ *git commit -m "Dies ist die Commit-Nachricht"*
 ==== Einen Commit verbessern
 
 Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
-Option `--amend` (``berichtigen''). Die Option
+Option `--amend` ("`berichtigen`"). Die Option
 veranlasst Git, die Änderungen im Index dem eben getätigten Commit
-``hinzuzufügen''.footnote:[Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. Der neue Commit 'ersetzt' dann den alten.]  Außerdem können Sie die
+"`hinzuzufügen`".footnote:[Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. Der neue Commit _ersetzt_ dann den alten.]  Außerdem können Sie die
 Commit-Nachricht anpassen. Beachten Sie, dass sich die SHA-1-Summe des
 Commits in jedem Fall ändert.
 
@@ -544,8 +545,8 @@ Commit-Beschreibung:
   `Fix` etc. sind ebenso aussagekräftig wie eine leere
   Nachricht -- dann können Sie es auch gleich lassen.
 
-* Ganz wichtig: Beschreiben Sie, 'warum' etwas verändert
-  wurde und welche Implikationen das haben kann. 'Was' verändert
+* Ganz wichtig: Beschreiben Sie, _warum_ etwas verändert
+  wurde und welche Implikationen das haben kann. _Was_ verändert
   wurde, ist immer aus dem Diff ersichtlich!
 
 * Seien Sie kritisch und vermerken Sie, wenn Sie glauben,
@@ -615,7 +616,7 @@ nächsten Commit einfließt.footnote:[Durch
 Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch
 die Optionen `-r` und `-f`, um rekursiv zu löschen bzw.
 das Löschen zu erzwingen. Auch `git mv` bietet eine Option
-`-f` ('force'), falls der neue Dateiname schon existiert
+`-f` (_force_), falls der neue Dateiname schon existiert
 und überschrieben werden soll. Beide Kommandos akzeptieren die Option
 `-n` bzw. `--dry-run`, die bewirkt, dass der Vorgang
 simuliert wird, Dateien also nicht modifiziert werden.
@@ -623,7 +624,7 @@ simuliert wird, Dateien also nicht modifiziert werden.
 
 [TIP]
 ================
-Um eine Datei 'nur' aus dem Index zu löschen, verwenden Sie
+Um eine Datei _nur_ aus dem Index zu löschen, verwenden Sie
 `git rm --cached`. Sie bleibt dann im Working Tree
 erhalten.
 ================
@@ -639,7 +640,7 @@ Für eine Umbenennung gehen Sie so vor: Markieren Sie zunächst den
 alten Dateinamen per `git rm <alter-name>` als gelöscht.  Fügen
 Sie dann die neue Datei hinzu: `git add <neuer-name>`.
 Überprüfen Sie anschließend per `git status`, ob die Datei als
-``umbenannt'' gekennzeichnet ist.
+"`umbenannt`" gekennzeichnet ist.
 
 
 [TIP]
@@ -649,7 +650,7 @@ Intern spielt es für Git keine Rolle, ob Sie eine Datei regulär per
 <alter-name>` ausführen. In jedem Fall wird lediglich die Referenz auf
 ein Blob-Objekt geändert (siehe <<sec.objektmodell>>).
 
-Git kommt allerdings mit einer sogenannten 'Rename Detection': Wenn
+Git kommt allerdings mit einer sogenannten _Rename Detection_: Wenn
 ein Blob gleich ist und nur von einem anderen Dateinamen referenziert
 wird, dann fasst Git dies als eine Umbenennung auf.  Wollen Sie die
 Geschichte einer Datei untersuchen und ihr bei eventuellen
@@ -681,7 +682,7 @@ Vorkommnisse von `border-color` in allen CSS-Dateien:
 
 [subs="macros,quotes"]
 --------
-$ *git grep border-color -- \'&#42;.css'*
+$ *git grep border-color -- \_&#42;.css_*
 --------
 
 Die Grep-Implementation von Git unterstützt alle gängigen Flags, die
@@ -694,7 +695,7 @@ wesentliche Performance-Vorteile hat.
 =============
 Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch
 aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter
-einer entsprechenden ``Überschrift'' zusammenfasst, sowie prägnante
+einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante
 Farben verwendet. Sie können die Ausgabe von `ack` mit `git grep`
 emulieren, indem Sie folgendes Alias verwenden:
 
@@ -722,7 +723,7 @@ was gemacht hat. Allerdings ist die Liste etwas unhandlich, sobald Sie
 viele Commits betrachten.
 
 Wollen Sie nur die kürzlich erstellten Commits anschauen, begrenzen Sie die
-Ausgabe von `git log` durch die Option `-<n>` auf 'n'
+Ausgabe von `git log` durch die Option `-<n>` auf _n_
 Commits. Die letzten vier Commits erhalten Sie zum Beispiel mit:
 
 [subs="macros,quotes"]
@@ -740,7 +741,7 @@ $ *git log -1 &lt;commit&gt;*
 Das Argument `<commit>` ist eine legale Bezeichnung für einen einzelnen
 Commit, z.B. die Commit-ID bzw. SHA-1-Summe. Wenn Sie jedoch
 nichts angeben, verwendet Git automatisch `HEAD`. Abgesehen von einzelnen
-Commits versteht das Kommando allerdings auch sog. 'Commit-Ranges' (Reihe
+Commits versteht das Kommando allerdings auch sog. _Commit-Ranges_ (Reihe
 von Commits), siehe <<sec.commit-ranges-intro>>.
 
 Die Option `-p` (`--patch`) fügt den vollen Patch im
@@ -784,7 +785,7 @@ Option `--pretty` sind:
 
 
 `full`::  Commit-ID, Name des Autors, Name des
-  Committers und vollständige Beschreibung -- 'kein' Datum.
+  Committers und vollständige Beschreibung -- _kein_ Datum.
 
 
 `fuller`::  Wie `medium`, aber zusätzlich
@@ -797,7 +798,7 @@ Option `--pretty` sind:
 
 `format:<string>`::  Durch Platzhalter beliebig
   anpassbares Format; für Details siehe die Man-Page `git-log(1)`,
-  Abschnitt ``Pretty Formats''.
+  Abschnitt "`Pretty Formats`".
 
 
 Unabhängig davon können Sie unterhalb der Commit-Nachricht weitere
@@ -887,11 +888,11 @@ $ *git log --since=&#39;2010-01-01&#39; --author=&#39;Linus Torvalds&#39;*
 --------
 
 Hier können Sie auch nur Teile des Namens bzw. der E-Mail-Adresse angeben; die
-Suche nach `'Linus'` würde also dasselbe Ergebnis produzieren.
+Suche nach `_Linus_` würde also dasselbe Ergebnis produzieren.
 
 Mit `--grep` suchen Sie zum Beispiel nach Schlagwörtern oder
 Satzteilen in der Commit-Nachricht, etwa nach allen Commits, in denen
-das Wort ``fix'' vorkommt (ohne die Groß- und Kleinschreibung
+das Wort "`fix`" vorkommt (ohne die Groß- und Kleinschreibung
 zu beachten):
 
 [subs="macros,quotes"]
@@ -917,9 +918,9 @@ Suchterm (dessen spezielle Zeichen ihre Bedeutung verlieren) zu suchen.
 
 [TIP]
 ================
-Um nach 'Änderungen' zu suchen, verwenden Sie das sog.  'Pickaxe'-Tool
-(``Spitzhacke''). So finden Sie Commits, in deren Diff ein bestimmter
-regulärer Ausdruck vorkommt (```grep` für Diffs''):
+Um nach _Änderungen_ zu suchen, verwenden Sie das sog.  _Pickaxe_-Tool
+("`Spitzhacke`"). So finden Sie Commits, in deren Diff ein bestimmter
+regulärer Ausdruck vorkommt ("``grep` für Diffs`"):
 
 [subs="macros,quotes"]
 --------
@@ -933,7 +934,7 @@ diejenigen, die die gesuchte Änderung enthalten.
 
 Beachten Sie, dass in früheren Git-Versionen für diese Operation die
 Option `-S` zuständig war, die allerdings einen Unterschied zu
-`-G` aufweist: Sie findet nur die Commits, die die 'Anzahl' der
+`-G` aufweist: Sie findet nur die Commits, die die _Anzahl_ der
 Vorkommnisse des Musters ändern -- insbesondere werden
 Code-Verschiebungen, also Entfernen und Hinzufügen an anderer Stelle in
 einer Datei, nicht gefunden.
@@ -955,7 +956,7 @@ seine Commit-ID oder implizit durch den symbolischen Namen
 Das Kommando `git show` zeigt Informationen zu einem Commit an,
 das Kommando `git log` beginnt bei einem Commit, und geht dann
 so weit in der Versionsgeschichte zurück, bis der Anfang des
-Repositorys (der sogenannte 'Root-Commit') erreicht ist.
+Repositorys (der sogenannte _Root-Commit_) erreicht ist.
 
 Ein wichtiges Hilfsmittel, um eine Reihe von Commits anzugeben, sind
 sogenannte Commit-Ranges der Form `<commit1>..<commit2>`.  Da
@@ -995,7 +996,7 @@ dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie
 so besser zu verstehen.
 
 Im Folgenden dient uns als Beispiel wieder ein ``Hello
-World!''-Programm, diesmal in der Programmiersprache Python.footnote:[Sie
+World!__-Programm, diesmal in der Programmiersprache Python.footnote:[Sie
 können das Repository, das auf den folgenden Seiten detailliert
 untersucht wird, mit dem Befehl `git clone
 git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]
@@ -1030,8 +1031,8 @@ b0400b0 Erste Version
 SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash
   Algorithm'), der eine Prüfsumme digitaler Informationen berechnet:
 die SHA-1-Summe.  Der Algorithmus wurde 1995 vom amerikanischen
-'National Institute of Standards and Technology' (NIST) und der
-'National Security Agency' (NSA) vorgestellt.  SHA-1 wurde für
+_National Institute of Standards and Technology_ (NIST) und der
+_National Security Agency_ (NSA) vorgestellt.  SHA-1 wurde für
 kryptographische Zwecke entwickelt und findet bei der
 Integritätsprüfung von Nachrichten sowie als Basis für digitale
 Signaturen Anwendung. Die Funktionsweise stellt <<fig.sha>> dar, wo wir die Prüfsumme von `hello.py`
@@ -1046,7 +1047,7 @@ Zeichenkette der Länge 40 dargestellt. Der Algorithmus führt bei
 dieser Länge der Prüfsumme zu 2^160^ (ca. 1.5 · 10^49^)
 verschiedenen Kombinationen, und daher ist es sehr, sehr
 unwahrscheinlich, dass zwei Bit-Sequenzen die gleiche Prüfsumme haben.
-Diese Eigenschaft wird als 'Kollisionssicherheit' bezeichnet.
+Diese Eigenschaft wird als _Kollisionssicherheit_ bezeichnet.
 
 
 .SHA-1-Algorithmus
@@ -1056,7 +1057,7 @@ image::sha.png[id="fig.sha",scaledwidth="90%",width="90%"]
 Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren
 verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen
 von Kollisionen mit einem erheblichen Rechenaufwand möglich machen
-sollen.footnote:[http://de.wikipedia.org/wiki/Secure_Hash_Algorithm, ``Schwächen''.] Aus diesem Grund empfiehlt das NIST heute die
+sollen.footnote:[http://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".] Aus diesem Grund empfiehlt das NIST heute die
 Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die
 über längere Prüfsummen verfügen und somit das Erzeugen von
 Kollisionen erschweren. Auf der Git-Mailingliste wurde debattiert, ob
@@ -1073,7 +1074,7 @@ dass viele Entwickler identische Kopien des Repositorys haben.
 
 Der SHA-1-Algorithmus spielt bei Git eine zentrale Rolle, da er
 verwendet wird, um Prüfsummen von den im Git-Repository gespeicherten
-Daten, den 'Git-Objekten', zu bilden. Damit sind diese leicht und
+Daten, den _Git-Objekten_, zu bilden. Damit sind diese leicht und
 eindeutig als SHA-1-Summe ihres Inhalts zu referenzieren.  Im
 täglichen Umgang mit Git werden Sie meist nur SHA-1-Summen von Commits
 verwenden, sog. Commit-IDs. Diese Referenz kann an viele
@@ -1086,7 +1087,7 @@ ausreicht, um einen Commit eindeutig zu identifizieren.
 === Die Git-Objekte
 
 Alle in einem Repository gespeicherten Daten liegen als
-'Git-Objekte' vor. Man unterscheidet vier
+_Git-Objekte_ vor. Man unterscheidet vier
 Typen:footnote:[Die technische Dokumentation
   bietet die Man-Page `gittutorial-2(7)`.]
 
@@ -1124,40 +1125,40 @@ referenziert, die diese Unterverzeichnisse abbilden.
 image::objekte.png[id="fig.objekte",scaledwidth="90%",width="90%"]
 
 
-Das Commit-Objekt enthält also genau 'eine' Referenz auf einen
+Das Commit-Objekt enthält also genau _eine_ Referenz auf einen
 Tree, und zwar auf den Tree des Projekt-Inhalts -- dies ist ein
 Schnappschuss des Projekt-Zustands. Des weiteren enthält das
 Commit-Objekt eine Referenz auf dessen direkten Vorfahren sowie die
-Metadaten ``Autor'' und ``Committer'' und die
+Metadaten "`Autor`" und "`Committer`" und die
 Commit-Nachricht.
 
 Viele Git-Kommandos erwarten als Argument einen Tree. Da aber z.B.
 ein Commit einen Tree referenziert, spricht man hier von einem sog.
-'tree-ish', d.h. Tree-'artigen' Argument. Gemeint ist
+_tree-ish_, d.h. Tree-_artigen_ Argument. Gemeint ist
 damit jedes Objekt, das sich zuletzt auf einen Tree auflösen lässt.
 In diese Kategorie fallen auch Tags (vgl. <<sec.tags>>).
-Analog bezeichnet 'commit-ish' ein Argument, das sich auf einen
+Analog bezeichnet _commit-ish_ ein Argument, das sich auf einen
 Commit auflösen lässt.
 
 Dateiinhalte werden immer in Blobs gespeichert. Trees enthalten nur
 Referenzen zu Blobs und anderen Trees in Form der SHA-1-Summen dieser
-Objekte. Ein Commit wiederum referenziert 'einen' Tree.
+Objekte. Ein Commit wiederum referenziert _einen_ Tree.
 
 [[sec.od]]
 === Die Objektdatenbank
 
-Alle Git-Objekte werden in der 'Objektdatenbank' gespeichert und
+Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und
 sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie
 können ein Objekt, nachdem es gespeichert wurde, über seine
 SHA-1-Summe in der Datenbank finden. Dadurch funktioniert die
-Objektdatenbank im Prinzip wie eine große 'Hash-Tabelle', wo die
+Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die
 SHA-1-Summen als Schlüssel für den gespeicherten
 Inhalt{empty}footnote:[Git speichert sämtliche Objekte
   unterhalb von `.git/objects`. Man unterscheidet zwischen
-  'Loose Objects' und 'Packfiles'. Die ``losen''
+  _Loose Objects_ und _Packfiles_. Die "`losen`"
   Objekte speichern den Inhalt in einer Datei, deren Name der
   SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine
-  Datei). Im Gegensatz dazu sind Packfiles komprimierte 'Archive'
+  Datei). Im Gegensatz dazu sind Packfiles komprimierte _Archive_
   von vielen Objekten. Das geschieht aus Performancegründen: Nicht
   nur ist die Übertragung bzw. Speicherung dieser Archive effizienter,
   auch wird das Dateisystem entlastet.] dienen:
@@ -1217,9 +1218,9 @@ Objektdatenbank zu speichern.
 
 In einem kleinen Exkurs gehen wir darauf ein, wie man die
 Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
-'Plumbing'-Kommandos (``Klempner-Kommandos'') zur
+_Plumbing_-Kommandos ("`Klempner-Kommandos`") zur
 Verfügung, eine Gruppe von Low-Level-Tools für Git, im
-Gegensatz zu den 'Porcelain'-Kommandos, mit denen Sie in der
+Gegensatz zu den _Porcelain_-Kommandos, mit denen Sie in der
 Regel arbeiten. Diese Kommandos sind also nicht wichtig für
 Git-Anfänger, sondern sollen nur einen anderen Zugang zum Konzept der
 Objektdatenbank vermitteln.  Für mehr Informationen siehe
@@ -1270,7 +1271,7 @@ $ *git ls-tree --abbrev=7 a26b00a*
 
 Analog zu <<fig.objekte>> enthält der von dem Commit
 referenzierte Tree je einen Blob für beide Dateien sowie einen Tree
-(auch: 'Subtree') für das `test`-Verzeichnis. Dessen
+(auch: _Subtree_) für das `test`-Verzeichnis. Dessen
 Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja
 nun die SHA-1-Summe des Trees kennen.  Wie erwartet sehen Sie, dass
 der `test`-Tree ganz genau einen Blob referenziert, und zwar
@@ -1284,7 +1285,7 @@ $ *git ls-tree --abbrev=7 c37fd6f*
 
 Zuletzt überzeugen wir uns noch davon, dass in dem Blob für
 `hello.py` auch wirklich unser ``Hello
-  World!''-Programm enthalten ist und dass die SHA-1-Summe
+  World!__-Programm enthalten ist und dass die SHA-1-Summe
 stimmt. Das Kommando `git show` zeigt beliebige Objekte an.
 Übergeben wir die SHA-1-Summe eines Blobs, wird dessen Inhalt
 ausgegeben.  Zum Überprüfen der SHA-1-Summe verwenden wir das
@@ -1298,7 +1299,7 @@ $ *git show 52ea6d6*
 
 """ Hello World! """
 
-print \'Hello World!'
+print \_Hello World!_
 $ *git hash-object hello.py*
 52ea6d6f53b2990f5d6167553f43c98dc8788e81
 --------
@@ -1308,7 +1309,7 @@ Ein Hinweis für neugierige Leser: `git hash-object
 `sha1sum hello.py`. Das liegt daran, dass nicht nur der
 Dateiinhalt in einem Blob gespeichert wird. Stattdessen wird
 zusätzlich der Objekttyp, in diesem Fall `blob`, sowie die
-Größe, in diesem Fall 67 Bytes, in einem 'Header' am Anfang des
+Größe, in diesem Fall 67 Bytes, in einem _Header_ am Anfang des
 Blobs abgespeichert. Das `hash-object`-Kommando errechnet also
 nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
 
@@ -1340,25 +1341,25 @@ image::struktur.png[id="fig.struktur",scaledwidth="80%",width="80%"]
 Mehr noch: Eine Datei, die zweimal existiert, existiert nur einmal in
 der Objektdatenbank. Der Inhalt dieser Datei liegt als Blob in der
 Objektdatenbank und wird an zwei Stellen von einem Tree
-'referenziert'. Diesen Effekt bezeichnet man als
-'Deduplizierung' ('Deduplication'): Duplikate werden nicht
+_referenziert_. Diesen Effekt bezeichnet man als
+_Deduplizierung_ (_Deduplication_): Duplikate werden nicht
 nur verhindert, sondern gar nicht erst möglich gemacht.
 Deduplizierung ist ein wesentliches Merkmal von sog.
-'Content-Addressable File Systems', also Dateisystemen, die
-Dateien nur unter ihrem 'Inhalt' kennen (wie z.B. Git, indem es
-einem Objekt die SHA-1-Summe seiner selbst als ``Namen''
+_Content-Addressable File Systems_, also Dateisystemen, die
+Dateien nur unter ihrem _Inhalt_ kennen (wie z.B. Git, indem es
+einem Objekt die SHA-1-Summe seiner selbst als "`Namen`"
 gibt).
 
 Konsequenterweise nimmt ein Repository, in dem die gleiche, 1{nbsp}MB große
 Datei 1000 Mal existiert, nur etwas mehr als 1{nbsp}MB ein.  Git muss im
 Wesentlichen den Blob verwalten, außerdem einen Commit und einen Tree
 mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des
-Dateinamens). Ein 'Checkout' dieses Repositorys hingegen
+Dateinamens). Ein _Checkout_ dieses Repositorys hingegen
 verbraucht ca. 1{nbsp}GB Speicherplatz auf dem Dateisystem, weil Git die
 Deduplizierung
 auflöst.footnote:[Intern kennt
   Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu
-  erkennen und diese platzsparend zu 'Packfiles'
+  erkennen und diese platzsparend zu _Packfiles_
   zusammenzuschnüren.]
 
 Mit den Befehlen `git checkout` und `git reset` stellen
@@ -1379,18 +1380,18 @@ damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
 
 Da jeder Commit seine direkten Vorfahren speichert, entsteht eine
 Graph-Struktur. Genauer gesagt erzeugt die Anordnung der Commits einen
-gerichteten, azyklischen Graphen ('Directed Acyclic Graph', DAG).
-Ein Graph besteht aus zwei Kernelementen: den 'Knoten' und den
-'Kanten', die diese Knoten verbinden. In einem 'gerichteten'
+gerichteten, azyklischen Graphen (_Directed Acyclic Graph_, DAG).
+Ein Graph besteht aus zwei Kernelementen: den _Knoten_ und den
+_Kanten_, die diese Knoten verbinden. In einem _gerichteten_
 Graphen zeichnen sich die Kanten zusätzlich durch eine Richtung aus,
 das heißt, wenn Sie den Graphen ablaufen, so können Sie, um von einem
 Knoten zum nächsten zu gelangen, nur diejenigen Kanten verwenden, die
-in die entsprechende Richtung zeigen.  Die 'azyklische'
+in die entsprechende Richtung zeigen.  Die _azyklische_
 Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den
 Graphen von einem Knoten erneut zu diesem zurück finden kann. Man kann
 sich also nicht im Kreis
 bewegen.footnote:[Diese beiden Eigenschaften
-  'gerichtet' und 'azyklisch' sind die einzig notwendige
+  _gerichtet_ und _azyklisch_ sind die einzig notwendige
   Beschränkung, die man an einen Graphen stellen muss, der Änderungen
   über Zeit abbildet: Weder kann man zukünftige Änderungen
   referenzieren (Richtung der Kanten zeigt immer in die
@@ -1417,7 +1418,7 @@ auf Vorfahren die Kanten.
 Einen beispielhaften Graphen sehen Sie in
 <<fig.graph>>. Er besteht aus mehreren Commits, die eingefärbt
 sind, um deren Zugehörigkeit zu verschiedenen Entwicklungssträngen
-('Branches') leichter voneinander zu unterscheiden. Zuerst wurden
+(_Branches_) leichter voneinander zu unterscheiden. Zuerst wurden
 die Commits A, B, C und D gemacht. Sie bilden den
 Hauptentwicklungszweig. Commits E und F enthalten eine
 Feature-Entwicklung, die mit Commit H in den Hauptzweig übernommen
@@ -1428,9 +1429,9 @@ Hauptentwicklungszweig integriert wurde.
 image::graph.png[id="fig.graph",scaledwidth="45%",width="45%"]
 
 Ein Resultat der Graph-Struktur ist die kryptographisch gesicherte
-'Integrität' eines Repositorys. Git referenziert durch die
+_Integrität_ eines Repositorys. Git referenziert durch die
 SHA-1-Summe eines Commits nicht nur die Inhalte der Projektdateien zu
-einem bestimmten Zeitpunkt, sondern außerdem 'alle' bis dahin
+einem bestimmten Zeitpunkt, sondern außerdem _alle_ bis dahin
 ausgeführten Commits und deren Relation untereinander, also die
 vollständige Versionsgeschichte.
 
@@ -1443,7 +1444,7 @@ einen anderen Commit, wenn Sie einen anderen Vorgänger referenzieren.
 
 Da der Vorgänger wiederum Vorgänger referenziert und dessen
 SHA-1-Summe von den Vorgängern abhängt usw., bedeutet das konkret,
-dass in der Commit-ID die 'vollständige' Versionsgeschichte
+dass in der Commit-ID die _vollständige_ Versionsgeschichte
 implizit kodiert ist. Implizit bedeutet hier: Wenn sich auch nur ein
 Bit eines Commits irgendwo in der Versionsgeschichte ändert, dann ist
 die SHA-1-Summe der darauf folgenden Commits, insbesondere des
@@ -1459,12 +1460,12 @@ anfangen. Um einen Knoten zu referenzieren (also damit zu arbeiten),
 muss man dessen Namen kennen, also die SHA-1-Summe des Commits.  Im
 täglichen Umgang verwendet man aber selten direkt die SHA-1-Summe
 eines Commits, sondern stattdessen symbolische Namen, sog.
-'Referenzen', die Git auf die SHA-1-Summe auflösen kann.
+_Referenzen_, die Git auf die SHA-1-Summe auflösen kann.
 
 Git bietet im Wesentlichen zwei Typen von Referenzen an,
-'Branches' und 'Tags'. Das sind 'Zeiger' in einen
+_Branches_ und _Tags_. Das sind _Zeiger_ in einen
 Commit-Graphen, die verwendet werden, um bestimmte Knoten zu
-markieren.  Branches haben ``beweglichen'' Charakter, das
+markieren.  Branches haben "`beweglichen`" Charakter, das
 heißt, sie rücken weiter an die Spitze, wenn neue Commits auf dem
 Branch dazu kommen. Tags hingegen haben statischen Charakter und
 markieren wichtige Punkte im Commit-Graphen, wie z.B. Releases.

@@ -3,19 +3,19 @@
 [[sec.workflows]]
 = Workflows
 
-Mit 'Workflows' (dt. 'Arbeitsabläufe') werden in der
+Mit _Workflows_ (dt. _Arbeitsabläufe_) werden in der
 Software-Entwicklung in der Regel Strategien bezeichnet, die
 Arbeitsabläufe im Team definieren (z.B. die 'Agile
   Softwareentwicklung'). Wir können uns bei diesem Thema allgemein
 hier nur auf Literaturhinweise
 beschränken.footnote:[Zu empfehlen ist u.a.
-  das dritte Kapitel von 'Open Source Projektmanagement' von
+  das dritte Kapitel von _Open Source Projektmanagement_ von
   Michael Prokop (Open Source Press, München, 2010). Auch das
-  'Manifesto for Agile Software Development' hält unter
+  _Manifesto for Agile Software Development_ hält unter
   http://agilemanifesto.org/ aufschlussreiche Hinweise
   bereit.]
 
-In Git kann man ``Workflows'' unter zwei Aspekten sehen:
+In Git kann man "`Workflows`" unter zwei Aspekten sehen:
 Abläufe (Kommandosequenzen), die den einzelnen Nutzer betreffen, sowie
 projektbezogene Arbeitsabläufe (z.B.  Release-Management). Auf beide
 Aspekte wird im Folgenden eingegangen.
@@ -27,7 +27,7 @@ Nachfolgend finden Sie eine Auflistung genereller
 Entwicklungsstrategien (ohne bestimmte Reihenfolge):
 
 
-'Machen Sie möglichst kleine, eigenständige Commits':: Unterteilen Sie
+_Machen Sie möglichst kleine, eigenständige Commits_:: Unterteilen Sie
 Ihre Arbeit in kleine, logische Schritte und tätigen Sie für jeden
 Schritt einen Commit. Die Commits sollten unabhängig von zukünftigen
 Commits sein und möglichst alle Tests (sofern vorhanden) bestehen. Das
@@ -39,27 +39,27 @@ Nachhinein einfacher, mehrere kleine Commits mit `git rebase
 --interactive` zusammenzufassen als einen großen in mehrere kleine zu
 teilen.
 
-'Entwickeln Sie in Topic-Branches':: Branching geht in Git leicht,
+_Entwickeln Sie in Topic-Branches_:: Branching geht in Git leicht,
 schnell und intuitiv vonstatten.  Anschließendes Mergen funktioniert
 problemlos, auch wiederholt.  Nutzen Sie diese Flexibilität von Git:
 Entwickeln Sie nicht direkt in `master`, sondern jedes Feature in
-seinem eigenen Branch, genannt 'Topic-Branch'.
+seinem eigenen Branch, genannt _Topic-Branch_.
 +
 Dadurch bieten sich einige Vorteile: Sie können Features unabhängig
 voneinander entwickeln; Sie erhalten einen wohldefinierten Zeitpunkt
 der Integration (Merge); Sie können die Entwicklung per Rebase
-``stromlinienförmig'' und übersichtlich gestalten, bevor Sie sie
+"`stromlinienförmig`" und übersichtlich gestalten, bevor Sie sie
 veröffentlichen; Sie erleichtern es anderen Entwicklern, ein neues
 Feature isoliert zu testen.
 
-'Verwenden Sie Namespaces':: Sie können durch `/`-Zeichen im
+_Verwenden Sie Namespaces_:: Sie können durch `/`-Zeichen im
 Branch-Namen verschiedene Klassen von Branches kreieren. In einem
 zentralen Repository können Sie sich durch Ihre Initialen einen
 eigenen Namensraum schaffen (z.B.{empty}{nbsp}`jp/refactor-base64`) oder Ihre
 Features je nach Stabilität unter `experimental/` oder `pu/` (s.u.)
 ablegen.
 
-'Rebase early, Rebase often':: Wenn Sie auf Topic-Branches häufig mit
+_Rebase early, Rebase often_:: Wenn Sie auf Topic-Branches häufig mit
 Rebase arbeiten, erzeugen Sie eine deutlich lesbarere
 Versionsgeschichte. Das ist für Sie und andere Entwickler praktisch
 und hilft, den eigentlichen Programmiervorgang in logische Einheiten
@@ -73,17 +73,17 @@ Verwenden Sie allerdings Rebase nur für eigene Commits: Verändern Sie
 keinesfalls bereits veröffentlichte Commits oder die Commits anderer
 Entwickler.
 
-'Unterscheiden Sie bewusst zwischen FF- und regulären Merges'::
+_Unterscheiden Sie bewusst zwischen FF- und regulären Merges_::
 Integrieren Sie Änderungen aus dem Upstream immer per Fast-Forward
 (Sie spulen die lokale Kopie der Branches einfach vor). Integrieren
 Sie im Gegensatz dazu neue Features durch reguläre Merges. Hilfreich
 für die Unterscheidung sind auch die in <<sec.merge-ff>> vorgestellten
 Aliase.
 
-'Beachten Sie die Merge-Richtung':: Das Kommando `git merge` zieht
+_Beachten Sie die Merge-Richtung_:: Das Kommando `git merge` zieht
 einen oder mehrere Branches in den aktuellen hinein. Beachten Sie
 daher immer die Richtung, in der Sie einen Merge durchführen:
-Integrieren Sie Topic-Branches in die 'Mainline' (den Branch, auf dem
+Integrieren Sie Topic-Branches in die _Mainline_ (den Branch, auf dem
 Sie das stabile Release vorbereiten), nicht umgekehrt.footnote:[Eine
 Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in
 Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch
@@ -93,24 +93,24 @@ Sie auch im Nachhinein noch die Geschichte eines Features von der
 Mainline isolieren (`git log topic` listet nur die relevanten Commits
 auf).
 +
-'Criss-Cross-Merges' (überkreuzte Merges) sind nach Möglichkeit zu
+_Criss-Cross-Merges_ (überkreuzte Merges) sind nach Möglichkeit zu
 vermeiden: Sie entstehen, wenn Sie einen Branch A in einen Branch B
 und eine ältere Version von B in A integrieren.
 
-'Testen Sie die Verträglichkeit von Features per Throw-Away-Integration'::
+_Testen Sie die Verträglichkeit von Features per Throw-Away-Integration_::
     Erstellen Sie einen neuen (Wegwerf-)Branch
     und mergen Sie die Features, deren Kompatibilität Sie testen
     wollen. Lassen Sie die Testsuite laufen oder testen Sie das
     Zusammenspiel der neuen Komponenten auf andere Weise. Den Branch
     können Sie anschließend löschen und die Features weiter getrennt
-    voneinander entwickeln. Solche 'Throw-Away'-Branches werden in der
+    voneinander entwickeln. Solche _Throw-Away_-Branches werden in der
     Regel nicht veröffentlicht.
 
 Gewisse Arbeitsschritte tauchen wieder und wieder auf. Im Folgenden
 ein paar allgemeine Lösungsstrategien:
 
 
-'Einen kleinen Bug fixen':: Wenn Sie einen kleinen
+_Einen kleinen Bug fixen_:: Wenn Sie einen kleinen
     Bug bemerken, den Sie schnell korrigieren wollen, können Sie das
     auf zwei Arten tun: vorliegende Änderungen per Stash in den
     Hintergrund schieben (siehe <<sec.stash>>), den
@@ -123,7 +123,7 @@ ein paar allgemeine Lösungsstrategien:
     <<sec.cherry-pick>> bzw.  <<sec.rebase-onto>>)
     in den dafür vorgesehenen Bugfix- oder Topic-Branch zu übernehmen.
 
-'Einen Commit korrigieren'::  Mit `git commit --amend` können Sie den letzten Commit anpassen. Die Option `--no-edit` bewirkt, dass die Beschreibung beibehalten und nicht erneut zur Bearbeitung angeboten wird.
+_Einen Commit korrigieren_::  Mit `git commit --amend` können Sie den letzten Commit anpassen. Die Option `--no-edit` bewirkt, dass die Beschreibung beibehalten und nicht erneut zur Bearbeitung angeboten wird.
 +
 Um tiefer liegende Commits zu korrigieren, verwenden Sie entweder
 interaktives Rebase und das `edit`-Keyword (siehe
@@ -133,9 +133,9 @@ interaktiven Rebase entsprechend an und versehen sie mit der
 Aktion `fixup`, um den ursprünglichen Commit zu
 korrigieren.
 
-'Welche Branches sind noch nicht in'{empty}{nbsp}`master`?:: Verwenden Sie `git branch -vv --no-merged`, um herauszufinden, welche Branches noch nicht in den aktuellen Branch integriert sind.
+_Welche Branches sind noch nicht in_{empty}{nbsp}`master`?:: Verwenden Sie `git branch -vv --no-merged`, um herauszufinden, welche Branches noch nicht in den aktuellen Branch integriert sind.
 
-'Mehrere Änderungen aus unterschiedlichen Quellen zusammenfassen'::
+_Mehrere Änderungen aus unterschiedlichen Quellen zusammenfassen_::
 Nutzen Sie den Index, um mehrere Änderungen
 zusammenzufassen, z.B.   Änderungen, die einander
 ergänzen, aber in verschiedenen Branches oder als Patches
@@ -158,7 +158,7 @@ skaliert gut und kann bei Bedarf erweitert werden (s.u.).
 
 In seiner Grundform besteht das Modell aus vier Branches:
 `maint`, `master`, `next`, und `pu`
-('Proposed Updates'). Der `master`-Branch dient vor allem
+(_Proposed Updates_). Der `master`-Branch dient vor allem
 der Vorbereitung des nächsten Releases und zum Sammeln trivialer
 Änderungen. `pu`-Branch(es) dienen der Feature-Entwicklung
 (Topic-Branches).  In dem Branch `next` werden halbwegs
@@ -191,7 +191,7 @@ $ *git checkout -b pu/cmdline-refactor v0.1*
 
 . Hinreichend stabile Features werden aus ihrem
 jeweiligen `pu`-Branch nach `next` übernommen
-('Feature Graduation').
+(_Feature Graduation_).
 +
 [subs="macros,quotes"]
 --------
@@ -211,9 +211,9 @@ $ *git merge next*
 $ *git tag -a v0.2-rc1*
 --------
 
-. Von nun an werden nur noch sogenannte 'Release-Critical Bugs'
+. Von nun an werden nur noch sogenannte _Release-Critical Bugs_
 (RC-Bugs) direkt im `master` korrigiert. Es handelt sich hierbei um
-``Show-Stopper'', also Bugs, die die Funktionalität der Software
+"`Show-Stopper`", also Bugs, die die Funktionalität der Software
 maßgeblich einschränken oder neue Features unbenutzbar machen.
 Gegebenenfalls können Sie Merges von problematischen Branches wieder
 rückgängig machen (siehe <<sec.revert>>).
@@ -252,8 +252,8 @@ $ *git checkout pu/numeric-integration*
 $ *git rebase next*
 --------
 
-. Um Feature-Entwicklung sauber von Bug-Fixes und 'Maintenance'
-(``Instandhaltung'') zu trennen, werden Bug-Fixes, die eine
+. Um Feature-Entwicklung sauber von Bug-Fixes und _Maintenance_
+("`Instandhaltung`") zu trennen, werden Bug-Fixes, die eine
 vorangegangene Version betreffen, im Branch `maint` getätigt. Dieser
 Maintenance-Branch zweigt, wie die Feature-Branches auch, an
 wohldefinierten Stellen von `master` ab.
@@ -301,7 +301,7 @@ $ *git merge --ff-only master*
 --------
 
 Das Branching-Modell können Sie beliebig erweitern. Ein Ansatz, den
-man oft antrifft, ist die Verwendung von 'Namespaces' (siehe
+man oft antrifft, ist die Verwendung von _Namespaces_ (siehe
 <<sec.branches>>) im Zusatz zu den
 `pu/*`-Branches.  Das hat den Vorteil, dass jeder Entwickler
 einen eigenen Namensraum verwendet, der per Konvention abgegrenzt ist.
@@ -335,14 +335,14 @@ getaggt und veröffentlicht werden.
 
 Sobald ein Projekt mehr als nur ein, zwei Entwickler hat, ist es in
 der Regel sinnvoll, einen Entwickler mit dem Management der Releases
-zu beauftragen. Dieser 'Integration Manager' entscheidet nach
+zu beauftragen. Dieser _Integration Manager_ entscheidet nach
 Rücksprache mit den anderen (z.B. über die Mailingliste), welche
 Branches integriert und wann neue Releases erstellt werden.
 
 Jedes Projekt hat eigene Anforderungen an den Release-Ablauf.
 Nachfolgend einige generelle Tipps, wie Sie die Entwicklung überwachen
 und den Release-Prozess teilweise automatisieren können.footnote:[Weitere Anregungen finden Sie im
-  Kapitel 6 des Buches 'Open Source Projektmanagement' von Michael
+  Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael
   Prokop (Open Source Press, München, 2010).]
 
 [[sec.release-check-branches]]
@@ -350,7 +350,7 @@ und den Release-Prozess teilweise automatisieren können.footnote:[Weitere Anreg
 
 Der Maintainer einer Software muss einen guten Überblick über die
 Features haben, die aktiv entwickelt und bald integriert werden
-sollen. In den meisten Entwicklungsmodellen 'graduieren' Commits
+sollen. In den meisten Entwicklungsmodellen _graduieren_ Commits
 von einem Branch auf den nächsten -- im oben vorgestellten Modell
 zunächst aus den `pu`-Branches nach `next` und dann
 nach `master`.
@@ -377,11 +377,11 @@ des Branches ist. Ein Minus (`-`) signalisiert Merge-Commits.
 --------
 $ *git show-branch*
 ! [for-hjemli] initialize buf2 properly
- * [master] Merge branch \'stable'
+ * [master] Merge branch \_stable_
   ! [z-custom] silently discard "error opening directory" messages
 ---
 +   [for-hjemli] initialize buf2 properly
---  [master] Merge branch \'stable'
+--  [master] Merge branch \_stable_
 +*  [master\^2] Add advice about scan-path in cgitrc.5.txt
 +*  [master\^2\^] fix two encoding bugs
 +*  [master\^] make enable-log-linecount independent of -filecount
@@ -433,7 +433,7 @@ $ *git config --global alias.todo \*
 
 
 Das Kommando `git show-branch` erkennt allerdings nur
-'gleiche', das heißt identische Commits. Wenn Sie einen Commit
+_gleiche_, das heißt identische Commits. Wenn Sie einen Commit
 per `git cherry-pick` in einen anderen Branch übernehmen, sind
 die Änderungen fast die gleichen, `git show-branch` würde dies
 aber nicht erkennen, da sich die SHA-1-Summe des Commits ändert.
@@ -486,7 +486,7 @@ vorzubereiten:
 
 
 
-Zu einem guten Release gehört ein sogenanntes 'Changelog', also
+Zu einem guten Release gehört ein sogenanntes _Changelog_, also
 eine Zusammenfassung der wichtigsten Neuerungen inklusive
 Danksagungen an Personen, die Hilfe beigesteuert haben. Hier kommt
 `git shortlog` zum Einsatz. Das Kommando zeigt die jeweiligen
@@ -506,12 +506,12 @@ Kai Dietrich (6):
       in-code version number updated
       version number in README
       version number in distutils setup.py
-      Merge branch \'prepare-release-0.9.3'
+      Merge branch \_prepare-release-0.9.3_
 
 Valentin Haenel (3):
       test: add trivial test for color transform
       test: expose bug with ID 3294518
-      Merge branch \'fix-3294518'
+      Merge branch \_fix-3294518_
 --------
 
 
@@ -612,7 +612,7 @@ $ *git archive --format=zip --prefix=$version/ HEAD src LICENSE README \*
 
 Git speichert, sofern Sie einen Commit als Argument angeben, die
 SHA-1-Summe mit im Archiv ab. Im Tar-Format wird dies als
-'Pax-Header-Eintrag' mit eingespeichert, den Git mit dem Kommando
+_Pax-Header-Eintrag_ mit eingespeichert, den Git mit dem Kommando
 `git get-tar-commit-id` wieder auslesen kann:
 
 [subs="macros,quotes"]

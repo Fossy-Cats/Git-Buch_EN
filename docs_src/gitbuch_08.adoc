@@ -1,31 +1,32 @@
 // adapted from: "automatisierung.txt"
 
-[[ch.scripting]]
-= Git automatisieren
+[[ch.automation]]
+= Git Automation
+// Git automatisieren
 
 In diesem Kapitel stellen wir fortgeschrittene Techniken zum
 Automatisieren von Git vor. Im ersten Abschnitt über
-'Git-Attribute' zeigen wir Ihnen, wie Sie Git anweisen, bestimmte
+_Git-Attribute_ zeigen wir Ihnen, wie Sie Git anweisen, bestimmte
 Dateien gesondert zu behandeln, zum Beispiel um bei Grafiken ein
 externes Diff-Kommando aufzurufen.
 
-Weiter geht es mit 'Hooks' -- kleine Scripte, die beim Aufruf
+Weiter geht es mit _Hooks_ -- kleine Scripte, die beim Aufruf
 verschiedener Git-Kommandos ausgeführt werden, beispielsweise um alle
 Entwickler per E-Mail zu benachrichtigen, wenn neue Commits im
 Repository eintreffen.
 
 Danach geben wir eine grundlegende Einführung ins Scripting mit
-Git und zeigen Ihnen nützliche 'Plumbing-Kommandos'.
+Git und zeigen Ihnen nützliche _Plumbing-Kommandos_.
 
 Zum Abschluss stellen wir das mächtige `filter-branch`-Kommando
 vor, mit dem Sie die Projektgeschichte im großen Stil umschreiben,
-etwa um eine Datei mit einem Passwort aus 'allen' Commits zu
+etwa um eine Datei mit einem Passwort aus _allen_ Commits zu
 entfernen.
 
 [[sec.attributes]]
 == Git-Attribute – Dateien gesondert behandeln
 
-Über 'Git-Attribute' können Sie einzelnen oder einer Gruppe von
+Über _Git-Attribute_ können Sie einzelnen oder einer Gruppe von
 Dateien bestimmte Eigenschaften zuweisen, so dass Git sie besonders
 behandelt; Beispiele wären, für bestimmte Dateien das Zeilenende zu
 forcieren oder sie als binär zu markieren.
@@ -67,7 +68,7 @@ verwenden.
 Über geeignete Git-Attribute bestimmen Sie eine adäquate Policy -- in
 diesem Fall sind die Attribute `text` bzw.  `eol`
 zuständig.  Das Attribut `text` bewirkt, dass die Zeilenenden
-``normalisiert'' werden. Egal, ob der Editor eines Entwicklers
+"`normalisiert`" werden. Egal, ob der Editor eines Entwicklers
 CRLF oder nur LF verwendet, Git wird im Blob nur die Version mit LF
 speichern. Setzen Sie das Attribut auf `auto`, wird Git
 diese Normalisierung nur ausführen, wenn die Datei auch wie Text
@@ -92,9 +93,9 @@ LF-Endungen speichern.)
 [[sec.smudge-clean]]
 === Filter: Smudge und Clean
 
-Git bietet über 'Filter' eine Möglichkeit, Dateien nach einem
-Checkout zu ``verschmutzen'' ('smudge') und vor einem
-`git add` wieder zu ``säubern'' ('clean').
+Git bietet über _Filter_ eine Möglichkeit, Dateien nach einem
+Checkout zu "`verschmutzen`" (_smudge_) und vor einem
+`git add` wieder zu "`säubern`" (_clean_).
 
 Die Filter erhalten keine Argumente, sondern nur den Inhalt des Blobs
 auf Standard-In. Die Ausgabe des Programms wird als neuer Blob
@@ -117,7 +118,7 @@ $ *git config filter.&lt;indent&gt;.smudge cat*
 $ *echo &#39;&#42;.c filter=&lt;indent&gt;&#39; &gt; .git/info/attributes*
 --------
 
-Um eine C-Datei zu ``säubern'', ruft Git nun automatisch das
+Um eine C-Datei zu "`säubern`", ruft Git nun automatisch das
 Programm `indent` auf, das auf Standardsystemen installiert
 sein sollte.footnote:[Sie können das Programm
   `indent` aus dem GNU-Projekt von
@@ -149,7 +150,7 @@ Smudge-Filter:
 --------
 #!/bin/sh
 version=`git describe --tags`
-exec perl -pe 's/$Version(:\s[^$]+)?$/$Version: '"$version"'$/g'
+exec perl -pe _s/$Version(:\s[^$]+)?$/$Version: _"$version"_$/g_
 --------
 
 Und der Clean-Filter:
@@ -171,35 +172,35 @@ behoben werden können.
 
 Das Konzept von Filtern in Git ist bewusst simpel gehalten und wird
 auch in künftigen Versionen nicht erweitert werden. Die Filter
-erhalten 'keine' Informationen über den Kontext, in dem sich Git
+erhalten _keine_ Informationen über den Kontext, in dem sich Git
 gerade befindet: Passiert ein Checkout? Ein Merge? Ein Diff? Sie
 erhalten lediglich den Blob-Inhalt. Die Filter sollen also nur
-'kontextunabhängige' Manipulationen durchführen.
+_kontextunabhängige_ Manipulationen durchführen.
 
 Zum Zeitpunkt, da Smudge aufgerufen wird, ist der `HEAD`
 möglicherweise noch nicht auf dem aktuellen Stand (der obige Filter
 würde bei einem `git checkout` eine falsche Versionsnummer in
-die Datei schreiben, da er 'vor' dem Versetzen des `HEAD`
+die Datei schreiben, da er _vor_ dem Versetzen des `HEAD`
 aufgerufen wird). Die Filter eignen sich also nur bedingt zur
 Keyword-Expansion.
 
 Das mag zwar Nutzer, die sich an dieses Feature in anderen
 Versionskontrollsystemen gewöhnt haben, verärgern. Es gibt allerdings
-keine guten Argumente, 'innerhalb' eines Versionskontrollsystems
+keine guten Argumente, _innerhalb_ eines Versionskontrollsystems
 eine solche Expansion durchzuführen. Die internen Mechanismen, die Git
 verwendet, um zu überprüfen, ob Dateien verändert wurden, werden
 lahmgelegt (da sie immer durch den Clean-Filter geschickt werden
 müssen).  Außerdem kann man aufgrund der Struktur von Git-Repositories
 einen Blob durch die Commits bzw. Trees hindurch
-``verfolgen'', kann also bei Bedarf die Zugehörigkeit einer
+"`verfolgen`", kann also bei Bedarf die Zugehörigkeit einer
 Datei zu einem Commit immer an ihrem Inhalt erkennen.
 
-Eine Keyword-Expansion ist also nur 'außerhalb' von Git sinnvoll.
+Eine Keyword-Expansion ist also nur _außerhalb_ von Git sinnvoll.
 Dafür ist dann aber nicht Git zuständig, sondern ein entsprechendes
 `Makefile`-Target oder ein Script. So kann beispielsweise ein
 `make dist` alle Vorkommen von `VERSION` durch die
 Ausgabe von `git describe --tags` ersetzen. Git wird die
-Dateien als ``geändert'' anzeigen. Sobald die Dateien verteilt
+Dateien als "`geändert`" anzeigen. Sobald die Dateien verteilt
 sind (z.B. als Tarball), kann mit `git reset --hard` wieder
 aufgeräumt werden.
 
@@ -313,12 +314,12 @@ Versionen eines Bildes geändert? Das zu visualisieren, ist nicht immer
 einfach. Das Tool `compare` aus der ImageMagick-Suite markiert
 für Bilder gleicher Größe die Stellen, die sich geändert haben.  Auch
 kann man die beiden Bilder hintereinander animieren und durch das
-``Flackern'' erkennen, wo das Bild geändert wurde.
+"`Flackern`" erkennen, wo das Bild geändert wurde.
 
 Stattdessen wollen wir ein Programm, das die beiden Bilder
 gegenüberstellt. Zwischen den beiden Bildern wird eine Art
-``Differenz'' dargestellt: Alle Bereiche, in denen Änderungen
-aufgetreten sind, werden aus dem 'neuen' Bild auf weißen
+"`Differenz`" dargestellt: Alle Bereiche, in denen Änderungen
+aufgetreten sind, werden aus dem _neuen_ Bild auf weißen
 Untergrund kopiert. Das Diff zeigt also, welche Bereiche hinzugekommen
 sind.
 
@@ -326,7 +327,7 @@ Dafür speichern wir folgendes Script unter
 `$HOME/bin/imgdiff`:footnote:[Das Kommando `convert` ist
   Teil der ImageMagick-Suite.  Wenn Sie `-clone 1-2` durch
   `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche
-  aus dem 'alten' Bild kopiert.]
+  aus dem _alten_ Bild kopiert.]
 
 
 
@@ -398,7 +399,7 @@ unter: https://github.com/gitbuch/tux-diff-demo.
 == Hooks
 
 Hooks bieten einen Mechanismus, in wichtige Git-Kommandos
-``einzuhaken'' und eigene Aktionen auszuführen. In der Regel
+"`einzuhaken`" und eigene Aktionen auszuführen. In der Regel
 sind Hooks daher kleine Shell-Scripte, um automatisierte Aufgaben zu
 erfüllen, wie z.B. E-Mails zu versenden, sobald neue Commits
 hochgeladen werden, oder vor einem Commit auf Whitespace-Fehler zu
@@ -425,9 +426,9 @@ Hooks kommen in zwei Klassen: solche, die lokal ausgeführt werden
 (Commit-Nachrichten bzw. Patches überprüfen, Aktionen nach einem
 Merge oder Checkout ausführen etc.), und solche, die
 serverseitig ausgeführt werden, wenn Sie Änderungen per `git
-  push` veröffentlichen.footnote:[``Serverseitig'' heißt hier nur,
+  push` veröffentlichen.footnote:["`Serverseitig`" heißt hier nur,
   dass sie nicht im lokalen Repository ausgeführt werden, sondern auf
-  der ``Gegenseite''.]
+  der "`Gegenseite`".]
 
 Hooks, deren Name mit `pre-` beginnt, können häufig dazu
 benutzt werden, zu entscheiden, ob eine Aktion ausgeführt wird oder
@@ -491,7 +492,7 @@ Whitespace-Fehler einchecken wollen. Sind Sie ganz sicher, können Sie
 den Hook einfach temporär per `git commit -n` aussetzen.
 
 Ganz analog können Sie auch für eine Scriptsprache Ihrer Wahl das
-``Syntax überprüfen''-Kommando in diesem Hook speichern. So
+"`Syntax überprüfen`"-Kommando in diesem Hook speichern. So
 zum Beispiel folgender Block für Perl-Scripte:
 
 --------
@@ -527,7 +528,7 @@ alle Perl-Dateien als `<name>.pl` vorliegen. Dann reicht
 der folgende Code:
 
 --------
-git ls-files -z -- '*.pl' | xargs -z -n 1 perl -c
+git ls-files -z -- _*.pl_ | xargs -z -n 1 perl -c
 --------
 
 Weil Sie im Zweifel nur die von Git verwalteten Dateien überprüfen
@@ -537,7 +538,7 @@ auf `.pl` enden, auflisten.
 
 Neben der Überprüfung der Syntax können Sie natürlich auch Programme
 im Stil von Lint einsetzen, die den Quellcode auf
-``unschöne'' oder nicht portable Konstrukte überprüfen.
+"`unschöne`" oder nicht portable Konstrukte überprüfen.
 
 Solche Hooks sind äußerst sinnvoll, um nicht versehentlich
 fehlerhaften Code einzuchecken. Sind Warnungen unangebracht, können
@@ -552,7 +553,7 @@ Die folgenden Hooks werden auf Empfängerseite von `git
 `git push` eingegeben hat.
 
 Für einen Push-Vorgang erstellt `git send-pack` auf der lokalen
-Seite 'ein' Packfile (siehe auch <<sec.od>>), das
+Seite _ein_ Packfile (siehe auch <<sec.od>>), das
 von `git receive-pack` auf der Empfängerseite entgegengenommen
 wird. Ein solches Packfile enthält die neuen Werte einer oder mehrerer
 Referenzen sowie die Commits, die das Empfänger-Repository benötigt,
@@ -567,7 +568,7 @@ Standard-Input eine Liste der geänderten Referenzen (Format
 s.u.). Wenn der Hook sich nicht erfolgreich beendet, verweigert `git
 receive-pack` die Annahme (der gesamte Push-Vorgang schlägt fehl).
 
-`update`:: Wird einmal 'pro geänderter Referenz' aufgerufen und erhält
+`update`:: Wird einmal _pro geänderter Referenz_ aufgerufen und erhält
 drei Argumente: den alten Stand der Referenz, den vorgeschlagenen
 neuen sowie den Namen der Referenz. Beendet sich der Hook nicht
 erfolgreich, wird das Update der einzelnen Referenz verweigert (im
@@ -575,7 +576,7 @@ Gegensatz zu `pre-receive`, wo nur einem ganzen Packfile zugestimmt
 werden kann oder nicht).
 
 `post-receive`:: Analog zu `pre-receive`, aber wird erst aufgerufen,
-'nachdem' die Referenzen geändert wurden (kann also keinen Einfluss
+_nachdem_ die Referenzen geändert wurden (kann also keinen Einfluss
 mehr nehmen, ob das Packfile angenommen wird oder nicht).
 
 
@@ -608,7 +609,7 @@ ca0e8cf...12b14dc 0000000...0000000 refs/heads/oldbranch
 --------
 
 Eine SHA-1-Summe aus lauter Nullen bedeutet ``nicht
-vorhanden''. Die erste Zeile beschreibt also eine Referenz, die
+vorhanden__. Die erste Zeile beschreibt also eine Referenz, die
 vorher nicht vorhanden war, während die zweite Zeile das Löschen einer
 Referenz bedeutet. Die dritte Zeile stellt ein reguläres Update dar.
 
@@ -668,7 +669,7 @@ sind in den Kommentaren des Hooks dokumentiert.
 
 Der `update`-Hook wird für jede Referenz einzeln aufgerufen.
 Er eignet sich daher besonders gut, eine Art
-``Zugriffsregelung'' auf bestimmte Branches zu implementieren.
+"`Zugriffsregelung`" auf bestimmte Branches zu implementieren.
 
 Tatsächlich wird der `update`-Hook zum Beispiel von Gitolite
 (siehe <<sec.gitolite>>) genutzt, um zu entscheiden, ob ein
@@ -766,10 +767,10 @@ wenn der Rückgabewert ungleich Null ist.
 
 
 Die `post-checkout`- und `post-commit`-Hooks können Sie
-gut verwenden, um Git ``echte'' Dateizugriffsrechte
+gut verwenden, um Git "`echte`" Dateizugriffsrechte
 beizubringen. Ein Blob-Objekt spiegelt nämlich nicht genau den Inhalt
 einer Datei und ihrer Zugriffsrechte wider. Stattdessen kennt Git nur
-``ausführbar'' oder ``nicht ausführbar''.footnote:[Würde Git die kompletten
+"`ausführbar`" oder "`nicht ausführbar`".footnote:[Würde Git die kompletten
   Zugriffsrechte aufnehmen, dann wäre eine Datei gleichen Inhalts bei
   zwei verschiedenen Entwicklern, die unterschiedliche
   `umask(2)`-Einstellungen verwenden, nicht der gleiche Blob.
@@ -790,7 +791,7 @@ die genauen Kommandos siehe die Kommentare in der Datei.
 Die Zugriffsrechte sind natürlich nur zwischen Checkouts stabil --
 sofern Sie die Datei `.gitmeta` nicht einchecken und die
 Benutzung der Hooks forcieren, bekommen Klone dieses Repositorys
-natürlich nur die ``einfachen'' Zugriffsrechte.
+natürlich nur die "`einfachen`" Zugriffsrechte.
 
 
 
@@ -799,13 +800,13 @@ natürlich nur die ``einfachen'' Zugriffsrechte.
 == Eigene Git-Kommandos schreiben
 
 Git folgt mit seiner Einteilung in Subkommandos der Unix-Philosophie
-``Ein Tool, ein Job''. Außerdem teilt es die Subkommandos in
-zwei Kategorien: 'Porcelain' und 'Plumbing'.
+"`Ein Tool, ein Job`". Außerdem teilt es die Subkommandos in
+zwei Kategorien: _Porcelain_ und _Plumbing_.
 
-Porcelain bezeichnet das ``gute Porzellan'', das für den
+Porcelain bezeichnet das "`gute Porzellan`", das für den
 Endnutzer aus dem Schrank geholt wird: ein aufgeräumtes
 Nutzerinterface und menschenlesbare Ausgaben. Die Plumbing-Kommandos
-hingegen werden vor allem für die ``Klempnerarbeit'' in
+hingegen werden vor allem für die "`Klempnerarbeit`" in
 Scripten verwendet und haben eine maschinenlesbare Ausgabe (meist
 zeilenweise mit eindeutigen Trennzeichen).
 
@@ -837,17 +838,17 @@ schreiben können, empfehlen wir Ihnen die Verwendung von
 Shell-Scripten: Nicht nur sind sie für Außenstehende leichter
 verständlich, vor allem aber sind die typischen Operationen, mit denen
 man Git-Kommandos kombiniert – Programme aufrufen, Ausgabeum- bzw.
--weiterleitung – mit der Shell ``intuitiv'' machbar und bedürfen
+-weiterleitung – mit der Shell "`intuitiv`" machbar und bedürfen
 keiner umständlichen Konstrukte, wie z.B. in Perl mit `qx()` oder in
 Python mit `os.popen()`.
 
 Wenn Sie Shell-Scripte schreiben, achten Sie bitte auf
 POSIX-Kompatibilität!footnote:[Sie können Ihre Shell-Scripte z.B. auf
 http://www.shellcheck.net/ automatisch überprüfen lassen.]
-Dazu gehört insbesondere, keine ``Bashismen'' wie `[[ ... ]]` zu
+Dazu gehört insbesondere, keine "`Bashismen`" wie `[[ ... ]]` zu
 verwenden (die POSIX-Entsprechung lautet `[ ... ]`). Wenn Ihr Script
 nicht auch problemlos mit der Dash{empty}footnote:[Die 'Debian Alquimist
-Shell', ein Fork der 'Alquimist Shell', ist eine besonders kleine,
+Shell_, ein Fork der _Alquimist Shell', ist eine besonders kleine,
 schnelle Shell, die POSIX-kompatibel ist. Sie stellt auf vielen
 modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell
 `/bin/sh`.]  läuft, sollten Sie die verwendete Shell explizit in der
@@ -891,7 +892,7 @@ bereit, die häufig auftretende Aufgaben erledigen.  Nachfolgend eine
 
 `git_editor`:: Öffnet den für Git eingestellten Editor auf den
 angegebenen Dateien. Es ist besser, diese Funktion zu verwenden als
-``blind''{empty}{nbsp}`$EDITOR`. Git verwendet dies auch als Fallback.
+"`blind`"{empty}{nbsp}`$EDITOR`. Git verwendet dies auch als Fallback.
 
 `git_pager`:: Öffnet analog den für Git definierten Pager.
 
@@ -910,7 +911,7 @@ In Scripten werden Sie häufig die Information benötigen, aus welchem
 Verzeichnis das Script aufgerufen wurde. Dafür bietet das Git-Kommando
 `rev-parse` einige Optionen. Das folgende Script, abgelegt
 unter `~/bin/git-whereami`, verdeutlicht, wie man
-sich innerhalb eines Repositorys ``zurechtfinden'' kann.
+sich innerhalb eines Repositorys "`zurechtfinden`" kann.
 
 
 
@@ -956,7 +957,7 @@ entsprechenden Blob im aktuellen Tree via `ganz/tief/README`.
 === Referenzen auflisten: rev-list
 
 Herzstück der Plumbing-Kommandos ist `git rev-list`
-('revision list'). Seine Grundfunktion besteht darin, ein oder
+(_revision list_). Seine Grundfunktion besteht darin, ein oder
 mehrere Referenzen auf die SHA-1-Summe(n) aufzulösen, denen sie
 entsprechen.
 
@@ -1000,7 +1001,7 @@ SUBDIRECTORY_OK=Yes
 for i in $1 $2
 do
     if ! git rev-parse --verify $i >| /dev/null 2>&1 ; then
-        echo "Ref:'$i' existiert nicht!" && exit 1
+        echo "Ref:_$i_ existiert nicht!" && exit 1
     fi
 done
 
@@ -1037,11 +1038,11 @@ FF von master nach topic möglich!
 Für einfache Scripte, die nur eine begrenzte Zahl an Optionen und
 Argumenten erwarten, reicht eine simple Auswertung dieser, wie in dem
 obigen Script, völlig aus. Sofern Sie jedoch ein komplexeres Projekt
-planen, bietet sich der sog.  'Getopt-Modus' von `git rev-parse`
+planen, bietet sich der sog.  _Getopt-Modus_ von `git rev-parse`
 an. Dieser erlaubt die Syntaxanalyse von Kommandozeilen-Optionen,
 bietet also eine ähnliche Funktionalität wie die C-Bibliothek
 `getopt`. Für Details siehe die Man-Page `git-rev-parse(1)`, Abschnitt
-``Parseopt''.
+"`Parseopt`".
 ========
 
 
@@ -1069,15 +1070,15 @@ Jedem Namen wird eines von fünf Flags{empty}footnote:[Es gibt noch weitere Flag
   keine Rolle spielen.]  vorangestellt, die in der nachfolgenden Liste
 aufgeführt sind:
 
-`A` ('added'):: Datei wurde hinzugefügt
+`A` (_added_):: Datei wurde hinzugefügt
 
-`D` ('deleted'):: Datei wurde gelöscht
+`D` (_deleted_):: Datei wurde gelöscht
 
-`M` ('modified'):: Datei wurde geändert
+`M` (_modified_):: Datei wurde geändert
 
-`C` ('copied'):: Datei wurde kopiert
+`C` (_copied_):: Datei wurde kopiert
 
-`R` ('renamed'):: Datei wurde umbenannt
+`R` (_renamed_):: Datei wurde umbenannt
 
 
 Den Flags `C` und `R` wird eine dreistellige Zahl
@@ -1110,7 +1111,7 @@ added by Linus Torvalds 6 years ago
 
 Sie können einem Diff-Filter mehrere Flags direkt hintereinander
 angeben. Die Frage ``Wer hat maßgeblich an dieser Datei
-gearbeitet?'' lässt sich häufig dadurch beantworten, wessen
+gearbeitet?__ lässt sich häufig dadurch beantworten, wessen
 Commits diese Datei am meisten modifiziert haben. Das kann man zum
 Beispiel so herausfinden:
 
@@ -1130,7 +1131,7 @@ $ *git log --pretty=format:%an --diff-filter=M -- cache.h | \*
 [[sec.od-explore]]
 === Die Objektdatenbank und rev-parse
 
-Das Git-Kommando `rev-parse` ('revision parse') ist ein
+Das Git-Kommando `rev-parse` (_revision parse_) ist ein
 extrem flexibles Tool, dessen Aufgabe es unter anderem ist, Ausdrücke,
 die Commits oder andere Objekte der Objektdatenbank beschreiben, in
 deren komplette SHA-1-Summe zu übersetzen.  So verwandelt das Kommando
@@ -1158,7 +1159,7 @@ be1ca37
 
 [TIP]
 ========
-Wenn Sie den 'Namen' des Branches herausfinden wollen, der gerade
+Wenn Sie den _Namen_ des Branches herausfinden wollen, der gerade
 ausgecheckt ist (im Gegensatz zur Commit-ID), verwenden Sie `git
 rev-parse --symbolic-full-name HEAD`.
 ========
@@ -1180,7 +1181,7 @@ Tag finden will).
 Viele Git-Kommandos arbeiten nicht auf einem Commit, sondern auf den
 Trees, die referenziert werden (z.B. das Kommando `git diff`, das ja
 Dateien, also Tree-Einträge, vergleicht). In der Man-Page werden diese
-Argumente 'tree-ish' (``baumartig'') genannt. Git erwartet also
+Argumente _tree-ish_ ("`baumartig`") genannt. Git erwartet also
 beliebige Referenzen, die sich auf einen Tree auflösen lassen, mit dem
 das Kommando dann weiter arbeitet.
 
@@ -1216,7 +1217,7 @@ Das folgende Script findet zunächst die Commit-ID des Commits, der
 zuletzt eine bestimmte Datei modifiziert (die Datei wird als erstes
 Argument, also `$1`, übergeben).  Dann extrahiert das Script
 die Datei (mit vorangestelltem Präfix, s.o.) aus dem
-'Vorgänger' des Commits (`$ref^`), der die Datei
+_Vorgänger_ des Commits (`$ref^`), der die Datei
 zuletzt verändert hat, und speichert dies in einer temporären Datei.
 
 Schließlich wird Vim im Diff-Modus auf der Datei aufgerufen und
@@ -1244,7 +1245,7 @@ rm $temp
 
 [TIP]
 ========
-Um besonders viele Referenzen per `rev-parse` aufzulösen, sollten Sie dies in 'einem' Programmaufruf tun: `rev-parse` gibt für jede Referenz dann eine Zeile aus. Bei Dutzenden oder sogar Hunderten von Referenzen ist der einmalige Aufruf ressourcenschonend und daher schneller.
+Um besonders viele Referenzen per `rev-parse` aufzulösen, sollten Sie dies in _einem_ Programmaufruf tun: `rev-parse` gibt für jede Referenz dann eine Zeile aus. Bei Dutzenden oder sogar Hunderten von Referenzen ist der einmalige Aufruf ressourcenschonend und daher schneller.
 ========
 
 [[sec.for-each-ref]]
@@ -1284,7 +1285,7 @@ d34cb027c31d8a80c5dbbf74272ecd07001952e6--tag--v1.7.1-rc1
 03c5bd5315930d8d88d0c6b521e998041a13bb26--tag--v1.7.1-rc2
 --------
 
-Beachten Sie, dass die Trennzeichen ```--`'' so
+Beachten Sie, dass die Trennzeichen "``--``" so
 übernommen werden und somit zusätzliche Zeichen zur Formatierung
 möglich sind.
 
@@ -1310,17 +1311,17 @@ Shawn O. Pearce
 Als weitere Schnittstelle werden verschiedene Optionen für
 Script-Sprachen angeboten, `--shell`, `--python`,
 `--perl` und `--tcl`. Dadurch werden die Felder
-entsprechend als 'String-Literals' in der jeweiligen Sprache
+entsprechend als _String-Literals_ in der jeweiligen Sprache
 formatiert, so dass sie per `eval` ausgewertet und in Variablen
 übersetzt werden können:
 
 [subs="macros,quotes"]
 --------
 $ *git for-each-ref --shell --format=&#39;ref=%(refname)&#39; refs/tags/v1.7.1.&#42;*
-ref=\'refs/tags/v1.7.1.1'
-ref=\'refs/tags/v1.7.1.2'
-ref=\'refs/tags/v1.7.1.3'
-ref=\'refs/tags/v1.7.1.4'
+ref=\_refs/tags/v1.7.1.1_
+ref=\_refs/tags/v1.7.1.2_
+ref=\_refs/tags/v1.7.1.3_
+ref=\_refs/tags/v1.7.1.4_
 --------
 
 Damit lässt sich folgendes Script schreiben, das eine Zusammenfassung
@@ -1501,7 +1502,7 @@ Dateien schicken. Mit diesem Alias finden Sie heraus, wer das ist.
 who-signed = "!f(){ git log -- $1 | \
     grep Signed-off-by | sort | uniq --count | \
     sort --human-numeric-sort --reverse |\
-    sed 's/Signed-off-by: / /' | head ; } ; f "
+    sed _s/Signed-off-by: / /_ | head ; } ; f "
 --------
 
 Hier gibt es einiges zu beachten: Ein Alias wird immer vom
@@ -1540,10 +1541,10 @@ der Seite zu Aliasen.footnote:[https://git.wiki.kernel.org/index.php/Aliases]
 Das bereits vorgestellte Kommando `git rebase` und dessen
 interaktiver Modus erlaubt es Entwicklern, Commits beliebig zu
 editieren. Code, der sich noch in der Entwicklung befindet, kann damit
-``aufgeräumt'' werden, bevor er (z.B. per Merge) integriert
+"`aufgeräumt`" werden, bevor er (z.B. per Merge) integriert
 und so fest mit der Software verschmolzen wird.
 
-Was aber, wenn nachträglich 'alle' Commits geändert werden
+Was aber, wenn nachträglich _alle_ Commits geändert werden
 sollen, oder zumindest ein großer Teil? Solche Anforderungen
 entstehen beispielsweise, wenn ein bis dahin privates Projekt
 veröffentlicht werden soll, aber sensitive Daten (Keys, Zertifikate,
@@ -1612,7 +1613,7 @@ zeigt `original/refs/heads/master` noch auf den ursprünglichen,
 nicht umgeschriebenen Commit (und entsprechend dessen Vorgänger).
 Existiert diese Backup-Referenz bereits, weigert sich das
 `filter-branch`-Kommando, die Referenz umzuschreiben, es sei
-denn, Sie geben die Option `-f` für 'force' an.
+denn, Sie geben die Option `-f` für _force_ an.
 
 [TIP]
 ========
@@ -1673,10 +1674,10 @@ Commit hinzugefügt wurde). Wollen Sie Verzeichnisse löschen, müssen
 Sie zusätzlich `-r` angeben.
 
 Das Argument `--prune-empty` sorgt dafür, dass Commits, die
-nach Anwendung des Filters den Tree 'nicht' verändern,
+nach Anwendung des Filters den Tree _nicht_ verändern,
 ausgelassen werden. Wenn Sie also ein Zertifikat mit einem Commit
 hinzugefügt haben und dieser Commit durch Entfernen des Zertifikats
-somit zu einem ``leeren'' Commit wird, dann lässt Git ihn ganz
+somit zu einem "`leeren`" Commit wird, dann lässt Git ihn ganz
 aus.
 
 Analog zum obigen Kommando können Sie mit `git mv` auch Dateien
@@ -1713,10 +1714,10 @@ $ *git filter-branch --tree-filter &#39;git ls-files -z | \*
   *xargs -0 -n 1 sed -i &#34;s/v3rYs3cr1T/PASSWORT/g&#34; \*
   *2&gt;/dev/null || true&#39; -- master*
 Rewrite cbddbd3505086b79dc3b6bd92ac9f811c8a6f4d1 (142/142)
-Ref \'refs/heads/master' was rewritten
+Ref \_refs/heads/master_ was rewritten
 --------
 
-Das Kommando führt eine 'in-place'-Ersetzung mit `sed`
+Das Kommando führt eine _in-place_-Ersetzung mit `sed`
 durch, und zwar auf jeder Datei des Repositorys. Eventuelle
 Fehlermeldungen werden weder ausgegeben noch führen sie zu einem
 Abbruch des `filter-branch`-Aufrufs.
@@ -1784,7 +1785,7 @@ Git-Quell-Repository abzuspalten, genügt folgendes Kommando:
 --------
 $ *git filter-branch --subdirectory-filter t -- master*
 Rewrite 2071fb015bc673d2514142d7614b56a37b3faaf2 (5252/5252)
-Ref \'refs/heads/master' was rewritten
+Ref \_refs/heads/master_ was rewritten
 --------
 
 Achtung: Dieses Kommando läuft einige Minuten lang.
@@ -1792,7 +1793,7 @@ Achtung: Dieses Kommando läuft einige Minuten lang.
 [[sec.fb-grafts]]
 === Grafts: Nachträgliche Merges
 
-Git stellt über sogenannte 'Graft Points' bzw. 'Grafts' (to
+Git stellt über sogenannte _Graft Points_ bzw. _Grafts_ (to
 graft: einpflanzen) eine Möglichkeit, Merges zu simulieren.  Solche
 Grafts werden zeilenweise in der Datei `.git/info/grafts`
 abgelegt und haben das folgende Format:
@@ -1809,7 +1810,7 @@ beliebige Vorgängercommits (Parents) angeben.footnote:[Sie können prinzipiell 
 
 Achten Sie darauf, das Repository weiterhin als DAG zu betrachten und
 keine Kreise zu schließen: Definieren Sie nicht `HEAD` als den
-Vorgänger des Root-Commits!  Die Grafts-Datei ist 'nicht' Teil
+Vorgänger des Root-Commits!  Die Grafts-Datei ist _nicht_ Teil
 des Repositorys; ein `git clone` kopiert diese Informationen
 also nicht mit, sie helfen Git lediglich, eine Merge-Basis zu finden.
 Bei einem Aufruf von `filter-branch` werden diese
@@ -1818,7 +1819,7 @@ Graft-Informationen allerdings fest in die Commits kodiert.
 Das ist vor allem in zwei Fällen sinnvoll: Wenn Sie eine alte
 Versionsgeschichte aus einem Tool importieren, das nicht korrekt mit
 Merges umgehen kann (z.B. frühere Subversion-Versionen), oder wenn
-Sie zwei Versionsgeschichten aneinander ``ankleben'' wollen.
+Sie zwei Versionsgeschichten aneinander "`ankleben`" wollen.
 
 Angenommen, die Entwicklung wurde auf Git umgestellt. Um die
 Konvertierung der alten Versionsgeschichte hat sich allerdings noch
@@ -1826,7 +1827,7 @@ niemand gekümmert. Das neue Repository wurde also mit einem initialen
 Commit gestartet, der den damaligen Stand des Projekts widerspiegelte.
 
 Mittlerweile haben Sie die alte Versionsgeschichte erfolgreich nach
-Git konvertiert und wollen sie nun 'vor' den initialen Commit
+Git konvertiert und wollen sie nun _vor_ den initialen Commit
 (oder stattdessen) anfügen. Dafür gehen Sie so vor:
 
 [subs="macros,quotes"]
@@ -1839,7 +1840,7 @@ $ *git fetch &lt;altes-repository&gt; master:old-master*
 Sie haben nun ein Multi-Root-Repository. Anschließend müssen Sie den
 initialen Commit des neuen Repositorys finden (`$old_root`)
 und den neuesten Commit des alten, konvertierten Repositorys
-(`$old_tip`) als dessen 'Vorgänger' definieren:
+(`$old_tip`) als dessen _Vorgänger_ definieren:
 
 [subs="macros,quotes"]
 --------
@@ -1849,7 +1850,7 @@ $ *echo $old_root $old_tip &gt; .git/info/grafts*
 --------
 
 Schauen Sie sich das Resultat mit Gitk oder einem ähnlichen Programm
-an. Wenn Sie zufrieden sind, können Sie die Grafts 'permanent'
+an. Wenn Sie zufrieden sind, können Sie die Grafts _permanent_
 machen (dabei werden alle Commits ab `$old_tip`
 umgeschrieben). Dafür wird `git filter-branch` ohne Angabe von
 Filtern aufgerufen:
@@ -1858,7 +1859,7 @@ Filtern aufgerufen:
 --------
 $ *git filter-branch -- $old_tip..*
 Rewrite 1591ed7dbb3a683b9bf1d880d7a6ef5d252fc0a0 (1532/1532)
-Ref \'refs/heads/master' was rewritten
+Ref \_refs/heads/master_ was rewritten
 $ *rm .git/info/grafts*
 --------
 
@@ -1893,7 +1894,7 @@ oder gelöscht haben, müssen Sie dies natürlich vorher erledigen.
 $ *git reflog expire --verbose --expire=now --all*
 --------
 
-. Die nun nicht mehr erreichbaren ('orphaned') Commits löschen. Das
+. Die nun nicht mehr erreichbaren (_orphaned_) Commits löschen. Das
 lässt sich am besten über die `gc`-Option `--prune` regeln, mit der
 Sie einstellen, seit wann ein Commit nicht mehr erreichbar sein darf,
 damit er gelöscht wird: Ab sofort.
@@ -1906,7 +1907,7 @@ $ *git gc --prune=now*
 
 
 Sofern andere Entwickler mit einer veralteten Version des Repositorys
-arbeiten, müssen sie nun ``migrieren''.  Wesentlich ist, dass
+arbeiten, müssen sie nun "`migrieren`".  Wesentlich ist, dass
 sie nicht durch ihre Entwicklungsbranches wieder alte Commits in das
 gesäuberte Repository hineinziehen.
 

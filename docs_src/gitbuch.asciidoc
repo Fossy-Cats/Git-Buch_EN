@@ -18,46 +18,46 @@ Valentin Haenel; Julius Plenz
 
 :leveloffset: +1
 
-// "vorwort.txt"                 ->  Preface
+// "vorwort.txt"          ->  Preface
 include::gitbuch_00.adoc[]
 
-// "erste_schritte.txt"          ->  Ch. 1
+// "erste_schritte.txt"   ->  1. Introduction and First Steps
 include::gitbuch_01.adoc[]
 
-// "grundlagen.txt"              ->  Ch. 2
+// "grundlagen.txt"       ->  2. The Basics
 include::gitbuch_02.adoc[]
 
-// "praxis.txt"                  ->  Ch. 3
+// "praxis.txt"           ->  3. Practical Version Control
 include::gitbuch_03.adoc[]
 
-// "advanced.txt"                ->  Ch. 4
+// "advanced.txt"         ->  4. Advanced Concepts
 include::gitbuch_04.adoc[]
 
-// "remote.txt"                  ->  Ch. 5
+// "remote.txt"           ->  5. Distributed Git
 include::gitbuch_05.adoc[]
 
-// "workflows.txt"               ->  Ch. 6
+// "workflows.txt"        ->  6. Workflows
 include::gitbuch_06.adoc[]
 
-// "server.txt"                  ->  Ch. 7
+// "server.txt"           ->  7. Git Servers
 include::gitbuch_07.adoc[]
 
-// "automatisierung.txt"         ->  Ch. 8
+// "automatisierung.txt"  ->  8. Git Automation
 include::gitbuch_08.adoc[]
 
-// "zusammenspiel.txt"           ->  Ch. 9
+// "zusammenspiel.txt"    ->  9. Interacting with Other Version Control Systems
 include::gitbuch_09.adoc[]
 
-// "shell.txt"                   ->  Ch. 10
+// "shell.txt"            ->  10. Shell-Integration
 include::gitbuch_10.adoc[]
 
-// "github.txt"                  ->  Ch. 11
+// "github.txt"           ->  11. GitHub
 include::gitbuch_11.adoc[]
 
-// "installation.txt"            ->  App. A
+// "installation.txt"     ->  App. A. Installation
 include::gitbuch_12.adoc[]
 
-// "gitdir.txt"                  ->  App. B
+// "gitdir.txt"           ->  App. B. Repository Structure
 include::gitbuch_13.adoc[]
 
 :leveloffset: 0

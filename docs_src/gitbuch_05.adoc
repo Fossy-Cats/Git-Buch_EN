@@ -1,19 +1,20 @@
 // adapted from: "remote.txt"
 
-[[sec.verteiltes-git]]
-= Verteiltes Git
+[[sec.distributed-git]]
+= Distributed Git
+// Verteiltes Git
 
-Git ist ein 'verteiltes' Versionskontrollsystem. Um diese
+Git ist ein _verteiltes_ Versionskontrollsystem. Um diese
 Eigenschaft zu verstehen, ist zunächst ein kurzer Exkurs in die Welt
-der 'zentralen' Versionsverwaltung notwendig: Wie der Name schon
+der _zentralen_ Versionsverwaltung notwendig: Wie der Name schon
 sagt, wird bei einem zentralen Versionskontrollsystem, wie z.B. RCS,
 CVS und Subversion, die Entwicklungsgeschichte zentral auf einem
-Server in 'dem' Repository abgespeichert, und alle Entwickler
+Server in _dem_ Repository abgespeichert, und alle Entwickler
 synchronisieren ihre Arbeit mit diesem einen Repository.  Entwickler,
 die etwas verändern möchten, laden sich eine aktuelle Version auf
-ihren Rechner herunter ('Checkout'), pflegen ihre Modifikationen
+ihren Rechner herunter (_Checkout_), pflegen ihre Modifikationen
 ein und schicken diese dann wieder an den Server zurück
-('Commit').
+(_Commit_).
 
 [[sec.verteilte_systeme]]
 == Wie funktioniert verteilte Versionsverwaltung?
@@ -30,18 +31,18 @@ hier jeder Entwickler über eine eigene, lokale Kopie des Repositorys
 -- stellt sich also die Frage, wie Entwickler Veränderungen
 untereinander austauschen.
 
-Ein Ansatz ist, ein einzelnes ``Haupt-Repository''
+Ein Ansatz ist, ein einzelnes "`Haupt-Repository`"
 bereitzustellen, das alle Entwickler nutzen, um ihre lokalen
 Repositories zu synchronisieren.  Die Entwickler verbinden sich also
 ab und zu mit diesem Repository, laden die eigenen Commits hoch
-('Push') und die der Kollegen herunter ('Fetch'
-bzw. 'Pull'). Dieser sehr zentrale Ansatz kommt in der Praxis
+(_Push_) und die der Kollegen herunter (_Fetch_
+bzw. _Pull_). Dieser sehr zentrale Ansatz kommt in der Praxis
 häufig zum Einsatz. Eine Darstellung finden Sie in
 <<fig.zentraler-workflow>>.
 
 Es gibt im Git-Umfeld allerdings zwei nennenswerte Alternativen, die
 wir in diesem Kapitel vorstellen: den
-'Integration-Manager'-Workflow, bei dem mehrere öffentliche
+_Integration-Manager_-Workflow, bei dem mehrere öffentliche
 Repositories zum Einsatz kommen (<<sec.multi-remote>>),
 und den Patch-Austausch per E-Mail (<<sec.patch-queue>>).
 
@@ -65,8 +66,8 @@ Sie auch ohne permanente Netzanbindung produktiv arbeiten.
 
 
 In diesem Kapitel geht es darum, wie Sie Veränderungen zwischen Ihrem
-lokalen und einem entfernten Repository ('Remote Repository' oder
-'Remote') austauschen, was Sie beachten müssen, wenn Sie mit
+lokalen und einem entfernten Repository (_Remote Repository_ oder
+_Remote_) austauschen, was Sie beachten müssen, wenn Sie mit
 mehreren Remotes arbeiten, und wie Sie Patches per E-Mail verschicken,
 so dass sie leicht vom Empfänger einzupflegen sind.
 
@@ -91,7 +92,7 @@ Die wichtigsten Kommandos im Überblick:
 Den ersten Befehl in Zusammenhang mit den Remote-Repositories haben
 Sie bereits kennengelernt: `git clone`. Hier illustrieren wir
 den Klonvorgang mit unserem
-``Git-Spickzettel''{empty}footnote:[Wir haben den
+"`Git-Spickzettel`"{empty}footnote:[Wir haben den
   Spickzettel im Zusammenhang mit verschiedenen Git-Workshops
   erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird
   mit der Git-Hosting-Plattform Github, die wir in
@@ -116,7 +117,7 @@ neue Repository geklont wird (`Initialized empty Git repository
 alle Objekte erfolgreich empfangen wurden (`Receiving objects:
   100% (77/77), 132.44 KiB, done.`). Ist der Klonvorgang erfolgreich,
 wird der `master`-Branch ausgecheckt,footnote:[Genau genommen checkt Git nicht
-  ``blind'' den Branch `master` aus. Tatsächlich schaut
+  "`blind`" den Branch `master` aus. Tatsächlich schaut
   Git nach, welchen Branch der `HEAD` der Gegenseite
   referenziert, und checkt diesen aus.]  und der Working Tree samt
 Repository befindet sich in dem Verzeichnis
@@ -162,7 +163,7 @@ Die Einstellung wird in der Konfigurationsdatei `.git/config` mit dem Eintrag
 --------
 
 Sie sehen in dem Ausschnitt zwei Einstellungen: `fetch` und
-`url`.  Die erste, der sog. 'Refspec', gibt an, welche
+`url`.  Die erste, der sog. _Refspec_, gibt an, welche
 Veränderungen bei der Synchronisation mit dem Remote-Repository
 heruntergeladen werden sollen, und die zweite, mit welcher URL dies
 geschieht.
@@ -213,7 +214,7 @@ Git-Protokoll finden Sie in <<sec.protokolle>> (siehe auch
 Im Allgemeinen enthält eine valide URL das Übertragungsprotokoll, die
 Adresse des Servers sowie den Pfad zu dem Repository:footnote:[Eine
 vollständige Auflistung der möglichen URLs finden Sie in der Man-Page
-`git-clone(1)` im Abschnitt ``Git URLs''.]
+`git-clone(1)` im Abschnitt "`Git URLs`".]
 
 * `ssh://[user@]gitbu.ch[:port]/pfad/zum/repo.git/`
 
@@ -287,9 +288,9 @@ diese Datei in Ihrem Editor.
 
 Der aktuelle Zustand des Remote-Repositorys wird lokal gespeichert.
 Git verwendet dazu den Mechanismus der
-'Remote-Tracking-Branches', spezielle Branches -- also lokale
+_Remote-Tracking-Branches_, spezielle Branches -- also lokale
 Referenzen -- , die den Zustand der Branches im Remote,
-sog. 'Remote-Branches', widerspiegeln. Sie ``verfolgen''
+sog. _Remote-Branches_, widerspiegeln. Sie "`verfolgen`"
 also die Remote-Branches und werden bei einer Synchronisation mit dem
 Remote entsprechend von Git vorgerückt bzw.  gesetzt, sofern sich die
 Branches in dem Remote verändert haben.  Im Hinblick auf den
@@ -308,8 +309,8 @@ image::clone.png[id="fig.clone",scaledwidth="100%",width="100%"]
 In <<fig.clone>> sehen Sie ein Beispiel. Das
 Remote-Repository `origin` hat drei Branches: `pu`,
 `maint` und `master`. Git erstellt in dem geklonten
-Repository für jeden dieser 'Remote-Branches' einen
-'Remote-Tracking-Branch'.  Außerdem wird in dem Klon ein lokaler
+Repository für jeden dieser _Remote-Branches_ einen
+_Remote-Tracking-Branch_.  Außerdem wird in dem Klon ein lokaler
 Branch `master` erstellt, der dem Remote-Branch `master`
 entspricht. Dieser wird ausgecheckt und ist der Branch, in dem Sie
 arbeiten sollten, wenn Sie vorhaben, Commits in den `master`
@@ -445,7 +446,7 @@ image::fetch.png[id="fig.fetch",scaledwidth="90%",width="90%"]
 [[sec.refspec]]
 ==== Refspec
 
-Der 'Refspec' ('Reference Specification') sorgt dafür, dass
+Der _Refspec_ (_Reference Specification_) sorgt dafür, dass
 die Remote-Tracking-Branches gesetzt werden.  Dies ist eine
 Beschreibung der Referenzen, die aus dem Remote geholt werden sollen.
 Ein Beispiel gab es schon weiter oben:
@@ -463,14 +464,14 @@ dass alle Branches, also alle Referenzen, die im Remote unter
 `refs/heads` gespeichert sind, lokal unter
 `refs/remotes/origin`
 landen.footnote:[Der Stern (`*`) wird
-  wie bei der Shell auch als 'Wildcard' interpretiert und zieht
+  wie bei der Shell auch als _Wildcard_ interpretiert und zieht
   alle Dateien in einem Verzeichnis in Betracht.] Somit wird
 z.B. der Branch `master` aus dem Remote
 `origin` (`refs/heads/master`) lokal als
 `refs/remotes/origin/master` gespeichert.
 
 Im Normalfall werden die Remote-Tracking-Branches, ähnlich wie bei
-einem Fast-Forward-Merge, ``vorgespult''. Der
+einem Fast-Forward-Merge, "`vorgespult`". Der
 Remote-Tracking-Branch wird also nur aktualisiert, wenn der
 Ziel-Commit ein Nachfahre der aktuellen Referenz ist. Es kann
 vorkommen, dass dies nicht möglich ist, z.B. nach einem Rebase. In
@@ -505,13 +506,13 @@ aussehen:
 Im Hinblick auf den Commit-Graphen ist es so, dass Git nur die Commits
 herunterlädt, die notwendig sind, um Referenzen in dem Commit-Graphen
 zu erreichen.  Das ist sinnvoll, weil Commits, die nicht durch eine
-Referenz ``gesichert'' sind, als unerreichbar gelten, und
+Referenz "`gesichert`" sind, als unerreichbar gelten, und
 letztlich irgendwann gelöscht werden (siehe auch
 <<sec.branch-management>>). In dem letzten Beispiel ist es
 deshalb für Git nicht notwendig, Commits herunterzuladen, die durch
 die Branches referenziert werden, die nicht im Refspec stehen.  Im
 Sinne der Verteiltheit muss Git also nicht zwingend den gesamten
-Commit-Graphen synchronisieren, es reichen die ``relevanten''
+Commit-Graphen synchronisieren, es reichen die "`relevanten`"
 Teile.
 
 Sie können alternativ auch den Refspec auf der Kommandozeile angeben:
@@ -536,7 +537,7 @@ From github.com:esc/git-cheatsheet-de
  * branch            master     -&gt; FETCH_HEAD
 $ *cat .git/FETCH_HEAD*
 003e3c70ce7310f6d6836748f45284383480d40e
-    branch \'master' of github.com:esc/git-cheatsheet-de
+    branch \_master_ of github.com:esc/git-cheatsheet-de
 $ *git merge FETCH_HEAD*
 --------
 
@@ -551,10 +552,10 @@ wollen.
 
 Sollte ein Remote-Branch gelöscht werden (wie z.B. in
 <<sec.push-delete>> beschrieben), bezeichnet man den
-entsprechenden Remote-Tracking-Branch als 'stale'
-(``abgelaufen'' bzw.  ``verfallen'').  Da solche
+entsprechenden Remote-Tracking-Branch als _stale_
+("`abgelaufen`" bzw.  "`verfallen`").  Da solche
 Branches meist keinen weiteren Nutzen haben, löschen Sie sie (engl.
-'prune', ``beschneiden''):
+_prune_, "`beschneiden`"):
 
 [subs="macros,quotes"]
 --------
@@ -591,7 +592,7 @@ dürfen:footnote:[Remote-Tracking-Branches sind
 --------
 $ *git checkout -b next origin/next*
 Branch next set up to track remote branch next from origin.
-Switched to a new branch 'next'
+Switched to a new branch _next_
 --------
 
 Wenn noch kein lokaler Branch mit Namen `next` existiert,
@@ -601,17 +602,17 @@ funktioniert auch folgende Abkürzung:
 --------
 $ *git checkout next*
 Branch next set up to track remote branch next from origin.
-Switched to a new branch 'next'
+Switched to a new branch _next_
 --------
 
 Die Meldung `set up to track` besagt, dass Git den Branch
 `next` aus dem Remote `origin` als
-'Upstream-Branch' für den lokalen Branch `next`
-konfiguriert. Dies ist eine Art ``Verknüpfung'', die anderen
+_Upstream-Branch_ für den lokalen Branch `next`
+konfiguriert. Dies ist eine Art "`Verknüpfung`", die anderen
 Git-Kommandos zugute kommt. Genaueres finden Sie in <<sec.pull>>.
 
 In dem lokalen Branch können Sie wie gewohnt arbeiten. Beachten Sie
-aber, dass Sie die Commits immer nur 'lokal' tätigen. Um Ihre
+aber, dass Sie die Commits immer nur _lokal_ tätigen. Um Ihre
 Arbeit zu veröffentlichen, also in ein Remote hochzuladen, brauchen
 Sie noch das Kommando `git push` (<<sec.hochladen>>).
 
@@ -817,7 +818,7 @@ Dieser Ansatz hat Vor- und Nachteile. Von Vorteil ist sicherlich, dass
 nur ein geringes Verständnis von Git notwendig ist, um dem
 Arbeitsablauf erfolgreich zu folgen. Die automatische Konfiguration
 der Upstream-Branches sorgt dafür, dass `git push` und
-`git pull` auch ohne Argument das ``Richtige'' tun.
+`git pull` auch ohne Argument das "`Richtige`" tun.
 Außerdem ähnelt dieser Workflow dem, was Umsteiger von Subversion
 gewöhnt sind.
 
@@ -828,11 +829,11 @@ und Beatrice hat ihre bereits hochgeladen.  Carlos führt nun
 `git pull` aus und erhält die Meldung `Merge made by
   recursive`.  Behält man den Commit-Graphen im Hinterkopf, ist das
 logisch: Der lokale Branch und der `master` des Remote sind
-auseinandergelaufen ('diverged'), darum wurden sie durch einen
+auseinandergelaufen (_diverged_), darum wurden sie durch einen
 Merge wieder vereint.  Jedoch versteht Carlos die Meldung nicht, da er
 ja an einem anderen Teil des Codes gearbeitet hat als seine Kollegin
 und seines Erachtens kein Merge notwendig war. Ein Problem liegt
-darin, dass der Term 'Merge' bei vielen, die zentrale
+darin, dass der Term _Merge_ bei vielen, die zentrale
 Versionsverwaltung gewohnt sind, die Assoziation hat, Veränderungen
 würden an derselben Datei zusammengeführt.  Bei Git jedoch ist ein
 Merge in jedem Fall als Zusammenführung von Commits in einem
@@ -840,7 +841,7 @@ Commit-Graphen zu verstehen.  Dies kann das Zusammenführen von
 Veränderungen an derselben Datei meinen, setzt das aber nicht voraus.
 
 Neben der Verwirrung der Nutzer sorgt dieser Arbeitsablauf
-für ``unsinnige'' Commits in der Geschichte. Im Idealfall
+für "`unsinnige`" Commits in der Geschichte. Im Idealfall
 sollen Merge-Commits ein sinnvoller Eintrag in der Geschichte sein.
 Ein Außenstehender erkennt sofort, dass ein Entwicklungszweig
 eingeflossen ist.  Jedoch kommt bei diesem Arbeitsablauf zwangsläufig
@@ -914,7 +915,7 @@ $ *git config --global alias.fft "merge --ff-only @{u}"*
 --------
 
 Damit können Sie ganz bequem mit `git fft`
-('Fast-Forward-Tracking') einen Branch vorrücken. Die Option
+(_Fast-Forward-Tracking_) einen Branch vorrücken. Die Option
 `--ff-only` verhindert, dass versehentlich Merge-Commits
 entstehen, wo eigentlich keine hingehören.
 ========
@@ -988,16 +989,16 @@ bei denen der Ziel-Commit kein Nachfahre des aktuellen Commits ist:
 $ *git push origin master*
 ...
  ! [rejected]        master -&gt; master (non-fast-forward)
-error: failed to push some refs to \'pass:quotes[git@github.com]:esc/git-cheatsheet-de.git'
+error: failed to push some refs to \_pass:quotes[git@github.com]:esc/git-cheatsheet-de.git_
 To prevent you from losing history, non-fast-forward updates were
 rejected
 Merge the remote changes before pushing again.  See the \'Note about
-fast-forwards' section of \'git push --help' for details.
+fast-forwards_ section of \_git push --help' for details.
 --------
 
 Dieses Verhalten setzen Sie entweder durch ein vorangestelltes Plus
 (`+`) im Refspec oder durch die Option `--force` bzw.
-kurz `-f` außer Kraft:{empty}footnote:[Das ``Forcieren'' findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe <<sec.gitolite-config>>).]
+kurz `-f` außer Kraft:{empty}footnote:[Das "`Forcieren`" findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe <<sec.gitolite-config>>).]
 
 [subs="macros,quotes"]
 --------
@@ -1024,7 +1025,7 @@ Andere die ursprünglichen Commits bereits heruntergeladen haben.
 Es gibt zwei Möglichkeiten, um Referenzen im Remote wieder zu löschen:
 Die ältere (vor Git Version 1.7.0) ist, beim Refspec die lokale
 Referenz wegzulassen -- diese Anweisung bedeutet, Sie möchten
-``nichts'' hochladen. Sie ersetzen also eine existierende durch
+"`nichts`" hochladen. Sie ersetzen also eine existierende durch
 die leere Referenz.
 
 [subs="macros,quotes"]
@@ -1042,8 +1043,8 @@ $ *git push origin --delete bugfix*
 --------
 
 Beachten Sie, dass in anderen Klonen der ggf. vorhandene
-Remote-Tracking-Branch `origin/bugfix` dadurch 'nicht' automatisch verschwindet!
-Siehe dafür den Abschnitt über 'Pruning' weiter oben (<<sec.git_fetch>>).
+Remote-Tracking-Branch `origin/bugfix` dadurch _nicht_ automatisch verschwindet!
+Siehe dafür den Abschnitt über _Pruning_ weiter oben (<<sec.git_fetch>>).
 
 [[sec.push-default]]
 === Push ohne Argumente: push.default
@@ -1176,10 +1177,10 @@ $ *git remote show origin*
     next   tracked
     pu     tracked
     todo   tracked
-  Local branches configured for \'git pull':
+  Local branches configured for \_git pull_:
     master merges with remote master
     pu     merges with remote pu
-  Local refs configured for \'git push':
+  Local refs configured for \_git push_:
     master pushes to master (local out of date)
     pu     pushes to pu     (up to date)
 --------
@@ -1195,7 +1196,7 @@ Branches im Vergleich mit dem Upstream, z.B.:
 [subs="macros,quotes"]
 --------
 $ *git checkout master*
-Your branch is behind \'origin/master' by 73 commits, and can be
+Your branch is behind \_origin/master_ by 73 commits, and can be
 fast-forwarded.
 --------
 
@@ -1204,22 +1205,22 @@ fast-forwarded.
 Hier gibt es vier verschiedene Möglichkeiten:
 
 * Die Branches zeigen auf denselben Commit. Git zeigt keine
-  besondere Nachricht an. Dieser Zustand heißt auch 'up-to-date'.
+  besondere Nachricht an. Dieser Zustand heißt auch _up-to-date_.
 
 * Der lokale Branch hat Commits, die noch nicht im Upstream verfügbar sind:
 +
-`Your branch is ahead of 'origin/master' by 16 commits.`
+`Your branch is ahead of _origin/master_ by 16 commits.`
 
 * Der Remote-Tracking-Branch hat Commits, die in dem lokalen Branch
   noch nicht verfügbar sind:
 +
-`Your branch is behind 'origin/master' by 73 commits, and can be fast-forwarded.`
+`Your branch is behind _origin/master_ by 73 commits, and can be fast-forwarded.`
 
 
 * Sowohl die zweite als auch die dritte Bedingung treffen zu, ein
-  Zustand der im Git-Jargon als 'diverged' bezeichnet wird:
+  Zustand der im Git-Jargon als _diverged_ bezeichnet wird:
 +
-`Your branch and 'origin/master' have diverged, and have 16 and 73
+`Your branch and _origin/master_ have diverged, and have 16 and 73
   different commit(s) each, respectively.`
 
 
@@ -1232,10 +1233,10 @@ entsprechenden Informationen für lokale Branches:
 $ *git branch -vv*
 * master      0a464e9 [origin/master: ahead 1] docs: fix grammar in
 git-tags.txt
-  feature     cd3065f Merge branch \'kc/gitweb-pathinfo-w-anchor'
-  next        be8b495 [origin/next] Merge branch 'master' into next
+  feature     cd3065f Merge branch \_kc/gitweb-pathinfo-w-anchor_
+  next        be8b495 [origin/next] Merge branch _master_ into next
   pu          0c0c536 [origin/pu: behind 3] Merge branch
-\'jk/maint-merge-rename-create' into pu
+\_jk/maint-merge-rename-create_ into pu
 --------
 
 Das Kommando gibt für alle Branches das SHA-1-Präfix sowie die
@@ -1243,15 +1244,15 @@ Commit-Message des aktuellen Commits aus. Ist für den Branch ein
 Upstream konfiguriert, liefert Git sowohl den Namen als auch einen
 Vergleich zum Upstream. In dem Beispiel sehen Sie vier verschiedene
 Branches. `master` hat einen zusätzlichen Commit, der noch
-nicht ins Remote hochgeladen wurde, und ist daher 'ahead'. Der
+nicht ins Remote hochgeladen wurde, und ist daher _ahead_. Der
 Branch `feature` wiederum hat keinen Upstream-Branch
 konfiguriert, ergo: er existiert momentan nur lokal.  Der Branch
 `next` ist auf demselben Stand wie der entsprechende
-Remote-Tracking-Branch ('up-to-date').  Der Branch `pu`
-andererseits ``hinkt'' seinem Upstream hinterher und wird
+Remote-Tracking-Branch (_up-to-date_).  Der Branch `pu`
+andererseits "`hinkt`" seinem Upstream hinterher und wird
 daher als `behind` angezeigt. Der einzige Zustand, der hier fehlt,
-ist 'diverged' -- dann werden sowohl 'ahead' als auch
-'behind' inklusive der Anzahl der ``fehlenden'' Commits
+ist _diverged_ -- dann werden sowohl _ahead_ als auch
+_behind_ inklusive der Anzahl der "`fehlenden`" Commits
 angezeigt.
 
 [[sec.multi-remote]]
@@ -1259,11 +1260,11 @@ angezeigt.
 
 Git unterstützt das Arbeiten mit mehreren Remotes. Ein beliebter
 Workflow, der sich diese Eigenschaft zu Nutze macht, ist der
-'Integration-Manager Workflow'. Hier gibt es kein
-``zentrales'' Repository im eigentlichen Sinne, das heißt
+_Integration-Manager Workflow_. Hier gibt es kein
+"`zentrales`" Repository im eigentlichen Sinne, das heißt
 eines, auf das alle aktiven Entwickler Schreibzugriff haben.
 Stattdessen gibt es nur ein quasi-offizielles Repository, das
-'blessed' (``gesegnet'') genannt wird. Es ist
+_blessed_ ("`gesegnet`") genannt wird. Es ist
 beispielsweise über die jeweilige Projekt-Domain erreichbar und
 erlaubt nur den wichtigsten Maintainern (oder gar nur einem)
 Schreibzugriff.
@@ -1272,10 +1273,10 @@ Jeder, der zu dem Projekt beitragen will, klont das Blessed Repository
 und beginnt mit der Arbeit. Sobald er Fehler behoben oder ein neues
 Feature implementiert hat, stellt er seine Verbesserungen über ein
 öffentlich zugängliches Repository, einem
-sog. 'Developer-Public', zur
+sog. _Developer-Public_, zur
 Verfügung. Danach sendet
 er an einen der Maintainer des offiziellen Repositorys (oder an die
-Mailingliste) einen sog. 'Pull-Request', also die Aufforderung,
+Mailingliste) einen sog. _Pull-Request_, also die Aufforderung,
 gewissen Code aus seinem öffentlichen Repository in das offizielle
 Repository zu übernehmen. Die Infrastruktur für diesen Ablauf sehen
 Sie in <<fig.developer-public-workflow>>. Es ist
@@ -1293,7 +1294,7 @@ Unklarheiten teilt er dem Autor des Codes mit, der diese dann wiederum
 in seinem Repository korrigiert. Erst wenn der Maintainer zufrieden
 ist, übernimmt er die Änderungen in das Haupt-Repository, so dass der
 Code in einem der folgenden Releases mitgeliefert wird. Maintainer,
-die neuen Code eingliedern, werden oft als 'Integration Manager'
+die neuen Code eingliedern, werden oft als _Integration Manager_
 bezeichnet, was dem Workflow seinen Namen gegeben hat. Oft
 haben solche Maintainer mehrere Remotes konfiguriert, eines für jeden
 Mitwirkenden.
@@ -1332,7 +1333,7 @@ $ *git fetch example*
 [TIP]
 ========
 Um beide Arbeitsschritte in einem Aufruf zu erledigen, verwenden
-Sie die Option `-f`, für 'fetch':
+Sie die Option `-f`, für _fetch_:
 
 [subs="macros,quotes"]
 --------
@@ -1353,7 +1354,7 @@ $ *git remote rm example*
 Remotes müssen nicht zwingend per `git remote add` konfiguriert
 werden. Sie können einfach die URL auf der Kommandozeile
 verwenden,footnote:[Im Git-Jargon werden
-  solche Remotes als 'Anonymous' bezeichnet.] zum Beispiel, um die
+  solche Remotes als _Anonymous_ bezeichnet.] zum Beispiel, um die
 Objekte und Referenzen für einen Bugfix herunterzuladen:
 
 [subs="macros,quotes"]
@@ -1438,7 +1439,7 @@ Valentin Haenel (2):
 
 Tags werden ebenfalls mit den Remote-Kommandos `fetch` bzw.
 `pull` und `push` ausgetauscht.  Im Gegensatz zu
-Branches, die sich verändern, sind Tags jedoch ``statisch''.
+Branches, die sich verändern, sind Tags jedoch "`statisch`".
 Aus diesem Grund werden Remote-Tags nicht noch einmal zusätzlich lokal
 referenziert, es gibt also kein Äquivalent zu den
 Remote-Tracking-Branches für die Tags. Tags, die Sie aus Ihren
@@ -1509,7 +1510,7 @@ Wenn Sie gleich alle Tags hochladen wollen, verwenden Sie die Option
 wie in <<sec.tags>> beschrieben,
 Annotated Tags zur Kennzeichnung von Versionen verwenden und
 Lightweight Tags, um lokal etwas zu markieren. Denn mit der Option
-würden Sie, wie schon gesagt, 'alle' Tags hochladen.
+würden Sie, wie schon gesagt, _alle_ Tags hochladen.
 
 Achtung: Wenn Sie ein Tag einmal hochgeladen haben, sollten Sie es auf
 keinen Fall verändern! Der Grund: Angenommen, Axel verändert ein Tag,
@@ -1517,7 +1518,7 @@ etwa `v0.7`, das er bereits veröffentlicht hat. Zunächst zeigte
 es auf den Commit `5b6eef` und nun auf `bab18e`.
 Beatrice hatte bereits die erste Version, die auf `5b6eef`
 zeigt, heruntergeladen, Carlos aber noch nicht. Beim nächsten Mal,
-wenn Beatrice `git pull` aufruft, lädt Git 'nicht' die
+wenn Beatrice `git pull` aufruft, lädt Git _nicht_ die
 neue Version von dem Tag `v0.7` herunter; die Annahme ist, dass
 sich Tags nicht verändern, und darum überprüft Git die Gültigkeit des
 Tags nicht!  Führt Carlos nun `git pull` aus, erhält er auch
@@ -1528,7 +1529,7 @@ hilfreiche Situation. Wirklich verwirrend wird es, wenn sowohl Carlos
 als auch Beatrice dasselbe, öffentliche Repository verwenden und
 standardmäßig alle Tags hochladen.footnote:[Zum
   Beispiel mit dem Alias `push = push --tags`.] Das Tag
-``springt'' quasi im öffentlichen Repository zwischen zwei
+"`springt`" quasi im öffentlichen Repository zwischen zwei
 Commits hin und her; welche Version Sie mit einem Klon erhalten, hängt
 davon ab, wer zuletzt gepusht hat.
 
@@ -1542,7 +1543,7 @@ Möglichkeiten:
   entsprechend den Projektkonventionen. Heißt das alte `v0.7`, nennen
   Sie das neue etwa `v0.7.1`.
 
-. Wenn Sie das Tag 'wirklich' ersetzen wollen: Geben Sie
+. Wenn Sie das Tag _wirklich_ ersetzen wollen: Geben Sie
   öffentlich zu (Mailingliste, Wiki, Blog), dass Sie einen Fehler
   gemacht haben. Weisen Sie alle Entwickler und Nutzer darauf hin,
   dass sich ein Tag geändert hat, und bitten Sie darum, dass jeder
@@ -1575,7 +1576,7 @@ wandert der Branch über die verschiedenen Integrations-Branches `pu` und
 werden.  Ist alles in Ordnung, landet der Branch schließlich im `master`
 und bildet von dort aus einen Teil des nächsten Releases.
 
-Der Ansatz 'Patches per E-Mail' wird durch folgende Git-Kommandos
+Der Ansatz _Patches per E-Mail_ wird durch folgende Git-Kommandos
 realisiert:
 
 
@@ -1676,7 +1677,7 @@ diff --git a/Documentation/git-svn.txt b/Documentation/git-svn.txt
 
 Wenn Sie vorhaben, eine Serie von Patches zu verschicken, ist
 es empfehlenswert, mit der Option `--cover-letter` eine Art
-``Deckblatt'' zu erzeugen, in dem Sie die Serie beschreiben.
+"`Deckblatt`" zu erzeugen, in dem Sie die Serie beschreiben.
 Die Datei heißt standardmäßig `0000-cover-letter.patch`.
 Abgesehen von den Standard-Headern, sieht eine solche Datei wie folgt aus:
 
@@ -1707,7 +1708,7 @@ Sie die Datei zusammen mit den Patch-Dateien.
 Häufig werden Mailing-Listen, auf die Patches geschickt werden, dazu
 verwendet, die Patches inhaltlich und syntaktisch zu kritisieren und den
 Autor um Verbesserung zu bitten. Hat der Autor die Verbesserungen
-vorgenommen, schickt er die korrigierte Serie als 'Reroll' erneut an die
+vorgenommen, schickt er die korrigierte Serie als _Reroll_ erneut an die
 Liste. Je nach Größe der Patch-Serie und Anforderungen des Projektes
 kann eine Patch-Serie durchaus mehrere Rerolls durchlaufen, bis sie
 angenommen wird.
@@ -1752,7 +1753,7 @@ Who should the emails appear to be from? [Valentin Haenel
 Das Kommando `git send-email` setzt die Felder
 `Message-Id` sowie `In-Reply-To`. Damit sehen alle
 E-Mails nach der ersten wie Antworten auf diese aus und werden dadurch
-von den meisten Mail-Programmen als zusammenhängender 'Thread'
+von den meisten Mail-Programmen als zusammenhängender _Thread_
 angezeigt:footnote:[Sie sehen in
   <<fig.mail-thread>> eine etwas andere Reihenfolge der
   Patches als in den bisherigen Beispielen. Das liegt daran, dass die
@@ -1773,14 +1774,14 @@ die Patches geschickt werden sollen.footnote:[Sofern auf Ihrem System kein 'Mail
     Transfer Agent' (MTA) installiert bzw. für den E-Mail-Versand
   konfiguriert ist, können Sie auch einen externen SMTP-Server
   verwenden.  Passen Sie dafür die in der Sektion ``Use GMail as
-  the SMTP server'' der bereits erwähnten Man-Page beschriebenen
+  the SMTP server__ der bereits erwähnten Man-Page beschriebenen
   Einstellungen an.]
 
 Bevor die E-Mails tatsächlich versendet werden,
 wird Ihnen der Header nochmals angezeigt; Sie sollten überprüfen, ob
 alles Ihren Wünschen entspricht, und anschließend die Frage
 `Send this email?  ([y]es|[n]o|[q]uit|[a]ll):` mit `y`
-für ``yes'' beantworten. Um sich mit dem Kommando vertraut zu
+für "`yes`" beantworten. Um sich mit dem Kommando vertraut zu
 machen, kann man zunächst alle E-Mails nur an sich selbst schicken
 oder die Option `--dry-run` verwenden.
 
@@ -1788,27 +1789,27 @@ oder die Option `--dry-run` verwenden.
 [TIP]
 ========
 Alternativ zu `git send-email` können Sie den Inhalt der
-Dateien in einen der vielen online 'Pastebin'-Dienste, zum
+Dateien in einen der vielen online _Pastebin_-Dienste, zum
 Beispiel
-'dpaste'{empty}footnote:[http://dpaste.com/]
+_dpaste_{empty}footnote:[http://dpaste.com/]
 oder
-'gist.github'{empty}footnote:[https://gist.github.com/]
+_gist.github_{empty}footnote:[https://gist.github.com/]
 einwerfen und den Verweis darauf per IRC oder Jabber verschicken.
 Zum Einpflegen lädt sich der Empfänger den Inhalt in eine Datei
 herunter und übergibt diese an `git am` (s.u.).
 ========
 
-Wenn Sie Ihren bevorzugten 'Mail User Agent' (MUA) (z.B. Thunderbird,
+Wenn Sie Ihren bevorzugten _Mail User Agent_ (MUA) (z.B. Thunderbird,
 Kmail o.a.) verwenden wollen, um Patches zu verschicken, gibt es
 eventuell einiges zu beachten. Manche MUAs sind berüchtigt, Patches so
 zu verstümmeln, dass sie Git nicht mehr als solche
-erkennt.{empty}footnote:[Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt ``MUA specific hints'' sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten ``MUA-specific Hints'' und ``Discussion''.]
+erkennt.{empty}footnote:[Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".]
 
 [[sec.patches-einpflegen]]
 === Patches einpflegen
 
 Mit `git format-patch` exportierte Patch-E-Mails werden von dem
-Git-Kommando `git am` ('apply from mailbox') wieder in
+Git-Kommando `git am` (_apply from mailbox_) wieder in
 Commits zurückübersetzt. Aus jeder E-Mail wird ein neuer Commit
 erzeugt, dessen Meta-Informationen (Autor, Commit-Message usw.) aus
 den Header-Zeilen der E-Mail (`From`, `Date`) generiert
@@ -1828,8 +1829,8 @@ Applying: git-svn.txt: small typeface improvements
 
 [TIP]
 ========
-Das Kommando versteht neben den Formaten 'Maildir'
-und 'mbox' auch Dateien, die die Ausgabe von
+Das Kommando versteht neben den Formaten _Maildir_
+und _mbox_ auch Dateien, die die Ausgabe von
 `git format-patch` enthalten:
 
 [subs="macros,quotes"]
@@ -1841,8 +1842,8 @@ Applying: git-svn.txt: fix usage of --add-author-from
 ========
 
 Wenn Sie Patches von Anderen mit `git am` einpflegen,
-unterscheiden sich die Werte von 'Author'/'AuthorDate'
-und 'Committer'/'CommitDate'. Somit werden sowohl der Autor
+unterscheiden sich die Werte von _Author_/_AuthorDate_
+und _Committer_/_CommitDate_. Somit werden sowohl der Autor
 des Commits als auch der, der ihn einspielt, gewürdigt. Insbesondere
 bleiben die Attribuierungen erhalten; es bleibt nachvollziehbar, wer
 welche Codezeilen geschrieben hat. Mit Gitk werden die Author- und
@@ -1864,9 +1865,9 @@ CommitDate: Tue Apr 26 11:48:34 2011 -0700
 
 
 
-Bei dem Workflow 'Dictator and Lieutenants' (<<sec.dictator>>) kommt es vor, dass mehr als nur zwei Personen in
+Bei dem Workflow _Dictator and Lieutenants_ (<<sec.dictator>>) kommt es vor, dass mehr als nur zwei Personen in
 einen Commit involviert sind. In dem Fall ist es sinnvoll, dass jeder,
-der den Patch begutachtet, ihn auch ``absegnet'', allen voran
+der den Patch begutachtet, ihn auch "`absegnet`", allen voran
 der Autor. Zu diesem Zweck gibt es die Option `--signoff`
 (kurz `-s`) für die Kommandos `git commit` und
 `git am`, die Name und E-Mail des Committers der Commit-Message
@@ -1922,19 +1923,19 @@ wenn Ihnen jemand die Ausgabe von `git diff` statt
 Der Integration-Manager-Workflow skaliert nicht mit der Größe des
 Projekts.  Bei großem Wachstum ist irgendwann der Maintainer mit der
 Komplexität des Projekts und der Anzahl der eingehenden Patches
-überfordert.  Der sog. 'Dictator and Lieutenants'-Workflow, der
+überfordert.  Der sog. _Dictator and Lieutenants_-Workflow, der
 ausgiebig bei der Entwicklung des Linux-Kerns angewandt wird, schafft
 hier Abhilfe. In diesem Fall ist die Software meist in verschiedene
-Subsysteme unterteilt, und Beiträge werden von den 'Lieutenants'
-(auch 'Subsystem-Maintainer') untersucht und dann an den
-'Benevolent Dictator' (``Gütiger Diktator'')
+Subsysteme unterteilt, und Beiträge werden von den _Lieutenants_
+(auch _Subsystem-Maintainer_) untersucht und dann an den
+_Benevolent Dictator_ ("`Gütiger Diktator`")
 weitergeleitet. Dieser lädt die Veränderungen schließlich in das
-'blessed' (``gesegnete'') Repository hoch, mit dem sich
+_blessed_ ("`gesegnete`") Repository hoch, mit dem sich
 wiederum alle Mitstreiter synchronisieren.
 
 
 
-.Workflow: 'Dictator and Lieutenants'
+.Workflow: _Dictator and Lieutenants_
 image::patches-per-mail.png[id="fig.dictator",scaledwidth="90%",width="90%"]
 
 Der Workflow basiert auf Vertrauen: Der Diktator vertraut seinen
@@ -1983,8 +1984,8 @@ in den folgenden Situationen der Fall:
 
 
 Mit Git können Sie auf zwei verschiedene Weisen damit umgehen: Sie
-verwalten die Module als sogenannte 'Git-Submodules' oder als
-'Subtrees' -- in beiden Fällen verwalten Sie Quellcode in einem
+verwalten die Module als sogenannte _Git-Submodules_ oder als
+_Subtrees_ -- in beiden Fällen verwalten Sie Quellcode in einem
 Unterverzeichnis Ihres Projekts.
 
 Als Submodule verwalten Sie ein abgekoppeltes Repository, das nichts
@@ -1998,8 +1999,8 @@ Projekt erstellen, das die `libgit2` benötigt. Die Bibliothek
 bietet, ähnlich der `libgit.a`, eine API, um Git-Repositories
 zu untersuchen und zu verändern.footnote:[Die `libgit.a` wird beim
   Kompilieren von Git erzeugt und versammelt alle Funktionen, die in
-  Git ``öffentlich'' sind. Sie ist allerdings nicht
-  'reentrant' oder Thread-sicher, so dass sie nur eingeschränkt
+  Git "`öffentlich`" sind. Sie ist allerdings nicht
+  _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt
   verwendet werden kann. Diese Einschränkungen hat `libgit2`
   nicht.]  Die in C geschriebene Bibliothek kann ihre Funktionen
 u.a. auch nach Lua, Ruby, Python, PHP und JavaScript herausreichen.
@@ -2056,7 +2057,7 @@ index 0000000..b64e11d
 
 
 Anstatt alle Dateien des Verzeichnisses aufzulisten, speichert Git
-eine ``spezielle'' Datei (erkennbar an dem unüblichen
+eine "`spezielle`" Datei (erkennbar an dem unüblichen
 Datei-Modus `160000`), die lediglich den Commit, auf dem das
 Modul gerade steht, festhält.
 
@@ -2073,7 +2074,7 @@ $ *git commit -m "libgit2-submodule importiert"*
 Das übergeordnete Projekt und die `libgit2` sind nun im Working
 Tree zusammengeführt -- ihre Versionsgeschichte aber ist und bleibt
 getrennt. In dem Git-Repository der `libgit2` können Sie sich
-genau so verhalten wie in einem ``echten'' Repository.  Sie
+genau so verhalten wie in einem "`echten`" Repository.  Sie
 können sich zum Beispiel die Ausgabe von `git log` in dem
 übergeordneten Projekt und nach einem `cd libgit2` in dem
 Submodule anschauen.
@@ -2120,8 +2121,8 @@ $ *git add libgit2*
 $ *git commit -m "Libgit2-Version auf v0.10.0 setzen"*
 --------
 
-Achtung: Fügen Sie niemals 'Dateien' aus `libgit2` oder
-das 'Verzeichnis'{empty}{nbsp}`libgit2/` (endet mit
+Achtung: Fügen Sie niemals _Dateien_ aus `libgit2` oder
+das _Verzeichnis_{empty}{nbsp}`libgit2/` (endet mit
 Slash) hinzu -- das zerbricht das Modulkonzept von Git, Sie verwalten
 dann auf einmal Dateien aus dem Submodule in dem übergeordneten
 Projekt.
@@ -2137,7 +2138,7 @@ Commits runterladen und ein Update der Bibliothek entsprechend im
 
 Wie sieht das Ganze nun aus Sicht eines Nutzer aus, der das Projekt
 zum ersten Mal klont? Zunächst ist offensichtlich, dass das oder die
-Submodules 'nicht' fest mit dem Repository verbunden sind und
+Submodules _nicht_ fest mit dem Repository verbunden sind und
 nicht mit ausgeliefert werden:
 
 [subs="macros,quotes"]
@@ -2158,11 +2159,11 @@ Moduls herunterladen:
 [subs="macros,quotes"]
 --------
 $ *git submodule init*
-Submodule \'libgit2' (git://github.com/libgit2/libgit2.git)
-registered for path \'libgit2'
+Submodule \_libgit2_ (git://github.com/libgit2/libgit2.git)
+registered for path \_libgit2_
 $ *git submodule update*
 ...
-Submodule path \'libgit2': checked out \'7064938bd5e7ef47bfd79a685a62c1e2649e2ce7'
+Submodule path \_libgit2_: checked out \_7064938bd5e7ef47bfd79a685a62c1e2649e2ce7_
 --------
 
 Wir sehen also, dass `libgit2` automatisch auf den in unserem
@@ -2171,7 +2172,7 @@ Prinzipiell kann nun aber der Nutzer auch in das Verzeichnis wechseln,
 den Branch `development` auschecken und das Projekt gegen diese
 Version kompilieren. Submodules erhalten die Flexibilität des
 Unter-Repositorys -- der Eintrag, auf welchem Stand das Modul steht,
-ist also nur eine ``Empfehlung''.
+ist also nur eine "`Empfehlung`".
 
 
 
@@ -2187,7 +2188,7 @@ Im Wesentlichen basiert diese Technik auf sogenannten Subtree-Merges,
 auf die schon kurz in <<sec.merge-strategies>>
 über Merge-Strategien eingegangen wurde. In unserem Beispiel erfolgt ein
 Subtree-Merge, indem reguläre Commits aus dem Repository der
-`libgit2` unterhalb des 'Trees' (Verzeichnisses)
+`libgit2` unterhalb des _Trees_ (Verzeichnisses)
 `libgit2/` gemergt werden -- eine Datei auf oberster Ebene in
 dem Repository der Bibliothek wird also zu einer Datei auf oberster
 Ebene des Trees `libgit2/`, der wiederum Teil eines
@@ -2212,7 +2213,7 @@ $ *git subtree add -P libgit2 \*
 git fetch git://github.com/libgit2/libgit2.git v0.8.0
 From git://github.com/libgit2/libgit2
  * tag               v0.8.0     -&gt; FETCH_HEAD
-Added dir \'libgit2'
+Added dir \_libgit2_
 --------
 
 Das Kommando lädt automatisch alle benötigten Commits herunter und
@@ -2223,7 +2224,7 @@ der der `libgit2` (dadurch, dass ein Original-Commit
 referenziert wird und der wiederum andere Commits referenziert).
 
 Dieses Vorgehen hat nun zur Folge, dass in Ihrem Repository von nun an
-'alle' relevanten Commits der `libgit2` vorhanden sind.
+_alle_ relevanten Commits der `libgit2` vorhanden sind.
 Ihr Repository hat also nun zwei Root-Commits (siehe auch
 Multi-Root-Repositories in <<sec.multi-root>>).
 
@@ -2231,10 +2232,10 @@ Die Dateien liegen nun untrennbar mit dem Projekt verbunden vor. Ein
 `git clone` dieses Repositorys würde auch alle Dateien
 unterhalb von `libgit2` übertragen.footnote:[Achten Sie daher darauf, dass Sie mit
   dieser Technik nur Inhalte einbinden, die Sie auch weitergeben
-  'dürfen'. Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt,
-  aber nicht die Weiterverbreitung (engl. 'Distribution').]
+  _dürfen_. Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt,
+  aber nicht die Weiterverbreitung (engl. _Distribution_).]
 
-Was passiert nun, wenn Sie ein ``Upgrade'' auf
+Was passiert nun, wenn Sie ein "`Upgrade`" auf
 `v0.10.0` machen wollen? Verwenden Sie dafür das `pull`-Kommando von
 `git subtree`:
 
@@ -2244,7 +2245,7 @@ $ *git subtree -P libgit2 \*
   *pull git://github.com/libgit2/libgit2.git v0.10.0*
 From git://github.com/libgit2/libgit2
  * tag               v0.10.0    -&gt; FETCH_HEAD
-Merge made by the \'recursive' strategy.
+Merge made by the \_recursive_ strategy.
 ...
 --------
 
@@ -2261,7 +2262,7 @@ Wenn Sie nicht an der Versionsgeschichte eines Unterprojektes
 interessiert sind, aber einen bestimmten Stand im Repository verankern
 wollen, können Sie die Option `--squash` verwenden. Die Kommandos `git
 subtree add/pull` mergen dann nicht die entsprechenden Commits, sondern
-erzeugen nur 'einen' Commit, der alle Änderungen enthält. Achtung:
+erzeugen nur _einen_ Commit, der alle Änderungen enthält. Achtung:
 Verwenden Sie diese Option nicht, wenn Sie das Projekt nicht auch per
 `--squash` importiert haben; dies führt zu Merge-Konflikten.
 ===============================
@@ -2288,7 +2289,7 @@ Sie dann in ein (leeres) Remote hochladen.
 [subs="macros,quotes"]
 --------
 $ *git subtree split -P doc --rejoin*
-Merge made by the \'ours' strategy.
+Merge made by the \_ours_ strategy.
 563c68aa14375f887d104d63bf817f1357482576
 $ *git push &lt;neues-doku-repo&gt; 563c68aa14375:refs/heads/master*
 --------
@@ -2304,7 +2305,7 @@ die neuen Commits integrieren. Wollen Sie stattdessen mit der Option
 [[sec.submodule-vs-subtree]]
 === Submodules vs. Subtrees
 
-Die Frage ``Submodules oder Subtrees?'' lässt sich nicht
+Die Frage "`Submodules oder Subtrees?`" lässt sich nicht
 generell, sondern nur von Fall zu Fall beantworten. Ausschlaggebendes
 Kriterium sollte die Zugehörigkeit des Unterprojektes zu dem
 übergeordneten sein: Wenn Sie fremde Software einbinden, dann

@@ -1,12 +1,13 @@
 // adapted from: "server.txt"
 
 [[ch.server]]
-= Git auf dem Server
+= Git Servers
+// Git auf dem Server
 
 Im Folgenden geht es um das Hosting von Git-Repositories und
-'Gitolite', mit dem Sie Zugriffsrechte auf Repositories über
+_Gitolite_, mit dem Sie Zugriffsrechte auf Repositories über
 SSH-Public-Keys flexibel verwalten. Außerdem werden Installation und
-Konfiguration der zwei Web-Interfaces 'Gitweb' und 'CGit'
+Konfiguration der zwei Web-Interfaces _Gitweb_ und _CGit_
 erläutert, alternativ für Apache oder Lighttpd.
 
 [[sec.server]]
@@ -24,9 +25,9 @@ kleinste Einheit, um Änderungen zwischen Repositories
 auszutauschen, sind Commits. Da sich aber zwischen zwei Versionen
 einer Software bisweilen tausende von Commits ansammeln und eine
 einzelne, commitweise Übertragung viel Overhead erzeugen würde,
-werden Commits vor der Übertragung zu sogenannten 'Packfiles'
+werden Commits vor der Übertragung zu sogenannten _Packfiles_
 zusammengefasst. Diese Packfiles sind ein simples, aber effektives
-Format.footnote:[Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen ``Bitmap Reachability Index'', der in `bitmap-format.txt` erklärt ist.] Sie
+Format.footnote:[Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.] Sie
 werden auch verwendet, um (ältere) Commits auf der Festplatte
 platzsparend zu lagern (`git gc` bzw. `git repack`,
 siehe <<sec.gc>>).
@@ -40,19 +41,19 @@ sowie eine Möglichkeit für Sender- und Empfängerseite, sich auf die
 kleinstmögliche Datenmenge zu einigen, die übertragen werden muss, um
 beide Seiten zu synchronisieren.
 
-Das Git-Protokoll enthält daher 'keine' Möglichkeit der
+Das Git-Protokoll enthält daher _keine_ Möglichkeit der
 Authentifizierung. Stattdessen verwendet Git eine bereits vorhandene,
 sichere und einfache Authentifizierungsstruktur: SSH, die 'Secure
   Shell'.
 
 Während das Git-Protokoll also unverschlüsselt und in Rohform für
-anonymen 'Lesezugriff' uneingeschränkt verwendet werden kann,
+anonymen _Lesezugriff_ uneingeschränkt verwendet werden kann,
 funktioniert ein Schreiben bzw. Hochladen über das Git-Protokoll nur,
 wenn dies über SSH erfolgt.
 
 Des Weiteren unterstützt Git auch den Transport über HTTP(S), FTP(S),
 sowie Rsync. Zwar gilt die Unterstützung für letzteres mittlerweile
-als 'deprecated', es sollte also nicht mehr benutzt werden; für
+als _deprecated_, es sollte also nicht mehr benutzt werden; für
 HTTP(S) finden sich aber gewisse Anwendungsfälle: In besonders
 restriktiven Umgebungen mit sehr einschränkenden Firewall-Regeln
 kann man eventuell über HTTP(S) (also nur auf Port 80 bzw. 443) auf
@@ -79,11 +80,11 @@ gearbeitet, die Working Tree und Repository in einem waren: Die
 repositoryinternen Daten werden in einem Unterverzeichnis
 `.git` gespeichert, alle anderen Dateien gehören dem Working
 Tree an, d.h. Sie können sie editieren, während Git die Veränderung
-an diesen Dateien beobachtet und abspeichert ('Tracking').
+an diesen Dateien beobachtet und abspeichert (_Tracking_).
 
-Ein sogenanntes 'Bare Repository', also ein ``bloßes''
+Ein sogenanntes _Bare Repository_, also ein "`bloßes`"
 Repository, hat keinen zugeordneten Working Tree. Es enthält nur die
-Dateien und Verzeichnisse, die in einem ``regulären''
+Dateien und Verzeichnisse, die in einem "`regulären`"
 Repository unterhalb von `.git` gespeichert sind.
 
 Ein solches Bare Repository erstellen Sie durch `git init
@@ -165,7 +166,7 @@ Dieses Problem umgeht Git mit dem mitgelieferten Programm
 die Ausführung von vier Git-Kommandos, die für das Hoch- und
 Runterladen von Packfiles zuständig sind. Interaktive Benutzung oder
 Ausführung anderer Kommandos verweigert die Shell, sofern Sie nicht den
-``Interaktiven Modus'' der Shell explizit aktivieren -- siehe dafür
+"`Interaktiven Modus`" der Shell explizit aktivieren -- siehe dafür
 die Man-Page `git-shell(1)`.
 
 Wenn Sie einen neuen Benutzer anlegen und ihm z.B. per
@@ -229,7 +230,7 @@ $ *chown -R nobody:git /var/repositories/git-beispiel*
 --------
 
 Als nächstes erstellen wir die beiden Nutzer. Beachten Sie, dass bei
-diesem Aufruf 'kein' Homeverzeichnis für die Nutzer unter
+diesem Aufruf _kein_ Homeverzeichnis für die Nutzer unter
 `/home/` erstellt wird. Außerdem werden beide der Gruppe
 `git` und `git-beispiel` hinzugefügt:
 
@@ -275,19 +276,19 @@ wesentliche Nachteile. Namentlich:
 * Für jeden angelegten Nutzer müssen manuell (oder per Script) die
   Zugriffsberechtigungen angepasst werden.
 
-Abhilfe schafft das Programm 'Gitolite'.footnote:[Die hier beschriebene
+Abhilfe schafft das Programm _Gitolite_.footnote:[Die hier beschriebene
 Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit
 Gitolite Version 1.5, das in der ersten Auflage dieses Buches
 beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
 
-Gitolite ist aus dem Projekt 'Gitosis' hervorgegangen, das
+Gitolite ist aus dem Projekt _Gitosis_ hervorgegangen, das
 mittlerweile als veraltet angesehen wird. Die Idee: Auf dem Server
-wird lediglich 'ein' Unix-Benutzer (z.B.{empty}{nbsp}`git`)
+wird lediglich _ein_ Unix-Benutzer (z.B.{empty}{nbsp}`git`)
 angelegt. Intern verwaltet dann Gitolite eine Liste von Nutzern mit
 zugehörigen SSH-Schlüsseln. Diese Nutzer haben aber keinen
-``wirklichen'' Nutzer-Account auf dem System.
+"`wirklichen`" Nutzer-Account auf dem System.
 
-Nutzer loggen sich 'ausschließlich' mit ihrem öffentlichen
+Nutzer loggen sich _ausschließlich_ mit ihrem öffentlichen
 SSH-Schüssel auf diesem Account `git` ein. Das bringt drei
 wesentliche Vorteile:
 
@@ -298,7 +299,7 @@ wesentliche Vorteile:
   verschiedene Rechner, auf denen sie arbeiten).
 
 * Anhand des SSH-Schlüssels, mit dem sich ein Nutzer einloggt, kann
-  Gitolite 'eindeutig'{empty}footnote:[Ein Nutzer kann sich nur mit
+  Gitolite _eindeutig_{empty}footnote:[Ein Nutzer kann sich nur mit
   seinem privaten Schlüssel bei einem SSH-Server authentifizieren,
   wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten)
   Schlüssel verschlüsselte Nachricht entschlüsseln kann. Anhand des
@@ -415,7 +416,7 @@ außerdem die Commits durch `git push` hochladen.
 Danach können Sie diesem Nutzernamen in der Konfigurationsdatei
 `conf/gitolite.conf` Berechtigungen zuweisen.
 
-Über sogenannte 'Makros' können Sie sich viel administrativen
+Über sogenannte _Makros_ können Sie sich viel administrativen
 Aufwand bzw. Tipparbeit sparen. Sie können Gruppen (von Nutzern oder
 Repositories) zusammenfassen, z.B.
 
@@ -445,7 +446,7 @@ repo @test_repos
 
 `R` und `W` stehen für Lese- bzw. Schreibzugriff. Das
 Plus bedeutet, dass auch ein forciertes Hochladen erlaubt ist
-('non-fast-forward', also auch das Löschen von Commits).
+(_non-fast-forward_, also auch das Löschen von Commits).
 
 Für ein Repository können natürlich mehrere solcher Zeilen eingetragen
 werden. In einem kleinen Projekt könnte es Maintainer, weitere
@@ -464,9 +465,9 @@ repo Projekt
 --------
 
 So haben die Tester nur Lesezugriff, während die Entwickler zwar neue
-Commits hochladen dürfen, aber nur, wenn diese per 'fast-forward'
+Commits hochladen dürfen, aber nur, wenn diese per _fast-forward_
 integriert werden können. Die Hauptmaintainer dürfen
-``alles''.
+"`alles`".
 
 Diese Zeilen werden sequentiell abgearbeitet. Trifft die Zeile für
 einen Nutzer zu, so autorisiert Gitolite den Nutzer und stattet ihn
@@ -513,14 +514,14 @@ geschieht auf dem Server, wo Gitolite installiert ist, in der Datei
 === Zugriffsrechte auf Datei- oder Branch-Ebene
 
 Gerade in Firmenumgebungen müssen die Zugriffsrechte häufig noch
-feiner differenziert werden als ein bloßes ``hat Zugriff'' und
-``darf nicht zugreifen''. Dafür bietet Gitolite
+feiner differenziert werden als ein bloßes "`hat Zugriff`" und
+"`darf nicht zugreifen`". Dafür bietet Gitolite
 Zugriffsbeschränkung auf Verzeichnis- und Datei- sowie Tag- und
 Branch-Ebene an.
 
 Wir betrachten zunächst einen Fall, der häufig auftritt: Entwickler
 sollen auf Entwicklungs-Branches beliebig entwickeln können, aber nur
-eine kleine Gruppe von Maintainern soll ``wichtige'' Branches
+eine kleine Gruppe von Maintainern soll "`wichtige`" Branches
 wie z.B.{empty}{nbsp}`master`, bearbeiten können.
 
 Das ließe sich in etwa so umsetzen:
@@ -535,32 +536,32 @@ repo Projekt
     R           = @developers
 --------
 
-Hier wird ein ``Entwicklungs-Namespace'' geschaffen: Die
+Hier wird ein "`Entwicklungs-Namespace`" geschaffen: Die
 Gruppe der Entwickler kann beliebig mit Branches unterhalb von
 `dev/` verfahren, also z.B.{empty}{nbsp}`dev/feature` erstellen
 oder auch wieder löschen. Den Branch `master` können die
 Entwickler allerdings nur lesen, nicht aber verändern -- das ist den
 Maintainern vorbehalten.
 
-Der Teil zwischen den 'Flags' (`RW+`) und dem
+Der Teil zwischen den _Flags_ (`RW+`) und dem
 Gleichzeichen ist ein sogenannter Perl-kompatibler regulärer Ausdruck
-('Perl-Compatible Regular Expression', kurz PCRE). Sofern er
-'nicht' mit `refs/` beginnt, bezieht sich der Ausdruck auf
+(_Perl-Compatible Regular Expression_, kurz PCRE). Sofern er
+_nicht_ mit `refs/` beginnt, bezieht sich der Ausdruck auf
 alle Referenzen unterhalb von `refs/heads/`, also Branches. Im
-o.g. Beispiel können also beliebige Referenzen 'unterhalb' von
+o.g. Beispiel können also beliebige Referenzen _unterhalb_ von
 `refs/heads/dev/` modifiziert werden -- nicht aber der Branch
 `dev` selbst oder `irgendwas-dev`!
 
 Beginnt ein solcher Ausdruck aber explizit mit einem `refs/`,
 kann man beliebige Referenzen verwalten. Auf die folgende Weise
-richtet man ein, dass alle Maintainer 'Release-Candidate'-Tags{empty}footnote:[Ein 'Release Candidate' einer Software
+richtet man ein, dass alle Maintainer _Release-Candidate_-Tags{empty}footnote:[Ein _Release Candidate_ einer Software
   ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit
   (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich
   gemacht wird. In das finale Release fließen dann nur noch Bugfixes
   ein. Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2
   (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird
   (`v1.0`).]
-erstellen dürfen, aber nur 'ein' Maintainer wirklich den
+erstellen dürfen, aber nur _ein_ Maintainer wirklich den
 Versionierungs-Tag (bzw. beliebige andere) erstellen darf:
 
 --------
@@ -617,7 +618,7 @@ lesend darauf zugreifen.
 Gitolite erlaubt auch Zugriffsbeschränkungen auf Datei- und
 Verzeichnisebene. Zuständig dafür ist die virtuelle Referenz `VREF/NAME`.
 So können Sie beispielsweise dem Dokumentations-Team nur den
-(schreibenden{empty}footnote:[Den 'lesenden' Zugriff auf ein
+(schreibenden{empty}footnote:[Den _lesenden_ Zugriff auf ein
   Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde
   das Konzept des Git-Objekt-Modells mit seiner kryptografisch
   garantierten Integrität ad absurdum führen.])
@@ -633,8 +634,8 @@ repo Projekt
 
 Hierbei sind allerdings folgende Fallstricke zu beachten: Sobald das
 Schlüsselwort `VREF/NAME` einmal auftaucht, werden die
-dateibasierten Regeln für 'alle' Nutzer angewendet. Trifft keine von
-ihnen zu, so wird der Zugriff 'zugelassen' -- daher ist die zweite Regel
+dateibasierten Regeln für _alle_ Nutzer angewendet. Trifft keine von
+ihnen zu, so wird der Zugriff _zugelassen_ -- daher ist die zweite Regel
 wichtig, die den Zugriff für `@doc` verbietet, es sei denn, der Commit
 modifiziert nur Dateien unter `doc/` (siehe auch weiter unten
 <<sec.gl-deny>>).
@@ -650,7 +651,7 @@ Konkret auf das o.g. Beispiel bezogen heißt das, dass die Mitglieder
 von `@doc` im Allgemeinen 'keine neuen Branches erstellen
   können'. Einen neuen Branch zu erstellen hieße nämlich, ein neue
 Referenz auf einen initialen Commit zu erstellen und dann alle
-Commits vom obersten bis zur Wurzel per 'fast-forward' zu
+Commits vom obersten bis zur Wurzel per _fast-forward_ zu
 integrieren, also die gesamte Projekt-Historie. Darin befinden sich
 aber sicherlich Commits, die Dateien außerhalb von `doc/`
 verändern, und somit wird die Aktion verboten.
@@ -687,10 +688,10 @@ repo Projekt
     RW+                 = @developers
 --------
 
-Wird ein Branch, der 'nicht'{empty}{nbsp}`master` oder `maint`
+Wird ein Branch, der _nicht_{empty}{nbsp}`master` oder `maint`
 heißt, hochgeladen, so wird lediglich die dritte Regel angewendet und
-der beliebige Zugriff (inkl. nicht-'fast-forward'-Updates)
-erlaubt. Commits, die per 'fast-forward' auf `master` oder
+der beliebige Zugriff (inkl. nicht-_fast-forward_-Updates)
+erlaubt. Commits, die per _fast-forward_ auf `master` oder
 `maint` integriert werden können, werden durch die erste Regel
 erlaubt. Beachten Sie allerdings das fehlende Plus-Zeichen: Ein
 forciertes Update wird nicht durch die erste Regel abgedeckt, aber
@@ -705,7 +706,7 @@ erlaubt wurde).
 
 Mit den hier vorgestellten Mitteln und weiteren, die Sie der
 Dokumentation{empty}footnote:[Die Dokumentation findet sich unter http://gitolite.com/.
-    Der Autor hat außerdem das Buch ``Gitolite Essentials''
+    Der Autor hat außerdem das Buch "`Gitolite Essentials`"
     veröffentlicht (Packt Publishing, 2014).]
 entnehmen können, sind Sie in der Lage, Policies sehr flexibel zu
 forcieren. Allerdings ist es möglicherweise nicht sinnvoll, alles bis
@@ -714,10 +715,10 @@ ist besonders eine Kontrolle auf Dateinamen-Ebene problematisch. Wenn
 dann stundenlange Arbeit in einem Commit steckt, er aber nicht
 hochgeladen werden kann, weil eine dieser Restriktionen es verbietet,
 ist die Frustration groß (und diesen Commit zu korrigieren, ist auch
-nicht ganz trivial, siehe 'Rebase', <<sec.rebase>>).
+nicht ganz trivial, siehe _Rebase_, <<sec.rebase>>).
 
 Auf Branch-Ebene ist es sinnvoll, nur einer eingeschränkten Gruppe von
-Entwicklern Zugriff auf ``wichtige'' Branches zu geben (wie
+Entwicklern Zugriff auf "`wichtige`" Branches zu geben (wie
 z.B.{empty}{nbsp}`master`). Allerdings geht natürlich eine strikte
 Kontrolle, wer was machen darf, erheblich zu Lasten der Flexibilität,
 und gerade diese Flexibilität macht das Branching in Git so praktisch.
@@ -779,7 +780,7 @@ remote: Total 130 (delta 54), reused 0 (delta 0)
 
 Der Git-Daemon exportiert ein Repository aber nur, wenn eine Datei
 `git-daemon-export-ok` im `.git`-Verzeichnis angelegt
-wird (wie oben geschehen; im Falle von 'Bare Repositories' muss
+wird (wie oben geschehen; im Falle von _Bare Repositories_ muss
 dies natürlich im Verzeichnis selbst geschehen). Dies erfolgt aus
 Sicherheitsgründen: So können etwa unter
 `/var/git/repositories` viele (auch private) Repositories
@@ -790,7 +791,7 @@ Der Daemon akzeptiert allerdings die Option `--export-all`,
 die diese Restriktion aufhebt und alle Repositories in allen
 Unterverzeichnissen exportiert.
 
-Eine weitere wichtige Einstellung ist der 'Base Path', also der
+Eine weitere wichtige Einstellung ist der _Base Path_, also der
 Pfad, in dem die eigentlichen Git-Repositories liegen. Startet man den
 Git-Daemon wie folgt:
 
@@ -800,7 +801,7 @@ $ *git daemon --base-path=/var/git/repositories /var/git/repositories*
 --------
 
 
-wird jeder Anfrage nach einem Git-Repository der 'Base Path'
+wird jeder Anfrage nach einem Git-Repository der _Base Path_
 vorangestellt. Nun können Nutzer ein Repository mit der Adresse
 `git://<server>/<projekt>.git` klonen, anstatt
 das umständliche
@@ -814,7 +815,7 @@ verwenden.
 Im Regelfall soll der Git-Daemon eine große Anzahl von Repositories
 ständig ausliefern. Dafür läuft er ständig im Hintergrund oder wird
 für jede Anfrage neu gestartet. Letztere Aufgabe übernimmt
-typischerweise der aus OpenBSD stammende 'Inetd'. Damit das
+typischerweise der aus OpenBSD stammende _Inetd_. Damit das
 funktioniert, muss lediglich folgende (eine!)  Zeile in die
 `/etc/inetd.conf` eingetragen werden:
 
@@ -859,7 +860,7 @@ starten.footnote:[In manchen Distributionen, wie
 
 Debian bietet ein Paket `git-daemon-run` an, das
 Konfigurationsdateien für `sv`{empty}footnote:[Das Programm `sv` ist Teil des
-  Init-Frameworks 'runit'
+  Init-Frameworks _runit_
   (http://smarden.org/runit/). Es ersetzt die Funktionalität
   des SysV-Init, kann aber auch darin integriert werden.]
 enthält. Das Paket erstellt im wesentlichen einen Nutzer
@@ -870,7 +871,7 @@ Repositories liegen:
 --------
 #!/bin/sh
 exec 2>&1
-echo 'git-daemon starting.'
+echo _git-daemon starting._
 exec git-daemon --verbose --listen=203.0.113.1 --user=git --group=git \
   --reuseaddr --base-path=/var/git/repositories /var/git/repositories
 --------
@@ -932,7 +933,7 @@ konsultieren.
 gleichzeitige Verbindungen. Mit dieser Optionen können Sie die Anzahl
 erhöhen. Ein Wert von 0 lässt beliebig viele Verbindungen
 zu.footnote:[Beachten Sie, dass eine Instanz des Git-Daemons nicht
-``teuer'' ist. Das Zusammenpacken der angeforderten Objekte ist es
+"`teuer`" ist. Das Zusammenpacken der angeforderten Objekte ist es
 allerdings. Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro
 Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl
 Git-Verbindungen schafft.]
@@ -954,7 +955,7 @@ Interfaces, über das die Verbindung eingeht, ersetzt, und `%D` durch
 den angegebenen Pfad. Mit einem Template von `/repos/%IP%D`
 erscheint bei einem `git clone git://localhost/testrepo` die folgende
 Nachricht in den Logfiles: `Interpolated dir
-'/repos/127.0.0.1/testrepo'` (weil die Verbindung über das
+_/repos/127.0.0.1/testrepo_` (weil die Verbindung über das
 Loopback-Interface zustande kommt). Für jedes Interface, auf dem der
 Git-Daemon läuft, muss in diesem Fall in `/repos/` ein
 Unterverzeichnis mit der entsprechenden IP-Adresse des Interfaces
@@ -987,7 +988,7 @@ Berechtigung vergeben.
 == Gitweb: Das integrierte Web-Frontend
 
 Git kommt mit einem integrierten, browserbasierten Frontend, genannt
-'Gitweb'. Über das Frontend lässt sich die gesamte
+_Gitweb_. Über das Frontend lässt sich die gesamte
 Versionsgeschichte eines Projekts durchsuchen: Jeder Commit kann mit
 allen Details angezeigt werden, Unterschiede zwischen Commits, Dateien
 oder Branches ebenso wie alle Log-Nachrichten. Außerdem kann jeder
@@ -1064,7 +1065,7 @@ werden kann. Diese URLs erscheinen in der Projektübersicht und sind
 sehr hilfreich, um Leuten schnellen Zugriff auf den Quellcode zu
 geben, nachdem sie sich einen kurzen Überblick verschafft haben. Geben
 Sie am besten die URL an, unter der Ihr Git-Daemon erreichbar ist,
-also z.B.  `('git://git.example.com')`.
+also z.B.  `(_git://git.example.com_)`.
 
 `$projects_list`:: Zuordnung von Projekten und ihren Besitzern.
 Diese Projektliste kann automatisch von Gitolite erzeugt werden; siehe
@@ -1085,7 +1086,7 @@ Konfiguration für Gitweb ausreichen:
 $projects_list = "/var/git/projects.list";
 $projectroot = "/var/git/repositories";
 $export_ok = "git-daemon-export-ok";
-@git_base_url_list = ('git://example.com');
+@git_base_url_list = (_git://example.com_);
 --------
 
 
@@ -1177,7 +1178,7 @@ image::gitweb-commitdiff.png[id="fig.gitweb-commitdiff",scaledwidth="90%",width=
 [[sec.cgit]]
 == CGit – CGI for Git
 
-CGit (``CGI für Git'') ist ein alternatives Webfrontend. Im
+CGit ("`CGI für Git`") ist ein alternatives Webfrontend. Im
 Gegensatz zu Gitweb, das komplett in Perl geschrieben ist, ist CGit in
 C geschrieben und arbeitet, wo möglich, mit Caching. Dadurch ist es
 viel schneller als Gitweb.
@@ -1194,8 +1195,8 @@ $ *git clone git://git.zx2c4.com/cgit*
 ...
 $ *cd cgit*
 $ *git submodule init*
-Submodule \'git' (git://git.kernel.org/pub/scm/git/git.git) registered
-for path \'git'
+Submodule \_git_ (git://git.kernel.org/pub/scm/git/git.git) registered
+for path \_git_
 $ *git submodule update*
 &lt;Git-Sourcen werden heruntergeladen.&gt;
 --------
@@ -1228,7 +1229,7 @@ image::cgit-overview.png[id="fig.cgit-overview",scaledwidth="90%",width="90%"]
 === CGit und Apache und Lighttpd
 
 Die Einbindung in Apache und Lighttpd erfolgt ähnlich. Da CGit
-allerdings ``hübschere'' URLs verwendet (wie z.B. `http://git.example.com/dwm/tree/dwm.c` für die Datei
+allerdings "`hübschere`" URLs verwendet (wie z.B. `http://git.example.com/dwm/tree/dwm.c` für die Datei
 `dwm.c` aus dem `dwm`-Repository), muss ein wenig
 Aufwand betrieben werden, um die URLs umzuschreiben.
 
@@ -1286,7 +1287,7 @@ Git-Protokoll) heruntergeladen werden kann (analog zu
 
 `enable-index-links`:: Wenn auf 1 gesetzt, erscheint in der Auflistung
 der Repositories eine weitere Spalte, mit direkten Links zu den Tabs
-``summary'', ``log'' und ``tree''.
+"`summary`", "`log`" und "`tree`".
 
 `enable-gitweb-owner`:: Wenn auf 1 gesetzt, dann wird der Eigentümer
 aus der Konfiguration `gitweb.owner` des Git-Repositorys
@@ -1300,7 +1301,7 @@ die Anzahl der geänderten Dateien stehen.
 hinzugekommenen/entfernten Zeilen an.
 
 `scan-path`:: Pfad, den CGit nach Git-Repositories durchsuchen
-soll. Achtung: Diese Option berücksichtigt 'nicht', ob das Repository
+soll. Achtung: Diese Option berücksichtigt _nicht_, ob das Repository
 durch die Datei `git-daemon-export-ok` freigegeben wurde (siehe auch
 `project-list`)! Beachten Sie außerdem, dass die auf diese Weise
 hinzugefügten Repositories nur die Einstellungen erben, die bis dahin
@@ -1331,7 +1332,7 @@ Default werden keine angeboten. Möglich sind `tar`, `tar.gz`,
 Leerzeichen getrennt an.
 
 `virtual-root`:: Legt fest, welche URL CGit jedem Link voranstellen
-soll. Sofern Sie CGit auf ``oberster'' Ebene, also
+soll. Sofern Sie CGit auf "`oberster`" Ebene, also
 z.B.{empty}{nbsp}`http://git.example.com`, laufen lassen wollen, sollte diese
 Option den Wert `/` erhalten (dies ist vor allem notwendig, wenn Sie
 Lighttpd verwenden). Wollen Sie CGit stattdessen in einem
@@ -1415,11 +1416,11 @@ Cache enthält. Der Default-Wert ist 0, also ist Caching
 ausgeschaltet. Ein Wert ab 500 sollte selbst für große Seiten reichen.
 
 `cache-<typ>-ttl`:: Zeit in Minuten, die ein Cache-Eintrag als
-``aktuell'' gilt. Die Zeit können Sie für einzelne Seiten speziell
+"`aktuell`" gilt. Die Zeit können Sie für einzelne Seiten speziell
 konfigurieren. Mögliche Typen sind: `scanrc` für das Ergebnis von
 `scan-path`, `root` für die Auflistung der Repositories, `repo` für
-die ``Startseite'' eines Repositorys sowie `dynamic` bzw.  `static`
-für die ``dynamischen'' Seiten (wie z.B.  für Branch-Namen)
+die "`Startseite`" eines Repositorys sowie `dynamic` bzw.  `static`
+für die "`dynamischen`" Seiten (wie z.B.  für Branch-Namen)
 bzw. statische Seiten (wie z.B. für einen Commit, der anhand seiner
 SHA-1-Summe identifiziert wird). Per Default sind diese Werte auf fünf
 Minuten gesetzt, bis auf `scanrc` (15).
@@ -1428,7 +1429,7 @@ Minuten gesetzt, bis auf `scanrc` (15).
 
 Ein weiterer wichtiger Faktor, der beeinflusst, wie schnell sich die
 Index-Seite aufbaut, ist die Verwendung von sogenannten
-'Agefiles'. Die Spalte 'Idle' (``untätig'') wird
+_Agefiles_. Die Spalte _Idle_ ("`untätig`") wird
 normalerweise jedes Mal neu erzeugt, indem CGit die Branches jedes
 Repositorys durchgeht und das Alter notiert. Das ist allerdings nicht
 sehr schnell.
@@ -1442,8 +1443,8 @@ Sie dieses Kommando im Hook `post-update`:
 mkdir -p info/web || exit 1
 git for-each-ref \
     --sort=-committerdate \
-    --format='%(committerdate:iso8601)' \
-    --count=1 'refs/heads/*' \
+    --format=_%(committerdate:iso8601)_ \
+    --count=1 _refs/heads/*_ \
     > info/web/last-modified
 --------
 

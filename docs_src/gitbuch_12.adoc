@@ -53,7 +53,7 @@ $ *sudo aptitude install git-all*
 --------
 
 Unter Ubuntu können Sie analog das Paket `git-all` über die
-grafische Paketverwaltung 'Synaptic' installieren.
+grafische Paketverwaltung _Synaptic_ installieren.
 
 [[sec.fedora]]
 === Fedora
@@ -79,7 +79,7 @@ grafische Tool zum Erstellen von Commits (`git gui`) sowie der
 Zusatz zum Verschicken von E-Mails (`git send-email`) werden
 per Default installiert. Wenn Sie zusätzlich noch eine grafische
 Benutzerschnittstelle zum Betrachten und Bearbeiten der Geschichte
-(`gitk`) haben möchten, aktivieren Sie das 'USE-Flag'{empty}{nbsp}`tk`. Sollten Sie vorhaben, die Subversion-Schnittstelle zu
+(`gitk`) haben möchten, aktivieren Sie das _USE-Flag_{empty}{nbsp}`tk`. Sollten Sie vorhaben, die Subversion-Schnittstelle zu
 verwenden, aktivieren Sie das USE-Flag `subversion`. Zur
 Installation via Portage geben Sie folgenden Befehl ein:
 
@@ -127,15 +127,15 @@ Mit `make prefix=<praefix>` können Sie Git nach
 [[sec.osx]]
 == Mac OS X
 
-Das Projekt 'Git for OS X' stellt ein Installationsprogramm im
+Das Projekt _Git for OS X_ stellt ein Installationsprogramm im
 Diskimage-Format (DMG) zur Verfügung.footnote:[http://code.google.com/p/git-osx-installer/]
 Sie können es also wie gewohnt installieren.
 
 [[sec.windows]]
 == Windows
 
-Das Projekt 'Git for Windows' stellt ein Installationsprogramm für
-Microsoft Windows zur Verfügung: 'msysGit'. Sie können das
+Das Projekt _Git for Windows_ stellt ein Installationsprogramm für
+Microsoft Windows zur Verfügung: _msysGit_. Sie können das
 Programm herunterladen{empty}footnote:[https://msysgit.github.io/]
 und wie gewohnt installieren.
 

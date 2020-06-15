@@ -1,18 +1,19 @@
 // adapted from: "vorwort.txt"
 
 [preface]
-[[chap.vorwort]]
-= Vorwort
+[[chap.preface]]
+= Preface
+// Vorwort
 
 
 Git wurde Anfang 2005 von Linus Torvalds, dem Initiator
 und heutigen Maintainer des Linux-Kernels, entwickelt. Für die
 Verwaltung der Kernel-Quellen hatte sich das Entwickler-Team zunächst
-für das kommerzielle Versionsverwaltungssystem 'BitKeeper'
+für das kommerzielle Versionsverwaltungssystem _BitKeeper_
 entschieden.  Probleme traten auf, als die Firma hinter BitKeeper, die
 das Tool dem Projekt kostenfrei zur Verfügung stellte, einen
 Entwickler beschuldigte, die Mechanismen der Software durch
-'Reverse Engineering' offenzulegen.  Daraufhin beschloss
+_Reverse Engineering_ offenzulegen.  Daraufhin beschloss
 Torvalds, ein neues Versionskontrollsystem zu schreiben.
 
 Der bloße Umstieg auf ein anderes System bot sich nicht an: Die
@@ -23,7 +24,7 @@ kleinen Versionssprung (z.B. 2.6.35 nach 2.6.36) liegen über
 500000 geänderte Zeilen in knapp 1000 Dateien.  Verantwortlich
 dafür sind über 1000 Einzelpersonen.
 
-Welche also waren die 'Design Goals' des neuen Programms?  Zwei
+Welche also waren die _Design Goals_ des neuen Programms?  Zwei
 Eigenschaften kristallisierten sich rasch als Design-Ziele heraus:
 Schnelligkeit bzw. Performance und überprüfbare Integrität der
 verwalteten Daten.
@@ -31,7 +32,7 @@ verwalteten Daten.
 Nach nur wenigen Wochen Arbeit war eine erste Version von Git in der
 Lage, den eigenen Quellcode zu verwalten. Als kleine
 Shell-Script-Sammlung mit performance-kritischen Teilen in C
-implementiert war die Version von einem ``ausgewachsenen''
+implementiert war die Version von einem "`ausgewachsenen`"
 Versionskontrollsystem jedoch noch weit entfernt.
 
 Seit Version 1.5 (Februar 2007) bietet Git ein neues und
@@ -100,7 +101,7 @@ verwandten Formaten geschrieben sind.
 man ein Git-Repository und verwaltet Dateien darin? Außerdem werden
 die wichtigsten Konfigurationseinstellungen behandelt.
 
-<<ch.interna>> behandelt zwei wesentliche Konzepte von Git: Den
+<<ch.basics>> behandelt zwei wesentliche Konzepte von Git: Den
 Index und das Objektmodell. Neben weiteren wichtigen Kommandos, die
 dort vorgestellt werden, ist das Verständnis dieser beiden Konzepte
 von großer Wichtigkeit für den sicheren Umgang mit Git.
@@ -115,7 +116,7 @@ allen voran das Rebase-Kommando, ein unerlässliches Werkzeug für jeden
 Git-Profi. Es folgen weitere wichtige Kommandos, wie Blame, Stash und
 Bisect.
 
-Erst <<sec.verteiltes-git>> beschäftigt sich mit den verteilten Aspekten von
+Erst <<sec.distributed-git>> beschäftigt sich mit den verteilten Aspekten von
 Git: Wie kann man Veränderungen zwischen Repositories austauschen, wie
 können Entwickler zusammenarbeiten? Das anschließende <<sec.workflows>>
 gibt außerdem einen Überblick zu Strategien, wie Sie
@@ -131,7 +132,7 @@ lesen.
 Git-Diensten: zwei Web-basierte Repository-Browser und die
 Zugriffsverwaltung für gehostete Repositories mit Gitolite.
 
-<<ch.scripting>> fasst diverse Aspekte der Automatisierung zusammen: Wie
+<<ch.automation>> fasst diverse Aspekte der Automatisierung zusammen: Wie
 Sie Hooks und eigene Git-Kommandos schreiben und bei Bedarf die
 komplette Versionsgeschichte umschreiben.
 
@@ -142,7 +143,7 @@ heraus mit Subversion zu sprechen.
 
 Die Anhänge beschäftigen sich mit der Installation und der
 Integration von Git in die Shell. Ein Ausblick auf den Hosting-Service
-'Github' sowie eine detaillierte Beschreibung der Struktur und
+_Github_ sowie eine detaillierte Beschreibung der Struktur und
 Wartungsmechanismen eines Git-Repositorys liefern weitere
 Hintergrundinformationen.
 
@@ -178,19 +179,19 @@ gestelzt und sind aufgrund der Wortwahl häufig verwirrend.
 Außerdem finden Sie für originale, also
 englische Fehlermeldungen online schneller Hilfe.
 
-Neu eingeführte Begriffe sind 'kursiv' gesetzt, teilweise mit
+Neu eingeführte Begriffe sind _kursiv_ gesetzt, teilweise mit
 deutscher Entsprechung in Klammern dahinter. Die meisten
 Git-spezifischen Termini verwenden wir im Original mit von der
-Übersetzung abgeleitetem Artikel, z.B. der ``Branch'' statt der ``Zweig''.
+Übersetzung abgeleitetem Artikel, z.B. der "`Branch`" statt der "`Zweig`".
 
 [[sec.install-git-repo]]
-== Installation und ``das Git-Repository''
+== Installation und "`das Git-Repository`"
 
 Die Installation von Git beschreiben wir ausführlich in <<sec.installation>>.
 Einige Beispiele verwenden das
 Quell-Repository von Git, also das Repository, in dem Git aktiv
 entwickelt wird. In englischsprachiger Dokumentation heißt dieses
-Repository auch 'Git-via-Git' oder 'git.git'.
+Repository auch _Git-via-Git_ oder _git.git_.
 
 Nachdem Sie Git installiert haben, können Sie sich das Repository mit
 folgendem Befehl herunterladen:
@@ -250,7 +251,7 @@ Subversion-Kommandos, mit der Sie Ihr Subversion-Wissen in die
 Git-Welt übertragen.
 
 Außerdem sei auf
-'Stack Overflow'{empty}footnote:[http://stackoverflow.com]
+_Stack Overflow_{empty}footnote:[http://stackoverflow.com]
 hingewiesen, eine Plattform von Programmierern für Programmierer, auf
 der technische Fragestellungen, u.a. zu Git, erörtert werden.
 
@@ -280,7 +281,7 @@ und gefördert haben.
 
 Valentin Haenel und Julius Plenz – Berlin, Juni 2011
 
-[[chap.vorwort-2te-auflage]]
+[[chap.preface-2te-auflage]]
 == Vorwort zur 2. Auflage
 
 Wir haben uns in der 2. Auflage darauf beschränkt, die
@@ -298,10 +299,10 @@ Schlichting, Markus Weber.
 
 Valentin Haenel und Julius Plenz – Berlin, September 2014
 
-[[chap.vorwort-cc-ausgabe]]
+[[chap.preface-cc-ausgabe]]
 == Vorwort zur CreativeCommons-Ausgabe
 
-Der Verlag 'Open Source Press', der uns initial überzeugte, überhaupt
+Der Verlag _Open Source Press_, der uns initial überzeugte, überhaupt
 dieses Buch zu schreiben und es die vergangenen Jahre über verlegte, hat
 zum 31.12.2015 den Betrieb eingestellt, und sämtliche Rechte an den
 veröffentlichten Texten an die Autoren zurückübertragen. Wir danken

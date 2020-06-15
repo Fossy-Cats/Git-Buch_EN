@@ -1,7 +1,10 @@
 // adapted from: "praxis.txt"
 
 [[chap.praxis]]
-= Praktische Versionsverwaltung
+= Practical Version Control
+// Praktische Versionsverwaltung
+
+// @NOTE: Chapter title could be translated better!
 
 Das folgende Kapitel stellt alle wesentlichen Techniken vor, die Sie
 im täglichen Umgang mit Git einsetzen werden. Neben einer
@@ -12,11 +15,11 @@ Branches.
 [[sec.branches]]
 == Referenzen: Branches und Tags
 
-``Branch'' und ``Merge'' sind im CVS-/SVN-Umfeld für
+"`Branch`" und "`Merge`" sind im CVS-/SVN-Umfeld für
 Neulinge oft ein Buch mit sieben Siegeln, für Könner regelmäßig Grund
 zum Haare raufen.  In Git sind das Abzweigen im Entwicklungszyklus
-('Branching') und das anschließende Wiederzusammenführen
-('Merging') alltäglich, einfach, transparent und schnell. Es
+(_Branching_) und das anschließende Wiederzusammenführen
+(_Merging_) alltäglich, einfach, transparent und schnell. Es
 kommt häufig vor, dass ein Entwickler an einem Tag mehrere Branches
 erstellt und mehrere Merges durchführt.
 
@@ -27,10 +30,10 @@ erläuterten Commit-Graphen. Jeder Commit stellt eine Zeile dar.
 Branches werden als grüne Labels, Tags als gelbe Zeiger dargestellt.
 Für weitere Informationen siehe <<sec.gitk>>.
 
-.Das Beispiel-Repository aus <<ch.interna>> in Gitk. Zur Illustration wurde der zweite Commit mit  dem Tag `v0.1` versehen.
+.Das Beispiel-Repository aus <<ch.basics>> in Gitk. Zur Illustration wurde der zweite Commit mit  dem Tag `v0.1` versehen.
 image::gitk-basic.png[id="fig.gitk-basic",scaledwidth="90%",width="90%"]
 
-Da Branches in Git ``billig'' und Merges einfach sind, können
+Da Branches in Git "`billig`" und Merges einfach sind, können
 Sie es sich leisten, Branches exzessiv zu verwenden.  Sie wollen etwas
 probieren, einen kleinen Bugfix vorbereiten oder mit einem
 experimentellen Feature beginnen? Für all das erstellen Sie jeweils
@@ -59,7 +62,7 @@ $ *cat .git/refs/heads/master*
 ===================
 Wenn Git sehr viele Referenzen verwalten muss, liegen diese nicht
 zwingend als Dateien unterhalb von `.git/refs/`. Git erstellt
-dann stattdessen einen Container, der 'gepackte Referenzen' ('Packed
+dann stattdessen einen Container, der _gepackte Referenzen_ ('Packed
 Refs') enthält: Eine Zeile pro Referenz mit Name und SHA-1-Summe. Das
 sequentielle Auflösen vieler Referenzen geht dann schneller.
 Git-Kommandos suchen Branches und Tags in der Datei `.git/packed-refs`, wenn die entsprechende Datei
@@ -67,13 +70,13 @@ Git-Kommandos suchen Branches und Tags in der Datei `.git/packed-refs`, wenn die
 ===================
 
 Unterhalb von `.git/refs/` gibt es verschiedene Verzeichnisse,
-die für die ``Art'' von Referenz stehen. Fundamental
+die für die "`Art`" von Referenz stehen. Fundamental
 unterscheiden sich diese Referenzen aber nicht, lediglich darin, wann
 und wie sie angewendet werden. Die Referenzen, die Sie am häufigsten
-verwenden werden, sind Branches. Sie sind unter `.git/refs/heads/` gespeichert. 'Heads' bezeichnet das,
-was in anderen Systemen zuweilen auch ``Tip'' genannt wird:
+verwenden werden, sind Branches. Sie sind unter `.git/refs/heads/` gespeichert. _Heads_ bezeichnet das,
+was in anderen Systemen zuweilen auch "`Tip`" genannt wird:
 Den neuesten Commit auf einem Entwicklungsstrang.footnote:[Das hindert Sie natürlich nicht, einen
-  Branch auf einen Commit ``irgendwo in der Mitte'' zu setzen,
+  Branch auf einen Commit "`irgendwo in der Mitte`" zu setzen,
   was auch sinnvoll sein kann.]  Branches rücken weiter, wenn Sie
 Commits auf einem Branch erstellen -- sie bleiben also an der Spitze
 der Versionsgeschichte.
@@ -101,14 +104,14 @@ ref: refs/heads/master
 
 `HEAD` kann auch direkt auf einen Commit zeigen, wenn Sie
 `git checkout <commit-id>` eingeben. Sie sind dann
-allerdings im sogenannten 'Detached-Head'-Modus, in dem Commits
+allerdings im sogenannten _Detached-Head_-Modus, in dem Commits
 möglicherweise verlorengehen, siehe auch
 <<sec.detached-head>>.
 
 Der `HEAD` bestimmt, welche Dateien im Working Tree zu finden
 sind, welcher Commit Vorgänger bei der Erstellung eines neuen wird,
 welcher Commit per `git show` angezeigt wird etc.  Wenn wir
-hier von ``dem aktuellen Branch'' sprechen, dann ist damit
+hier von "`dem aktuellen Branch`" sprechen, dann ist damit
 technisch korrekt der `HEAD` gemeint.
 
 Die simplen Kommandos `log`, `show` und `diff`
@@ -116,7 +119,7 @@ nehmen ohne weitere Argumente `HEAD` als erstes Argument an.
 Die Ausgabe von `git log` ist gleich der von `git log HEAD` usw. -- dies gilt für die meisten Kommandos, die auf einem
 Commit operieren, wenn Sie keinen explizit angeben. `HEAD` ist
 somit vergleichbar mit der Shell-Variable `PWD`, die angibt
-``wo man ist''.
+"`wo man ist`".
 
 Wenn wir von einem Commit sprechen, dann ist es einem Kommando in der
 Regel egal, ob man die Commit-ID komplett oder verkürzt angibt oder
@@ -146,15 +149,15 @@ Besonders wichtig sind dafür die Suffixe `^` und `~<n>`. Die Syntax
 aber nicht immer eindeutig sein: Wenn zwei oder mehr Branches
 zusammengeführt wurden, hat der Merge-Commit mehrere direkte
 Vorfahren. `<ref>^` bzw. `<ref>^1` bezeichnen dann den ersten
-'direkten' Vorfahren, `<ref>^2` den zweiten usw.footnote:[Aufgrund der
+_direkten_ Vorfahren, `<ref>^2` den zweiten usw.footnote:[Aufgrund der
 Tatsache, dass bei einem Merge die Reihenfolge der direkten Vorfahren
-gespeichert wird, ist es wichtig, immer vom kleineren 'in' den
+gespeichert wird, ist es wichtig, immer vom kleineren _in_ den
 größeren Branch zu mergen, also z.B.{empty}{nbsp}`topic` nach `master`. Wenn Sie
 dann mit `master^^` Commits im Master-Branch untersuchen wollen,
 landen Sie nicht auf einmal auf Commits aus dem Topic-Branch (siehe
 auch <<sec.merge>>).]  Die Syntax `HEAD^^` bedeutet also ``der zwei
 Ebenen vorher liegende direkte Vorfahre des aktuellen
-Commits''. Achten Sie darauf, dass `^` in Ihrer Shell möglicherweise
+Commits__. Achten Sie darauf, dass `^` in Ihrer Shell möglicherweise
 eine spezielle Bedeutung hat und Sie es durch Anführungszeichen oder
 mit einem Backslash schützen müssen.
 
@@ -162,7 +165,7 @@ mit einem Backslash schützen müssen.
 image::relative-refs.png[id="fig.relative-refs",scaledwidth="65%",width="65%"]
 
 Die Syntax `<ref>~<n>` kommt einer
-'n'-fachen Wiederholung von `^` gleich:
+_n_-fachen Wiederholung von `^` gleich:
 `HEAD~10` bezeichnet also den zehnten direkten
 Vorgänger des aktuellen Commits. Achtung: Das heißt nicht, dass
 zwischen `HEAD` und `HEAD~10` nur elf
@@ -170,7 +173,7 @@ Commits liegen: Da `^` bei einem etwaigen Merge nur dem
 ersten Strang folgt, liegen zwischen den beiden Referenzen die elf
 und alle durch einen Merge integrierten weiteren Commits.
 Die Syntax ist übrigens in der Man-Page `git-rev-parse(1)` im Abschnitt
-``Specifying Revisions'' dokumentiert.
+"`Specifying Revisions`" dokumentiert.
 
 
 [[sec.branch-management]]
@@ -206,8 +209,8 @@ Hier eine Übersicht der wichtigsten Optionen:
 $ *git branch -v*
   maint  65f13f2 Start 1.7.5.1 maintenance track
 * master 791a765 Update draft release notes to 1.7.6
-  next   b503560 Merge branch \'master' into next
-  pu     d7a491c Merge branch \'js/info-man-path' into pu
+  next   b503560 Merge branch \_master_ into next
+  pu     d7a491c Merge branch \_js/info-man-path_ into pu
 --------
 
 `git branch <branch> [<ref>]`:: Erstellt einen neuen
@@ -228,7 +231,7 @@ In der ersten Form
 [subs="macros,quotes"]
 --------
 $ *git branch -m master*
-fatal: A branch named \'master' already exists.
+fatal: A branch named \_master_ already exists.
 --------
 +
 Wenn Sie einen Branch umbenennen, gibt Git keine Meldung aus. Sie können
@@ -312,7 +315,7 @@ beiden Branches verträglich sind, übernimmt ein Checkout diese
 --------
 $ *git checkout master*
 A   neue-datei.txt
-Switched to branch 'master'
+Switched to branch _master_
 --------
 
 Das bedeutet, dass die Datei `neue-datei.txt` hinzugefügt
@@ -320,8 +323,8 @@ wurde, die auf keinem der beiden Branches existiert. Da hier also
 keine Informationen verlorengehen können, wird die Datei einfach
 übernommen. Die Meldung: `A neue-datei.txt` erinnert Sie, um
 welche Dateien Sie sich noch kümmern sollten.  Dabei steht `A`
-für hinzugefügt ('added'), `D` für gelöscht ('deleted')
-und `M` für geändert ('modified').
+für hinzugefügt (_added_), `D` für gelöscht (_deleted_)
+und `M` für geändert (_modified_).
 
 Wenn Sie ganz sicher sind, dass Sie Ihre Änderungen nicht mehr
 brauchen, können Sie per `git checkout -f` die Fehlermeldungen
@@ -346,11 +349,11 @@ Kleinbuchstaben angeben. Da Git Branch-Namen unter
 `.git/refs/heads/` als Dateien verwaltet, ist die Groß- und
 Kleinschreibung wesentlich.
 
-Sie können Branches in ``Namespaces'' gruppieren, indem Sie
+Sie können Branches in "`Namespaces`" gruppieren, indem Sie
 als Separator einen `/` verwenden. Branches, die mit der
 Übersetzung einer Software zu tun haben, können Sie dann z.B.{empty}{nbsp}`i18n/german`, `i18n/english` etc. nennen. Auch können
 Sie, wenn sich mehrere Entwickler ein Repository teilen,
-``private'' Branches unter `<username>/<topic>`
+"`private`" Branches unter `<username>/<topic>`
 anlegen. Diese Namespaces werden durch eine Verzeichnisstruktur
 abgebildet, so dass dann unter `.git/refs/heads/` ein
 Verzeichnis `<username>/` mit der Branch-Datei `<topic>`
@@ -358,20 +361,20 @@ erstellt wird.
 
 Der Hauptentwicklungszweig Ihres Projekts sollte immer `master`
 heißen. Bugfixes werden häufig auf einem Branch `maint` (kurz
-für ``maintenance'') verwaltet. Das nächste Release wird
+für "`maintenance`") verwaltet. Das nächste Release wird
 meist auf `next` vorbereitet. Features, die sich noch in einem
 experimentellen Zustand befinden, sollten in `pu` (für
-``proposed updates'') entwickelt werden oder in
+"`proposed updates`") entwickelt werden oder in
 `pu/<feature>`. Eine detailliertere Beschreibung, wie Sie mit
 Branches die Entwicklung strukturieren und Release-Zyklen
 organisieren, finden Sie in <<sec.workflows>> über Workflows.
 
 
 [[sec.no-ref-commits]]
-==== Gelöschte Branches und ``verlorene'' Commits
+==== Gelöschte Branches und "`verlorene`" Commits
 
 Commits kennen jeweils einen oder mehrere Vorgänger. Daher kann man
-den Commit-Graphen ``gerichtet'', d.h. von neueren zu
+den Commit-Graphen "`gerichtet`", d.h. von neueren zu
 älteren Commits, durchlaufen, bis man an einem Wurzel-Commit ankommt.
 
 Andersherum geht das nicht: Wenn ein Commit seinen Nachfolger kennen
@@ -383,20 +386,20 @@ müsste usw.  Git kann also die Commits nur von einer benannten
 Referenz aus (z.B.  ein Branch oder `HEAD`) in Richtung
 früherer Commits durchgehen.
 
-Wenn daher die ``Spitze'' eines Branches gelöscht wird, wird
+Wenn daher die "`Spitze`" eines Branches gelöscht wird, wird
 der oberste Commit nicht mehr referenziert (im Git-Jargon:
-'unreachable'). Dadurch wird der Vorgänger nicht mehr
+_unreachable_). Dadurch wird der Vorgänger nicht mehr
 referenziert usw. -- bis der nächste Commit auftaucht, der irgendwie
 referenziert wird (sei es von einem Branch oder dadurch, dass er einen
 Nachfolger hat, der wiederum von einem Branch referenziert wird).
 
 Wenn Sie einen Branch löschen, werden die Commits auf diesem Branch
-also nicht gelöscht, sie gehen nur ``verloren''. Git findet
+also nicht gelöscht, sie gehen nur "`verloren`". Git findet
 sie einfach nicht mehr.
 
 In der Objektdatenbank sind sie allerdings noch eine Weile lang
 vorhanden.footnote:[Wie lange sie dort verweilen, bestimmen Sie
-  mit entsprechenden Einstellungen für die 'Garbage Collection'
+  mit entsprechenden Einstellungen für die _Garbage Collection_
   (Wartungsmechanismen), siehe <<sec.gc>>.]  Sie können also
 einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen
 (und vermeintlich gelöschten) Commit explizit als Referenz angeben:
@@ -409,7 +412,7 @@ $ *git branch test e32bf29*
 --------
 
 Eine weitere Möglichkeit, gelöschte Commits wiederzufinden, ist das
-'Reflog' (siehe dafür <<sec.reflog>>).
+_Reflog_ (siehe dafür <<sec.reflog>>).
 
 [[sec.tags]]
 === Tags – Wichtige Versionen markieren
@@ -420,10 +423,10 @@ unhandlich. Im Gegensatz zu linearen Revisionsnummern sagen uns
 Commit-IDs allein nichts über die Reihenfolge der Versionen.
 
 Während der Entwicklung von Softwareprojekten müssen
-verschiedene ``wichtige'' Versionen so markiert
+verschiedene "`wichtige`" Versionen so markiert
 werden, dass sie leicht in dem Repository zu finden sind. Die
 wichtigsten sind meist solche, die veröffentlicht werden, die
-sogenannten 'Releases'.  Auch 'Release Candidates' werden
+sogenannten _Releases_.  Auch _Release Candidates_ werden
 häufig auf diese Weise markiert, also Versionen, die die Basis für die
 nächste Version bilden und im Zuge der Qualitätssicherung auf
 kritische Fehler untersucht werden, ohne dass neue Features
@@ -432,8 +435,8 @@ verschiedene Konventionen, um Releases zu bezeichnen, und Abläufe, wie
 sie vorbereitet und publiziert werden.
 
 Im Open-Source-Bereich haben sich zwei Versionierungsschemata
-durchgesetzt: die klassische 'Major/Minor/Micro-Versionierung'
-und neuerdings auch die 'datumsbasierte Versionierung'. Bei der
+durchgesetzt: die klassische _Major/Minor/Micro-Versionierung_
+und neuerdings auch die _datumsbasierte Versionierung_. Bei der
 Major/Minor/Micro-Versionierung, welche z.B. beim Linux-Kernel und
 auch Git eingesetzt wird, ist eine Version durch drei (oft auch vier)
 Zahlen gekennzeichnet: `2.6.39` oder `1.7.1`. Bei der
@@ -443,25 +446,25 @@ Zeitpunkt des Releases abgeleitet, z.B.: `2011.05` oder
 Version leicht ersichtlich ist.footnote:[Eine
   detaillierte Übersicht der Vor- und Nachteile der beiden Schemata
   sowie eine Beschreibung des Release-Prozesses usw.  finden Sie im
-  Kapitel 6 des Buches 'Open Source Projektmanagement' von Michael
+  Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael
   Prokop (Open Source Press, München, 2010).]
 
-Git bietet Ihnen mit 'Tags' (``Etiketten'') die Möglichkeit,
+Git bietet Ihnen mit _Tags_ ("`Etiketten`") die Möglichkeit,
 beliebige Git-Objekte -- meist Commits -- zu markieren, um markante
 Zustände in der Entwicklungsgeschichte hervorzuheben. Tags sind, wie
 Branches auch, als Referenzen auf Objekte implementiert. Im Gegensatz
 zu Branches jedoch sind Tags statisch, das heißt, sie werden nicht
 verschoben, wenn neue Commits hinzukommen, und zeigen stets auf
-dasselbe Objekt. Es gibt zwei Arten von Tags: 'Annotated' (mit
-Anmerkungen versehen) und 'Lightweight'
-(``leichtgewichtig'', d.h. ohne Anmerkungen).  Annotated
+dasselbe Objekt. Es gibt zwei Arten von Tags: _Annotated_ (mit
+Anmerkungen versehen) und _Lightweight_
+("`leichtgewichtig`", d.h. ohne Anmerkungen).  Annotated
 Tags sind mit Metadaten -- z.B. Autor, Beschreibung oder
 GPG-Signatur -- versehen.  Lightweight Tags zeigen hingegen
-``einfach nur'' auf ein bestimmtes Git-Objekt. Für beide Arten
+"`einfach nur`" auf ein bestimmtes Git-Objekt. Für beide Arten
 von Tags legt Git unter `.git/refs/tags/` bzw.
 `.git/packed-refs` Referenzen an.  Der Unterschied ist,
 dass Git für jedes Annotated Tag ein spezielles Git-Objekt -- und zwar
-ein 'Tag-Objekt' -- in der Objektdatenbank anlegt, um die
+ein _Tag-Objekt_ -- in der Objektdatenbank anlegt, um die
 Metadaten sowie die SHA-1-Summe des markierten Objekts zu speichern,
 während ein Lightweight Tag direkt auf das markierte Objekt zeigt.
 <<fig.tag-objekt>> zeigt den Inhalt eines Tag-Objekts;
@@ -473,7 +476,7 @@ image::tags.png[id="fig.tag-objekt",scaledwidth="90%",width="90%"]
 Das gezeigte Tag-Objekt hat sowohl eine Größe (158 Byte) als auch eine
 SHA-1-Summe. Es enthält die Bezeichnung (`0.1`), den Objekt-Typ
 und die SHA-1-Summe des referenzierten Objekts sowie den Namen und
-E-Mail des Autors, der im Git-Jargon 'Tagger' heißt. Außerdem
+E-Mail des Autors, der im Git-Jargon _Tagger_ heißt. Außerdem
 enthält das Tag eine Tag-Message, die zum Beispiel die Version beschreibt,
 sowie optional eine GPG-Signatur. Im Git-Projekt etwa besteht eine Tag-Message
 aus der aktuellen Versionsbezeichnung und der Signatur des
@@ -563,7 +566,7 @@ erzeugen, bricht Git mit einer Fehlermeldung ab:
 [subs="macros,quotes"]
 --------
 $ *git tag pre-regression*
-fatal: tag \'pre-regression' already exists
+fatal: tag \_pre-regression_ already exists
 --------
 
 [[sec.annotated-tags]]
@@ -583,7 +586,7 @@ $ *git tag -m "Zweite Veröffentlichung" 0.2*
 ==== Signierte Tags
 
 Um ein signiertes Tag zu überprüfen, verwenden Sie die Option
-`-v` ('verify'):
+`-v` (_verify_):
 
 [subs="macros,quotes"]
 --------
@@ -610,7 +613,7 @@ Key einstellen:
 $ *git config --global user.signingkey &lt;GPG-Key-ID&gt;*
 --------
 
-Nun können Sie signierte Tags mit der Option `-s` ('sign')
+Nun können Sie signierte Tags mit der Option `-s` (_sign_)
 erstellen:
 
 [subs="macros,quotes"]
@@ -627,7 +630,7 @@ Mit den Optionen `-d` und `-f` löschen Sie Tags bzw.
 [subs="macros,quotes"]
 --------
 $ *git tag -d 0.2*
-Deleted tag \'0.2' (was 4773c73)
+Deleted tag \_0.2_ (was 4773c73)
 --------
 
 Die Optionen sind mit Vorsicht zu genießen, besonders wenn Sie die
@@ -646,7 +649,7 @@ Tags Metainformationen, aus denen zu ersehen ist, wer wann ein Tag
 erstellt hat -- der Ansprechpartner ist eindeutig.  Auch erfahren
 Benutzer einer Software so, wer eine bestimmte Version abgesegnet hat.
 Zum Beispiel ist klar, dass Junio C. Hamano die Git-Version 1.7.1
-getaggt hat -- sie hat also quasi sein ``Gütesiegel''. Die
+getaggt hat -- sie hat also quasi sein "`Gütesiegel`". Die
 Aussage bestätigt natürlich auch die kryptographische Signatur.
 Lightweight Tags hingegen eignen sich vor allem, um lokal Markierungen
 anzubringen, zum Beispiel um bestimmte, für die aktuelle Aufgabe
@@ -680,8 +683,8 @@ GPG key to sign git.git archive.
 
 Weil dieses Blob-Objekt von keinem Tree referenziert wird, ist die
 Datei quasi getrennt vom eigentlichen Code, aber dennoch im Repository
-vorhanden. Außerdem ist ein Tag auf einen ``einsamen'' Blob
-notwendig, damit dieser nicht als 'unreachable' gilt und im Zuge
+vorhanden. Außerdem ist ein Tag auf einen "`einsamen`" Blob
+notwendig, damit dieser nicht als _unreachable_ gilt und im Zuge
 der Repository-Wartung gelöscht wird.footnote:[Um einen solchen getaggten Blob in ein
   Repository aufzunehmen, bedienen Sie sich des folgenden
   Kommandos: `git tag -am "<beschreibung>" <tag-name>
@@ -703,7 +706,7 @@ verifizieren.
 [[sec.git-describe]]
 ==== Commits beschreiben
 
-Tags sind sehr nützlich, um beliebige Commits ``besser'' zu
+Tags sind sehr nützlich, um beliebige Commits "`besser`" zu
 beschreiben.  Das Kommando `git describe` gibt eine
 Beschreibung, die aus dem aktuellsten Tag und dessen relativer
 Position im Commit-Graphen besteht. Hier ein Beispiel aus dem
@@ -834,14 +837,14 @@ zurücksetzen.
 
 Wenn Sie einen Commit auschecken, der nicht durch einen Branch
 referenziert wird, befinden Sie sich im sogenannten
-'Detached-HEAD'-Modus:
+_Detached-HEAD_-Modus:
 
 [subs="macros,quotes"]
 --------
 $ *git checkout 3329661*
-Note: checking out \'3329661'.
+Note: checking out \_3329661_.
 
-You are in \'detached HEAD' state. You can look around, make
+You are in \_detached HEAD_ state. You can look around, make
 experimental changes and commit them, and you can discard any
 commits you make in this state without impacting any branches
 by performing another checkout.
@@ -860,7 +863,7 @@ Wie die Erklärung, die Sie durch setzen der Option
 schon warnt, werden Änderungen, die Sie nun tätigen, im Zweifel
 verlorengehen: Da Ihr `HEAD` danach die einzige direkte
 Referenz auf den Commit ist, werden weitere Commits nicht direkt von
-einem Branch referenziert (sie sind 'unreachable', s.o.).
+einem Branch referenziert (sie sind _unreachable_, s.o.).
 
 Im Detached-HEAD-Modus zu arbeiten bietet sich also vor allem dann an,
 wenn Sie schnell etwas probieren wollen: Ist der Fehler eigentlich
@@ -942,14 +945,14 @@ pass:quotes[\+++ /dev/null]
 
 Beachten Sie also, dass in der Versionsgeschichte eines Projekts ab
 nun sowohl der Commit als auch der Revert auftauchen. Sie machen also
-nur die 'Änderungen' rückgängig, löschen aber keine Informationen
+nur die _Änderungen_ rückgängig, löschen aber keine Informationen
 aus der Versionsgeschichte.
 
 Sie sollten daher `revert` nur einsetzen, wenn Sie eine
 Änderung, die bereits veröffentlicht wurde, rückgängig machen müssen.
 Entwickeln Sie allerdings lokal in einem eigenen Branch, ist es
 sinnvoller, diese Commits komplett zu löschen (siehe dafür den
-folgenden Abschnitt über `reset` sowie das Thema 'Rebase', <<sec.rebase>>).
+folgenden Abschnitt über `reset` sowie das Thema _Rebase_, <<sec.rebase>>).
 
 Sofern Sie einen Revert durchführen wollen, allerdings nicht für
 sämtliche Änderungen des Commits, sondern nur für die einer Datei,
@@ -958,14 +961,14 @@ können Sie sich zum Beispiel so behelfen:
 [subs="macros,quotes"]
 --------
 $ *git show -R 3329661 -- LICENSE | git apply --index*
-$ *git commit -m \'Revert change to LICENSE from 3329661'*
+$ *git commit -m \_Revert change to LICENSE from 3329661_*
 --------
 
 Das Kommando `git show` gibt die Änderungen von Commit
 `3329661` aus, die sich auf die Datei `LICENSE`
 beziehen. Die Option `-R` sorgt dafür, dass das
-Unified-Diff-Format ``andersherum'' angezeigt wird
-('reverse'). Die Ausgabe wird an `git apply`
+Unified-Diff-Format "`andersherum`" angezeigt wird
+(_reverse_). Die Ausgabe wird an `git apply`
 weitergeleitet, um die Änderungen an der Datei und dem Index
 vorzunehmen. Anschließend werden die Änderungen eingecheckt.
 
@@ -977,7 +980,7 @@ Index hinzuzufügen und neu einzuchecken:
 --------
 $ *git checkout 3329661 -- &lt;datei&gt;*
 $ *git add &lt;datei&gt;*
-$ *git commit -m \'Reverting &lt;datei&gt; to resemble 3329661'*
+$ *git commit -m \_Reverting &lt;datei&gt; to resemble 3329661_*
 --------
 
 [[sec.reset]]
@@ -1049,16 +1052,16 @@ $ *git branch master HEAD^^*
 Mit `reset` löschen Sie nicht beliebige Commits, sondern
 verschieben immer nur Referenzen. Dadurch gehen die nicht mehr
 referenzierten Commits verloren, werden also quasi gelöscht
-('unreachable'). Sie können also mit `reset` nur die
+(_unreachable_). Sie können also mit `reset` nur die
 obersten Commits auf einem Branch löschen, nicht beliebige Commits
-``irgendwo aus der Mitte'', da dies den Commit-Graphen
+"`irgendwo aus der Mitte`", da dies den Commit-Graphen
 zerstören würde. (Für das etwas kompliziertere Löschen von Commits
-``mittendrin'' siehe Rebase, <<sec.rebase>>.)
+"`mittendrin`" siehe Rebase, <<sec.rebase>>.)
 
 Git speichert den ursprünglichen `HEAD` immer unter
 `ORIG_HEAD` ab. Falls Sie also fälschlicherweise einen Reset durchgeführt haben, machen Sie diesen mit `git reset --hard ORIG_HEAD`
 rückgängig (auch wenn der Commit vermeintlich gelöscht wurde).  Das
-betrifft allerdings 'nicht' die verlorengegangenen Änderungen am
+betrifft allerdings _nicht_ die verlorengegangenen Änderungen am
 Working Tree (die Sie noch nicht eingecheckt haben) -- diese werden
 unwiderruflich gelöscht.
 
@@ -1078,11 +1081,11 @@ Ergebnis nicht, löscht ein `git reset --hard` alle
 Änderungen am Working Tree.
 
 Auch können Sie mit Hilfe von `reset` Ihre Versionsgeschichte
-``schön machen''. Wenn Sie beispielsweise ein paar Commits auf
+"`schön machen`". Wenn Sie beispielsweise ein paar Commits auf
 einem auf `master` aufbauenden Branch `<feature>`
 haben, die aber nicht  sinnvoll gegliedert (oder viel zu groß)
 sind, können Sie einen Branch `<reorder-feature>`
-erstellen und 'alle' Änderungen in neue Commits verpacken:
+erstellen und _alle_ Änderungen in neue Commits verpacken:
 
 [subs="macros,quotes"]
 --------
@@ -1098,7 +1101,7 @@ auf den Stand von `master`. Ihre Änderungen im Working Tree
 bleiben aber erhalten, d.h. alle Änderungen, die den Branch
 `<feature>` von `master` unterscheiden, sind nun
 lediglich in den Dateien im Working Tree enthalten. Jetzt können Sie
-die Änderungen 'schrittweise' per `git add -p` hinzufügen
+die Änderungen _schrittweise_ per `git add -p` hinzufügen
 und in (mehrere) handliche Commits verpacken.footnote:[Um zu überprüfen, dass die Änderungen in
   Ihrem neuen Branch denen des alten entsprechen, verwenden Sie
   `git diff <reorder-feature> <feature>` -- wenn das
@@ -1111,7 +1114,7 @@ folgende Kommandos verwenden:
 
 [subs="macros,quotes"]
 --------
-$ *git commit -m \'feature (noch unfertig)'*
+$ *git commit -m \_feature (noch unfertig)_*
 (später)
 $ *git reset --soft HEAD^*
 (weiterarbeiten)
@@ -1125,7 +1128,7 @@ eigentliche Commit geht verloren. Sie können nun weitere Änderungen
 machen und später einen neuen Commit erstellen. Eine ähnliche
 Funktionalität stellt die Option `--amend` für `git
   commit` sowie auch das Kommando `git stash` (dt.
-``verstauen'') bereit, das in <<sec.stash>> erklärt
+"`verstauen`") bereit, das in <<sec.stash>> erklärt
 wird.
 
 
@@ -1133,9 +1136,9 @@ wird.
 [[sec.merge]]
 == Branches zusammenführen: Merges
 
-Das Zusammenführen von Branches nennt man in Git 'mergen';
+Das Zusammenführen von Branches nennt man in Git _mergen_;
 der Commit, der zwei oder mehr Branches miteinander verbindet,
-heißt entsprechend 'Merge-Commit'.
+heißt entsprechend _Merge-Commit_.
 
 Git stellt das Subkommando `merge` bereit, mit dem Sie einen
 Branch in einen anderen integrieren. Das bedeutet, dass alle
@@ -1143,7 +1146,7 @@ Branch in einen anderen integrieren. Das bedeutet, dass alle
 einfließen.
 
 Beachten Sie, dass das Kommando den angegebenen Branch in den
-'aktuell ausgecheckten Branch' (d.h.{empty}{nbsp}`HEAD`)
+_aktuell ausgecheckten Branch_ (d.h.{empty}{nbsp}`HEAD`)
 integriert. Das Kommando benötigt also nur ein Argument:
 
 [subs="macros,quotes"]
@@ -1166,7 +1169,7 @@ wollen, referenzieren jeweils den aktuellsten Commit in einer Kette
 von Commits (F und D), und diese beiden Commits wiederum einen Tree
 (entspricht dem obersten Verzeichnis Ihres Projekts).
 
-Zunächst berechnet Git eine sogenannte 'Merge-Basis', also einen
+Zunächst berechnet Git eine sogenannte _Merge-Basis_, also einen
 Commit, den beide zu verschmelzenden Commits als gemeinsamen Vorfahren
 haben. In der Regel gibt es mehrere solcher Basen -- im untenstehenden
 Diagramm A und B -- , dann wird die neueste (die also die anderen Basen
@@ -1203,7 +1206,7 @@ passiert in zwei Fällen:
 
 . Eine Datei wurde von keinem der beiden Commits geändert, oder ein Unterverzeichnis enthält keine geänderte Datei: Im ersten Fall ist die Blob-SHA-1-Summe dieser Datei in beiden Commits gleich, im zweiten Fall wird von beiden Commits das gleiche Tree-Objekt referenziert. Der referenzierte Blob bzw. Tree ist also derselbe wie der in der Merge-Basis referenzierte.
 
-. Eine Datei wurde 'auf beiden Seiten' und 'äquivalent' geändert (gleiche Blobs). Das passiert zum Beispiel, wenn aus dem einen Branch alle Änderungen an einer Datei per `git cherry-pick` (siehe <<sec.cherry-pick>>) übernommen wurden. Der referenzierte Blob ist dann 'nicht' derselbe wie in der Merge-Basis.
+. Eine Datei wurde _auf beiden Seiten_ und _äquivalent_ geändert (gleiche Blobs). Das passiert zum Beispiel, wenn aus dem einen Branch alle Änderungen an einer Datei per `git cherry-pick` (siehe <<sec.cherry-pick>>) übernommen wurden. Der referenzierte Blob ist dann _nicht_ derselbe wie in der Merge-Basis.
 
 
 
@@ -1223,11 +1226,11 @@ durchgeführt -- Git kann diese Änderungen also einfach übernehmen.
 
 
 
-Wenn sich aber 'beide' Blobs von der Merge-Basis unterscheiden,
+Wenn sich aber _beide_ Blobs von der Merge-Basis unterscheiden,
 könnte es möglicherweise zu Problemen kommen.  Zunächst versucht Git,
 die Änderungen beider Seiten zu übernehmen.
 
-Dafür wird in der Regel ein '3-Wege-Merge'-Algorithmus verwendet.
+Dafür wird in der Regel ein _3-Wege-Merge_-Algorithmus verwendet.
 Im Gegensatz zum klassischen 2-Wege-Merge-Algorithmus, der eingesetzt
 wird, wenn Sie zwei unterschiedliche Versionen A und B einer Datei
 haben und diese zusammenführen wollen, bezieht dieser
@@ -1245,7 +1248,7 @@ Datei der Kontext direkt vor einer Änderung in Datei B geändert wurde,
 oder, schlimmer noch, Version A und B und C unterschiedliche Versionen
 einer Zeile aufweisen.
 
-Einen solchen Fall nennt man 'Merge-Konflikt'. Git führt
+Einen solchen Fall nennt man _Merge-Konflikt_. Git führt
 alle Dateien so gut es geht zusammen und präsentiert dem Nutzer
 dann die in Konflikt stehenden Änderungen, damit dieser sie manuell
 verschmelzen (und damit den Konflikt lösen) kann (siehe dafür <<sec.merge-conflicts>>).
@@ -1253,7 +1256,7 @@ verschmelzen (und damit den Konflikt lösen) kann (siehe dafür <<sec.merge-conf
 Zwar ist es grundsätzlich möglich, mit einem speziell auf die
 jeweilige Programmiersprache ausgerichteten Algorithmus eine
 syntaktisch korrekte Auflösung zu erzeugen -- allerdings kann ein
-Algorithmus nicht hinter die 'Semantik' des Codes schauen, also
+Algorithmus nicht hinter die _Semantik_ des Codes schauen, also
 die Bedeutung des Codes erfassen. Daher wäre eine so generierte
 Lösung in der Regel nicht sinnvoll.
 
@@ -1262,19 +1265,19 @@ Lösung in der Regel nicht sinnvoll.
 
 Das Kommando `git merge` erzeugt nicht immer einen
 Merge-Commit. Ein trivialer Fall, der aber häufig vorkommt, ist der
-sogenannte 'Fast-Forward-Merge', also ein Vorspulen des Branches.
+sogenannte _Fast-Forward-Merge_, also ein Vorspulen des Branches.
 
 Ein Fast-Forward-Merge tritt dann auf, wenn ein Branch, z.B.{empty}{nbsp}`topic`, Kind eines zweiten Branches, `master`,
 ist:
 
-.Vor dem 'Fast-Forward'-Merge
+.Vor dem _Fast-Forward_-Merge
 image::ff-vorher.png[id="fig.merge-ff-before",scaledwidth="90%",width="90%"]
 
 Ein einfaches `git merge topic` im Branch `master` führt
 nun dazu, dass `master` einfach weitergerückt wird -- es wird
 kein Merge-Commit erzeugt.
 
-.Nach dem 'Fast-Forward'-Merge – es wurde kein Merge-Commit erzeugt
+.Nach dem _Fast-Forward_-Merge – es wurde kein Merge-Commit erzeugt
 image::ff-nachher.png[id="fig.merge-ff-after",scaledwidth="90%",width="90%"]
 
 Ein solches Verhalten geht natürlich nur dann, wenn die beiden
@@ -1290,15 +1293,15 @@ Dieses Verhalten ist häufig wünschenswert:
   typischerweise ein Kommando wie `git merge origin/master`.
   Auch ein `git pull` wird einen Merge ausführen. Wie Sie
   Änderungen zwischen Git-Repositories austauschen, behandeln wir in
-  <<sec.verteiltes-git>>.
+  <<sec.distributed-git>>.
 
 . Sie wollen einen experimentellen Branch einpflegen. Da Sie
   besonders einfach und schnell Branches in Git erstellen, empfiehlt
   es sich, für jedes Feature einen neuen Branch anzufangen.  Wenn Sie
   nun etwas Experimentelles auf einem Branch ausprobiert haben und
   dies integrieren wollen, ohne dass man einen ``Zeitpunkt der
-  Integration'' erkennen kann, dann geschieht das per
-  'Fast-Forward'.
+  Integration__ erkennen kann, dann geschieht das per
+  _Fast-Forward_.
 
 
 [TIP]
@@ -1318,7 +1321,7 @@ beiden Fällen gleich: Die Änderungen aus einem Branch werden in
 einen anderen integriert.
 
 Wenn Sie allerdings einen Merge-Commit erstellen, dann wird die
-'Integration' eines Features deutlich. Betrachten Sie die beiden
+_Integration_ eines Features deutlich. Betrachten Sie die beiden
 folgenden Ausschnitte aus der Versionsgeschichte eines Projekts:
 
 
@@ -1364,7 +1367,7 @@ git revert -m 1 <merge-commit>
 
 Git produziert dann einen neuen Commit, der alle Änderungen rückgängig
 macht, die durch den Merge verursacht wurden. Die Option `-m 1` gibt
-hier an, welche ``Seite'' des Merges als 'Mainline', also stabile
+hier an, welche "`Seite`" des Merges als _Mainline_, also stabile
 Entwicklungslinie, gelten soll: deren Änderungen bleiben bestehen.
 Im obigen Beispiel würde `-m 1` dazu führen, dass die Änderungen der
 vier Commits aus dem Branch `sha1-caching`, also dem zweiten Strang des
@@ -1397,11 +1400,11 @@ andere eine beliebige Anzahl.
     Git einsetzt, um zwei Branches zu verschmelzen. Auch hier wird ein
     3-Wege-Merge-Algorithmus eingesetzt. Allerdings geht diese
     Strategie geschickter vor als `resolve`: Existieren mehrere
-    Merge-Basen, die allesamt ``gleiche Berechtigung''
+    Merge-Basen, die allesamt "`gleiche Berechtigung`"
     haben,footnote:[Die
       `recursive`-Strategie geht also nur dann wesentlich
       intelligenter als `resolve` vor, wenn die
-      'Topologie' der Commits (d.h. die Anordnung, wo
+      _Topologie_ der Commits (d.h. die Anordnung, wo
       abgezweigt und zusammengeführt wurde) wesentlich komplizierter
       ist als ein bloßes Abzweigen und anschließendes Zusammenführen.]
     dann führt Git zunächst diese Basen zusammen, um das Ergebnis dann
@@ -1432,7 +1435,7 @@ andere eine beliebige Anzahl.
 
 `subtree`:: Funktioniert wie `recursive`,
 allerdings vergleicht die Strategie die Trees nicht ``auf
-gleicher Augenhöhe'', sondern bemüht sich, den Tree der einen
+gleicher Augenhöhe__, sondern bemüht sich, den Tree der einen
 Seite als Subtree der anderen Seite zu finden und erst dann zu
 verschmelzen. Diese Strategie ist zum Beispiel dann sinnvoll, wenn
 Sie das Unterverzeichnis `Documentation/` Ihres Projekts
@@ -1462,23 +1465,23 @@ Sofern Sie nur zwei Branches mergen, müssen Sie die
 angeben.
 
 Da die Strategie nur zwei Branches zusammenführen kann, ist es
-möglich, von 'unserer' (engl. 'our') und 'deren' (engl.
-'theirs') Version zu sprechen: 'unsere' Version ist dabei
-der ausgecheckte Branch beim Merge-Vorgang, während 'deren'
+möglich, von _unserer_ (engl. _our_) und _deren_ (engl.
+_theirs_) Version zu sprechen: _unsere_ Version ist dabei
+der ausgecheckte Branch beim Merge-Vorgang, während _deren_
 Version den Branch, den Sie integrieren wollen, referenziert.
 
 
 `ours`:: Wenn ein Merge-Konflikt auftritt, der
     normalerweise manuell gelöst werden müsste, wird stattdessen
-    'unsere' Version verwendet. Die Strategie-'Option'
-    unterscheidet sich allerdings von der 'Strategie'{empty}{nbsp}`ours`, denn dort werden jegliche Änderungen der
+    _unsere_ Version verwendet. Die Strategie-_Option_
+    unterscheidet sich allerdings von der _Strategie_{empty}{nbsp}`ours`, denn dort werden jegliche Änderungen der
     Gegenseite(n) ignoriert. Die `ours`-Option hingegen
     übernimmt alle Änderungen unserer sowie der Gegenseite und gibt
     nur im Konfliktfall und nur an den Konfliktstellen
-    'unserer' Seite Vorrang.
+    _unserer_ Seite Vorrang.
 
 `theirs`:: Wie `ours`, nur dass genau
-    gegenteilig vorgegangen wird: bei Konflikten wird 'deren'
+    gegenteilig vorgegangen wird: bei Konflikten wird _deren_
     Version bevorzugt.
 
 `ignore-space-change`, `ignore-all-space`, `ignore-space-at-eol`:: Da Whitespace in den meisten Sprachen keine syntaktische Rolle spielt, können Sie mit diesen Optionen Git anweisen, im Falle eines Merge-Konfliktes zu probieren, ob dieser automatisch lösbar ist, wenn Whitespace keine Rolle spielt. Ein häufiger Anwendungsfall ist, dass ein Editor oder eine IDE Quellcode automatisch umformatiert hat.
@@ -1486,17 +1489,17 @@ Version den Branch, den Sie integrieren wollen, referenziert.
 Die Option `ignore-space-at-eol` ignoriert Whitespace am Ende der
 Zeile, was insbesondere dann hilfreich ist, wenn beide Seiten
 verschiedene Zeilenende-Konventionen (LF/CRLF) verwenden. Geben
-Sie `ignore-space-change` an, wird 'außerdem' Whitespace als reiner    Trenner betrachtet: Für den Vergleich einer Zeile ist also
+Sie `ignore-space-change` an, wird _außerdem_ Whitespace als reiner    Trenner betrachtet: Für den Vergleich einer Zeile ist also
 unwesentlich, wie viele Leerzeichen oder Tabs an einer Stelle stehen --
 eingerückte Zeilen bleiben eingerückt, und getrennte Wörter
 bleiben getrennt. Die Option `ignore-all-space` ignoriert jeglichen
 Whitespace.
 +
-Generell geht die Strategie so vor: Falls 'deren' Version nur durch
+Generell geht die Strategie so vor: Falls _deren_ Version nur durch
 die angegebene Option abgedeckte Whitespace-Änderungen hineinbringt,
-werden diese ignoriert und 'unsere' Version verwendet; bringt sie
-weitere Änderungen mit, und 'unsere' Version hat nur
-Whitespace-Änderungen, so wird 'deren' Version verwendet. Wenn aber
+werden diese ignoriert und _unsere_ Version verwendet; bringt sie
+weitere Änderungen mit, und _unsere_ Version hat nur
+Whitespace-Änderungen, so wird _deren_ Version verwendet. Wenn aber
 auf beiden Seiten nicht nur Whitespace geändert wurde, so gibt es
 weiterhin einen Merge-Konflikt.
 +
@@ -1506,7 +1509,7 @@ einmal zu normalisieren, also die Zeilenenden und Einrückungen
 einheitlich zu machen.
 
 `subtree=<tree>`:: Ähnlich wie die
-`subtree`-'Strategie', allerdings wird hier ein
+`subtree`-_Strategie_, allerdings wird hier ein
 expliziter Pfad angegeben. Analog zum obigen Beispiel würden Sie
 +
 ------------
@@ -1583,7 +1586,7 @@ for(i = 0; i < nr_of_lines(); i++) {
 print_stats();
 --------
 
-Beatrice verwendet also die ``veraltete'' Version
+Beatrice verwendet also die "`veraltete`" Version
 `output_line`, und Axel hat noch nicht das Konstrukt, das die
 Konfigurationseinstellung überprüft.
 
@@ -1601,7 +1604,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 --------
 
 In der Datei `output.c` platziert Git nun sogenannte
-'Konflikt-Marker', unten halbfett hervorgehoben, die anzeigen, wo
+_Konflikt-Marker_, unten halbfett hervorgehoben, die anzeigen, wo
 sich Änderungen überschneiden. Es gibt zwei Seiten: Zum einen
 `HEAD`, d.h. der Branch, in den Beatrice die Änderungen
 übernehmen will -- in diesem Falle `master`. Die andere Seite ist
@@ -1627,7 +1630,7 @@ for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++]) {
 print_stats();
 --------
 
-Zu beachten ist hier, dass nur die wirklich 'konfliktbehafteten'
+Zu beachten ist hier, dass nur die wirklich _konfliktbehafteten_
 Änderungen von Beatrice beanstandet werden. Axels Definition von
 `tw` weiter oben wird, obwohl bei Beatrice noch nicht
 vorhanden, anstandslos übernommen.
@@ -1668,7 +1671,7 @@ In der Commit-Nachricht sollte unbedingt stehen, wie dieser Konflikt
 gelöst wurde. Auch mögliche Seiteneffekte auf andere Teile des
 Programms sollten nicht unerwähnt bleiben.
 
-Normalerweise sind Merge-Commits ``leer'', d.h. in
+Normalerweise sind Merge-Commits "`leer`", d.h. in
 `git show` erscheint keine Diff-Ausgabe (weil die Änderungen ja
 von anderen Commits verursacht wurden). Im Falle eines Merge-Commits,
 der einen Konflikt löst, ist dies aber anders:
@@ -1681,7 +1684,7 @@ Merge: f894659 256329f
 Author: Beatrice &lt;pass:quotes[beatrice@gitbu.ch]&gt;
 Date:   Mon Feb 28 05:59:36 2011 +0100
 
-    Merge branch \'B'
+    Merge branch \_B_
 
     * B:
       honor max_output_lines config option
@@ -1711,11 +1714,11 @@ pass:quotes[*+*] }
 
 
 
-Diese 'kombinierte' Diff-Ausgabe unterscheidet sich vom üblichen
-Unidiff-Format: Es gibt nicht nur 'eine' Spalte mit den Markern für
+Diese _kombinierte_ Diff-Ausgabe unterscheidet sich vom üblichen
+Unidiff-Format: Es gibt nicht nur _eine_ Spalte mit den Markern für
 hinzugefügt (`+`), entfernt (`-`) und Kontext bzw.
 ungeändert (&#x2423;), sondern zwei. Git vergleicht also
-das Resultat mit 'beiden' Vorfahren. Die in der zweiten Spalte
+das Resultat mit _beiden_ Vorfahren. Die in der zweiten Spalte
 geänderten Zeilen entsprechen genau denen des Commits von Axel; die
 (halbfett markierten) Änderungen in der ersten Spalte sind der Commit
 von Beatrice inklusive Konfliktlösung.
@@ -1729,7 +1732,7 @@ Der Standard-Weg, wie oben gesehen, ist der folgende:
 
 . Konflikt lösen, Marker entfernen
 
-. Datei per `git add` als ``gelöst'' markieren
+. Datei per `git add` als "`gelöst`" markieren
 
 . Schritt eins bis drei für alle Dateien wiederholen, in denen
   Konflikte auftraten
@@ -1762,10 +1765,10 @@ Merge-Basis Änderungen an `<datei>` vorgenommen haben.
 =====================
 
 Wenn Sie sich in einem Merge-Konflikt befinden, liegt eine Datei mit
-Konflikten in drei Stufen ('Stages') vor: Stufe eins enthält die
+Konflikten in drei Stufen (_Stages_) vor: Stufe eins enthält die
 Version der Datei in der Merge-Basis (also die gemeinsame
 Ursprungsversion der Datei), Stufe zwei enthält die Version aus dem
-`HEAD` (also die Version aus dem Branch, 'in den' Sie
+`HEAD` (also die Version aus dem Branch, _in den_ Sie
 mergen). Stufe drei enthält schließlich die Datei in der Version des
 zu integrierenden Branches (dieser hat die symbolische Referenz
 `MERGE_HEAD`). Im Working Tree befindet sich die Kombination
@@ -1793,13 +1796,13 @@ die Lösung des Konflikts erleichtert.
 
 Gängige IDEs und Editoren wie z.B. Vim und Emacs bieten einen
 solchen Modus an. Außerdem gibt es externe Tools, wie zum Beispiel
-'KDiff3'{empty}footnote:[http://kdiff3.sourceforge.net/]
+_KDiff3_{empty}footnote:[http://kdiff3.sourceforge.net/]
 und
-'Meld'{empty}footnote:[http://meld.sourceforge.net/].
+_Meld_{empty}footnote:[http://meld.sourceforge.net/].
 Letzteres visualisiert besonders gut, wie sich eine Datei zwischen den
 Commits verändert hat.
 
-.Der Beispiel-Merge-Konflikt, im Merge-Tool ``Meld'' visualisiert
+.Der Beispiel-Merge-Konflikt, im Merge-Tool "`Meld`" visualisiert
 image::meld-example.png[id="fig.meld",scaledwidth="100%",width="100%"]
 
 Sie starten ein solches Merge-Tool über `git mergetool`. Git wird alle
@@ -1810,12 +1813,12 @@ Vimdiff{empty}footnote:[In Vimdiff können Sie mit
   `h`, `j`, `k`, `l` das Fenster in die
   entsprechende Richtung wechseln. Mit `dp` bzw.  `do`
   schieben Sie Änderungen auf die andere Seite oder übernehmen sie von
-  dort ('diff put' -- 'diff obtain').].
+  dort (_diff put_ -- _diff obtain_).].
 
 
 
 Ein solches Programm wird in der Regel die drei Versionen einer Datei
--- 'unsere' Seite, 'deren' Seite sowie die soweit wie
+-- _unsere_ Seite, _deren_ Seite sowie die soweit wie
 möglich zusammengeführte Datei inklusive Konflikt-Markern -- in drei
 Spalten nebeneinander anzeigen, letztere sinnvollerweise in der Mitte.
 Wesentlich ist immer, dass Sie die Änderung (Konfliktlösung) in der
@@ -1876,13 +1879,13 @@ sein.
 Git besitzt ein relativ unbekanntes (und schlecht dokumentiertes),
 aber sehr hilfreiches Feature: Rerere, kurz für 'Reuse Recorded
   Resolution' (``gespeicherte Konfliktlösung
-wiederverwenden''). Sie müssen die Option
+wiederverwenden__). Sie müssen die Option
 `rerere.enabled` auf `true` setzen, damit das Kommando
 automatisch aufgerufen wird (beachten Sie das `d` am Ende von
 `enabled`).
 
 Die Idee hinter Rerere ist simpel, aber effektiv: Sobald ein
-Merge-Konflikt auftritt, nimmt Rerere automatisch ein 'Preimage'
+Merge-Konflikt auftritt, nimmt Rerere automatisch ein _Preimage_
 auf, ein Abbild der Konfliktdatei inklusive Markern. Im Falle des
 obigen Beispiels sähe das so aus:
 
@@ -1891,7 +1894,7 @@ obigen Beispiels sähe das so aus:
 $ *git merge B*
 Auto-merging output.c
 CONFLICT (content): Merge conflict in output.c
-*Recorded preimage for \'output.c'*
+*Recorded preimage for \_output.c_*
 Automatic merge failed; fix conflicts and then commit the result.
 --------
 
@@ -1903,8 +1906,8 @@ speichert Rerere die Konfliktlösung ab:
 $ *vim output.c*
 $ *git add output.c*
 $ *git commit*
-*Recorded resolution for \'output.c'.*
-[master 681acc2] Merge branch \'B'
+*Recorded resolution for \_output.c_.*
+[master 681acc2] Merge branch \_B_
 --------
 
 Bisher hat Rerere noch nicht wirklich geholfen. Jetzt aber können wir
@@ -1919,24 +1922,24 @@ HEAD is now at f894659 wrap output at 72 chars
 $ *git merge B*
 Auto-merging output.c
 CONFLICT (content): Merge conflict in output.c
-*Resolved \'output.c' using previous resolution.*
+*Resolved \_output.c_ using previous resolution.*
 Automatic merge failed; fix conflicts and then commit the result.
 --------
 
 Rerere bemerkt, dass der Konflikt bekannt ist und dass bereits eine
 Lösung gefunden wurde.footnote:[Die Meldung `Automatic
     merge failed` bedeutet lediglich, dass ein Konflikt auftrat, der
-  'nicht' durch einen 3-Wege-Merge gelöst werden konnte. Da
+  _nicht_ durch einen 3-Wege-Merge gelöst werden konnte. Da
   Rerere keine sinnvolle Lösung garantieren kann, wird die Lösung nur
-  ``bereitgestellt'', nicht aber als ultimative Lösung des
+  "`bereitgestellt`", nicht aber als ultimative Lösung des
   Konflikts angesehen.]
 Also berechnet Rerere einen 3-Wege-Merge zwischen dem gespeicherten
 Preimage, der gespeicherten Lösung und der im Working Tree
 vorliegenden Version der Datei. So kann Rerere nicht nur dieselben
-Konflikte lösen, sondern auch 'ähnliche' (wenn zwischenzeitlich
+Konflikte lösen, sondern auch _ähnliche_ (wenn zwischenzeitlich
 weitere Zeilen außerhalb des Konfliktbereichs geändert wurden).
 
-Das Ergebnis wird 'nicht' direkt dem Index hinzugefügt. Die
+Das Ergebnis wird _nicht_ direkt dem Index hinzugefügt. Die
 Lösung wird lediglich in die Datei übernommen. Sie können dann per
 `git diff` nachschauen, ob die Lösung sinnvoll aussieht,
 eventuell Tests laufen lassen etc. Wenn alles gut aussieht, übernehmen
@@ -1950,7 +1953,7 @@ bereits (möglicherweise aufwendig) gelösten Merge-Konflikt zu löschen,
 um ihn irgendwann wiederholen zu wollen?
 
 Das Vorgehen ist allerdings wünschenswert: Zunächst ist es
-'nicht' sinnvoll, einfach periodisch und aus Gewohnheit die
+_nicht_ sinnvoll, einfach periodisch und aus Gewohnheit die
 Mainline -- also den Hauptentwicklungsstrang, z.B.{empty}{nbsp}`master`
 -- in den Topic-Branch zu mergen (wir werden noch darauf
 zurückkommen). Wenn Sie aber einen langlebigen Topic-Branch haben und
@@ -2006,8 +2009,8 @@ Konflikt-Markern). Wollen Sie nur Letzteres bewirken, hilft auch ein
 Dezentrale Versionskontrollsysteme verwalten Merges generell
 wesentlich besser als zentrale. Das liegt vor allem daran,
 dass es bei dezentralen Systemen Usus ist, viele kleine Änderungen
-zunächst 'lokal' einzuchecken. Dadurch entstehen keine
-``Monster-Commits'', die wesentlich mehr
+zunächst _lokal_ einzuchecken. Dadurch entstehen keine
+"`Monster-Commits`", die wesentlich mehr
 Konfliktpotential bieten. Diese feiner granulierte
 Entwicklungsgeschichte und der Umstand, dass Merges in der Regel
 wiederum Daten in der Versionsgeschichte sind (im Gegensatz zu einem
@@ -2020,7 +2023,7 @@ Um Merge-Konflikte zu minimieren, ist Vorbeugung das beste Mittel.
 Machen Sie kleine Commits! Fassen Sie Ihre Änderungen so zusammen,
 dass der resultierende Commit als Einheit Sinn ergibt. Bauen Sie
 Topic-Branches immer auf dem neuesten Release auf. Mergen Sie von
-Topic-Branches in ``Sammel-Branches'' oder direkt in den
+Topic-Branches in "`Sammel-Branches`" oder direkt in den
 `master`, nicht anders
 herum.footnote:[Weitere nützliche Tipps finden
   Sie in <<sec.workflows>>.] Der
@@ -2036,7 +2039,7 @@ führen.
 Ein weiterer Faktor, der leider häufig zu unnötigen(!) Konflikten
 führt, sind autogenerierte Inhalte. Angenommen, Sie schreiben die
 Dokumentation einer Software in
-'AsciiDoc'{empty}footnote:[AsciiDoc ist eine simple,
+_AsciiDoc_{empty}footnote:[AsciiDoc ist eine simple,
   wiki-ähnliche Markup-Sprache:
   `http://www.methods.co.nz/asciidoc/`. Die Git-Dokumentation liegt in
   diesem Format vor und wird in HTML-Seiten und Man-Pages konvertiert,
@@ -2055,7 +2058,7 @@ Version auf einem separaten Branch vorzuhalten.footnote:[Das Repository des Git-
   in einem Branch `html`, der von den Entwicklungsbranches
   vollständig abgekoppelt ist. So kann es bei Merges zwischen den
   Code-Branches nicht zu Konflikten wegen unterschiedlich kompilierter
-  HTML-Dokumentation kommen. Wie Sie solche ``entkoppelten''
+  HTML-Dokumentation kommen. Wie Sie solche "`entkoppelten`"
   Branches erstellen, beschreiben wir in <<sec.multi-root>>.]
 
 [[sec.cherry-pick]]
@@ -2064,7 +2067,7 @@ Version auf einem separaten Branch vorzuhalten.footnote:[Das Repository des Git-
 Es wird vorkommen, dass Sie nicht direkt einen ganzen Branch
 integrieren wollen, sondern zunächst Teile, also einzelne Commits.
 Dafür ist das Git-Kommando `cherry-pick` (``die guten
-Kirschen herauspicken'') zuständig.
+Kirschen herauspicken__) zuständig.
 
 Das Kommando erwartet einen oder mehrere Commits, die auf den aktuellen
 Branch kopiert werden sollen. Zum Beispiel:
@@ -2084,14 +2087,14 @@ Im Gegensatz zu einem Merge werden aber nur die Änderungen integriert,
 nicht der Commit selbst. Dafür müsste er nämlich seinen Vorgänger
 referenzieren, so dass dieser auch integriert werden müsste usw. --
 was einem Merge gleichkommt. Wenn Sie Commits mit `cherry-pick`
-übernehmen, entstehen dabei also 'neue' Commits mit neuer
-Commit-ID. Git kann danach 'nicht' ohne weiteres wissen, dass
+übernehmen, entstehen dabei also _neue_ Commits mit neuer
+Commit-ID. Git kann danach _nicht_ ohne weiteres wissen, dass
 diese Commits eigentlich die gleichen sind.
 
 Daher kann es, wenn Sie zwei Branches mergen, zwischen denen Sie
 Änderungen per Cherry-Pick ausgetauscht haben, zu Konflikten kommen.footnote:[Das liegt daran, dass das
   Merge-Kommando nicht jeden Commit einzeln untersucht. Stattdessen
-  werden drei Trees verglichen, in denen 'unter anderen' diese
+  werden drei Trees verglichen, in denen _unter anderen_ diese
   Änderungen enthalten sind, siehe <<sec.merge-detail>>.]  Diese
 sind meist trivial zu lösen, möglicherweise sind auch die
 Strategie-Optionen `ours` bzw. `theirs` hilfreich
@@ -2102,7 +2105,7 @@ Das Rebase-Kommando hingegen erkennt solche Commit-Doppelungen,footnote:[Das lie
   sind. Eine ähnliche Funktionalität bietet auch `git cherry`
   bzw. `git patch-id`, das fast gleiche Patches erkennen kann.]
 und lässt die gedoppelten Commits aus. So können Sie einige Commits
-``aus der Mitte'' übernehmen und dann den Branch, aus dem die
+"`aus der Mitte`" übernehmen und dann den Branch, aus dem die
 Commits stammten, neu aufbauen.
 
 Das `cherry-pick`-Kommando versteht außerdem selbst diese
@@ -2120,8 +2123,8 @@ git cherry-pick -Xtheirs <commit>
 Über die Option `-n` bzw. `--no-commit` veranlassen
 Sie Git, die Änderungen eines Commits zwar in den Index zu
 übernehmen, aber noch keinen Commit daraus zu machen. So können Sie
-mehrere kleine Commits erst im Index ``aggregieren'' und
-dann als 'einen' Commit verpacken:
+mehrere kleine Commits erst im Index "`aggregieren`" und
+dann als _einen_ Commit verpacken:
 
 [subs="macros,quotes"]
 --------
@@ -2142,7 +2145,7 @@ Wenn Sie einige Branches erstellt und wieder zusammengeführt haben,
 werden Sie gemerkt haben: Man verliert leicht den Überblick.
 
 Die Anordnung der Commits und ihre Beziehungen untereinander
-bezeichnet man als 'Topologie' eines Repositorys. Im Folgenden
+bezeichnet man als _Topologie_ eines Repositorys. Im Folgenden
 werden wir unter anderem das grafische Programm `gitk`
 vorstellen, um diese Topologien zu untersuchen.
 
@@ -2170,14 +2173,14 @@ Tag-Namen sind zur besseren Unterscheidung halbfett gedruckt):
 --------
 $ *git log --decorate --pretty=oneline --abbrev-commit --graph --all*
 * c937566 (*HEAD*, *D*) commit on branch D
-| *   b0b30ef (*release*, *A*) Merge branch \'C' into A
+| *   b0b30ef (*release*, *A*) Merge branch \_C_ into A
 | |\
 | | * 807db47 (*C*) commit on branch C
 | | * 996a53b commit on branch C
 | |/
 |/|
 | * 83f6bf3 commit on branch A
-| *   5b2c291 Merge branch \'B' into A
+| *   5b2c291 Merge branch \_B_ into A
 | |\
 | | * 2417cf7 (*B*) commit on branch B
 | |/
@@ -2224,15 +2227,15 @@ $ *git tree B*
 Wir erhalten alle Commits, die von B aus erreichbar sind. Ein
 Commit kennt jeweils nur seinen bzw. seine Vorgänger (mehrere dann,
 wenn Branches zusammengeführt werden).  ``Alle von B erreichbaren
-Commits'' bezeichnet also die Liste der Commits von B an weiter
+Commits__ bezeichnet also die Liste der Commits von B an weiter
 bis zu einem Commit, der keinen Vorgänger hat (genannt
-'Root-Commit').
+_Root-Commit_).
 
 Statt einer kann das Kommando auch mehrere Referenzen entgegennehmen.
 Um also die gleiche Ausgabe wie mit der Option `--all` zu
 erhalten, müssen Sie die Referenzen A, B und D angeben. C kann
 ausgelassen werden, weil der Commit auf dem Weg von A zum Root-Commit
-bereits ``eingesammelt'' wird.
+bereits "`eingesammelt`" wird.
 
 Natürlich können Sie statt symbolischer Referenzen auch direkt eine
 SHA-1-Summe angeben:
@@ -2240,7 +2243,7 @@ SHA-1-Summe angeben:
 [subs="macros,quotes"]
 --------
 $ *git tree 5b2c291*
-*   5b2c291 Merge branch \'B' into A
+*   5b2c291 Merge branch \_B_ into A
 |\
 | * 2417cf7 (*B*) commit on branch B
 * | 0bf1433 commit on branch A
@@ -2255,11 +2258,11 @@ oder rc-Shell der Fall). Dann müssen Sie das Zeichen maskieren, also
 das Argument in Anführungszeichen einfassen oder einen Backslash
 voranstellen. In der Z-Shell existiert außerdem das Kommando `noglob`,
 das Sie `git` voranstellen, um die Sonderbedeutung von `^`
-aufzuheben.]  Die Notation `^A` bedeutet also: 'nicht' die Commits,
+aufzuheben.]  Die Notation `^A` bedeutet also: _nicht_ die Commits,
 die von A aus erreichbar sind. Allerdings schließt dieser Schalter
 lediglich diese Commits aus, nicht jedoch die anderen ein.  Obiges
 `log`-Kommando mit dem Argument `^A` wird also nichts ausgeben, da Git
-nur weiß, welche Commits 'nicht' angezeigt werden sollen. Wir fügen
+nur weiß, welche Commits _nicht_ angezeigt werden sollen. Wir fügen
 also wieder `--all` hinzu, um alle Commits aufzulisten, abzüglich
 derer, die von A erreichbar sind:
 
@@ -2272,7 +2275,7 @@ $ *git tree --all ^A*
 Eine alternative Notation ist mit `--not` verfügbar: Statt
 `^A` kann man auch `--not A` schreiben.
 
-Besonders hilfreich sind solche Kommandos, um den 'Unterschied'
+Besonders hilfreich sind solche Kommandos, um den _Unterschied_
 zwischen zwei Branches zu untersuchen: Welche Commits sind in Branch
 D, die nicht in A sind?  Die Antwort liefert das Kommando:
 
@@ -2291,13 +2294,13 @@ $ *git tree A..D*
 * c937566 (*HEAD*, *D*) commit on branch D
 --------
 
-Natürlich ist hier die Reihenfolge wichtig: ``D ohne A'' ist
-eine andere Menge von Commits als ``A ohne D''! (Vergleiche
+Natürlich ist hier die Reihenfolge wichtig: "`D ohne A`" ist
+eine andere Menge von Commits als "`A ohne D`"! (Vergleiche
 auch den vollständigen Graphen.)
 
 Im unserem Beispiel gibt es einen Tag `release`. Um zu
 überprüfen, welche Commits aus dem Branch D (der für
-``Development'' stehen könnte) noch nicht im aktuellen Release
+"`Development`" stehen könnte) noch nicht im aktuellen Release
 enthalten sind, genügt die Angabe `release..D`.
 
 
@@ -2308,13 +2311,13 @@ enthalten sind, genügt die Angabe `release..D`.
 [TIP]
 ========
 Die Syntax `A..B` kann man sich als Idiom ``von
-A bis B'' merken. Diese ``Differenz''
+A bis B__ merken. Diese "`Differenz`"
 ist aber nicht symmetrisch, d.h.{empty}{nbsp}`A..B` sind in der Regel
 nicht die gleichen Commits wie `B..A`.
 
-Alternativ stellt Git die 'symmetrische Differenz'{empty}{nbsp}`A...B` bereit. Sie entspricht dem Argument `A B
+Alternativ stellt Git die _symmetrische Differenz_{empty}{nbsp}`A...B` bereit. Sie entspricht dem Argument `A B
     --not $(git merge-base A B)`, bezieht also alle Commits ein,
-  die von A 'oder' von B erreichbar sind -- aber nicht von beiden.
+  die von A _oder_ von B erreichbar sind -- aber nicht von beiden.
 ========
 
 [[rev-list-explained]]
@@ -2322,16 +2325,16 @@ Alternativ stellt Git die 'symmetrische Differenz'{empty}{nbsp}`A...B` bereit. S
 
 Im Beispiel werden mit A immer alle Commits bezeichnet, die von A
 erreichbar sind. Aber eigentlich ist ein Branch ja nur eine Referenz
-auf 'einen' Commit. Warum listet also `log` immer alle von
+auf _einen_ Commit. Warum listet also `log` immer alle von
 A erreichbaren Commits auf, während das Git-Kommando
 `show` mit dem Argument `A` nur diesen einen Commit
 anzeigt?
 
 Der Unterschied liegt darin, was die Kommandos als Argument erwarten:
-`show` erwartet ein 'Objekt', also eine Referenz auf
-'ein' Objekt, das dann angezeigt wird.footnote:[Dies ist nicht nötigerweise ein Commit -- das können auch Tags oder Blobs sein.]
+`show` erwartet ein _Objekt_, also eine Referenz auf
+_ein_ Objekt, das dann angezeigt wird.footnote:[Dies ist nicht nötigerweise ein Commit -- das können auch Tags oder Blobs sein.]
 Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere)
-'Commits', und diese Kommandos wandeln die Argumente in eine
+_Commits_, und diese Kommandos wandeln die Argumente in eine
 Liste von Commits um (traversieren die Liste bis zum Root-Commit).
 
 [[sec.gitk]]
@@ -2366,7 +2369,7 @@ Mit einem Rechtsklick auf einen Branch können Sie diesen löschen oder
 auschecken. Auf Commits öffnet ein Rechtsklick ein Menü, in dem Sie
 Aktionen mit dem markierten Commit ausführen können. Die einzige, die
 mit Gitk möglicherweise leichter zu bewerkstelligen ist als über die
-Kommandozeile, ist 'Cherry-Picking', also das Übernehmen
+Kommandozeile, ist _Cherry-Picking_, also das Übernehmen
 einzelner Commits in einen anderen Branch (siehe auch
 <<sec.cherry-pick>>).
 
@@ -2398,27 +2401,27 @@ Erfahrungsgemäß sind Anfänger oft verwirrt, weil `gitk`
 standardmäßig nur den aktuellen Branch anzeigt. Das liegt vermutlich
 daran, dass `gitk` oft aufgerufen wird, um sich einen
 Überblick aller Branches zu verschaffen.  Daher bietet sich
-folgendes Shell-Alias an: `alias gik='gitk --all'`
+folgendes Shell-Alias an: `alias gik=_gitk --all_`
 ========
 
 Viele Nutzer lassen `gitk` während der Arbeit offen. Dann ist
 es wichtig, von Zeit zu Zeit die Anzeige zu aktualisieren, damit auch
-aktuellere Commits erscheinen. Mit 'F5' ('Update') laden
+aktuellere Commits erscheinen. Mit _F5_ (_Update_) laden
 Sie alle neuen Commits und erneuern die Darstellung der Referenzen.
 Manchmal, wenn Sie z.B. einen Branch löschen, reicht dies jedoch
 nicht aus. Zwar wird der Branch nicht mehr angezeigt, aber evtl. sind
 unerreichbare Commits weiterhin quasi als Artefakte in der GUI
-vorhanden. Mit der Tastenkombination 'Strg+F5'
-('Reload') wird das Repository vollständig neu eingelesen, was
+vorhanden. Mit der Tastenkombination _Strg+F5_
+(_Reload_) wird das Repository vollständig neu eingelesen, was
 das Problem beseitigt.
 
 Alternativ zu `gitk` können Sie auf UNIX-Systemen das GTK-basierte
 `gitg` oder Qt-basierte `qgit` verwenden; auf einem OS-X-System können
-Sie beispielsweise 'GitX' verwenden; für Windows bieten sich die
-'GitExtensions' an. Einige IDEs verfügen mittlerweile auch über
-entsprechende Visualisierungen (z.B. das 'Eclipse'-Plugin 'EGit').
-Weiterhin können Sie vollwertige Git-Clients wie 'Atlassian SourceTree'
-(OS X, Windows; kostenlos), 'Tower' (OS X; kommerziell) sowie 'SmartGit'
+Sie beispielsweise _GitX_ verwenden; für Windows bieten sich die
+_GitExtensions_ an. Einige IDEs verfügen mittlerweile auch über
+entsprechende Visualisierungen (z.B. das _Eclipse_-Plugin _EGit_).
+Weiterhin können Sie vollwertige Git-Clients wie _Atlassian SourceTree_
+(OS X, Windows; kostenlos), _Tower_ (OS X; kommerziell) sowie _SmartGit_
 (Linux, OS X und Windows; kostenlos für nichtkommerzielle Nutzung)
 verwenden.
 
@@ -2426,7 +2429,7 @@ verwenden.
 [[sec.reflog]]
 == Reflog
 
-Das 'Reference Log' ('Reflog') sind Log-Dateien, die Git für
+Das _Reference Log_ (_Reflog_) sind Log-Dateien, die Git für
 jeden Branch sowie `HEAD` anlegt. Darin wird gespeichert, wann
 eine Referenz von wo nach wo verschoben wurde. Das passiert vor allem
 bei den Kommandos `checkout`, `reset`, `merge`
@@ -2460,7 +2463,7 @@ den `HEAD` anzeigen, dann den gelöschten Commit und dann wieder
 den `HEAD`.
 
 Das Reflog referenziert also auch Commits, die sonst nicht mehr
-referenziert sind, also ``verloren'' sind (siehe
+referenziert sind, also "`verloren`" sind (siehe
 <<sec.branch-management>>). So hilft das Reflog Ihnen
 möglicherweise, wenn Sie einen Branch gelöscht haben, von dem sich im
 Nachhinein herausstellt, dass Sie ihn doch gebraucht hätten. Zwar
@@ -2472,7 +2475,7 @@ haben. Dann erstellen Sie einen Branch, der auf diese (scheinbar
 verlorene) Commit-ID zeigt, und Ihre verlorenen Commits sollten wieder
 da sein.footnote:[Ob die Commits nicht schon aufgrund
   ihres Alters herausgefallen sind, hängt natürlich davon ab, wie oft
-  Sie eine 'Garbage-Collection' per `git gc` durchführen.
+  Sie eine _Garbage-Collection_ per `git gc` durchführen.
   Siehe auch <<sec.gc>>.
 ]
 
@@ -2490,8 +2493,8 @@ Zwei Beispiele:
 
 [subs="macros,quotes"]
 --------
-$ *git log \'master@{two weeks ago}..\'*
-$ *git show \'@{1st of April, 2011}'*
+$ *git log \_master@{two weeks ago}..\_*
+$ *git show \_@{1st of April, 2011}_*
 --------
 
 Das erste Kommando listet alle Commits zwischen `HEAD` und dem
@@ -2503,7 +2506,7 @@ sein, der zwei Wochen alt ist: Wenn Sie vor zwei Wochen testweise per
 allerersten Commit des Repositorys verschoben haben, dann wird genau
 dieser Commit referenziert.footnote:[Wollen
   Sie alle Commits der letzten zwei Wochen auflisten, verwenden Sie
-  stattdessen `git log --since='two weeks ago'`.]
+  stattdessen `git log --since=_two weeks ago_`.]
 
 Die zweite Zeile zeigt den Commit an, auf den der (wegen fehlender
 expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am
@@ -2511,18 +2514,18 @@ expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am
 Reflog-Anhang sinnvoll in Anführungszeichen eingefasst werden, damit
 Git das Argument komplett erhält.
 
-Beachten Sie, dass das Reflog 'nur' lokal vorliegt und somit
+Beachten Sie, dass das Reflog _nur_ lokal vorliegt und somit
 nicht zum Repository gehört. Wenn Sie einem anderen Entwickler eine
 Commit-ID oder einen Tag-Namen schicken, dann referenziert dies den
 gleichen Commit -- ein `master@{yesterday}` kann aber je nach
-Entwickler 'verschiedene' Commits referenzieren.
+Entwickler _verschiedene_ Commits referenzieren.
 
 [TIP]
 ==================
 Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an.
 Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden.
 Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also
-``letzte Position des `HEAD`'':
+"`letzte Position des `HEAD``":
 
 [subs="macros,quotes"]
 ------

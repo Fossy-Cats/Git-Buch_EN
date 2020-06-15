@@ -1,17 +1,18 @@
 // adapted from: "advanced.txt"
 
 [[ch.advanced]]
-= Fortgeschrittene Konzepte
+= Advanced Concepts
+// Fortgeschrittene Konzepte
 
 Das folgende Kapitel behandelt ausgewählte fortgeschrittene Konzepte.
 Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen
 Anwendungen. Wir finden heraus, wer wann eine Zeile im Quellcode
-verändert hat ('Blame') und wie Sie Git anweisen, Dateien und
+verändert hat (_Blame_) und wie Sie Git anweisen, Dateien und
 Verzeichnisse zu ignorieren.  Außerdem wird darauf eingegangen, wie
 Sie Änderungen am Working Tree in den Hintergrund stellen
-('Stash') und Commits annotieren ('Notes').  Zuletzt zeigen
+(_Stash_) und Commits annotieren (_Notes_).  Zuletzt zeigen
 wir Ihnen, wie Sie schnell und automatisiert Commits finden, die einen
-Bug einführen ('Bisect').
+Bug einführen (_Bisect_).
 
 [[sec.rebase]]
 == Commits verschieben – Rebase
@@ -23,8 +24,8 @@ allem durch das Git-Kommando `rebase`. Das Kommando ist sehr
 mächtig und wichtig, aber zum Teil auch etwas anspruchsvoller in der
 Anwendung.
 
-'Rebase' ist ein Kunstwort, was soviel bedeutet wie ``etwas
-auf eine neue Basis stellen''. Gemeint ist damit, dass eine Gruppe
+_Rebase_ ist ein Kunstwort, was soviel bedeutet wie "`etwas
+auf eine neue Basis stellen`". Gemeint ist damit, dass eine Gruppe
 von Commits innerhalb des Commit-Graphen verschoben, also Commit für
 Commit auf Basis eines anderen Knotens aufgebaut wird.  Die
 nachfolgenden Grafiken veranschaulichen die Funktionsweise:
@@ -53,22 +54,22 @@ Hierbei sind einige Punkte zu beachten:
 
 
 
-* Weil der erste Knoten des +topic+-Branches (E) nun einen neuen Vorgänger (D) hat, ändern sich seine Metadaten und somit seine SHA-1-Summe (er wird zu E'). Der zweite Commit (F) hat dann ebenfalls einen anderen Vorgänger (E' statt E), dessen SHA-1-Summe ändert sich (er wird zu F') usw. – dies wird auch als 'Ripple Effect' bezeichnet. Insgesamt werden 'alle' kopierten Commits neue SHA-1-Summen haben – sie sind also im Zweifel gleich (was die Änderungen betrifft), aber nicht identisch.
+* Weil der erste Knoten des +topic+-Branches (E) nun einen neuen Vorgänger (D) hat, ändern sich seine Metadaten und somit seine SHA-1-Summe (er wird zu E_). Der zweite Commit (F) hat dann ebenfalls einen anderen Vorgänger (E_ statt E), dessen SHA-1-Summe ändert sich (er wird zu F_) usw. – dies wird auch als _Ripple Effect_ bezeichnet. Insgesamt werden _alle' kopierten Commits neue SHA-1-Summen haben – sie sind also im Zweifel gleich (was die Änderungen betrifft), aber nicht identisch.
 
 * Bei einer solchen Aktion können, genau wie bei
   einem Merge-Vorgang, konfliktbehaftete Änderungen auftreten. Git
   kann diese teilweise automatisch lösen, bricht aber mit einer
   entsprechenden Fehlermeldung ab, wenn die Konflikte nicht trivial
-  sind. Der Rebase-Prozess kann dann entweder ``repariert''
+  sind. Der Rebase-Prozess kann dann entweder "`repariert`"
   und weitergeführt oder abgebrochen werden (s.u.).
 
 
 * Sofern keine weitere Referenz auf den Knoten F zeigt, geht
   dieser verloren, weil die Referenz +HEAD+ (und gegebenenfalls
   der entsprechende Branch) bei einem erfolgreichen Rebase auf den
-  Knoten F' 'verschoben' wird.  Wenn also F keine Referenz mehr
+  Knoten F_ _verschoben' wird.  Wenn also F keine Referenz mehr
   hat (und auch keine Vorgänger, die F referenzieren), kann Git den
-  Knoten nicht mehr finden, und der Baum ``verschwindet''.
+  Knoten nicht mehr finden, und der Baum "`verschwindet`".
   Wenn Sie sich nicht sicher sind, ob Sie den Original-Baum noch
   einmal benötigen, können Sie zum Beispiel mit dem
   `tag`-Kommando einfach eine Referenz darauf setzen. Dann
@@ -80,7 +81,7 @@ Hierbei sind einige Punkte zu beachten:
 === Ein Beispiel
 
 Betrachten Sie folgende Situation: Der Branch `sqlite-support`
-zweigt vom Commit ``fixed a bug...'' ab. Der
+zweigt vom Commit "`fixed a bug...`" ab. Der
 `master`-Branch ist aber schon weitergerückt, und ein neues
 Release 1.4.2 ist erschienen.
 
@@ -163,8 +164,8 @@ sehr hilfreich. Fügen Sie dann einfach die geänderte Datei per
 `git add` hinzu und lassen Sie den Prozess per `git
   rebase --continue` weiterlaufen.footnote:[Wenn Sie Patch-Stacks mit Git verwalten, bei denen
   potentiell Konflikte auftreten können, sollten Sie sich in jedem
-  Fall das Feature 'Reuse Recorded Resolution' ansehen, kurz
-  'rerere'. 'Rerere' speichert Konfliktlösungen und
+  Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz
+  _rerere_. _Rerere_ speichert Konfliktlösungen und
   korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert
   wurde, siehe auch <<sec.rerere>>.]
 
@@ -200,7 +201,7 @@ vermeiden, siehe dazu <<sec.patch-queue>>.)
 
 Für die Versionsgeschichte ist es nun viel logischer, wenn sein
 Feature nicht über einen langen Zeitraum unfertig neben der
-eigentlichen Entwicklung ``mitgeschleppt'' wurde, sondern wenn
+eigentlichen Entwicklung "`mitgeschleppt`" wurde, sondern wenn
 die Entwicklung vom letzten stabilen Release abzweigt.
 
 Für genau diese Änderung in der Geschichte ist Rebase gut: Der
@@ -218,11 +219,11 @@ direkt noch ein Test geschrieben werden, um diesen Fehler in Zukunft
 zu vermeiden (ein weiterer Commit), was wiederum in der Dokumentation
 entsprechend zu vermerken ist. Nachdem die eigentliche Arbeit getan
 ist, kann man diese Commits mit Rebase an eine andere Stelle im
-Commit-Graphen ``transplantieren''.
+Commit-Graphen "`transplantieren`".
 
 Rebase kann auch dann sinnvoll sein, wenn in einem Branch ein Feature
 benötigt wird, das erst kürzlich in die Software eingeflossen ist. Ein
-'Merge' des `master`-Branches ist semantisch nicht
+_Merge_ des `master`-Branches ist semantisch nicht
 sinnvoll, da dann diese und andere Änderungen untrennbar mit dem
 Feature-Branch verschmolzen werden. Stattdessen baut man den Branch
 per Rebase auf einen neuen Commit auf, in dem das benötigte Feature
@@ -231,7 +232,7 @@ nutzen.
 
 
 [[sec.rebase-vs-merge]]
-=== Wann Rebase 'nicht' sinnvoll ist – Rebase vs. Merge
+=== Wann Rebase _nicht_ sinnvoll ist – Rebase vs. Merge
 
 Das Konzept von Rebase ist zunächst etwas schwierig zu verstehen. Aber
 sobald Sie verstanden haben, was damit möglich ist, stellt sich die
@@ -271,9 +272,9 @@ unterschiedliche Art und Weise) unübersichtlich.
 Generell fahren Sie mit den folgenden Faustregeln gut:
 
 
-. Ein Feature wird, wenn es fertig wird, per 'Merge'
+. Ein Feature wird, wenn es fertig wird, per _Merge_
   integriert. Sinnvollerweise sollte vermieden werden, einen
-  'Fast-Forward-Merge' zu erzeugen, damit der Merge-Commit als
+  _Fast-Forward-Merge_ zu erzeugen, damit der Merge-Commit als
   Zeitpunkt der Integration erhalten bleibt.
 
 . Während Sie entwickeln, sollten Sie häufig Rebase benutzen
@@ -291,7 +292,7 @@ Generell fahren Sie mit den folgenden Faustregeln gut:
 === Ein Wort der Warnung
 
 Wie schon angesprochen, ändern sich bei einem Rebase zwangsläufig die
-SHA-1-Summen aller Commits, die ``umgebaut'' werden. Wenn diese
+SHA-1-Summen aller Commits, die "`umgebaut`" werden. Wenn diese
 Änderungen noch nicht veröffentlicht wurden, d.h. bei einem
 Entwickler im privaten Repository liegen, ist das auch nicht schlimm.
 
@@ -317,7 +318,7 @@ Bearbeiten Sie mit dem Rebase-Kommando nur  unveröffentlichte Commits!
 
 
 Ausnahmen bilden Konventionen wie persönliche Branches oder
-`pu`. Letzterer ist ein Kürzel für 'Proposed Updates' und
+`pu`. Letzterer ist ein Kürzel für _Proposed Updates_ und
 ist in der Regel ein Branch, in dem neue, experimentelle Features auf
 Kompatibilität getestet werden. Auf diesen Branch baut sinnvollerweise
 niemand seine eigene Arbeit auf, daher kann er ohne Probleme und
@@ -326,7 +327,7 @@ vorherige Ankündigung umgeschrieben werden.
 Eine weitere Möglichkeit bieten private Branches, also solche, die zum
 Beispiel mit `<user>/` starten. Trifft man die
 Vereinbarung, dass Entwickler auf diesen Branches eigene Entwicklung
-betreiben, aber ihre Features immer nur auf ``offiziellen''
+betreiben, aber ihre Features immer nur auf "`offiziellen`"
 Branches aufbauen, dann dürfen die Entwickler ihre Branches beliebig
 umschreiben.
 
@@ -350,7 +351,7 @@ verschiedenen Stellen im Commit-Graphen vorhanden.
 === Patch-Stacks verwalten
 
 Es gibt Situationen, in denen es von einer Software eine
-Vanilla-Version (``einfachste Version'') gibt und außerdem
+Vanilla-Version ("`einfachste Version`") gibt und außerdem
 eine gewisse Anzahl von Patches, die darauf angewendet werden, bevor
 die Vanilla-Version ausgeliefert wird.  Zum Beispiel baut Ihre Firma
 eine Software, aber vor jeder Auslieferung an den Kunden müssen (je
@@ -366,21 +367,21 @@ anwenden und die Software anschließend neu bauen.footnote:[Im letzteren Fall ma
 Um Patch-Stacks zu verwalten, gibt es einige Programme, die auf Git
 aufbauen, Ihnen aber den Komfort bieten, nicht direkt mit dem
 Rebase-Kommando arbeiten zu müssen. Beispielsweise erlaubt
-'TopGit'{empty}footnote:[Den Quellcode finden Sie unter
+_TopGit_{empty}footnote:[Den Quellcode finden Sie unter
   http://repo.or.cz/w/topgit.git.]
 Ihnen, Abhängigkeiten zwischen Branches zu definieren – wenn sich
 dann in einem Branch etwas ändert und andere Branches
 hängen davon ab, baut TopGit diese auf Wunsch neu auf. Eine
-Alternative zu TopGit ist 'Stacked Git'{empty}footnote:[Kurz `stg` oder StGit, erreichbar unter
+Alternative zu TopGit ist _Stacked Git_{empty}footnote:[Kurz `stg` oder StGit, erreichbar unter
   http://www.procode.org/stgit/.].
 
 [[sec.rebase-onto]]
 === Rebase einschränken mit --onto
 
 Sie mögen sich nun gewundert haben: `git rebase <referenz>`
-kopiert immer 'alle' Commits, die zwischen `<referenz>`
+kopiert immer _alle_ Commits, die zwischen `<referenz>`
 und `HEAD` liegen. Was aber, wenn Sie nur einen Teil eines
-Branches umsetzen, quasi ``transplantieren'' möchten?
+Branches umsetzen, quasi "`transplantieren`" möchten?
 Betrachten Sie folgende Situation:
 
 .Vor dem `rebase --onto`
@@ -474,11 +475,11 @@ Sie einen Branch mit Rebase bearbeiten, der Merges enthält. Rebase
 kann versuchen, diese nachzuahmen statt die Commits zu linearisieren.
 Zuständig ist die Option `-p` bzw.
 `--preserve-merges`.footnote:[Das funktioniert auch problemlos,
-  sofern alle Abzweigungen und Zusammenführungen 'oberhalb' der
+  sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der
   neuen Referenz sind (also nur Commits enthalten sind, von denen aus
   man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem
   Commit fehl, der schon in der Geschichte enthalten ist
-  (Fehlermeldung: ``nothing to commit''); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]
+  (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]
 
 Mit der Option `-m` bzw. `--merge` können Sie
 `git rebase` anweisen, Merge-Strategien zu verwenden (siehe
@@ -494,7 +495,7 @@ Konflikte auftreten, wird den Änderungen aus dem Commit, der kopiert
 wird, Vorrang gegeben. Ein solches Szenario ist also sinnvoll, wenn
 Sie wissen, dass es konfliktverursachende Änderungen gibt, sich aber
 sicher sind, dass die Änderungen des neu aufzubauenden Branches
-``richtiger'' sind als die des Baumes, auf den Sie aufbauen.
+"`richtiger`" sind als die des Baumes, auf den Sie aufbauen.
 Wenn Sie `topic` neu auf `master`
 aufbauen, sähe ein solcher Aufruf so aus:
 
@@ -573,7 +574,7 @@ diese auch jeweils durch ihren Anfangsbuchstaben abkürzen, also z.B.
 
 
 
-`pick`:: ``Commit verwenden'' (Default).  Entspricht der Behandlung
+`pick`:: "`Commit verwenden`" (Default).  Entspricht der Behandlung
 von Commits im nicht-interaktive Rebase.
 
 `-`:: Löschen Sie eine Zeile, dann wird der Commit nicht verwendet
@@ -657,7 +658,7 @@ die letzten fünf.
 
 Im Editor erscheinen die Commits nun in umgekehrter Reihenfolge im
 Vergleich zur Ausgabe von `git log`. Ordnen Sie nun die kleinen
-Bugfix-Commits so an, dass sie 'unter' dem Commit, den sie
+Bugfix-Commits so an, dass sie _unter_ dem Commit, den sie
 korrigieren, stehen. Markieren Sie dann die Korrektur-Commits mit
 `squash` (oder `s`), also z.B. so:
 
@@ -693,7 +694,7 @@ $ *git log --oneline master..feature*
 [TIP]
 ========
 Oft kommt es vor, dass man eine kleine Änderung noch in den zuletzt
-getätigten Commit ``schleusen'' möchte. Hier bietet sich
+getätigten Commit "`schleusen`" möchte. Hier bietet sich
 folgendes Alias an, das an die `fixup`-Aktion angelehnt ist:
 
 [subs="macros,quotes"]
@@ -750,7 +751,7 @@ Im Wesentlichen erreichen Sie dabei dasselbe wie im Beispiel
 `git rebase --onto` in <<sec.rebase-onto-ci-amend>>
 -- allerdings können Sie auch weit kompliziertere Aktionen ausführen.
 Einen häufigen Anwendungsfall beschreibt folgendes
-``Rezept''.
+"`Rezept`".
 
 [[sec.rebase-split-cmmits]]
 ==== Commits aufteilen
@@ -790,7 +791,7 @@ $ *git reset HEAD^*
 Die Änderungen, die der aufzuteilende Commit verursacht, sind nun noch
 in den Dateien vorhanden; der Index und das Repository spiegeln aber
 den Stand des Vorgänger-Commits wider. Sie haben also die Änderungen
-des aufzuteilenden Commits in den 'unstaged'-Zustand verschoben
+des aufzuteilenden Commits in den _unstaged_-Zustand verschoben
 (das können Sie verifizieren, indem Sie `git diff` vor und nach
 dem `reset`-Aufruf betrachten).
 
@@ -864,7 +865,7 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
  char *url)
 5ace994f http.c 130) {
 5ace994f http.c 131)    strbuf_addstr(buf, url);
-5ace994f http.c 132)    if (buf-&gt;len &amp;&amp; buf-&gt;buf[buf-&gt;len - 1] != \'/')
+5ace994f http.c 132)    if (buf-&gt;len &amp;&amp; buf-&gt;buf[buf-&gt;len - 1] != \_/_)
 5ace994f http.c 133)            strbuf_addstr(buf, "/");
 5ace994f http.c 134) }
 3793a309 url.c  135)
@@ -898,7 +899,7 @@ eigentlich vor einer bestimmten Änderung aussah. Dafür bietet das
 grafische Blame-Tool die folgende Möglichkeit, in der
 Versionsgeschichte zurückzugehen: Klicken Sie mit der rechten
 Maustaste auf die Commit-ID eines Code-Blocks und wählen Sie im
-Kontextmenü 'Blame Parent Commit' aus – nun wird der
+Kontextmenü _Blame Parent Commit_ aus – nun wird der
 Vorgänger dieser Änderung angezeigt. Sie können auf diese Weise
 mehrere Schritte zurückgehen. Über den grünen Pfeil links oben können
 Sie wieder in die Zukunft springen.
@@ -1011,7 +1012,7 @@ pass:quotes[\*.*~]
 
 Dateien, die bereits versioniert sind, werden nicht automatisch
 ignoriert. Um eine solche Datei trotzdem zu ignorieren, weisen Sie Git
-explizit an, die Datei zu ``vergessen'':
+explizit an, die Datei zu "`vergessen`":
 
 [subs="macros,quotes"]
 --------
@@ -1049,7 +1050,7 @@ $ *git add -f documentation.pdf*
 === Ignorierte und unbekannte Dateien löschen
 
 Das Kommando `git clean` löscht ignorierte sowie unbekannte
-(sog. 'untracked') Dateien. Da evtl. Dateien unwiederbringlich
+(sog. _untracked_) Dateien. Da evtl. Dateien unwiederbringlich
 verlorengehen könnten, verfügt das Kommando über die Option
 `--dry-run` (bzw.  `-n`); sie gibt Auskunft, was
 gelöscht würde.  Als weitere Vorsichtsmaßnahme weigert sich das
@@ -1078,7 +1079,7 @@ Ein klassischer Anwendungsfall: Ihr Chef bittet Sie, so schnell wie
 möglich einen kritischen Bug zu beheben, Sie haben aber gerade
 angefangen, ein neues Feature zu implementieren.  Mit dem Kommando
 `git stash` räumen Sie die unfertigen Zeilen vorübergehend
-``aus dem Weg'', ohne einen Commit zu erzeugen, und können
+"`aus dem Weg`", ohne einen Commit zu erzeugen, und können
 sich so mit einem sauberen Working Tree dem Fehler zuwenden. Außerdem
 bietet der Stash Abhilfe, wenn Sie den Branch nicht wechseln können,
 weil dadurch Veränderungen verlorengehen würden (siehe auch <<sec.branch-management>>).
@@ -1104,7 +1105,7 @@ Veränderungen die bereits im Index sind, bleiben im Working Tree und im Index
 vorhanden und werden zusätzlich im Stash gespeichert.
 
 Die Veränderungen am Working Tree sowie dem Index werden ``beiseite
-  geschafft'', und Git erzeugt keinen Commit auf dem aktuellen
+  geschafft__, und Git erzeugt keinen Commit auf dem aktuellen
 Branch.  Um den gespeicherten Zustand wieder herzustellen, also um den
 gespeicherten Patch auf dem aktuellen Working Tree anzuwenden und
 gleichzeitig den Stash zu löschen, verwenden Sie:
@@ -1188,7 +1189,7 @@ Version im aktuellen Working Tree) sowie `Stashed Changes`
 [IMPORTANT]
 ============
 Sollten Sie versucht haben, einen Stash mit `git stash
-  pop` anzuwenden und es ist zu einem Konflikt gekommen, wird der Stash 'nicht' automatisch gelöscht.
+  pop` anzuwenden und es ist zu einem Konflikt gekommen, wird der Stash _nicht_ automatisch gelöscht.
 Sie müssen ihn (nach Auflösen des Konflikts) explizit mit `git stash drop` löschen.
 ============
 
@@ -1412,13 +1413,13 @@ gelöscht.
 In der Regel ist es nicht ohne Weiteres möglich, Commits, die einmal
 veröffentlicht wurden, noch einmal zu ändern oder zu erweitern.
 Manchmal wünscht man sich jedoch, man könnte Commits im Nachhinein
-noch Informationen ``anhängen'', ohne dass der Commit sich
+noch Informationen "`anhängen`", ohne dass der Commit sich
 ändert. Das könnten Ticket-Nummern sein, Informationen darüber, ob die
 Software kompiliert, wer sie getestet hat usw.
 
 Git bietet mit dem Kommando `git notes` eine Möglichkeit,
 nachträglich Notizen an einen Commit zu heften. Dabei sind die Notizen
-ein abgekoppelter ``Branch'' von Commits, referenziert durch
+ein abgekoppelter "`Branch`" von Commits, referenziert durch
 `refs/notes/commits`, auf dem die Entwicklung der Notes
 gespeichert wird. Auf diesem Branch liegen die Notizen zu einem Commit
 in einer Datei vor, deren Dateiname der SHA-1-Summe des Commits
@@ -1501,7 +1502,7 @@ ein (siehe auch <<sec.git-fetch>>):
 == Mehrere Root-Commits
 
 Bei der Initialisierung eines Repositorys wird der erste Commit, der
-sogenannte 'Root-Commit', erstellt. Dieser Commit ist in der
+sogenannte _Root-Commit_, erstellt. Dieser Commit ist in der
 Regel der einzige im ganzen Repository, der keinen Vorgänger hat.
 
 Allerdings ist es auch möglich, mehrere Root-Commits in einem
@@ -1532,7 +1533,7 @@ warning: no common commits
 Der Branch `master` des anderen Repositorys wird als
 `<anderer-master>` ins lokale Repository kopiert, inklusive
 aller Commits, bis Git eine Merge-Basis findet oder einen Root-Commit.
-Die Warnung ``no common commits'' deutet schon darauf hin,
+Die Warnung "`no common commits`" deutet schon darauf hin,
 dass die beiden Versionsgeschichten keinen gemeinsamen Commit haben.
 Das Repository hat nun zwei Root-Commits.
 
@@ -1575,23 +1576,23 @@ geschützt, trivial erkennbare Regressionen einzubauen (z.B.  weil
 Sie vor jedem Commit ein `make test` laufen lassen).
 
 Wenn die Regression reproduzierbar ist (``Mit den Argumenten <x>
-stürzt das Programm ab'', ``die Konfigurationseinstellung <y>
-führt zu einem Speicherzugriffsfehler''), dann können Sie mit Git
+stürzt das Programm ab__, ``die Konfigurationseinstellung <y>
+führt zu einem Speicherzugriffsfehler__), dann können Sie mit Git
 die Suche nach dem Commit, der diese Regression verursacht,
 automatisieren.
 
 Git stellt dafür das Kommando `bisect` zur Verfügung, dessen
-Algorithmus nach dem Prinzip ``teile und herrsche'' (engl.
-'divide and conquer') funktioniert: Zunächst definieren Sie einen
+Algorithmus nach dem Prinzip "`teile und herrsche`" (engl.
+_divide and conquer_) funktioniert: Zunächst definieren Sie einen
 Zeitpunkt (also einen Commit), zu dem die Regression noch nicht
 aufgetreten war (`good`), anschließend einen Zeitpunkt, zu dem
 sie auftritt (genannt `bad`, lassen Sie diesen weg, nimmt Git
 `HEAD` an).
 
 Das `bisect`-Kommando geht von der idealisierten Annahme aus,
-dass die Regression durch 'einen' Commit eingeleitet wurde -- es
-gibt also einen Commit, 'vor' dem alles in Ordnung war, und
-'nach' dem der Fehler auftritt.footnote:[Dieser Commit muss natürlich
+dass die Regression durch _einen_ Commit eingeleitet wurde -- es
+gibt also einen Commit, _vor_ dem alles in Ordnung war, und
+_nach_ dem der Fehler auftritt.footnote:[Dieser Commit muss natürlich
   nicht den Kern der Regression ausmachen, sie wurde möglicherweise
   durch einen ganz anderen Commit vorbereitet.]
 
@@ -1603,8 +1604,8 @@ gesetzt. Dadurch fällt circa die Hälfte der zu untersuchenden Commits
 weg. Git wiederholt den Schritt, bis nur noch ein Commit übrig bleibt.
 
 Die Anzahl der Schritte, die `bisect` benötigt, verhält sich
-also logarithmisch zur Anzahl der Commits, die Sie untersuchen: Für 'n'
-Commits benötigen Sie ca. log~2~('n') Schritte. Bei 32 Commits sind
+also logarithmisch zur Anzahl der Commits, die Sie untersuchen: Für _n_
+Commits benötigen Sie ca. log~2~(_n_) Schritte. Bei 32 Commits sind
 das zwar maximal fünf Schritte, für 1024 Commits aber maximal  10
 Schritte, weil Sie ja im ersten Schritt schon 512 Commits eliminieren
 können.
@@ -1623,7 +1624,7 @@ $ *git bisect good &lt;funktioniert&gt;*
 
 
 Sobald Sie die beiden Punkte definiert haben, checkt Git einen Commit
-in der Mitte aus, Sie befinden sich also ab jetzt im 'Detached-Head'-Modus (siehe <<sec.detached-head>>). Nachdem Sie
+in der Mitte aus, Sie befinden sich also ab jetzt im _Detached-Head_-Modus (siehe <<sec.detached-head>>). Nachdem Sie
 überprüft haben, ob die Regression noch immer vorhanden ist, können
 Sie ihn mit `git bisect good` bzw. `git bisect bad`
 markieren. Git checkt automatisch den nächsten Commit aus.
@@ -1678,7 +1679,7 @@ durch das `bisect`-Kommando bei der Suche nach obskuren
 Fehlern viel Arbeit sparen.
 
 Achten Sie daher besonders darauf, dass Sie keine Commits erzeugen,
-die die Software in einem ``kaputten'' Zustand lassen
+die die Software in einem "`kaputten`" Zustand lassen
 (kompiliert nicht etc.), was ein späterer Commit repariert.
 ========
 

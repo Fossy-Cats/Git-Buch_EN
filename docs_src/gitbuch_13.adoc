@@ -2,10 +2,11 @@
 
 [appendix]
 [[sec.git-repository-layout]]
-= Struktur eines Repositorys
+= Repository Structure
+// Struktur eines Repositorys
 
 Git speichert die Objektdatenbank, die zugehörigen Referenzen usw. im
-sogenannten 'Git-Directory', oft auch als `$GIT_DIR`
+sogenannten _Git-Directory_, oft auch als `$GIT_DIR`
 bezeichnet.  Standardmäßig ist dies `.git/`. Es existiert
 für jedes Git-Repository nur einmal, d.h. es werden keine
 zusätzlichen `.git/`-Verzeichnisse in Unterverzeichnissen
@@ -80,26 +81,26 @@ auch wenn sie nicht mehr erreichbar sind.
 Intern verwendet Git die Kommandos `prune`,
 `prune-packed`, `fsck`, `repack`{empty}{nbsp}u.a.
 Allerdings werden die  Tools mit entsprechenden Optionen
-automatisch von der 'Garbage Collection' (``Müllabfuhr'')
+automatisch von der _Garbage Collection_ ("`Müllabfuhr`")
 ausgeführt: `git gc`. Folgende Aufgaben erledigt das Tool:
 
 
-* 'Dangling' und 'Unreachable Objects' löschen.
+* _Dangling_ und _Unreachable Objects_ löschen.
   Diese entstehen bei diversen Operationen und können in der Regel
   nach einiger Zeit gelöscht werden, um Platz zu sparen (Default:
   nach zwei Wochen).
 
-* 'Loose Objects' neu packen. Git verwendet sog.
-  'Packfiles', um mehrere Git-Objekte zusammenzuschnüren. (Dann
+* _Loose Objects_ neu packen. Git verwendet sog.
+  _Packfiles_, um mehrere Git-Objekte zusammenzuschnüren. (Dann
   existiert nicht mehr eine Datei unterhalb von `.git/objects/`
   pro Blob, Tree und Commit -- diese werden in einer großen,
-  'zlib'-komprimierten Datei zusammengefasst).
+  _zlib_-komprimierten Datei zusammengefasst).
 
 * Existierende Packfiles nach alten (unerreichbaren) Objekten
-  durchsuchen und die Packfiles entsprechend ``ausdünnen''.
+  durchsuchen und die Packfiles entsprechend "`ausdünnen`".
   Ggf. werden mehrere kleine Packfiles zu großen kombiniert.
 
-* Referenzen packen. Es entstehen sog. 'Packed Refs',
+* Referenzen packen. Es entstehen sog. _Packed Refs_,
   siehe auch <<sec.branches>>.
 
 * Alte Reflog-Einträge löschen. Das geschieht per Default
@@ -113,10 +114,10 @@ ausgeführt: `git gc`. Folgende Aufgaben erledigt das Tool:
 Die Garbage Collection kennt drei Modi: automatisch, normal und
 aggressiv. Den automatischen Modus rufen Sie per `git gc
   --auto` auf -- der Modus überprüft, ob es wirklich eklatante
-Mängel im Repository gibt. Was ``eklatant'' bedeutet, ist
+Mängel im Repository gibt. Was "`eklatant`" bedeutet, ist
 konfigurierbar. Über folgende Konfigurationseinstellungen können Sie
 (global oder per Repository) bestimmen, ab wann, d.h. ab welcher
-Anzahl ``kleiner'' Dateien der automatische Modus aufräumt,
+Anzahl "`kleiner`" Dateien der automatische Modus aufräumt,
 also diese in große Archive zusammenfasst.
 
 
@@ -202,23 +203,23 @@ Packfile eine Indizierung an, die angibt, welches Objekt in welchem Offset
 der Datei zu finden ist. Zusätzlich hat die Packroutine noch eine
 gewisse Heuristik um die Objektplatzierung innerhalb der Datei zu optimieren
 (so dass bspw. ein Tree-Object und die davon referenzierten Blob-Objekte
-``nah'' beieinander liegen).
+"`nah`" beieinander liegen).
 Dadurch kann Git einfach das Packfile in den Speicher mappen
-(Stichwort: ``sliding mmap''). Die Operation ``suche
-Objekt X'' ist dann nichts weiter als eine Lookup-Operation im
+(Stichwort: "`sliding mmap`"). Die Operation ``suche
+Objekt X__ ist dann nichts weiter als eine Lookup-Operation im
 Pack-Index und ein entsprechendes Auslesen der Stelle im Packfile,
 d.h. im Speicher. Dies entlastet das Datei- und Betriebssystem
 erheblich.
 
 Der zweite Vorteil der Packfiles liegt in der Delta-Kompression. So
-werden Objekte möglichst als 'Deltas' ('Veränderungen')
+werden Objekte möglichst als _Deltas_ (_Veränderungen_)
 anderer Objekte gespeichert.footnote:[Das ist nicht zu verwechseln mit
   Versionskontrollsystemen, die inkrementelle Versionen einer Datei
   speichern. Innerhalb von Packfiles werden die Objekte unabhängig von
   ihrem semantischen Zusammenhang, d.h. speziell ihrer zeitlichen
   Abfolge, gepackt.]  Das spart Speicherplatz, ermöglicht aber
 andererseits auch Kommandos wie `git blame`,
-``kostengünstig'', also ohne großen Rechenaufwand, Kopien
+"`kostengünstig`", also ohne großen Rechenaufwand, Kopien
 von Code-Stücken zwischen Dateien zu entdecken.
 
 Der aggressive Modus sollte nur in begründeten Ausnahmefällen
@@ -230,7 +231,7 @@ eingesetzt werden.footnote:[Eine ausführliche
 ========
 Lassen Sie auf Ihren öffentlich zugänglichen Repositories auch
 regelmäßig, z.B. per Cron, ein `git gc` laufen. Commits werden über
-das Git-Protokoll immer als Packfiles übertragen, die 'on demand', das
+das Git-Protokoll immer als Packfiles übertragen, die _on demand_, das
 heißt zum Zeitpunkt des Abrufs, erzeugt werden.  Wenn das gesamte
 Repository schon als ein großes Packfile vorliegt, können Teile daraus
 schneller extrahiert werden, und ein kompletter Clone des Repositorys

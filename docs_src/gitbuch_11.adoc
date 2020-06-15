@@ -1,20 +1,20 @@
 // adapted from: "github.txt"
 
 [[sec.github]]
-= Github
+= GitHub
 
 Es gibt derzeit mehrere Hosting-Websites, die kostenfreies Git-Hosting
 für Open-Source-Projekte anbieten. Die mit Abstand bekannteste von
 allen ist
-'Github'.footnote:[https://github.com/]
+_Github_.footnote:[https://github.com/]
 Zwei andere bekannte reine Git-Hoster sind
-'Gitorious'{empty}footnote:[http://gitorious.org/]
+_Gitorious_{empty}footnote:[http://gitorious.org/]
 und
-'repo.or.cz'{empty}footnote:[http://repo.or.cz/].
+_repo.or.cz_{empty}footnote:[http://repo.or.cz/].
 Aber auch bereits etablierte Hosting-Seiten wie
-'Sourceforge'{empty}footnote:[http://sourceforge.net/]
+_Sourceforge_{empty}footnote:[http://sourceforge.net/]
 und
-'Berlios'{empty}footnote:[http://www.berlios.de/]
+_Berlios_{empty}footnote:[http://www.berlios.de/]
 bieten mittlerweile Git-Hosting an.
 
 Github wurde 2008 von Chris Wanstrath,
@@ -23,34 +23,34 @@ gegründet. Die in Ruby on Rails entwickelte Plattform hat über
 drei Millionen Nutzer und hostet über zehn Millionen
 Repositories.
 Auch wenn man bedenkt, dass viele dieser Repositories sogenannte
-'Forks' (Klone) anderer Repositories oder sogenannte 'Gists'
+_Forks_ (Klone) anderer Repositories oder sogenannte _Gists_
 (Quellcode-Schnipsel) sind, ist das trotzdem eine beachtliche Anzahl.
 Viele namhafte Projekte
 verwenden heutzutage Github, um ihren Quelltext zu verwalten, unter
 anderem das Kommandozeilen-Tool
-'Curl'{empty}footnote:[http://curl.haxx.se/],
+_Curl_{empty}footnote:[http://curl.haxx.se/],
 das Web-Framework 'Ruby on
   Rails'{empty}footnote:[http://rubyonrails.org/] und
 die JavaScript-Bibliothek
-'jQuery'{empty}footnote:[http://jquery.com/].
+_jQuery_{empty}footnote:[http://jquery.com/].
 
 Das kostenfreie Angebot umfasst unbegrenzte Git-Repositories -- mit
 der Einschränkung, dass diese öffentlich verfügbar sind
-('Public Repositories'). Zusätzlich bietet Github
+(_Public Repositories_). Zusätzlich bietet Github
 kostenpflichtige Optionen für Einzelpersonen und Firmen, die es
 erlauben, zugriffsbeschränkte Repositories ('Private
   Repositories') anzulegen und zu nutzen. Großen Unternehmen bietet
-Github eine Lösung namens 'GitHub Enterprise' an.
+Github eine Lösung namens _GitHub Enterprise_ an.
 
 Github bietet alle wesentlichen Features, die Sie von einer
 Projekt-Hosting-Plattform erwarten, darunter auch Projekt-Wiki und
 Issue-Tracker. Das besondere daran ist aber, dass das Wiki-System
-'Gollum'{empty}footnote:[https://github.com/github/gollum]
+_Gollum_{empty}footnote:[https://github.com/github/gollum]
 als Backend keine Datenbank, sondern lediglich ein Git-Repository
 verwendet.  Als Markup bietet Github mehrere
 Syntax-Optionen{empty}footnote:[https://github.com/github/markup]
-an, unter anderem 'Markdown', 'Textile', 'Mediawiki'
-und 'Asciidoc'.
+an, unter anderem _Markdown_, _Textile_, _Mediawiki_
+und _Asciidoc_.
 
 Der Issue-Tracker ist auf Git ausgelegt und listet auch über das
 Webinterface erstellte Pull-Requests. Zusätzlich wurde in den
@@ -66,11 +66,11 @@ image::github-gollum.png[id="fig.github-gollum",scaledwidth="100%",width="100%"]
 
 In <<fig.github-gollum>> sehen Sie einen Ausschnitt der
 Projektseite von Gollum. Wichtig sind die Menüpunkte
-'Source' (Quellcode-Übersicht), 'Commits', 'Network'
-(Forks des Projekts mit Änderungen), 'Pull-Requests',
-'Issues', 'Wiki' und 'Graphs' (statistische Graphen).
-Andere wichtige Bedienelemente sind der Button 'Fork' sowie
-'Downloads' und auch die Anzeige der Klon-URL.
+_Source_ (Quellcode-Übersicht), _Commits_, _Network_
+(Forks des Projekts mit Änderungen), _Pull-Requests_,
+_Issues_, _Wiki_ und _Graphs_ (statistische Graphen).
+Andere wichtige Bedienelemente sind der Button _Fork_ sowie
+_Downloads_ und auch die Anzeige der Klon-URL.
 
 Bei Github steht zunächst der Entwickler im Mittelpunkt: Repositories
 sind immer Usern zugeordnet. Das ist ein großer Unterschied zu
@@ -93,7 +93,7 @@ image::github-workflow.png[id="fig.github-workflow",scaledwidth="70%",width="70%
 
 
 . Ein potentieller Contributor
-'forkt'{empty}footnote:[Nicht als Projekt-Fork
+_forkt_{empty}footnote:[Nicht als Projekt-Fork
   misszuverstehen, bei dem sich ein Projekt aufgrund interner
   Differenzen spaltet.] ein Repository bei Github.
 
@@ -127,7 +127,7 @@ zum Mergen eine Warnung.
 Seit kurzem ist es auch möglich, die Schritte 1., 2.,
 3. und 4. vollständig im Webinterface durchzuführen.
 Dafür klicken Sie in einem fremden Repository auf den Button
-'Fork and edit this file' -- das Repository wird automatisch für
+_Fork and edit this file_ -- das Repository wird automatisch für
 Ihr Benutzerkonto geforkt, und es tut sich ein web-basierter Editor
 auf, in dem Sie Ihre Veränderungen sowie eine Commit-Message
 eintragen.  Danach werden Sie automatisch auf die Pull-Request Seite
@@ -135,23 +135,23 @@ weitergeleitet.
 
 Da Sie bei vielen Forks schnell den Überblick verlieren, stellt Github
 eine grafische Darstellung der Forks mit noch ausstehenden Änderungen
-bereit, den sogenannten 'Network-Graph':
+bereit, den sogenannten _Network-Graph_:
 
 .Der Github Network-Graph
 image::github-network.png[id="fig.github-network",scaledwidth="100%",width="100%"]
 
-Github bietet Ihnen unter 'Graphs' noch weitere Visualisierungen.
-Unter 'Languages' wird angezeigt, welche Programmiersprachen das
-Projekt einsetzt. Die Grafik 'Impact' (engl. Auswirkung) zeigt,
-welcher Entwickler wann und wie viel geleistet hat.  'Punchcard'
+Github bietet Ihnen unter _Graphs_ noch weitere Visualisierungen.
+Unter _Languages_ wird angezeigt, welche Programmiersprachen das
+Projekt einsetzt. Die Grafik _Impact_ (engl. Auswirkung) zeigt,
+welcher Entwickler wann und wie viel geleistet hat.  _Punchcard_
 (Lochkarte) zeigt die Commit-Aktivität für Wochentage und Tageszeiten.
-'Traffic' (Verkehr) schließlich listet die Anzahl der
+_Traffic_ (Verkehr) schließlich listet die Anzahl der
 Projektseitenaufrufe während der letzten drei Monate auf.
 
-Wie das Motto 'Social Coding' schon andeutet, hat Github mehrere
+Wie das Motto _Social Coding_ schon andeutet, hat Github mehrere
 Features, die Sie auch in sozialen Netzwerken finden. Zum Beispiel
 können Sie sowohl einzelnen Usern als auch Repositories folgen (engl.
-'follow'). Sie erhalten dann in Ihrem 'Dashboard'
+_follow_). Sie erhalten dann in Ihrem _Dashboard_
 (Armaturenbrett) über eine Art Github-Newsticker: Meldungen über neue und
 geschlossene Pull-Requests, neue Commits, die hochgeladen wurden,
 Forks usw. Die Newsfeeds der User und Repositories sind aber auch als
@@ -159,24 +159,24 @@ RSS-Feed verfügbar, sollten Sie externe Newsreader vorziehen.
 
 Ein kleines, noch relativ unbekanntes Projekt kann daher über Github
 sehr schnell bekannt werden, wenn eine kritische Anzahl an
-``Followern'' erreicht ist.
+"`Followern`" erreicht ist.
 
 // Das Dogma der Gründer war: "Mache es leicht mitzuarbeiten, und
 // die Leute werden mitarbeiten." Dieses Phänomen wird als
-// 'Github-Effect' bezeichnet.
+// _Github-Effect_ bezeichnet.
 
-Github bietet auch einen Pastebin-Dienst an, den 'Gist'
+Github bietet auch einen Pastebin-Dienst an, den _Gist_
 (Kernaussage).  Im Gegensatz jedoch zu anderen Pastebin-Diensten ist
 bei Github jeder Gist ein vollwertiges Git-Repository. Besonders für
 Code-Schnipsel ist dies eine interessante Neuerung.
 
 Auch bei der Anbindung an externe Dienste leistet Github ganze Arbeit.
-Es gibt 50 sogenannte 'Service Hooks', mit denen Sie Nachrichten
+Es gibt 50 sogenannte _Service Hooks_, mit denen Sie Nachrichten
 bzgl. eines Repositorys an externe Dienste weiterleiten. Dabei sind
 unter anderem altbewährte Klassiker wie E-Mail und IRC, aber auch
 modernere Alternativen wie Twitter und Jabber.
 
-Github bietet aber noch zusätzliche ``Gimmicks'', die sehr
+Github bietet aber noch zusätzliche "`Gimmicks`", die sehr
 praktisch sind.  So werden aus Tags automatisch Quellcode-Archive zum
 Herunterladen.  Wie Sie in <<fig.github-downloads>>
 sehen, sowohl als `tar.gz` als auch als `.zip` Archiv.
@@ -194,26 +194,26 @@ Sie zeigen Unterschiede zwischen zwei Versionen einer Grafik an,
 Modi:
 
 
-'2-up':: Die zwei verschiedenen Versionen werden nebeneinander
+_2-up_:: Die zwei verschiedenen Versionen werden nebeneinander
 dargestellt, siehe <<fig.github-2up>>.  Auch Größenunterschiede sind
 ersichtlich.
 +
-.Modus '2-up'
+.Modus _2-up_
 image::github-image-diff-2up.png[id="fig.github-2up",scaledwidth="90%",width="90%"]
 
 
-'Swipe':: Das Bild wird in der Mitte geteilt. Links sehen Sie die alte
+_Swipe_:: Das Bild wird in der Mitte geteilt. Links sehen Sie die alte
 Version und rechts die neue. Schieben Sie den Regler hin und her, um
 die Änderungen zu beobachten.  Siehe <<fig.github-swipe>>.
 +
-.Modus 'Swipe'
+.Modus _Swipe_
 image::github-image-diff-swipe.png[id="fig.github-swipe",scaledwidth="90%",width="90%"]
 
-'Onion Skin':: Auch hier kommt ein Regler zum Einsatz, diesmal wird
+_Onion Skin_:: Auch hier kommt ein Regler zum Einsatz, diesmal wird
 jedoch die neue Version eingeblendet, es entsteht also ein fließender
 Übergang zwischen alt und neu.
 
-'Difference':: Zeigt nur die Pixel an, die verändert wurden.
+_Difference_:: Zeigt nur die Pixel an, die verändert wurden.
 
 
 
