@@ -15,6 +15,7 @@
 .gitignore       text eol=lf
 .gitmodules      text eol=lf
 
+
 ## Documentation Files
 ######################
 *.ad         text
@@ -24,5 +25,14 @@
 *.pdf        binary
 *.txt        text
 LICENSE      text
+
+
+## Shell Scripts
+################
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.sh    text eol=lf
+*.ps1   text eol=crlf
+
 
 # EOF #

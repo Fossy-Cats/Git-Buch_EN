@@ -1,0 +1,51 @@
+= Git
+:subtitle: Verteilte_Versionskontrolle_für_Code_und_Dokumente
+:author: Valentin_Haenel_und_Julius_Plenz
+:doctype: book
+:revnumber: 3.0
+:lang: de
+
+// "vorwort.txt"                 ->  Preface
+include::gitbuch_00.adoc[]
+
+// "erste_schritte.txt"          ->  Ch. 1
+include::gitbuch_01.adoc[]
+
+// "grundlagen.txt"              ->  Ch. 2
+include::gitbuch_02.adoc[]
+
+// "praxis.txt"                  ->  Ch. 3
+include::gitbuch_03.adoc[]
+
+// "advanced.txt"                ->  Ch. 4
+include::gitbuch_04.adoc[]
+
+// "remote.txt"                  ->  Ch. 5
+include::gitbuch_05.adoc[]
+
+// "workflows.txt"               ->  Ch. 6
+include::gitbuch_06.adoc[]
+
+// "server.txt"                  ->  Ch. 7
+include::gitbuch_07.adoc[]
+
+// "automatisierung.txt"         ->  Ch. 8
+include::gitbuch_08.adoc[]
+
+// "zusammenspiel.txt"           ->  Ch. 9
+include::gitbuch_09.adoc[]
+
+// "shell.txt"                   ->  Ch. 10
+include::gitbuch_10.adoc[]
+
+// "github.txt"                  ->  Ch. 11
+include::gitbuch_11.adoc[]
+
+// "installation.txt"            ->  App. A
+include::gitbuch_12.adoc[]
+
+// "gitdir.txt"                  ->  App. B
+include::gitbuch_13.adoc[]
+
+
+// EOF //

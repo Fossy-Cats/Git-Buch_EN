@@ -9,6 +9,7 @@ English translation of _[Das Git-Buch]_ (The Git Book) by [Valentin Haenel] and 
 - https://github.com/tajmone/Git-Buch_EN
 
 Translation project created by [Tristano Ajmone] in 2020/06/14.
+English translation by [Tristano Ajmone] and [Alexander Bolli].
 
 -----
 
@@ -38,6 +39,7 @@ The current development branch is [`alpha-dev`][alpha-dev].
 
 ## Contents
 
+- [`/docs_src/`][docs_src] — AsciiDoc sources.
 - [`README_DE.md`][README_DE] — Upstream README file, German original.
 - [`README_EN.md`][README_EN] — Upstream README file, English translation.
 
@@ -58,7 +60,7 @@ The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the 
 
 ## Status
 
-The project currently needs to be adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) toolchain.
+The project is currently being adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) toolchain.
 
 Once the Asciidoctor toolchain is up and running, we'll first translate all the section titles, then start working on the book translation section by section.
 
@@ -151,6 +153,10 @@ Open Source Press:
 [README_DE]: ./README_DE.md "Upstream README file: German original"
 [README_EN]: ./README_EN.md "Upstream README file: English translation"
 
+<!-- repo folders -->
+
+[docs_src]: ./docs_src/ "Navigate to AsciiDoc sources folder"
+
 <!-- repo branches -->
 
 [alpha-dev]: https://github.com/tajmone/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
@@ -162,6 +168,7 @@ Open Source Press:
 [Julius Plenz]: https://github.com/Feh "View Julius Plenz's GitHub profile"
 [Tristano Ajmone]: https://github.com/tajmone "View Tristano Ajmone's GitHub profile"
 [Valentin Haenel]: https://github.com/esc "View Valentin Haenel's GitHub profile"
+[Alexander Bolli]: https://github.com/SicroAtGit "View Alexander Bolli's GitHub profile"
 
 
 <!-- EOF -->

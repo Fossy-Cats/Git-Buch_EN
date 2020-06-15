@@ -34,7 +34,7 @@ insert_final_newline = true
 ## AsciiDoc
 ###########
 [*.{ad,adoc,asciidoc}]
-indent_size = 2
+indent_size = 1
 indent_style = space
 end_of_line = unset
 charset = utf-8
