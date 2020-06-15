@@ -1,9 +1,20 @@
-= Git
-:subtitle: Verteilte_Versionskontrolle_für_Code_und_Dokumente
-:author: Valentin_Haenel_und_Julius_Plenz
+= Git: Distributed Version Control for Code and Documents
+// Verteilte Versionskontrolle für Code und Dokumente
+Valentin Haenel; Julius Plenz
 :doctype: book
 :revnumber: 3.0
-:lang: de
+:revremark: WIP Translation
+:lang: en
+// Sections Numbering:
+:sectnums:
+:sectnumlevels: 5
+// Cross References:
+:idprefix:
+:xrefstyle: full
+:chapter-refsig: Ch.
+:section-refsig: Sec.
+:appendix-refsig: App.
+
 
 :leveloffset: +1
 

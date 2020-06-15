@@ -5,14 +5,15 @@ asciidoctor \
 	--timings \
 	--verbose \
 	--safe-mode unsafe \
-	-a imagesdir=images \
 	-a data-uri \
 	-a experimental \
 	-a icons=font \
+	-a imagesdir=images \
+	-a linkattrs \
+	-a reproducible \
 	-a sectanchors \
 	-a toc=left \
 	-a toclevels=5 \
-	-a reproducible \
 	-o  Git-Buch_EN.html \
 		gitbuch.asciidoc
 
