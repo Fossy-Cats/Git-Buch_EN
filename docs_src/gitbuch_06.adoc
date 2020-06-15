@@ -1,7 +1,7 @@
 // adapted from: "workflows.txt"
 
 [[sec.workflows]]
-== Workflows
+= Workflows
 
 Mit 'Workflows' (dt. 'Arbeitsabläufe') werden in der
 Software-Entwicklung in der Regel Strategien bezeichnet, die
@@ -21,7 +21,7 @@ projektbezogene Arbeitsabläufe (z.B.  Release-Management). Auf beide
 Aspekte wird im Folgenden eingegangen.
 
 [[sec.workflows-user]]
-=== Anwender ===
+== Anwender
 
 Nachfolgend finden Sie eine Auflistung genereller
 Entwicklungsstrategien (ohne bestimmte Reihenfolge):
@@ -147,7 +147,7 @@ Index an, ohne einen Commit zu erzeugen.
 
 
 [[sec.branch-modell]]
-=== Ein Branching-Modell ===
+== Ein Branching-Modell
 
 Der folgende Abschnitt stellt ein Branching-Modell vor, das an das in
 der Man-Page `gitworkflows(7)` beschriebene Modell
@@ -331,7 +331,7 @@ getaggt und veröffentlicht werden.
 
 
 [[sec.releases-management]]
-=== Releases-Management ===
+== Releases-Management
 
 Sobald ein Projekt mehr als nur ein, zwei Entwickler hat, ist es in
 der Regel sinnvoll, einen Entwickler mit dem Management der Releases
@@ -346,7 +346,7 @@ und den Release-Prozess teilweise automatisieren können.footnote:[Weitere Anreg
   Prokop (Open Source Press, München, 2010).]
 
 [[sec.release-check-branches]]
-==== Aufgaben sondieren ====
+=== Aufgaben sondieren
 
 Der Maintainer einer Software muss einen guten Überblick über die
 Features haben, die aktiv entwickelt und bald integriert werden
@@ -474,7 +474,7 @@ haben.
 
 
 [[sec.release-create]]
-==== Release erstellen ====
+=== Release erstellen
 
 Git bietet die folgenden zwei nützlichen Werkzeuge, um ein Release
 vorzubereiten:

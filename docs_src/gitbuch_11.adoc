@@ -1,7 +1,7 @@
 // adapted from: "github.txt"
 
 [[sec.github]]
-== Github ==
+= Github
 
 Es gibt derzeit mehrere Hosting-Websites, die kostenfreies Git-Hosting
 für Open-Source-Projekte anbieten. Die mit Abstand bekannteste von

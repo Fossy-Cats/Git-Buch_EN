@@ -1,7 +1,7 @@
 // adapted from: "praxis.txt"
 
 [[chap.praxis]]
-== Praktische Versionsverwaltung ==
+= Praktische Versionsverwaltung
 
 Das folgende Kapitel stellt alle wesentlichen Techniken vor, die Sie
 im täglichen Umgang mit Git einsetzen werden. Neben einer
@@ -10,7 +10,7 @@ wiederherstellt, liegt der Fokus auf der effektiven Arbeit mit
 Branches.
 
 [[sec.branches]]
-=== Referenzen: Branches und Tags ===
+== Referenzen: Branches und Tags
 
 ``Branch'' und ``Merge'' sind im CVS-/SVN-Umfeld für
 Neulinge oft ein Buch mit sieben Siegeln, für Könner regelmäßig Grund
@@ -87,7 +87,7 @@ Remote-Tracking-Branches, werden unter `.git/refs/remotes/` abgelegt (siehe <<se
 Referenzen, die meist der Versionierung dienen, liegen unter `.git/refs/tags/` (siehe <<sec.tags>>).
 
 [[sec.branch-refs]]
-==== HEAD und andere symbolische Referenzen ====
+=== HEAD und andere symbolische Referenzen
 
 Eine Referenz, die Sie selten explizit, aber ständig implizit
 benutzen, ist `HEAD`. Sie referenziert meist den gerade
@@ -174,7 +174,7 @@ Die Syntax ist übrigens in der Man-Page `git-rev-parse(1)` im Abschnitt
 
 
 [[sec.branch-management]]
-==== Branches verwalten ====
+=== Branches verwalten
 
 Ein Branch ist in Git im Nu erstellt.  Git muss lediglich den aktuell
 ausgecheckten Commit identifizieren und die SHA-1-Summe in der Datei
@@ -267,7 +267,7 @@ $ *git branch*
 
 
 [[sec.branch-checkout]]
-===== Branches wechseln: checkout =====
+==== Branches wechseln: checkout
 
 Branches wechseln Sie mit `git checkout <branch>`.  Wenn Sie
 einen Branch erstellen und direkt darauf wechseln
@@ -332,7 +332,7 @@ wollen (Beispiel: Arbeit unterbrechen und auf einem anderen Branch
 einen Fehler korrigieren), dann hilft `git stash` (<<sec.stash>>).
 
 [[sec.branch-naming]]
-===== Konventionen zur Benennung von Branches =====
+==== Konventionen zur Benennung von Branches
 
 Sie können Branches prinzipiell fast beliebig benennen. Ausnahmen sind
 aber Leerzeichen, einige Sonderzeichen mit spezieller Bedeutung für Git
@@ -368,7 +368,7 @@ organisieren, finden Sie in <<sec.workflows>> über Workflows.
 
 
 [[sec.no-ref-commits]]
-===== Gelöschte Branches und ``verlorene'' Commits =====
+==== Gelöschte Branches und ``verlorene'' Commits
 
 Commits kennen jeweils einen oder mehrere Vorgänger. Daher kann man
 den Commit-Graphen ``gerichtet'', d.h. von neueren zu
@@ -412,7 +412,7 @@ Eine weitere Möglichkeit, gelöschte Commits wiederzufinden, ist das
 'Reflog' (siehe dafür <<sec.reflog>>).
 
 [[sec.tags]]
-==== Tags – Wichtige Versionen markieren ====
+=== Tags – Wichtige Versionen markieren
 
 SHA-1-Summen sind zwar eine sehr elegante Lösung, um Versionen
 dezentral zu beschreiben, aber semantikarm und für Menschen
@@ -484,7 +484,7 @@ Sie Tags zwischen Repositories austauschen, beschreibt <<sec.remote-tags>>.
 
 
 [[sec.tags-verwalten]]
-===== Tags verwalten =====
+==== Tags verwalten
 
 Tags verwalten Sie mit dem Kommando `git tag`. Ohne Argumente
 zeigt es alle vorhandenen Tags an. Je nach Projektgröße lohnt es sich,
@@ -532,7 +532,7 @@ deutlich von den grünen, rechteckigen Branches unterscheiden:
 image::tag-screenshot.png[id="fig.tag-gitk",scaledwidth="90%",width="90%"]
 
 [[sec.lightweight-tags]]
-===== Lightweight Tags =====
+==== Lightweight Tags
 
 Um den `HEAD` mit einem Lightweight Tag zu versehen, übergeben
 Sie den gewünschten Namen an das Kommando (in diesem Beispiel, um einen
@@ -567,7 +567,7 @@ fatal: tag \'pre-regression' already exists
 --------
 
 [[sec.annotated-tags]]
-===== Annotated Tags =====
+==== Annotated Tags
 
 Annotated Tags erzeugen Sie mit der Option `-a`. Wie bei
 `git commit` öffnet sich ein Editor, mit dem Sie die
@@ -580,7 +580,7 @@ $ *git tag -m "Zweite Veröffentlichung" 0.2*
 --------
 
 [[sec.signierte-tags]]
-===== Signierte Tags =====
+==== Signierte Tags
 
 Um ein signiertes Tag zu überprüfen, verwenden Sie die Option
 `-v` ('verify'):
@@ -619,7 +619,7 @@ $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 --------
 
 [[sec.tags-loeschen]]
-===== Tags löschen und überschreiben =====
+==== Tags löschen und überschreiben
 
 Mit den Optionen `-d` und `-f` löschen Sie Tags bzw.
 überschreiben sie:
@@ -638,7 +638,7 @@ einen anderen Commit als Version `1.0` im Repository Y. Aber
 sehen Sie hierzu auch <<sec.remote-tags>>.
 
 [[sec.tags-lightweight-vs-heavyweight]]
-===== Lightweight vs. Annotated Tags =====
+==== Lightweight vs. Annotated Tags
 
 Für die öffentliche Versionierung von Software sind allgemein
 Annotated Tags sinnvoller. Sie enthalten im Gegensatz zu Lightweight
@@ -657,7 +657,7 @@ Sofern Sie die Tags nur lokal verwenden, können Sie sie auch löschen,
 wenn sie ihren Dienst erfüllt haben (s.o.).
 
 [[sec.non-commit-tags]]
-===== Non-Commit Tags =====
+==== Non-Commit Tags
 
 Mit Tags markieren Sie beliebige Git-Objekte, also nicht nur Commits,
 sondern auch Tree-, Blob- und sogar Tag-Objekte selbst! Das klassische
@@ -701,7 +701,7 @@ Sie können dann, wie oben beschrieben, alle Tags im Git-via-Git-Repository
 verifizieren.
 
 [[sec.git-describe]]
-===== Commits beschreiben =====
+==== Commits beschreiben
 
 Tags sind sehr nützlich, um beliebige Commits ``besser'' zu
 beschreiben.  Das Kommando `git describe` gibt eine
@@ -762,7 +762,7 @@ Somit weiß ein Benutzer ungefähr, welche Version er hat, und kann
 nachvollziehen, aus welchem Commit die Version kompiliert wurde.
 
 [[sec.undo]]
-=== Versionen wiederherstellen ===
+== Versionen wiederherstellen
 
 Ziel einer Versionskontrollsoftware ist es nicht nur, Änderungen
 zwischen Commits zu untersuchen. Wichtig ist vor allem auch, ältere
@@ -830,7 +830,7 @@ zurücksetzen.
 
 
 [[sec.detached-head]]
-==== Detached HEAD ====
+=== Detached HEAD
 
 Wenn Sie einen Commit auschecken, der nicht durch einen Branch
 referenziert wird, befinden Sie sich im sogenannten
@@ -888,7 +888,7 @@ dass diese verlorengehen.
 
 
 [[sec.revert]]
-==== Commits rückgängig machen ====
+=== Commits rückgängig machen
 
 Wenn Sie alle Änderungen, die ein Commit einbringt, rückgängig machen
 wollen, hilft das Kommando `revert`. Es löscht aber keinen
@@ -981,7 +981,7 @@ $ *git commit -m \'Reverting &lt;datei&gt; to resemble 3329661'*
 --------
 
 [[sec.reset]]
-==== Reset und der Index ====
+=== Reset und der Index
 
 Wenn Sie einen Commit gänzlich löschen, also nicht nur rückgängig
 machen, dann verwenden Sie `git reset`. Das Reset-Kommando
@@ -1044,7 +1044,7 @@ $ *git branch master HEAD^^*
 --------
 
 [[sec.reset-usage]]
-===== reset benutzen =====
+==== reset benutzen
 
 Mit `reset` löschen Sie nicht beliebige Commits, sondern
 verschieben immer nur Referenzen. Dadurch gehen die nicht mehr
@@ -1131,7 +1131,7 @@ wird.
 
 
 [[sec.merge]]
-=== Branches zusammenführen: Merges ===
+== Branches zusammenführen: Merges
 
 Das Zusammenführen von Branches nennt man in Git 'mergen';
 der Commit, der zwei oder mehr Branches miteinander verbindet,
@@ -1159,7 +1159,7 @@ lösen.
 Zunächst schauen wir uns einen Merge-Vorgang auf Objektebene an.
 
 [[sec.merge-detail]]
-==== Zwei Branches verschmelzen ====
+=== Zwei Branches verschmelzen
 
 Die zwei Branches `topic` und `master`, die Sie mergen
 wollen, referenzieren jeweils den aktuellsten Commit in einer Kette
@@ -1258,7 +1258,7 @@ die Bedeutung des Codes erfassen. Daher wäre eine so generierte
 Lösung in der Regel nicht sinnvoll.
 
 [[sec.merge-ff]]
-==== Fast-Forward-Merges: Einen Branch vorspulen ====
+=== Fast-Forward-Merges: Einen Branch vorspulen
 
 Das Kommando `git merge` erzeugt nicht immer einen
 Merge-Commit. Ein trivialer Fall, der aber häufig vorkommt, ist der
@@ -1371,7 +1371,7 @@ vier Commits aus dem Branch `sha1-caching`, also dem zweiten Strang des
 Merges, rückgängig gemacht würden.
 
 [[sec.merge-strategies]]
-==== Merge-Strategien ====
+=== Merge-Strategien
 
 Git kennt fünf verschiedene Merge-Strategien, deren Verhalten
 teilweise noch durch Strategie-Optionen weiter angepasst werden
@@ -1447,7 +1447,7 @@ Dieses Thema wird eingehender in <<sec.subprojects>> behandelt.
 
 
 [[sec.recursive-options]]
-==== Optionen für die recursive-Strategie ====
+=== Optionen für die recursive-Strategie
 
 Die Default-Strategie `recursive` kennt mehrere Optionen, die das
 Verhalten besonders bezüglich der Konfliktlösung anpassen. Sie
@@ -1519,7 +1519,7 @@ verwenden.
 
 
 [[sec.merge-conflicts]]
-=== Merge-Konflikte lösen ===
+== Merge-Konflikte lösen
 
 Wie bereits beschrieben, sind manche Konflikte nicht durch Algorithmen
 aufzulösen -- hier ist manuelle Nachbesserung nötig.  Gute
@@ -1785,7 +1785,7 @@ betrachtet die drei Stufen einer Datei, visualisiert sie entsprechend
 und bietet Ihnen Möglichkeiten an, Änderungen hin- und herzuschieben.
 
 [[sec.mergetool]]
-==== Hilfe beim Merge: mergetool ====
+=== Hilfe beim Merge: mergetool
 
 Bei nicht-trivialen Merge-Konflikten empfiehlt sich ein Merge-Tool,
 das die drei Stufen einer Datei entsprechend visualisiert und dadurch
@@ -1871,7 +1871,7 @@ sein.
 
 
 [[sec.rerere]]
-==== rerere: Reuse Recorded Resolution ====
+=== rerere: Reuse Recorded Resolution
 
 Git besitzt ein relativ unbekanntes (und schlecht dokumentiertes),
 aber sehr hilfreiches Feature: Rerere, kurz für 'Reuse Recorded
@@ -1943,7 +1943,7 @@ eventuell Tests laufen lassen etc. Wenn alles gut aussieht, übernehmen
 Sie wie üblich die automatische Lösung per `git add`.
 
 [[sec.rerere-explained]]
-===== Warum Rerere sinnvoll ist =====
+==== Warum Rerere sinnvoll ist
 
 Man könnte einwenden: Wer geht denn freiwillig das Risiko ein, einen
 bereits (möglicherweise aufwendig) gelösten Merge-Konflikt zu löschen,
@@ -1972,7 +1972,7 @@ Lösung automatisch angewendet, wenn Sie diesen Branch per Rebase auf
 die Mainline neu aufbauen.
 
 [[sec.rerere-usage]]
-===== Rerere benutzen =====
+==== Rerere benutzen
 
 Damit die Rerere-Funktionalität verwendet wird, müssen Sie, wie schon
 erwähnt, die Option `rerere.enabled` auf `true` setzen.
@@ -2001,7 +2001,7 @@ Konflikt-Markern). Wollen Sie nur Letzteres bewirken, hilft auch ein
 
 
 [[sec.avoid-conflicts]]
-==== Konflikte vermeiden ====
+=== Konflikte vermeiden
 
 Dezentrale Versionskontrollsysteme verwalten Merges generell
 wesentlich besser als zentrale. Das liegt vor allem daran,
@@ -2059,7 +2059,7 @@ Version auf einem separaten Branch vorzuhalten.footnote:[Das Repository des Git-
   Branches erstellen, beschreiben wir in <<sec.multi-root>>.]
 
 [[sec.cherry-pick]]
-=== Einzelne Commits übernehmen: Cherry-Pick ===
+== Einzelne Commits übernehmen: Cherry-Pick
 
 Es wird vorkommen, dass Sie nicht direkt einen ganzen Branch
 integrieren wollen, sondern zunächst Teile, also einzelne Commits.
@@ -2136,7 +2136,7 @@ $ *git commit -m "Diverse kleine Änderungen"*
 
 
 [[sec.visualization]]
-=== Visualisierung von Repositories ===
+== Visualisierung von Repositories
 
 Wenn Sie einige Branches erstellt und wieder zusammengeführt haben,
 werden Sie gemerkt haben: Man verliert leicht den Überblick.
@@ -2152,7 +2152,7 @@ Klick auf die einzelnen Commits zeigt die Metainformationen sowie den
 erzeugten Patch an.
 
 [[rev-list]]
-==== Revision Parameters ====
+=== Revision Parameters
 
 Da die Auflistung mehrerer Commits kaum zu überblicken ist,
 untersuchen wir ein kleines Beispiel-Repository mit mehreren Branches,
@@ -2318,7 +2318,7 @@ Alternativ stellt Git die 'symmetrische Differenz'{empty}{nbsp}`A...B` bereit. S
 ========
 
 [[rev-list-explained]]
-===== Referenz vs. Liste von Referenzen =====
+==== Referenz vs. Liste von Referenzen
 
 Im Beispiel werden mit A immer alle Commits bezeichnet, die von A
 erreichbar sind. Aber eigentlich ist ein Branch ja nur eine Referenz
@@ -2335,7 +2335,7 @@ Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere)
 Liste von Commits um (traversieren die Liste bis zum Root-Commit).
 
 [[sec.gitk]]
-==== Gitk ====
+=== Gitk
 
 Gitk ist ein in Tcl implementiertes grafisches Programm, das in der
 Regel von Distributoren zusammen mit den eigentlichen Git-Kommandos
@@ -2424,7 +2424,7 @@ verwenden.
 
 
 [[sec.reflog]]
-=== Reflog ===
+== Reflog
 
 Das 'Reference Log' ('Reflog') sind Log-Dateien, die Git für
 jeden Branch sowie `HEAD` anlegt. Darin wird gespeichert, wann

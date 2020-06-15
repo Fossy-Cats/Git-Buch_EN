@@ -1,7 +1,7 @@
 // adapted from: "grundlagen.txt"
 
 [[ch.interna]]
-== Grundlagen ==
+= Grundlagen
 
 In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
 mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar
@@ -15,7 +15,7 @@ deutlich leichter von der Hand gehen.
 
 
 [[sec.grundlagen]]
-=== Git-Kommandos ===
+== Git-Kommandos
 
 Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem
 `add` und `commit`), arbeiten auf dem Index. Im
@@ -23,7 +23,7 @@ Folgenden werden wir uns genauer mit dem Index auseinandersetzen und
 die erweiterte Benutzung dieser Kommandos behandeln.
 
 [[sec.index]]
-==== Index ====
+=== Index
 
 Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem
 'Working Tree', dem 'Index' und dem 'Repository'.  Der
@@ -94,7 +94,7 @@ die Flexibilität.
 
 
 [[sec.diff-color-words]]
-===== Diff auf Wortbasis =====
+==== Diff auf Wortbasis
 
 Ein alternatives Ausgabeformat für `git diff` ist das
 sog. 'Word-Diff', das über die Option
@@ -150,7 +150,7 @@ $ *git config --global alias.dw "diff --word-diff"*
 =================
 
 [[sec.add-p]]
-==== Commits schrittweise erstellen ====
+=== Commits schrittweise erstellen
 
 Warum aber sollte man Commits schrittweise erstellen -- will man nicht
 immer alle Änderungen auch einchecken?
@@ -434,7 +434,7 @@ via Bisect (siehe <<sec.bisect>>) ein Problem dar.
 
 
 [[sec.commit]]
-==== Commits erstellen ====
+=== Commits erstellen
 
 Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und
 Repository austauschen. Wenden wir uns nun dem Kommando `git
@@ -491,7 +491,7 @@ $ *git commit -m "Dies ist die Commit-Nachricht"*
 --------
 
 [[sec.ci-amend]]
-===== Einen Commit verbessern =====
+==== Einen Commit verbessern
 
 Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
 Option `--amend` (``berichtigen''). Die Option
@@ -519,7 +519,7 @@ $ *git config --global alias.fixup "commit --amend --no-edit"*
 ============
 
 [[sec.commit-msg]]
-===== Gute Commit-Nachrichten =====
+==== Gute Commit-Nachrichten
 
 Wie sollte eine Commit-Nachricht aussehen?  An der äußeren Form lässt
 sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine
@@ -600,7 +600,7 @@ Mitstreiter schreibfaul sind, sondern gehen Sie mit gutem Beispiel und
 ausführlichen Beschreibungen voran.
 
 [[sec.git-mv-rm]]
-==== Dateien verschieben und löschen ====
+=== Dateien verschieben und löschen
 
 Wenn Sie Dateien, die von Git verwaltet werden, löschen oder
 verschieben wollen, dann verwenden Sie dafür `git rm` bzw.
@@ -663,7 +663,7 @@ $ *git log --follow -- &lt;datei&gt;*
 
 
 [[sec.grep]]
-==== grep auf einem Repository ====
+=== grep auf einem Repository
 
 Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen
 wollen, bietet sich normalerweise ein Aufruf von `grep -R
@@ -708,7 +708,7 @@ $ *git config alias.ack &#39;!git -c color.grep.filename="green bold" \*
 
 
 [[sec.git-log]]
-==== Die Projektgeschichte untersuchen ====
+=== Die Projektgeschichte untersuchen
 
 Mit `git log` untersuchen Sie die Versionsgeschichte des
 Projekts. Die Optionen dieses Kommandos (die großteils auch für
@@ -828,7 +828,7 @@ $ git log -1 --oneline *--shortstat* 4868b2ea
 
 
 [[sec.git-log-dates]]
-===== Zeitliche Einschränkungen =====
+==== Zeitliche Einschränkungen
 
 Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit
 den Optionen `--after` bzw. `--since` sowie
@@ -847,7 +847,7 @@ $ *git log --since=&#39;yesterday&#39;*
 --------
 
 [[sec.git-log-files]]
-===== Einschränkungen auf Dateiebene =====
+==== Einschränkungen auf Dateiebene
 
 Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei-
 oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die
@@ -871,7 +871,7 @@ Datei `main.c`, einer `.h`-Datei respektive an einer
 Datei unterhalb von `Documentation/` vorgenommen wurden.
 
 [[sec.git-log-grep]]
-===== grep für Commits =====
+==== grep für Commits
 
 Sie können auch im Stile von `grep` nach Commits suchen; hier
 stehen die Optionen `--author`, `--committer` und
@@ -945,7 +945,7 @@ die Anzahl der Commits zu verringern.
 
 
 [[sec.commit-ranges-intro]]
-==== Commit-Ranges ====
+=== Commit-Ranges
 
 Bisher haben wir lediglich Kommandos betrachtet, die nur einen
 einzelnen Commit als Argument fordern, explizit identifiziert durch
@@ -966,7 +966,7 @@ inklusive. Sofern Sie eine der beiden Grenzen weglassen, nimmt Git
 dafür den Wert `HEAD` an.
 
 [[sec.git-diff]]
-==== Unterschiede zwischen Commits ====
+=== Unterschiede zwischen Commits
 
 Das Kommando `git show` bzw. `git log -p` hat bisher
 immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
@@ -985,7 +985,7 @@ Commits angezeigt.
 
 
 [[sec.objektmodell]]
-=== Das Objektmodell ===
+== Das Objektmodell
 
 Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell. Es
 dient dazu, die typischen Elemente eines Repositorys (Dateien,
@@ -1024,7 +1024,7 @@ b0400b0 Erste Version
 --------
 
 [[sec.sha1]]
-==== SHA-1 – der sichere Hash-Algorithmus ====
+=== SHA-1 – der sichere Hash-Algorithmus
 
 
 SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash
@@ -1083,7 +1083,7 @@ Zeichen einer SHA-1-Summe angeben, da ein Präfix in der Praxis
 ausreicht, um einen Commit eindeutig zu identifizieren.
 
 [[sec.objekte]]
-==== Die Git-Objekte ====
+=== Die Git-Objekte
 
 Alle in einem Repository gespeicherten Daten liegen als
 'Git-Objekte' vor. Man unterscheidet vier
@@ -1144,7 +1144,7 @@ Referenzen zu Blobs und anderen Trees in Form der SHA-1-Summen dieser
 Objekte. Ein Commit wiederum referenziert 'einen' Tree.
 
 [[sec.od]]
-==== Die Objektdatenbank ====
+=== Die Objektdatenbank
 
 Alle Git-Objekte werden in der 'Objektdatenbank' gespeichert und
 sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie
@@ -1213,7 +1213,7 @@ hierarchischen Dateisystems als Git-Objekte abzubilden und in der
 Objektdatenbank zu speichern.
 
 [[sec.explore-od]]
-==== Die Objektdatenbank untersuchen ====
+=== Die Objektdatenbank untersuchen
 
 In einem kleinen Exkurs gehen wir darauf ein, wie man die
 Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
@@ -1314,7 +1314,7 @@ nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
 
 
 [[sec.deduplication]]
-==== Deduplication ====
+=== Deduplication
 
 Die vier Commits, aus denen das Beispiel-Repository besteht, sind in
 <<fig.struktur>> nochmals dargestellt, doch auf andere
@@ -1375,7 +1375,7 @@ damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
 
 
 [[sec.git-graph]]
-==== Die Graph-Struktur ====
+=== Die Graph-Struktur
 
 Da jeder Commit seine direkten Vorfahren speichert, entsteht eine
 Graph-Struktur. Genauer gesagt erzeugt die Anordnung der Commits einen
@@ -1452,7 +1452,7 @@ Detailliertes über die Versionsgeschichte aus, sondern ist wiederum
 nur eine Prüfsumme derselben.
 
 [[sec.graph-referenzen]]
-===== Referenzen: Branches und Tags =====
+==== Referenzen: Branches und Tags
 
 Mit einem reinen Commit-Graphen kann man aber noch nicht viel
 anfangen. Um einen Knoten zu referenzieren (also damit zu arbeiten),

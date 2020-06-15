@@ -1,7 +1,7 @@
 // adapted from: "advanced.txt"
 
 [[ch.advanced]]
-== Fortgeschrittene Konzepte ==
+= Fortgeschrittene Konzepte
 
 Das folgende Kapitel behandelt ausgewählte fortgeschrittene Konzepte.
 Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen
@@ -14,7 +14,7 @@ wir Ihnen, wie Sie schnell und automatisiert Commits finden, die einen
 Bug einführen ('Bisect').
 
 [[sec.rebase]]
-=== Commits verschieben – Rebase ===
+== Commits verschieben – Rebase
 
 Im Abschnitt über die Interna von Git wurde bereits erwähnt, dass man
 Commits in einem Git-Repository (anschaulich: dem Graphen) beliebig
@@ -77,7 +77,7 @@ Hierbei sind einige Punkte zu beachten:
 
 
 [[sec.rebase-bsp]]
-==== Ein Beispiel ====
+=== Ein Beispiel
 
 Betrachten Sie folgende Situation: Der Branch `sqlite-support`
 zweigt vom Commit ``fixed a bug...'' ab. Der
@@ -109,7 +109,7 @@ folgt aus:
 image::screenshot-rebase-nachher.png[id="fig.screenshot-rebase-nachher",scaledwidth="90%",width="90%"]
 
 [[sec.rebase-extended]]
-==== Erweiterte Syntax und Konflikte ====
+=== Erweiterte Syntax und Konflikte
 
 Normalerweise wird `git rebase` immer den Branch, auf dem Sie
 gerade arbeiten, auf einen neuen aufbauen. Allerdings gibt es eine
@@ -187,7 +187,7 @@ ein Rebase im Gang ist.
 
 
 [[sec.rebase-sinnvoll]]
-==== Warum Rebase sinnvoll ist ====
+=== Warum Rebase sinnvoll ist
 
 Rebase ist vor allem sinnvoll, um die Commit-Geschichte eines Projekts
 einfach und leicht verständlich zu halten. Beispielsweise arbeitet ein
@@ -231,7 +231,7 @@ nutzen.
 
 
 [[sec.rebase-vs-merge]]
-==== Wann Rebase 'nicht' sinnvoll ist – Rebase vs. Merge ====
+=== Wann Rebase 'nicht' sinnvoll ist – Rebase vs. Merge
 
 Das Konzept von Rebase ist zunächst etwas schwierig zu verstehen. Aber
 sobald Sie verstanden haben, was damit möglich ist, stellt sich die
@@ -288,7 +288,7 @@ Generell fahren Sie mit den folgenden Faustregeln gut:
 
 
 [[sec.rebase-warnung]]
-==== Ein Wort der Warnung ====
+=== Ein Wort der Warnung
 
 Wie schon angesprochen, ändern sich bei einem Rebase zwangsläufig die
 SHA-1-Summen aller Commits, die ``umgebaut'' werden. Wenn diese
@@ -331,7 +331,7 @@ Branches aufbauen, dann dürfen die Entwickler ihre Branches beliebig
 umschreiben.
 
 [[sec.rebase-cp]]
-==== Code-Dopplungen vermeiden ====
+=== Code-Dopplungen vermeiden
 
 Wird über einen langen Zeitraum an einem Feature entwickelt, und Teile
 des Features fließen schon in ein Mainstream-Release (z.B. per
@@ -347,7 +347,7 @@ mitunter die gleichen Commits mit unterschiedlichen SHA-1-Summen an
 verschiedenen Stellen im Commit-Graphen vorhanden.
 
 [[sec.rebase-ps]]
-==== Patch-Stacks verwalten ====
+=== Patch-Stacks verwalten
 
 Es gibt Situationen, in denen es von einer Software eine
 Vanilla-Version (``einfachste Version'') gibt und außerdem
@@ -375,7 +375,7 @@ Alternative zu TopGit ist 'Stacked Git'{empty}footnote:[Kurz `stg` oder StGit, e
   http://www.procode.org/stgit/.].
 
 [[sec.rebase-onto]]
-==== Rebase einschränken mit --onto ====
+=== Rebase einschränken mit --onto
 
 Sie mögen sich nun gewundert haben: `git rebase <referenz>`
 kopiert immer 'alle' Commits, die zwischen `<referenz>`
@@ -424,7 +424,7 @@ Das Ergebnis sieht aus wie erwartet:
 image::rebase-onto-nachher.png[id="fig.rebase-onto-nachher-dia",scaledwidth="90%",width="90%"]
 
 [[sec.rebase-onto-ci-amend]]
-==== Einen Commit verbessern ====
+=== Einen Commit verbessern
 
 Sie haben in <<sec.grundlagen>> das Kommando `commit
   --amend` kennengelernt, mit dem Sie einen Commit verbessern. Es
@@ -466,7 +466,7 @@ mit der Aktion `edit` im interaktiven Rebase (siehe <<sec.rebase-i-edit>>).
 
 
 [[sec.rebase-optionen]]
-==== Rebase feinjustieren ====
+=== Rebase feinjustieren
 
 Es gibt Situationen, in denen Sie das Standardverhalten von
 `git rebase` anpassen müssen. Erstens ist dies der Fall, wenn
@@ -522,7 +522,7 @@ erzeugen zu lassen (zum Beispiel durch Angabe von `-Xignore-space-change`).
 
 
 [[sec.rebase-i]]
-=== Die Geschichte umschreiben – Interaktives Rebase ===
+== Die Geschichte umschreiben – Interaktives Rebase
 
 Rebase kennt einen interaktiven Modus; er ist zwar technisch gleich
 implementiert wie der normale Modus, allerdings ist der typische
@@ -620,7 +620,7 @@ einpflegen und den Rebase-Prozess weiterlaufen lassen.
 
 
 [[sec.rebase-i-squash]]
-==== Kleine Fehler korrigieren: Bug Squashing ====
+=== Kleine Fehler korrigieren: Bug Squashing
 
 Die Kommandos `squash` bzw. `fixup` erlauben es, zwei
 oder mehr Commits miteinander zu verschmelzen.
@@ -727,7 +727,7 @@ bei Rebase-Aufrufen machen: Setzen Sie dafür die Einstellung
 
 
 [[sec.rebase-i-edit]]
-==== Commits beliebig editieren ====
+=== Commits beliebig editieren
 
 Wenn Sie einen Commit mit `edit` markieren, kann er beliebig
 editiert werden. Dabei geht Rebase wie in den anderen Fällen auch
@@ -753,7 +753,7 @@ Einen häufigen Anwendungsfall beschreibt folgendes
 ``Rezept''.
 
 [[sec.rebase-split-cmmits]]
-===== Commits aufteilen =====
+==== Commits aufteilen
 
 Jeder Programmierer kennt das: Diszipliniert und penibel jede Änderung
 einzuchecken, ist anstrengend und unterbricht häufig den Arbeitsfluss.
@@ -822,7 +822,7 @@ Lassen Sie jetzt Rebase weiterlaufen (`git rebase
 
 
 [[sec.blame]]
-=== Wer hat diese Änderungen gemacht? – git blame ===
+== Wer hat diese Änderungen gemacht? – git blame
 
 Wie andere Versionskontrollsysteme hat auch Git ein Kommando
 `blame` bzw. `annotate`, das alle Zeilen einer Datei mit
@@ -872,7 +872,7 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
 
 
 [[sec.blame-gui]]
-==== Blame grafisch ====
+=== Blame grafisch
 
 Eine bequeme Alternative zu `git blame` auf der Konsole bietet
 das grafische Tool `git gui blame` (hierfür müssen Sie
@@ -904,7 +904,7 @@ mehrere Schritte zurückgehen. Über den grünen Pfeil links oben können
 Sie wieder in die Zukunft springen.
 
 [[sec.ignore]]
-=== Dateien ignorieren ===
+== Dateien ignorieren
 
 In fast jedem Projekt fallen Dateien an, die Sie nicht versionieren
 wollen. Sei es der binäre Output des Compilers, die autogenerierte
@@ -947,7 +947,7 @@ projekt- und benutzerspezifisch sind.
 
 
 [[sec.muster]]
-==== Syntax für Muster ====
+=== Syntax für Muster
 
 Die Syntax für Muster ist der Shell-Syntax nachempfunden:
 
@@ -1007,7 +1007,7 @@ pass:quotes[\*.*~]
 
 
 [[sec.nachtraeglich-ignorieren]]
-==== Nachträglich ignorieren oder versionieren ====
+=== Nachträglich ignorieren oder versionieren
 
 Dateien, die bereits versioniert sind, werden nicht automatisch
 ignoriert. Um eine solche Datei trotzdem zu ignorieren, weisen Sie Git
@@ -1046,7 +1046,7 @@ $ *git add -f documentation.pdf*
 --------
 
 [[sec.git-clean]]
-==== Ignorierte und unbekannte Dateien löschen ====
+=== Ignorierte und unbekannte Dateien löschen
 
 Das Kommando `git clean` löscht ignorierte sowie unbekannte
 (sog. 'untracked') Dateien. Da evtl. Dateien unwiederbringlich
@@ -1070,7 +1070,7 @@ $ *git clean -dfx*
 
 
 [[sec.stash]]
-=== Veränderungen auslagern – git stash ===
+== Veränderungen auslagern – git stash
 
 Der Stash (Lager) ist ein Mechanismus, der dazu dient, noch nicht
 gespeicherte Veränderungen am Working Tree kurzfristig auszulagern.
@@ -1085,7 +1085,7 @@ weil dadurch Veränderungen verlorengehen würden (siehe auch <<sec.branch-manag
 
 
 [[sec.stash-benutzung]]
-==== Grundlegende Benutzung ====
+=== Grundlegende Benutzung
 
 Mit `git stash` speichern Sie den aktuellen Zustand von Working
 Tree und Index, sofern diese sich von `HEAD` unterscheiden:
@@ -1158,7 +1158,7 @@ Die Konfigurationseinstellung `interactive.singlekey` (siehe
 
 
 [[sec.stash-konflikte]]
-==== Konflikte lösen ====
+=== Konflikte lösen
 
 Es kann zu Konflikten kommen, wenn Sie einen Stash auf einem anderen
 Commit anwenden als dem, auf dem er entstanden ist:
@@ -1193,7 +1193,7 @@ Sie müssen ihn (nach Auflösen des Konflikts) explizit mit `git stash drop` lö
 ============
 
 [[sec.stash-fail]]
-==== Wenn Sie den Stash nicht anwenden können... ====
+=== Wenn Sie den Stash nicht anwenden können...
 
 Der Stash wird per Default auf den aktuellen Working Tree
 angewendet, vorausgesetzt dieser ist sauber – wenn nicht, bricht Git
@@ -1243,7 +1243,7 @@ Veränderungen, die Sie eigentlich haben wollen, aus dem vorherigen
 Stash und löschen diesen nach der Anwendung.
 
 [[sec.stash-message]]
-==== Nachricht anpassen ====
+=== Nachricht anpassen
 
 Standardmäßig setzt Git für einen Stash die folgende Nachricht:
 
@@ -1273,7 +1273,7 @@ HEAD is now at b529e34 new spec how the script should behave
 
 
 [[sec.multi-stash]]
-==== Stashes einsehen ====
+=== Stashes einsehen
 
 Git verwaltet alle Stashes als Stack, d.h. aktuellere Zustände
 liegen oben auf und werden zuerst verarbeitet. Die Stashes sind mit
@@ -1340,7 +1340,7 @@ stash@{1}: WIP on master: b1ee2cf start and end date in one place only
 --------
 
 [[sec.stash-delete]]
-==== Stashes löschen ====
+=== Stashes löschen
 
 Einzelne Stashes löschen Sie mit dem Kommando `git stash drop`,
 alle mit `git stash clear`.  Sollten Sie versehentlich einen
@@ -1369,7 +1369,7 @@ nach einiger Zeit gelöscht und nicht dauerhaft vorgehalten.
 
 
 [[sec.stash-implementation]]
-==== Wie ist der Stash implementiert? ====
+=== Wie ist der Stash implementiert?
 
 Git erzeugt für jeden Stash zwei Commit-Objekte, eines für die
 Veränderungen am Working Tree und eines für die Veränderungen am
@@ -1407,7 +1407,7 @@ gelöscht.
 
 
 [[sec.notes]]
-=== Commits annotieren – git notes ===
+== Commits annotieren – git notes
 
 In der Regel ist es nicht ohne Weiteres möglich, Commits, die einmal
 veröffentlicht wurden, noch einmal zu ändern oder zu erweitern.
@@ -1498,7 +1498,7 @@ ein (siehe auch <<sec.git-fetch>>):
 =======================
 
 [[sec.multi-root]]
-=== Mehrere Root-Commits ===
+== Mehrere Root-Commits
 
 Bei der Initialisierung eines Repositorys wird der erste Commit, der
 sogenannte 'Root-Commit', erstellt. Dieser Commit ist in der
@@ -1562,7 +1562,7 @@ Root-Commit hinzufügen und ihn dann mit `git commit` erzeugen.
 
 
 [[sec.bisect]]
-=== Regressionen finden – git bisect ===
+== Regressionen finden – git bisect
 
 Eine Regression bezeichnet in der Softwareentwicklung den Zeitpunkt,
 ab dem ein bestimmtes Feature eines Programms nicht mehr funktioniert.
@@ -1610,7 +1610,7 @@ Schritte, weil Sie ja im ersten Schritt schon 512 Commits eliminieren
 können.
 
 [[sec.bisect-usage]]
-==== Benutzung ====
+=== Benutzung
 
 Eine `bisect`-Sitzung starten Sie mit den folgenden Kommandos:
 
@@ -1638,7 +1638,7 @@ Fehlersuche können Sie jederzeit abbrechen per `git bisect
 
 
 [[sec.bisect-run]]
-==== Automatisierung ====
+=== Automatisierung
 
 Idealerweise können Sie automatisiert testen, ob der Fehler auftritt
 -- mit einem Test, der erfolgreich laufen muss, wenn die Regression

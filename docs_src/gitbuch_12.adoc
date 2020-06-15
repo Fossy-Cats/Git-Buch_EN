@@ -2,7 +2,7 @@
 
 [appendix]
 [[sec.installation]]
-== Installation ==
+= Installation
 
 Die Installation von Git ist einfach und geht schnell vonstatten, da
 für die meisten Systeme bereits vorkonfigurierte Pakete bereitgestellt
@@ -10,7 +10,7 @@ werden. Der Vollständigkeit halber wollen wir aber die wichtigsten
 Handgriffe unter Linux, Mac OS X und Windows dokumentieren.
 
 [[linux]]
-=== Linux ===
+== Linux
 
 Aufgrund der Vielzahl der Linux-Distributionen wird hier nur die
 Installation auf Debian-, Fedora- sowie Gentoo-Systemen beschrieben.
@@ -19,7 +19,7 @@ in der Paketverwaltung nach; natürlich können Sie Git auch aus dem
 Quellcode übersetzen und installieren.
 
 [[sec.debian-ubuntu]]
-==== Debian/Ubuntu ====
+=== Debian/Ubuntu
 
 Debian und Ubuntu stellen fertige Pakete zur Verfügung, die mit dem
 Debian-Paketmanagementsystem komfortabel und schnell zu installieren
@@ -56,7 +56,7 @@ Unter Ubuntu können Sie analog das Paket `git-all` über die
 grafische Paketverwaltung 'Synaptic' installieren.
 
 [[sec.fedora]]
-==== Fedora ====
+=== Fedora
 
 Auf einem Fedora-System sollten Sie Git über den Paketmanager
 `yum` installieren:
@@ -72,7 +72,7 @@ Kommandos zu installieren, sollten Sie das Paket `git-all`
 installieren.
 
 [[sec.gentoo]]
-==== Gentoo ====
+=== Gentoo
 
 Gentoo stellt den Ebuild `dev-vcs/git` zur Verfügung. Das
 grafische Tool zum Erstellen von Commits (`git gui`) sowie der
@@ -89,7 +89,7 @@ $ *sudo emerge dev-vcs/git*
 --------
 
 [[sec.quellcode-installation]]
-==== Installation aus den Quellen ====
+=== Installation aus den Quellen
 
 Wenn Ihre Distribution kein Paket für Git anbietet, dieses veraltet
 ist oder Sie keine Root-Rechte auf dem System haben, sollten Sie
@@ -125,14 +125,14 @@ Mit `make prefix=<praefix>` können Sie Git nach
 `<praefix>` installieren (Default: `$HOME`).
 
 [[sec.osx]]
-=== Mac OS X ===
+== Mac OS X
 
 Das Projekt 'Git for OS X' stellt ein Installationsprogramm im
 Diskimage-Format (DMG) zur Verfügung.footnote:[http://code.google.com/p/git-osx-installer/]
 Sie können es also wie gewohnt installieren.
 
 [[sec.windows]]
-=== Windows ===
+== Windows
 
 Das Projekt 'Git for Windows' stellt ein Installationsprogramm für
 Microsoft Windows zur Verfügung: 'msysGit'. Sie können das

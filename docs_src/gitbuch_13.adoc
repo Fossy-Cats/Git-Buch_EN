@@ -2,7 +2,7 @@
 
 [appendix]
 [[sec.git-repository-layout]]
-== Struktur eines Repositorys ==
+= Struktur eines Repositorys
 
 Git speichert die Objektdatenbank, die zugehörigen Referenzen usw. im
 sogenannten 'Git-Directory', oft auch als `$GIT_DIR`
@@ -65,7 +65,7 @@ Eine ausführliche technische Beschreibung finden Sie in der
 Man-Page `gitrepository-layout(5)`.
 
 [[sec.gc]]
-=== Aufräumen ===
+== Aufräumen
 
 
 
@@ -141,7 +141,7 @@ run "git gc" manually. See "git help gc" for more information.
 --------
 
 [[sec.gc-performance]]
-=== Performance ===
+== Performance
 
 Sie sollten entweder die Schwellen, ab denen die automatische Garbage
 Collection greift, deutlich herabsetzen, oder von Zeit zu Zeit

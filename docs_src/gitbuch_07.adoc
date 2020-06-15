@@ -1,7 +1,7 @@
 // adapted from: "server.txt"
 
 [[ch.server]]
-== Git auf dem Server ==
+= Git auf dem Server
 
 Im Folgenden geht es um das Hosting von Git-Repositories und
 'Gitolite', mit dem Sie Zugriffsrechte auf Repositories über
@@ -10,14 +10,14 @@ Konfiguration der zwei Web-Interfaces 'Gitweb' und 'CGit'
 erläutert, alternativ für Apache oder Lighttpd.
 
 [[sec.server]]
-=== Einen Git-Server hosten ===
+== Einen Git-Server hosten
 
 Zunächst einige Grundlagen: Wie unterscheiden sich Repositories auf
 einem Server von denen eines normalen Nutzers? Und wie tauscht Git die
 Änderungen aus?
 
 [[sec.protokolle]]
-==== Das Git-Protokoll ====
+=== Das Git-Protokoll
 
 Git ist auf dezentrale Verwaltung der Repositories ausgelegt; die
 kleinste Einheit, um Änderungen zwischen Repositories
@@ -61,7 +61,7 @@ ein Repository lesend wie schreibend zugreifen. Plattformen wie GitHub
 an.
 
 [[sec.git-pack-same-machine]]
-==== Repositories auf dem gleichen Rechner ====
+=== Repositories auf dem gleichen Rechner
 
 Wollen Sie Änderungen an Repositories auf dem gleichen Rechner
 synchronisieren, muss dies nicht über Umwege erfolgen: Git
@@ -72,7 +72,7 @@ zumindest Leseberechtigung auf die Packfiles des anderen Repositorys
 hat.)
 
 [[sec.bare-repos]]
-==== Bare Repositories – Repositories ohne Working Tree ====
+=== Bare Repositories – Repositories ohne Working Tree
 
 Bisher haben Sie vermutlich größtenteils mit Git-Repositories
 gearbeitet, die Working Tree und Repository in einem waren: Die
@@ -117,7 +117,7 @@ $ *git push --all /mnt/usb/repo-backup/*
 
 
 [[sec.permissions]]
-==== Zugriffsrechte eines Repositorys ====
+=== Zugriffsrechte eines Repositorys
 
 Bei `git init` werden die Dateien in der Regel mit Lese-
 und Schreibberechtigung entsprechend der gesetzten `umask`
@@ -152,7 +152,7 @@ explizit will via `git push -f`).
 
 
 [[sec.git-shell]]
-==== Zugriff per SSH: Die Git-Shell ====
+=== Zugriff per SSH: Die Git-Shell
 
 In der Regel kann der Schreib-Zugriff auf Git-Repositories, die auf
 einem anderen Rechner liegen, nur per SSH erfolgen. Allerdings ist es
@@ -175,7 +175,7 @@ Schreibberechtigung hat, Commits hochladen.
 
 
 [[sec.ssh-pubkey]]
-==== Zugriff per SSH: Öffentliche Schlüssel ====
+=== Zugriff per SSH: Öffentliche Schlüssel
 
 Es ist ein wesentlicher Vorteil, dass Git SSH als verschlüsselten und
 authentifizierten Transportkanal verwendet, denn die meisten Nutzer
@@ -192,7 +192,7 @@ muss (die durch Einsatz der Git-Shell nicht ohne weiteres möglich
 wären).
 
 [[sec.two-users]]
-==== Beispiel: Zwei Nutzer wollen kollaborieren ====
+=== Beispiel: Zwei Nutzer wollen kollaborieren
 
 Im Folgenden wollen wir beispielhaft die Kommandos entwickeln, mit
 denen Sie zwei Nutzer `max` und `moritz` auf Ihrem
@@ -261,7 +261,7 @@ sondern diverse Services. Und die Nutzerverwaltung vollständig über
 Unix-Gruppen zu regeln, ist eher unflexibel.
 
 [[sec.gitolite]]
-=== Gitolite: Git einfach hosten ===
+== Gitolite: Git einfach hosten
 
 Die oben beschriebene Art und Weise, Nutzer zu verwalten, bringt einige
 wesentliche Nachteile. Namentlich:
@@ -309,7 +309,7 @@ wesentliche Vorteile:
 
 
 [[sec.gitolite-install]]
-==== Gitolite installieren ====
+=== Gitolite installieren
 
 Die Installation von Gitolite ist einfach. Sie müssen dafür nur Ihren
 Public-Key bereithalten, um sich als Administrator eintragen zu können.
@@ -388,7 +388,7 @@ Server aktualisiert automatisch die Einstellungen.
 
 
 [[sec.gitolite-config]]
-==== Gitolite-Konfiguration ====
+=== Gitolite-Konfiguration
 
 Im Gitolite-Admin-Verzeichnis befinden sich zwei Unterverzeichnisse,
 `conf` und `keydir`. Um Gitolite einen neuen Nutzer
@@ -488,7 +488,7 @@ hello feh, this is pass:quotes[git@mjanja] running gitolite3 v3.6.1-6-gdc8b590 o
 --------
 
 [[sec.gitweb-name]]
-==== Eigentümer und Beschreibung ====
+=== Eigentümer und Beschreibung
 
 Sofern Sie später ein webbasiertes Tool installieren wollen, mit dem
 man die Git-Repositories durchstöbern kann, sollten Sie auch gleich
@@ -510,7 +510,7 @@ geschieht auf dem Server, wo Gitolite installiert ist, in der Datei
 
 
 [[sec.zugriffdateiebene]]
-==== Zugriffsrechte auf Datei- oder Branch-Ebene ====
+=== Zugriffsrechte auf Datei- oder Branch-Ebene
 
 Gerade in Firmenumgebungen müssen die Zugriffsrechte häufig noch
 feiner differenziert werden als ein bloßes ``hat Zugriff'' und
@@ -589,7 +589,7 @@ passt der Nutzername nicht. Keine Zeile bleibt übrig
 (`fallthru`), daher wird die Aktion nicht erlaubt.
 
 [[sec.personal-namespace]]
-==== Persönliche Namespaces ====
+=== Persönliche Namespaces
 
 Etwas flexibler ist das Konzept persönlicher Namespaces. So erhält
 jeder Entwickler seine eigene Hierarchie von Branches, die er
@@ -612,7 +612,7 @@ lesend darauf zugreifen.
 
 
 [[sec.file-level-acl]]
-==== Zugriffsregelung auf Dateiebene ====
+=== Zugriffsregelung auf Dateiebene
 
 Gitolite erlaubt auch Zugriffsbeschränkungen auf Datei- und
 Verzeichnisebene. Zuständig dafür ist die virtuelle Referenz `VREF/NAME`.
@@ -657,7 +657,7 @@ verändern, und somit wird die Aktion verboten.
 
 
 [[sec.gl-deny]]
-==== Aktionen explizit verbieten ====
+=== Aktionen explizit verbieten
 
 Bisher wurde ein Nutzer nur abgewiesen, wenn er durch alle Regeln
 durchgefallen war (`fallthru`), ihm also keine Rechte zugewiesen
@@ -701,7 +701,7 @@ erlaubt wurde).
 
 
 [[sec.enforce-policy]]
-==== Sollte man Policies forcieren? ====
+=== Sollte man Policies forcieren?
 
 Mit den hier vorgestellten Mitteln und weiteren, die Sie der
 Dokumentation{empty}footnote:[Die Dokumentation findet sich unter http://gitolite.com/.
@@ -725,7 +725,7 @@ und gerade diese Flexibilität macht das Branching in Git so praktisch.
 
 
 [[sec.git-daemon]]
-=== Git-Daemon: Anonymer, lesender Zugriff ===
+== Git-Daemon: Anonymer, lesender Zugriff
 
 Der Git-Daemon erlaubt unverschlüsselten, anonymen, lesenden Zugriff
 auf Git-Repositories über das Git-Protokoll. Er wird mit Git
@@ -809,7 +809,7 @@ verwenden.
 
 
 [[sec.git-daemon-inetd]]
-==== Git-Daemon und Inetd ====
+=== Git-Daemon und Inetd
 
 Im Regelfall soll der Git-Daemon eine große Anzahl von Repositories
 ständig ausliefern. Dafür läuft er ständig im Hintergrund oder wird
@@ -855,7 +855,7 @@ starten.footnote:[In manchen Distributionen, wie
 
 
 [[sec.git-daemon-sv]]
-==== Der Debian-Weg: Git-Daemon sv ====
+=== Der Debian-Weg: Git-Daemon sv
 
 Debian bietet ein Paket `git-daemon-run` an, das
 Konfigurationsdateien für `sv`{empty}footnote:[Das Programm `sv` ist Teil des
@@ -909,7 +909,7 @@ Git-Daemon beim Booten des Systems außerdem folgende Symlinks anlegen:
 
 
 [[sec.git-daemon-productive]]
-==== Der Git-Daemon auf einem Produktivsystem ====
+=== Der Git-Daemon auf einem Produktivsystem
 
 Auf einem Produktivsystem, das mehr als nur ein Git-Server ist, trifft
 man möglicherweise auf folgende Situationen:
@@ -963,7 +963,7 @@ existieren, in dem sich exportierbare Repositories befinden.
 
 
 [[sec.gitoliteexport]]
-==== Über Gitolite exportierbare Repositories festlegen ====
+=== Über Gitolite exportierbare Repositories festlegen
 
 Gitolite kennt einen speziellen Nutzernamen, `daemon`. Für alle
 Repositories, auf denen dieser Nutzer Leseberechtigung hat, wird
@@ -984,7 +984,7 @@ Berechtigung vergeben.
 
 
 [[sec.gitweb]]
-=== Gitweb: Das integrierte Web-Frontend ===
+== Gitweb: Das integrierte Web-Frontend
 
 Git kommt mit einem integrierten, browserbasierten Frontend, genannt
 'Gitweb'. Über das Frontend lässt sich die gesamte
@@ -1027,7 +1027,7 @@ $ *git instaweb --stop*
 
 
 [[sec.gitweb-install]]
-==== Gitweb global installieren ====
+=== Gitweb global installieren
 
 Viele Distributionen bringen Gitweb bereits als eigenes Paket oder
 direkt im Git-Paket mit. Unter Debian heißt das korrespondierende
@@ -1092,7 +1092,7 @@ $export_ok = "git-daemon-export-ok";
 
 
 [[sec.gitweb-apache]]
-==== Gitweb und Apache ====
+=== Gitweb und Apache
 
 
 
@@ -1131,7 +1131,7 @@ Konfiguration neu laden lassen:
 
 
 [[sec.gitweb-lighty]]
-==== Gitweb und Lighttpd ====
+=== Gitweb und Lighttpd
 
 Je nachdem, wie Sie virtuelle Hosts in Lighttpd realisieren, sieht die
 Konfiguration möglicherweise anders aus. Wichtig sind drei Dinge: Dass
@@ -1175,7 +1175,7 @@ image::gitweb-commitdiff.png[id="fig.gitweb-commitdiff",scaledwidth="90%",width=
 
 
 [[sec.cgit]]
-=== CGit – CGI for Git ===
+== CGit – CGI for Git
 
 CGit (``CGI für Git'') ist ein alternatives Webfrontend. Im
 Gegensatz zu Gitweb, das komplett in Perl geschrieben ist, ist CGit in
@@ -1225,7 +1225,7 @@ image::cgit-overview.png[id="fig.cgit-overview",scaledwidth="90%",width="90%"]
 
 
 [[sec.cgit-integration]]
-==== CGit und Apache und Lighttpd ====
+=== CGit und Apache und Lighttpd
 
 Die Einbindung in Apache und Lighttpd erfolgt ähnlich. Da CGit
 allerdings ``hübschere'' URLs verwendet (wie z.B. `http://git.example.com/dwm/tree/dwm.c` für die Datei
@@ -1271,7 +1271,7 @@ $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
 
 
 [[sec.cgit-config]]
-==== Konfiguration ====
+=== Konfiguration
 
 Die Konfiguration wird über die Datei `/etc/cgitrc` geregelt.
 Eine Liste der unterstützten Optionen finden Sie in der Datei
@@ -1360,7 +1360,7 @@ image::cgit-commitdiff.png[id="fig.cgit-commitdiff",scaledwidth="90%",width="90%
 
 
 [[sec.cgit-special-config]]
-==== Einzelne Repositories speziell konfigurieren ====
+=== Einzelne Repositories speziell konfigurieren
 
 
 Durch die oben erläuterte Option `scan-path` ist es in
@@ -1387,7 +1387,7 @@ verschiedenen Sektionen gruppieren (Option
 
 
 [[sec.cgit-cache]]
-==== Caching ausnutzen ====
+=== Caching ausnutzen
 
 CGit ist im Vergleich zu Gitweb besonders schnell, weil es in C
 geschrieben ist und außerdem Caching unterstützt. Das ist vor allem

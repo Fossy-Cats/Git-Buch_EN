@@ -1,7 +1,7 @@
 // adapted from: "remote.txt"
 
 [[sec.verteiltes-git]]
-== Verteiltes Git ==
+= Verteiltes Git
 
 Git ist ein 'verteiltes' Versionskontrollsystem. Um diese
 Eigenschaft zu verstehen, ist zunächst ein kurzer Exkurs in die Welt
@@ -16,7 +16,7 @@ ein und schicken diese dann wieder an den Server zurück
 ('Commit').
 
 [[sec.verteilte_systeme]]
-=== Wie funktioniert verteilte Versionsverwaltung? ===
+== Wie funktioniert verteilte Versionsverwaltung?
 
 Einer der großen Nachteile des zentralen Ansatzes ist, dass für die meisten
 Arbeitsschritte eine Verbindung zum Server bestehen muss.  Möchten Sie
@@ -86,7 +86,7 @@ Die wichtigsten Kommandos im Überblick:
 
 
 [[sec.clone]]
-=== Repositories klonen ===
+== Repositories klonen
 
 Den ersten Befehl in Zusammenhang mit den Remote-Repositories haben
 Sie bereits kennengelernt: `git clone`. Hier illustrieren wir
@@ -194,7 +194,7 @@ $ *git clone -o github git://github.com/esc/git-cheatsheet-de.git*
 --------
 
 [[sec.repository-url]]
-==== Repository-URLs ====
+=== Repository-URLs
 
 
 Git unterstützt mehrere Protokolle, um auf ein Remote-Repository
@@ -282,7 +282,7 @@ diese Datei in Ihrem Editor.
 ==================================
 
 [[sec.remote_tracking_branches]]
-==== Remote-Tracking-Branches ====
+=== Remote-Tracking-Branches
 
 
 Der aktuelle Zustand des Remote-Repositorys wird lokal gespeichert.
@@ -382,7 +382,7 @@ gefärbt ist (<<fig.remote-tracking-gitk>>).
 image::remote-tracking-gitk.png[id="fig.remote-tracking-gitk",scaledwidth="90%",width="90%"]
 
 [[sec.git_fetch]]
-=== Commits herunterladen ===
+== Commits herunterladen
 
 Was bedeutet es nun, wenn Sie zwei Repositories synchronisieren,
 etwa einen Klon mit dem Ursprung? Synchronisation bedeutet in diesem
@@ -398,7 +398,7 @@ unter welchen Umständen zu bevorzugen ist.
 
 
 [[sec.git-fetch]]
-==== git fetch ====
+=== git fetch
 
 Sobald in einem Remote neue Commits von anderen Entwicklern angelegt
 wurden, wollen Sie diese in Ihr lokales Repository herunterladen. Im
@@ -443,7 +443,7 @@ Remote-Tracking-Branch darauf.
 image::fetch.png[id="fig.fetch",scaledwidth="90%",width="90%"]
 
 [[sec.refspec]]
-===== Refspec =====
+==== Refspec
 
 Der 'Refspec' ('Reference Specification') sorgt dafür, dass
 die Remote-Tracking-Branches gesetzt werden.  Dies ist eine
@@ -547,7 +547,7 @@ wollen.
 
 
 [[sec.prune]]
-===== Verfallene Remote-Tracking-Branches löschen =====
+==== Verfallene Remote-Tracking-Branches löschen
 
 Sollte ein Remote-Branch gelöscht werden (wie z.B. in
 <<sec.push-delete>> beschrieben), bezeichnet man den
@@ -576,7 +576,7 @@ hätten.
 
 
 [[sec.local-working-branches]]
-===== Lokale Branches zum Arbeiten =====
+==== Lokale Branches zum Arbeiten
 
 Bisher haben wir nur besprochen, wie Sie die Veränderung in einem
 Remote verfolgen. Wenn Sie selbst Veränderungen vornehmen, die auf
@@ -616,7 +616,7 @@ Arbeit zu veröffentlichen, also in ein Remote hochzuladen, brauchen
 Sie noch das Kommando `git push` (<<sec.hochladen>>).
 
 [[sec.pull]]
-==== git pull ====
+=== git pull
 
 Angenommen, Sie wollen Commits aus dem Remote-Repository in Ihren lokalen Branch
 übernehmen. Dazu führen Sie zuerst ein `git fetch` aus, um neue Commits
@@ -707,7 +707,7 @@ gesetzt.  (Rebase wird ausführlich in <<sec.rebase>> beschrieben.)
 
 
 [[sec.upstream]]
-===== Upstream-Branches =====
+==== Upstream-Branches
 
 Oft werden `git fetch`, `git pull` und `git push` ohne
 Argumente ausgeführt.  Git verwendet in dem Fall unter anderem die Konfiguration
@@ -778,7 +778,7 @@ $ *git config branch.master.rebase true*
 
 
 [[sec.fetch-vs-pull]]
-==== git fetch vs. git pull ====
+=== git fetch vs. git pull
 
 Git-Anfängern stellt sich häufig die Frage, ob sie nun `fetch`
 oder `pull` verwenden sollen. Die Antwort hängt davon ab, wie
@@ -786,7 +786,7 @@ entwickelt wird: Wie groß ist das Projekt? Wie viele Remotes gibt es?
 Wie stark werden Branches eingesetzt?
 
 [[sec.push-pull]]
-===== Verteiltes Git für Anfänger =====
+==== Verteiltes Git für Anfänger
 
 Besonders für Anfänger ist es sinnvoll, dass alle Teilnehmer auf
 demselben Branch arbeiten (meist `master`), sich mit demselben
@@ -857,7 +857,7 @@ Entstehung des Commit-Graphen vertraut und wie er zu manipulieren ist
 featuregetriebene Entwicklung mit Branches anzustreben.
 
 [[sec.fetch-push]]
-===== Verteiltes Git für Fortgeschrittene =====
+==== Verteiltes Git für Fortgeschrittene
 
 Sobald Sie das Objektmodell und den Commit-Graphen verstanden haben,
 empfehlen wir Ihnen einen Workflow einzusetzen, der im Wesentlichen
@@ -927,7 +927,7 @@ vielen Topic-Branches arbeiten.
 
 
 [[sec.hochladen]]
-=== Commits hochladen: git push ===
+== Commits hochladen: git push
 
 Das Gegenstück zu `fetch` und `pull` bildet das Kommando
 `git push`. Damit laden Sie Git-Objekte und Referenzen in ein
@@ -1019,7 +1019,7 @@ Durch die veränderten SHA-1-Summen kommt es zu Doppelungen, wenn
 Andere die ursprünglichen Commits bereits heruntergeladen haben.
 
 [[sec.push-delete]]
-==== Remote-Referenzen löschen ====
+=== Remote-Referenzen löschen
 
 Es gibt zwei Möglichkeiten, um Referenzen im Remote wieder zu löschen:
 Die ältere (vor Git Version 1.7.0) ist, beim Refspec die lokale
@@ -1046,7 +1046,7 @@ Remote-Tracking-Branch `origin/bugfix` dadurch 'nicht' automatisch verschwindet!
 Siehe dafür den Abschnitt über 'Pruning' weiter oben (<<sec.git_fetch>>).
 
 [[sec.push-default]]
-==== Push ohne Argumente: push.default ====
+=== Push ohne Argumente: push.default
 
 Im Alltag führen Sie `git push` oft ohne Angabe von Remote und Refspec
 aus. In dem Fall entscheidet Git anhand der Konfigurationseinträge
@@ -1113,7 +1113,7 @@ hoch!
 
 
 [[sec.upstream-config]]
-==== Konfiguration des Upstream-Branches ====
+=== Konfiguration des Upstream-Branches
 
 Git nimmt die Konfiguration von Upstream-Branches in einigen Fällen
 automatisch vor (zum Beispiel nach einem `git clone`). Insbesondere für
@@ -1143,13 +1143,13 @@ branch -vv` auf. In der Ausgabe wird (falls vorhanden) der
 Upstream-Partner eines Branches in eckigen Klammern angezeigt.
 
 [[sec.remotes-check]]
-=== Remotes untersuchen ===
+== Remotes untersuchen
 
 In diesem Abschnitt stellen wir  Techniken vor, mit denen Sie
 ein Remote einsehen und Ihr lokales Repository damit vergleichen.
 
 [[sec.remotes-show]]
-==== Zusammenfassung eines Remotes ====
+=== Zusammenfassung eines Remotes
 
 Das Kommando `git remote show` gibt eine prägnante
 Zusammenfassung des Remotes, inklusive den dort verfügbaren Branches,
@@ -1185,7 +1185,7 @@ $ *git remote show origin*
 --------
 
 [[sec.remote-branch-vv]]
-==== Vergleich mit dem Upstream ====
+=== Vergleich mit dem Upstream
 
 Haben Sie einen Upstream-Branch konfiguriert, erhalten Sie beim
 Wechseln des Branches (`git checkout`) und Abfragen des Status
@@ -1255,7 +1255,7 @@ ist 'diverged' -- dann werden sowohl 'ahead' als auch
 angezeigt.
 
 [[sec.multi-remote]]
-=== Verteilter Workflow mit mehreren Remotes ===
+== Verteilter Workflow mit mehreren Remotes
 
 Git unterstützt das Arbeiten mit mehreren Remotes. Ein beliebter
 Workflow, der sich diese Eigenschaft zu Nutze macht, ist der
@@ -1313,7 +1313,7 @@ durchzuführen. Eine ausführliche Beschreibung dieses Dienstes finden
 Sie in <<sec.github>>.
 
 [[sec.remotes-verwalten]]
-=== Remotes verwalten ===
+== Remotes verwalten
 
 
 Mit `git remote` verwalten Sie zusätzliche Remotes. Um
@@ -1384,7 +1384,7 @@ $ *git config --global alias.ru "remote update --prune"*
 
 
 [[sec.pull-request]]
-==== Pull-Request ====
+=== Pull-Request
 
 Um einen Pull-Request automatisch zu generieren, gibt es das
 Git-Kommando `request-pull`. Die Syntax lautet:
@@ -1434,7 +1434,7 @@ Valentin Haenel (2):
 
 
 [[sec.remote-tags]]
-=== Tags austauschen ===
+== Tags austauschen
 
 Tags werden ebenfalls mit den Remote-Kommandos `fetch` bzw.
 `pull` und `push` ausgetauscht.  Im Gegensatz zu
@@ -1446,7 +1446,7 @@ Remote-Repositories erhalten, speichert Git ganz normal unter
 `.git/refs/tags/` bzw. `.git/packed-refs`.
 
 [[sec.tags-download]]
-==== Tags herunterladen ====
+=== Tags herunterladen
 
 Prinzipiell lädt Git neue Tags automatisch bei einem Aufruf von
 `git fetch` bzw.  `git pull` herunter. Das heißt, wenn
@@ -1493,7 +1493,7 @@ Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das
 das Tag zeigt.]  aus.
 
 [[sec.tags-hochladen]]
-==== Tags hochladen ====
+=== Tags hochladen
 
 Git lädt Tags nicht automatisch hoch. Sie müssen diese, ähnlich den
 Branches, explizit an `git push` übergeben, z.B. um das Tag
@@ -1552,7 +1552,7 @@ Möglichkeiten:
 
 
 [[sec.patch-queue]]
-=== Patches per E-Mail ===
+== Patches per E-Mail
 
 Eine Alternative zum Einrichten eines öffentlichen Repositorys ist
 es, automatisch Patches per E-Mail zu verschicken. Das Format der
@@ -1591,7 +1591,7 @@ realisiert:
 
 
 [[sec.patches-exportieren]]
-==== Patches exportieren ====
+=== Patches exportieren
 
 Das Kommando `git format-patch` exportiert einen oder mehrere
 Commits als Patches im Unix-Mailbox-Format und gibt pro Commit eine
@@ -1723,7 +1723,7 @@ dass es sich um den ersten Reroll dieser Serie handelt.
 ================================
 
 [[sec.patches-versenden]]
-==== Patches versenden ====
+=== Patches versenden
 
 Versenden Sie die generierten Dateien mit `git send-email`
 (oder einem E-Mail-Client Ihrer Wahl).  Das Kommando erwartet als
@@ -1805,7 +1805,7 @@ zu verstümmeln, dass sie Git nicht mehr als solche
 erkennt.{empty}footnote:[Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt ``MUA specific hints'' sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten ``MUA-specific Hints'' und ``Discussion''.]
 
 [[sec.patches-einpflegen]]
-==== Patches einpflegen ====
+=== Patches einpflegen
 
 Mit `git format-patch` exportierte Patch-E-Mails werden von dem
 Git-Kommando `git am` ('apply from mailbox') wieder in
@@ -1917,7 +1917,7 @@ wenn Ihnen jemand die Ausgabe von `git diff` statt
 
 
 [[sec.dictator]]
-=== Ein verteilter, hierarchischer Workflow ===
+== Ein verteilter, hierarchischer Workflow
 
 Der Integration-Manager-Workflow skaliert nicht mit der Größe des
 Projekts.  Bei großem Wachstum ist irgendwann der Maintainer mit der
@@ -1965,7 +1965,7 @@ beigetragen hat.
 
 
 [[sec.subprojects]]
-=== Unterprojekte verwalten ===
+== Unterprojekte verwalten
 
 Bei größeren Softwareprojekten ist es bisweilen nötig, bestimmte Teile
 eines Programms in eigene Projekte auszulagern. Das ist zum Beispiel
@@ -2006,7 +2006,7 @@ u.a. auch nach Lua, Ruby, Python, PHP und JavaScript herausreichen.
 
 
 [[sec.submodules]]
-==== Submodules ====
+=== Submodules
 
 Submodules werden von Git als Unterverzeichnisse verwaltet, die einen
 speziellen Eintrag in der Datei `.gitmodules` besitzen.
@@ -2079,7 +2079,7 @@ können sich zum Beispiel die Ausgabe von `git log` in dem
 Submodule anschauen.
 
 [[sec.submodule-mod]]
-===== Änderungen im Submodule =====
+==== Änderungen im Submodule
 
 Nun hat die `libgit2` als Default-Branch (also der
 `HEAD` auf der Serverseite) den Branch `development`
@@ -2133,7 +2133,7 @@ Commits runterladen und ein Update der Bibliothek entsprechend im
 
 
 [[sec.submodule-userview]]
-===== Aus Sicht eines Nutzers =====
+==== Aus Sicht eines Nutzers
 
 Wie sieht das Ganze nun aus Sicht eines Nutzer aus, der das Projekt
 zum ersten Mal klont? Zunächst ist offensichtlich, dass das oder die
@@ -2176,7 +2176,7 @@ ist also nur eine ``Empfehlung''.
 
 
 [[sec.subtrees]]
-==== Subtrees ====
+=== Subtrees
 
 Im Gegensatz zu Submodules, die ihren Charakter als eigenständiges
 Git-Repository wahren, verschmelzen Sie die Geschichte zweier Projekte
@@ -2267,7 +2267,7 @@ Verwenden Sie diese Option nicht, wenn Sie das Projekt nicht auch per
 ===============================
 
 [[sec.split-off-subtree]]
-===== Ein Unterverzeichnis abspalten =====
+==== Ein Unterverzeichnis abspalten
 
 Möglicherweise stehen Sie irgendwann vor der Aufgabe, ein
 Unterverzeichnis Ihres Projektes als eigenes Repository verwalten zu
@@ -2302,7 +2302,7 @@ die neuen Commits integrieren. Wollen Sie stattdessen mit der Option
 
 
 [[sec.submodule-vs-subtree]]
-==== Submodules vs. Subtrees ====
+=== Submodules vs. Subtrees
 
 Die Frage ``Submodules oder Subtrees?'' lässt sich nicht
 generell, sondern nur von Fall zu Fall beantworten. Ausschlaggebendes

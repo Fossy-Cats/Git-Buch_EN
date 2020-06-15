@@ -5,6 +5,8 @@
 :revnumber: 3.0
 :lang: de
 
+:leveloffset: +1
+
 // "vorwort.txt"                 ->  Preface
 include::gitbuch_00.adoc[]
 
@@ -47,5 +49,6 @@ include::gitbuch_12.adoc[]
 // "gitdir.txt"                  ->  App. B
 include::gitbuch_13.adoc[]
 
+:leveloffset: 0
 
 // EOF //

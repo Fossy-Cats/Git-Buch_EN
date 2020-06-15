@@ -1,7 +1,7 @@
 // adapted from: "erste_schritte.txt"
 
 [[ch.intro]]
-== Einführung und erste Schritte ==
+= Einführung und erste Schritte
 
 Das folgende Kapitel bietet eine kompakte Einführung in Grundbegriffe
 und Konfigurationseinstellungen von Git. Ein kleines Beispielprojekt
@@ -9,7 +9,7 @@ zeigt, wie Sie eine Datei mit Git unter Versionsverwaltung stellen und
 mit welchen Kommandos Sie die wichtigsten Arbeitsschritte erledigen.
 
 [[sec.begriffe]]
-=== Grundbegriffe ===
+== Grundbegriffe
 
 Einige wichtige Fachbegriffe werden im Folgenden immer wieder
 vorkommen und bedürfen darum einer kurzen Erläuterung. Wenn Sie schon
@@ -127,7 +127,7 @@ des Systems.
 
 
 [[sec.erste-schritte]]
-=== Erste Schritte mit Git ===
+== Erste Schritte mit Git
 
 Zum Einstieg wollen wir an einem kleinen Beispiel den Arbeitsablauf
 mit Git illustrieren. Wir erstellen ein Repository und entwickeln
@@ -162,7 +162,7 @@ Wert übernimmt.
 
 
 [[sec.erstes-repo]]
-==== Das erste Repository ====
+=== Das erste Repository
 
 Bevor wir mit Git Dateien verwalten, müssen wir ein Repository für das
 Beispiel-Projekt erstellen. Das Repository wird 'lokal' erstellt,
@@ -212,7 +212,7 @@ Dateien, und verwenden Sie `git add`, um diese mit Git zu
 verwalten.''
 
 [[sec.erster-commit]]
-==== Der erste Commit ====
+=== Der erste Commit
 
 Übergeben wir Git nun eine erste Datei zur Verwaltung, und zwar ein
 ``Hello World!''-Programm in Perl.  Selbstverständlich
@@ -350,7 +350,7 @@ weder Veränderungen im Working Tree noch im Index, auch keine Dateien,
 die nicht mit Git verwaltet werden ('Untracked Files').
 
 [[sec.commits-einsehen]]
-==== Commits einsehen ====
+=== Commits einsehen
 
 Zum Abschluss dieser kleinen Einführung stellen wir Ihnen noch zwei
 sehr nützliche Kommandos vor, die Sie häufig einsetzen werden, um die
@@ -472,7 +472,7 @@ Date:   Tue Nov 16 00:40:54 2010 +0100
 --------
 
 [[chap.git-config]]
-=== Git konfigurieren ===
+== Git konfigurieren
 
 Wie die meisten textbasierten Programme bietet Git eine Fülle an
 Konfigurationsoptionen. Es ist daher jetzt an der Zeit, einige
@@ -562,7 +562,7 @@ Option automatisch schützt, so dass keine fehlerhaften
 Konfigurationsdateien entstehen.
 
 [[sec.git-alias]]
-==== Git Aliase ====
+=== Git Aliase
 
 Git bietet Ihnen über 'Aliase' die Möglichkeit, einzelne
 Kommandos und sogar ganze Kommandosequenzen abzukürzen. Die Syntax lautet:
@@ -610,7 +610,7 @@ einige nützliche Abkürzungen:
 
 
 [[chap.color-defaults]]
-==== Farbe einstellen ====
+=== Farbe einstellen
 
 Überaus hilfreich ist die Option `color.ui`, die prüft, ob Git
 die Ausgabe diverser Kommandos einfärben soll. So erscheinen gelöschte
@@ -633,7 +633,7 @@ $ *git config --global color.ui auto*
 
 
 [[chap.config-encoding]]
-==== Zeichensätze einstellen ====
+=== Zeichensätze einstellen
 
 Sofern nicht anders eingestellt, nimmt Git für alle Texte, also vor
 allem für die Namen der Autoren und die Commit-Nachricht, UTF-8 als
@@ -673,7 +673,7 @@ $ *git config core.pager \'env LESSCHARSET=iso8859 less'*
 ================
 
 [[sec.config-eol]]
-==== Zeilenenden einstellen ====
+=== Zeilenenden einstellen
 
 Da Git auf Windows-Systemen wie auf unixoiden Systemen läuft, muss es
 das Problem verschiedener Zeilenende-Konventionen lösen. (Das betrifft
@@ -705,7 +705,7 @@ Unterverzeichnis angeben, so dass das Format über alle Plattformen
 hinweg gleich ist (siehe dafür <<sec.attributes>>).
 
 [[chap.ext-tools]]
-==== Editor, Pager und Browser einstellen ====
+=== Editor, Pager und Browser einstellen
 
 Git startet für bestimmte Aktionen automatisch einen Editor, Pager
 oder Browser. Meist werden vernünftige Defaults verwendet, wenn nicht,
@@ -735,7 +735,7 @@ erreichen, dass die Ausgabe des Diff-Kommandos nie in den Pager
 geleitet wird.
 
 [[chap.conf-env]]
-==== Konfiguration über Umgebungsvariablen ====
+=== Konfiguration über Umgebungsvariablen
 
 Einige Optionen lassen sich auch durch Umgebungsvariablen
 überschreiben. Auf diese Weise können in einem Shell-Script oder in
@@ -789,7 +789,7 @@ $ *git -c core.trustctime=false status*
 --------
 
 [[chap.correct-errors]]
-==== Automatische Fehlerkorrektur ====
+=== Automatische Fehlerkorrektur
 
 Der Wert der Option `help.autocorrect` bestimmt, was Git tun
 soll, wenn es das eingegebene Subkommando nicht findet, der

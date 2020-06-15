@@ -1,7 +1,7 @@
 // adapted from: "zusammenspiel.txt"
 
 [[sec.git-svn-cvs]]
-== Zusammenspiel mit anderen Versionsverwaltungssystemen ==
+= Zusammenspiel mit anderen Versionsverwaltungssystemen
 
 
 Git verfügt über Schnittstellen zu anderen
@@ -58,7 +58,7 @@ erstellt. Für eine detaillierte Beschreibung inklusive Beispiel siehe
 <<sec.fast-import>> über 'Fast-Import'.
 
 [[sec.subversion]]
-=== Subversion ===
+== Subversion
 
 Im Folgenden geht es um die Handhabung von `git-svn`.  Wir
 zeigen Ihnen, wie Sie Subversion-Repositories konvertieren und wie Sie
@@ -66,7 +66,7 @@ es einsetzen, um Änderungen zwischen einem Subversion-Repository und
 Git auszutauschen.
 
 [[sec.git-svn-convert]]
-==== Konvertierung ====
+=== Konvertierung
 
 
 Ziel ist es, die Versionsgeschichte aus einem Subversion-Repository in
@@ -76,7 +76,7 @@ Anspruch nehmen. Gute Vorbereitung hilft Ihnen aber, Fehler von
 vornherein zu vermeiden.
 
 [[sec.git-svn-vorbereitung]]
-===== Vorbereitung =====
+==== Vorbereitung
 
 Folgende Informationen sollten Sie zur Hand haben:
 
@@ -157,7 +157,7 @@ Argument `--stdlayout` bzw.  kurz `-s`.
 image::svn-stdlayout-crop.png[id="fig.svn-stdlayout",scaledwidth="20%",width="20%"]
 
 [[sec.git-svn-metadata]]
-===== SVN-Metadaten =====
+==== SVN-Metadaten
 
 Das Argument `--no-metadata` verhindert, dass zusätzliche
 Metadaten in die Commit-Message einfließen. Inwieweit das für Ihren
@@ -185,7 +185,7 @@ git-svn-id: file:///demo/trunk@8 2423f1c7-8de6-44f9-ab07-c0d4e8840b78
 --------
 
 [[sec.git-svn-username]]
-===== Benutzernamen angeben =====
+==== Benutzernamen angeben
 
 Wie Sie den Benutzernamen angeben, hängt vom Transport-Protokoll ab.
 Für solche, bei denen Subversion die Authentifizierung regelt (z.B.{empty}{nbsp}`http`, `https` und `svn`), nutzen Sie die
@@ -194,7 +194,7 @@ Sie den Benutzernamen als Teil der URL angeben, also beispielsweise
 `svn+ssh://USER@svn.example.com`.
 
 [[sec.git-svn-convert-befehl]]
-===== Standardlayout konvertieren =====
+==== Standardlayout konvertieren
 
 Ein SVN-Repository im Standardlayout konvertieren Sie mit dem
 folgenden Aufruf (nachdem Sie eine Authors-Datei erstellt haben):
@@ -206,7 +206,7 @@ $ *git svn clone &lt;pass:quotes[http://svn.example.com/]&gt; -s -A &lt;authors.
 --------
 
 [[sec.git-svn-nonstdlayout]]
-===== Non-Standard Layout =====
+==== Non-Standard Layout
 
 Ist das Repository nicht nach dem Subversion-Standardlayout ausgelegt,
 passen Sie den Aufruf von `git svn` entsprechend an: Statt
@@ -251,7 +251,7 @@ würden. Wie Sie Projekte aus unterschiedlichen Git-Repositories miteinander
 ``verknüpfen'', ist in <<sec.subprojects>> beschrieben.
 
 [[sec.git-svn-nachbearbeiten]]
-===== Nachbearbeitung =====
+==== Nachbearbeitung
 
 Ist `git svn clone` durchgelaufen, müssen Sie das Repository
 meist noch ein wenig nachbearbeiten.
@@ -527,7 +527,7 @@ $ *git push &lt;example&gt; --mirror*
 --------
 
 [[sec.git-svn-merges]]
-===== Subversion-Merges =====
+==== Subversion-Merges
 
 Subversion-Merges werden von `git-svn` anhand der
 `svn:mergeinfo`-Properties erkannt und als Git-Merges übersetzt
@@ -575,7 +575,7 @@ und auch `svn-fe`{empty}footnote:[Im Git-via-Git Repository unter
 
 
 [[sec.git-svn-conduit]]
-==== Bidirektionale Kommunikation ====
+=== Bidirektionale Kommunikation
 
 Das Werkzeug `git-svn` kann nicht nur ein Subversion-Repository
 konvertieren, es taugt vor allem auch als besserer Subversion-Client.  Das heißt, Sie
@@ -612,7 +612,7 @@ die üblicherweise vor einem `git svn dcommit` ausgeführt wird.
 
 
 [[sec.git-svn-clone]]
-===== Subversion-Repository klonen =====
+==== Subversion-Repository klonen
 
 Um das Repository zu beziehen, gehen Sie zunächst so vor wie im
 Abschnitt zur Subversion-Konvertierung -- erstellen Sie eine
@@ -736,7 +736,7 @@ $ *git svn show-ignore &gt; .git/info/excludes*
 ========
 
 [[sec.git-svn-untersuchen]]
-===== Repository untersuchen =====
+==== Repository untersuchen
 
 Zusätzlich bietet `git-svn` noch einige Kommandos zum
 Untersuchen der Geschichte sowie anderer Eigenschaften des
@@ -788,7 +788,7 @@ Leider kann `git-svn` bisher nur Subversion-Properties
 abfragen, aber weder erstellen, modifizieren noch löschen.
 
 [[sec.git-svn-austausch]]
-===== Commits austauschen =====
+==== Commits austauschen
 
 Analog zu `git fetch` laden Sie mit `git svn fetch` neue
 Commits aus dem Subversion-Repository herunter.  Dabei lädt
@@ -860,7 +860,7 @@ bereits mit `git svn dcommit` hochgeladen haben, nachträglich
 mit `git rebase` oder `git commit --amend` verändern.
 
 [[sec.git-svn-branches-tags]]
-===== Subversion-Branches und -Tags =====
+==== Subversion-Branches und -Tags
 
 Mit den Subkommandos `git svn branch` und `git svn tag`
 erzeugen Sie Subversion-Branches und -Tags. Zum Beispiel:
@@ -969,7 +969,7 @@ https://git.wiki.kernel.org/index.php/Git-p4_Usage
 
 
 [[sec.fast-import]]
-=== Eigene Importer ===
+== Eigene Importer
 
 Git bietet über das Subkommando `fast-import` einen einfachen
 und zugleich komfortablen Weg, eine irgendwie geartete

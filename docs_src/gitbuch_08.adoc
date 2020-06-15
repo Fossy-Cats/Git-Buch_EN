@@ -1,7 +1,7 @@
 // adapted from: "automatisierung.txt"
 
 [[ch.scripting]]
-== Git automatisieren ==
+= Git automatisieren
 
 In diesem Kapitel stellen wir fortgeschrittene Techniken zum
 Automatisieren von Git vor. Im ersten Abschnitt über
@@ -23,7 +23,7 @@ etwa um eine Datei mit einem Passwort aus 'allen' Commits zu
 entfernen.
 
 [[sec.attributes]]
-=== Git-Attribute – Dateien gesondert behandeln ===
+== Git-Attribute – Dateien gesondert behandeln
 
 Über 'Git-Attribute' können Sie einzelnen oder einer Gruppe von
 Dateien bestimmte Eigenschaften zuweisen, so dass Git sie besonders
@@ -90,7 +90,7 @@ CRLF ausgecheckt. (Intern wird Git all diese Blobs mit einfachen
 LF-Endungen speichern.)
 
 [[sec.smudge-clean]]
-==== Filter: Smudge und Clean ====
+=== Filter: Smudge und Clean
 
 Git bietet über 'Filter' eine Möglichkeit, Dateien nach einem
 Checkout zu ``verschmutzen'' ('smudge') und vor einem
@@ -124,7 +124,7 @@ sein sollte.footnote:[Sie können das Programm
   http://www.gnu.org/software/indent/ herunterladen.]
 
 [[sec.smudge-clean-keywords]]
-==== Keywords in Dateien ====
+=== Keywords in Dateien
 
 So lassen sich prinzipiell auch die bekannten Keyword-Expansionen
 realisieren, so dass z.B. `$Version$` zu `$Version:
@@ -167,7 +167,7 @@ Aufruf von Smudge sollte durch einen einfachen Aufruf von Clean wieder
 behoben werden können.
 
 [[sec.smudge-clean-dontuse]]
-===== Einschränkungen =====
+==== Einschränkungen
 
 Das Konzept von Filtern in Git ist bewusst simpel gehalten und wird
 auch in künftigen Versionen nicht erweitert werden. Die Filter
@@ -216,7 +216,7 @@ die Datei per `git archive`
 
 
 [[sec.external-diff]]
-==== Eigene Diff-Programme ====
+=== Eigene Diff-Programme
 
 Der interne Diff-Mechanismus von Git eignet sich sehr gut für alle
 Arten von Plaintext. Er versagt aber bei Binärdateien -- Git gibt
@@ -242,7 +242,7 @@ einen schnellen Überblick zu erhalten, wer was geändert hat, reichen
 solche Techniken allemal aus.
 
 [[sec.external-diff-parameters]]
-===== API für externe Diff-Programme =====
+==== API für externe Diff-Programme
 
 Git bietet eine simple API für eigene Diff-Filter. Einem Diff-Filter
 werden immer die folgenden sieben Argumente übergeben:
@@ -268,7 +268,7 @@ Objektdatenbank liegt (also nur im Working Tree oder Index).  Diese
 Fälle muss das Diff-Kommando entsprechend behandeln können.
 
 [[sec.diff-config]]
-===== Externe Diffs konfigurieren =====
+==== Externe Diffs konfigurieren
 
 Es gibt zwei Möglichkeiten, ein externes Diff-Programm aufzurufen. Die
 erste Methode ist temporär: Setzen Sie einfach vor dem Aufruf von
@@ -306,7 +306,7 @@ für ein Repository vorgeben, schreiben Sie diese Informationen nach
 `.git/info/attributes`.
 
 [[sec.diff-immages]]
-===== Bilder vergleichen =====
+==== Bilder vergleichen
 
 Ein häufiger Anwendungsfall sind Bilder: Was hat sich zwischen zwei
 Versionen eines Bildes geändert? Das zu visualisieren, ist nicht immer
@@ -395,7 +395,7 @@ unter: https://github.com/gitbuch/tux-diff-demo.
 
 
 [[sec.hooks]]
-=== Hooks ===
+== Hooks
 
 Hooks bieten einen Mechanismus, in wichtige Git-Kommandos
 ``einzuhaken'' und eigene Aktionen auszuführen. In der Regel
@@ -437,7 +437,7 @@ abgebrochen. Eine technische Dokumentation der Funktionsweise finden
 Sie in der Man-Page `githooks(5)`.
 
 [[sec.hooks-commit]]
-==== Commits ====
+=== Commits
 
 
 `pre-commit`:: Wird aufgerufen, bevor die Commit-Nachricht abgefragt
@@ -545,7 +545,7 @@ Sie den Hook `pre-commit` ja immer über die Option `-n`
 beim Committen überspringen.
 
 [[sec.hooks-server]]
-==== Serverseitig ====
+=== Serverseitig
 
 Die folgenden Hooks werden auf Empfängerseite von `git
   receive-pack` aufgerufen, nachdem der Nutzer im lokalen Repository
@@ -589,7 +589,7 @@ Repository per HTTP anbieten wollen.
 
 
 [[sec.hooks-receive-format]]
-===== Das Format der receive-Hooks =====
+==== Das Format der receive-Hooks
 
 Die Hooks `pre-receive` und `post-receive` erhalten
 eine äquivalente Eingabe auf Standard-Input. Das Format ist das
@@ -629,7 +629,7 @@ mögliche Fehlermeldungen oder Reports unmittelbar an den Nutzer
 weiterleiten.
 
 [[sec.hooks-email]]
-===== E-Mails verschicken =====
+==== E-Mails verschicken
 
 Eine praktische Anwendung des `post-receive`-Hooks ist, E-Mails
 zu verschicken, sobald neue Commits im Repository vorliegen. Das
@@ -664,7 +664,7 @@ dass die E-Mail leichter wegsortiert werden kann. Weitere Optionen
 sind in den Kommentaren des Hooks dokumentiert.
 
 [[sec.hooks-update]]
-===== Der update-Hook =====
+==== Der update-Hook
 
 Der `update`-Hook wird für jede Referenz einzeln aufgerufen.
 Er eignet sich daher besonders gut, eine Art
@@ -678,7 +678,7 @@ vorliegt, und sich entsprechend mit dem Rückgabewert Null oder nicht
 Null beendet.
 
 [[sec.hooks-deploy]]
-===== Deployment über Hooks =====
+==== Deployment über Hooks
 
 Git versteht sich als Versionsverwaltungssystem und weiß nichts von
 Deployment-Prozessen. Über den Update-Hook können Sie allerdings –
@@ -699,7 +699,7 @@ Master-Branch des Servers hochladen, wird dieser Hook die Web-Präsenz
 automatisch aktualisieren.
 
 [[sec.hooks-am]]
-==== Patches anwenden ====
+=== Patches anwenden
 
 Die folgenden Hooks werden jeweils von `git am` aufgerufen, wenn
 ein oder mehrere Patches angewendet werden.
@@ -724,7 +724,7 @@ entsprechenden Commit-Hooks `commit-msg` und
 `pre-commit` aus.
 
 [[sec.hooks-misc]]
-==== Sonstige Hooks ====
+=== Sonstige Hooks
 
 
 
@@ -796,7 +796,7 @@ natürlich nur die ``einfachen'' Zugriffsrechte.
 
 
 [[sec.scripting]]
-=== Eigene Git-Kommandos schreiben ===
+== Eigene Git-Kommandos schreiben
 
 Git folgt mit seiner Einteilung in Subkommandos der Unix-Philosophie
 ``Ein Tool, ein Job''. Außerdem teilt es die Subkommandos in
@@ -858,7 +858,7 @@ Sämtliche im folgenden Abschnitt vorgestellten Scripte finden Sie auch
 online, in der Scriptsammlung für dieses Buch.footnote:[https://github.com/gitbuch/buch-scripte]
 
 [[sec.scripting-init]]
-==== Initialisierung ====
+=== Initialisierung
 
 Typischerweise wollen Sie sicherstellen, dass Ihr Script in einem
 Repository ausgeführt wird. Für notwendige Initialisierungsaufgaben
@@ -904,7 +904,7 @@ zugreifen wollen.
 
 
 [[sec.scripting-pos]]
-==== Position im Repository ====
+=== Position im Repository
 
 In Scripten werden Sie häufig die Information benötigen, aus welchem
 Verzeichnis das Script aufgerufen wurde. Dafür bietet das Git-Kommando
@@ -953,7 +953,7 @@ Dateinamen `README` übergeben, dann findet es den
 entsprechenden Blob im aktuellen Tree via `ganz/tief/README`.
 
 [[sec.scripting-rev-list]]
-==== Referenzen auflisten: rev-list ====
+=== Referenzen auflisten: rev-list
 
 Herzstück der Plumbing-Kommandos ist `git rev-list`
 ('revision list'). Seine Grundfunktion besteht darin, ein oder
@@ -1047,7 +1047,7 @@ bietet also eine ähnliche Funktionalität wie die C-Bibliothek
 
 
 [[sec.scripting-find-changes]]
-==== Änderungen finden ====
+=== Änderungen finden
 
 `git diff` und `git log` weisen Sie durch
 die Option `--name-status` an, Informationen
@@ -1128,7 +1128,7 @@ $ *git log --pretty=format:%an --diff-filter=M -- cache.h | \*
 --------
 
 [[sec.od-explore]]
-==== Die Objektdatenbank und rev-parse ====
+=== Die Objektdatenbank und rev-parse
 
 Das Git-Kommando `rev-parse` ('revision parse') ist ein
 extrem flexibles Tool, dessen Aufgabe es unter anderem ist, Ausdrücke,
@@ -1248,7 +1248,7 @@ Um besonders viele Referenzen per `rev-parse` aufzulösen, sollten Sie dies in '
 ========
 
 [[sec.for-each-ref]]
-==== Referenzen iterieren: for-each-ref ====
+=== Referenzen iterieren: for-each-ref
 
 Eine häufige Aufgabe ist es, Referenzen zu iterieren. Hier stellt Git
 das Allzweckkommando `for-each-ref` zur Verfügung.  Die
@@ -1402,7 +1402,7 @@ Die weiteren Feldnamen sowie Beispiele finden Sie in der Man-Page
 
 
 [[sec.git-update-ref]]
-==== Referenzen umschreiben: git update-ref ====
+=== Referenzen umschreiben: git update-ref
 
 Wer `for-each-ref` einsetzt, will meist auch Referenzen
 bearbeiten -- daher ist das Kommando `update-ref` noch zu
@@ -1457,7 +1457,7 @@ Einträge im Reflog macht, was die Fehlerbehebung deutlich vereinfacht.
 
 
 [[sec.git-erweiterte-aliase]]
-==== Erweiterte Aliase ====
+=== Erweiterte Aliase
 
 
 Sofern Sie nur einen Einzeiler haben, lohnt sich meist kein eigenes Script.
@@ -1535,7 +1535,7 @@ der Seite zu Aliasen.footnote:[https://git.wiki.kernel.org/index.php/Aliases]
 
 
 [[sec.filter-branch]]
-=== Versionsgeschichte umschreiben ===
+== Versionsgeschichte umschreiben
 
 Das bereits vorgestellte Kommando `git rebase` und dessen
 interaktiver Modus erlaubt es Entwicklern, Commits beliebig zu
@@ -1627,7 +1627,7 @@ In den folgenden Beispielen geht es um einige typische Anwendungsfälle
 des `filter-branch`-Kommandos.
 
 [[sec.fb-censor]]
-==== Sensitive Informationen nachträglich entfernen ====
+=== Sensitive Informationen nachträglich entfernen
 
 Idealerweise sind sensitive Daten wie Keys, Zertifikate oder
 Passwörter nicht Teil eines Repositorys. Auch große Binärdateien oder
@@ -1693,7 +1693,7 @@ Möglicherweise hatte eine Datei, die Sie löschen wollen, früher einen
 ========
 
 [[sec.fb-censor-string]]
-===== Strings aus Dateien entfernen =====
+==== Strings aus Dateien entfernen
 
 Falls Sie nicht ganze Dateien, sondern nur bestimmte Zeilen in allen
 Commits ändern wollen, reicht ein Filter auf Index-Ebene nicht aus.
@@ -1750,7 +1750,7 @@ beschleunigen kann.
 ========
 
 [[sec.fb-developer]]
-===== Einen Entwickler umbenennen =====
+==== Einen Entwickler umbenennen
 
 Wollen Sie einen Entwickler umbenennen, können Sie dies tun, indem Sie
 in einem Environment-Filter ggf. die Variable
@@ -1764,7 +1764,7 @@ $ *git filter-branch -f --env-filter \*
 --------
 
 [[sec.fb-subdir]]
-==== Unterverzeichnis extrahieren ====
+=== Unterverzeichnis extrahieren
 
 Der Subdirectory-Filter erlaubt es, die Commits so umzuschreiben, dass
 ein Unterverzeichnis des aktuellen Repositorys neues
@@ -1790,7 +1790,7 @@ Ref \'refs/heads/master' was rewritten
 Achtung: Dieses Kommando läuft einige Minuten lang.
 
 [[sec.fb-grafts]]
-==== Grafts: Nachträgliche Merges ====
+=== Grafts: Nachträgliche Merges
 
 Git stellt über sogenannte 'Graft Points' bzw. 'Grafts' (to
 graft: einpflanzen) eine Möglichkeit, Merges zu simulieren.  Solche
@@ -1866,7 +1866,7 @@ Außerdem müssen Sie natürlich noch die verbleibenden Backup-Referenzen
 löschen (s.u.).
 
 [[sec.fb-clean]]
-==== Alte Commits löschen ====
+=== Alte Commits löschen
 
 Nachdem Sie eventuelle sensitive Daten aus allen Commits getilgt
 haben, müssen Sie noch dafür sorgen, dass diese alten Commits nicht
