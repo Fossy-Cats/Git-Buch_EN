@@ -1,0 +1,590 @@
+////
+All book footnotes have been externalized to custom attributes definitions and
+placed in this file to centralise them for easier maintenance.
+
+The footnotes of each book chapter are enclosed within a tag region in order to
+allow their selective inclusion on a per-chapter basis (instead of including
+them in the main entry file), and each chapter includes the required footnotes
+using tags.  This allows to build individual chapters without loosing their
+footnotes.
+////
+
+// =============================================================================
+//                           Preface (footnotes: 1-7)
+// =============================================================================
+
+// tag::Preface[]
+:fn1: footnote:[https://git-scm.com/]
+:fn2: footnote:[http://vger.kernel.org/vger-lists.html#git]
+:fn3: footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
+:fn4: footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools]
+:fn5: footnote:[https://git.wiki.kernel.org/index.php/GitFaq]
+:fn6: footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse]
+:fn7: footnote:[https://stackoverflow.com]
+// end::Preface[]
+
+// =============================================================================
+//                         Chapter 1 (footnotes: 8-11)
+// =============================================================================
+
+// tag::Chapter_1[]
+:fn8: footnote:[ \
+Auch wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet werden.]
+
+:fn9: pass:q[footnote:[ \
+Sie können die nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder entsprechend relativ zu Ihrer gesetzten Umgebungsvariable `$XDG_CONFIG_HOME`).]]
+
+:fn10: pass:q[footnote:[ \
+Sofern vorhanden, werden auch Einstellungen aus `/etc/gitconfig` eingelesen (mit niedrigster Priorität). \
+Setzen kann man Optionen in dieser Datei über den Parameter `--system`, wofür aber Root-Rechte notwendig sind. \
+Systemweit Git-Optionen zu setzen ist aber unüblich.]]
+
+:fn11: pass:q[footnote:[ \
+"`i18n`" ist eine gebräuchliche Abkürzung für das Wort "`Internationalization`" -- die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen dem ersten und dem letzten Buchstaben des Wortes.]]
+// end::Chapter_1[]
+
+// =============================================================================
+//                         Chapter 2 (footnotes: 12-28)
+// =============================================================================
+
+// tag::Chapter_2[]
+:fn12: pass:q[footnote:[ \
+Standardmäßig sind Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist: `git diff --word-diff-regex=<regex>`. \
+Siehe hierzu auch die Man-Page `git-diff(1)`.]]
+
+:fn13: pass:q[footnote:[ \
+Das ist eine Anweisung für den Kernel, welches Programm zum Interpretieren des Scripts verwendet werden soll. \
+Typische Shebang-Zeilen sind etwa `&num;!/bin/sh` oder `&num;!/usr/bin/perl`.]]
+
+:fn14: pass:q[footnote:[ \
+Genaugenommen führt die Option `-p` direkt in den _Patch-Mode_ des _Interactive-Mode_ von `git add`. \
+Der Interactive-Mode wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr selten verwendet und ist deswegen hier nicht weiter beschrieben. \
+Die Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im Abschnitt "`Interactive Mode`".]]
+
+:fn15: pass:q[footnote:[ \
+Git öffnet dann den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen – also nicht dem Index hinzuzufügen, sie aber im Working Tree zu behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die Zeile wird zu "`Kontext`"). \
+Um `+`-Zeilen zu löschen, entfernen Sie diese einfach aus dem Hunk.]]
+
+:fn16: pass:q[footnote:[ \
+Sie können Hunks in der Regel aber nicht beliebig teilen. \
+Zumindest eine Zeile _Kontext_, also eine Zeile ohne Präfix `+` oder `-`, muss dazwischen liegen. \
+Wollen Sie den Hunk dennoch teilen, müssen Sie mit `e` für _edit_ arbeiten.]]
+
+:fn17: pass:q[footnote:[ \
+Sie können diese Informationen u.a. in `gitk` sehen oder mit dem Kommando `git log --pretty=fuller`.]]
+
+:fn18: pass:q[footnote:[ \
+Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. \
+Der neue Commit _ersetzt_ dann den alten.]]
+
+:fn19: pass:q[footnote:[Durch `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie bleibt jedoch im Commit-Verlauf erhalten. Wie man eine Datei vollständig, also auch aus der Versionsgeschichte, löscht, ist in xref:gitbuch_08.adoc#sec.fb-censor[] nachzulesen.]]
+
+:fn20: footnote:[Dieses und die folgenden Beispiele stammen aus dem Git-Repository.]
+
+:fn21: pass:q[footnote:[ \
+Sie können das Repository, das auf den folgenden Seiten detailliert untersucht wird, mit dem Befehl `git clone git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]]
+
+:fn22: pass:q[footnote:[ \
+https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".]]
+
+// @FIXME DEAD LINK IN FOOTNOTE 23
+
+:fn23: footnote:[http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
+
+:fn24:  pass:q[footnote:[ \
+Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.]]
+
+:fn25: footnote:[ \
+Das Tag-Objekt wird hier nicht dargestellt, da es für das Verständnis der Objektstruktur nicht notwendig ist. \
+Sie finden es stattdessen in  <<fig.tag-objekt>>.]
+
+:fn26: pass:q[footnote:[ \
+Git speichert sämtliche Objekte unterhalb von `.git/objects`. \
+Man unterscheidet zwischen _Loose Objects_ und _Packfiles_. Die "`losen`" Objekte speichern den Inhalt in einer Datei, deren Name der SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine Datei). \
+Im Gegensatz dazu sind Packfiles komprimierte _Archive_ von vielen Objekten. \
+Das geschieht aus Performancegründen: Nicht nur ist die Übertragung bzw. Speicherung dieser Archive effizienter, auch wird das Dateisystem entlastet.]]
+
+:fn27: pass:q[footnote:[ \
+Intern kennt Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu erkennen und diese platzsparend zu _Packfiles_ zusammenzuschnüren.]]
+
+:fn28: pass:q[footnote:[ \
+Diese beiden Eigenschaften _gerichtet_ und _azyklisch_ sind die einzig notwendige Beschränkung, die man an einen Graphen stellen muss, der Änderungen über Zeit abbildet: Weder kann man zukünftige Änderungen referenzieren (Richtung der Kanten zeigt immer in die Vergangenheit), noch kann man irgendwann an einem Punkt ankommen, von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).]]
+// end::Chapter_2[]
+
+// =============================================================================
+//                         Chapter 3 (footnotes: 29-53)
+// =============================================================================
+
+// tag::Chapter_3[]
+:fn29: pass:q[footnote:[ \
+Das hindert Sie natürlich nicht, einen Branch auf einen Commit "`irgendwo in der Mitte`" zu setzen, was auch sinnvoll sein kann.]]
+
+:fn30: pass:q,a[footnote:[ \
+Aufgrund der Tatsache, dass bei einem Merge die Reihenfolge der direkten Vorfahren gespeichert wird, ist es wichtig, immer vom kleineren _in_ den größeren Branch zu mergen, also z.B.{empty}{nbsp}``topic`` nach `master`. \
+Wenn Sie dann mit `master^^` Commits im Master-Branch untersuchen wollen, landen Sie nicht auf einmal auf Commits aus dem Topic-Branch (siehe auch xref:gitbuch_03.adoc#sec.merge[]).]]
+
+:fn31: pass:q[footnote:[ \
+Wie Git eine Referenz auf Gültigkeit überprüft, können Sie bei Bedarf in der Man-Page `git-check-ref-format(1)` nachlesen.]]
+
+:fn32: pass:q[footnote:[ \
+Wie lange sie dort verweilen, bestimmen Sie mit entsprechenden Einstellungen für die _Garbage Collection_ (Wartungsmechanismen), siehe xref:gitbuch_13.adoc#sec.gc[].]]
+
+:fn33: pass:q[footnote:[ \
+Eine detaillierte Übersicht der Vor- und Nachteile der beiden Schemata sowie eine Beschreibung des Release-Prozesses usw.  finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
+
+:fn34: pass:q[footnote:[ \
+Um einen solchen getaggten Blob in ein Repository aufzunehmen, bedienen Sie sich des folgenden Kommandos: \
+`git tag -am "<beschreibung>" <tag-name> $(git hash-object -w <datei>)`.]]
+
+:fn35: pass:q[footnote:[ \
+Es handelt sich hierbei um die Commits, die mit `git log v1.7.1..28ba96a` erfasst werden.]]
+
+:fn36: pass:q[footnote:[ \
+Um zu überprüfen, dass die Änderungen in Ihrem neuen Branch denen des alten entsprechen, verwenden Sie `git diff <reorder-feature> <feature>` -- wenn das Kommando keine Ausgabe erzeugt, dann enthalten die Branches identische Änderungen.]]
+
+:fn37: pass:q[footnote:[ \
+Es ist nicht zwingend notwendig, dass eine Merge-Basis existiert; wenn Sie zum Beispiel mehrere Root-Commits in einem Repository verwalten (siehe auch xref:gitbuch_04.adoc#sec.multi-root[]) und dann die darauf aufgebauten Branches mergen, gibt es -- sofern vorher noch kein Merge stattfand -- keine gemeinsame Basis. \
+In diesem Fall erzeugt eine Datei, die auf beiden Seiten in verschiedenen Versionen vorliegt, einen Konflikt.]]
+
+:fn38: pass:q[footnote:[ \
+Die nachfolgende Beschreibung erläutert die Vorgehensweise der `resolve`-Strategie. Sie unterscheidet sich nur wenig von der Standard-Strategie `recursive`, siehe auch die Detailbeschreibung dieser Strategie in xref:gitbuch_03.adoc#sec.merge-strategies[].]]
+
+:fn39: pass:q[footnote:[ \
+Die `recursive`-Strategie geht also nur dann wesentlich intelligenter als `resolve` vor, wenn die _Topologie_ der Commits (d.h. die Anordnung, wo abgezweigt und zusammengeführt wurde) wesentlich komplizierter ist als ein bloßes Abzweigen und anschließendes Zusammenführen.]]
+
+:fn40: pass:q[footnote:[ \
+Die für den Merge relevanten Commits, die etwas an der Datei `output.c` geändert haben, kann Beatrice mit `git log --merge -p -- output.c` auflisten.]]
+
+:fn41: footnote:[http://kdiff3.sourceforge.net/]
+
+:fn42: footnote:[http://meld.sourceforge.net/]
+
+:fn43: pass:q[footnote:[ \
+In Vimdiff können Sie mit `Strg+W` und anschließender Bewegung mit den Pfeiltasten oder `h`, `j`, `k`, `l` das Fenster in die entsprechende Richtung wechseln. \
+Mit `dp` bzw.  `do` schieben Sie Änderungen auf die andere Seite oder übernehmen sie von dort (_diff put_ -- _diff obtain_).]]
+
+:fn44: pass:q[footnote:[ \
+Die Meldung `Automatic merge failed` bedeutet lediglich, dass ein Konflikt auftrat, der _nicht_ durch einen 3-Wege-Merge gelöst werden konnte. \
+Da Rerere keine sinnvolle Lösung garantieren kann, wird die Lösung nur "`bereitgestellt`", nicht aber als ultimative Lösung des Konflikts angesehen.]]
+
+:fn45: footnote:[Weitere nützliche Tipps finden Sie in <<sec.workflows>>.]
+
+:fn46: pass:q[footnote:[ \
+AsciiDoc ist eine simple, wiki-ähnliche Markup-Sprache: `http://www.methods.co.nz/asciidoc/`. \
+Die Git-Dokumentation liegt in diesem Format vor und wird in HTML-Seiten und Man-Pages konvertiert, und auch dieses Buch wurde in AsciiDoc geschrieben!]]
+
+:fn47: pass:q[footnote:[ \
+Das Repository des Git-Projekts selbst verwaltet zum Beispiel die autogenerierte HTML-Dokumentation in einem Branch `html`, der von den Entwicklungsbranches vollständig abgekoppelt ist. \
+So kann es bei Merges zwischen den Code-Branches nicht zu Konflikten wegen unterschiedlich kompilierter HTML-Dokumentation kommen. \
+Wie Sie solche "`entkoppelten`" Branches erstellen, beschreiben wir in xref:gitbuch_04.adoc#sec.multi-root[].]]
+
+:fn48: pass:q[footnote:[ \
+Das liegt daran, dass das Merge-Kommando nicht jeden Commit einzeln untersucht. \
+Stattdessen werden drei Trees verglichen, in denen _unter anderen_ diese Änderungen enthalten sind, siehe xref:gitbuch_03.adoc#sec.merge-detail[].]]
+
+:fn49: pass:q[footnote:[ \
+Das liegt daran, dass Rebase intern mit `cherry-pick` arbeitet, was wiederum erkennt, wenn die Änderungen, die durch den Commit eingebracht würden, schon vorhanden sind. \
+Eine ähnliche Funktionalität bietet auch `git cherry` bzw. `git patch-id`, das fast gleiche Patches erkennen kann.]]
+
+:fn50: pass:q[footnote:[ \
+Möglicherweise besitzt das Zeichen `^` in Ihrer Shell eine besondere Bedeutung (dies ist z.B.  in der Z-Shell oder rc-Shell der Fall). Dann müssen Sie das Zeichen maskieren, also das Argument in Anführungszeichen einfassen oder einen Backslash voranstellen. \
+In der Z-Shell existiert außerdem das Kommando `noglob`, das Sie `git` voranstellen, um die Sonderbedeutung von `^` aufzuheben.]]
+
+:fn51: footnote:[Dies ist nicht nötigerweise ein Commit -- das können auch Tags oder Blobs sein.]
+
+:fn52: pass:q[footnote:[ \
+Ob die Commits nicht schon aufgrund ihres Alters herausgefallen sind, hängt natürlich davon ab, wie oft Sie eine _Garbage-Collection_ per `git gc` durchführen. \
+Siehe auch xref:gitbuch_13.adoc#sec.gc[].]]
+
+:fn53: pass:q[footnote:[ \
+Wollen Sie alle Commits der letzten zwei Wochen auflisten, verwenden Sie stattdessen `git log --since='two weeks ago'`.]]
+// end::Chapter_3[]
+
+// =============================================================================
+//                         Chapter 4 (footnotes: 54-64)
+// =============================================================================
+
+// tag::Chapter_4[]
+:fn54: pass:q[footnote:[ \
+Wenn Sie Patch-Stacks mit Git verwalten, bei denen potentiell Konflikte auftreten können, sollten Sie sich in jedem Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz _rerere_. _Rerere_ speichert Konfliktlösungen und korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert wurde, siehe auch xref:gitbuch_03.adoc#sec.rerere[].]]
+
+:fn55: footnote:[ \
+Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe xref:gitbuch_05.adoc#sec.hochladen[].]
+
+:fn56: pass:q[footnote:[ \
+Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. Siehe auch xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
+
+:fn57: footnote:[ \
+Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.]
+
+:fn58: pass:q[footnote:[ \
+Kurz `stg` oder StGit, erreichbar unter http://www.procode.org/stgit/]]
+
+:fn59: pass:q[footnote:[ \
+Das funktioniert auch problemlos, sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der neuen Referenz sind (also nur Commits enthalten sind, von denen aus man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem Commit fehl, der schon in der Geschichte enthalten ist (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]]
+
+:fn60: pass:q[footnote:[ \
+Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.]]
+
+:fn61: pass:q[footnote:[ \
+Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.]]
+
+:fn62: pass:q[footnote:[ \
+footnote:[Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl. \
+xref:gitbuch_04.adoc#sec.stash-implementation[].]]
+
+:fn63: pass:q[footnote:[ \
+Das stimmt nicht ganz; Sie können unter `refs/notes/commits` nur eine Notiz pro Commit speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.]]
+
+:fn64: footnote:[ \
+Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde möglicherweise durch einen ganz anderen Commit vorbereitet.]
+// end::Chapter_4[]
+
+// =============================================================================
+//                         Chapter 5 (footnotes: 65-87)
+// =============================================================================
+
+// tag::Chapter_5[]
+:fn65: pass:q[footnote:[ \
+Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in xref:gitbuch_11.adoc#sec.github[] beschreiben, verwaltet.]]
+
+:fn66: pass:q[footnote:[ \
+Genau genommen checkt Git nicht "`blind`" den Branch `master` aus. Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.]]
+
+:fn67: pass:q[footnote:[ \
+Weitere Informationen zu dem Git-Protokoll finden Sie in xref:gitbuch_07.adoc#sec.protokolle[] (siehe auch xref:gitbuch_03.adoc#sec.branch-refs[]).]]
+
+:fn68: pass:q[footnote:[ \
+Eine vollständige Auflistung der möglichen URLs finden Sie in der Man-Page `git-clone(1)` im Abschnitt "`Git URLs`".]]
+
+:fn69: pass:q[footnote:[ \
+Der Stern (`*`) wird wie bei der Shell auch als _Wildcard_ interpretiert und zieht alle Dateien in einem Verzeichnis in Betracht.]]
+
+:fn70: footnote:[ \
+Remote-Tracking-Branches sind nur dazu gedacht, die Branches in einem Remote zu verfolgen. \
+Das Auschecken eines Remote-Tracking-Branches führt zu einem Detached-Head-State samt entsprechender Warnung.]
+
+:fn71: pass:q[footnote:[ \
+Das Mergen von `origin/master` nach `master` ist ein ganz normaler Merge-Vorgang. \
+Im obigen Beispiel wurden in der Zwischenzeit keine weiteren lokalen Commits getätigt und von daher auch keine Merge-Commits erstellt. \
+Der `master` wurde per Fast-Forward auf `origin/master` vorgerückt.]]
+
+:fn72: pass:q[footnote:[ \
+Das "`Forcieren`" findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. \
+Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe xref:gitbuch_07.adoc#sec.gitolite-config[]).]]
+
+:fn73: pass:q[footnote:[ \
+Dies ist das Standard-Verhalten seit Version 2.0 (`push.default=simple`). \
+Frühere Git-Versionen verwendeten ohne weitere Konfiguration die Einstellung `push.default=matching`, die besonders für Anfänger fehlerträchtig sein kann.]]
+
+:fn74: pass:q[footnote:[ \
+Im Git-Jargon werden solche Remotes als _Anonymous_ bezeichnet.]]
+
+:fn75: pass:q[footnote:[ \
+Die Syntax `<tag>^{}` dereferenziert ein Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das das Tag zeigt.]]
+
+:fn76: pass:q[footnote:[ \
+Zum Beispiel mit dem Alias `push = push --tags`.]]
+
+:fn77: pass:q[footnote:[ \
+Wie Sie die Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in der Man-Page `git-format-patch(1)`.]]
+
+:fn78: pass:a,q[footnote:[ \
+Die Zahl `n` ist die Gesamtzahl an Patches, die exportiert wurden, und `m` ist die Nummer des aktuellen Patches. \
+In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.{empty}{nbsp}``[PATCH 3/5\]``.]]
+
+:fn79: footnote:[ \
+Sie sehen in <<fig.mail-thread>> eine etwas andere Reihenfolge der Patches als in den bisherigen Beispielen. \
+Das liegt daran, dass die erste Version der Patch-Serie aus nur zwei Patches bestand, und das dritte erst nach dem Feedback von der Git-Mailingliste dazukam. \
+Die Serie wurde dann erweitert und per Rebase auf den Stand gebracht, wie sie in diesem Abschnitt abgebildet ist.]
+
+:fn80: pass:q[footnote:[ \
+Sofern auf Ihrem System kein _Mail Transfer Agent_ (MTA) installiert bzw. für den E-Mail-Versand konfiguriert ist, können Sie auch einen externen SMTP-Server verwenden. \
+Passen Sie dafür die in der Sektion "`Use GMail as the SMTP server`" der bereits erwähnten Man-Page beschriebenen Einstellungen an.]]
+
+:fn81: footnote:[http://dpaste.com/]
+
+:fn82: footnote:[https://gist.github.com/]
+
+:fn83: pass:q[footnote:[ \
+Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".]]
+
+:fn84: pass:q[footnote:[ \
+Für das Git-Projekt finden Sie diese unter: `Documentation/SubmittingPatches` im Quellcode-Repository.]]
+
+:fn85: pass:q[footnote:[ \
+Die `libgit.a` wird beim Kompilieren von Git erzeugt und versammelt alle Funktionen, die in Git "`öffentlich`" sind. Sie ist allerdings nicht _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt verwendet werden kann. \
+Diese Einschränkungen hat `libgit2` nicht.]]
+
+:fn86: pass:q[footnote:[ \
+Das Kommando ist kein Standard-Kommando von Git, wird aber von einigen Linux-Distributionen (z.B. Debian, Archlinux) sowie im Windows-Git-Installer automatisch mit installiert. \
+Überprüfen Sie durch einen Aufruf von `git subtree`, ob das Kommando installiert ist. \
+Falls nicht, können Sie das Script unter `/usr/share/doc/git/contrib/subtree/` suchen, oder aus dem Quellcode von Git (unter `contrib/subtree`) kopieren.]]
+
+:fn87: pass:q[footnote:[ \
+Achten Sie daher darauf, dass Sie mit dieser Technik nur Inhalte einbinden, die Sie auch weitergeben _dürfen_. \
+Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt, aber nicht die Weiterverbreitung (engl. _Distribution_).]]
+// end::Chapter_5[]
+
+// =============================================================================
+//                         Chapter 6 (footnotes: 88-91)
+// =============================================================================
+
+// tag::Chapter_6[]
+:fn88: pass:q[footnote:[ \
+Zu empfehlen ist u.a. das dritte Kapitel von _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010). \
+Auch das _Manifesto for Agile Software Development_ hält unter http://agilemanifesto.org/ aufschlussreiche Hinweise bereit.]]
+
+:fn89: footnote:[ \
+Eine Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die benötigte Funktionalität schon beinhaltet.]
+
+:fn90: pass:q[footnote:[ \
+Weitere Anregungen finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
+
+:fn91: pass:q[footnote:[ \
+Jeder Commit referenziert genau einen Tree. \
+Allerdings verhält sich `git archive` verschieden, je nachdem, ob Sie einen Commit (der einen Tree referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des Commits gesetzt.]]
+// end::Chapter_6[]
+
+// =============================================================================
+//                        Chapter 7 (footnotes: 92-105)
+// =============================================================================
+
+// tag::Chapter_7[]
+:fn92: pass:q[footnote:[ \
+Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. \
+Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.]]
+
+:fn93: footnote:[ \
+Die hier beschriebene Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit Gitolite Version 1.5, das in der ersten Auflage dieses Buches beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
+
+:fn94: footnote:[ \
+Ein Nutzer kann sich nur mit seinem privaten Schlüssel bei einem SSH-Server authentifizieren, wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten) Schlüssel verschlüsselte Nachricht entschlüsseln kann. \
+Anhand des Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite also den internen Nutzernamen ableiten.]
+
+:fn95: footnote:[ \
+Einige Distributionen stellen auch vorgefertigte Pakete von Gitolite zur Verfügung. \
+Von deren Einsatz ist allerdings eher abzuraten, weil sie meist veraltet sind und außerdem global und mit einer bestimmten Konfiguration installiert werden. \
+Wenn Sie dann einen anderen Nutzernamen als den von den Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen Mehraufwand betreiben, um Gitolite zum Laufen zu bringen.]
+
+:fn96: pass:q[footnote:[ \
+Ein _Release Candidate_ einer Software ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich gemacht wird. \
+In das finale Release fließen dann nur noch Bugfixes ein. \
+Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2 (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird (`v1.0`).]]
+
+:fn97: pass:q[footnote:[ \
+Den _lesenden_ Zugriff auf ein Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde das Konzept des Git-Objekt-Modells mit seiner kryptografisch garantierten Integrität ad absurdum führen.]]
+
+:fn98: footnote:[ \
+Beachten Sie auch, dass es hier wieder zu Problemen bei der Erstellung von Branches kommen kann, s.o.]
+
+:fn99: pass:q[footnote:[ \
+Die Dokumentation findet sich unter http://gitolite.com/. \
+Der Autor hat außerdem das Buch "`Gitolite Essentials`"veröffentlicht (Packt Publishing, 2014).]]
+
+:fn100: pass:q[footnote:[ \
+Streng genommen ist es dafür nötig, dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt. Besser noch überprüfen Sie ein von einem Entwickler signiertes Versions-Tag.]]
+
+:fn101: pass:q[footnote:[ \
+In manchen Distributionen, wie z.B. Debian, heißt der Daemon `openbsd-inetd`.]]
+
+:fn102: pass:q[footnote:[ \
+Das Programm `sv` ist Teil des Init-Frameworks _runit_ (http://smarden.org/runit/). \
+Es ersetzt die Funktionalität des SysV-Init, kann aber auch darin integriert werden.]]
+
+:fn103: pass:q[footnote:[ \
+Beachten Sie, dass eine Instanz des Git-Daemons nicht "`teuer`" ist. \
+Das Zusammenpacken der angeforderten Objekte ist es allerdings. \
+Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl Git-Verbindungen schafft.]]
+
+:fn104: pass:a,q[footnote:[ \
+Beachten Sie, dass die Reihenfolge in der `alias.url`-Direktive wichtig ist. \
+Wenn Sie die Zeile `{quot}/{quot} => ...` nach oben verschieben, startet Lighttpd nicht mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.]]
+
+:fn105: pass:q[footnote:[ \
+Das Tool `checkinstall` baut automatisch Debian- oder RPM-Pakete, die alle Dateien enthalten, die durch `make install` installiert worden wären. \
+Homepage des Programmes: http://www.asic-linux.com.mx/~izto/checkinstall/]]
+// end::Chapter_7[]
+
+// =============================================================================
+//                        Chapter 8 (footnotes: 106-116)
+// =============================================================================
+
+// tag::Chapter_8[]
+:fn106: pass:q[footnote:[ \
+Sie können das Programm `indent` aus dem GNU-Projekt von http://www.gnu.org/software/indent/ herunterladen.]]
+
+:fn107: pass:q[footnote:[ \
+Das Kommando `convert` ist Teil der ImageMagick-Suite. \
+Wenn Sie `-clone 1-2` durch `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche aus dem _alten_ Bild kopiert.]]
+
+:fn108: footnote:[ \
+Die Grafiken wurden zum Release von Kernel 2.0 von Larry Ewing erstellt und finden sich unter http://www.isc.tamu.edu/~lewing/linux/.]
+
+:fn109: pass:q[footnote:[ \
+"`Serverseitig`" heißt hier nur, dass sie nicht im lokalen Repository ausgeführt werden, sondern auf der "`Gegenseite`".]]
+
+:fn110: pass:q[footnote:[ \
+Würde Git die kompletten Zugriffsrechte aufnehmen, dann wäre eine Datei gleichen Inhalts bei zwei verschiedenen Entwicklern, die unterschiedliche `umask(2)`-Einstellungen verwenden, nicht der gleiche Blob. \
+Um das zu verhindern, verwendet Git ein vereinfachtes Rechtemanagement.]]
+
+:fn111: footnote:[ \
+Sie können Ihre Shell-Scripte z.B. auf http://www.shellcheck.net/ automatisch überprüfen lassen.]
+
+:fn112: pass:q[footnote:[ \
+Die 'Debian Alquimist Shell_, ein Fork der _Alquimist Shell_, ist eine besonders kleine, schnelle Shell, die POSIX-kompatibel ist. \
+Sie stellt auf vielen modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell `/bin/sh`.]]
+
+:fn113: footnote:[https://github.com/gitbuch/buch-scripte]
+
+:fn114: pass:q[footnote:[ \
+Es gibt noch weitere Flags (`U`, `T` und `B`), die aber in der Praxis meist keine Rolle spielen.]]
+
+:fn115: footnote:[https://git.wiki.kernel.org/index.php/Aliases]
+
+:fn116: pass:q[footnote:[ \
+Sie können prinzipiell auch _gar keinen_ Vorgänger angeben. \
+Dann wird der entsprechende Commit zu einem Root-Commit.]]
+// end::Chapter_8[]
+
+// =============================================================================
+//                        Chapter 9 (footnotes: 117-133)
+// =============================================================================
+
+// tag::Chapter_9[]
+:fn117: footnote:[ \
+https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems]
+
+:fn118: footnote:[http://rsvndump.sourceforge.net/]
+
+:fn119: pass:q[footnote:[ \
+Existieren mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so geben Sie diese durch mehreren Argumente `-t` bzw. `-b` an.]]
+
+:fn120: pass:q[footnote:[ \
+Haben Sie bei der Konvertierung keinen Trunk per `-T` oder `--stdlayout` angegeben, wird ein einziger Branch namens `remotes/git-svn` generiert.]]
+
+:fn121: footnote:[ \
+Das Script ist in der Scriptsammlung für dieses Buch enthalten. \
+Siehe: https://github.com/gitbuch/buch-scripte.]
+
+:fn122: pass:q[footnote:[ \
+Grundsätzlich können Sie diese Operationen auch direkt mit dem Kommando `mv` unterhalb von `.git/refs/` ausführen. \
+Die Plumbing-Kommandos machen es aber möglich, auch "`exotische`" Fälle wie "`Packed Refs`" bzw. \
+Referenzen, die Symlinks sind, korrekt zu behandeln. \
+Außerdem schreibt `git update-ref` entsprechende Einträge in das Reflog und gibt Fehlermeldungen aus, falls etwas schiefgeht. \
+Siehe hierzu auch xref:gitbuch_08.adoc#sec.scripting[].]]
+
+:fn123: footnote:[Auch dieses Script finden Sie in der Scriptsammlung: https://github.com/gitbuch/buch-scripte.]
+
+:fn124: footnote:[https://github.com/nothingmuch/git-svn-abandon]
+
+// @NOTE: TARGET LINK NOW REDIRECTS TO ANOHTER URL (GitHub Gist)
+:fn125: footnote:[http://git.goodpoint.de/?p=git-move-tags-up.git;a=summary]
+
+:fn126: footnote:[http://gitorious.org/svn2git/svn2git]
+
+// @FIXME: DEAD LINK IN FOOTONOTE 127
+:fn127: pass:q[footnote:[ \
+Im Git-via-Git Repository unter `contrib/svn-fe`]]
+
+:fn128: pass:q[footnote:[ \
+Vergleiche das Kommando: `svn copy trunk tags/v2.0`]]
+
+:fn129: pass:q[footnote:[ \
+Vergleiche das Subversion-Kommando: `svn merge -r 23:25 branches/feature trunk`]]
+
+:fn130: pass:q[footnote:[ \
+Eine detaillierte technische Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.]]
+
+:fn131: pass:q[footnote:[ \
+Über die Option `--date-format` können Sie bei Bedarf andere Datumsformate zulassen.]]
+
+:fn132: footnote:[ \
+Das führt zwar zu etwas mehr Rechenaufwand, vereinfacht aber die Struktur des Import-Programms wesentlich. \
+Unter dem Gesichtspunkt, dass Import-Software in der Regel nur selten ausgeführt wird und Zeit keine kritische Rolle spielt, ist dieser Ansatz also sinnvoll.]
+
+:fn133: footnote:[ \
+Das Script ist als Teil unserer Scriptsammlung unter https://github.com/gitbuch/buch-scripte verfügbar.]
+// end::Chapter_9[]
+
+// =============================================================================
+//                       Chapter 10 (footnotes: 134-137)
+// =============================================================================
+
+// tag::Chapter_10[]
+:fn134: pass:q[footnote:[ \
+Benutzen Sie `git-svn`, können Sie das Script anweisen, statt des Upstream-Branchs den SVN-Upstream (`remotes/git-svn`) für den Vergleich zu verwenden (sofern dieser vorhanden ist), indem Sie die Variable auf den Wert `auto` setzen.]]
+
+:fn135: pass:q[footnote:[ \
+Die Man-Page `zshcompsys(1)` beschreibt, wie Sie die Completion noch weiter anpassen. \
+Besonders die Optionen `group-name` und `menu-select` sind zu empfehlen.]]
+
+:fn136: pass:q[footnote:[ \
+Eine Liste der verfügbaren Systeme erhalten Sie mit einem Aufruf der Funktion `vcs_info_printsys`.]]
+
+:fn137: footnote:[https://github.com/gitbuch/buch-scripte]
+// end::Chapter_10[]
+
+// =============================================================================
+//                       Chapter 11 (footnotes: 138-150)
+// =============================================================================
+
+// tag::Chapter_11[]
+:fn138: footnote:[https://github.com/]
+
+:fn139: footnote:[http://gitorious.org/]
+
+:fn140: footnote:[https://repo.or.cz/]
+
+:fn141: footnote:[https://sourceforge.net/]
+
+:fn142: footnote:[https://www.berlios.de/]
+
+:fn143: footnote:[https://curl.haxx.se/]
+
+:fn144: footnote:[https://rubyonrails.org/]
+
+:fn145: footnote:[https://jquery.com/]
+
+// @FIXME: OBSOLOTE LINK (ARCHIVED) USE NEW URL
+:fn146: footnote:[https://github.com/github/gollum]
+
+:fn147: footnote:[https://github.com/github/markup]
+
+:fn148: footnote:[ \
+Nicht als Projekt-Fork misszuverstehen, bei dem sich ein Projekt aufgrund interner Differenzen spaltet.]
+
+:fn149: footnote:[https://github.com/blog/817-behold-image-view-modes]
+
+:fn150: footnote:[https://help.github.com/]
+// end::Chapter_11[]
+
+// =============================================================================
+//                       Chapter 12 (footnotes: 151-153)
+// =============================================================================
+
+// tag::Chapter_12[]
+:fn151: footnote:[https://www.kernel.org/pub/software/scm/git/]
+
+:fn152: footnote:[https://code.google.com/p/git-osx-installer/]
+
+// @FIXME: LINK NOW REDIRECTS TO NEW URL (https://gitforwindows.org)
+:fn153: footnote:[https://msysgit.github.io/]
+// end::Chapter_12[]
+
+// =============================================================================
+//                       Chapter 13 (footnotes: 154-156)
+// =============================================================================
+
+// tag::Chapter_13[]
+:fn154: pass:q[footnote:[ \
+Da ein Bare-Repository (siehe xref:gitbuch_07.adoc#sec.bare-repos[]) keinen Working Tree besitzt, bilden die Inhalte, die normalerweise in `.git` liegen, die oberste Ebene in der Verzeichnisstruktur, und es gibt kein zusätzliches Verzeichnis `.git`.]]
+
+:fn155: footnote:[ \
+Das ist nicht zu verwechseln mit Versionskontrollsystemen, die inkrementelle Versionen einer Datei speichern. \
+Innerhalb von Packfiles werden die Objekte unabhängig von ihrem semantischen Zusammenhang, d.h. speziell ihrer zeitlichen Abfolge, gepackt.]
+
+:fn156: footnote:[ \
+Eine ausführliche Auseinandersetzung mit dem Thema finden Sie unter http://metalinguist.wordpress.com/2007/12/06/the-woes-of-git-gc-aggressive-and-how-git-deltas-work/]
+// end::Chapter_13[]
+

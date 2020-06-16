@@ -4,23 +4,8 @@
 = Introduction and First Steps
 // Einführung und erste Schritte
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_1]
 
-:fn8: footnote:[ \
-Auch wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet werden.]
-
-:fn9: pass:q[footnote:[ \
-Sie können die nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder entsprechend relativ zu Ihrer gesetzten Umgebungsvariable `$XDG_CONFIG_HOME`).]]
-
-:fn10: pass:q[footnote:[ \
-Sofern vorhanden, werden auch Einstellungen aus `/etc/gitconfig` eingelesen (mit niedrigster Priorität). \
-Setzen kann man Optionen in dieser Datei über den Parameter `--system`, wofür aber Root-Rechte notwendig sind. \
-Systemweit Git-Optionen zu setzen ist aber unüblich.]]
-
-:fn11: pass:q[footnote:[ \
-"`i18n`" ist eine gebräuchliche Abkürzung für das Wort "`Internationalization`" -- die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen dem ersten und dem letzten Buchstaben des Wortes.]]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Das folgende Kapitel bietet eine kompakte Einführung in Grundbegriffe
 und Konfigurationseinstellungen von Git. Ein kleines Beispielprojekt

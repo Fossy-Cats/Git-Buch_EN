@@ -3,21 +3,8 @@
 [[sec.shell-integration]]
 = Shell-Integration
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_10]
 
-:fn134: pass:q[footnote:[ \
-Benutzen Sie `git-svn`, können Sie das Script anweisen, statt des Upstream-Branchs den SVN-Upstream (`remotes/git-svn`) für den Vergleich zu verwenden (sofern dieser vorhanden ist), indem Sie die Variable auf den Wert `auto` setzen.]]
-
-:fn135: pass:q[footnote:[ \
-Die Man-Page `zshcompsys(1)` beschreibt, wie Sie die Completion noch weiter anpassen. \
-Besonders die Optionen `group-name` und `menu-select` sind zu empfehlen.]]
-
-:fn136: pass:q[footnote:[ \
-Eine Liste der verfügbaren Systeme erhalten Sie mit einem Aufruf der Funktion `vcs_info_printsys`.]]
-
-:fn137: footnote:[https://github.com/gitbuch/buch-scripte]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Da Sie Git-Kommandos zumeist auf der Shell ausführen, sollten Sie
 diese um Funktionalität erweitern, um mit Git zu interagieren.  Gerade

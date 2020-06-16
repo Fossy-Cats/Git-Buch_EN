@@ -4,63 +4,7 @@
 = Interacting with Other Version Control Systems
 // Zusammenspiel mit anderen Versionsverwaltungssystemen
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-:fn117: footnote:[ \
-https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems]
-
-:fn118: footnote:[http://rsvndump.sourceforge.net/]
-
-:fn119: pass:q[footnote:[ \
-Existieren mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so geben Sie diese durch mehreren Argumente `-t` bzw. `-b` an.]]
-
-:fn120: pass:q[footnote:[ \
-Haben Sie bei der Konvertierung keinen Trunk per `-T` oder `--stdlayout` angegeben, wird ein einziger Branch namens `remotes/git-svn` generiert.]]
-
-:fn121: footnote:[ \
-Das Script ist in der Scriptsammlung für dieses Buch enthalten. \
-Siehe: https://github.com/gitbuch/buch-scripte.]
-
-:fn122: pass:q[footnote:[ \
-Grundsätzlich können Sie diese Operationen auch direkt mit dem Kommando `mv` unterhalb von `.git/refs/` ausführen. \
-Die Plumbing-Kommandos machen es aber möglich, auch "`exotische`" Fälle wie "`Packed Refs`" bzw. \
-Referenzen, die Symlinks sind, korrekt zu behandeln. \
-Außerdem schreibt `git update-ref` entsprechende Einträge in das Reflog und gibt Fehlermeldungen aus, falls etwas schiefgeht. \
-Siehe hierzu auch xref:gitbuch_08.adoc#sec.scripting[].]]
-
-:fn123: footnote:[Auch dieses Script finden Sie in der Scriptsammlung: https://github.com/gitbuch/buch-scripte.]
-
-:fn124: footnote:[https://github.com/nothingmuch/git-svn-abandon]
-
-// @NOTE: TARGET LINK NOW REDIRECTS TO ANOHTER URL (GitHub Gist)
-:fn125: footnote:[http://git.goodpoint.de/?p=git-move-tags-up.git;a=summary]
-
-:fn126: footnote:[http://gitorious.org/svn2git/svn2git]
-
-// @FIXME: DEAD LINK IN FOOTONOTE 127
-:fn127: pass:q[footnote:[ \
-Im Git-via-Git Repository unter `contrib/svn-fe`]]
-
-:fn128: pass:q[footnote:[ \
-Vergleiche das Kommando: `svn copy trunk tags/v2.0`]]
-
-:fn129: pass:q[footnote:[ \
-Vergleiche das Subversion-Kommando: `svn merge -r 23:25 branches/feature trunk`]]
-
-:fn130: pass:q[footnote:[ \
-Eine detaillierte technische Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.]]
-
-:fn131: pass:q[footnote:[ \
-Über die Option `--date-format` können Sie bei Bedarf andere Datumsformate zulassen.]]
-
-:fn132: footnote:[ \
-Das führt zwar zu etwas mehr Rechenaufwand, vereinfacht aber die Struktur des Import-Programms wesentlich. \
-Unter dem Gesichtspunkt, dass Import-Software in der Regel nur selten ausgeführt wird und Zeit keine kritische Rolle spielt, ist dieser Ansatz also sinnvoll.]
-
-:fn133: footnote:[ \
-Das Script ist als Teil unserer Scriptsammlung unter https://github.com/gitbuch/buch-scripte verfügbar.]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+include::gitbuch_footnotes.adoc[tag=Chapter_9]
 
 
 Git verfügt über Schnittstellen zu anderen

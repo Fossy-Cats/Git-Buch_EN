@@ -5,18 +5,8 @@
 = Preface
 // Vorwort
 
+include::gitbuch_footnotes.adoc[tag=Preface]
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-:fn1: footnote:[https://git-scm.com/]
-:fn2: footnote:[http://vger.kernel.org/vger-lists.html#git]
-:fn3: footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
-:fn4: footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools]
-:fn5: footnote:[https://git.wiki.kernel.org/index.php/GitFaq]
-:fn6: footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse]
-:fn7: footnote:[https://stackoverflow.com]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Git wurde Anfang 2005 von Linus Torvalds, dem Initiator
 und heutigen Maintainer des Linux-Kernels, entwickelt. Für die

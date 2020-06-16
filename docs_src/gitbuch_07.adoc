@@ -4,62 +4,8 @@
 = Git Servers
 // Git auf dem Server
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_7]
 
-:fn92: pass:q[footnote:[ \
-Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. \
-Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.]]
-
-:fn93: footnote:[ \
-Die hier beschriebene Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit Gitolite Version 1.5, das in der ersten Auflage dieses Buches beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
-
-:fn94: footnote:[ \
-Ein Nutzer kann sich nur mit seinem privaten Schlüssel bei einem SSH-Server authentifizieren, wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten) Schlüssel verschlüsselte Nachricht entschlüsseln kann. \
-Anhand des Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite also den internen Nutzernamen ableiten.]
-
-:fn95: footnote:[ \
-Einige Distributionen stellen auch vorgefertigte Pakete von Gitolite zur Verfügung. \
-Von deren Einsatz ist allerdings eher abzuraten, weil sie meist veraltet sind und außerdem global und mit einer bestimmten Konfiguration installiert werden. \
-Wenn Sie dann einen anderen Nutzernamen als den von den Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen Mehraufwand betreiben, um Gitolite zum Laufen zu bringen.]
-
-:fn96: pass:q[footnote:[ \
-Ein _Release Candidate_ einer Software ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich gemacht wird. \
-In das finale Release fließen dann nur noch Bugfixes ein. \
-Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2 (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird (`v1.0`).]]
-
-:fn97: pass:q[footnote:[ \
-Den _lesenden_ Zugriff auf ein Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde das Konzept des Git-Objekt-Modells mit seiner kryptografisch garantierten Integrität ad absurdum führen.]]
-
-:fn98: footnote:[ \
-Beachten Sie auch, dass es hier wieder zu Problemen bei der Erstellung von Branches kommen kann, s.o.]
-
-:fn99: pass:q[footnote:[ \
-Die Dokumentation findet sich unter http://gitolite.com/. \
-Der Autor hat außerdem das Buch "`Gitolite Essentials`"veröffentlicht (Packt Publishing, 2014).]]
-
-:fn100: pass:q[footnote:[ \
-Streng genommen ist es dafür nötig, dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt. Besser noch überprüfen Sie ein von einem Entwickler signiertes Versions-Tag.]]
-
-:fn101: pass:q[footnote:[ \
-In manchen Distributionen, wie z.B. Debian, heißt der Daemon `openbsd-inetd`.]]
-
-:fn102: pass:q[footnote:[ \
-Das Programm `sv` ist Teil des Init-Frameworks _runit_ (http://smarden.org/runit/). \
-Es ersetzt die Funktionalität des SysV-Init, kann aber auch darin integriert werden.]]
-
-:fn103: pass:q[footnote:[ \
-Beachten Sie, dass eine Instanz des Git-Daemons nicht "`teuer`" ist. \
-Das Zusammenpacken der angeforderten Objekte ist es allerdings. \
-Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl Git-Verbindungen schafft.]]
-
-:fn104: pass:q[footnote:[ \
-Beachten Sie, dass die Reihenfolge in der `alias.url`-Direktive wichtig ist. Wenn Sie die Zeile `"/" => ...` nach oben verschieben, startet Lighttpd nicht mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.]]
-
-:fn105: pass:q[footnote:[ \
-Das Tool `checkinstall` baut automatisch Debian- oder RPM-Pakete, die alle Dateien enthalten, die durch `make install` installiert worden wären. \
-Homepage des Programmes: http://www.asic-linux.com.mx/~izto/checkinstall/]]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Im Folgenden geht es um das Hosting von Git-Repositories und
 _Gitolite_, mit dem Sie Zugriffsrechte auf Repositories über

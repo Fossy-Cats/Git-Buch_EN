@@ -3,23 +3,8 @@
 [[sec.workflows]]
 = Workflows
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_6]
 
-:fn88: pass:q[footnote:[ \
-Zu empfehlen ist u.a. das dritte Kapitel von _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010). \
-Auch das _Manifesto for Agile Software Development_ hält unter http://agilemanifesto.org/ aufschlussreiche Hinweise bereit.]]
-
-:fn89: footnote:[ \
-Eine Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die benötigte Funktionalität schon beinhaltet.]
-
-:fn90: pass:q[footnote:[ \
-Weitere Anregungen finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
-
-:fn91: pass:q[footnote:[ \
-Jeder Commit referenziert genau einen Tree. \
-Allerdings verhält sich `git archive` verschieden, je nachdem, ob Sie einen Commit (der einen Tree referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des Commits gesetzt.]]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Mit _Workflows_ (dt. _Arbeitsabläufe_) werden in der
 Software-Entwicklung in der Regel Strategien bezeichnet, die

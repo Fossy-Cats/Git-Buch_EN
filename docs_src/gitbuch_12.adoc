@@ -4,16 +4,8 @@
 [[sec.installation]]
 = Installation
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_12]
 
-:fn151: footnote:[https://www.kernel.org/pub/software/scm/git/]
-
-:fn152: footnote:[https://code.google.com/p/git-osx-installer/]
-
-// @FIXME: LINK NOW REDIRECTS TO NEW URL (https://gitforwindows.org)
-:fn153: footnote:[https://msysgit.github.io/]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Die Installation von Git ist einfach und geht schnell vonstatten, da
 für die meisten Systeme bereits vorkonfigurierte Pakete bereitgestellt

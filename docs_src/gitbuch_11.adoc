@@ -3,37 +3,7 @@
 [[sec.github]]
 = GitHub
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-:fn138: footnote:[https://github.com/]
-
-:fn139: footnote:[http://gitorious.org/]
-
-:fn140: footnote:[https://repo.or.cz/]
-
-:fn141: footnote:[https://sourceforge.net/]
-
-:fn142: footnote:[https://www.berlios.de/]
-
-:fn143: footnote:[https://curl.haxx.se/]
-
-:fn144: footnote:[https://rubyonrails.org/]
-
-:fn145: footnote:[https://jquery.com/]
-
-// @FIXME: OBSOLOTE LINK (ARCHIVED) USE NEW URL
-:fn146: footnote:[https://github.com/github/gollum]
-
-:fn147: footnote:[https://github.com/github/markup]
-
-:fn148: footnote:[ \
-Nicht als Projekt-Fork misszuverstehen, bei dem sich ein Projekt aufgrund interner Differenzen spaltet.]
-
-:fn149: footnote:[https://github.com/blog/817-behold-image-view-modes]
-
-:fn150: footnote:[https://help.github.com/]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+include::gitbuch_footnotes.adoc[tag=Chapter_11]
 
 
 Es gibt derzeit mehrere Hosting-Websites, die kostenfreies Git-Hosting

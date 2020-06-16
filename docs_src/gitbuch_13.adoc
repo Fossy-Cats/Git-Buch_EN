@@ -5,19 +5,8 @@
 = Repository Structure
 // Struktur eines Repositorys
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_13]
 
-:fn154: pass:q[footnote:[ \
-Da ein Bare-Repository (siehe xref:gitbuch_07.adoc#sec.bare-repos[]) keinen Working Tree besitzt, bilden die Inhalte, die normalerweise in `.git` liegen, die oberste Ebene in der Verzeichnisstruktur, und es gibt kein zusätzliches Verzeichnis `.git`.]]
-
-:fn155: footnote:[ \
-Das ist nicht zu verwechseln mit Versionskontrollsystemen, die inkrementelle Versionen einer Datei speichern. \
-Innerhalb von Packfiles werden die Objekte unabhängig von ihrem semantischen Zusammenhang, d.h. speziell ihrer zeitlichen Abfolge, gepackt.]
-
-:fn156: footnote:[ \
-Eine ausführliche Auseinandersetzung mit dem Thema finden Sie unter http://metalinguist.wordpress.com/2007/12/06/the-woes-of-git-gc-aggressive-and-how-git-deltas-work/]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Git speichert die Objektdatenbank, die zugehörigen Referenzen usw. im
 sogenannten _Git-Directory_, oft auch als `$GIT_DIR`

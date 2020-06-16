@@ -4,71 +4,8 @@
 = The Basics
 // Grundlagen
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_2]
 
-:fn12: pass:q[footnote:[ \
-Standardmäßig sind Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist: `git diff --word-diff-regex=<regex>`. \
-Siehe hierzu auch die Man-Page `git-diff(1)`.]]
-
-:fn13: pass:q[footnote:[ \
-Das ist eine Anweisung für den Kernel, welches Programm zum Interpretieren des Scripts verwendet werden soll. \
-Typische Shebang-Zeilen sind etwa `&num;!/bin/sh` oder `&num;!/usr/bin/perl`.]]
-
-:fn14: pass:q[footnote:[ \
-Genaugenommen führt die Option `-p` direkt in den _Patch-Mode_ des _Interactive-Mode_ von `git add`. \
-Der Interactive-Mode wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr selten verwendet und ist deswegen hier nicht weiter beschrieben. \
-Die Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im Abschnitt "`Interactive Mode`".]]
-
-:fn15: pass:q[footnote:[ \
-Git öffnet dann den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen – also nicht dem Index hinzuzufügen, sie aber im Working Tree zu behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die Zeile wird zu "`Kontext`"). \
-Um `+`-Zeilen zu löschen, entfernen Sie diese einfach aus dem Hunk.]]
-
-:fn16: pass:q[footnote:[ \
-Sie können Hunks in der Regel aber nicht beliebig teilen. \
-Zumindest eine Zeile _Kontext_, also eine Zeile ohne Präfix `+` oder `-`, muss dazwischen liegen. \
-Wollen Sie den Hunk dennoch teilen, müssen Sie mit `e` für _edit_ arbeiten.]]
-
-:fn17: pass:q[footnote:[ \
-Sie können diese Informationen u.a. in `gitk` sehen oder mit dem Kommando `git log --pretty=fuller`.]]
-
-:fn18: pass:q[footnote:[ \
-Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. \
-Der neue Commit _ersetzt_ dann den alten.]]
-
-:fn19: pass:q[footnote:[Durch `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie bleibt jedoch im Commit-Verlauf erhalten. Wie man eine Datei vollständig, also auch aus der Versionsgeschichte, löscht, ist in xref:gitbuch_08.adoc#sec.fb-censor[] nachzulesen.]]
-
-:fn20: footnote:[Dieses und die folgenden Beispiele stammen aus dem Git-Repository.]
-
-:fn21: pass:q[footnote:[ \
-Sie können das Repository, das auf den folgenden Seiten detailliert untersucht wird, mit dem Befehl `git clone git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]]
-
-:fn22: pass:q[footnote:[ \
-https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".]]
-
-// @FIXME DEAD LINK IN FOOTNOTE 23
-
-:fn23: footnote:[http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
-
-:fn24:  pass:q[footnote:[ \
-Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.]]
-
-:fn25: footnote:[ \
-Das Tag-Objekt wird hier nicht dargestellt, da es für das Verständnis der Objektstruktur nicht notwendig ist. \
-Sie finden es stattdessen in  <<fig.tag-objekt>>.]
-
-:fn26: pass:q[footnote:[ \
-Git speichert sämtliche Objekte unterhalb von `.git/objects`. \
-Man unterscheidet zwischen _Loose Objects_ und _Packfiles_. Die "`losen`" Objekte speichern den Inhalt in einer Datei, deren Name der SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine Datei). \
-Im Gegensatz dazu sind Packfiles komprimierte _Archive_ von vielen Objekten. \
-Das geschieht aus Performancegründen: Nicht nur ist die Übertragung bzw. Speicherung dieser Archive effizienter, auch wird das Dateisystem entlastet.]]
-
-:fn27: pass:q[footnote:[ \
-Intern kennt Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu erkennen und diese platzsparend zu _Packfiles_ zusammenzuschnüren.]]
-
-:fn28: pass:q[footnote:[ \
-Diese beiden Eigenschaften _gerichtet_ und _azyklisch_ sind die einzig notwendige Beschränkung, die man an einen Graphen stellen muss, der Änderungen über Zeit abbildet: Weder kann man zukünftige Änderungen referenzieren (Richtung der Kanten zeigt immer in die Vergangenheit), noch kann man irgendwann an einem Punkt ankommen, von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).]]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
 mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar

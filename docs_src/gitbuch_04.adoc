@@ -4,43 +4,8 @@
 = Advanced Concepts
 // Fortgeschrittene Konzepte
 
-// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+include::gitbuch_footnotes.adoc[tag=Chapter_4]
 
-:fn54: pass:q[footnote:[ \
-Wenn Sie Patch-Stacks mit Git verwalten, bei denen potentiell Konflikte auftreten können, sollten Sie sich in jedem Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz _rerere_. _Rerere_ speichert Konfliktlösungen und korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert wurde, siehe auch xref:gitbuch_03.adoc#sec.rerere[].]]
-
-:fn55: footnote:[ \
-Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe xref:gitbuch_05.adoc#sec.hochladen[].]
-
-:fn56: pass:q[footnote:[ \
-Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. Siehe auch xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
-
-:fn57: footnote:[ \
-Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.]
-
-:fn58: pass:q[footnote:[ \
-Kurz `stg` oder StGit, erreichbar unter http://www.procode.org/stgit/]]
-
-:fn59: pass:q[footnote:[ \
-Das funktioniert auch problemlos, sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der neuen Referenz sind (also nur Commits enthalten sind, von denen aus man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem Commit fehl, der schon in der Geschichte enthalten ist (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]]
-
-:fn60: pass:q[footnote:[ \
-Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.]]
-
-:fn61: pass:q[footnote:[ \
-Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.]]
-
-:fn62: pass:q[footnote:[ \
-footnote:[Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl. \
-xref:gitbuch_04.adoc#sec.stash-implementation[].]]
-
-:fn63: pass:q[footnote:[ \
-Das stimmt nicht ganz; Sie können unter `refs/notes/commits` nur eine Notiz pro Commit speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.]]
-
-:fn64: footnote:[ \
-Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde möglicherweise durch einen ganz anderen Commit vorbereitet.]
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Das folgende Kapitel behandelt ausgewählte fortgeschrittene Konzepte.
 Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen
