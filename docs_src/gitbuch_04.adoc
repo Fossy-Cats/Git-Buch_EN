@@ -4,6 +4,44 @@
 = Advanced Concepts
 // Fortgeschrittene Konzepte
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn54: pass:q[footnote:[ \
+Wenn Sie Patch-Stacks mit Git verwalten, bei denen potentiell Konflikte auftreten können, sollten Sie sich in jedem Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz _rerere_. _Rerere_ speichert Konfliktlösungen und korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert wurde, siehe auch xref:gitbuch_03.adoc#sec.rerere[].]]
+
+:fn55: footnote:[ \
+Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe xref:gitbuch_05.adoc#sec.hochladen[].]
+
+:fn56: pass:q[footnote:[ \
+Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. Siehe auch xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
+
+:fn57: footnote:[ \
+Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.]
+
+:fn58: pass:q[footnote:[ \
+Kurz `stg` oder StGit, erreichbar unter http://www.procode.org/stgit/]]
+
+:fn59: pass:q[footnote:[ \
+Das funktioniert auch problemlos, sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der neuen Referenz sind (also nur Commits enthalten sind, von denen aus man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem Commit fehl, der schon in der Geschichte enthalten ist (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]]
+
+:fn60: pass:q[footnote:[ \
+Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.]]
+
+:fn61: pass:q[footnote:[ \
+Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.]]
+
+:fn62: pass:q[footnote:[ \
+footnote:[Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl. \
+xref:gitbuch_04.adoc#sec.stash-implementation[].]]
+
+:fn63: pass:q[footnote:[ \
+Das stimmt nicht ganz; Sie können unter `refs/notes/commits` nur eine Notiz pro Commit speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.]]
+
+:fn64: footnote:[ \
+Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde möglicherweise durch einen ganz anderen Commit vorbereitet.]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Das folgende Kapitel behandelt ausgewählte fortgeschrittene Konzepte.
 Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen
 Anwendungen. Wir finden heraus, wer wann eine Zeile im Quellcode
@@ -162,12 +200,7 @@ Sie gehen vor wie bei einem regulären Merge-Konflikt (siehe
 <<sec.merge-conflicts>>) – `git mergetool` ist hier
 sehr hilfreich. Fügen Sie dann einfach die geänderte Datei per
 `git add` hinzu und lassen Sie den Prozess per `git
-  rebase --continue` weiterlaufen.footnote:[Wenn Sie Patch-Stacks mit Git verwalten, bei denen
-  potentiell Konflikte auftreten können, sollten Sie sich in jedem
-  Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz
-  _rerere_. _Rerere_ speichert Konfliktlösungen und
-  korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert
-  wurde, siehe auch <<sec.rerere>>.]
+  rebase --continue` weiterlaufen.{fn54}
 
 Alternativ lässt sich der problematische Commit auch überspringen, und
 zwar mit dem Kommando `git rebase --skip`. Der Commit ist
@@ -296,9 +329,7 @@ SHA-1-Summen aller Commits, die "`umgebaut`" werden. Wenn diese
 Änderungen noch nicht veröffentlicht wurden, d.h. bei einem
 Entwickler im privaten Repository liegen, ist das auch nicht schlimm.
 
-Wenn aber ein Branch (z.B.{empty}{nbsp}`master`) veröffentlicht{empty}footnote:[Indem zum Beispiel der
-Branch in ein öffentlich verfügbares Repository hochgeladen wird,
-siehe <<sec.hochladen>>.]
+Wenn aber ein Branch (z.B.{empty}{nbsp}`master`) veröffentlicht{empty}{fn55}
 und später per Rebase umgeschrieben wird, hat das unschöne Folgen
 für alle Beteiligten: Alle Branches, die auf `master` aufbauen,
 referenzieren nun die alte Kopie des mittlerweile umgeschriebenen
@@ -359,21 +390,16 @@ nach Kunde) einige Anpassungen vorgenommen werden. Oder Sie haben eine
 Open-Source-Software im Einsatz, diese aber ein wenig an Ihre
 Bedürfnisse angepasst – jedes Mal, wenn nun eine neue, offizielle
 Version der Software erscheint, müssen Sie Ihre Änderungen neu
-anwenden und die Software anschließend neu bauen.footnote:[Im letzteren Fall machen Sie z.B. einfach ein
-  `git remote update` (die neuen Commits werden in den Branch
-  `origin/master` geladen) und bauen anschließend Ihren eigenen
-  Branch von neuem auf `origin/master` auf. Siehe auch <<sec.verteilte_systeme>>.]
+anwenden und die Software anschließend neu bauen.{fn56}
 
 Um Patch-Stacks zu verwalten, gibt es einige Programme, die auf Git
 aufbauen, Ihnen aber den Komfort bieten, nicht direkt mit dem
 Rebase-Kommando arbeiten zu müssen. Beispielsweise erlaubt
-_TopGit_{empty}footnote:[Den Quellcode finden Sie unter
-  http://repo.or.cz/w/topgit.git.]
+_TopGit_{empty}{fn57}
 Ihnen, Abhängigkeiten zwischen Branches zu definieren – wenn sich
 dann in einem Branch etwas ändert und andere Branches
 hängen davon ab, baut TopGit diese auf Wunsch neu auf. Eine
-Alternative zu TopGit ist _Stacked Git_{empty}footnote:[Kurz `stg` oder StGit, erreichbar unter
-  http://www.procode.org/stgit/.].
+Alternative zu TopGit ist _Stacked Git_{empty}{fn58}.
 
 [[sec.rebase-onto]]
 === Rebase einschränken mit --onto
@@ -474,12 +500,7 @@ Es gibt Situationen, in denen Sie das Standardverhalten von
 Sie einen Branch mit Rebase bearbeiten, der Merges enthält. Rebase
 kann versuchen, diese nachzuahmen statt die Commits zu linearisieren.
 Zuständig ist die Option `-p` bzw.
-`--preserve-merges`.footnote:[Das funktioniert auch problemlos,
-  sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der
-  neuen Referenz sind (also nur Commits enthalten sind, von denen aus
-  man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem
-  Commit fehl, der schon in der Geschichte enthalten ist
-  (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]
+`--preserve-merges`.{fn59}
 
 Mit der Option `-m` bzw. `--merge` können Sie
 `git rebase` anweisen, Merge-Strategien zu verwenden (siehe
@@ -986,7 +1007,7 @@ Die Syntax für Muster ist der Shell-Syntax nachempfunden:
   `upload.sh`, nicht aber `scripts/check-for-error.sh`.
 
 
-Ein Beispiel:footnote:[Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.]
+Ein Beispiel:{fn60}
 
 [subs="macros,quotes"]
 --------
@@ -1055,7 +1076,7 @@ verlorengehen könnten, verfügt das Kommando über die Option
 `--dry-run` (bzw.  `-n`); sie gibt Auskunft, was
 gelöscht würde.  Als weitere Vorsichtsmaßnahme weigert sich das
 Kommando, irgendetwas zu löschen, außer Sie übergeben explizit die
-Option `--force` bzw.  `-f`.footnote:[Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.]
+Option `--force` bzw.  `-f`.{fn61}
 
 Standardmäßig löscht `git clean` nur die unbekannten Dateien,
 mit `-X` entfernt es nur die ignorierten Dateien und mit
@@ -1347,8 +1368,8 @@ Einzelne Stashes löschen Sie mit dem Kommando `git stash drop`,
 alle mit `git stash clear`.  Sollten Sie versehentlich einen
 Stash löschen, finden Sie diesen nicht über die üblichen
 Reflog-Mechanismen wieder! Jedoch gibt folgender Befehl die ehemaligen
-Stashes aus:{empty}footnote:[Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl.
-<<sec.stash-implementation>>.]
+Stashes aus:{empty}{fn62}
+
 
 [subs="macros,quotes"]
 --------
@@ -1428,10 +1449,8 @@ entspricht, den sie beschreibt.
 Diese Interna können Sie aber außer Acht lassen -- in der Praxis
 können Sie die Notizen komplett mit `git notes` verwalten.
 Wichtig ist nur zu wissen: Pro Commit können Sie nur eine Notiz
-speichern.footnote:[Das stimmt nicht ganz; Sie können
-  unter `refs/notes/commits` nur eine Notiz pro Commit
-  speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch
-  weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.]  Dafür können Sie die Notizen
+speichern.{fn63}
+Dafür können Sie die Notizen
 aber im Nachhinein editieren bzw. erweitern.
 
 Um eine neue Notiz hinzuzufügen:  `git notes
@@ -1592,9 +1611,8 @@ sie auftritt (genannt `bad`, lassen Sie diesen weg, nimmt Git
 Das `bisect`-Kommando geht von der idealisierten Annahme aus,
 dass die Regression durch _einen_ Commit eingeleitet wurde -- es
 gibt also einen Commit, _vor_ dem alles in Ordnung war, und
-_nach_ dem der Fehler auftritt.footnote:[Dieser Commit muss natürlich
-  nicht den Kern der Regression ausmachen, sie wurde möglicherweise
-  durch einen ganz anderen Commit vorbereitet.]
+_nach_ dem der Fehler auftritt.{fn64}
+
 
 Nun wählt Git einen Commit aus der Mitte zwischen `good` und
 `bad` und checkt ihn aus. Sie müssen dann überprüfen, ob die

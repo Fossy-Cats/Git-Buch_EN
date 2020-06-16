@@ -4,6 +4,64 @@
 = Interacting with Other Version Control Systems
 // Zusammenspiel mit anderen Versionsverwaltungssystemen
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn117: footnote:[ \
+https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems]
+
+:fn118: footnote:[http://rsvndump.sourceforge.net/]
+
+:fn119: pass:q[footnote:[ \
+Existieren mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so geben Sie diese durch mehreren Argumente `-t` bzw. `-b` an.]]
+
+:fn120: pass:q[footnote:[ \
+Haben Sie bei der Konvertierung keinen Trunk per `-T` oder `--stdlayout` angegeben, wird ein einziger Branch namens `remotes/git-svn` generiert.]]
+
+:fn121: footnote:[ \
+Das Script ist in der Scriptsammlung für dieses Buch enthalten. \
+Siehe: https://github.com/gitbuch/buch-scripte.]
+
+:fn122: pass:q[footnote:[ \
+Grundsätzlich können Sie diese Operationen auch direkt mit dem Kommando `mv` unterhalb von `.git/refs/` ausführen. \
+Die Plumbing-Kommandos machen es aber möglich, auch "`exotische`" Fälle wie "`Packed Refs`" bzw. \
+Referenzen, die Symlinks sind, korrekt zu behandeln. \
+Außerdem schreibt `git update-ref` entsprechende Einträge in das Reflog und gibt Fehlermeldungen aus, falls etwas schiefgeht. \
+Siehe hierzu auch xref:gitbuch_08.adoc#sec.scripting[].]]
+
+:fn123: footnote:[Auch dieses Script finden Sie in der Scriptsammlung: https://github.com/gitbuch/buch-scripte.]
+
+:fn124: footnote:[https://github.com/nothingmuch/git-svn-abandon]
+
+// @NOTE: TARGET LINK NOW REDIRECTS TO ANOHTER URL (GitHub Gist)
+:fn125: footnote:[http://git.goodpoint.de/?p=git-move-tags-up.git;a=summary]
+
+:fn126: footnote:[http://gitorious.org/svn2git/svn2git]
+
+// @FIXME: DEAD LINK IN FOOTONOTE 127
+:fn127: pass:q[footnote:[ \
+Im Git-via-Git Repository unter `contrib/svn-fe`]]
+
+:fn128: pass:q[footnote:[ \
+Vergleiche das Kommando: `svn copy trunk tags/v2.0`]]
+
+:fn129: pass:q[footnote:[ \
+Vergleiche das Subversion-Kommando: `svn merge -r 23:25 branches/feature trunk`]]
+
+:fn130: pass:q[footnote:[ \
+Eine detaillierte technische Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.]]
+
+:fn131: pass:q[footnote:[ \
+Über die Option `--date-format` können Sie bei Bedarf andere Datumsformate zulassen.]]
+
+:fn132: footnote:[ \
+Das führt zwar zu etwas mehr Rechenaufwand, vereinfacht aber die Struktur des Import-Programms wesentlich. \
+Unter dem Gesichtspunkt, dass Import-Software in der Regel nur selten ausgeführt wird und Zeit keine kritische Rolle spielt, ist dieser Ansatz also sinnvoll.]
+
+:fn133: footnote:[ \
+Das Script ist als Teil unserer Scriptsammlung unter https://github.com/gitbuch/buch-scripte verfügbar.]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 Git verfügt über Schnittstellen zu anderen
 Versionsverwaltungssystemen, die für zwei grundsätzliche
@@ -49,7 +107,7 @@ verbessern, erweitern und zum Teil ersetzen.  Aber auch Schnittstellen
 zu weiteren Versionsverwaltungssystemen, wie z.B. Mercurial, werden
 angeboten. Sollten die in diesem Kapitel beschriebenen Kommandos und
 Rezepte nicht ausreichen, lohnt sich eine Internet-Recherche. Als
-ersten Anlaufpunkt empfehlen wir das Git-Wiki.footnote:[https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems]
+ersten Anlaufpunkt empfehlen wir das Git-Wiki.{fn117}
 
 Neben den unmittelbaren Kommunikationsmöglichkeiten mit
 anderen Systemen verfügt Git über ein eigenes, simples
@@ -100,7 +158,7 @@ schon lokal vorliegt, lohnt es sich auf jeden Fall eine lokale Kopie
 anzulegen -- dadurch müssen Sie, bei einem zweiten Versuch, die
 Revisionen nicht erneut übers Netzwerk herunterladen.  Hierfür können
 Sie bspw.  `rsvndump`
-nutzen.footnote:[http://rsvndump.sourceforge.net/]
+nutzen.{fn118}
 ================
 
 Subversion nutzt weniger umfangreiche Metadaten zu Autoren als Git;
@@ -221,10 +279,7 @@ Projekte in einem Subversion-Repository verwaltet werden (<<fig.svn-nonstdlayout
 image::svn-nonstdlayout-crop.png[id="fig.svn-nonstdlayout",scaledwidth="20%",width="20%"]
 
 Um `projekt1` zu konvertieren, würde der Aufruf wie folgt
-lauten:footnote:[Existieren
-  mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so
-  geben Sie diese durch mehreren Argumente `-t`
-  bzw. `-b` an.]
+lauten:{fn119}
 
 [subs="macros,quotes"]
 --------
@@ -289,10 +344,7 @@ umgeschrieben werden (s.u.).
 
 Für den Trunk und jeden Subversion-Branch wird je ein
 Subversion-Tracking-Branch
-angelegt,footnote:[Haben Sie bei der
-  Konvertierung keinen Trunk per `-T` oder
-  `--stdlayout` angegeben, wird ein einziger Branch namens
-  `remotes/git-svn` generiert.] und für jedes Subversion-Tag
+angelegt,{fn120} und für jedes Subversion-Tag
 ebenfalls ein Subversion-Tracking-Branch (_kein_ Git-Tag,
 s.u.), aber unter `remotes/origin/tags`.
 
@@ -327,10 +379,7 @@ sollten daher in echte Git-Tags umgeschrieben werden.
 Wenn Sie die Subversion-Branches und -Tags beibehalten wollen, sollten
 Sie die Subversion-Tracking-Branches in Lokale-Git-Branches bzw.
 Lightweight-Git-Tags übersetzen. Im ersten Schritt hilft Ihnen
-folgendes Shell-Script `git-convert-refs`:footnote:[Das Script ist in der
-  Scriptsammlung für dieses Buch enthalten. Siehe:
-  https://github.com/gitbuch/buch-scripte.]
-
+folgendes Shell-Script `git-convert-refs`:{fn121}
 
 
 //\label{code:git-convert-refs}
@@ -381,14 +430,8 @@ Das Script nimmt an, dass das Repository mit der Option
 Das Script nutzt die Plumbing-Kommandos `git for-each-ref`, das
 auf den angegebenen Ausdruck passende Referenzen zeilenweise ausgibt,
 und `git update-ref`, das Referenzen umschreibt und
-löscht.{empty}footnote:[Grundsätzlich können Sie
-  diese Operationen auch direkt mit dem Kommando `mv` unterhalb
-  von `.git/refs/` ausführen. Die Plumbing-Kommandos machen es
-  aber möglich, auch "`exotische`" Fälle wie ``Packed
-  Refs__ bzw.  Referenzen, die Symlinks sind, korrekt zu
-  behandeln. Außerdem schreibt `git update-ref` entsprechende
-  Einträge in das Reflog und gibt Fehlermeldungen aus, falls etwas
-  schiefgeht. Siehe hierzu auch <<sec.scripting>>.]
+löscht.{empty}{fn122}
+
 
 In <<fig.git-convert-refs-before>> und
 <<fig.git-convert-refs-after>> sehen Sie, wie das Script
@@ -421,9 +464,7 @@ describe --tags` einsetzen.
 Da jedoch, sofern das Subversion-Tag nicht noch nachträglich verändert
 wurde, der getaggte Commit den gleichen Tree referenziert wie sein
 Vorfahre, können Sie die Tags auf die Vorfahren verschieben. Dabei
-hilft folgendes Shell-Script `git-fix-tags`
-footnote:[Auch dieses Script finden Sie in der
-Scriptsammlung: https://github.com/gitbuch/buch-scripte.]:
+hilft folgendes Shell-Script `git-fix-tags`{fn123}:
 
 --------
 #!/bin/sh
@@ -478,13 +519,13 @@ image::git-svn-tag-fix-after.png[id="fig.git-svn-tag-fix-after",scaledwidth="90%
 [TIP]
 ========
 Das Tool
-`git-svn-abandon`{empty}footnote:[https://github.com/nothingmuch/git-svn-abandon]
+`git-svn-abandon`{empty}{fn124}
 verfolgt einen ähnlichen Ansatz wie die beiden vorgestellten Scripte,
 konvertiert also Subversion-Tracking-Branches und verschiebt Tags. Statt Lightweight Tags erzeugt es jedoch Annotated Tags und erledigt noch
 einige zusätzliche Aufräumarbeiten, ähnlich denen, die wir als
 nächstes behandeln. Eine andere Alternative, um die Tags zu
 verschieben, ist das Script
-`git-move-tags-up`{empty}footnote:[http://git.goodpoint.de/?p=git-move-tags-up.git;a=summary].
+`git-move-tags-up`{empty}{fn125}.
 ========
 
 Sie sollten noch entscheiden, wie Sie mit der Referenz für den Trunk
@@ -565,13 +606,12 @@ Reihenfolge gemacht:
 . `svn merge branches/feature trunk -r 3:5` (commit `C1`&`C2` auf `feature`)
 
 
-
 Abschließend ist noch zu erwähnen, dass `git-svn` bei weitem nicht das
 einzige Tool zur Konvertierung ist. `git-svn` leidet oft an Geschwindigkeitsproblemen bei
 sehr großen Repositories. In diesem Kontext
-werden zwei Tools sehr häufig genannt, die schneller arbeiten: einerseits `svn2git`{empty}footnote:[http://gitorious.org/svn2git/svn2git]
-und auch `svn-fe`{empty}footnote:[Im Git-via-Git Repository unter
-`contrib/svn-fe`] (svn-fast-export). Sollten Sie bei der Konvertierung auf Probleme stoßen
+werden zwei Tools sehr häufig genannt, die schneller arbeiten: einerseits `svn2git`{empty}{fn126}
+und auch `svn-fe`{empty}{fn127} (svn-fast-export).
+Sollten Sie bei der Konvertierung auf Probleme stoßen
 (z.B. wenn die Konvertierung schon seit mehreren Tagen läuft und noch kein Ende in Sicht ist), lohnt sich der Blick auf die Alternativen.
 
 
@@ -873,8 +913,8 @@ $ *git svn tag -m &#34;Tag Version 2.0&#34; v2.0*
 
 Im Subversion-Repository entsteht dadurch das Verzeichnis
 `tags/v2.0`, dessen Inhalt eine Kopie des aktuellen
-`HEAD` ist.footnote:[Vergleiche das Kommando: `svn copy
-    trunk tags/v2.0`] Im Git-Repository entsteht dafür ein neuer
+`HEAD` ist.{fn128}
+Im Git-Repository entsteht dafür ein neuer
 Subversion-Tracking-Branch (`remotes/origin/tags/v2.0`). Mit der
 Option `-m` übergeben Sie optional eine Nachricht. Wenn nicht,
 setzt `git-svn` die Nachricht `Create tag <tag>`.
@@ -933,9 +973,8 @@ $ *git svn dcommit --mergeinfo=&lt;branch-name&gt;:&lt;N&gt;-&lt;M&gt;*
 Hierbei ist `<branch-name>` die Subversion-Bezeichnung des
 Branches, also z.B.{empty}{nbsp}`/branches/<name>`, `<N>` die
 erste Subversion-Revision, die den Branch verändert, und `<M>`
-die letzte.footnote:[Vergleiche das
-  Subversion-Kommando: `svn merge -r 23:25 branches/feature
-    trunk`] Angenommen, Sie haben den Branch mit Revision 23 erzeugt
+die letzte.{fn129}
+Angenommen, Sie haben den Branch mit Revision 23 erzeugt
 und wollen nun, nach zwei Commits, den Branch wieder mergen, dann
 würde das Kommando wie folgt lauten:
 
@@ -975,8 +1014,7 @@ https://git.wiki.kernel.org/index.php/Git-p4_Usage
 Git bietet über das Subkommando `fast-import` einen einfachen
 und zugleich komfortablen Weg, eine irgendwie geartete
 Versionsgeschichte in ein Git-Repository zu verwandeln.  Das
-Fast-Import-Protokoll ist textbasiert und sehr flexibel.footnote:[Eine detaillierte technische
-  Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.]
+Fast-Import-Protokoll ist textbasiert und sehr flexibel.{fn130}
 
 Als Grundlage können beliebige Daten dienen: seien dies Backups,
 Tarballs, Repositories anderer Versionsverwaltungssysteme, oder, oder,
@@ -1033,18 +1071,15 @@ Für `<branch>` setzen Sie einen entsprechenden Branch ein, auf dem der
 Commit getätigt werden soll, also z.B.{empty}{nbsp}`refs/heads/master`.  Der Name
 des Committers (`<wer>`) ist optional, die E-Mail-Adresse aber
 nicht. Das Format von `<wann>` muss ein Unix-Timestamp mit Zeitzone
-sein, also z.B.{empty}{nbsp}`1303329307 +0200`.footnote:[Über die Option `--date-format` können
-  Sie bei Bedarf andere Datumsformate zulassen.]  Analog zur
+sein, also z.B.{empty}{nbsp}`1303329307 +0200`.{fn131}
+Analog zur
 `committer`-Zeile können Sie eine Zeile `author` einfügen.
 +
 Der Datenblock bildet die Commit-Nachricht. Das abschließende
 `deleteall` weist Git an, alles über Dateien aus vorherigen Commits zu
 vergessen. Sie fügen also für jeden Commit alle Daten vollständig neu
-hinzu.footnote:[Das führt zwar zu etwas mehr
-  Rechenaufwand, vereinfacht aber die Struktur des Import-Programms
-  wesentlich. Unter dem Gesichtspunkt, dass Import-Software in der
-  Regel nur selten ausgeführt wird und Zeit keine kritische Rolle
-  spielt, ist dieser Ansatz also sinnvoll.]  Anschließend folgen ein
+hinzu.{fn132}
+Anschließend folgen ein
 oder mehrere Datei-Definitionen.  Das kann zum Beispiel so aussehen:
 +
 --------
@@ -1176,9 +1211,7 @@ bde105d import vim-4.1
 ...
 --------
 
-Als Referenz das vollständige Script{empty}footnote:[Das Script ist als Teil unserer
-Scriptsammlung unter https://github.com/gitbuch/buch-scripte
-verfügbar.]:
+Als Referenz das vollständige Script{empty}{fn133}:
 
 --------
 #!/bin/sh

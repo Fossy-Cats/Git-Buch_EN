@@ -4,6 +4,72 @@
 = The Basics
 // Grundlagen
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn12: pass:q[footnote:[ \
+Standardmäßig sind Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist: `git diff --word-diff-regex=<regex>`. \
+Siehe hierzu auch die Man-Page `git-diff(1)`.]]
+
+:fn13: pass:q[footnote:[ \
+Das ist eine Anweisung für den Kernel, welches Programm zum Interpretieren des Scripts verwendet werden soll. \
+Typische Shebang-Zeilen sind etwa `&num;!/bin/sh` oder `&num;!/usr/bin/perl`.]]
+
+:fn14: pass:q[footnote:[ \
+Genaugenommen führt die Option `-p` direkt in den _Patch-Mode_ des _Interactive-Mode_ von `git add`. \
+Der Interactive-Mode wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr selten verwendet und ist deswegen hier nicht weiter beschrieben. \
+Die Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im Abschnitt "`Interactive Mode`".]]
+
+:fn15: pass:q[footnote:[ \
+Git öffnet dann den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen – also nicht dem Index hinzuzufügen, sie aber im Working Tree zu behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die Zeile wird zu "`Kontext`"). \
+Um `+`-Zeilen zu löschen, entfernen Sie diese einfach aus dem Hunk.]]
+
+:fn16: pass:q[footnote:[ \
+Sie können Hunks in der Regel aber nicht beliebig teilen. \
+Zumindest eine Zeile _Kontext_, also eine Zeile ohne Präfix `+` oder `-`, muss dazwischen liegen. \
+Wollen Sie den Hunk dennoch teilen, müssen Sie mit `e` für _edit_ arbeiten.]]
+
+:fn17: pass:q[footnote:[ \
+Sie können diese Informationen u.a. in `gitk` sehen oder mit dem Kommando `git log --pretty=fuller`.]]
+
+:fn18: pass:q[footnote:[ \
+Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. \
+Der neue Commit _ersetzt_ dann den alten.]]
+
+:fn19: pass:q[footnote:[Durch `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie bleibt jedoch im Commit-Verlauf erhalten. Wie man eine Datei vollständig, also auch aus der Versionsgeschichte, löscht, ist in xref:gitbuch_08.adoc#sec.fb-censor[] nachzulesen.]]
+
+:fn20: footnote:[Dieses und die folgenden Beispiele stammen aus dem Git-Repository.]
+
+:fn21: pass:q[footnote:[ \
+Sie können das Repository, das auf den folgenden Seiten detailliert untersucht wird, mit dem Befehl `git clone git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]]
+
+:fn22: pass:q[footnote:[ \
+https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".]]
+
+// @FIXME DEAD LINK IN FOOTNOTE 23
+
+:fn23: footnote:[http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
+
+:fn24:  pass:q[footnote:[ \
+Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.]]
+
+:fn25: footnote:[ \
+Das Tag-Objekt wird hier nicht dargestellt, da es für das Verständnis der Objektstruktur nicht notwendig ist. \
+Sie finden es stattdessen in  <<fig.tag-objekt>>.]
+
+:fn26: pass:q[footnote:[ \
+Git speichert sämtliche Objekte unterhalb von `.git/objects`. \
+Man unterscheidet zwischen _Loose Objects_ und _Packfiles_. Die "`losen`" Objekte speichern den Inhalt in einer Datei, deren Name der SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine Datei). \
+Im Gegensatz dazu sind Packfiles komprimierte _Archive_ von vielen Objekten. \
+Das geschieht aus Performancegründen: Nicht nur ist die Übertragung bzw. Speicherung dieser Archive effizienter, auch wird das Dateisystem entlastet.]]
+
+:fn27: pass:q[footnote:[ \
+Intern kennt Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu erkennen und diese platzsparend zu _Packfiles_ zusammenzuschnüren.]]
+
+:fn28: pass:q[footnote:[ \
+Diese beiden Eigenschaften _gerichtet_ und _azyklisch_ sind die einzig notwendige Beschränkung, die man an einen Graphen stellen muss, der Änderungen über Zeit abbildet: Weder kann man zukünftige Änderungen referenzieren (Richtung der Kanten zeigt immer in die Vergangenheit), noch kann man irgendwann an einem Punkt ankommen, von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
 mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar
 für eine fortgeschrittene Nutzung ist das Verständnis des
@@ -103,11 +169,8 @@ sog. _Word-Diff_, das über die Option
 und hinzugefügten Zeilen zeigt die Ausgabe von `git diff`
 mit einer entsprechenden Syntax sowie farblich kodiert die
 hinzugekommenen (grün) und entfernten (rot)
-Wörter.footnote:[Standardmäßig sind
-  Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen
-  anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist:
-  `git diff --word-diff-regex=<regex>`. Siehe hierzu auch die
-  Man-Page `git-diff(1)`.] Das ist dann praktisch, wenn Sie in
+Wörter.{fn12}
+Das ist dann praktisch, wenn Sie in
 einer Datei nur einzelne Wörter ändern, beispielsweise bei der
 Korrektur von AsciiDoc- oder LaTeX-Dokumenten, denn ein Diff ist schwierig zu lesen,
 wenn sich hinzugefügte und entfernte Zeile nur durch ein einziges Wort
@@ -187,9 +250,8 @@ print "Hello World!\n";
 Nun präparieren wir die Datei so, dass sie mehrere unabhängige
 Veränderungen hat, die wir _nicht_ in einem einzelnen Commit
 zusammenfassen wollen. Zunächst fügen wir eine _Shebang_-Zeile
-am Anfang hinzu.footnote:[Das ist eine Anweisung für
-  den Kernel, welches Programm zum Interpretieren des Scripts verwendet
-  werden soll. Typische Shebang-Zeilen sind etwa `#!/bin/sh` oder `#!/usr/bin/perl`.] Außerdem
+am Anfang hinzu.{fn13}
+Außerdem
 kommt eine Zeile hinzu, die den Autor benennt, sowie eine
 Perl-Anweisung `use strict`, die den Perl-Interpreter anweist,
 bei der Syntaxanalyse möglichst streng zu sein. Wichtig ist für unser
@@ -206,13 +268,8 @@ print "Hello World!\n";
 Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen
 dem Index hinzugefügt -- der Stand der Datei im Index wäre also der
 gleiche wie im Working Tree. Stattdessen verwenden wir die Option
-`--patch` bzw. kurz `-p`.footnote:[Genaugenommen führt die Option
-  `-p` direkt in den _Patch-Mode_ des
-  _Interactive-Mode_ von `git add`.  Der Interactive-Mode
-  wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr
-  selten verwendet und ist deswegen hier nicht weiter beschrieben. Die
-  Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im
-  Abschnitt "`Interactive Mode`".]  Dies hat zur Folge, dass
+`--patch` bzw. kurz `-p`.{fn14}
+Dies hat zur Folge, dass
 wir interaktiv gefragt werden, welche Veränderungen wir dem Index
 hinzufügen wollen. Git bietet uns jede Veränderung einzeln an, und wir
 können von Fall zu Fall entscheiden, wie wir mit dieser verfahren
@@ -260,13 +317,8 @@ zusammengefasst.
 
 `s` (_split_):: Versuche, den aktuellen Hunk zu teilen.
 
-`e` (_edit_):: Editiere den aktuellen Hunk.footnote:[Git öffnet dann
-den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den
-Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen –
-also nicht dem Index hinzuzufügen, sie aber im Working Tree zu
-behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die
-Zeile wird zu "`Kontext`"). Um `+`-Zeilen zu löschen, entfernen Sie
-diese einfach aus dem Hunk.]
+`e` (_edit_):: Editiere den aktuellen Hunk.{fn15}
+
 
 In dem Beispiel teilen wir den aktuellen Hunk und geben
 `s` für _split_ ein.
@@ -283,11 +335,8 @@ Split into 2 hunks.
 
 Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und
 bietet uns nun ein Diff an, das nur die Shebang-Zeile
-enthält.footnote:[Sie können Hunks in der Regel
-aber nicht beliebig teilen. Zumindest eine Zeile _Kontext_,
-also eine Zeile ohne Präfix `+` oder `-`, muss
-dazwischen liegen. Wollen Sie den Hunk dennoch teilen, müssen Sie
-mit `e` für _edit_ arbeiten.]  Wir geben `y` für
+enthält.{fn16}
+Wir geben `y` für
 _yes_ an und beim nächsten Hunk `q` für _quit_.  Um
 zu überprüfen, ob alles geklappt hat, verwenden wir `git diff`
 mit der Option `--staged`, die den Unterschied zwischen
@@ -444,9 +493,7 @@ Repository austauschen. Wenden wir uns nun dem Kommando `git
 
 Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem
 bestimmten Zeitpunkt fest und enthält zudem
-Metainformationen:footnote:[Sie können
-  diese Informationen u.a. in `gitk` sehen oder mit dem
-  Kommando `git log --pretty=fuller`.]
+Metainformationen:{fn17}
 
 
 * Name des Autors und E-Mail-Adresse
@@ -497,7 +544,8 @@ $ *git commit -m "Dies ist die Commit-Nachricht"*
 Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
 Option `--amend` ("`berichtigen`"). Die Option
 veranlasst Git, die Änderungen im Index dem eben getätigten Commit
-"`hinzuzufügen`".footnote:[Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. Der neue Commit _ersetzt_ dann den alten.]  Außerdem können Sie die
+"`hinzuzufügen`".{fn18}
+Außerdem können Sie die
 Commit-Nachricht anpassen. Beachten Sie, dass sich die SHA-1-Summe des
 Commits in jedem Fall ändert.
 
@@ -607,11 +655,7 @@ Wenn Sie Dateien, die von Git verwaltet werden, löschen oder
 verschieben wollen, dann verwenden Sie dafür `git rm` bzw.
 `git mv`. Sie wirken wie die regulären Unix-Kommandos,
 modifizieren aber darüber hinaus den Index, so dass die Aktion in den
-nächsten Commit einfließt.footnote:[Durch
-  `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie
-  bleibt jedoch im Commit-Verlauf erhalten. Wie man eine Datei
-  vollständig, also auch aus der Versionsgeschichte, löscht, ist in
-  <<sec.fb-censor>> nachzulesen.]
+nächsten Commit einfließt.{fn19}
 
 Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch
 die Optionen `-r` und `-f`, um rekursiv zu löschen bzw.
@@ -754,8 +798,7 @@ die Option `--oneline`: Sie fasst jeden Commit mit seiner
 abgekürzten SHA-1-Summe und der ersten Zeile der Commit-Nachricht
 zusammen. Daher ist es wichtig, dass Sie in dieser Zeile möglichst
 hilfreiche Informationen verpacken! Das sieht dann zum Beispiel so
-aus:footnote:[Dieses und die folgenden
-  Beispiele stammen aus dem Git-Repository.]
+aus:{fn20}
 
 [subs="macros,quotes"]
 --------
@@ -995,11 +1038,8 @@ Das Verständnis dieses Modells ist von großer Bedeutung und hilft sehr
 dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie
 so besser zu verstehen.
 
-Im Folgenden dient uns als Beispiel wieder ein ``Hello
-World!__-Programm, diesmal in der Programmiersprache Python.footnote:[Sie
-können das Repository, das auf den folgenden Seiten detailliert
-untersucht wird, mit dem Befehl `git clone
-git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]
+Im Folgenden dient uns als Beispiel wieder ein "`Hello
+World!`"-Programm, diesmal in der Programmiersprache Python.{fn21}
 
 .Hello World!-Programm in Python
 image::objektmodell-programm-crop.png[id="fig.objektmodell-program-crop",scaledwidth="25%",width="25%"]
@@ -1057,13 +1097,14 @@ image::sha.png[id="fig.sha",scaledwidth="90%",width="90%"]
 Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren
 verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen
 von Kollisionen mit einem erheblichen Rechenaufwand möglich machen
-sollen.footnote:[http://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".] Aus diesem Grund empfiehlt das NIST heute die
+sollen.{fn22}
+Aus diesem Grund empfiehlt das NIST heute die
 Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die
 über längere Prüfsummen verfügen und somit das Erzeugen von
 Kollisionen erschweren. Auf der Git-Mailingliste wurde debattiert, ob
 man zu einer dieser Alternativen wechseln solle, doch wurde dieser
 Schritt nicht als nötig
-erachtet.footnote:[http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
+erachtet.{fn23}
 
 
 Denn obwohl ein theoretischer Angriffsvektor auf den SHA-1-Algorithmus
@@ -1088,8 +1129,7 @@ ausreicht, um einen Commit eindeutig zu identifizieren.
 
 Alle in einem Repository gespeicherten Daten liegen als
 _Git-Objekte_ vor. Man unterscheidet vier
-Typen:footnote:[Die technische Dokumentation
-  bietet die Man-Page `gittutorial-2(7)`.]
+Typen:{fn24}
 
 
 
@@ -1106,9 +1146,7 @@ Typen:footnote:[Die technische Dokumentation
 
 <<fig.objekte>> zeigt drei Objekte aus dem
 Beispielprojekt -- einen Blob, einen Tree und einen
-Commit.footnote:[Das Tag-Objekt wird hier nicht
-  dargestellt, da es für das Verständnis der Objektstruktur nicht
-  notwendig ist. Sie finden es stattdessen in  <<fig.tag-objekt>>.]
+Commit.{fn25}
 Die Darstellung der einzelnen Objekte enthält den Objekttyp, die Größe
 in Byte, die SHA-1-Summe sowie den Inhalt. Der Blob enthält den Inhalt
 der Datei `hello.py` (aber nicht den Dateinamen).  Der Tree
@@ -1153,15 +1191,7 @@ können ein Objekt, nachdem es gespeichert wurde, über seine
 SHA-1-Summe in der Datenbank finden. Dadurch funktioniert die
 Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die
 SHA-1-Summen als Schlüssel für den gespeicherten
-Inhalt{empty}footnote:[Git speichert sämtliche Objekte
-  unterhalb von `.git/objects`. Man unterscheidet zwischen
-  _Loose Objects_ und _Packfiles_. Die "`losen`"
-  Objekte speichern den Inhalt in einer Datei, deren Name der
-  SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine
-  Datei). Im Gegensatz dazu sind Packfiles komprimierte _Archive_
-  von vielen Objekten. Das geschieht aus Performancegründen: Nicht
-  nur ist die Übertragung bzw. Speicherung dieser Archive effizienter,
-  auch wird das Dateisystem entlastet.] dienen:
+Inhalt{empty}{fn26} dienen:
 
 [subs="macros,quotes"]
 --------
@@ -1357,10 +1387,7 @@ mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des
 Dateinamens). Ein _Checkout_ dieses Repositorys hingegen
 verbraucht ca. 1{nbsp}GB Speicherplatz auf dem Dateisystem, weil Git die
 Deduplizierung
-auflöst.footnote:[Intern kennt
-  Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu
-  erkennen und diese platzsparend zu _Packfiles_
-  zusammenzuschnüren.]
+auflöst.{fn27}
 
 Mit den Befehlen `git checkout` und `git reset` stellen
 Sie einen früheren Zustand so wieder her (siehe auch <<sec.undo>>): Sie geben die Referenz
@@ -1390,13 +1417,8 @@ in die entsprechende Richtung zeigen.  Die _azyklische_
 Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den
 Graphen von einem Knoten erneut zu diesem zurück finden kann. Man kann
 sich also nicht im Kreis
-bewegen.footnote:[Diese beiden Eigenschaften
-  _gerichtet_ und _azyklisch_ sind die einzig notwendige
-  Beschränkung, die man an einen Graphen stellen muss, der Änderungen
-  über Zeit abbildet: Weder kann man zukünftige Änderungen
-  referenzieren (Richtung der Kanten zeigt immer in die
-  Vergangenheit), noch kann man irgendwann an einem Punkt ankommen,
-  von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).]
+bewegen.{fn28}
+
 
 [TIP]
 ==================

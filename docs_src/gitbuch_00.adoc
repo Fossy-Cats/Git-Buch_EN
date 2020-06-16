@@ -6,6 +6,18 @@
 // Vorwort
 
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn1: footnote:[https://git-scm.com/]
+:fn2: footnote:[http://vger.kernel.org/vger-lists.html#git]
+:fn3: footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
+:fn4: footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools]
+:fn5: footnote:[https://git.wiki.kernel.org/index.php/GitFaq]
+:fn6: footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse]
+:fn7: footnote:[https://stackoverflow.com]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Git wurde Anfang 2005 von Linus Torvalds, dem Initiator
 und heutigen Maintainer des Linux-Kernels, entwickelt. Für die
 Verwaltung der Kernel-Quellen hatte sich das Entwickler-Team zunächst
@@ -220,38 +232,43 @@ $ *git status --help*
 $ *man git-status*
 ------------
 
+
 Auf der
-Git-Webseite{empty}footnote:[http://git-scm.com/]
+Git-Webseite{empty}{fn1}
 finden Sie außerdem Links zum offiziellen Tutorial sowie zu anderen
 freien Dokumentationen.
 
+
 Rund um Git hat sich eine große, lebhafte Community gebildet. Die
-Git-Mailingliste{empty}footnote:[http://vger.kernel.org/vger-lists.html#git]
+Git-Mailingliste{empty}{fn2}
 ist Dreh- und Angelpunkt der Entwicklung: Dort werden
 Patches eingeschickt, Neuerungen diskutiert und auch Fragen zur
 Benutzung beantwortet.  Allerdings ist die Liste, mit zuweilen über 100 teils sehr technischen E-Mails am Tag, nur eingeschränkt für Anfänger
 geeignet.
 
+
 Das
-Git-Wiki{empty}footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
+Git-Wiki{empty}{fn3}
 enthält neben Dokumentation auch eine umfangreiche Linksammlung der
 Tools, die auf Git
-basieren{empty}footnote::[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools],
+basieren{empty}{fn4},
 sowie
-FAQs{empty}footnote:[https://git.wiki.kernel.org/index.php/GitFaq].
+FAQs{empty}{fn5}.
 
 Alternativ bietet der IRC-Kanal `#git` im Freenode-Netzwerk
 einen Anlaufpunkt, Fragen loszuwerden, die nicht schon in den FAQs
 oder in der Dokumentation beantwortet wurden.
 
+
 Umsteigern aus dem Subversion-Umfeld ist der 'Git-SVN Crash
-  Course'{empty}footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse]
+  Course'{empty}{fn6}
 zu empfehlen, eine Gegenüberstellung von Git- und
 Subversion-Kommandos, mit der Sie Ihr Subversion-Wissen in die
 Git-Welt übertragen.
 
+
 Außerdem sei auf
-_Stack Overflow_{empty}footnote:[http://stackoverflow.com]
+_Stack Overflow_{empty}{fn7}
 hingewiesen, eine Plattform von Programmierern für Programmierer, auf
 der technische Fragestellungen, u.a. zu Git, erörtert werden.
 

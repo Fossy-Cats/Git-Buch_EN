@@ -4,6 +4,46 @@
 = Git Automation
 // Git automatisieren
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn106: pass:q[footnote:[ \
+Sie können das Programm `indent` aus dem GNU-Projekt von http://www.gnu.org/software/indent/ herunterladen.]]
+
+:fn107: pass:q[footnote:[ \
+Das Kommando `convert` ist Teil der ImageMagick-Suite. \
+Wenn Sie `-clone 1-2` durch `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche aus dem _alten_ Bild kopiert.]]
+
+:fn108: footnote:[ \
+Die Grafiken wurden zum Release von Kernel 2.0 von Larry Ewing erstellt und finden sich unter http://www.isc.tamu.edu/~lewing/linux/.]
+
+:fn109: pass:q[footnote:[ \
+"`Serverseitig`" heißt hier nur, dass sie nicht im lokalen Repository ausgeführt werden, sondern auf der "`Gegenseite`".]]
+
+:fn110: pass:q[footnote:[ \
+Würde Git die kompletten Zugriffsrechte aufnehmen, dann wäre eine Datei gleichen Inhalts bei zwei verschiedenen Entwicklern, die unterschiedliche `umask(2)`-Einstellungen verwenden, nicht der gleiche Blob. \
+Um das zu verhindern, verwendet Git ein vereinfachtes Rechtemanagement.]]
+
+:fn111: footnote:[ \
+Sie können Ihre Shell-Scripte z.B. auf http://www.shellcheck.net/ automatisch überprüfen lassen.]
+
+:fn112: pass:q[footnote:[ \
+Die 'Debian Alquimist Shell_, ein Fork der _Alquimist Shell_, ist eine besonders kleine, schnelle Shell, die POSIX-kompatibel ist. \
+Sie stellt auf vielen modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell `/bin/sh`.]]
+
+:fn113: footnote:[https://github.com/gitbuch/buch-scripte]
+
+:fn114: pass:q[footnote:[ \
+Es gibt noch weitere Flags (`U`, `T` und `B`), die aber in der Praxis meist keine Rolle spielen.]]
+
+:fn115: footnote:[https://git.wiki.kernel.org/index.php/Aliases]
+
+:fn116: pass:q[footnote:[ \
+Sie können prinzipiell auch _gar keinen_ Vorgänger angeben. \
+Dann wird der entsprechende Commit zu einem Root-Commit.]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
 In diesem Kapitel stellen wir fortgeschrittene Techniken zum
 Automatisieren von Git vor. Im ersten Abschnitt über
 _Git-Attribute_ zeigen wir Ihnen, wie Sie Git anweisen, bestimmte
@@ -120,9 +160,7 @@ $ *echo &#39;&#42;.c filter=&lt;indent&gt;&#39; &gt; .git/info/attributes*
 
 Um eine C-Datei zu "`säubern`", ruft Git nun automatisch das
 Programm `indent` auf, das auf Standardsystemen installiert
-sein sollte.footnote:[Sie können das Programm
-  `indent` aus dem GNU-Projekt von
-  http://www.gnu.org/software/indent/ herunterladen.]
+sein sollte.{fn106}
 
 [[sec.smudge-clean-keywords]]
 === Keywords in Dateien
@@ -324,11 +362,7 @@ Untergrund kopiert. Das Diff zeigt also, welche Bereiche hinzugekommen
 sind.
 
 Dafür speichern wir folgendes Script unter
-`$HOME/bin/imgdiff`:footnote:[Das Kommando `convert` ist
-  Teil der ImageMagick-Suite.  Wenn Sie `-clone 1-2` durch
-  `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche
-  aus dem _alten_ Bild kopiert.]
-
+`$HOME/bin/imgdiff`:{fn107}
 
 
 --------
@@ -359,9 +393,7 @@ $ *git config diff.imgdiff.command ~/bin/imgdiff*
 $ *echo &#34;&#42;.gif diff=imgdiff&#34; &gt; .git/info/attributes*
 --------
 
-Als Beispiel verwenden wir die Ursprungsversionen des Tux.footnote:[Die Grafiken wurden zum Release von Kernel
-  2.0 von  Larry Ewing erstellt und finden sich unter
-  http://www.isc.tamu.edu/~lewing/linux/.]
+Als Beispiel verwenden wir die Ursprungsversionen des Tux.{fn108}
 Zunächst fügen wir den schwarzweißen Tux ein:
 
 [subs="macros,quotes"]
@@ -426,9 +458,7 @@ Hooks kommen in zwei Klassen: solche, die lokal ausgeführt werden
 (Commit-Nachrichten bzw. Patches überprüfen, Aktionen nach einem
 Merge oder Checkout ausführen etc.), und solche, die
 serverseitig ausgeführt werden, wenn Sie Änderungen per `git
-  push` veröffentlichen.footnote:["`Serverseitig`" heißt hier nur,
-  dass sie nicht im lokalen Repository ausgeführt werden, sondern auf
-  der "`Gegenseite`".]
+  push` veröffentlichen.{fn109}
 
 Hooks, deren Name mit `pre-` beginnt, können häufig dazu
 benutzt werden, zu entscheiden, ob eine Aktion ausgeführt wird oder
@@ -770,12 +800,7 @@ Die `post-checkout`- und `post-commit`-Hooks können Sie
 gut verwenden, um Git "`echte`" Dateizugriffsrechte
 beizubringen. Ein Blob-Objekt spiegelt nämlich nicht genau den Inhalt
 einer Datei und ihrer Zugriffsrechte wider. Stattdessen kennt Git nur
-"`ausführbar`" oder "`nicht ausführbar`".footnote:[Würde Git die kompletten
-  Zugriffsrechte aufnehmen, dann wäre eine Datei gleichen Inhalts bei
-  zwei verschiedenen Entwicklern, die unterschiedliche
-  `umask(2)`-Einstellungen verwenden, nicht der gleiche Blob.
-  Um das zu verhindern, verwendet Git ein vereinfachtes
-  Rechtemanagement.]
+"`ausführbar`" oder "`nicht ausführbar`".{fn110}
 
 Das im Git-Quellverzeichnis unter
 `contrib/hooks/setgitperms.perl` abgelegte
@@ -843,20 +868,16 @@ keiner umständlichen Konstrukte, wie z.B. in Perl mit `qx()` oder in
 Python mit `os.popen()`.
 
 Wenn Sie Shell-Scripte schreiben, achten Sie bitte auf
-POSIX-Kompatibilität!footnote:[Sie können Ihre Shell-Scripte z.B. auf
-http://www.shellcheck.net/ automatisch überprüfen lassen.]
+POSIX-Kompatibilität!{fn111}
 Dazu gehört insbesondere, keine "`Bashismen`" wie `[[ ... ]]` zu
 verwenden (die POSIX-Entsprechung lautet `[ ... ]`). Wenn Ihr Script
-nicht auch problemlos mit der Dash{empty}footnote:[Die 'Debian Alquimist
-Shell_, ein Fork der _Alquimist Shell', ist eine besonders kleine,
-schnelle Shell, die POSIX-kompatibel ist. Sie stellt auf vielen
-modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell
-`/bin/sh`.]  läuft, sollten Sie die verwendete Shell explizit in der
+nicht auch problemlos mit der Dash{empty}{fn112}
+läuft, sollten Sie die verwendete Shell explizit in der
 Shebang-Zeile angeben, z.B. via `#!/bin/bash`.
 ========
 
 Sämtliche im folgenden Abschnitt vorgestellten Scripte finden Sie auch
-online, in der Scriptsammlung für dieses Buch.footnote:[https://github.com/gitbuch/buch-scripte]
+online, in der Scriptsammlung für dieses Buch.{fn113}
 
 [[sec.scripting-init]]
 === Initialisierung
@@ -1065,9 +1086,8 @@ M       git-pull.sh
 M       t/t5520-pull.sh
 --------
 
-Jedem Namen wird eines von fünf Flags{empty}footnote:[Es gibt noch weitere Flags
-  (`U`, `T` und `B`), die aber in der Praxis meist
-  keine Rolle spielen.]  vorangestellt, die in der nachfolgenden Liste
+Jedem Namen wird eines von fünf Flags{empty}{fn114}
+vorangestellt, die in der nachfolgenden Liste
 aufgeführt sind:
 
 `A` (_added_):: Datei wurde hinzugefügt
@@ -1532,7 +1552,7 @@ $ *git who-signed Documentation/git-svn.txt*
 --------
 
 Weitere interessante Ideen und Anregungen finden sich im Git-Wiki auf
-der Seite zu Aliasen.footnote:[https://git.wiki.kernel.org/index.php/Aliases]
+der Seite zu Aliasen.{fn115}
 
 
 [[sec.filter-branch]]
@@ -1804,9 +1824,7 @@ commit [parent1 [parent2 ...]]
 
 Neben den Informationen, die Git aus den Metadaten der Commits
 bezieht, können Sie also für beliebige Commits ein oder mehrere
-beliebige Vorgängercommits (Parents) angeben.footnote:[Sie können prinzipiell auch 'gar
-    keinen' Vorgänger angeben. Dann wird der entsprechende Commit zu
-  einem Root-Commit.]
+beliebige Vorgängercommits (Parents) angeben.{fn116}
 
 Achten Sie darauf, das Repository weiterhin als DAG zu betrachten und
 keine Kreise zu schließen: Definieren Sie nicht `HEAD` als den

@@ -4,6 +4,63 @@
 = Git Servers
 // Git auf dem Server
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn92: pass:q[footnote:[ \
+Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. \
+Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.]]
+
+:fn93: footnote:[ \
+Die hier beschriebene Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit Gitolite Version 1.5, das in der ersten Auflage dieses Buches beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
+
+:fn94: footnote:[ \
+Ein Nutzer kann sich nur mit seinem privaten Schlüssel bei einem SSH-Server authentifizieren, wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten) Schlüssel verschlüsselte Nachricht entschlüsseln kann. \
+Anhand des Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite also den internen Nutzernamen ableiten.]
+
+:fn95: footnote:[ \
+Einige Distributionen stellen auch vorgefertigte Pakete von Gitolite zur Verfügung. \
+Von deren Einsatz ist allerdings eher abzuraten, weil sie meist veraltet sind und außerdem global und mit einer bestimmten Konfiguration installiert werden. \
+Wenn Sie dann einen anderen Nutzernamen als den von den Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen Mehraufwand betreiben, um Gitolite zum Laufen zu bringen.]
+
+:fn96: pass:q[footnote:[ \
+Ein _Release Candidate_ einer Software ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich gemacht wird. \
+In das finale Release fließen dann nur noch Bugfixes ein. \
+Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2 (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird (`v1.0`).]]
+
+:fn97: pass:q[footnote:[ \
+Den _lesenden_ Zugriff auf ein Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde das Konzept des Git-Objekt-Modells mit seiner kryptografisch garantierten Integrität ad absurdum führen.]]
+
+:fn98: footnote:[ \
+Beachten Sie auch, dass es hier wieder zu Problemen bei der Erstellung von Branches kommen kann, s.o.]
+
+:fn99: pass:q[footnote:[ \
+Die Dokumentation findet sich unter http://gitolite.com/. \
+Der Autor hat außerdem das Buch "`Gitolite Essentials`"veröffentlicht (Packt Publishing, 2014).]]
+
+:fn100: pass:q[footnote:[ \
+Streng genommen ist es dafür nötig, dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt. Besser noch überprüfen Sie ein von einem Entwickler signiertes Versions-Tag.]]
+
+:fn101: pass:q[footnote:[ \
+In manchen Distributionen, wie z.B. Debian, heißt der Daemon `openbsd-inetd`.]]
+
+:fn102: pass:q[footnote:[ \
+Das Programm `sv` ist Teil des Init-Frameworks _runit_ (http://smarden.org/runit/). \
+Es ersetzt die Funktionalität des SysV-Init, kann aber auch darin integriert werden.]]
+
+:fn103: pass:q[footnote:[ \
+Beachten Sie, dass eine Instanz des Git-Daemons nicht "`teuer`" ist. \
+Das Zusammenpacken der angeforderten Objekte ist es allerdings. \
+Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl Git-Verbindungen schafft.]]
+
+:fn104: pass:q[footnote:[ \
+Beachten Sie, dass die Reihenfolge in der `alias.url`-Direktive wichtig ist. Wenn Sie die Zeile `"/" => ...` nach oben verschieben, startet Lighttpd nicht mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.]]
+
+:fn105: pass:q[footnote:[ \
+Das Tool `checkinstall` baut automatisch Debian- oder RPM-Pakete, die alle Dateien enthalten, die durch `make install` installiert worden wären. \
+Homepage des Programmes: http://www.asic-linux.com.mx/~izto/checkinstall/]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Im Folgenden geht es um das Hosting von Git-Repositories und
 _Gitolite_, mit dem Sie Zugriffsrechte auf Repositories über
 SSH-Public-Keys flexibel verwalten. Außerdem werden Installation und
@@ -27,8 +84,8 @@ einer Software bisweilen tausende von Commits ansammeln und eine
 einzelne, commitweise Übertragung viel Overhead erzeugen würde,
 werden Commits vor der Übertragung zu sogenannten _Packfiles_
 zusammengefasst. Diese Packfiles sind ein simples, aber effektives
-Format.footnote:[Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.] Sie
-werden auch verwendet, um (ältere) Commits auf der Festplatte
+Format.{fn92}
+Sie werden auch verwendet, um (ältere) Commits auf der Festplatte
 platzsparend zu lagern (`git gc` bzw. `git repack`,
 siehe <<sec.gc>>).
 
@@ -276,10 +333,7 @@ wesentliche Nachteile. Namentlich:
 * Für jeden angelegten Nutzer müssen manuell (oder per Script) die
   Zugriffsberechtigungen angepasst werden.
 
-Abhilfe schafft das Programm _Gitolite_.footnote:[Die hier beschriebene
-Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit
-Gitolite Version 1.5, das in der ersten Auflage dieses Buches
-beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
+Abhilfe schafft das Programm _Gitolite_.{fn93}
 
 Gitolite ist aus dem Projekt _Gitosis_ hervorgegangen, das
 mittlerweile als veraltet angesehen wird. Die Idee: Auf dem Server
@@ -299,12 +353,8 @@ wesentliche Vorteile:
   verschiedene Rechner, auf denen sie arbeiten).
 
 * Anhand des SSH-Schlüssels, mit dem sich ein Nutzer einloggt, kann
-  Gitolite _eindeutig_{empty}footnote:[Ein Nutzer kann sich nur mit
-  seinem privaten Schlüssel bei einem SSH-Server authentifizieren,
-  wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten)
-  Schlüssel verschlüsselte Nachricht entschlüsseln kann. Anhand des
-  Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite
-  also den internen Nutzernamen ableiten.] den internen Nutzernamen
+  Gitolite _eindeutig_{empty}{fn94}
+  den internen Nutzernamen
   ableiten und somit auch die Berechtigungen auf den von Gitolite
   verwalteten Repositories.
 
@@ -315,14 +365,7 @@ wesentliche Vorteile:
 Die Installation von Gitolite ist einfach. Sie müssen dafür nur Ihren
 Public-Key bereithalten, um sich als Administrator eintragen zu können.
 Root-Rechte benötigen Sie nicht, es
-sei denn, Sie müssen den Nutzer `git` erst erstellen.footnote:[Einige Distributionen stellen auch
-  vorgefertigte Pakete von Gitolite zur Verfügung. Von deren Einsatz
-  ist allerdings eher abzuraten, weil sie meist veraltet sind und
-  außerdem global und mit einer bestimmten Konfiguration installiert
-  werden. Wenn Sie dann einen anderen Nutzernamen als den von den
-  Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen
-  Mehraufwand betreiben, um Gitolite zum Laufen zu
-  bringen.]
+sei denn, Sie müssen den Nutzer `git` erst erstellen.{fn95}
 Überspringen Sie also den nachfolgenden Schritt, wenn Sie bereits
 einen solchen Nutzer erstellt haben.
 
@@ -554,13 +597,7 @@ o.g. Beispiel können also beliebige Referenzen _unterhalb_ von
 
 Beginnt ein solcher Ausdruck aber explizit mit einem `refs/`,
 kann man beliebige Referenzen verwalten. Auf die folgende Weise
-richtet man ein, dass alle Maintainer _Release-Candidate_-Tags{empty}footnote:[Ein _Release Candidate_ einer Software
-  ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit
-  (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich
-  gemacht wird. In das finale Release fließen dann nur noch Bugfixes
-  ein. Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2
-  (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird
-  (`v1.0`).]
+richtet man ein, dass alle Maintainer _Release-Candidate_-Tags{empty}{fn96}
 erstellen dürfen, aber nur _ein_ Maintainer wirklich den
 Versionierungs-Tag (bzw. beliebige andere) erstellen darf:
 
@@ -618,10 +655,7 @@ lesend darauf zugreifen.
 Gitolite erlaubt auch Zugriffsbeschränkungen auf Datei- und
 Verzeichnisebene. Zuständig dafür ist die virtuelle Referenz `VREF/NAME`.
 So können Sie beispielsweise dem Dokumentations-Team nur den
-(schreibenden{empty}footnote:[Den _lesenden_ Zugriff auf ein
-  Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde
-  das Konzept des Git-Objekt-Modells mit seiner kryptografisch
-  garantierten Integrität ad absurdum führen.])
+(schreibenden{empty}{fn97})
 Zugriff auf `doc/` erlauben:
 
 --------
@@ -673,9 +707,7 @@ repo Projekt
 
 Diese Direktive verbietet Mitgliedern von `@developers`,
 Commits zu erstellen, die das `Makefile`
-verändern.footnote:[Beachten Sie auch,
-  dass es hier wieder zu Problemen bei der Erstellung von Branches
-  kommen kann, s.o.]
+verändern.{fn98}
 
 Nach Konvention sollten Sie niemals forcierte Updates in die Branches
 `master` oder `maint` hochladen (siehe auch <<sec.branches>>). Diese Policy können
@@ -705,9 +737,7 @@ erlaubt wurde).
 === Sollte man Policies forcieren?
 
 Mit den hier vorgestellten Mitteln und weiteren, die Sie der
-Dokumentation{empty}footnote:[Die Dokumentation findet sich unter http://gitolite.com/.
-    Der Autor hat außerdem das Buch "`Gitolite Essentials`"
-    veröffentlicht (Packt Publishing, 2014).]
+Dokumentation{empty}{fn99}
 entnehmen können, sind Sie in der Lage, Policies sehr flexibel zu
 forcieren. Allerdings ist es möglicherweise nicht sinnvoll, alles bis
 ins kleinste Detail zu kontrollieren. Wie oben bereits angesprochen,
@@ -736,10 +766,7 @@ auch ohne Root-Rechte gestartet werden).
 * Die Übertragung findet unverschlüsselt statt. Die kryptografische
   Integrität, die Git ständig überprüft, schließt es allerdings aus,
   dass Angreifer den Datenstrom manipulieren und Schadcode
-  einschmuggeln können.footnote:[Streng genommen ist es dafür nötig,
-  dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt.
-  Besser noch überprüfen Sie ein von einem Entwickler signiertes
-  Versions-Tag.]
+  einschmuggeln können.{fn100}
 
 * Dieser Weg ist ideal, um schnell und einfach Quellcode
   einer großen Menge von Leuten zugänglich zu machen. Es wird nur das
@@ -851,18 +878,14 @@ service git
 
 Vergessen Sie nicht, den jeweiligen Daemon per
 `/etc/init.d/[x]inetd restart` neu zu
-starten.footnote:[In manchen Distributionen, wie
-  z.B. Debian, heißt der Daemon `openbsd-inetd`.]
+starten.{fn101}
 
 
 [[sec.git-daemon-sv]]
 === Der Debian-Weg: Git-Daemon sv
 
 Debian bietet ein Paket `git-daemon-run` an, das
-Konfigurationsdateien für `sv`{empty}footnote:[Das Programm `sv` ist Teil des
-  Init-Frameworks _runit_
-  (http://smarden.org/runit/). Es ersetzt die Funktionalität
-  des SysV-Init, kann aber auch darin integriert werden.]
+Konfigurationsdateien für `sv`{empty}{fn102}
 enthält. Das Paket erstellt im wesentlichen einen Nutzer
 `gitlog` sowie zwei ausführbare Shell-Scripte, `/etc/sv/git-daemon/run` und `/etc/sv/git-daemon/log/run`. Modifizieren Sie ersteres, damit
 der Git-Daemon auf dem Verzeichnis gestartet wird, in dem Ihre
@@ -932,11 +955,7 @@ konsultieren.
 `--max-connections=<n>`:: Per Default erlaubt der Git-Daemon nur 32
 gleichzeitige Verbindungen. Mit dieser Optionen können Sie die Anzahl
 erhöhen. Ein Wert von 0 lässt beliebig viele Verbindungen
-zu.footnote:[Beachten Sie, dass eine Instanz des Git-Daemons nicht
-"`teuer`" ist. Das Zusammenpacken der angeforderten Objekte ist es
-allerdings. Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro
-Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl
-Git-Verbindungen schafft.]
+zu.{fn103}
 
 `--syslog`:: Verwendet den Syslog-Mechanismus statt Standard-Error, um
 Fehlermeldungen zu loggen.
@@ -1142,10 +1161,8 @@ ausgeführt werden. Dafür müssen Sie die Module `mod_alias`,
 `mod_setenv` und `mod_cgi` laden (sofern noch nicht
 geschehen).
 
-Die Konfiguration sieht dann wie folgt aus:{empty}footnote:[Beachten Sie, dass die Reihenfolge in der
-  `alias.url`-Direktive wichtig ist. Wenn Sie die Zeile
-  `"/" => ...` nach oben verschieben, startet Lighttpd nicht
-  mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.]
+Die Konfiguration sieht dann wie folgt aus:{empty}{fn104}
+
 
 // JP: http://redmine.lighttpd.net/issues/2284
 
@@ -1213,11 +1230,7 @@ CGIT_DATA_PATH=/usr/share/cgit
 --------
 
 Nun lässt sich das Programm mit `make install` übersetzen und
-installieren. Allerdings empfiehlt es sich, `checkinstall`{empty}footnote:[Das Tool `checkinstall` baut
-  automatisch Debian- oder RPM-Pakete, die alle Dateien enthalten, die
-  durch `make install` installiert worden wären. Homepage des
-  Programmes:
-  http://www.asic-linux.com.mx/~izto/checkinstall/]
+installieren. Allerdings empfiehlt es sich, `checkinstall`{empty}{fn105}
 zu verwenden, so dass Sie das Paket ggf. leicht wieder loswerden
 können.
 

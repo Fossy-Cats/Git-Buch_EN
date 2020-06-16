@@ -3,17 +3,30 @@
 [[sec.workflows]]
 = Workflows
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn88: pass:q[footnote:[ \
+Zu empfehlen ist u.a. das dritte Kapitel von _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010). \
+Auch das _Manifesto for Agile Software Development_ hält unter http://agilemanifesto.org/ aufschlussreiche Hinweise bereit.]]
+
+:fn89: footnote:[ \
+Eine Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die benötigte Funktionalität schon beinhaltet.]
+
+:fn90: pass:q[footnote:[ \
+Weitere Anregungen finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
+
+:fn91: pass:q[footnote:[ \
+Jeder Commit referenziert genau einen Tree. \
+Allerdings verhält sich `git archive` verschieden, je nachdem, ob Sie einen Commit (der einen Tree referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des Commits gesetzt.]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Mit _Workflows_ (dt. _Arbeitsabläufe_) werden in der
 Software-Entwicklung in der Regel Strategien bezeichnet, die
 Arbeitsabläufe im Team definieren (z.B. die 'Agile
   Softwareentwicklung'). Wir können uns bei diesem Thema allgemein
 hier nur auf Literaturhinweise
-beschränken.footnote:[Zu empfehlen ist u.a.
-  das dritte Kapitel von _Open Source Projektmanagement_ von
-  Michael Prokop (Open Source Press, München, 2010). Auch das
-  _Manifesto for Agile Software Development_ hält unter
-  http://agilemanifesto.org/ aufschlussreiche Hinweise
-  bereit.]
+beschränken.{fn88}
 
 In Git kann man "`Workflows`" unter zwei Aspekten sehen:
 Abläufe (Kommandosequenzen), die den einzelnen Nutzer betreffen, sowie
@@ -84,11 +97,8 @@ _Beachten Sie die Merge-Richtung_:: Das Kommando `git merge` zieht
 einen oder mehrere Branches in den aktuellen hinein. Beachten Sie
 daher immer die Richtung, in der Sie einen Merge durchführen:
 Integrieren Sie Topic-Branches in die _Mainline_ (den Branch, auf dem
-Sie das stabile Release vorbereiten), nicht umgekehrt.footnote:[Eine
-Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in
-Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch
-überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die
-benötigte Funktionalität schon beinhaltet.]  Auf diese Weise können
+Sie das stabile Release vorbereiten), nicht umgekehrt.{fn89}
+Auf diese Weise können
 Sie auch im Nachhinein noch die Geschichte eines Features von der
 Mainline isolieren (`git log topic` listet nur die relevanten Commits
 auf).
@@ -317,17 +327,12 @@ $ *git branch maint-v0.1.2*
 --------
 
 
-
-
-
 Bedenken Sie aber, dass diese zusätzlichen Maintenance-Branches einen
 erhöhten Wartungsaufwand bedeuten, da jeder neue Bug-Fix geprüft
 werden muss. Ist er auch für eine ältere Version relevant, muss er per
 `git cherry-pick` in den Maintenance-Branch für die Version
 eingebaut werden. Außerdem muss ggf. eine neue Maintenance-Version
 getaggt und veröffentlicht werden.
-
-
 
 
 [[sec.releases-management]]
@@ -341,9 +346,8 @@ Branches integriert und wann neue Releases erstellt werden.
 
 Jedes Projekt hat eigene Anforderungen an den Release-Ablauf.
 Nachfolgend einige generelle Tipps, wie Sie die Entwicklung überwachen
-und den Release-Prozess teilweise automatisieren können.footnote:[Weitere Anregungen finden Sie im
-  Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael
-  Prokop (Open Source Press, München, 2010).]
+und den Release-Prozess teilweise automatisieren können.{fn90}
+
 
 [[sec.release-check-branches]]
 === Aufgaben sondieren
@@ -577,13 +581,8 @@ $ *git archive --format=tar --prefix=wiki2beamer-0.9.3/ HEAD \*
 Als zwingendes Argument erwartet das Kommando einen Commit (bzw. einen
 Tree), der als Archiv gepackt werden soll. Im o.g. Beispiel ist das
 `HEAD`.  Es hätte aber auch eine Commit-ID, eine Referenz
-(Branch oder Tag) oder direkt ein Tree-Objekt sein können.footnote:[Jeder Commit referenziert
-genau einen Tree. Allerdings verhält sich `git archive`
-verschieden, je nachdem, ob Sie einen Commit (der einen Tree
-referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der
-letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees
-die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des
-Commits gesetzt.]
+(Branch oder Tag) oder direkt ein Tree-Objekt sein können.{fn91}
+
 
 Auch hier können Sie `git describe` einsetzen, nachdem Sie
 einen Release-Commit getaggt haben. Bei einem geeigneten Tag-Schema

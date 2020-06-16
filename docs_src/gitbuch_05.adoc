@@ -4,6 +4,90 @@
 = Distributed Git
 // Verteiltes Git
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn65: pass:q[footnote:[ \
+Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in xref:gitbuch_11.adoc#sec.github[] beschreiben, verwaltet.]]
+
+:fn66: pass:q[footnote:[ \
+Genau genommen checkt Git nicht "`blind`" den Branch `master` aus. Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.]]
+
+:fn67: pass:q[footnote:[ \
+Weitere Informationen zu dem Git-Protokoll finden Sie in xref:gitbuch_07.adoc#sec.protokolle[] (siehe auch xref:gitbuch_03.adoc#sec.branch-refs[]).]]
+
+:fn68: pass:q[footnote:[ \
+Eine vollständige Auflistung der möglichen URLs finden Sie in der Man-Page `git-clone(1)` im Abschnitt "`Git URLs`".]]
+
+:fn69: pass:q[footnote:[ \
+Der Stern (`*`) wird wie bei der Shell auch als _Wildcard_ interpretiert und zieht alle Dateien in einem Verzeichnis in Betracht.]]
+
+:fn70: footnote:[ \
+Remote-Tracking-Branches sind nur dazu gedacht, die Branches in einem Remote zu verfolgen. \
+Das Auschecken eines Remote-Tracking-Branches führt zu einem Detached-Head-State samt entsprechender Warnung.]
+
+:fn71: pass:q[footnote:[ \
+Das Mergen von `origin/master` nach `master` ist ein ganz normaler Merge-Vorgang. \
+Im obigen Beispiel wurden in der Zwischenzeit keine weiteren lokalen Commits getätigt und von daher auch keine Merge-Commits erstellt. \
+Der `master` wurde per Fast-Forward auf `origin/master` vorgerückt.]]
+
+:fn72: pass:q[footnote:[ \
+Das "`Forcieren`" findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. \
+Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe xref:gitbuch_07.adoc#sec.gitolite-config[]).]]
+
+:fn73: pass:q[footnote:[ \
+Dies ist das Standard-Verhalten seit Version 2.0 (`push.default=simple`). \
+Frühere Git-Versionen verwendeten ohne weitere Konfiguration die Einstellung `push.default=matching`, die besonders für Anfänger fehlerträchtig sein kann.]]
+
+:fn74: pass:q[footnote:[ \
+Im Git-Jargon werden solche Remotes als _Anonymous_ bezeichnet.]]
+
+:fn75: pass:q[footnote:[ \
+Die Syntax `<tag>^{}` dereferenziert ein Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das das Tag zeigt.]]
+
+:fn76: pass:q[footnote:[ \
+Zum Beispiel mit dem Alias `push = push --tags`.]]
+
+:fn77: pass:q[footnote:[ \
+Wie Sie die Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in der Man-Page `git-format-patch(1)`.]]
+
+:fn78: pass:a,q[footnote:[ \
+Die Zahl `n` ist die Gesamtzahl an Patches, die exportiert wurden, und `m` ist die Nummer des aktuellen Patches. \
+In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.{empty}{nbsp}``[PATCH 3/5\]``.]]
+
+:fn79: footnote:[ \
+Sie sehen in <<fig.mail-thread>> eine etwas andere Reihenfolge der Patches als in den bisherigen Beispielen. \
+Das liegt daran, dass die erste Version der Patch-Serie aus nur zwei Patches bestand, und das dritte erst nach dem Feedback von der Git-Mailingliste dazukam. \
+Die Serie wurde dann erweitert und per Rebase auf den Stand gebracht, wie sie in diesem Abschnitt abgebildet ist.]
+
+:fn80: pass:q[footnote:[ \
+Sofern auf Ihrem System kein _Mail Transfer Agent_ (MTA) installiert bzw. für den E-Mail-Versand konfiguriert ist, können Sie auch einen externen SMTP-Server verwenden. \
+Passen Sie dafür die in der Sektion "`Use GMail as the SMTP server`" der bereits erwähnten Man-Page beschriebenen Einstellungen an.]]
+
+:fn81: footnote:[http://dpaste.com/]
+
+:fn82: footnote:[https://gist.github.com/]
+
+:fn83: pass:q[footnote:[ \
+Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".]]
+
+:fn84: pass:q[footnote:[ \
+Für das Git-Projekt finden Sie diese unter: `Documentation/SubmittingPatches` im Quellcode-Repository.]]
+
+:fn85: pass:q[footnote:[ \
+Die `libgit.a` wird beim Kompilieren von Git erzeugt und versammelt alle Funktionen, die in Git "`öffentlich`" sind. Sie ist allerdings nicht _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt verwendet werden kann. \
+Diese Einschränkungen hat `libgit2` nicht.]]
+
+:fn86: pass:q[footnote:[ \
+Das Kommando ist kein Standard-Kommando von Git, wird aber von einigen Linux-Distributionen (z.B. Debian, Archlinux) sowie im Windows-Git-Installer automatisch mit installiert. \
+Überprüfen Sie durch einen Aufruf von `git subtree`, ob das Kommando installiert ist. \
+Falls nicht, können Sie das Script unter `/usr/share/doc/git/contrib/subtree/` suchen, oder aus dem Quellcode von Git (unter `contrib/subtree`) kopieren.]]
+
+:fn87: pass:q[footnote:[ \
+Achten Sie daher darauf, dass Sie mit dieser Technik nur Inhalte einbinden, die Sie auch weitergeben _dürfen_. \
+Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt, aber nicht die Weiterverbreitung (engl. _Distribution_).]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Git ist ein _verteiltes_ Versionskontrollsystem. Um diese
 Eigenschaft zu verstehen, ist zunächst ein kurzer Exkurs in die Welt
 der _zentralen_ Versionsverwaltung notwendig: Wie der Name schon
@@ -92,12 +176,7 @@ Die wichtigsten Kommandos im Überblick:
 Den ersten Befehl in Zusammenhang mit den Remote-Repositories haben
 Sie bereits kennengelernt: `git clone`. Hier illustrieren wir
 den Klonvorgang mit unserem
-"`Git-Spickzettel`"{empty}footnote:[Wir haben den
-  Spickzettel im Zusammenhang mit verschiedenen Git-Workshops
-  erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird
-  mit der Git-Hosting-Plattform Github, die wir in
-  <<sec.github>> beschreiben,
-  verwaltet.]:
+"`Git-Spickzettel`"{empty}{fn65}:
 
 [subs="macros,quotes"]
 --------
@@ -116,10 +195,8 @@ neue Repository geklont wird (`Initialized empty Git repository
   in /tmp/test/git-cheatsheet-de/.git/`), sowie die Bestätigung, dass
 alle Objekte erfolgreich empfangen wurden (`Receiving objects:
   100% (77/77), 132.44 KiB, done.`). Ist der Klonvorgang erfolgreich,
-wird der `master`-Branch ausgecheckt,footnote:[Genau genommen checkt Git nicht
-  "`blind`" den Branch `master` aus. Tatsächlich schaut
-  Git nach, welchen Branch der `HEAD` der Gegenseite
-  referenziert, und checkt diesen aus.]  und der Working Tree samt
+wird der `master`-Branch ausgecheckt,{fn66}
+und der Working Tree samt
 Repository befindet sich in dem Verzeichnis
 `git-cheatsheet-de`.
 
@@ -207,14 +284,10 @@ wird daher häufig in einer SSH-Verbindung übertragen. Dadurch wird
 sowohl eine effiziente (Git-Protokoll) als auch sichere (SSH)
 Übertragung gewährleistet. HTTP(S) kommt dann zum Einsatz, wenn eine
 Firewall sehr restriktiv konfiguriert ist und die zugelassenen Ports
-drastisch eingeschränkt sind.footnote:[Weitere Informationen zu dem
-Git-Protokoll finden Sie in <<sec.protokolle>> (siehe auch
-<<sec.branch-refs>>).]
+drastisch eingeschränkt sind.{fn67}
 
 Im Allgemeinen enthält eine valide URL das Übertragungsprotokoll, die
-Adresse des Servers sowie den Pfad zu dem Repository:footnote:[Eine
-vollständige Auflistung der möglichen URLs finden Sie in der Man-Page
-`git-clone(1)` im Abschnitt "`Git URLs`".]
+Adresse des Servers sowie den Pfad zu dem Repository:{fn68}
 
 * `ssh://[user@]gitbu.ch[:port]/pfad/zum/repo.git/`
 
@@ -463,9 +536,8 @@ einem optionalen Plus (+). Das Beispiel ist so konfiguriert,
 dass alle Branches, also alle Referenzen, die im Remote unter
 `refs/heads` gespeichert sind, lokal unter
 `refs/remotes/origin`
-landen.footnote:[Der Stern (`*`) wird
-  wie bei der Shell auch als _Wildcard_ interpretiert und zieht
-  alle Dateien in einem Verzeichnis in Betracht.] Somit wird
+landen.{fn69}
+Somit wird
 z.B. der Branch `master` aus dem Remote
 `origin` (`refs/heads/master`) lokal als
 `refs/remotes/origin/master` gespeichert.
@@ -583,10 +655,7 @@ Bisher haben wir nur besprochen, wie Sie die Veränderung in einem
 Remote verfolgen. Wenn Sie selbst Veränderungen vornehmen, die auf
 einem der Branches im Remote aufbauen, müssen Sie zuerst einen lokalen
 Branch erstellen, in dem Sie Commits machen
-dürfen:footnote:[Remote-Tracking-Branches sind
-  nur dazu gedacht, die Branches in einem Remote zu verfolgen. Das
-  Auschecken eines Remote-Tracking-Branches führt zu einem
-  Detached-Head-State samt entsprechender Warnung.]
+dürfen:{fn70}
 
 [subs="macros,quotes"]
 --------
@@ -622,10 +691,8 @@ Sie noch das Kommando `git push` (<<sec.hochladen>>).
 Angenommen, Sie wollen Commits aus dem Remote-Repository in Ihren lokalen Branch
 übernehmen. Dazu führen Sie zuerst ein `git fetch` aus, um neue Commits
 zu holen, und anschließend mergen Sie die Veränderung aus dem entsprechenden
-Remote-Tracking-Branch:footnote:[Das Mergen von `origin/master` nach `master` ist ein ganz normaler
-Merge-Vorgang. Im obigen Beispiel wurden in der Zwischenzeit keine weiteren
-lokalen Commits getätigt und von daher auch keine Merge-Commits erstellt. Der
-`master` wurde per Fast-Forward auf `origin/master` vorgerückt.]
+Remote-Tracking-Branch:{fn71}
+
 
 [subs="macros,quotes"]
 --------
@@ -998,7 +1065,8 @@ fast-forwards_ section of \_git push --help' for details.
 
 Dieses Verhalten setzen Sie entweder durch ein vorangestelltes Plus
 (`+`) im Refspec oder durch die Option `--force` bzw.
-kurz `-f` außer Kraft:{empty}footnote:[Das "`Forcieren`" findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe <<sec.gitolite-config>>).]
+kurz `-f` außer Kraft:{empty}{fn72}
+
 
 [subs="macros,quotes"]
 --------
@@ -1064,11 +1132,7 @@ To pass:quotes[git@github.com]:esc/git-cheatsheet-de.git
    79170e8..003e3c7  master -&gt; master
 --------
 
-Git geht standardmäßig so vor:footnote:[Dies ist das Standard-Verhalten
-seit Version 2.0 (`push.default=simple`). Frühere Git-Versionen
-verwendeten ohne weitere Konfiguration die Einstellung
-`push.default=matching`, die besonders für Anfänger fehlerträchtig sein
-kann.]
+Git geht standardmäßig so vor:{fn73}
 Wenn Sie kein Remote angeben, dann sucht Git die Upstream-Konfiguration
 des aktuellen Branches heraus. Sofern der Name des Branches auf der
 Remote-Seite mit dem Namen des lokalen Branches übereinstimmt, wird die
@@ -1353,8 +1417,7 @@ $ *git remote rm example*
 
 Remotes müssen nicht zwingend per `git remote add` konfiguriert
 werden. Sie können einfach die URL auf der Kommandozeile
-verwenden,footnote:[Im Git-Jargon werden
-  solche Remotes als _Anonymous_ bezeichnet.] zum Beispiel, um die
+verwenden,{fn74} zum Beispiel, um die
 Objekte und Referenzen für einen Bugfix herunterzuladen:
 
 [subs="macros,quotes"]
@@ -1489,9 +1552,7 @@ b9aa901856cee7ad16737343f6a372bb37871258    refs/tags/v1.7.1-rc1\^{}
 --------
 
 Git gibt die SHA-1-Summen der Tags und deren
-Inhalt{empty}footnote:[Die Syntax `<tag>^{}` dereferenziert ein
-Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das
-das Tag zeigt.]  aus.
+Inhalt{empty}{fn75} aus.
 
 [[sec.tags-hochladen]]
 === Tags hochladen
@@ -1527,9 +1588,8 @@ Zuletzt sind zwei Versionen des Tags -- die jeweils auf
 unterschiedliche Commits zeigen -- im Umlauf.  Keine besonders
 hilfreiche Situation. Wirklich verwirrend wird es, wenn sowohl Carlos
 als auch Beatrice dasselbe, öffentliche Repository verwenden und
-standardmäßig alle Tags hochladen.footnote:[Zum
-  Beispiel mit dem Alias `push = push --tags`.] Das Tag
-"`springt`" quasi im öffentlichen Repository zwischen zwei
+standardmäßig alle Tags hochladen.{fn76}
+Das Tag "`springt`" quasi im öffentlichen Repository zwischen zwei
 Commits hin und her; welche Version Sie mit einem Klon erhalten, hängt
 davon ab, wer zuletzt gepusht hat.
 
@@ -1598,12 +1658,11 @@ Das Kommando `git format-patch` exportiert einen oder mehrere
 Commits als Patches im Unix-Mailbox-Format und gibt pro Commit eine
 Datei aus. Die Dateinamen bestehen aus einer sequenziellen
 Nummerierung und der Commit-Message und enden auf
-`.patch`.footnote:[Wie Sie die
-  Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in
-  der Man-Page `git-format-patch(1)`.] Als Argument erwartet das
-  Kommando entweder einen einzelnen Commit oder eine Auswahl wie
-  z.B. `A..B`. Geben Sie einen einzelnen Commit an, wertet Git dies als
-  die Auswahl von dem Commit bis zum `HEAD`.
+`.patch`.{fn77}
+Als Argument erwartet das
+Kommando entweder einen einzelnen Commit oder eine Auswahl wie
+z.B. `A..B`. Geben Sie einen einzelnen Commit an, wertet Git dies als
+die Auswahl von dem Commit bis zum `HEAD`.
 
 .Drei Commits nach  `master` als Patches formatieren
 image::gitk-screen-format-patch.png[id="fig.gitk-screen-format-patch",scaledwidth="90%",width="90%"]
@@ -1648,11 +1707,8 @@ Die generierten Dateien enthalten unter anderem die Header-Felder
 als E-Mail dienen. Diese Felder werden anhand der im Commit
 vorhandenen Information -- Autor, Datum und Commit-Message -- vervollständigt. Des weiteren enthalten die Dateien eine
 Diff-Stat-Zusammenfassung sowie die Veränderungen selbst als Patch im
-Unified-Diff-Format. Den Zusatz `[PATCH m/n]`{empty}footnote:[Die Zahl `n` ist
-  die Gesamtzahl an Patches, die exportiert wurden, und `m` ist
-  die Nummer des aktuellen Patches. In der Betreff-Zeile des dritten
-  Patch von fünf steht dann z.B.{empty}{nbsp}`[PATCH 3/5]`.] in der
-Betreff-Zeile nutzt Git später, um die Patches in der richtigen
+Unified-Diff-Format. Den Zusatz `[PATCH m/n]`{empty}{fn78}
+in der Betreff-Zeile nutzt Git später, um die Patches in der richtigen
 Reihenfolge anzuwenden.
 
 Es folgt ein entsprechender Ausschnitt:
@@ -1754,14 +1810,7 @@ Das Kommando `git send-email` setzt die Felder
 `Message-Id` sowie `In-Reply-To`. Damit sehen alle
 E-Mails nach der ersten wie Antworten auf diese aus und werden dadurch
 von den meisten Mail-Programmen als zusammenhängender _Thread_
-angezeigt:footnote:[Sie sehen in
-  <<fig.mail-thread>> eine etwas andere Reihenfolge der
-  Patches als in den bisherigen Beispielen. Das liegt daran, dass die
-  erste Version der Patch-Serie aus nur zwei Patches bestand, und das
-  dritte erst nach dem Feedback von der Git-Mailingliste dazukam. Die
-  Serie wurde dann erweitert und per Rebase auf den Stand gebracht,
-  wie sie in diesem Abschnitt abgebildet ist.]
-
+angezeigt:{fn79}
 
 
 .Patch-Serie als Mail-Thread
@@ -1770,12 +1819,7 @@ image::mail-thread.png[id="fig.mail-thread",scaledwidth="100%",width="100%"]
 Das Kommando können Sie über Optionen -- beispielsweise `--to`, `--from` und `--cc` -- anpassen (siehe die Man-Page `git-send-email(1)`).  Die
 unbedingt benötigten Angaben werden aber, sofern nicht angegeben,
 interaktiv abgefragt -- vor allem wird eine Adresse benötigt, an die
-die Patches geschickt werden sollen.footnote:[Sofern auf Ihrem System kein 'Mail
-    Transfer Agent' (MTA) installiert bzw. für den E-Mail-Versand
-  konfiguriert ist, können Sie auch einen externen SMTP-Server
-  verwenden.  Passen Sie dafür die in der Sektion ``Use GMail as
-  the SMTP server__ der bereits erwähnten Man-Page beschriebenen
-  Einstellungen an.]
+die Patches geschickt werden sollen.{fn80}
 
 Bevor die E-Mails tatsächlich versendet werden,
 wird Ihnen der Header nochmals angezeigt; Sie sollten überprüfen, ob
@@ -1791,9 +1835,9 @@ oder die Option `--dry-run` verwenden.
 Alternativ zu `git send-email` können Sie den Inhalt der
 Dateien in einen der vielen online _Pastebin_-Dienste, zum
 Beispiel
-_dpaste_{empty}footnote:[http://dpaste.com/]
+_dpaste_{empty}{fn81}
 oder
-_gist.github_{empty}footnote:[https://gist.github.com/]
+_gist.github_{empty}{fn82}
 einwerfen und den Verweis darauf per IRC oder Jabber verschicken.
 Zum Einpflegen lädt sich der Empfänger den Inhalt in eine Datei
 herunter und übergibt diese an `git am` (s.u.).
@@ -1803,7 +1847,8 @@ Wenn Sie Ihren bevorzugten _Mail User Agent_ (MUA) (z.B. Thunderbird,
 Kmail o.a.) verwenden wollen, um Patches zu verschicken, gibt es
 eventuell einiges zu beachten. Manche MUAs sind berüchtigt, Patches so
 zu verstümmeln, dass sie Git nicht mehr als solche
-erkennt.{empty}footnote:[Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".]
+erkennt.{empty}{fn83}
+
 
 [[sec.patches-einpflegen]]
 === Patches einpflegen
@@ -1880,9 +1925,7 @@ Signed-off-by: Valentin Haenel <valentin.haenel@gmx.de>
 Das Feature ist vor allem bei größeren Projekten von Vorteil, meist
 haben diese auch Richtlinien, wie Commits zu formatieren sind und wie
 sie am besten verschickt
-werden.footnote:[Für das Git-Projekt
-  finden Sie diese unter: `Documentation/SubmittingPatches` im
-  Quellcode-Repository.]
+werden.{fn84}
 
 Beim Einpflegen von Patches mit `git am` kann es zu Konflikten
 kommen, z.B. wenn die Patches auf einer älteren Version beruhen und
@@ -1997,12 +2040,8 @@ verbunden. Beides hat Vor- und Nachteile.
 Wir betrachten beide Techniken beispielhaft, indem wir ein fiktionales
 Projekt erstellen, das die `libgit2` benötigt. Die Bibliothek
 bietet, ähnlich der `libgit.a`, eine API, um Git-Repositories
-zu untersuchen und zu verändern.footnote:[Die `libgit.a` wird beim
-  Kompilieren von Git erzeugt und versammelt alle Funktionen, die in
-  Git "`öffentlich`" sind. Sie ist allerdings nicht
-  _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt
-  verwendet werden kann. Diese Einschränkungen hat `libgit2`
-  nicht.]  Die in C geschriebene Bibliothek kann ihre Funktionen
+zu untersuchen und zu verändern.{fn85}
+Die in C geschriebene Bibliothek kann ihre Funktionen
 u.a. auch nach Lua, Ruby, Python, PHP und JavaScript herausreichen.
 
 
@@ -2195,13 +2234,7 @@ Ebene des Trees `libgit2/`, der wiederum Teil eines
 Repositorys ist.
 
 Git verfügt über ein Kommando, um Subtree-Merges zu
-verwalten.footnote:[Das Kommando ist kein Standard-Kommando von Git,
-wird aber von einigen Linux-Distributionen (z.B. Debian, Archlinux)
-sowie im Windows-Git-Installer automatisch mit installiert. Überprüfen
-Sie durch einen Aufruf von `git subtree`, ob das Kommando installiert
-ist. Falls nicht, können Sie das Script unter `/usr/share/doc/git/contrib/subtree/`
-suchen, oder aus dem Quellcode von Git (unter `contrib/subtree`)
-kopieren.]
+verwalten.{fn86}
 Dabei müssen Sie immer explizit durch `-P <prefix>` angeben, auf welches
 Unterverzeichnis Sie sich beziehen. Um die `libgit2` in Version 0.8.0 zu
 importieren, verwenden Sie:
@@ -2230,10 +2263,7 @@ Multi-Root-Repositories in <<sec.multi-root>>).
 
 Die Dateien liegen nun untrennbar mit dem Projekt verbunden vor. Ein
 `git clone` dieses Repositorys würde auch alle Dateien
-unterhalb von `libgit2` übertragen.footnote:[Achten Sie daher darauf, dass Sie mit
-  dieser Technik nur Inhalte einbinden, die Sie auch weitergeben
-  _dürfen_. Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt,
-  aber nicht die Weiterverbreitung (engl. _Distribution_).]
+unterhalb von `libgit2` übertragen.{fn87}
 
 Was passiert nun, wenn Sie ein "`Upgrade`" auf
 `v0.10.0` machen wollen? Verwenden Sie dafür das `pull`-Kommando von

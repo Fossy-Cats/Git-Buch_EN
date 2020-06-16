@@ -4,6 +4,24 @@
 = Introduction and First Steps
 // Einführung und erste Schritte
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn8: footnote:[ \
+Auch wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet werden.]
+
+:fn9: pass:q[footnote:[ \
+Sie können die nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder entsprechend relativ zu Ihrer gesetzten Umgebungsvariable `$XDG_CONFIG_HOME`).]]
+
+:fn10: pass:q[footnote:[ \
+Sofern vorhanden, werden auch Einstellungen aus `/etc/gitconfig` eingelesen (mit niedrigster Priorität). \
+Setzen kann man Optionen in dieser Datei über den Parameter `--system`, wofür aber Root-Rechte notwendig sind. \
+Systemweit Git-Optionen zu setzen ist aber unüblich.]]
+
+:fn11: pass:q[footnote:[ \
+"`i18n`" ist eine gebräuchliche Abkürzung für das Wort "`Internationalization`" -- die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen dem ersten und dem letzten Buchstaben des Wortes.]]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Das folgende Kapitel bietet eine kompakte Einführung in Grundbegriffe
 und Konfigurationseinstellungen von Git. Ein kleines Beispielprojekt
 zeigt, wie Sie eine Datei mit Git unter Versionsverwaltung stellen und
@@ -321,16 +339,13 @@ $ *git commit -m "Erste Version"*
  create mode 100644 hello.pl
 --------
 
+
 Git bestätigt, dass der Vorgang erfolgreich abgeschlossen wurde und
 die Datei von nun an verwaltet wird. Die etwas kryptische Ausgabe
 bedeutet soviel wie: Git hat den initialen Commit
 (`root-commit`) mit der entsprechenden Nachricht erstellt. Es
 wurde eine Zeile in einer Datei hinzugefügt und die Datei mit den
-Unix-Rechten `0644` angelegt.{empty}footnote:[Auch
-  wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht
-  dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem
-  Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet
-  werden.]
+Unix-Rechten `0644` angelegt.{empty}{fn8}
 
 Wie Sie mittlerweile sicher festgestellt haben, ist `git
   status` ein unerlässliches Kommando in der täglichen Arbeit -- wir
@@ -482,16 +497,13 @@ die in neueren Versionen standardmäßig bereits eingeschaltet sind und
 die es Ihnen erleichtern, die Ausgabe von Git-Kommandos zu erfassen,
 sowie kleine Aliase (Abkürzungen) für häufig benötigte Kommandos.
 
+
 Git konfigurieren Sie über das Kommando `git config`. Die
 Konfiguration wird einem Format ähnlich einer INI-Datei gespeichert.
 Ohne Angabe weiterer Parameter gilt die Konfiguration nur für das
 aktuelle Repository (`.git/config`). Mit der Option `--global` wird sie in
 der Datei `.gitconfig` im Home-Verzeichnis des Nutzers abgelegt
-und gilt dann für alle Repositories.{empty}footnote:[Sie können die
-nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen
-Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder
-entsprechend relativ zu Ihrer gesetzten Umgebungsvariable
-`$XDG_CONFIG_HOME`).]
+und gilt dann für alle Repositories.{empty}{fn9}
 
 Wichtige Einstellungen, die Sie immer vornehmen sollten, sind Name
 und E-Mail-Adresse des Benutzers:
@@ -531,16 +543,13 @@ natürlich ohne den Zusatz `--global`):
 $ *git config user.email pass:quotes[maintainer@project.example.com]*
 --------
 
+
 Bei der Abfrage einer Option geht Git so vor, dass es zuerst die
 Einstellung im aktuellen Repository nutzt, sofern vorhanden,
 andernfalls die aus der globalen `.gitconfig`; gibt es auch
 diese nicht, wird auf den Default-Wert
-zurückgegriffen.footnote:[Sofern vorhanden,
-  werden auch Einstellungen aus `/etc/gitconfig` eingelesen
-  (mit niedrigster Priorität). Setzen kann man Optionen in dieser
-  Datei über den Parameter `--system`, wofür aber Root-Rechte
-  notwendig sind. Systemweit Git-Optionen zu setzen ist aber
-  unüblich.]  Letzteren erhält man für alle Optionen in der Man-Page
+zurückgegriffen.{fn10}
+Letzteren erhält man für alle Optionen in der Man-Page
 `git-config`. Eine Liste aller gesetzten Einstellungen fragen
 Sie per `git config -l` ab.
 
@@ -640,10 +649,7 @@ Sofern nicht anders eingestellt, nimmt Git für alle Texte, also vor
 allem für die Namen der Autoren und die Commit-Nachricht, UTF-8 als
 Zeichenkodierung an. Wollen Sie
 ein anderes Encoding, sollten Sie dies explizit
-konfigurieren:footnote:["`i18n`" ist eine
-  gebräuchliche Abkürzung für das Wort "`Internationalization`" --
-  die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen
-  dem ersten und dem letzten Buchstaben des Wortes.]
+konfigurieren:{fn11}
 
 
 [subs="macros,quotes"]

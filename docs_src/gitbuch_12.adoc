@@ -4,6 +4,17 @@
 [[sec.installation]]
 = Installation
 
+// >>> footnotes definitions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+:fn151: footnote:[https://www.kernel.org/pub/software/scm/git/]
+
+:fn152: footnote:[https://code.google.com/p/git-osx-installer/]
+
+// @FIXME: LINK NOW REDIRECTS TO NEW URL (https://gitforwindows.org)
+:fn153: footnote:[https://msysgit.github.io/]
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 Die Installation von Git ist einfach und geht schnell vonstatten, da
 für die meisten Systeme bereits vorkonfigurierte Pakete bereitgestellt
 werden. Der Vollständigkeit halber wollen wir aber die wichtigsten
@@ -101,7 +112,7 @@ Ausdrücke) und `openssl` (Verschlüsselung/Hashing) ab. Deren Sourcen müssen
 Sie ggf. vorher kompilieren und die Bibliotheken entsprechend
 installieren, bevor Sie fortfahren.
 
-Laden Sie zuerst den Tarball der aktuellen Git Version herunter{empty}footnote:[http://www.kernel.org/pub/software/scm/git/]
+Laden Sie zuerst den Tarball der aktuellen Git Version herunter{empty}{fn151}
 und entpacken Sie ihn:
 
 [subs="macros,quotes"]
@@ -128,7 +139,7 @@ Mit `make prefix=<praefix>` können Sie Git nach
 == Mac OS X
 
 Das Projekt _Git for OS X_ stellt ein Installationsprogramm im
-Diskimage-Format (DMG) zur Verfügung.footnote:[http://code.google.com/p/git-osx-installer/]
+Diskimage-Format (DMG) zur Verfügung.{fn152}
 Sie können es also wie gewohnt installieren.
 
 [[sec.windows]]
@@ -136,6 +147,6 @@ Sie können es also wie gewohnt installieren.
 
 Das Projekt _Git for Windows_ stellt ein Installationsprogramm für
 Microsoft Windows zur Verfügung: _msysGit_. Sie können das
-Programm herunterladen{empty}footnote:[https://msysgit.github.io/]
+Programm herunterladen{empty}{fn153}
 und wie gewohnt installieren.
 
