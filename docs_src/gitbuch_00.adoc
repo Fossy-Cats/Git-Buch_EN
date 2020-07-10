@@ -92,7 +92,7 @@ Many projects, some of them very large, now use Git and benefit from the flexibi
 
 
 
-[[sec.leser]]
+[[sec.reader]]
 == Who is this book intended for?
 // An wen richtet sich dieses Buch?
 
@@ -148,7 +148,7 @@ Although most of the examples and techniques presented refer to source code, the
 
 
 
-[[sec.struktur]]
+[[sec.structure]]
 == How to read the book?
 // Wie ist das Buch zu lesen?
 
@@ -254,7 +254,7 @@ An outlook on the hosting service _Github_ and a detailed description of the str
 
 
 
-[[sec.konventionen]]
+[[sec.conventions]]
 == Conventions
 // Konventionen
 
@@ -354,7 +354,7 @@ The process takes a few minutes, depending on the connection speed and server lo
 
 
 //\label{sec:hilfe}
-[[sec.doku]]
+[[sec.docs]]
 == Documentation and help
 // Dokumentation und Hilfe
 
@@ -431,7 +431,7 @@ Also worth mentioning is Stack Overflow{fn7}, a platform by programmers for prog
 
 
 
-[[sec.kontakt]]
+[[sec.contact]]
 == Downloads and contact
 // Downloads und Kontakt
 
@@ -453,7 +453,7 @@ kontakt@gitbu.ch, valentin@gitbu.ch bzw. julius@gitbu.ch.
 If you have any comments, please contact us by e-mail at one of the following addresses: kontakt@gitbu.ch, valentin@gitbu.ch or julius@gitbu.ch.
 
 
-[[sec.dank]]
+[[sec.acknowledgements]]
 == Acknowledgements
 // Danksagungen
 
@@ -491,7 +491,7 @@ Valentin Haenel and Julius Plenz - Berlin, June 2011
 
 
 
-[[chap.preface-2te-auflage]]
+[[chap.preface-2nd-edition]]
 == Preface to the 2nd edition
 // Vorwort zur 2. Auflage
 
@@ -518,7 +518,7 @@ Valentin Haenel and Julius Plenz - Berlin, September 2014
 ////
 
 
-[[chap.preface-cc-ausgabe]]
+[[chap.preface-cc-edition]]
 == Preface to the CreativeCommons edition
 // Vorwort zur CreativeCommons-Ausgabe
 
