@@ -376,40 +376,31 @@ $ *man git-status*
 
 
 ////
-Auf der
-Git-Webseite{empty}{fn1}
-finden Sie außerdem Links zum offiziellen Tutorial sowie zu anderen
-freien Dokumentationen.
+Auf der Git-Webseite[1] finden Sie außerdem Links zum offiziellen Tutorial sowie zu anderen freien Dokumentationen.
 ////
 
-On the Git website [1] you can also find links to the official tutorial and other free documentation.
+On the Git website{fn1} you can also find links to the official tutorial and other free documentation.
 
 
 
 ////
-Rund um Git hat sich eine große, lebhafte Community gebildet. Die
-Git-Mailingliste{empty}{fn2}
-ist Dreh- und Angelpunkt der Entwicklung: Dort werden Patches eingeschickt, Neuerungen diskutiert und auch Fragen zur Benutzung beantwortet.
+Rund um Git hat sich eine große, lebhafte Community gebildet.
+Die Git-Mailingliste[2] ist Dreh- und Angelpunkt der Entwicklung: Dort werden Patches eingeschickt, Neuerungen diskutiert und auch Fragen zur Benutzung beantwortet.
 Allerdings ist die Liste, mit zuweilen über 100 teils sehr technischen E-Mails am Tag, nur eingeschränkt für Anfänger geeignet.
 ////
 
 A large, vibrant community has formed around Git.
-The Git mailing list [2] is the lynchpin of the development: patches are sent in, new features are discussed, and questions about using Git are answered.
+The Git mailing list{fn2} is the lynchpin of the development: patches are sent in, new features are discussed, and questions about using Git are answered.
 However, the list, with sometimes more than 100 emails a day, some of them very technical, is only suitable for beginners to a limited extent.
 
 
 
 ////
 Das
-Git-Wiki{empty}{fn3}
-enthält neben Dokumentation auch eine umfangreiche Linksammlung der
-Tools, die auf Git
-basieren{empty}{fn4},
-sowie
-FAQs{empty}{fn5}.
+Git-Wiki [3] enthält neben Dokumentation auch eine umfangreiche Linksammlung der Tools, die auf Git basieren [4], sowie FAQs [5].
 ////
 
-The Git Wiki [3] contains documentation as well as an extensive link collection of tools based on Git [4] and FAQs [5].
+The Git Wiki{fn3} contains documentation as well as an extensive link collection of tools based on Git{fn4} and FAQs{fn5}.
 
 
 
@@ -423,24 +414,20 @@ Alternatively, the #git IRC channel on the Freenode network provides a place to 
 
 
 ////
-Umsteigern aus dem Subversion-Umfeld ist der 'Git-SVN Crash
-  Course'{empty}{fn6}
-zu empfehlen, eine Gegenüberstellung von Git- und Subversion-Kommandos, mit der Sie Ihr Subversion-Wissen in die Git-Welt übertragen.
+Umsteigern aus dem Subversion-Umfeld ist der 'Git-SVN Crash Course' [6] zu empfehlen, eine Gegenüberstellung von Git- und Subversion-Kommandos, mit der Sie Ihr Subversion-Wissen in die Git-Welt übertragen.
 ////
 
-For those switching from the Subversion environment, the Git-SVN Crash Course [6] is recommended, a comparison of Git and Subversion commands that will help you transfer your Subversion knowledge to the Git world.
+For those switching from the Subversion environment, the Git-SVN Crash Course{fn6} is recommended, a comparison of Git and Subversion commands that will help you transfer your Subversion knowledge to the Git world.
 
 
 
 
 ////
-Außerdem sei auf
-_Stack Overflow_{empty}{fn7}
-hingewiesen, eine Plattform von Programmierern für Programmierer, auf
+Außerdem sei auf _Stack Overflow_ [7] hingewiesen, eine Plattform von Programmierern für Programmierer, auf
 der technische Fragestellungen, u.a. zu Git, erörtert werden.
 ////
 
-Also worth mentioning is Stack Overflow [7], a platform by programmers for programmers, on which technical issues, including Git, are discussed.
+Also worth mentioning is Stack Overflow{fn7}, a platform by programmers for programmers, on which technical issues, including Git, are discussed.
 
 
 

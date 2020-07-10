@@ -14,7 +14,7 @@ footnotes.
 // =============================================================================
 
 // tag::Preface[]
-:fn1: {wj}footnote:[https://git-scm.com/]
+:fn1: {wj}footnote:[https://git-scm.com]
 :fn2: {wj}footnote:[http://vger.kernel.org/vger-lists.html#git]
 :fn3: {wj}footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
 :fn4: {wj}footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools]
