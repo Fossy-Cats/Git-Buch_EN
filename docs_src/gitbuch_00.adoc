@@ -63,14 +63,13 @@ Since version 1.5 (February 2007), Git offers a new and tidier user interface an
 
 ////
 Die Grundkonzepte sind bis in aktuelle Versionen dieselben geblieben: Allen voran das Objektmodell und der Index, wesentliche Merkmale, die Git von anderen VCS unterscheidet.
-Die Unix-Philosophie "`Ein
-Tool, ein Job`" findet sich auch hier konsequent umgesetzt; die Subkommandos von Git sind jeweils eigenständige, ausführbare Programme oder Scripte.
-Auch in der 2.0er-Version sind noch (wie zu Beginn der Entwicklung) einige Subkommandos mit Shell-Scripten implementiert (z.B.{empty}{nbsp}`git pull`).
+Die Unix-Philosophie „Ein Tool, ein Job“ findet sich auch hier konsequent umgesetzt; die Subkommandos von Git sind jeweils eigenständige, ausführbare Programme oder Scripte.
+Auch in der 2.0er-Version sind noch (wie zu Beginn der Entwicklung) einige Subkommandos mit Shell-Scripten implementiert (z.B. `git pull`).
 ////
 
 The basic concepts have remained the same up to current versions: First and foremost, the object model and index, key features that distinguish Git from other VCS.
 The Unix philosophy of "`one tool, one job`" is also consistently applied here; the subcommands of Git are each independent, executable programs or scripts.
-Even in the 2.0 version, some subcommands are still implemented with shell scripts (e.g. git pull).
+Even in the 2.0 version, some subcommands are still implemented with shell scripts (e.g. `git pull`).
 
 
 
@@ -153,62 +152,61 @@ Although most of the examples and techniques presented refer to source code, the
 // Wie ist das Buch zu lesen?
 
 ////
-<<ch.intro>> gibt einen kurzen Überblick: Wie initialisiert man ein Git-Repository und verwaltet Dateien darin?
+Kapitel 1, Einführung und erste Schritte gibt einen kurzen Überblick: Wie initialisiert man ein Git-Repository und verwaltet Dateien darin?
 Außerdem werden die wichtigsten Konfigurationseinstellungen behandelt.
 ////
 
-Chapter 1, Introduction and First Steps gives a brief overview: How do you initialize a git repository and manage files in it?
+<<ch.intro>> gives a brief overview: How do you initialize a git repository and manage files in it?
 It also covers the most important configuration settings.
 
 
 
 
 ////
-<<ch.basics>> behandelt zwei wesentliche Konzepte von Git: Den Index und das Objektmodell.
+Kapitel 2, Grundlagen behandelt zwei wesentliche Konzepte von Git: Den Index und das Objektmodell.
 Neben weiteren wichtigen Kommandos, die dort vorgestellt werden, ist das Verständnis dieser beiden Konzepte von großer Wichtigkeit für den sicheren Umgang mit Git.
 ////
 
-Chapter 2, Fundamentals covers two key concepts of Git: the index and the object model.
+<<ch.basics>> covers two key concepts of Git: the index and the object model.
 Along with other important commands that are introduced there, understanding these two concepts is essential to the safe use of Git.
 
 
 
 ////
-In <<chap.praxis>> geht es um praktische Aspekte der Versionsverwaltung.
+In Kapitel 3, Praktische Versionsverwaltung geht es um praktische Aspekte der Versionsverwaltung.
 Vor allem werden die in Git so zentralen Branches und Merges behandelt.
 Auch auf die Behebung von Merge-Konflikten wird detailliert eingegangen.
 ////
 
-Chapter 3, Practical Version Control, discusses practical aspects of version control.
+<<chap.praxis>> discusses practical aspects of version control.
 In particular, it covers the branches and merges that are so central to Git.
 It also discusses how to resolve merge conflicts in detail.
 
 
 
 ////
-<<ch.advanced>> setzt sich mit fortgeschrittenen Konzepten auseinander, allen voran das Rebase-Kommando, ein unerlässliches Werkzeug für jeden Git-Profi.
+Kapitel 4, Fortgeschrittene Konzepte setzt sich mit fortgeschrittenen Konzepten auseinander, allen voran das Rebase-Kommando, ein unerlässliches Werkzeug für jeden Git-Profi.
 Es folgen weitere wichtige Kommandos, wie Blame, Stash und Bisect.
 ////
 
-Chapter 4, Advanced Concepts discusses advanced concepts, with a special focus on the Rebase command, an essential tool for any git professional.
+<<ch.advanced>> discusses advanced concepts, with a special focus on the Rebase command, an essential tool for any git professional.
 Other important commands follow, including Blame, Stash, and Bisect.
 
 
 
 ////
-Erst <<sec.distributed-git>> beschäftigt sich mit den verteilten Aspekten von Git: Wie kann man Veränderungen zwischen Repositories austauschen, wie können Entwickler zusammenarbeiten?
-Das anschließende <<sec.workflows>> gibt außerdem einen Überblick zu Strategien, wie Sie Entwicklungsarbeit in einem Projekt koordinieren.
+Erst Kapitel 5, Verteiltes Git beschäftigt sich mit den verteilten Aspekten von Git: Wie kann man Veränderungen zwischen Repositories austauschen, wie können Entwickler zusammenarbeiten?
+Das anschließende Kapitel 6, Workflows gibt außerdem einen Überblick zu Strategien, wie Sie Entwicklungsarbeit in einem Projekt koordinieren.
 ////
 
-Only Chapter 5, Distributed Git, looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
-Then Chapter 6, Workflows, provides an overview of strategies for coordinating development work in a project.
+Only <<sec.distributed-git>> looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
+Then <<sec.workflows>> provides an overview of strategies for coordinating development work in a project.
 
 
 
 ////
 Wir empfehlen Ihnen, zumindest die ersten fünf Kapitel hintereinander zu lesen. Sie beschreiben alle wichtigen Konzepte und Techniken, um Git auch in großen Projekten sicher einzusetzen.
-Die nachfolgenden Kapitel können Sie, je nach Interesse und Bedarf, in beliebiger Reihenfolge
-lesen.
+Die nachfolgenden Kapitel können Sie, je nach Interesse und Bedarf, in beliebiger Reihenfolge lesen.
 ////
 
 We recommend that you read at least the first five chapters in a row.
@@ -218,27 +216,27 @@ You can read the following chapters in any order, depending on your interests an
 
 
 ////
-<<ch.server>> behandelt Installation und Wartung von Git-Diensten: zwei Web-basierte Repository-Browser und die Zugriffsverwaltung für gehostete Repositories mit Gitolite.
+Kapitel 7, Git auf dem Server behandelt Installation und Wartung von Git-Diensten: zwei Web-basierte Repository-Browser und die Zugriffsverwaltung für gehostete Repositories mit Gitolite.
 ////
 
-Chapter 7, Git on the Server covers installation and maintenance of Git services: two web-based repository browsers and access management for hosted repositories using Gitolite.
-
-
-
-////
-<<ch.automation>> fasst diverse Aspekte der Automatisierung zusammen: Wie Sie Hooks und eigene Git-Kommandos schreiben und bei Bedarf die komplette Versionsgeschichte umschreiben.
-////
-
-Chapter 8, Automating Git summarizes various aspects of automation: How to write hooks and custom Git commands, and how to rewrite the complete version history if necessary.
+<<ch.server>> covers installation and maintenance of Git services: two web-based repository browsers and access management for hosted repositories using Gitolite.
 
 
 
 ////
-Schließlich geht es in <<sec.git-svn-cvs>> um die Migration von anderen Systemen zu Git.
+Kapitel 8, Git automatisieren fasst diverse Aspekte der Automatisierung zusammen: Wie Sie Hooks und eigene Git-Kommandos schreiben und bei Bedarf die komplette Versionsgeschichte umschreiben.
+////
+
+<<ch.automation>> summarizes various aspects of automation: How to write hooks and custom Git commands, and how to rewrite the complete version history if necessary.
+
+
+
+////
+Schließlich geht es in Kapitel 9, Zusammenspiel mit anderen Versionsverwaltungssystemen um die Migration von anderen Systemen zu Git.
 Im Vordergrund steht hier die Konvertierung existierender Subversion-Repositories sowie die Möglichkeit, aus Git heraus mit Subversion zu sprechen.
 ////
 
-Finally, Chapter 9, Interaction with Other Version Control Systems, discusses migration from other systems to Git.
+Finally, <<sec.git-svn-cvs>> discusses migration from other systems to Git.
 The focus here is on converting existing Subversion repositories, and on the ability to talk to Subversion from within Git.
 
 
@@ -273,7 +271,7 @@ Das Shell-Prompt ist ein einzelnes Dollar-Zeichen (`$`);
 Tastatureingaben sind halbfett gedruckt, also z.B. so:
 ////
 
-The shell prompt is a single dollar sign ($); keyboard input is printed in semi-bold, like this
+The shell prompt is a single dollar sign (`$`); keyboard input is printed in semi-bold, like this
 
 
 
@@ -284,16 +282,17 @@ $ *git status*
 
 
 ////
-Um sich in der Shell schneller und besser zurechtzufinden, empfehlen wir dringend, die Shell um Git-Funktionalität zu erweitern, wie z.B. die Anzeige des Branches im Prompt (siehe dazu <<sec.shell-integration>>).
+Um sich in der Shell schneller und besser zurechtzufinden, empfehlen wir dringend, die Shell um Git-Funktionalität zu erweitern, wie z.B. die Anzeige des Branches im Prompt (siehe dazu Kapitel 10, Shell-Integration).
 ////
 
-To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see Chapter 10, Shell Integration).
+To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see <<sec.shell-integration>>).
 
 
 
 ////
 Sofern nicht anders vermerkt, beziehen wir uns auf Git in der Version 2.0.
-Die Beispiele laufen allesamt mit englischsprachigen Lokaleneinstellungen. Zwar gibt es seit 2012 für die Ausgabe-Texte der meisten Git-Kommandos auch deutsche Übersetzungen – diese klingen aber sehr gestelzt und sind aufgrund der Wortwahl häufig verwirrend.
+Die Beispiele laufen allesamt mit englischsprachigen Lokaleneinstellungen.
+Zwar gibt es seit 2012 für die Ausgabe-Texte der meisten Git-Kommandos auch deutsche Übersetzungen – diese klingen aber sehr gestelzt und sind aufgrund der Wortwahl häufig verwirrend.
 Außerdem finden Sie für originale, also englische Fehlermeldungen online schneller Hilfe.
 ////
 
@@ -308,7 +307,7 @@ Neu eingeführte Begriffe sind _kursiv_ gesetzt, teilweise mit deutscher Entspre
 Die meisten Git-spezifischen Termini verwenden wir im Original mit von der Übersetzung abgeleitetem Artikel, z.B. der "`Branch`" statt der "`Zweig`".
 ////
 
-Newly introduced terms are written in italics, partly with German equivalents in brackets behind them.
+Newly introduced terms are written in _italics_, partly with German equivalents in brackets behind them.
 We use most Git-specific terms in the original with articles derived from the translation, e.g. the "`branch`" instead of the "`branch`".
 
 
@@ -320,14 +319,14 @@ We use most Git-specific terms in the original with articles derived from the tr
 
 
 ////
-Die Installation von Git beschreiben wir ausführlich in <<sec.installation>>.
+Die Installation von Git beschreiben wir ausführlich in Anhang A, Installation.
 Einige Beispiele verwenden das Quell-Repository von Git, also das Repository, in dem Git aktiv entwickelt wird.
 In englischsprachiger Dokumentation heißt dieses Repository auch _Git-via-Git_ oder _git.git_.
 ////
 
-The installation of Git is described in detail in Appendix A, Installation.
+The installation of Git is described in detail in <<sec.installation>>.
 Some examples use the Git source repository, the repository where Git is actively developed.
-In English documentation, this repository is also called Git-via-Git or git.git.
+In English documentation, this repository is also called _Git-via-Git_ or _git.git_.
 
 
 
@@ -364,7 +363,7 @@ Fast jedes Subkommando hat eine eigene Man-Page, die Sie auf drei äquivalente W
 ////
 
 A comprehensive documentation of Git is available in the form of pre-installed man pages.
-Almost every subcommand has its own man page, which you can call in three equivalent ways, here for the git status command, for example:
+Almost every subcommand has its own man page, which you can call in three equivalent ways, here for the `git status` command, for example:
 
 
 [subs="macros,quotes"]
@@ -409,7 +408,7 @@ Alternativ bietet der IRC-Kanal `#git` im Freenode-Netzwerk einen Anlaufpunkt, F
 ////
 
 
-Alternatively, the #git IRC channel on the Freenode network provides a place to get rid of questions not already answered in the FAQs or documentation.
+Alternatively, the `#git` IRC channel on the Freenode network provides a place to get rid of questions not already answered in the FAQs or documentation.
 
 
 
@@ -417,22 +416,21 @@ Alternatively, the #git IRC channel on the Freenode network provides a place to 
 Umsteigern aus dem Subversion-Umfeld ist der 'Git-SVN Crash Course' [6] zu empfehlen, eine Gegenüberstellung von Git- und Subversion-Kommandos, mit der Sie Ihr Subversion-Wissen in die Git-Welt übertragen.
 ////
 
-For those switching from the Subversion environment, the Git-SVN Crash Course{fn6} is recommended, a comparison of Git and Subversion commands that will help you transfer your Subversion knowledge to the Git world.
+For those switching from the Subversion environment, the _Git-SVN Crash Course_{fn6} is recommended, a comparison of Git and Subversion commands that will help you transfer your Subversion knowledge to the Git world.
 
 
 
 
 ////
-Außerdem sei auf _Stack Overflow_ [7] hingewiesen, eine Plattform von Programmierern für Programmierer, auf
-der technische Fragestellungen, u.a. zu Git, erörtert werden.
+Außerdem sei auf _Stack Overflow_ [7] hingewiesen, eine Plattform von Programmierern für Programmierer, auf der technische Fragestellungen, u.a. zu Git, erörtert werden.
 ////
 
-Also worth mentioning is Stack Overflow{fn7}, a platform by programmers for programmers, on which technical issues, including Git, are discussed.
+Also worth mentioning is _Stack Overflow_{fn7}, a platform by programmers for programmers, on which technical issues, including Git, are discussed.
 
 
 
 [[sec.contact]]
-== Downloads and contact
+== Downloads and contacts
 // Downloads und Kontakt
 
 ////
@@ -487,7 +485,7 @@ Our thanks go especially to our parents, who have always supported and encourage
 Valentin Haenel und Julius Plenz – Berlin, Juni 2011
 ////
 
-Valentin Haenel and Julius Plenz - Berlin, June 2011
+Valentin Haenel and Julius Plenz -- Berlin, June 2011
 
 
 
@@ -500,7 +498,7 @@ Wir haben uns in der 2. Auflage darauf beschränkt, die Veränderungen in der Be
 Eingestreut finden sich, inspiriert von Fragen aus Git-Schulungen und unserer eigenen Erfahrung, neue Hinweise auf Probleme, Lösungsansätze und interessante Funktionalitäten.
 ////
 
-In the 2nd edition, we have limited ourselves to carefully recording the changes in the use of Git that were introduced up to version 2.0 - in fact, many commands and error messages are now more consistent, so that in some places this represents a significant simplification of the text.
+In the 2nd edition, we have limited ourselves to carefully recording the changes in the use of Git that were introduced up to version 2.0 -- in fact, many commands and error messages are now more consistent, so that in some places this represents a significant simplification of the text.
 Inspired by questions from Git training courses and our own experience, new hints on problems, solutions, and interesting features are included.
 
 
@@ -514,8 +512,10 @@ We thank all those who sent in corrections to the first edition: Philipp Hahn, R
 
 
 ////
-Valentin Haenel and Julius Plenz - Berlin, September 2014
+Valentin Haenel und Julius Plenz – Berlin, September 2014
 ////
+
+Valentin Haenel and Julius Plenary Session -- Berlin, September 2014
 
 
 [[chap.preface-cc-edition]]
@@ -528,7 +528,7 @@ Der Verlag _Open Source Press_, der uns initial überzeugte, überhaupt dieses B
 Wir danken insbesondere Markus Wirtz für die immer gute und produktive Zusammenarbeit, die uns über viele Jahre verbunden hat.
 ////
 
-The publisher Open Source Press, who initially convinced us to write this book at all and published it over the past few years, has ceased operations as of 31.12.2015 and has transferred all rights to the published texts back to the authors.
+The publisher _Open Source Press_, who initially convinced us to write this book at all and published it over the past few years, has ceased operations as of 31.12.2015 and has transferred all rights to the published texts back to the authors.
 We especially thank Markus Wirtz for the always good and productive collaboration that has connected us over many years.
 
 
@@ -545,4 +545,4 @@ Due to mainly very positive feedback on this text we decided to make it freely a
 Valentin Haenel und Julius Plenz – Berlin/Sydney, Januar 2016
 ////
 
-Valentin Haenel and Julius Plenz - Berlin/Sydney, January 2016
+Valentin Haenel and Julius Plenz -- Berlin/Sydney, January 2016
