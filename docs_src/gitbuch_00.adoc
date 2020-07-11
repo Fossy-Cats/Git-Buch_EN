@@ -1,5 +1,23 @@
 // adapted from: "vorwort.txt"
 
+// STATUS: Draft translation via DeepL Free, with minor editing. Footones (1-7)
+
+////
+DOCUMENT STATUS:
+  * Draft translation via DeepL Free, with minor editing.
+  * Original German commented out (XRrefs and Footnotes expanded).
+  * Text formatting restored.
+  * All XRefs restored.
+  * All footnotes (1-7) restored; they contain only external links:
+    * All external links checked.
+    * Switched from HTTP to HTTPS (when available).
+  * All anchor IDs translated.
+
+TODO:
+  * Revise all English text.
+  * Remove references specific to German edition relating to translation issues.
+////
+
 [preface]
 [[chap.preface]]
 = Preface
@@ -28,7 +46,7 @@ Verantwortlich dafür sind über 1000 Einzelpersonen.
 ////
 
 Simply switching to another system was not an option: The alternatives had a centralized architecture and did not scale well enough.
-However, the kernel project's requirements for a version control system are also enormous: Between a small version jump (e.g. 2.6.35 to 2.6.36) there are over 500000 changed lines in almost 1000 files.
+The kernel project's requirements for a version control system are hugely demanding: Between a revision jump (e.g. 2.6.35 to 2.6.36) there are over 500,000 changed lines in almost 1000 files.
 Responsible for this are over 1000 individuals.
 
 
@@ -296,6 +314,9 @@ Zwar gibt es seit 2012 für die Ausgabe-Texte der meisten Git-Kommandos auch deu
 Außerdem finden Sie für originale, also englische Fehlermeldungen online schneller Hilfe.
 ////
 
+// @NOTE: No need to keep references to the German translation!
+//        (skip the "Although German translations..." part)
+
 Unless otherwise noted, we refer to Git version 2.0, and the examples all run with English local settings.
 Although German translations have been available for the output texts of most Git commands since 2012, these sound very stilted and are often confusing due to the choice of words.
 In addition, you can find quick help online for original, i.e. English error messages.
@@ -306,6 +327,9 @@ In addition, you can find quick help online for original, i.e. English error mes
 Neu eingeführte Begriffe sind _kursiv_ gesetzt, teilweise mit deutscher Entsprechung in Klammern dahinter.
 Die meisten Git-spezifischen Termini verwenden wir im Original mit von der Übersetzung abgeleitetem Artikel, z.B. der "`Branch`" statt der "`Zweig`".
 ////
+
+// @NOTE: No need to keep references to the German translation!
+//        (readapt text to cover English relevant aspects only)
 
 Newly introduced terms are written in _italics_, partly with German equivalents in brackets behind them.
 We use most Git-specific terms in the original with articles derived from the translation, e.g. the "`branch`" instead of the "`branch`".
@@ -485,6 +509,7 @@ Our thanks go especially to our parents, who have always supported and encourage
 Valentin Haenel und Julius Plenz – Berlin, Juni 2011
 ////
 
+[.text-right]
 Valentin Haenel and Julius Plenz -- Berlin, June 2011
 
 
@@ -515,6 +540,7 @@ We thank all those who sent in corrections to the first edition: Philipp Hahn, R
 Valentin Haenel und Julius Plenz – Berlin, September 2014
 ////
 
+[.text-right]
 Valentin Haenel and Julius Plenary Session -- Berlin, September 2014
 
 
@@ -545,4 +571,5 @@ Due to mainly very positive feedback on this text we decided to make it freely a
 Valentin Haenel und Julius Plenz – Berlin/Sydney, Januar 2016
 ////
 
+[.text-right]
 Valentin Haenel and Julius Plenz -- Berlin/Sydney, January 2016
