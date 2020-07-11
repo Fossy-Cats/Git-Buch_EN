@@ -11,9 +11,9 @@ Valentin Haenel; Julius Plenz
 // Cross References:
 :idprefix:
 :xrefstyle: full
-:chapter-refsig: Ch.
-:section-refsig: Sec.
-:appendix-refsig: App.
+// :chapter-refsig: Ch.
+// :section-refsig: Sec.
+// :appendix-refsig: App.
 
 
 :leveloffset: +1
