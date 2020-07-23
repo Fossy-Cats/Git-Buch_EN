@@ -1,7 +1,7 @@
 // adapted from: "gitdir.txt"
 
 [appendix]
-[[sec.git-repository-layout]]
+[[app.git-repository-layout]]
 = Repository Structure
 // Struktur eines Repositorys
 

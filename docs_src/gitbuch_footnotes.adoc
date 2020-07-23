@@ -167,7 +167,7 @@ Mit `dp` bzw.  `do` schieben Sie Änderungen auf die andere Seite oder übernehm
 Die Meldung `Automatic merge failed` bedeutet lediglich, dass ein Konflikt auftrat, der _nicht_ durch einen 3-Wege-Merge gelöst werden konnte. \
 Da Rerere keine sinnvolle Lösung garantieren kann, wird die Lösung nur "`bereitgestellt`", nicht aber als ultimative Lösung des Konflikts angesehen.]]
 
-:fn45: {wj}footnote:[Weitere nützliche Tipps finden Sie in <<sec.workflows>>.]
+:fn45: {wj}footnote:[Weitere nützliche Tipps finden Sie in <<ch.workflows>>.]
 
 :fn46: {wj}pass:q[footnote:[ \
 AsciiDoc ist eine simple, wiki-ähnliche Markup-Sprache: `http://www.methods.co.nz/asciidoc/`. \
@@ -246,7 +246,7 @@ Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde
 
 // tag::Chapter_5[]
 :fn65: {wj}pass:q[footnote:[ \
-Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in xref:gitbuch_11.adoc#sec.github[] beschreiben, verwaltet.]]
+Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in xref:gitbuch_11.adoc#ch.github[] beschreiben, verwaltet.]]
 
 :fn66: {wj}pass:q[footnote:[ \
 Genau genommen checkt Git nicht "`blind`" den Branch `master` aus. Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.]]

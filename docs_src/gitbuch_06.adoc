@@ -1,6 +1,6 @@
 // adapted from: "workflows.txt"
 
-[[sec.workflows]]
+[[ch.workflows]]
 = Workflows
 
 include::gitbuch_footnotes.adoc[tag=Chapter_6]

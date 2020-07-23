@@ -1,6 +1,6 @@
 // adapted from: "remote.txt"
 
-[[sec.distributed-git]]
+[[ch.distributed-git]]
 = Distributed Git
 // Verteiltes Git
 
@@ -907,7 +907,7 @@ entstehen, wo eigentlich keine hingehören.
 ========
 
 Hilfreich ist in diesem Kontext auch
-<<sec.workflows>>, wo beschrieben wird, wie Sie übersichtlich mit
+<<ch.workflows>>, wo beschrieben wird, wie Sie übersichtlich mit
 vielen Topic-Branches arbeiten.
 
 
@@ -1294,7 +1294,7 @@ Workflow zu unterstützen, z.B. eine Visualisierung, die alle
 verfügbaren Klons eines Projekts und die darin enthaltenen Commits
 anzeigt, sowie die Möglichkeit, Merges direkt im Webinterface
 durchzuführen. Eine ausführliche Beschreibung dieses Dienstes finden
-Sie in <<sec.github>>.
+Sie in <<ch.github>>.
 
 [[sec.remotes-verwalten]]
 == Remotes verwalten

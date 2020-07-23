@@ -317,20 +317,20 @@ The following table shows the correspondence between the current sources and the
 
 [HTML5 book]: ./Git-Buch_EN.html "Local HTML Preview"
 
-[Preface]: ./Git-Buch_EN.html#chap.preface "Local HTML Preview"
+[Preface]: ./Git-Buch_EN.html#ch.preface "Local HTML Preview"
 [Ch1]: ./Git-Buch_EN.html#ch.intro "Local HTML Preview"
 [Ch2]: ./Git-Buch_EN.html#ch.basics "Local HTML Preview"
-[Ch3]: ./Git-Buch_EN.html#chap.praxis "Local HTML Preview"
+[Ch3]: ./Git-Buch_EN.html#ch.praxis "Local HTML Preview"
 [Ch4]: ./Git-Buch_EN.html#ch.advanced "Local HTML Preview"
-[Ch5]: ./Git-Buch_EN.html#sec.distributed-git "Local HTML Preview"
-[Ch6]: ./Git-Buch_EN.html#sec.workflows "Local HTML Preview"
+[Ch5]: ./Git-Buch_EN.html#ch.distributed-git "Local HTML Preview"
+[Ch6]: ./Git-Buch_EN.html#ch.workflows "Local HTML Preview"
 [Ch7]: ./Git-Buch_EN.html#ch.server "Local HTML Preview"
 [Ch8]: ./Git-Buch_EN.html#ch.automation "Local HTML Preview"
 [Ch9]: ./Git-Buch_EN.html#sec.git-svn-cvs "Local HTML Preview"
-[Ch10]: ./Git-Buch_EN.html#sec.shell-integration "Local HTML Preview"
-[Ch11]: ./Git-Buch_EN.html#sec.github "Local HTML Preview"
-[AppA]: ./Git-Buch_EN.html#sec.installation "Local HTML Preview"
-[AppB]: ./Git-Buch_EN.html#sec.git-repository-layout "Local HTML Preview"
+[Ch10]: ./Git-Buch_EN.html#ch.shell-integration "Local HTML Preview"
+[Ch11]: ./Git-Buch_EN.html#ch.github "Local HTML Preview"
+[AppA]: ./Git-Buch_EN.html#app.installation "Local HTML Preview"
+[AppB]: ./Git-Buch_EN.html#app.git-repository-layout "Local HTML Preview"
 
 <!-- upstream sources -->
 
