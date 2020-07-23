@@ -786,6 +786,7 @@ Informationen über die Veränderungen durch den Commit ausgeben.
 Betrachten Sie folgende Beispiele, in denen deutlich wird, welche
 Dateien an wie vielen Stellen geändert wurden:
 
+// @FIXME: Broken macro in listing
 [subs="macros,quotes"]
 --------
 $ *git log -1 --oneline 4868b2ea*
