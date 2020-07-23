@@ -786,7 +786,6 @@ Informationen über die Veränderungen durch den Commit ausgeben.
 Betrachten Sie folgende Beispiele, in denen deutlich wird, welche
 Dateien an wie vielen Stellen geändert wurden:
 
-// @FIXME: Broken macro in listing
 [subs="macros,quotes"]
 --------
 $ *git log -1 --oneline 4868b2ea*
@@ -800,7 +799,7 @@ M       t/t1510-repo-setup.sh
 $ git log -1 --oneline *--stat* 4868b2ea
 4868b2e setup: officially support --work-tree without --git-dir
  setup.c               |   19 +++++
- t/t1510-repo-setup.sh |  210 pass:quotes[+++\+\+\+\+\+\+\+\+\+\+\+\+\+\+\++++++------------------]
+ t/t1510-repo-setup.sh |  210 pass:a[{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}------------------]
  2 files changed, 134 insertions(+), 95 deletions(-)
 
 $ git log -1 --oneline *--shortstat* 4868b2ea
