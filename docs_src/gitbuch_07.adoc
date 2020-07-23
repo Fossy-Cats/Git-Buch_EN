@@ -61,7 +61,7 @@ HTTP(S) finden sich aber gewisse Anwendungsfälle: In besonders
 restriktiven Umgebungen mit sehr einschränkenden Firewall-Regeln
 kann man eventuell über HTTP(S) (also nur auf Port 80 bzw. 443) auf
 ein Repository lesend wie schreibend zugreifen. Plattformen wie GitHub
-(siehe <<sec.github>>) bieten HTTPS daher als Standard-Transportmethode
+(siehe <<ch.github>>) bieten HTTPS daher als Standard-Transportmethode
 an.
 
 [[sec.git-pack-same-machine]]

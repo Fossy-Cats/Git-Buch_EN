@@ -1,6 +1,6 @@
 // adapted from: "praxis.txt"
 
-[[chap.praxis]]
+[[ch.praxis]]
 = Practical Version Control
 // Praktische Versionsverwaltung
 
@@ -362,7 +362,7 @@ experimentellen Zustand befinden, sollten in `pu` (für
 "`proposed updates`") entwickelt werden oder in
 `pu/<feature>`. Eine detailliertere Beschreibung, wie Sie mit
 Branches die Entwicklung strukturieren und Release-Zyklen
-organisieren, finden Sie in <<sec.workflows>> über Workflows.
+organisieren, finden Sie in <<ch.workflows>> über Workflows.
 
 
 [[sec.no-ref-commits]]
@@ -1265,7 +1265,7 @@ Dieses Verhalten ist häufig wünschenswert:
   typischerweise ein Kommando wie `git merge origin/master`.
   Auch ein `git pull` wird einen Merge ausführen. Wie Sie
   Änderungen zwischen Git-Repositories austauschen, behandeln wir in
-  <<sec.distributed-git>>.
+  <<ch.distributed-git>>.
 
 . Sie wollen einen experimentellen Branch einpflegen. Da Sie
   besonders einfach und schnell Branches in Git erstellen, empfiehlt

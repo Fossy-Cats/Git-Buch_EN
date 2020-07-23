@@ -1,6 +1,6 @@
 // adapted from: "github.txt"
 
-[[sec.github]]
+[[ch.github]]
 = GitHub
 
 include::gitbuch_footnotes.adoc[tag=Chapter_11]

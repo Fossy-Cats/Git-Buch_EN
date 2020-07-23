@@ -1,6 +1,6 @@
 // adapted from: "shell.txt"
 
-[[sec.shell-integration]]
+[[ch.shell-integration]]
 = Shell-Integration
 
 include::gitbuch_footnotes.adoc[tag=Chapter_10]

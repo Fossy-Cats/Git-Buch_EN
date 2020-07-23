@@ -1,7 +1,7 @@
 // adapted from: "installation.txt"
 
 [appendix]
-[[sec.installation]]
+[[app.installation]]
 = Installation
 
 include::gitbuch_footnotes.adoc[tag=Chapter_12]

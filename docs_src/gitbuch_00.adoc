@@ -19,7 +19,7 @@ TODO:
 ////
 
 [preface]
-[[chap.preface]]
+[[ch.preface]]
 = Preface
 // Vorwort
 
@@ -196,7 +196,7 @@ Vor allem werden die in Git so zentralen Branches und Merges behandelt.
 Auch auf die Behebung von Merge-Konflikten wird detailliert eingegangen.
 ////
 
-<<chap.praxis>> discusses practical aspects of version control.
+<<ch.praxis>> discusses practical aspects of version control.
 In particular, it covers the branches and merges that are so central to Git.
 It also discusses how to resolve merge conflicts in detail.
 
@@ -217,8 +217,8 @@ Erst Kapitel 5, Verteiltes Git beschäftigt sich mit den verteilten Aspekten von
 Das anschließende Kapitel 6, Workflows gibt außerdem einen Überblick zu Strategien, wie Sie Entwicklungsarbeit in einem Projekt koordinieren.
 ////
 
-Only <<sec.distributed-git>> looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
-Then <<sec.workflows>> provides an overview of strategies for coordinating development work in a project.
+Only <<ch.distributed-git>> looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
+Then <<ch.workflows>> provides an overview of strategies for coordinating development work in a project.
 
 
 
@@ -303,7 +303,7 @@ $ *git status*
 Um sich in der Shell schneller und besser zurechtzufinden, empfehlen wir dringend, die Shell um Git-Funktionalität zu erweitern, wie z.B. die Anzeige des Branches im Prompt (siehe dazu Kapitel 10, Shell-Integration).
 ////
 
-To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see <<sec.shell-integration>>).
+To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see <<ch.shell-integration>>).
 
 
 
@@ -348,7 +348,7 @@ Einige Beispiele verwenden das Quell-Repository von Git, also das Repository, in
 In englischsprachiger Dokumentation heißt dieses Repository auch _Git-via-Git_ oder _git.git_.
 ////
 
-The installation of Git is described in detail in <<sec.installation>>.
+The installation of Git is described in detail in <<app.installation>>.
 Some examples use the Git source repository, the repository where Git is actively developed.
 In English documentation, this repository is also called _Git-via-Git_ or _git.git_.
 
@@ -514,7 +514,7 @@ Valentin Haenel and Julius Plenz -- Berlin, June 2011
 
 
 
-[[chap.preface-2nd-edition]]
+[[sec.preface-2nd-edition]]
 == Preface to the 2nd edition
 // Vorwort zur 2. Auflage
 
@@ -544,7 +544,7 @@ Valentin Haenel und Julius Plenz – Berlin, September 2014
 Valentin Haenel and Julius Plenary Session -- Berlin, September 2014
 
 
-[[chap.preface-cc-edition]]
+[[sec.preface-cc-edition]]
 == Preface to the CreativeCommons edition
 // Vorwort zur CreativeCommons-Ausgabe
 
