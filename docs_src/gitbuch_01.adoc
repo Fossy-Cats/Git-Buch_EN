@@ -1,202 +1,302 @@
 // adapted from: "erste_schritte.txt"
 
+// STATUS: Draft translation via DeepL Free, with minor editing. Footones (8-11)
+
+
 [[ch.intro]]
 = Introduction and First Steps
 // Einführung und erste Schritte
 
 include::gitbuch_footnotes.adoc[tag=Chapter_1]
 
+////
+Das folgende Kapitel bietet eine kompakte Einführung in Grundbegriffe und Konfigurationseinstellungen von Git.
+Ein kleines Beispielprojekt zeigt, wie Sie eine Datei mit Git unter Versionsverwaltung stellen und mit welchen Kommandos Sie die wichtigsten Arbeitsschritte erledigen.
+////
 
-Das folgende Kapitel bietet eine kompakte Einführung in Grundbegriffe
-und Konfigurationseinstellungen von Git. Ein kleines Beispielprojekt
-zeigt, wie Sie eine Datei mit Git unter Versionsverwaltung stellen und
-mit welchen Kommandos Sie die wichtigsten Arbeitsschritte erledigen.
+The following chapter provides a concise introduction to the basic concepts and configuration settings of Git.
+A small sample project shows how to put a file under version control with Git, and the commands you use to perform the most important tasks.
+
 
 [[sec.begriffe]]
-== Grundbegriffe
+== Basic Terminology
+// Grundbegriffe
 
-Einige wichtige Fachbegriffe werden im Folgenden immer wieder
-vorkommen und bedürfen darum einer kurzen Erläuterung. Wenn Sie schon
-Erfahrung mit einem anderen Versionskontrollsystem gesammelt haben,
-werden Ihnen einige der damit verbundenen Konzepte bekannt sein, wenn
-vielleicht auch unter anderem Namen.
+////
+Einige wichtige Fachbegriffe werden im Folgenden immer wieder vorkommen und bedürfen darum einer kurzen Erläuterung.
+Wenn Sie schon Erfahrung mit einem anderen Versionskontrollsystem gesammelt haben, werden Ihnen einige der damit verbundenen Konzepte bekannt sein, wenn vielleicht auch unter anderem Namen.
+////
+
+Some important technical terms will be used repeatedly in the following and therefore require a brief explanation.
+If you have experience with another version control system, you will be familiar with some of the concepts involved, though perhaps under a different name.
 
 
-
-
-_Versionskontrollsystem_ (_Version Control System_, VCS):: Ein System
-zur Verwaltung und Versionierung von Software oder anderer digitaler
-Informationen.  Prominente Beispiele sind Git, Subversion, CVS,
-Mercurial (hg), Darcs und Bazaar.  Synonyme sind 'Software
-Configuration Management_ (SCM) und _Revision Control System'.
+////
+_Versionskontrollsystem_ (_Version Control System_, VCS)::
+Ein System zur Verwaltung und Versionierung von Software oder anderer digitaler
+Informationen.
+Prominente Beispiele sind Git, Subversion, CVS, Mercurial (hg), Darcs und Bazaar.
+Synonyme sind _Software Configuration Management_ (SCM) und _Revision Control System'.
 +
-Wir unterscheiden zwischen _zentralen_ und _verteilten_ Systemen.  In
-einem zentralen System, wie z.B. Subversion, muss es einen zentralen
-Server geben, auf dem die Geschichte des Projekts gespeichert
-wird. Alle Entwickler müssen sich mit diesem Server verbinden, um die
-Versionsgeschichte einzusehen oder Änderungen vorzunehmen. In einem
-verteilten System wie Git gibt es viele gleichwertige Instanzen des
-Repositorys, so dass jeder Entwickler über sein eigenes Repository
-verfügt. Der Austausch von Veränderungen ist flexibler und erfolgt
-nicht zwingend über einen zentralen Server.
+Wir unterscheiden zwischen _zentralen_ und _verteilten_ Systemen.
+In einem zentralen System, wie z.B. Subversion, muss es einen zentralen Server geben, auf dem die Geschichte des Projekts gespeichert wird.
+Alle Entwickler müssen sich mit diesem Server verbinden, um die Versionsgeschichte einzusehen oder Änderungen vorzunehmen.
+In einem verteilten System wie Git gibt es viele gleichwertige Instanzen des Repositorys, so dass jeder Entwickler über sein eigenes Repository verfügt.
+Der Austausch von Veränderungen ist flexibler und erfolgt nicht zwingend über einen zentralen Server.
+////
 
-_Repository_:: Das Repository ist eine Datenbank, in der Git die
-verschiedenen Zustände jeder Datei eines Projekts über die Zeit hinweg
-ablegt. Insbesondere wird jede Änderung als Commit verpackt und
-abgespeichert.
-
-_Working Tree_:: Das _Arbeitsverzeichnis_ von Git (in anderen Systemen
-manchmal auch _Sandbox_ oder _Checkout_ genannt). Hier nehmen Sie alle
-Modifikationen am Quellcode vor. Oft findet man dafür auch die
-Bezeichnung _Working Directory_.
-
-_Commit_:: Veränderungen am Working Tree, also z.B. modifizierte oder
-neue Dateien, werden im Repository als Commits gespeichert. Ein Commit
-enthält sowohl diese Veränderungen als auch Metadaten, wie den Autor
-der Veränderungen, Datum und Uhrzeit, und eine Nachricht ('Commit
-Message'), die die Veränderungen beschreibt.  Ein Commit referenziert
-immer den Zustand _aller_ verwalteten Dateien zu einem bestimmten
-Zeitpunkt.  Die verschiedenen Git-Kommandos dienen dazu, Commits zu
-erstellen, zu manipulieren, einzusehen oder die Beziehungen zwischen
-ihnen zu verändern.
+_Version Control System_ (VCS) ::
+A system for managing and versioning software or other digital information.
+Prominent examples are Git, Subversion, CVS, Mercurial (hg), Darcs and Bazaar.
+Synonyms are _Software Configuration Management_ (SCM) and _Revision Control System_.
++
+We distinguish between _centralized_ and _distributed_ systems.
+In a centralized system, such as Subversion, there must be a central server where the history of the project is stored.
+All developers must connect to this server to view the version history or make changes.
+In a distributed system like Git, there are many equivalent instances of the repository, so each developer has their own repository.
+The exchange of changes is more flexible, and does not necessarily take place through a central server.
 
 
-`HEAD`:: Eine symbolische Referenz auf den neuesten Commit im
-aktuellen Branch. Von dieser Referenz hängt ab, welche Dateien Sie im
-Working Tree zur Bearbeitung vorfinden.  Es handelt sich also um den
-"`Kopf`" bzw. die Spitze eines Entwicklungsstrangs (nicht zu
-verwechseln mit `HEAD` in Systemen wie CVS oder SVN).
+////
+_Repository_::
+Das Repository ist eine Datenbank, in der Git die verschiedenen Zustände jeder Datei eines Projekts über die Zeit hinweg ablegt.
+Insbesondere wird jede Änderung als Commit verpackt und abgespeichert.
+////
+
+_Repository_::
+The repository is a database where Git stores the different states of each file in a project over time.
+In particular, every change is packaged and saved as a commit.
 
 
-_SHA-1_:: Der _Secure Hash Algorithm_ erstellt eine eindeutige, 160
-Bit lange Prüfsumme (40 hexadezimale Zeichen) für beliebige digitale
-Informationen. Alle Commits in Git werden nach ihrer SHA-1-Summe
-benannt (_Commit-ID_), die aus dem Inhalt und den Metadaten des
-Commits errechnet wird. Es ist sozusagen eine _inhaltsabhängige_
-Versionsnummer, z.B.{empty}{nbsp}`f785b8f9ba1a1f5b707a2c83145301c807a7d661`.
+////
+_Working Tree_::
+Das _Arbeitsverzeichnis_ von Git (in anderen Systemen manchmal auch _Sandbox_ oder _Checkout_ genannt).
+Hier nehmen Sie alle Modifikationen am Quellcode vor.
+Oft findet man dafür auch die Bezeichnung _Working Directory_.
+////
+
+_Working Tree_::
+The working directory of Git (sometimes called _sandbox_ or _checkout_ in other systems).
+This is where you make all modifications to the source code.
+It's often called the _Working Directory_.
 
 
+////
+_Commit_::
+Veränderungen am Working Tree, also z.B. modifizierte oder neue Dateien, werden im Repository als Commits gespeichert.
+Ein Commit enthält sowohl diese Veränderungen als auch Metadaten, wie den Autor der Veränderungen, Datum und Uhrzeit, und eine Nachricht ('Commit Message'), die die Veränderungen beschreibt.
+Ein Commit referenziert immer den Zustand _aller_ verwalteten Dateien zu einem bestimmten Zeitpunkt.
+Die verschiedenen Git-Kommandos dienen dazu, Commits zu erstellen, zu manipulieren, einzusehen oder die Beziehungen zwischen ihnen zu verändern.
+////
 
-_Objektmodell_:: Ein Git-Repository lässt sich als Graph von Commits
-modellieren, der durch Git-Kommandos manipuliert wird.  Durch diese
-Modellierung ist es sehr einfach, die Funktionsweise von Git
-detailliert zu beschreiben. Für eine ausführliche Beschreibung des
-Objektmodells siehe <<sec.objektmodell>>.
-
-
-
-_Index_:: Der Index ist eine Zwischenstufe zwischen Working Tree und
-Repository, in der Sie einen Commit vorbereiten.  Der Index
-_indiziert_ also, welche Änderungen an welchen Dateien Sie als Commit
-verpacken wollen.  Dieses Konzept ist einzigartig in Git und bereitet
-Anfängern und Umsteigern häufig Schwierigkeiten. Wir widmen uns dem
-Index ausführlich in <<sec.index>>.
+_Commit_::
+Changes to the working tree, such as modified or new files, are stored in the repository as commits.
+A commit contains both these changes and metadata, such as the author of the changes, the date and time, and a commit message that describes the changes.
+A commit always references the status of _all_ managed files at a particular point in time. The various Git commands are used to create, manipulate, view, or change the relationships between commits.
 
 
+////
+`HEAD`::
+Eine symbolische Referenz auf den neuesten Commit im aktuellen Branch.
+Von dieser Referenz hängt ab, welche Dateien Sie im Working Tree zur Bearbeitung vorfinden.
+Es handelt sich also um den "`Kopf`" bzw. die Spitze eines Entwicklungsstrangs (nicht zu verwechseln mit `HEAD` in Systemen wie CVS oder SVN).
+////
 
-_Clone_:: Wenn Sie sich ein Git-Repository aus dem Internet
-herunterladen, erzeugen Sie einen Klon (_Clone_) dieses Repositorys.
-Der Klon enthält alle Informationen, die im Ursprungsrepository
-enthalten sind, vor allem also die gesamte Versionsgeschichte
-einschließlich aller Commits.
-
-
-
-_Branch_:: Eine Abzweigung in der Entwicklung.  Branches werden in der
-Praxis verwendet, um beispielsweise neue Features zu entwickeln, Releases
-vorzubereiten oder um alte Versionen mit Bugfixes zu versorgen.
-Branches sind -- ebenso wie das Zusammenführen von Branches (_Merge_)
--- in Git extrem einfach zu handhaben und ein herausragendes Feature
-des Systems.
+`HEAD`::
+A symbolic reference to the latest commit in the current branch.
+This reference determines which files you find in the working tree for editing.
+It is therefore the "`head`" or tip of a development branch (not to be confused with `HEAD` in systems like CVS or SVN).
 
 
+////
+_SHA-1_::
+Der _Secure Hash Algorithm_ erstellt eine eindeutige, 160 Bit lange Prüfsumme (40 hexadezimale Zeichen) für beliebige digitale Informationen.
+Alle Commits in Git werden nach ihrer SHA-1-Summe benannt (_Commit-ID_), die aus dem Inhalt und den Metadaten des Commits errechnet wird.
+Es ist sozusagen eine _inhaltsabhängige_ Versionsnummer, z.B. `f785b8f9ba1a1f5b707a2c83145301c807a7d661`.
+////
 
-`master`:: Da Sie zum Arbeiten mit Git mindestens
-    einen Branch brauchen, wird beim Initialisieren eines neuen
-    Repositorys der Branch `master` erstellt. Der Name ist eine
-    Konvention (analog zum `trunk` in anderen Systemen); Sie
-    können diesen Branch beliebig umbenennen oder löschen, sofern
-    mindestens ein anderer Branch zur Verfügung steht. Der
-    `master` unterscheidet sich technisch in keiner Weise von
-    anderen Branches.
+_SHA-1_::
+The _Secure Hash Algorithm_ creates a unique 160 bit checksum (40 hexadecimal characters) for any digital information.
+All commits in Git are named after their SHA-1 sum (_commit ID_), which is calculated from the contents and metadata of the commit.
+It is, so to speak, a _content-dependent_ version number, such as `f785b8f9ba1a1f5b707a2c83145301c807a7d661`.
 
 
+////
+_Objektmodell_::
+Ein Git-Repository lässt sich als Graph von Commits modellieren, der durch Git-Kommandos manipuliert wird.
+Durch diese Modellierung ist es sehr einfach, die Funktionsweise von Git detailliert zu beschreiben.
+Für eine ausführliche Beschreibung des Objektmodells siehe Abschnitt 2.2, "Das Objektmodell".
+////
 
-_Tag_:: Tags sind symbolische Namen für schwer zu
-    merkende SHA-1-Summen. Wichtige Commits, wie z.B. Releases,
-    können Sie mit Tags kennzeichnen. Ein Tag kann einfach nur ein
-    Bezeichner, wie z.B.{empty}{nbsp}`v1.6.2`, sein, oder zusätzlich
-    Metadaten wie Autor, Beschreibung und GPG-Signatur enthalten.
+_Object model_::
+A git repository can be modeled as a graph of commits, manipulated by git commands.
+This modeling makes it very easy to describe how Git works in detail.
+For a detailed description of the object model, see <<sec.objektmodell>>.
+
+
+////
+_Index_::
+Der Index ist eine Zwischenstufe zwischen Working Tree und Repository, in der Sie einen Commit vorbereiten.
+Der Index _indiziert_ also, welche Änderungen an welchen Dateien Sie als Commit verpacken wollen.
+Dieses Konzept ist einzigartig in Git und bereitet Anfängern und Umsteigern häufig Schwierigkeiten.
+Wir widmen uns dem Index ausführlich in Abschnitt 2.1.1, "Index".
+////
+
+_Index_::
+The index is an intermediate level between the working tree and the repository, where you prepare a commit.
+The index therefore _indexes_ which changes to which files you want to package as commits.
+This concept is unique to Git, and is often difficult for beginners and people who are new to Git.
+We discuss the index in detail in <<sec.index>>.
+
+
+////
+_Clone_::
+Wenn Sie sich ein Git-Repository aus dem Internet herunterladen, erzeugen Sie einen Klon (_Clone_) dieses Repositorys.
+Der Klon enthält alle Informationen, die im Ursprungsrepository enthalten sind, vor allem also die gesamte Versionsgeschichte einschließlich aller Commits.
+////
+
+_Clone_::
+When you download a Git repository from the Internet, you create a clone of that repository.
+The clone contains all the information contained in the source repository, especially the entire version history including all commits.
+
+
+////
+_Branch_::
+Eine Abzweigung in der Entwicklung.
+Branches werden in der Praxis verwendet, um beispielsweise neue Features zu entwickeln, Releases vorzubereiten oder um alte Versionen mit Bugfixes zu versorgen.
+Branches sind -- ebenso wie das Zusammenführen von Branches (_Merge_) -- in Git extrem einfach zu handhaben und ein herausragendes Feature des Systems.
+////
+
+_Branch_::
+A branch in the development.
+Branches are used in practice, for example, to develop new features, prepare releases, or to provide old versions with bug fixes.
+Branches are -- just like the merging of branches (_Merge_) -- extremely easy to handle in Git and an outstanding feature of the system.
+
+
+////
+`master`::
+Da Sie zum Arbeiten mit Git mindestens einen Branch brauchen, wird beim Initialisieren eines neuen Repositorys der Branch `master` erstellt.
+Der Name ist eine Konvention (analog zum `trunk` in anderen Systemen); Sie können diesen Branch beliebig umbenennen oder löschen, sofern mindestens ein anderer Branch zur Verfügung steht.
+Der `master` unterscheidet sich technisch in keiner Weise von anderen Branches.
+////
+
+`master`::
+Because you need at least one branch to work with Git, the Branch `master` is created when you initialize a new repository.
+The name is a convention (similar to `trunk` in other systems); you can rename or delete this branch as you wish, as long as at least one other branch is available.
+The `master` is technically no different from other branches.
+
+
+////
+_Tag_::
+Tags sind symbolische Namen für schwer zu merkende SHA-1-Summen.
+Wichtige Commits, wie z.B. Releases, können Sie mit Tags kennzeichnen.
+Ein Tag kann einfach nur ein Bezeichner, wie z.B. `v1.6.2`, sein, oder zusätzlich Metadaten wie Autor, Beschreibung und GPG-Signatur enthalten.
+////
+
+_Tag_::
+Tags are symbolic names for SHA-1 values that are difficult to remember.
+You can use tags to mark important commits, such as releases.
+A tag can simply be an identifier, such as `v1.6.2`, or it can contain additional metadata such as author, description, and GPG signature.
 
 
 
 [[sec.erste-schritte]]
-== Erste Schritte mit Git
+== First Steps with Git
+// Erste Schritte mit Git
 
-Zum Einstieg wollen wir an einem kleinen Beispiel den Arbeitsablauf
-mit Git illustrieren. Wir erstellen ein Repository und entwickeln
-darin einen Einzeiler, ein "`Hello, World!`"-Programm in Perl.
+////
+Zum Einstieg wollen wir an einem kleinen Beispiel den Arbeitsablauf mit Git illustrieren.
+Wir erstellen ein Repository und entwickeln darin einen Einzeiler, ein "`Hello, World!`"-Programm in Perl.
+////
 
-Damit Git einen Commit einem Autor zuordnen kann, müssen Sie Ihren
-Namen und Ihre E-Mail-Adresse hinterlegen:
+To get you started, we'll use a small example to illustrate the workflow with Git.
+We create a repository and develop a one-liner, a "`Hello, World!`" program in Perl.
 
 
 
-[subs="macros,quotes"]
+////
+Damit Git einen Commit einem Autor zuordnen kann, müssen Sie Ihren Namen und Ihre E-Mail-Adresse hinterlegen:
+////
+
+In order for Git to assign a commit to an author, you need to enter your name and email address:
+
+
+[subs="quotes"]
 --------
 $ *git config --global user.name "Max Mustermann"*
 $ *git config --global user.email "max.mustermann@example.com"*
 --------
 
-Beachten Sie, dass bei einem Aufruf von Git ein _Subkommando_
-angegeben wird, in diesem Fall `config`.  Git stellt alle
-Operationen durch solche Subkommandos zur Verfügung.  Wichtig ist
-auch, dass bei einem Aufruf von `git config` kein Gleichheitszeichen verwendet wird.  Folgender Aufruf ist also
-_falsch_:
+
+////
+Beachten Sie, dass bei einem Aufruf von Git ein _Subkommando_ angegeben wird, in diesem Fall `config`.
+Git stellt alle Operationen durch solche Subkommandos zur Verfügung.
+Wichtig ist auch, dass bei einem Aufruf von `git config` kein Gleichheitszeichen verwendet wird.
+Folgender Aufruf ist also _falsch_:
+////
+
+Note that a _subcommand_ is specified when Git is called, in this case `config`.
+Git provides all operations through such subcommands.
+It is also important that no equal sign is used when calling `git config`.
+The following call is therefore _incorrect_:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git config --global user.name = "Max Mustermann"*
 --------
 
-Das ist besonders für Anfänger eine Stolperfalle, da Git keine
-Fehlermeldung ausgibt, sondern das Gleichheitszeichen als zu setzenden
-Wert übernimmt.
+////
+Das ist besonders für Anfänger eine Stolperfalle, da Git keine Fehlermeldung ausgibt, sondern das Gleichheitszeichen als zu setzenden Wert übernimmt.
+////
+
+This is a trip hazard, especially for beginners, because Git does not output an error message, but takes the equals sign as the value to set.
 
 
 [[sec.erstes-repo]]
-=== Das erste Repository
+=== The First Repository
+// Das erste Repository
 
-Bevor wir mit Git Dateien verwalten, müssen wir ein Repository für das
-Beispiel-Projekt erstellen. Das Repository wird _lokal_ erstellt,
-liegt also nur auf dem Dateisystem des Rechners, auf dem Sie arbeiten.
+////
+Bevor wir mit Git Dateien verwalten, müssen wir ein Repository für das Beispiel-Projekt erstellen.
+Das Repository wird _lokal_ erstellt, liegt also nur auf dem Dateisystem des Rechners, auf dem Sie arbeiten.
+////
 
-Es empfiehlt sich generell, den Umgang mit Git zunächst lokal zu üben
-und erst später in die dezentralen Eigenschaften und Funktionen von
-Git einzutauchen.
+Before we use Git to manage files, we need to create a repository for the sample project.
+The repository will be created _locally_, so it will only be on the file system of the machine you are working on.
 
 
+////
+Es empfiehlt sich generell, den Umgang mit Git zunächst lokal zu üben und erst später in die dezentralen Eigenschaften und Funktionen von Git einzutauchen.
+////
 
-[subs="macros,quotes"]
+It's generally recommended that you practice using Git locally first, and only later dive into the decentralized features and functions of Git.
+
+// @FIXME: GIT LOGS: translate the directory 'beispiel/' to 'example/' in paths!
+
+[subs="quotes"]
 --------
 $ *git init beispiel*
 Initialized empty Git repository in /home/esc/beispiel/.git/
 --------
 
-Zunächst erstellt Git das Verzeichnis `beispiel/`, falls es
-noch nicht existiert. Danach initialisiert Git ein leeres Repository
-in diesem Verzeichnis und legt dafür ein Unterverzeichnis
-`.git/` an, in dem interne Daten verwaltet werden. Sollte das
-Verzeichnis `beispiel/` bereits existieren, erstellt Git darin
-ein neues Repository.  Gibt es bereits sowohl das Verzeichnis wie auch
-ein Repository, macht Git gar nichts.  Wir wechseln in das Verzeichnis und
-schauen uns mit `git status` den aktuellen Zustand an:
+
+////
+Zunächst erstellt Git das Verzeichnis `beispiel/`, falls es noch nicht existiert.
+Danach initialisiert Git ein leeres Repository in diesem Verzeichnis und legt dafür ein Unterverzeichnis `.git/` an, in dem interne Daten verwaltet werden.
+Sollte das Verzeichnis `beispiel/` bereits existieren, erstellt Git darin ein neues Repository.
+Gibt es bereits sowohl das Verzeichnis wie auch ein Repository, macht Git gar nichts.
+Wir wechseln in das Verzeichnis und schauen uns mit `git status` den aktuellen Zustand an:
+////
+
+First, Git creates the directory `example/` if it doesn't already exist.
+Git then initializes an empty repository in this directory and creates a subdirectory `.git/` for it, which is used to manage internal data.
+If the `example/` directory already exists, Git creates a new Git repository in it.
+If both the directory and a repository already exist, Git does nothing.
+We change to the directory and look at the current state with `git status`:
 
 
-
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *cd beispiel*
 $ *git status*
@@ -207,45 +307,63 @@ Initial commit
 nothing to commit (create/copy files and use "git add" to track)
 --------
 
-Git weist uns darauf hin, dass wir vor dem ersten Commit stehen
-(`Initial commit`), hat aber nichts gefunden, was in diesen
-Commit einfließen könnte (`nothing to commit`). Dafür liefert
-es einen Hinweis, welche Schritte sich als nächste anbieten (das tun
-übrigens die meisten Git-Kommandos): ``Erstellen oder kopieren Sie
-Dateien, und verwenden Sie `git add`, um diese mit Git zu
-verwalten.__
+Git weist uns darauf hin, dass wir vor dem ersten Commit stehen (`Initial commit`), hat aber nichts gefunden, was in diesen Commit einfließen könnte (`nothing to commit`).
+Dafür liefert es einen Hinweis, welche Schritte sich als nächste anbieten (das tun übrigens die meisten Git-Kommandos): "`Erstellen oder kopieren Sie Dateien, und verwenden Sie `git add`, um diese mit Git zu verwalten.`"
+
+// @NOTE: Should the last Git message be reproduced literally (as in the log) or
+//        should we keep the paraphrased version? In the original, it was just
+//        the German translation of the log text, but in this case it might also
+//        provide an easier to follow interpretation of the literal log (i.e.
+//        "manage" instead of "track").
+
+Git tells us that we're about to commit (`Initial commit`), but hasn't found anything to commit (`nothing to commit`).
+Instead, it gives a hint as to what the next steps should be (most Git commands do that, by the way): "`Create or copy files, and use `git add` to manage them with Git.`"
+
 
 [[sec.erster-commit]]
-=== Der erste Commit
+=== The First Commit
+// Der erste Commit
 
-Übergeben wir Git nun eine erste Datei zur Verwaltung, und zwar ein
-"`Hello World!`"-Programm in Perl.  Selbstverständlich
-können Sie stattdessen auch ein beliebiges Programm in der
-Programmiersprache Ihrer Wahl schreiben.
+////
+Übergeben wir Git nun eine erste Datei zur Verwaltung, und zwar ein "`Hello World!`"-Programm in Perl.
+Selbstverständlich können Sie stattdessen auch ein beliebiges Programm in der Programmiersprache Ihrer Wahl schreiben.
+////
 
-Wir erstellen zunächst die Datei `hello.pl` mit folgendem
-Inhalt
+Now let's give Git a first file to manage, which is a "`Hello World!`" program in Perl.
+Of course, you can write any program in the programming language of your choice instead.
+
+////
+Wir erstellen zunächst die Datei `hello.pl` mit folgendem Inhalt
+////
+
+We'll first create the `hello.pl` file with the following content
 
 --------
 print "Hello World!\n";
 --------
 
+
+////
 und führen das Script einmal aus:
+////
 
+and execute the script once:
 
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *perl hello.pl*
 Hello World!
 --------
 
-Damit sind wir bereit, die Datei mit Git zu verwalten. Schauen wir
-uns vorher aber noch die Ausgabe von `git status` an:
+////
+Damit sind wir bereit, die Datei mit Git zu verwalten.
+Schauen wir uns vorher aber noch die Ausgabe von `git status` an:
+////
 
+That means we're ready to manage the file with Git.
+But let's take a look at the output of `git status` first:
 
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git status*
 On branch master
@@ -259,29 +377,40 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 --------
 
-Zwar steht der erste Commit noch bevor, aber Git registriert, dass
-sich nun bereits Dateien in diesem Verzeichnis befinden, die dem System
-allerdings nicht bekannt sind -- Git nennt solche Dateien
-`untracked`. Es handelt sich hier natürlich um unser kleines
-Perl-Programm.  Um es mit Git zu verwalten, nutzen wir den Befehl
-`git add <datei>`:
+
+////
+Zwar steht der erste Commit noch bevor, aber Git registriert, dass sich nun bereits Dateien in diesem Verzeichnis befinden, die dem System allerdings nicht bekannt sind -- Git nennt solche Dateien `untracked`.
+Es handelt sich hier natürlich um unser kleines Perl-Programm.
+Um es mit Git zu verwalten, nutzen wir den Befehl `git add <datei>`:
+////
+
+While the first commit is still pending, Git registers that there are already files in that directory, but the system is unaware of them -- Git calls them `untracked`.
+This is, of course, our little Perl program.
+To manage it with Git, we use the command `git add <file>`:
 
 
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git add hello.pl*
 --------
 
-Das `add` steht generell für "`Änderungen hinzufügen`"
--- Sie werden es also immer dann benötigen, wenn Sie Dateien
-bearbeitet haben, nicht nur beim ersten Hinzufügen!
+////
+Das `add` steht generell für "`Änderungen hinzufügen`"-- Sie werden es also immer dann benötigen, wenn Sie Dateien bearbeitet haben, nicht nur beim ersten Hinzufügen!
+////
 
-Git liefert bei diesem Befehl keine Ausgabe. Mit `git status`
-überprüfen Sie, ob der Aufruf erfolgreich war:
+The `add` generally stands for "`add changes`" -- so you will need it whenever you have edited files, not just when you first add them!
 
 
-[subs="macros,quotes"]
+////
+Git liefert bei diesem Befehl keine Ausgabe.
+Mit `git status` überprüfen Sie, ob der Aufruf erfolgreich war:
+////
+
+Git doesn't provide output for this command.
+Use `git status` to check if the call was successful:
+
+
+[subs="quotes"]
 --------
 $ *git status*
 On branch master
@@ -294,29 +423,41 @@ Changes to be committed:
       new file:   hello.pl
 --------
 
-Git wird die Veränderungen -- also unsere neue Datei -- beim nächsten
-Commit übernehmen. Allerdings ist dieser Commit noch nicht vollzogen
--- wir haben ihn bisher lediglich vorbereitet.
+////
+Git wird die Veränderungen -- also unsere neue Datei -- beim nächsten Commit übernehmen.
+Allerdings ist dieser Commit noch nicht vollzogen -- wir haben ihn bisher lediglich vorbereitet.
+////
 
-Um genau zu sein, haben wir die Datei dem _Index_ hinzugefügt,
-einer Zwischenstufe, in der Sie Veränderungen, die in den nächsten
-Commit einfließen sollen, sammeln. Weitere Erklärungen zu diesem
-Konzept in <<sec.index>>.
-
-Bei  `git status` sehen Sie unter
-`Changes to be committed` immer, welche Dateien sich im Index
-befinden, also in den nächsten Commit übernommen werden.
-
-Alles ist bereit für den ersten Commit mit dem Kommando
-`git commit`. Außerdem übergeben wir auf der Kommandozeile die
-Option `-m` mit einer Commit-Nachricht (_Commit Message_),
-in der wir den Commit beschreiben:
+Git will apply the changes -- our new file -- at the next commit.
+However, this commit is not yet complete -- we've only prepared it so far.
 
 
+////
+Um genau zu sein, haben wir die Datei dem _Index_ hinzugefügt, einer Zwischenstufe, in der Sie Veränderungen, die in den nächsten Commit einfließen sollen, sammeln.
+Weitere Erklärungen zu diesem Konzept in Abschnitt 2.1.1, "Index".
+////
+
+To be precise, we've added the file to the _Index_, an intermediate stage where you collect changes that will be included in the next commit.
+For further explanation of this concept, see <<sec.index>>.
+
+
+////
+Bei  `git status` sehen Sie unter `Changes to be committed` immer, welche Dateien sich im Index befinden, also in den nächsten Commit übernommen werden.
+////
+
+With `git status`, under `Changes to be committed`, you can always see which files are in the Index, i.e., will be included in the next commit.
 
 
 
-[subs="macros,quotes"]
+Alles ist bereit für den ersten Commit mit dem Kommando `git commit`.
+Außerdem übergeben wir auf der Kommandozeile die Option `-m` mit einer Commit-Nachricht (_Commit Message_), in der wir den Commit beschreiben:
+
+Everything is ready for the first commit with the `git commit` command.
+We also pass the `-m` option on the command line with a commit message describing the commit:
+
+// @TODO: GIT LOG: Translate "Erste Version"?
+
+[subs="quotes"]
 --------
 $ *git commit -m "Erste Version"*
 [master (root-commit) 07cc103] Erste Version
@@ -325,18 +466,23 @@ $ *git commit -m "Erste Version"*
 --------
 
 
-Git bestätigt, dass der Vorgang erfolgreich abgeschlossen wurde und
-die Datei von nun an verwaltet wird. Die etwas kryptische Ausgabe
-bedeutet soviel wie: Git hat den initialen Commit
-(`root-commit`) mit der entsprechenden Nachricht erstellt. Es
-wurde eine Zeile in einer Datei hinzugefügt und die Datei mit den
-Unix-Rechten `0644` angelegt.{empty}{fn8}
 
-Wie Sie mittlerweile sicher festgestellt haben, ist `git
-  status` ein unerlässliches Kommando in der täglichen Arbeit -- wir
-nutzen es an dieser Stelle noch einmal:
+////
+Git bestätigt, dass der Vorgang erfolgreich abgeschlossen wurde und die Datei von nun an verwaltet wird.
+Die etwas kryptische Ausgabe bedeutet soviel wie: Git hat den initialen Commit (`root-commit`) mit der entsprechenden Nachricht erstellt.
+Es wurde eine Zeile in einer Datei hinzugefügt und die Datei mit den Unix-Rechten `0644` angelegt.[8]
+////
+
+Git will confirm that the process has been successfully completed and the file will be managed from now on.
+The somewhat cryptic output means Git has created the initial commit (`root-commit`) with the appropriate message.
+A line has been added to a file, and the file has been created with Unix permissions `0644`{fn8}.
 
 
+////
+Wie Sie mittlerweile sicher festgestellt haben, ist `git status` ein unerlässliches Kommando in der täglichen Arbeit -- wir nutzen es an dieser Stelle noch einmal:
+////
+
+As you've no doubt noticed by now, `git status` is an indispensable command in your daily work -- we'll use it again here:
 
 
 [subs="macros,quotes"]
@@ -346,9 +492,14 @@ On branch master
 nothing to commit, working directory clean
 --------
 
-Unser Beispiel-Repository ist jetzt "`sauber`", denn es gibt
-weder Veränderungen im Working Tree noch im Index, auch keine Dateien,
-die nicht mit Git verwaltet werden (_Untracked Files_).
+////
+Unser Beispiel-Repository ist jetzt "`sauber`", denn es gibt weder Veränderungen im Working Tree noch im Index, auch keine Dateien, die nicht mit Git verwaltet werden (_Untracked Files_).
+////
+
+Our sample repository is now "`clean`", because there are no changes in the Working Tree or Index, nor are there any files that are not managed with Git (_untracked files_).
+
+
+// *** ARRIVED HERE!!! ***
 
 [[sec.commits-einsehen]]
 === Commits einsehen
