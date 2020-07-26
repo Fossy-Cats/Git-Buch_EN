@@ -9,9 +9,9 @@ DOCUMENT STATUS:
   * Text formatting restored.
   * All XRefs restored.
   * All footnotes (8-11) restored and translated.
+  * All anchor IDs translated.
 
 TODO:
-  * Translate anchor IDs.
   * Revise all English text.
   * Remove references specific to German edition relating to translation issues.
 ////
@@ -31,7 +31,7 @@ The following chapter provides a concise introduction to the basic concepts and 
 A small sample project shows how to put a file under version control with Git, and the commands you use to perform the most important tasks.
 
 
-[[sec.begriffe]]
+[[sec.terminology]]
 == Basic Terminology
 // Grundbegriffe
 
@@ -213,7 +213,7 @@ A tag can simply be an identifier, such as `v1.6.2`, or it can contain additiona
 
 
 
-[[sec.erste-schritte]]
+[[sec.first-steps]]
 == First Steps with Git
 // Erste Schritte mit Git
 
@@ -266,7 +266,7 @@ Das ist besonders für Anfänger eine Stolperfalle, da Git keine Fehlermeldung a
 This is a trip hazard, especially for beginners, because Git does not output an error message, but takes the equals sign as the value to set.
 
 
-[[sec.erstes-repo]]
+[[sec.first-repo]]
 === The First Repository
 // Das erste Repository
 
@@ -333,7 +333,7 @@ Git tells us that we're about to commit (`Initial commit`), but hasn't found any
 Instead, it gives a hint as to what the next steps should be (most Git commands do that, by the way): "`Create or copy files, and use `git add` to manage them with Git.`"
 
 
-[[sec.erster-commit]]
+[[sec.first-commit]]
 === The First Commit
 // Der erste Commit
 
@@ -513,7 +513,7 @@ Our sample repository is now "`clean`", because there are no changes in the Work
 
 
 
-[[sec.commits-einsehen]]
+[[sec.viewing-commits]]
 ===  Viewing Commits
 // Commits einsehen
 
