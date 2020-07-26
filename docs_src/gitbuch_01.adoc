@@ -2,6 +2,20 @@
 
 // STATUS: Draft translation via DeepL Free, with minor editing. Footones (8-11)
 
+////
+DOCUMENT STATUS:
+  * Draft translation via DeepL Free, with minor editing.
+  * Original German commented out (XRrefs and Footnotes expanded).
+  * Text formatting restored.
+  * All XRefs restored.
+  * All footnotes (8-11) restored.
+
+TODO:
+  * Translate footnotes.
+  * Translate anchor IDs.
+  * Revise all English text.
+  * Remove references specific to German edition relating to translation issues.
+////
 
 [[ch.intro]]
 = Introduction and First Steps
@@ -499,25 +513,29 @@ Unser Beispiel-Repository ist jetzt "`sauber`", denn es gibt weder Veränderunge
 Our sample repository is now "`clean`", because there are no changes in the Working Tree or Index, nor are there any files that are not managed with Git (_untracked files_).
 
 
-// *** ARRIVED HERE!!! ***
 
 [[sec.commits-einsehen]]
-=== Commits einsehen
+===  Viewing Commits
+// Commits einsehen
 
-Zum Abschluss dieser kleinen Einführung stellen wir Ihnen noch zwei
-sehr nützliche Kommandos vor, die Sie häufig einsetzen werden, um die
-Versionsgeschichte von Projekten zu untersuchen.
+////
+Zum Abschluss dieser kleinen Einführung stellen wir Ihnen noch zwei sehr nützliche Kommandos vor, die Sie häufig einsetzen werden, um die Versionsgeschichte von Projekten zu untersuchen.
+////
 
-Zunächst erlaubt `git show` die Untersuchung eines einzelnen
-Commits – ohne weitere Argumente ist das der aktuellste:
+To conclude this brief introduction, we'll introduce you to two very useful commands that you'll often use to examine the version history of projects.
+
+////
+Zunächst erlaubt `git show` die Untersuchung eines einzelnen Commits -- ohne weitere Argumente ist das der aktuellste:
+////
+
+First, `git show` allows you to examine a single commit -- it's the most recent one, with no arguments:
 
 
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show*
 commit 07cc103feb393a93616842921a7bec285178fd56
-Author: Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
+Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
     Erste Version
@@ -526,25 +544,27 @@ diff --git a/hello.pl b/hello.pl
 new file mode 100644
 index 0000000..fa5a091
 --- /dev/null
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -0,0 +1 @@
 +print "Hello World!\n";
 --------
 
-Sie sehen alle relevanten Informationen zu dem Commit: die
-_Commit-ID_, den Autor, das Datum und die Uhrzeit des Commits,
-die Commit-Nachricht sowie eine Zusammenfassung der Veränderungen im
-_Unified-Diff_-Format.
+////
+Sie sehen alle relevanten Informationen zu dem Commit: die _Commit-ID_, den Autor, das Datum und die Uhrzeit des Commits, die Commit-Nachricht sowie eine Zusammenfassung der Veränderungen im _Unified-Diff_-Format.
+////
 
-Standardmäßig gibt `git show` immer den `HEAD` aus (ein
-symbolischer Name für den aktuellsten Commit); Sie könnten aber auch
-z.B. die Commit-ID, also die SHA-1-Prüfsumme des Commits, ein
-eindeutiges Präfix davon oder den Branch (in diesem Fall
-`master`) angeben. Somit sind in
-diesem Beispiel folgende Kommandos äquivalent:
+You see all relevant information about the commit: the _commit ID_, the author, the date and time of the commit, the commit message, and a summary of the changes in _Unified-Diff_ format.
+
+////
+Standardmäßig gibt `git show` immer den `HEAD` aus (ein symbolischer Name für den aktuellsten Commit); Sie könnten aber auch z.B. die Commit-ID, also die SHA-1-Prüfsumme des Commits, ein eindeutiges Präfix davon oder den Branch (in diesem Fall `master`) angeben.
+Somit sind in diesem Beispiel folgende Kommandos äquivalent:
+////
+
+By default, `git show` always prints the `HEAD` (a symbolic name for the most recent commit), but you could also specify, for example, the commit ID, which is the SHA-1 checksum of the commit, a unique prefix to it, or the branch (`master` in this case).
+Thus, the following commands are equivalent in this example:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show*
 $ *git show HEAD*
@@ -553,22 +573,30 @@ $ *git show 07cc103*
 $ *git show 07cc103feb393a93616842921a7bec285178fd56*
 --------
 
-Wollen Sie mehr als einen Commit einsehen, empfiehlt sich `git
-  log`.  Um das Kommando sinnvoll zu demonstrieren, bedarf es weiterer
-Commits; andernfalls würde sich die Ausgabe kaum von `git show`
-unterscheiden, da das Beispiel-Repository im Moment nur einen einzigen
-Commit enthält. Fügen wir also folgende Kommentarzeile dem ``Hello
-  World!__-Programm hinzu:
+
+////
+Wollen Sie mehr als einen Commit einsehen, empfiehlt sich `git log`.
+Um das Kommando sinnvoll zu demonstrieren, bedarf es weiterer Commits; andernfalls würde sich die Ausgabe kaum von `git show` unterscheiden, da das Beispiel-Repository im Moment nur einen einzigen Commit enthält.
+Fügen wir also folgende Kommentarzeile dem "`Hello World!`"-Programm hinzu:
+////
+
+If you want to view more than one commit, `git log` is recommended.
+More commits are needed to demonstrate the command in a meaningful way; otherwise, the output would be very similar to `git show`, since the sample repository currently contains only a single commit.
+So let's add the following comment line to the "`Hello World!`" program_
+
+
+// @TODO: PERL SYNTAX HIGHLIGHTING
 
 --------
 # Hello World! in Perl
 --------
 
-Schauen wir uns der Übung halber noch einmal mit `git status`
-den aktuellen Zustand an:
+Schauen wir uns der Übung halber noch einmal mit `git status` den aktuellen Zustand an:
+
+For the sake of the exercise, let's take another look at the current status with `git status`:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git status*
 On branch master
@@ -582,147 +610,194 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 --------
 
-Benutzen Sie danach, wie in der Ausgabe des Kommandos schon
-beschrieben, `git add`, um die Veränderungen dem Index
-hinzuzufügen. Wie bereits erwähnt, wird `git add` sowohl zum
-Hinzufügen neuer Dateien wie auch zum Hinzufügen von Veränderungen an
-Dateien, die bereits verwaltet werden, verwendet.
+////
+Benutzen Sie danach, wie in der Ausgabe des Kommandos schon beschrieben, `git add`, um die Veränderungen dem Index hinzuzufügen.
+Wie bereits erwähnt, wird `git add` sowohl zum Hinzufügen neuer Dateien wie auch zum Hinzufügen von Veränderungen an Dateien, die bereits verwaltet werden, verwendet.
+////
 
+Then, as described in the output of the command, use `git add` to add the changes to the Index.
+As mentioned earlier, `git add` is used both to add new files and to add changes to files already managed.
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git add hello.pl*
 --------
 
+////
 Erstellen Sie anschließend einen Commit:
+////
 
+Then create a commit:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git commit -m "Kommentar-Zeile"*
 [master 8788e46] Kommentar-Zeile
  1 file changed, 1 insertion(+)
 --------
 
+////
 Nun zeigt Ihnen `git log` die beiden Commits:
+////
 
+Now `git log` shows you the two commits:
 
-[subs="macros,quotes"]
+// @TODO: GIT LOG: Translate "Erste Version"?
+
+[subs="quotes"]
 --------
 $ *git log*
 commit 8788e46167aec2f6be92c94c905df3b430f6ecd6
-Author: Valentin Haenel pass:quotes[&lt;valentin.haenel@gmx.de&gt;]
+Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Fri May 27 12:52:58 2011 +0200
 
     Kommentar-Zeile
 
 commit 07cc103feb393a93616842921a7bec285178fd56
-Author: Valentin Haenel pass:quotes[&lt;valentin.haenel@gmx.de&gt;]
+Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
     Erste Version
 --------
 
+
 [[chap.git-config]]
-== Git konfigurieren
+== Configuring Git
+// Git konfigurieren
 
-Wie die meisten textbasierten Programme bietet Git eine Fülle an
-Konfigurationsoptionen. Es ist daher jetzt an der Zeit, einige
-grundlegende Einstellungen vorzunehmen. Dazu gehören Farbeinstellungen,
-die in neueren Versionen standardmäßig bereits eingeschaltet sind und
-die es Ihnen erleichtern, die Ausgabe von Git-Kommandos zu erfassen,
-sowie kleine Aliase (Abkürzungen) für häufig benötigte Kommandos.
+////
+Wie die meisten textbasierten Programme bietet Git eine Fülle an Konfigurationsoptionen.
+Es ist daher jetzt an der Zeit, einige grundlegende Einstellungen vorzunehmen.
+Dazu gehören Farbeinstellungen, die in neueren Versionen standardmäßig bereits eingeschaltet sind und die es Ihnen erleichtern, die Ausgabe von Git-Kommandos zu erfassen, sowie kleine Aliase (Abkürzungen) für häufig benötigte Kommandos.
+////
 
-
-Git konfigurieren Sie über das Kommando `git config`. Die
-Konfiguration wird einem Format ähnlich einer INI-Datei gespeichert.
-Ohne Angabe weiterer Parameter gilt die Konfiguration nur für das
-aktuelle Repository (`.git/config`). Mit der Option `--global` wird sie in
-der Datei `.gitconfig` im Home-Verzeichnis des Nutzers abgelegt
-und gilt dann für alle Repositories.{empty}{fn9}
-
-Wichtige Einstellungen, die Sie immer vornehmen sollten, sind Name
-und E-Mail-Adresse des Benutzers:
+Like most text-based programs, Git offers a wealth of configuration options.
+So now's the time to do some basic configuration.
+These include color settings, which are turned on by default in newer versions, to make it easier to capture the output of Git commands, and small aliases (abbreviations) for frequently used commands.
 
 
+////
+Git konfigurieren Sie über das Kommando `git config`.
+Die Konfiguration wird einem Format ähnlich einer INI-Datei gespeichert.
+Ohne Angabe weiterer Parameter gilt die Konfiguration nur für das aktuelle Repository (`.git/config`).
+Mit der Option `--global` wird sie in der Datei `.gitconfig` im Home-Verzeichnis des Nutzers abgelegt und gilt dann für alle Repositories.[9]
+////
 
-[subs="macros,quotes"]
+You configure Git with the `git config` command.
+The configuration is saved in a format similar to an INI file.
+If you do not specify any other parameters, the configuration only applies to the current Git repository (`.git/config`).
+With the `--global` option, it is stored in the `.gitconfig` file in the user's home directory, and is then valid for all repositories.{fn9}
+
+
+////
+Wichtige Einstellungen, die Sie immer vornehmen sollten, sind Name und E-Mail-Adresse des Benutzers:
+////
+
+Important settings that you should always configure are the user name and e-mail address:
+
+
+[subs="quotes"]
 --------
 $ *git config --global user.name "Max Mustermann"*
 $ *git config --global user.email "max.mustermann@example.com"*
 --------
 
-Beachten Sie, dass Sie Leerzeichen im Wert der Einstellung schützen
-müssen (durch Anführungszeichen oder Backslashes). Außerdem folgt der
-Wert direkt auf den Namen der Option -- ein Gleichheitszeichen ist auch
-hier nicht nötig. Das Ergebnis des Kommandos findet sich anschließend
-in der Datei `~/.gitconfig`:
+Beachten Sie, dass Sie Leerzeichen im Wert der Einstellung schützen müssen (durch Anführungszeichen oder Backslashes).
+Außerdem folgt der Wert direkt auf den Namen der Option -- ein Gleichheitszeichen ist auch hier nicht nötig.
+Das Ergebnis des Kommandos findet sich anschließend in der Datei `~/.gitconfig`:
+
+Note that you must protect spaces in the setting value (using quotation marks or backslashes).
+Also, the value follows the name of the option directly -- an equal sign is not necessary here either.
+The result of the command can be found in the file `~/.gitconfig`:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *less ~/.gitconfig*
 [user]
     name = Max Mustermann
-    email = pass:quotes[max.mustermann@example.com]
+    email = max.mustermann@example.com
 --------
 
-Die Einstellungen gelten nun "`global`", also für alle
-Repositories, die Sie unter diesem Nutzernamen bearbeiten.  Wollen Sie
-für ein bestimmtes Projekt eine andere E-Mail-Adresse als Ihre global
-definierte angeben, ändern Sie dort einfach die Einstellung (diesmal
-natürlich ohne den Zusatz `--global`):
+////
+Die Einstellungen gelten nun "`global`", also für alle Repositories, die Sie unter diesem Nutzernamen bearbeiten.
+Wollen Sie für ein bestimmtes Projekt eine andere E-Mail-Adresse als Ihre global definierte angeben, ändern Sie dort einfach die Einstellung (diesmal natürlich ohne den Zusatz `--global`):
+////
 
+The settings are now "`global`", meaning they apply to all repositories you edit under that user name.
+If you want to specify an e-mail address other than your globally defined one for a particular project, simply change the setting there (this time, of course, without adding `--global`):
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
-$ *git config user.email pass:quotes[maintainer@project.example.com]*
+$ *git config user.email maintainer@project.example.com*
 --------
 
 
-Bei der Abfrage einer Option geht Git so vor, dass es zuerst die
-Einstellung im aktuellen Repository nutzt, sofern vorhanden,
-andernfalls die aus der globalen `.gitconfig`; gibt es auch
-diese nicht, wird auf den Default-Wert
-zurückgegriffen.{fn10}
-Letzteren erhält man für alle Optionen in der Man-Page
-`git-config`. Eine Liste aller gesetzten Einstellungen fragen
-Sie per `git config -l` ab.
+////
+Bei der Abfrage einer Option geht Git so vor, dass es zuerst die Einstellung im aktuellen Repository nutzt, sofern vorhanden, andernfalls die aus der globalen `.gitconfig`; gibt es auch diese nicht, wird auf den Default-Wert zurückgegriffen.[10]
+Letzteren erhält man für alle Optionen in der Man-Page `git-config`.
+Eine Liste aller gesetzten Einstellungen fragen Sie per `git config -l` ab.
+////
 
-Sie können die Datei `.gitconfig` (bzw. im Repository
-`.git/config`) auch von Hand editieren. Gerade zum Löschen
-einer Einstellung ist das sinnvoll -- zwar bietet `git config`
-auch eine Option `--unset`, die entsprechende Zeile in einem
-Editor zu löschen ist aber einfacher.
+When Git queries an option, it will first use the setting in the current Git repository, if it exists, otherwise it will use the setting from the global `.gitconfig`; if it doesn't, it will revert to the default value.{fn10}
+The latter is available for all options in the man page `git-config`.
+You can get a list of all the settings you have set using `git config -l`.
+
+
+////
+Sie können die Datei `.gitconfig` (bzw. im Repository `.git/config`) auch von Hand editieren.
+Gerade zum Löschen einer Einstellung ist das sinnvoll -- zwar bietet `git config` auch eine Option `--unset`, die entsprechende Zeile in einem Editor zu löschen ist aber einfacher.
+////
+
+You can also edit the `.gitconfig` file (or the repository `.git/config`) by hand.
+This is especially useful for deleting a setting -- although `git config` also offers a `--unset` option, it is easier to delete the corresponding line in an editor.
 
 [TIP]
 ==================
-Die Kommandos `git config -e` bzw. `git config --global -e` starten
-den für Git konfigurierten Editor auf der lokalen bzw. globalen
-Konfigurationsdatei.
+////
+Die Kommandos `git config -e` bzw. `git config --global -e` starten den für Git konfigurierten Editor auf der lokalen bzw. globalen Konfigurationsdatei.
+////
+
+The commands `git config -e` or `git config --global -e` launch the editor configured for Git on the local or global configuration file.
 ==================
 
-Beachten Sie allerdings, dass Git beim _Setzen_ von Optionen
-durch ein entsprechendes Kommando problematische Zeichen im Wert der
-Option automatisch schützt, so dass keine fehlerhaften
-Konfigurationsdateien entstehen.
+////
+Beachten Sie allerdings, dass Git beim _Setzen_ von Optionen durch ein entsprechendes Kommando problematische Zeichen im Wert der Option automatisch schützt, so dass keine fehlerhaften Konfigurationsdateien entstehen.
+////
+
+Note, however, that when you _set_ options with an appropriate command, Git automatically protects problematic characters in the option's value so that no bad configuration files are created.
+
+
 
 [[sec.git-alias]]
-=== Git Aliase
+=== Git Aliases
+// Git Aliase
 
-Git bietet Ihnen über _Aliase_ die Möglichkeit, einzelne
-Kommandos und sogar ganze Kommandosequenzen abzukürzen. Die Syntax lautet:
+////
+Git bietet Ihnen über _Aliase_ die Möglichkeit, einzelne Kommandos und sogar ganze Kommandosequenzen abzukürzen.
+Die Syntax lautet:
+////
 
+Git uses _aliases_ to allow you to abbreviate individual commands and even entire command sequences.
+The syntax is:
 
-[subs="macros,quotes"]
+// @TODO: GIT SYNTAX: Translate "<entsprechung>".
+//        NOTE: the 'git alias' man page provides the following syntax:
+//          git-alias <alias-name> <command>
+
+[subs="quotes"]
 --------
-$ pass:quotes[*git config alias.&lt;alias-name&gt; &lt;entsprechung&gt;*]
+$ *git config alias.&lt;alias-name&gt; &lt;entsprechung&gt;*
 --------
 
+////
 Um etwa `st` als Alias für `status` zu setzen:
+////
+
+To set `st` as an alias for `status`:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git config --global alias.st status*
 $ *git st*
@@ -730,18 +805,25 @@ On branch master
 ...
 --------
 
+////
 Sie können auch Optionen in ein Alias einbauen, z.B.:
+////
 
+You can also include options in an alias, for example:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
-$ *git config --global alias.gconfig \_config --global_*
+$ *git config --global alias.gconfig 'config --global'*
 --------
 
-Weitere nützliche Aliase finden Sie im weiteren Verlauf des Buches;
-wie Sie komplexere Aliase erstellen, ist in
-<<sec.git-erweiterte-aliase>> beschrieben.  Vorab aber schon
-einige nützliche Abkürzungen:
+////
+Weitere nützliche Aliase finden Sie im weiteren Verlauf des Buches; wie Sie komplexere Aliase erstellen, ist in  Abschnitt 8.3.8, "Erweiterte Aliase" beschrieben.
+Vorab aber schon einige nützliche Abkürzungen:
+////
+
+You will find more useful aliases later in the book; how to create more complex aliases is described in <<sec.git-erweiterte-aliase>>.
+But first, some useful abbreviations:
+
 
 --------
 [alias]
@@ -755,212 +837,304 @@ einige nützliche Abkürzungen:
 --------
 
 
+
 [[chap.color-defaults]]
-=== Farbe einstellen
+=== Adjusting Colours
+// Farbe einstellen
 
-Überaus hilfreich ist die Option `color.ui`, die prüft, ob Git
-die Ausgabe diverser Kommandos einfärben soll. So erscheinen gelöschte
-Dateien und Zeilen rot, neue Dateien und Zeilen grün, Commit-IDs
-gelb usw. In neueren Git-Versionen (ab 1.8.4) ist diese Einstellung
-bereits automatisch gesetzt, Sie müssen also nichts tun.
+////
+Überaus hilfreich ist die Option `color.ui`, die prüft, ob Git die Ausgabe diverser Kommandos einfärben soll.
+So erscheinen gelöschte Dateien und Zeilen rot, neue Dateien und Zeilen grün, Commit-IDs gelb usw.
+In neueren Git-Versionen (ab 1.8.4) ist diese Einstellung bereits automatisch gesetzt, Sie müssen also nichts tun.
+////
 
-Die Option `color.ui` sollte auf `auto` gesetzt sein
--- erfolgt die Ausgabe von Git in ein Terminal, werden Farben
-verwendet. Schreibt das Kommando stattdessen in eine Datei oder wird
-die Ausgabe an ein anderes Programm gepipet, so gibt Git keine
-Farbsequenzen aus, da das die automatische Weiterverarbeitung
-behindern könnte.
+Very helpful is the `color.ui` option, which checks whether Git should color the output of various commands.
+Deleted files and lines will appear red, new files and lines green, commit IDs yellow, and so on.
+In newer Git versions (1.8.4 and later) this setting is already set automatically, so you don't need to do anything.
 
 
-[subs="macros,quotes"]
+////
+Die Option `color.ui` sollte auf `auto` gesetzt sein -- erfolgt die Ausgabe von Git in ein Terminal, werden Farben verwendet.
+Schreibt das Kommando stattdessen in eine Datei oder wird die Ausgabe an ein anderes Programm gepipet, so gibt Git keine Farbsequenzen aus, da das die automatische Weiterverarbeitung behindern könnte.
+////
+
+The `color.ui` option should be set to `auto` -- if Git is output to a terminal, colours are used.
+If the command is written to a file instead, or the output is piped to another program, Git will not output color sequences, as this could interfere with automatic processing.
+
+
+[subs="quotes"]
 --------
 $ *git config --global color.ui auto*
 --------
 
 
 [[chap.config-encoding]]
-=== Zeichensätze einstellen
+=== Configuring Character Sets
+//  Zeichensätze einstellen
 
-Sofern nicht anders eingestellt, nimmt Git für alle Texte, also vor
-allem für die Namen der Autoren und die Commit-Nachricht, UTF-8 als
-Zeichenkodierung an. Wollen Sie
-ein anderes Encoding, sollten Sie dies explizit
-konfigurieren:{fn11}
+////
+Sofern nicht anders eingestellt, nimmt Git für alle Texte, also vor allem für die Namen der Autoren und die Commit-Nachricht, UTF-8 als Zeichenkodierung an.
+Wollen Sie ein anderes Encoding, sollten Sie dies explizit konfigurieren:[11]
+////
 
+Unless set otherwise, Git assumes UTF-8 as the character encoding for all text, especially author names and the commit message.
+If you want a different encoding, you should configure it explicitly:{fn11}
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git config i18n.commitEncoding ISO-8859-1*
 --------
 
-Analog bestimmt die Einstellung `i18n.logOutputEncoding`, in
-welchen Zeichensatz Git die Namen und Commit-Nachrichten konvertiert,
-bevor sie ausgegeben werden.
+////
+Analog bestimmt die Einstellung `i18n.logOutputEncoding`, in welchen Zeichensatz Git die Namen und Commit-Nachrichten konvertiert, bevor sie ausgegeben werden.
+////
 
-Das Encoding der _Dateien_, die von Git verwaltet werden, spielt
-hier keine Rolle und wird von diesen Einstellungen nicht beeinflusst --
-Dateien sind nur Bit-Streams, die Git nicht interpretiert.
+Similarly, the setting `i18n.logOutputEncoding` determines the character set Git converts names and commit messages to before outputting them.
+
+
+////
+Das Encoding der _Dateien_, die von Git verwaltet werden, spielt hier keine Rolle und wird von diesen Einstellungen nicht beeinflusst -- Dateien sind nur Bit-Streams, die Git nicht interpretiert.
+////
+
+The encoding of the _files_ managed by Git is not important here and is not affected by these settings -- files are only bit streams that Git does not interpret.
 
 
 [TIP]
 ================
-Wenn Sie in einer UTF-8-Umgebung mit Dateien, die nach ISO-8859-1
-kodiert sind, umgehen müssen, sollten Sie die Einstellung Ihres Pagers
-(s.u.) entsprechend anpassen. Für die Autoren bewährt sich die
-folgende Einstellung:
+////
+Wenn Sie in einer UTF-8-Umgebung mit Dateien, die nach ISO-8859-1 kodiert sind, umgehen müssen, sollten Sie die Einstellung Ihres Pagers (s.u.) entsprechend anpassen.
+Für die Autoren bewährt sich die folgende Einstellung:
+////
 
-[subs="macros,quotes"]
+If you have to handle files encoded according to ISO-8859-1 in a UTF-8 environment, you should adjust the setting of your pager (see below) accordingly.
+The following setting is recommended for authors:
+
+[subs="quotes"]
 --------
-$ *git config core.pager \_env LESSCHARSET=iso8859 less_*
+$ *git config core.pager 'env LESSCHARSET=iso8859 less'*
 --------
 ================
 
+
+
 [[sec.config-eol]]
-=== Zeilenenden einstellen
+=== Line End Settings
+//  Zeilenenden einstellen
 
-Da Git auf Windows-Systemen wie auf unixoiden Systemen läuft, muss es
-das Problem verschiedener Zeilenende-Konventionen lösen. (Das betrifft
-nur Text-Dateien -- Binärdateien, die Git als solche erkennt, werden
-von dieser Behandlung ausgenommen.)
+////
+Da Git auf Windows-Systemen wie auf unixoiden Systemen läuft, muss es das Problem verschiedener Zeilenende-Konventionen lösen.
+(Das betrifft nur Text-Dateien -- Binärdateien, die Git als solche erkennt, werden von dieser Behandlung ausgenommen.)
+////
 
-Dafür ist im Wesentlichen die Einstellung `core.eol` relevant,
-die einen der Werte `lf`, `crlf` oder `native`
-annehmen kann. Die Standardeinstellung `native` lässt Git den
-System-Default verwenden -- Unix: nur Line Feed (`lf`),
-Windows: Carriage Return & Line Feed (`crlf`). Die Datei wird
-automatisch konvertiert, um nur Line Feeds zu erhalten, wird aber bei
-Bedarf mit CRLF ausgecheckt.
+Since Git runs on Windows systems like it does on unixoid systems, it has to solve the problem of different line-end conventions.
+(This only affects text files -- binaries that Git recognizes as such are excluded from this treatment).
 
-Zwischen den beiden Varianten kann Git bei einem Checkout der Datei
-konvertieren; wichtig ist aber, dass die beiden Typen nicht vermischt
-werden. Dafür bietet die Option `core.safecrlf` einen
-Mechanismus, den Nutzer zu warnen (Wert `warn`) oder gar den
-Commit zu verbieten (Wert `true`).
 
-Eine sichere Einstellung, die auch mit älteren Git-Versionen unter
-Windows-Systemen funktioniert, ist `core.autocrlf` auf
-`input` zu setzen: Dadurch wird automatisch beim
-_Einlesen_ der Dateien vom Dateisystem CRLF durch LF ersetzt. Ihr
+////
+Dafür ist im Wesentlichen die Einstellung `core.eol` relevant, die einen der Werte `lf`, `crlf` oder `native` annehmen kann.
+Die Standardeinstellung `native` lässt Git den System-Default verwenden -- Unix: nur Line Feed (`lf`), Windows: Carriage Return & Line Feed (`crlf`).
+Die Datei wird automatisch konvertiert, um nur Line Feeds zu erhalten, wird aber bei Bedarf mit CRLF ausgecheckt.
+////
+
+The `core.eol` setting, which can take one of the values `lf`, `crlf` or `native`, is mainly relevant for this.
+The default setting `native` lets Git use the system default -- Unix: Line Feed (`lf`) only, Windows: Carriage Return & Line Feed (`crlf`).
+The file is automatically converted to get line feeds only, but is checked out with CRLF if necessary.
+
+
+////
+Zwischen den beiden Varianten kann Git bei einem Checkout der Datei konvertieren; wichtig ist aber, dass die beiden Typen nicht vermischt werden.
+Dafür bietet die Option `core.safecrlf` einen Mechanismus, den Nutzer zu warnen (Wert `warn`) oder gar den Commit zu verbieten (Wert `true`).
+////
+
+Git can convert between the two types when you check out the file, but it's important not to mix the two.
+For this, the `core.safecrlf` option provides a mechanism to warn the user (value `warn`) or even disallow the commit (value `true`).
+
+
+Eine sichere Einstellung, die auch mit älteren Git-Versionen unter Windows-Systemen funktioniert, ist `core.autocrlf` auf `input` zu setzen: Dadurch wird automatisch beim _Einlesen_ der Dateien vom Dateisystem CRLF durch LF ersetzt.
+Ihr
 Editor muss dann entsprechend mit LF-Enden umgehen können.
 
-Sie können diese Einstellungen auch explizit pro Datei bzw.
-Unterverzeichnis angeben, so dass das Format über alle Plattformen
-hinweg gleich ist (siehe dafür <<sec.attributes>>).
+A safe setting, which also works with older Git versions on Windows systems, is to set `core.autocrlf` to `input`: This will automatically replace CRLF with LF when _reading_ files from the filesystem.
+Your editor must then be able to handle LF line endings accordingly.
+
+////
+Sie können diese Einstellungen auch explizit pro Datei bzw. Unterverzeichnis angeben, so dass das Format über alle Plattformen hinweg gleich ist (siehe dafür Abschnitt 8.1, "Git-Attribute – Dateien gesondert behandeln").
+////
+
+You can also specify these settings explicitly per file or subdirectory, so that the format is the same across all platforms (see <<sec.attributes>>).
+
+
 
 [[chap.ext-tools]]
-=== Editor, Pager und Browser einstellen
+=== Editor, Pager and Browser Settings
+//  Editor, Pager und Browser einstellen
 
-Git startet für bestimmte Aktionen automatisch einen Editor, Pager
-oder Browser. Meist werden vernünftige Defaults verwendet, wenn nicht,
-können Sie Ihr Wunschprogramm mit den folgenden
-Optionen konfigurieren:
+////
+Git startet für bestimmte Aktionen automatisch einen Editor, Pager oder Browser.
+Meist werden vernünftige Defaults verwendet, wenn nicht, können Sie Ihr Wunschprogramm mit den folgenden Optionen konfigurieren:
+////
 
+Git automatically starts an editor, pager, or browser for certain actions.
+Usually reasonable defaults are used, but if not, you can configure your preferred program with the following options:
 
 * `core.editor`
 * `core.pager`
 * `web.browser`
 
 
-Ein Wort zum Pager: Standardmäßig verwendet Git das Programm
-`less`, das auf den meisten Grundsystemen installiert ist.  Das
-Kommando wird _immer_ gestartet, sobald ein Git-Kommando eine
-Ausgabe auf einem Terminal produziert. Allerdings wird `less`
-durch eine entsprechende Umgebungsvariable automatisch konfiguriert
-sich zu beenden, wenn die Ausgabe vollständig auf das Terminal passt.
-Falls ein Kommando also viel Ausgabe produziert, tritt `less`
-automatisch in den Vordergrund -- und bleibt sonst unsichtbar.
+////
+Ein Wort zum Pager: Standardmäßig verwendet Git das Programm `less`, das auf den meisten Grundsystemen installiert ist.
+Das Kommando wird _immer_ gestartet, sobald ein Git-Kommando eine Ausgabe auf einem Terminal produziert.
+Allerdings wird `less` durch eine entsprechende Umgebungsvariable automatisch konfiguriert sich zu beenden, wenn die Ausgabe vollständig auf das Terminal passt.
+Falls ein Kommando also viel Ausgabe produziert, tritt `less` automatisch in den Vordergrund -- und bleibt sonst unsichtbar.
+////
 
-Wird `core.pager` auf `cat` gesetzt, verwendet Git
-keinen Pager. Dieses Verhalten kann man aber auch von Kommando zu
-Kommando durch den Parameter `--no-pager` erreichen.
-Zusätzlich kann man z.B. per `git config pager.diff false`
-erreichen, dass die Ausgabe des Diff-Kommandos nie in den Pager
-geleitet wird.
+A word about the pager: By default, Git uses the `less` program, which is installed on most basic systems.
+The command is _always_ started whenever a Git command produces output on a terminal.
+However, `less` is automatically configured by an environment variable to quit when the output is completely fit on the terminal.
+So, if a command produces a lot of output, `less` will automatically come to the foreground -- and remain invisible otherwise.
+
+
+////
+Wird `core.pager` auf `cat` gesetzt, verwendet Git keinen Pager.
+Dieses Verhalten kann man aber auch von Kommando zu Kommando durch den Parameter `--no-pager` erreichen.
+Zusätzlich kann man z.B. per `git config pager.diff false` erreichen, dass die Ausgabe des Diff-Kommandos nie in den Pager geleitet wird.
+////
+
+If `core.pager` is set to `cat`, Git will not use a pager.
+However, this behavior can be achieved from command to command using the `--no-pager` parameter.
+In addition, you can use `git config pager.diff false` to ensure that the output of the diff command is never sent to the pager.
+
+
 
 [[chap.conf-env]]
-=== Konfiguration über Umgebungsvariablen
+===  Configuration via Environment Variables
+//  Konfiguration über Umgebungsvariablen
 
-Einige Optionen lassen sich auch durch Umgebungsvariablen
-überschreiben. Auf diese Weise können in einem Shell-Script oder in
-einem Alias Optionen lediglich für ein einzelnes Kommando gesetzt
-werden.
+Einige Optionen lassen sich auch durch Umgebungsvariablen überschreiben.
+Auf diese Weise können in einem Shell-Script oder in einem Alias Optionen lediglich für ein einzelnes Kommando gesetzt werden.
 
-
-
-`GIT_EDITOR`::  der Editor, den Git z.B. zum
-  Erstellen der Commit-Nachricht startet. Alternativ
-  greift Git auf die Variable `EDITOR` zurück.
+Some options can also be overridden by environment variables.
+In this way, options can be set in a shell script or alias for a single command only.
 
 
-`GIT_PAGER`::  der zu verwendende Pager. Der Wert
-  `cat` schaltet den Pager aus.
+////
+`GIT_EDITOR`::
+der Editor, den Git z.B. zum Erstellen der Commit-Nachricht startet.
+Alternativ greift Git auf die Variable `EDITOR` zurück.
+////
+
+`GIT_EDITOR` ::
+the editor that Git starts, for example, to create the commit message.
+Alternatively, Git uses the `EDITOR` variable.
 
 
+////
+`GIT_PAGER`::
+der zu verwendende Pager.
+Der Wert `cat` schaltet den Pager aus.
+////
+
+`GIT_PAGER` ::
+the pager to be used.
+The value `cat` switches the pager off.
+
+
+////
 `GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_EMAIL`::
-verwendet die entsprechende E-Mail-Adresse für das Autor- bzw.
-Committer-Feld beim Erstellen eines Commits.
+verwendet die entsprechende E-Mail-Adresse für das Autor- bzw. Committer-Feld beim Erstellen eines Commits.
+////
+
+`GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_EMAIL` ::
+uses the appropriate email address for the author or committer field when creating a commit.
 
 
+////
 `GIT_AUTHOR_NAME`, `GIT_COMMITTER_NAME`::
-  analog der Name.
+analog der Name.
+////
+
+`GIT_AUTHOR_NAME`, `GIT_COMMITTER_NAME` ::
+analogous to the name.
 
 
+////
 `GIT_DIR`::
-  Verzeichnis, in dem sich das Git-Repository befindet; nur sinnvoll,
-  wenn explizit ein Repository unter einem anderen Verzeichnis als
-  `.git` gespeichert wird.
+Verzeichnis, in dem sich das Git-Repository befindet; nur sinnvoll, wenn explizit ein Repository unter einem anderen Verzeichnis als `.git` gespeichert wird.
+////
 
 
-Die letztgenannte Variable ist beispielsweise praktisch, wenn Sie
-innerhalb eines Projekts auf die Versionsgeschichte eines anderen
-Repositorys zugreifen wollen, ohne das Verzeichnis zu wechseln:
+`GIT_DIR` ::
+Directory in which the Git repository is located; only makes sense if a repository is explicitly stored under a directory other than `.git`.
 
 
-[subs="macros,quotes"]
+////
+Die letztgenannte Variable ist beispielsweise praktisch, wenn Sie innerhalb eines Projekts auf die Versionsgeschichte eines anderen Repositorys zugreifen wollen, ohne das Verzeichnis zu wechseln:
+////
+
+The latter variable is useful, for example, if you want to access the version history of another repository within a project without changing directory:
+
+// @CHECK: Shouldn't "git log" be in an independent line, in the following log?
+
+[subs="quotes"]
 --------
 $ *GIT_DIR="~/proj/example/.git" git log*
 --------
 
-Alternativ können Sie über die Option `-c`{empty}{nbsp} _vor dem Subkommando_ eine
-Einstellung nur für diesen Aufruf überschreiben. So könnten Sie zum
-Beispiel Git anweisen, für den kommenden Aufruf die Option
-`core.trustctime` zu deaktivieren:
+Alternativ können Sie über die Option `-c`{empty}{nbsp} _vor dem Subkommando_ eine Einstellung nur für diesen Aufruf überschreiben.
+So könnten Sie zum Beispiel Git anweisen, für den kommenden Aufruf die Option `core.trustctime` zu deaktivieren:
 
-[subs="macros,quotes"]
+Alternatively, you can use the `-c` option _before the subcommand_ to overwrite a setting for this call only.
+For example, you could tell Git to disable the `core.trustctime` option for the upcoming call:
+
+[subs="quotes"]
 --------
 $ *git -c core.trustctime=false status*
 --------
 
+
+
 [[chap.correct-errors]]
-=== Automatische Fehlerkorrektur
+===  Automatic Error Correction
+//  Automatische Fehlerkorrektur
 
-Der Wert der Option `help.autocorrect` bestimmt, was Git tun
-soll, wenn es das eingegebene Subkommando nicht findet, der
-Nutzer also z.B. versehentlich `git statsu` statt `git
-  status` tippt.
+////
+Der Wert der Option `help.autocorrect` bestimmt, was Git tun soll, wenn es das eingegebene Subkommando nicht findet, der Nutzer also z.B. versehentlich `git statsu` statt `git status` tippt.
+////
 
-Ist die Option auf eine Zahl `n` größer Null gesetzt und Git findet
-nur _ein_ Subkommando, das dem getippten Kommando ähnlich ist, so
-wird dieses Kommando nach `n` Zehntelsekunden ausgeführt. Ein Wert von
-`-1` führt das Kommando sofort aus. Ungesetzt oder mit dem Wert `0`
-werden nur die Möglichkeiten aufgelistet.
-
-Um also bei einem Vertipper das Kommando nach einer Sekunde zu
-korrigieren, setzt man:
+The value of the `help.autocorrect` option determines what Git should do if it can't find the subcommand you entered, for example if you accidentally type `git statsu` instead of `git status`.
 
 
-[subs="macros,quotes"]
+////
+Ist die Option auf eine Zahl `n` größer Null gesetzt und Git findet nur _ein_ Subkommando, das dem getippten Kommando ähnlich ist, so wird dieses Kommando nach `n` Zehntelsekunden ausgeführt.
+Ein Wert von `-1` führt das Kommando sofort aus.
+Ungesetzt oder mit dem Wert `0` werden nur die Möglichkeiten aufgelistet.
+////
+
+If the option is set to a number `n` greater than zero and Git only finds a subcommand similar to the typed command, this command is executed after `n` tenths of a second.
+A value of `-1` executes the command immediately.
+Unset or with the value `0`, only the possibilities are listed.
+
+
+////
+Um also bei einem Vertipper das Kommando nach einer Sekunde zu korrigieren, setzt man:
+////
+
+So to correct a typo after one second, set:
+
+
+[subs="quotes"]
 --------
 $ *git config --global help.autocorrect 10*
 $ *git statsu*
-WARNING: You called a Git command named \_statsu_, which does not exist.
-Continuing under the assumption that you meant \_status_
+WARNING: You called a Git command named 'statsu', which does not exist.
+Continuing under the assumption that you meant 'status'
 in 1.0 seconds automatically...
 [...]
 --------
 
-Sie können das Kommando natürlich während dieser Zeit mit
-_Strg+C_ abbrechen.
+////
+Sie können das Kommando natürlich während dieser Zeit mit _Strg+C_ abbrechen.
+////
 
-
-// vim:set tw=72 ft=asciidoc:
+You can of course cancel the command during this time with kbd:[Ctrl+C].

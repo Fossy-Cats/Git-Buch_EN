@@ -47,7 +47,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [x] Draft:
         * [x] DeepL translation.
         * [x] Reapply lost formatting.
-        * [x] Restore footnotes (1-7).
+        * [x] Restore and translate footnotes (1-7).
         * [x] Restore XRefs.
         * [x] Keep original German text commented out (expand XRrefs and Footnotes).
         * [x] Translate anchors IDs.
@@ -58,11 +58,11 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [1. _Introduction and First Steps_][Ch1]
     + [ ] Draft:
-        * [ ] DeepL translation.
-        * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (8-11).
-        * [ ] Restore XRefs.
-        * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
+        * [x] DeepL translation.
+        * [x] Reapply lost formatting.
+        * [ ] Restore and translate footnotes (8-11).
+        * [x] Restore XRefs.
+        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
         * [ ] Check all external links.
     + [ ] Polish:
@@ -73,7 +73,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (12-28).
+        * [ ] Restore and translate footnotes (12-28).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -86,7 +86,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (29-53).
+        * [ ] Restore and translate footnotes (29-53).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -99,7 +99,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (54-64).
+        * [ ] Restore and translate footnotes (54-64).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -112,7 +112,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (65-87).
+        * [ ] Restore and translate footnotes (65-87).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -125,7 +125,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (88-91).
+        * [ ] Restore and translate footnotes (88-91).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -138,7 +138,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (92-105).
+        * [ ] Restore and translate footnotes (92-105).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -151,7 +151,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (106-116).
+        * [ ] Restore and translate footnotes (106-116).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -164,7 +164,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (117-133).
+        * [ ] Restore and translate footnotes (117-133).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -177,7 +177,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (134-137).
+        * [ ] Restore and translate footnotes (134-137).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -190,7 +190,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (138-150).
+        * [ ] Restore and translate footnotes (138-150).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -203,7 +203,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (151-153).
+        * [ ] Restore and translate footnotes (151-153).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
@@ -216,7 +216,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [ ] DeepL translation.
         * [ ] Reapply lost formatting.
-        * [ ] Restore footnotes (154-156).
+        * [ ] Restore and translate footnotes (154-156).
         * [ ] Restore XRefs.
         * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
