@@ -28,19 +28,33 @@ footnotes.
 // =============================================================================
 
 // tag::Chapter_1[]
+////
+Auch wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet werden.
+////
 :fn8: {wj}footnote:[ \
-Auch wenn Sie das Beispiel exakt nachvollziehen, werden Sie nicht dieselben SHA-1-Prüfsummen erhalten, da diese unter anderem aus dem Inhalt des Commits, dem Autor, und dem Commit-Zeitpunkt errechnet werden.]
+Even if you follow the example exactly, you will not get the same SHA-1 checksums, since they are calculated from the contents of the commit, the author, and the commit time, among other things.]
 
+////
+Sie können die nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder entsprechend relativ zu Ihrer gesetzten Umgebungsvariable `$XDG_CONFIG_HOME`).
+////
 :fn9: pass:a,q[{wj}footnote:[ \
-Sie können die nutzerspezifische Konfiguration alternativ auch unter dem XDG-konformen Pfad `.config/git/config` im Home-Verzeichnis ablegen (oder entsprechend relativ zu Ihrer gesetzten Umgebungsvariable `$XDG_CONFIG_HOME`).]]
+Alternatively, you can store the user-specific configuration under the XDG-compliant path `.config/git/config` in your home directory (or relative to your set environment variable `$XDG_CONFIG_HOME`).]]
 
+////
+Sofern vorhanden, werden auch Einstellungen aus `/etc/gitconfig` eingelesen (mit niedrigster Priorität).
+Setzen kann man Optionen in dieser Datei über den Parameter `--system`, wofür aber Root-Rechte notwendig sind.
+Systemweit Git-Optionen zu setzen ist aber unüblich.
+////
 :fn10: pass:a,q[{wj}footnote:[ \
-Sofern vorhanden, werden auch Einstellungen aus `/etc/gitconfig` eingelesen (mit niedrigster Priorität). \
-Setzen kann man Optionen in dieser Datei über den Parameter `--system`, wofür aber Root-Rechte notwendig sind. \
-Systemweit Git-Optionen zu setzen ist aber unüblich.]]
+If available, settings from `/etc/gitconfig` are also read in (with lowest priority). \
+You can set options in this file using the `--system parameter`, but you need root privileges to do this. \
+Setting git options system-wide is unusual.]]
 
+////
+"`i18n`" ist eine gebräuchliche Abkürzung für das Wort "`Internationalization`" -- die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen dem ersten und dem letzten Buchstaben des Wortes.
+////
 :fn11: pass:a,q[{wj}footnote:[ \
-"`i18n`" ist eine gebräuchliche Abkürzung für das Wort "`Internationalization`" -- die 18 steht für die Anzahl der ausgelassenen Buchstaben zwischen dem ersten und dem letzten Buchstaben des Wortes.]]
+"`i18n`" is a common abbreviation for the word "`internationalization`" -- the 18 stands for the number of omitted letters between the first and last letter of the word.]]
 // end::Chapter_1[]
 
 // =============================================================================

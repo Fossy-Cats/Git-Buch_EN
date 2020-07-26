@@ -8,10 +8,9 @@ DOCUMENT STATUS:
   * Original German commented out (XRrefs and Footnotes expanded).
   * Text formatting restored.
   * All XRefs restored.
-  * All footnotes (8-11) restored.
+  * All footnotes (8-11) restored and translated.
 
 TODO:
-  * Translate footnotes.
   * Translate anchor IDs.
   * Revise all English text.
   * Remove references specific to German edition relating to translation issues.
@@ -489,7 +488,7 @@ Es wurde eine Zeile in einer Datei hinzugefügt und die Datei mit den Unix-Recht
 
 Git will confirm that the process has been successfully completed and the file will be managed from now on.
 The somewhat cryptic output means Git has created the initial commit (`root-commit`) with the appropriate message.
-A line has been added to a file, and the file has been created with Unix permissions `0644`{fn8}.
+A line has been added to a file, and the file has been created with Unix permissions `0644`.{fn8}
 
 
 ////
