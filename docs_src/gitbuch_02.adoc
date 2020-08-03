@@ -1143,132 +1143,184 @@ $ git log -1 --oneline **--shortstat** 4868b2ea
 --------
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.git-log-dates]]
-==== Zeitliche Einschränkungen
-// Zeitliche Einschränkungen
+==== Time Constraints
+//   Zeitliche Einschränkungen
 
-Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit
-den Optionen `--after` bzw. `--since` sowie
-`--until` bzw. `--before`. Die Optionen sind jeweils
-synonym, liefern also dieselben Ergebnisse.
+////
+Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit den Optionen `--after` bzw. `--since` sowie `--until` bzw. `--before`.
+Die Optionen sind jeweils synonym, liefern also dieselben Ergebnisse.
+////
 
-Sie können absolute Daten in jedem gängigen Format angeben oder auch
-relative Daten, hier einige Beispiele:
+You can restrict the time of the commits to be displayed using the `--after` or `--since` and `--until` or `--before` options.
+The options are all synonymous, so they give the same results.
 
-[subs="macros,quotes"]
+
+////
+Sie können absolute Daten in jedem gängigen Format angeben oder auch relative Daten, hier einige Beispiele:
+////
+
+You can specify absolute dates in any common format, or relative dates, here are some examples:
+
+
+[subs="quotes"]
 --------
-$ *git log --after=&#39;Tue Feb 1st, 2011&#39;*
-$ *git log --since=&#39;2011-01-01&#39;*
-$ *git log --since=&#39;two weeks ago&#39; --before=&#39;one week ago&#39;*
-$ *git log --since=&#39;yesterday&#39;*
+$ *git log --after='Tue Feb 1st, 2011'*
+$ *git log --since='2011-01-01'*
+$ *git log --since='two weeks ago' --before='one week ago'*
+$ *git log --since='yesterday'*
 --------
+
+
 
 [[sec.git-log-files]]
-==== Einschränkungen auf Dateiebene
-// Einschränkungen auf Dateiebene
+==== File-Level Restrictions
+//   Einschränkungen auf Dateiebene
 
-Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei-
-oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die
-zumindest eine der angegebenen Dateien betrifft. Gute Strukturierung
-eines Projekts vorausgesetzt, lässt sich die Ausgabe der Commits stark
-begrenzen und eine bestimmte Änderung rasch finden.
+////
+Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei- oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die zumindest eine der angegebenen Dateien betrifft.
+Gute Strukturierung eines Projekts vorausgesetzt, lässt sich die Ausgabe der Commits stark begrenzen und eine bestimmte Änderung rasch finden.
+////
 
-Da Dateinamen möglicherweise mit Branches oder Tags kollidieren,
-sollten Sie die Dateinamen sicherheitshalber nach einem `--`
-angeben, der besagt, dass nur noch Datei-Argumente folgen.
+If you specify one or more file or directory names after a `git log` call, Git will only display the commits that affect at least one of the specified files.
+Provided a project is well structured, the output of commits can be severely limited and a particular change can be found quickly.
 
-[subs="macros,quotes"]
+
+////
+Da Dateinamen möglicherweise mit Branches oder Tags kollidieren, sollten Sie die Dateinamen sicherheitshalber nach einem `--` angeben, der besagt, dass nur noch Datei-Argumente folgen.
+////
+
+Since filenames may collide with branches or tags, you should be sure to specify the filenames after a `--` which means that only file arguments follow.
+
+
+[subs="quotes"]
 --------
 $ *git log -- main.c*
-$ *git log -- &#42;.h*
+$ *git log -- *.h*
 $ *git log -- Documentation/*
 --------
 
-Diese Aufrufe geben nur die Commits aus, in denen Änderungen an der
-Datei `main.c`, einer `.h`-Datei respektive an einer
-Datei unterhalb von `Documentation/` vorgenommen wurden.
+
+////
+Diese Aufrufe geben nur die Commits aus, in denen Änderungen an der Datei `main.c`, einer `.h`-Datei respektive an einer Datei unterhalb von `Documentation/` vorgenommen wurden.
+////
+
+These calls only output the commits in which changes were made to the `main.c` file, an `.h` file, or a file under `Documentation/`.
+
+
 
 [[sec.git-log-grep]]
-==== grep für Commits
-// grep für Commits
+==== Grep for Commits
+//   grep für Commits
 
-Sie können auch im Stile von `grep` nach Commits suchen; hier
-stehen die Optionen `--author`, `--committer` und
-`--grep` zur Verfügung.
+////
+Sie können auch im Stile von `grep` nach Commits suchen; hier stehen die Optionen `--author`, `--committer` und `--grep` zur Verfügung.
+////
 
-Die ersten beiden Optionen filtern die Commits erwartungsgemäß nach
-Autor- bzw.  Committer-Name oder -Adresse. So listen Sie zum Beispiel alle
-Commits, die Linus Torvalds seit Anfang 2010 gemacht hat:
+You can also search for commits in the style of `grep`, where the `--author`, `--committer`, and `--grep` options are available.
 
-[subs="macros,quotes"]
+
+////
+Die ersten beiden Optionen filtern die Commits erwartungsgemäß nach Autor- bzw.  Committer-Name oder -Adresse.
+So listen Sie zum Beispiel alle Commits, die Linus Torvalds seit Anfang 2010 gemacht hat:
+////
+
+The first two options filter commits by author or committer name or address, as expected.
+For example, list all commits that Linus Torvalds has made since early 2010:
+
+
+[subs="quotes"]
 --------
-$ *git log --since=&#39;2010-01-01&#39; --author=&#39;Linus Torvalds&#39;*
+$ *git log --since='2010-01-01' --author='Linus Torvalds'*
 --------
 
-Hier können Sie auch nur Teile des Namens bzw. der E-Mail-Adresse angeben; die
-Suche nach `_Linus_` würde also dasselbe Ergebnis produzieren.
 
-Mit `--grep` suchen Sie zum Beispiel nach Schlagwörtern oder
-Satzteilen in der Commit-Nachricht, etwa nach allen Commits, in denen
-das Wort "`fix`" vorkommt (ohne die Groß- und Kleinschreibung
-zu beachten):
+////
+Hier können Sie auch nur Teile des Namens bzw. der E-Mail-Adresse angeben; die Suche nach `_Linus_` würde also dasselbe Ergebnis produzieren.
+////
 
-[subs="macros,quotes"]
+You can also enter only part of the name or e-mail address here, so searching for 'Linus' would produce the same result.
+
+
+////
+Mit `--grep` suchen Sie zum Beispiel nach Schlagwörtern oder Satzteilen in der Commit-Nachricht, etwa nach allen Commits, in denen das Wort "`fix`" vorkommt (ohne die Groß- und Kleinschreibung zu beachten):
+////
+
+For example, you can use `--grep` to search for keywords or phrases in the commit message, such as all commits that contain the word "`fix`" (not case-sensitive):
+
+
+[subs="quotes"]
 --------
 $ *git log -i --grep=fix*
 --------
 
-Die Option `-i` (bzw. `--regexp-ignore-case`) bewirkt, dass
-`git log` die Groß- und Kleinschreibung des Musters ignoriert
-(funktioniert auch in Verbindung mit `--author` und
-`--committer`).
 
-Alle drei Optionen behandeln die Werte -- wie `grep` auch --
-als reguläre Ausdrücke (siehe die Man-Page `regex(7)`). Durch
-`-E` und `-F` wird das Verhalten der
-Optionen analog zu `egrep` und `fgrep` umgestellt:
-erweiterte reguläre Ausdrücke zu verwenden bzw. nach dem literalen
-Suchterm (dessen spezielle Zeichen ihre Bedeutung verlieren) zu suchen.
+////
+Die Option `-i` (bzw. `--regexp-ignore-case`) bewirkt, dass `git log` die Groß- und Kleinschreibung des Musters ignoriert (funktioniert auch in Verbindung mit `--author` und `--committer`).
+////
+
+The `-i` (or `--regexp-ignore-case`) option causes `git log` to ignore the pattern case (also works with `--author` and `--committer`).
 
 
+////
+Alle drei Optionen behandeln die Werte -- wie `grep` auch -- als reguläre Ausdrücke (siehe die Man-Page `regex(7)`).
+Durch `-E` und `-F` wird das Verhalten der Optionen analog zu `egrep` und `fgrep` umgestellt: erweiterte reguläre Ausdrücke zu verwenden bzw. nach dem literalen Suchterm (dessen spezielle Zeichen ihre Bedeutung verlieren) zu suchen.
+////
+
+All three options treat the values as regular expressions, just like `grep` (see the `regex(7)` man page).
+The `-E` and `-F` options change the behaviour of the options in the same way as `egrep` and `fgrep`: to use extended regular expressions or to search for the literal search term (whose special characters lose their meaning).
 
 
 
 [TIP]
 ================
-Um nach _Änderungen_ zu suchen, verwenden Sie das sog.  _Pickaxe_-Tool
-("`Spitzhacke`"). So finden Sie Commits, in deren Diff ein bestimmter
-regulärer Ausdruck vorkommt ("``grep` für Diffs`"):
+////
+Um nach _Änderungen_ zu suchen, verwenden Sie das sog.  _Pickaxe_-Tool ("`Spitzhacke`").
+So finden Sie Commits, in deren Diff ein bestimmter regulärer Ausdruck vorkommt ("``grep` für Diffs`"):
+////
 
-[subs="macros,quotes"]
+To search for _changes_, use the so-called _Pickaxe_ tool.
+This will help you find commits whose diffs contain a certain regular expression ("`{empty}``grep`` for diffs`"):
+
+[subs="quotes"]
 --------
 $ *git log -p -G&lt;regex&gt;*
 --------
 
-Der `<regex>` ist direkt, d.h. ohne Leerzeichen, nach der
-Pickaxe-Option `-G` anzugeben. Die Option `--pickaxe-all` bewirkt, dass
-alle Veränderungen des Commits aufgelistet werden, nicht nur
-diejenigen, die die gesuchte Änderung enthalten.
 
-Beachten Sie, dass in früheren Git-Versionen für diese Operation die
-Option `-S` zuständig war, die allerdings einen Unterschied zu
-`-G` aufweist: Sie findet nur die Commits, die die _Anzahl_ der
-Vorkommnisse des Musters ändern -- insbesondere werden
-Code-Verschiebungen, also Entfernen und Hinzufügen an anderer Stelle in
-einer Datei, nicht gefunden.
+////
+Der `<regex>` ist direkt, d.h. ohne Leerzeichen, nach der Pickaxe-Option `-G` anzugeben.
+Die Option `--pickaxe-all` bewirkt, dass alle Veränderungen des Commits aufgelistet werden, nicht nur diejenigen, die die gesuchte Änderung enthalten.
+////
+
+The `<regex>` must be specified directly, i.e. without spaces, after the `-G` pickaxe option.
+The `--pickaxe-all` option causes all changes to the commit to be listed, not just those containing the change you are looking for.
+
+
+////
+Beachten Sie, dass in früheren Git-Versionen für diese Operation die Option `-S` zuständig war, die allerdings einen Unterschied zu `-G` aufweist: Sie findet nur die Commits, die die _Anzahl_ der Vorkommnisse des Musters ändern -- insbesondere werden Code-Verschiebungen, also Entfernen und Hinzufügen an anderer Stelle in einer Datei, nicht gefunden.
+////
+
+Note that in earlier versions of Git, this operation was performed by the `-S` option, but it differs from `-G` in that it only finds the commits that change the number of times the pattern occurs -- especially code shifts, i.e., removals and additions elsewhere in a file, are not found.
 ================
 
-Mit diesen Werkzeugen gerüstet, können Sie nun selbst Massen von
-Commits bändigen. Geben Sie nur entsprechend viele Kriterien an, um
-die Anzahl der Commits zu verringern.
 
+////
+Mit diesen Werkzeugen gerüstet, können Sie nun selbst Massen von Commits bändigen.
+Geben Sie nur entsprechend viele Kriterien an, um die Anzahl der Commits zu verringern.
+////
+
+Equipped with these tools, you can now tame masses of commits yourself.
+Just specify as many criteria as you need to reduce the number of commits.
+
+
+// ********** ARRIVED HERE!!! **********
 
 [[sec.commit-ranges-intro]]
 === Commit-Ranges
-// Commit-Ranges
+//  Commit-Ranges
 
 Bisher haben wir lediglich Kommandos betrachtet, die nur einen
 einzelnen Commit als Argument fordern, explizit identifiziert durch
