@@ -547,175 +547,282 @@ So don't rely on your commit being correct just because `make` -- which works on
 Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <<sec.bisect>>).
 
 
-// ********** ARRIVED HERE!!! **********
 
 [[sec.commit]]
-=== Commits erstellen
-// Commits erstellen
+=== Creating Commits
+//  Commits erstellen
 
-Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und
-Repository austauschen. Wenden wir uns nun dem Kommando `git
-  commit` zu, mit dem Sie Änderungen im Repository
-"`festschreiben`".
+////
+Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und Repository austauschen.
+Wenden wir uns nun dem Kommando `git commit` zu, mit dem Sie Änderungen im Repository "`festschreiben`".
+////
 
-Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem
-bestimmten Zeitpunkt fest und enthält zudem
-Metainformationen:{fn17}
+You now know how to exchange changes between working tree, index, and repository.
+Let's turn to the `git commit` command, which you use to "`commit`" changes to the repository.
 
 
+////
+Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem bestimmten Zeitpunkt fest und enthält zudem Metainformationen:[17]
+////
+
+A commit keeps track of the state of all the files in your project at any given time, and also contains meta-information:{fn17}
+
+
+////
 * Name des Autors und E-Mail-Adresse
 * Name des Committers und E-Mail-Adresse
 * Erstellungsdatum
 * Commit-Datum
+////
+
+* Name of the authors and e-mail address
+* Name of the committer and e-mail address
+* Creation date
+* Commit date
+
+////
+Tatsächlich ist es so, dass der Name des Autors _nicht_ der Name des Committers (der den Commit einpflegt) sein muss.
+Häufig werden Commits von Maintainern integriert oder bearbeitet (z.B. durch `rebase`, was auch die Committer-Informationen anpasst, siehe Abschnitt 4.1, "Commits verschieben –- Rebase").
+Die Committer-Informationen sind aber in der Regel von nachrangiger Bedeutung -- die meisten Programme zeigen nur den Autor und das Datum der Commit-Erstellung an.
+////
+
+In fact, the name of the author _does not_ have to be the name of the committer (who commits).
+Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <<sec.rebase>>).
+The committer information is usually of secondary importance, though -- most programs only show the author and the date the commit was made.
 
 
-Tatsächlich ist es so, dass der Name des Autors _nicht_ der Name
-des Committers (der den Commit einpflegt) sein muss.  Häufig werden
-Commits von Maintainern integriert oder bearbeitet (z.B.
-durch `rebase`, was auch die Committer-Informationen anpasst,
-siehe <<sec.rebase>>).  Die Committer-Informationen sind aber
-in der Regel von nachrangiger Bedeutung -- die meisten Programme
-zeigen nur den Autor und das Datum der Commit-Erstellung an.
+////
+Wenn Sie einen Commit erstellen, verwendet Git die im vorherigen Abschnitt konfigurierten Einstellungen `user.name` und `user.email`, um den Commit zu kennzeichnen.
+////
 
-Wenn Sie einen Commit erstellen, verwendet Git die im vorherigen
-Abschnitt konfigurierten Einstellungen `user.name` und
-`user.email`, um den Commit zu kennzeichnen.
+When you create a commit, Git uses the `user.name` and `user.email` settings configured in the previous section to identify the commit.
 
-Bei einem Aufruf von `git commit` ohne zusätzliche Argumente
-fasst Git alle Veränderungen im Index zu einem Commit zusammen und
-öffnet einen Editor, mit dem Sie eine Commit-Message erstellen.  Die
-Nachricht enthält jedoch immer eine mit Rautezeichen (`#`)
-auskommentierte Anleitung bzw. Informationen darüber, welche Dateien
-durch den Commit geändert werden. Rufen Sie `git commit -v`
-auf, erhalten Sie unterhalb der Anleitung noch ein Diff der
-Änderungen, die Sie einchecken werden. Das ist vor allem praktisch, um
-einen Überblick über die Änderungen zu behalten und die
-Auto-Vervollständigungsfunktion Ihres Editors zu verwenden.
 
-Sobald Sie den Editor beenden, erstellt Git den Commit. Geben Sie
-keine Commit-Nachricht an oder löschen den gesamten Inhalt der Datei,
-bricht Git ab und erstellt keinen Commit.
+////
+Bei einem Aufruf von `git commit` ohne zusätzliche Argumente fasst Git alle Veränderungen im Index zu einem Commit zusammen und öffnet einen Editor, mit dem Sie eine Commit-Message erstellen.
+Die Nachricht enthält jedoch immer eine mit Rautezeichen (`#`) auskommentierte Anleitung bzw. Informationen darüber, welche Dateien durch den Commit geändert werden.
+Rufen Sie `git commit -v` auf, erhalten Sie unterhalb der Anleitung noch ein Diff der Änderungen, die Sie einchecken werden.
+Das ist vor allem praktisch, um einen Überblick über die Änderungen zu behalten und die Auto-Vervollständigungsfunktion Ihres Editors zu verwenden.
+////
 
-Wollen Sie nur eine Zeile schreiben, bietet sich die Option
-`--message` oder kurz `-m` an, mit der Sie direkt auf
-der Kommandozeile die Nachricht angeben und so den Editor umgehen:
+If you call `git commit` without any additional arguments, Git will combine all changes in the index into one commit, and open an editor to create a commit message.
+However, the message will always contain instructions commented out with hash marks (`#`), or information about which files are changed by the commit.
+If you call `git commit -v`, you will still get a diff of the changes you will check in, below the instructions.
+This is especially useful for keeping track of the changes, and for using the auto-complete feature of your editor.
 
-[subs="macros,quotes"]
+
+////
+Sobald Sie den Editor beenden, erstellt Git den Commit.
+Geben Sie keine Commit-Nachricht an oder löschen den gesamten Inhalt der Datei, bricht Git ab und erstellt keinen Commit.
+////
+
+Once you exit the editor, Git creates the commit.
+If you don't specify a commit message or delete the entire contents of the file, Git will abort and not create a commit.
+
+
+////
+Wollen Sie nur eine Zeile schreiben, bietet sich die Option `--message` oder kurz `-m` an, mit der Sie direkt auf der Kommandozeile die Nachricht angeben und so den Editor umgehen:
+////
+
+If you only want to write one line, you can use the `--message` option, or short `-m`, which allows you to specify the message directly on the command line, thus bypassing the editor:
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git commit -m "Dies ist die Commit-Nachricht"*
 --------
 
+
 [[sec.ci-amend]]
-==== Einen Commit verbessern
-// Einen Commit verbessern
+==== Improving a Commit
+//   Einen Commit verbessern
 
-Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
-Option `--amend` ("`berichtigen`"). Die Option
-veranlasst Git, die Änderungen im Index dem eben getätigten Commit
-"`hinzuzufügen`".{fn18}
-Außerdem können Sie die
-Commit-Nachricht anpassen. Beachten Sie, dass sich die SHA-1-Summe des
-Commits in jedem Fall ändert.
+////
+Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die Option `--amend` ("`berichtigen`").
+Die Option veranlasst Git, die Änderungen im Index dem eben getätigten Commit "`hinzuzufügen`".[18]
+Außerdem können Sie die Commit-Nachricht anpassen.
+Beachten Sie, dass sich die SHA-1-Summe des Commits in jedem Fall ändert.
+////
 
-Mit dem Aufruf `git commit --amend` verändern Sie nur den
-aktuellen Commit auf einem Branch. Wie Sie weiter zurückliegende
-Commits verbessern, beschreibt <<sec.rebase-onto-ci-amend>>.
+If you rashly entered `git commit`, but want to make the commit slightly better, the `--amend` ("`correct`") option helps.
+The option causes git to "`add`" the changes in the index to the commit you just made.{fn18}
+You can also customize the commit message.
+Note that the SHA-1 sum of the commit will change in any case.
+
+
+////
+Mit dem Aufruf `git commit --amend` verändern Sie nur den aktuellen Commit auf einem Branch.
+Wie Sie weiter zurückliegende Commits verbessern, beschreibt Abschnitt 4.1.9, "Einen Commit verbessern".
+////
+
+The `git commit --amend` call only changes the current commit on a branch.
+<<sec.rebase-onto-ci-amend>> describes how to improve past commits.
+
 
 [TIP]
 ============
-Der Aufruf von `git commit --amend` startet automatisch einen Editor, so
-dass Sie auch noch die Commit-Nachricht bearbeiten können. Häufig wollen
-Sie aber nur noch eine kleine Korrektur an einer Datei vornehmen, ohne die
-Nachricht anzupassen. Für die Autoren bewährt sich in dieser Situation
-ein Alias `fixup`:
+////
+Der Aufruf von `git commit --amend` startet automatisch einen Editor, so dass Sie auch noch die Commit-Nachricht bearbeiten können.
+Häufig wollen Sie aber nur noch eine kleine Korrektur an einer Datei vornehmen, ohne die Nachricht anzupassen.
+Für die Autoren bewährt sich in dieser Situation ein Alias `fixup`:
+////
 
-[subs="macros,quotes"]
+Calling `git commit --amend` automatically starts an editor, so you can edit the commit message as well.
+Often, however, you will only want to make a small correction to a file without adjusting the message.
+For authors, an alias `fixup` is useful in this situation:
+
+[subs="quotes"]
 -------
 $ *git config --global alias.fixup "commit --amend --no-edit"*
 -------
 ============
 
+
+
 [[sec.commit-msg]]
-==== Gute Commit-Nachrichten
-// Gute Commit-Nachrichten
+==== Good Commit Messages
+//   Gute Commit-Nachrichten
 
-Wie sollte eine Commit-Nachricht aussehen?  An der äußeren Form lässt
-sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine
-Zeile lang sein, die am besten aber maximal 50 Zeichen umfasst. Das
-macht Auflistungen der Commits besser lesbar.  Sofern Sie eine
-genauere Beschreibung hinzufügen wollen (was äußerst empfehlenswert
-ist!), trennen Sie diese von der ersten Zeile durch eine Leerzeile.
-Keine Zeile sollte -- wie auch bei E-Mails üblich -- länger als 76
-Zeichen sein.
+////
+Wie sollte eine Commit-Nachricht aussehen?
+An der äußeren Form lässt sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine Zeile lang sein, die am besten aber maximal 50 Zeichen umfasst.
+Das macht Auflistungen der Commits besser lesbar.
+Sofern Sie eine genauere Beschreibung hinzufügen wollen (was äußerst empfehlenswert ist!), trennen Sie diese von der ersten Zeile durch eine Leerzeile.
+Keine Zeile sollte -- wie auch bei E-Mails üblich -- länger als 76 Zeichen sein.
+////
 
-Commit-Nachrichten folgen oft den Gewohnheiten oder Besonderheiten
-eines Projekts. Möglicherweise gibt es Konventionen, wie zum Beispiel
-Referenzen zum Bugtracking- oder Ticket-System oder ein Link zur
-entsprechenden API-Dokumentation.
-
-Beachten Sie die folgenden Punkte beim Verfassen einer
-Commit-Beschreibung:
+What should a commit message look like?
+Not much can be changed in the outer form: The commit message must be at least one line long, but preferably no longer than 50 characters.
+This makes lists of commits easier to read.
+If you want to add a more detailed description (which is highly recommended!), separate it from the first line with a blank line.
+No line should be longer than 76 characters, as is usual for email.
 
 
-* Erstellen Sie niemals leere Commit-Nachrichten. Auch
-  Commit-Nachrichten wie `Update`, `Verbesserung`,
+////
+Commit-Nachrichten folgen oft den Gewohnheiten oder Besonderheiten eines Projekts.
+Möglicherweise gibt es Konventionen, wie zum Beispiel Referenzen zum Bugtracking- oder Ticket-System oder ein Link zur entsprechenden API-Dokumentation.
+////
+
+Commit messages often follow the habits or specifics of a project.
+There may be conventions, such as references to the bug tracking or issue system, or a link to the appropriate API documentation.
+
+
+////
+Beachten Sie die folgenden Punkte beim Verfassen einer Commit-Beschreibung:
+////
+
+Note the following points when writing a commit description:
+
+
+////
+* Erstellen Sie niemals leere Commit-Nachrichten.
+  Auch Commit-Nachrichten wie `Update`, `Verbesserung`,
   `Fix` etc. sind ebenso aussagekräftig wie eine leere
   Nachricht -- dann können Sie es auch gleich lassen.
+////
 
+* Never create empty commit messages.
+Commit messages such as `Update`, `Fix`, `Improvement`, etc. are just as meaningful as an empty message -- you might as well leave it at that.
+
+////
 * Ganz wichtig: Beschreiben Sie, _warum_ etwas verändert
-  wurde und welche Implikationen das haben kann. _Was_ verändert
-  wurde, ist immer aus dem Diff ersichtlich!
+  wurde und welche Implikationen das haben kann.
+  _Was_ verändert wurde, ist immer aus dem Diff ersichtlich!
+////
 
+* Very important: Describe _why_ something was changed and what the implications are.
+_What_ has been changed is always obvious from the diff!
+
+////
 * Seien Sie kritisch und vermerken Sie, wenn Sie glauben,
   dass noch Verbesserungsbedarf besteht oder der Commit möglicherweise
   an anderer Stelle Fehler einführt.
+////
 
+* Be critical and note if you think there is room for improvement or the commit may introduce bugs elsewhere.
+
+////
 * Die erste Zeile sollte nicht länger als 50 Zeichen sein,
   damit bleibt die Ausgabe der Versionsgeschichte stets gut formatiert
   und lesbar.
+////
 
+* The first line should not be longer than 50 characters, so the output of the version history always remains well formatted and readable.
+
+////
 * Wird die Nachricht länger, sollte in der ersten Zeile eine
   kurze Zusammenfassung (mit den wichtigen Schlagwörtern) stehen.
   Nach einer Leerzeile folgt dann eine umfangreiche Beschreibung.
+////
+
+* If the message becomes longer, a short summary (with the important keywords) should be in the first line.
+After a blank line follows an extensive description.
 
 
-Wir können nicht häufig genug betonen, wie wichtig eine gute
-Commit-Beschreibung ist. Beim Commit sind einem Entwickler die
-Änderungen noch gut im Gedächtnis, aber schon nach wenigen Tagen ist
-die Motivation dahinter oft vergessen. Auch Ihre Kollegen oder
-Projektmitstreiter werden es Ihnen danken, weil sie Änderungen viel
-schneller erfassen können.
 
-Eine gute Commit-Nachricht zu schreiben hilft auch, kurz darüber zu
-reflektieren, was schon geschafft ist und was noch ansteht. Vielleicht
-merken Sie beim Schreiben, dass Sie noch ein wesentliches Detail
-vergessen haben.
 
-Man kann auch über eine Zeitbilanz argumentieren: Die Zeit, die Sie
-benötigen, um eine gute Commit-Nachricht zu schreiben, beläuft sich
-auf ein bis zwei Minuten.  Um wie viel Zeit wird sich die Fehlersuche
-aber verringern, wenn jeder Commit gut dokumentiert ist? Wie viel Zeit
-sparen Sie anderen (und sich selbst), wenn Sie zu einem --
-möglicherweise schwer verständlichen -- Diff noch eine gute
-Beschreibung mitliefern? Auch das Blame-Tool, das jede Zeile einer Datei mit
-dem Commit, der sie zuletzt geändert hat, annotiert, wird bei
-ausführlichen Commit-Beschreibungen zu einem unerlässlichen Hilfsmittel
-werden (siehe <<sec.blame>>).
+////
+Wir können nicht häufig genug betonen, wie wichtig eine gute Commit-Beschreibung ist.
+Beim Commit sind einem Entwickler die Änderungen noch gut im Gedächtnis, aber schon nach wenigen Tagen ist die Motivation dahinter oft vergessen.
+Auch Ihre Kollegen oder Projektmitstreiter werden es Ihnen danken, weil sie Änderungen viel schneller erfassen können.
+////
 
-Wenn Sie nicht gewöhnt sind, ausführliche Commit-Nachrichten zu
-schreiben, fangen Sie heute damit an. Übung macht den Meister, und
-wenn Sie sich erst einmal daran gewöhnt haben, geht die Arbeit schnell
-von der Hand -- Sie selbst und andere profitieren davon.
+We can't stress enough how important a good commit description is.
+When committing, a developer remembers the changes well, but after a few days, the motivation behind them is often forgotten.
+Your colleagues or project members will thank you, too, because they can commit changes much faster.
 
-Das Repository des Git-Projekts ist ein Paradebeispiel für gute
-Commit-Nachrichten. Ohne Details von Git zu kennen, wissen Sie schnell,
-wer warum was geändert hat. Außerdem sieht man, durch wie viele Hände
-solch ein Commit geht, bevor er integriert wird.
 
-Leider sind die Commit-Nachrichten in den meisten Projekten dennoch
-sehr spartanisch gehalten; seien Sie also nicht enttäuscht, wenn Ihre
-Mitstreiter schreibfaul sind, sondern gehen Sie mit gutem Beispiel und
-ausführlichen Beschreibungen voran.
+////
+Eine gute Commit-Nachricht zu schreiben hilft auch, kurz darüber zu reflektieren, was schon geschafft ist und was noch ansteht.
+Vielleicht merken Sie beim Schreiben, dass Sie noch ein wesentliches Detail vergessen haben.
+////
+
+Writing a good commit message also helps to briefly reflect on what has been done and what is still to come.
+You may find that you've forgotten one important detail as you write it.
+
+
+////
+Man kann auch über eine Zeitbilanz argumentieren: Die Zeit, die Sie benötigen, um eine gute Commit-Nachricht zu schreiben, beläuft sich auf ein bis zwei Minuten.
+Um wie viel Zeit wird sich die Fehlersuche aber verringern, wenn jeder Commit gut dokumentiert ist?
+Wie viel Zeit sparen Sie anderen (und sich selbst), wenn Sie zu einem -- möglicherweise schwer verständlichen -- Diff noch eine gute Beschreibung mitliefern?
+Auch das Blame-Tool, das jede Zeile einer Datei mit dem Commit, der sie zuletzt geändert hat, annotiert, wird bei ausführlichen Commit-Beschreibungen zu einem unerlässlichen Hilfsmittel werden (siehe Abschnitt 4.3, "Wer hat diese Änderungen gemacht? -- git blame").
+////
+
+You can also argue about a timeline: The time it takes you to write a good commit message is a minute or two.
+But how much less time will the bug-finding process take if each commit is well documented?
+How much time will you save others (and yourself) if you provide a good description of a diff, which may be hard to understand?
+Also, the blame tool, which annotates each line of a file with the commit that last changed it, will become an indispensable tool for detailed commit descriptions (see <<sec.blame>>).
+
+
+////
+Wenn Sie nicht gewöhnt sind, ausführliche Commit-Nachrichten zu schreiben, fangen Sie heute damit an.
+Übung macht den Meister, und wenn Sie sich erst einmal daran gewöhnt haben, geht die Arbeit schnell von der Hand -- Sie selbst und andere profitieren davon.
+////
+
+If you are not used to writing detailed commit messages, start today.
+Practice makes perfect, and once you get used to it, the work will go quickly -- you and others will benefit.
+
+
+////
+Das Repository des Git-Projekts ist ein Paradebeispiel für gute Commit-Nachrichten.
+Ohne Details von Git zu kennen, wissen Sie schnell, wer warum was geändert hat.
+Außerdem sieht man, durch wie viele Hände solch ein Commit geht, bevor er integriert wird.
+////
+
+The Git repository is a prime example of good commit messaging.
+Without knowing the details of Git, you'll quickly know who changed what and why.
+You can also see how many hands a commit goes through before it's integrated.
+
+
+////
+Leider sind die Commit-Nachrichten in den meisten Projekten dennoch sehr spartanisch gehalten; seien Sie also nicht enttäuscht, wenn Ihre Mitstreiter schreibfaul sind, sondern gehen Sie mit gutem Beispiel und ausführlichen Beschreibungen voran.
+////
+
+Unfortunately, the commit messages in most projects are still very spartan, so don't be disappointed if your peers are lazy about writing, but rather set a good example and provide detailed descriptions.
+
+
+// ********** ARRIVED HERE!!! **********
 
 [[sec.git-mv-rm]]
 === Dateien verschieben und löschen
