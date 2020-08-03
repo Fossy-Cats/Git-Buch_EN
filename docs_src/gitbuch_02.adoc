@@ -1316,79 +1316,112 @@ Equipped with these tools, you can now tame masses of commits yourself.
 Just specify as many criteria as you need to reduce the number of commits.
 
 
-// ********** ARRIVED HERE!!! **********
 
 [[sec.commit-ranges-intro]]
 === Commit-Ranges
 //  Commit-Ranges
 
-Bisher haben wir lediglich Kommandos betrachtet, die nur einen
-einzelnen Commit als Argument fordern, explizit identifiziert durch
-seine Commit-ID oder implizit durch den symbolischen Namen
-`HEAD`, der den jeweils aktuellsten Commit referenziert.
+////
+Bisher haben wir lediglich Kommandos betrachtet, die nur einen einzelnen Commit als Argument fordern, explizit identifiziert durch seine Commit-ID oder implizit durch den symbolischen Namen `HEAD`, der den jeweils aktuellsten Commit referenziert.
+////
 
-Das Kommando `git show` zeigt Informationen zu einem Commit an,
-das Kommando `git log` beginnt bei einem Commit, und geht dann
-so weit in der Versionsgeschichte zurück, bis der Anfang des
-Repositorys (der sogenannte _Root-Commit_) erreicht ist.
+So far, we've only looked at commands that require only a single commit as an argument, explicitly identified by its commit ID, or implicitly by the symbolic name `HEAD`, which references the most recent commit.
 
-Ein wichtiges Hilfsmittel, um eine Reihe von Commits anzugeben, sind
-sogenannte Commit-Ranges der Form `<commit1>..<commit2>`.  Da
-wir bislang noch nicht mit mehreren Branches (Zweigen) arbeiten,
-ist dies einfach ein Ausschnitt der Commits in einem Repository, und
-zwar von `<commit1>` exklusive bis `<commit2>`
-inklusive. Sofern Sie eine der beiden Grenzen weglassen, nimmt Git
-dafür den Wert `HEAD` an.
+
+Das Kommando `git show` zeigt Informationen zu einem Commit an, das Kommando `git log` beginnt bei einem Commit, und geht dann so weit in der Versionsgeschichte zurück, bis der Anfang des Repositorys (der sogenannte _Root-Commit_) erreicht ist.
+
+The `git show` command displays information about a commit, while the `git log` command starts at a commit, and then goes back in the version history until the beginning of the repository (called the `root commit`) is reached.
+
+
+////
+Ein wichtiges Hilfsmittel, um eine Reihe von Commits anzugeben, sind sogenannte Commit-Ranges der Form `<commit1>..<commit2>`.
+Da wir bislang noch nicht mit mehreren Branches (Zweigen) arbeiten, ist dies einfach ein Ausschnitt der Commits in einem Repository, und zwar von `<commit1>` exklusive bis `<commit2>` inklusive.
+Sofern Sie eine der beiden Grenzen weglassen, nimmt Git dafür den Wert `HEAD` an.
+////
+
+An important tool for specifying a series of commits is the so-called commit ranges in the form `<commit1>..<commit2>`.
+Since we have not yet worked with multiple branches, this is simply a range of commits in a repository, from `<commit1>` exclusive to `<commit2>` inclusive.
+If you omit one of the two boundaries, Git will take the value `HEAD`.
+
+
 
 [[sec.git-diff]]
-=== Unterschiede zwischen Commits
-// Unterschiede zwischen Commits
+=== Differences between Commits
+//  Unterschiede zwischen Commits
 
-Das Kommando `git show` bzw. `git log -p` hat bisher
-immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
-Wollen Sie die Unterschiede mehrerer Commits einsehen, hilft
-das Kommando `git diff`.
+////
+Das Kommando `git show` bzw. `git log -p` hat bisher immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
+Wollen Sie die Unterschiede mehrerer Commits einsehen, hilft das Kommando `git diff`.
+////
 
-Das Diff-Kommando erfüllt mehrere Aufgaben. Wie bereits gesehen,
-können Sie ohne weitere Angabe von Commits die Unterschiede zwischen
-Working Tree und Index bzw. mit der Option `--staged` die
-Unterschiede zwischen Index und `HEAD` untersuchen.
+The command `git show` or `git log -p` has been used to show only the difference from the previous commit.
+If you want to see the differences between several commits, the command `git diff`.
 
-Wenn Sie dem Kommando aber zwei Commits bzw. eine Commit-Range
-übergeben, wird stattdessen der Unterschied zwischen diesen
-Commits angezeigt.
+
+////
+Das Diff-Kommando erfüllt mehrere Aufgaben.
+Wie bereits gesehen, können Sie ohne weitere Angabe von Commits die Unterschiede zwischen Working Tree und Index bzw. mit der Option `--staged` die Unterschiede zwischen Index und `HEAD` untersuchen.
+////
+
+The diff command performs several tasks.
+As already seen, you can examine the differences between the working tree and the index without specifying any commits, or the differences between index and `HEAD` with the `--staged` option.
+
+
+////
+Wenn Sie dem Kommando aber zwei Commits bzw. eine Commit-Range übergeben, wird stattdessen der Unterschied zwischen diesen Commits angezeigt.
+////
+
+However, if you pass two commits or a commit range to the command, the difference between these commits is displayed instead.
 
 
 
 [[sec.objektmodell]]
-== Das Objektmodell
+== The Object Model
 // Das Objektmodell
 
-Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell. Es
-dient dazu, die typischen Elemente eines Repositorys (Dateien,
-Verzeichnisse, Commits) und die Entwicklung über die Zeit abzubilden.
-Das Verständnis dieses Modells ist von großer Bedeutung und hilft sehr
-dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie
-so besser zu verstehen.
+////
+Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell.
+Es dient dazu, die typischen Elemente eines Repositorys (Dateien, Verzeichnisse, Commits) und die Entwicklung über die Zeit abzubilden.
+Das Verständnis dieses Modells ist von großer Bedeutung und hilft sehr dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie so besser zu verstehen.
+////
 
-Im Folgenden dient uns als Beispiel wieder ein "`Hello
-World!`"-Programm, diesmal in der Programmiersprache Python.{fn21}
+Git is based on a simple but extremely powerful object model.
+It is used to map the typical elements of a repository (files, directories, commits) and the development over time.
+Understanding this model is very important, and it helps to abstract from typical Git steps to better understand them.
 
-.Hello World!-Programm in Python
+
+////
+Im Folgenden dient uns als Beispiel wieder ein "`Hello World!`"-Programm, diesmal in der Programmiersprache Python.[21]
+////
+
+In the following, we will again use a "`Hello World!`" program as an example, this time in the Python programming language.{fn21}
+
+
+// @TODO: TRANSLATE IMAGE ID
+."`Hello World!`" Program in Python
 image::objektmodell-programm-crop.png[id="fig.objektmodell-program-crop",scaledwidth="25%",width="25%"]
 
-Das Projekt besteht aus der Datei `hello.py` sowie einer
-`README`-Datei und einem Verzeichnis `test`. Führt man
-das Programm mit dem Befehl `python hello.py` aus,  erhält
-man die Ausgabe: `Hello World!`. In dem Verzeichnis
-`test` liegt ein simples Shell-Script, `test.sh`,
-das eine Fehlermeldung anzeigt, sollte das Python-Programm nicht
-wie erwartet den String `Hello World!` ausgeben.
 
-Das Repository für dieses Projekt besteht aus den folgenden vier
-Commits:
+////
+Das Projekt besteht aus der Datei `hello.py` sowie einer `README`-Datei und einem Verzeichnis `test`.
+Führt man das Programm mit dem Befehl `python hello.py` aus,  erhält man die Ausgabe: `Hello World!`.
+In dem Verzeichnis `test` liegt ein simples Shell-Script, `test.sh`, das eine Fehlermeldung anzeigt, sollte das Python-Programm nicht wie erwartet den String `Hello World!` ausgeben.
+////
 
-[subs="macros,quotes"]
+The project consists of the file `hello.py` as well as a `README` file and a directory `test`.
+If you run the program with the command `python hello.py`, you will get the output: `Hello World!`.
+In the directory `test` is a simple shell script, `test.sh`, which displays an error message if the Python program does not output the string `Hello World!` as expected.
+
+
+////
+Das Repository für dieses Projekt besteht aus den folgenden vier Commits:
+////
+
+The repository for this project consists of the following four commits:
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git log --oneline*
 e2c67eb Kommentar fehlte
@@ -1397,66 +1430,83 @@ e2c67eb Kommentar fehlte
 b0400b0 Erste Version
 --------
 
+
+
+
 [[sec.sha1]]
-=== SHA-1 – der sichere Hash-Algorithmus
-// SHA-1 – der sichere Hash-Algorithmus
+=== SHA-1 -- The Secure Hash Algorithm
+//  SHA-1 – der sichere Hash-Algorithmus
 
 
-SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash
-  Algorithm'), der eine Prüfsumme digitaler Informationen berechnet:
-die SHA-1-Summe.  Der Algorithmus wurde 1995 vom amerikanischen
-_National Institute of Standards and Technology_ (NIST) und der
-_National Security Agency_ (NSA) vorgestellt.  SHA-1 wurde für
-kryptographische Zwecke entwickelt und findet bei der
-Integritätsprüfung von Nachrichten sowie als Basis für digitale
-Signaturen Anwendung. Die Funktionsweise stellt <<fig.sha>> dar, wo wir die Prüfsumme von `hello.py`
-berechnen.
+////
+SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash Algorithm'), der eine Prüfsumme digitaler Informationen berechnet: die SHA-1-Summe.
+Der Algorithmus wurde 1995 vom amerikanischen _National Institute of Standards and Technology_ (NIST) und der _National Security Agency_ (NSA) vorgestellt.
+SHA-1 wurde für kryptographische Zwecke entwickelt und findet bei der Integritätsprüfung von Nachrichten sowie als Basis für digitale Signaturen Anwendung.
+Die Funktionsweise stellt Abbildung 2.3, "SHA-1-Algorithmus" dar, wo wir die Prüfsumme von `hello.py` berechnen.
+////
+
+SHA-1 is a secure hash algorithm that calculates a checksum of digital information: the SHA-1 sum.
+The algorithm was introduced in 1995 by the American _National Institute of Standards and Technology_ (NIST) and the _National Security Agency_ (NSA).
+SHA-1 was developed for cryptographic purposes and is used for checking the integrity of messages and as a basis for digital signatures.
+<<fig.sha>> shows how it works, where we calculate the checksum of `hello.py`.
 
 
-Es handelt sich bei dem Algorithmus um eine mathematische
-Einwegfunktion, die eine Bit-Sequenz mit maximaler Länge 2^64^-1
-Bit (ca. 2{nbsp}Exbibyte) auf eine Prüfsumme der Länge 160{nbsp}Bit
-(20{nbsp}Byte) abbildet.  Die Prüfsumme wird üblicherweise als hexadezimale
-Zeichenkette der Länge 40 dargestellt. Der Algorithmus führt bei
-dieser Länge der Prüfsumme zu 2^160^ (ca. 1.5 · 10^49^)
-verschiedenen Kombinationen, und daher ist es sehr, sehr
-unwahrscheinlich, dass zwei Bit-Sequenzen die gleiche Prüfsumme haben.
+////
+Es handelt sich bei dem Algorithmus um eine mathematische Einwegfunktion, die eine Bit-Sequenz mit maximaler Länge 2^64^-1 Bit (ca. 2{nbsp}Exbibyte) auf eine Prüfsumme der Länge 160{nbsp}Bit (20{nbsp}Byte) abbildet.
+Die Prüfsumme wird üblicherweise als hexadezimale Zeichenkette der Länge 40 dargestellt.
+Der Algorithmus führt bei dieser Länge der Prüfsumme zu 2^160^ (ca. 1.5 · 10^49^) verschiedenen Kombinationen, und daher ist es sehr, sehr unwahrscheinlich, dass zwei Bit-Sequenzen die gleiche Prüfsumme haben.
 Diese Eigenschaft wird als _Kollisionssicherheit_ bezeichnet.
+////
+
+The algorithm is a mathematical one-way function that maps a bit sequence of maximum length 2^64^-1 bits (about 2 exbibytes) to a checksum of length 160 bits (20 bytes).
+The checksum is usually represented as a hexadecimal character string of length 40.
+The algorithm results in 2^160^ (approx. 1.5 · 10^49^) different combinations for this length of checksum, and therefore it is very, very unlikely that two bit sequences have the same checksum.
+This property is called _collision safety_.
 
 
-.SHA-1-Algorithmus
+.SHA-1 Algorithm
 image::sha.png[id="fig.sha",scaledwidth="90%",width="90%"]
 
 
-Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren
-verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen
-von Kollisionen mit einem erheblichen Rechenaufwand möglich machen
-sollen.{fn22}
-Aus diesem Grund empfiehlt das NIST heute die
-Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die
-über längere Prüfsummen verfügen und somit das Erzeugen von
-Kollisionen erschweren. Auf der Git-Mailingliste wurde debattiert, ob
-man zu einer dieser Alternativen wechseln solle, doch wurde dieser
-Schritt nicht als nötig
-erachtet.{fn23}
 
 
-Denn obwohl ein theoretischer Angriffsvektor auf den SHA-1-Algorithmus
-besteht, beeinträchtigt dies nicht die Sicherheit von Git. Die
-Integrität eines Repositorys wird nämlich nicht vorrangig durch die
-Kollisionssicherheit eines Algorithmus geschützt, sondern dadurch,
-dass viele Entwickler identische Kopien des Repositorys haben.
+////
+Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen von Kollisionen mit einem erheblichen Rechenaufwand möglich machen sollen.[22]
+Aus diesem Grund empfiehlt das NIST heute die Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die über längere Prüfsummen verfügen und somit das Erzeugen von Kollisionen erschweren.
+Auf der Git-Mailingliste wurde debattiert, ob man zu einer dieser Alternativen wechseln solle, doch wurde dieser Schritt nicht als nötig erachtet.[23]
+////
 
-Der SHA-1-Algorithmus spielt bei Git eine zentrale Rolle, da er
-verwendet wird, um Prüfsummen von den im Git-Repository gespeicherten
-Daten, den _Git-Objekten_, zu bilden. Damit sind diese leicht und
-eindeutig als SHA-1-Summe ihres Inhalts zu referenzieren.  Im
-täglichen Umgang mit Git werden Sie meist nur SHA-1-Summen von Commits
-verwenden, sog. Commit-IDs. Diese Referenz kann an viele
-Git-Kommandos, wie z.B.{empty}{nbsp}`git show` und `git diff`,
-übergeben werden. Je nach Repository müssen Sie oft nur die ersten
-Zeichen einer SHA-1-Summe angeben, da ein Präfix in der Praxis
-ausreicht, um einen Commit eindeutig zu identifizieren.
+Despite all efforts of cryptologists, several years ago various theoretical attacks on SHA-1 became known, which are supposed to make the generation of collisions possible with a considerable computing effort.{fn22}
+For this reason, NIST today recommends the use of the successors of SHA-1: SHA-256, SHA-384 and SHA-512, which have longer checksums and thus make the generation of collisions more difficult.
+On the Git mailing list there was a debate about switching to one of these alternatives, but this step was not considered necessary.{fn23}
+
+
+////
+Denn obwohl ein theoretischer Angriffsvektor auf den SHA-1-Algorithmus besteht, beeinträchtigt dies nicht die Sicherheit von Git.
+Die Integrität eines Repositorys wird nämlich nicht vorrangig durch die Kollisionssicherheit eines Algorithmus geschützt, sondern dadurch, dass viele Entwickler identische Kopien des Repositorys haben.
+////
+
+This is because, although there is a theoretical attack vector on the SHA-1 algorithm, this does not compromise the security of Git.
+In fact, the integrity of a repository is not primarily protected by the collision resistance of an algorithm, but by the fact that many developers have identical copies of the repository.
+
+
+////
+Der SHA-1-Algorithmus spielt bei Git eine zentrale Rolle, da er verwendet wird, um Prüfsummen von den im Git-Repository gespeicherten Daten, den _Git-Objekten_, zu bilden.
+Damit sind diese leicht und eindeutig als SHA-1-Summe ihres Inhalts zu referenzieren.
+Im täglichen Umgang mit Git werden Sie meist nur SHA-1-Summen von Commits verwenden, sog. Commit-IDs.
+Diese Referenz kann an viele Git-Kommandos, wie z.B. `git show` und `git diff`, übergeben werden.
+Je nach Repository müssen Sie oft nur die ersten Zeichen einer SHA-1-Summe angeben, da ein Präfix in der Praxis ausreicht, um einen Commit eindeutig zu identifizieren.
+////
+
+The SHA-1 algorithm plays a central role in Git because it is used to build checksums of the data stored in the Git repository, the _Git objects_.
+This makes them easy to reference as SHA-1 sums of their contents.
+In your daily work with Git, you will usually only use SHA-1 sums of commits, known as commit IDs.
+This reference can be passed to many Git commands, such as `git show` and `git diff`.
+Depending on the repository, you often only need to specify the first few characters of an SHA-1 sum, since in practice a prefix is sufficient to uniquely identify a commit.
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.objekte]]
 === Die Git-Objekte
