@@ -1596,74 +1596,89 @@ A commit in turn references _a_ tree.
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.od]]
-=== Die Objektdatenbank
-// Die Objektdatenbank
+=== The Object Database
+//  Die Objektdatenbank
 
-Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und
-sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie
-können ein Objekt, nachdem es gespeichert wurde, über seine
-SHA-1-Summe in der Datenbank finden. Dadurch funktioniert die
-Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die
-SHA-1-Summen als Schlüssel für den gespeicherten
-Inhalt{empty}{fn26} dienen:
+////
+Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie können ein Objekt, nachdem es gespeichert wurde, über seine SHA-1-Summe in der Datenbank finden.
+Dadurch funktioniert die Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die SHA-1-Summen als Schlüssel für den gespeicherten Inhalt dienen:[26]
+////
 
-[subs="macros,quotes"]
+All Git objects are stored in the _object database_ and are identifiable by their unique SHA-1 sum, i.e. you can find an object in the database by its SHA-1 sum once it has been stored.
+Thus, the object database basically functions like a large _hash table_, where the SHA-1 sums serve as keys for the stored contents:{fn26}
+
+
+[subs="quotes"]
 --------
-e2c67eb -> *commit*
-8e2f5f9 -> *commit*
-308aea1 -> *commit*
-b0400b0 -> *commit*
-a26b00a -> *tree*
-6cf9be8 -> *blob*  (README)
-52ea6d6 -> *blob*  (hello.py)
-c37fd6f -> *tree*  (test)
-e92bf15 -> *blob*  (test/test.sh)
-5b4b58b -> *tree*
-dcc027b -> *blob*  (hello.py)
-e4dc644 -> *tree*
-a347f5e -> *tree*
+e2c67eb &xrarr; *commit*
+8e2f5f9 &xrarr; *commit*
+308aea1 &xrarr; *commit*
+b0400b0 &xrarr; *commit*
+a26b00a &xrarr; *tree*
+6cf9be8 &xrarr; *blob*  (README)
+52ea6d6 &xrarr; *blob*  (hello.py)
+c37fd6f &xrarr; *tree*  (test)
+e92bf15 &xrarr; *blob*  (test/test.sh)
+5b4b58b &xrarr; *tree*
+dcc027b &xrarr; *blob*  (hello.py)
+e4dc644 &xrarr; *tree*
+a347f5e &xrarr; *tree*
 --------
 
-Sie sehen zunächst die vier Commits, die das Repository ausmachen,
-unter anderem auch den in  <<fig.objekte>> gezeigten
-Commit `e2c67eb`.  Darauf folgen Trees und Blobs, jeweils mit
-Datei- bzw. Verzeichnisentsprechung.  Sogenannte 'Top-Level
-  Trees' haben keinen Verzeichnisnamen: Sie referenzieren die oberste
-Ebene eines Projekts. Ein Commit referenziert immer einen Top-Level
-Tree, daher gibt es davon auch vier Stück.
+
+////
+Sie sehen zunächst die vier Commits, die das Repository ausmachen, unter anderem auch den in Abbildung 2.4, "Git-Objekte" gezeigten Commit `e2c67eb`.
+Darauf folgen Trees und Blobs, jeweils mit Datei- bzw. Verzeichnisentsprechung.
+Sogenannte _Top-Level Trees_ haben keinen Verzeichnisnamen: Sie referenzieren die oberste Ebene eines Projekts.
+Ein Commit referenziert immer einen Top-Level Tree, daher gibt es davon auch vier Stück.
+////
+
+You will first see the four commits that make up the Git repository, including the `e2c67eb` commit shown in <<fig.objekte>>.
+This is followed by trees and blobs, each with file or directory correspondence.
+So-called _top-level trees_ have no directory name: They refer to the top level of a project.
+A commit always references a top-level tree, so there are four of them.
 
 
-Die hierarchische Beziehung der oben aufgelisteten Objekte stellt
-<<fig.objekte-zusammenhang>> dar.  Sie sehen auf der
-linken Seite die vier Commits, die sich bereits im Repository
-befinden, auf der rechten Seite die referenzierten Inhalte des
-aktuellsten Commits (C4). So enthält jeder Commit, wie schon
-beschrieben, eine Referenz zu seinem direkten Vorfahren (auf den so
-entstehenden Graph von Commits wird weiter unten eingegangen).  Dieser
-Zusammenhang wird durch die Pfeile, die von einem Commit zum nächsten
-zeigen, illustriert.
+////
+Die hierarchische Beziehung der oben aufgelisteten Objekte stellt Abbildung 2.5, "Hierarchische Beziehung der Git-Objekte" dar.
+Sie sehen auf der linken Seite die vier Commits, die sich bereits im Repository befinden, auf der rechten Seite die referenzierten Inhalte des aktuellsten Commits (C4).
+So enthält jeder Commit, wie schon beschrieben, eine Referenz zu seinem direkten Vorfahren (auf den so entstehenden Graph von Commits wird weiter unten eingegangen).
+Dieser Zusammenhang wird durch die Pfeile, die von einem Commit zum nächsten zeigen, illustriert.
+////
+
+The hierarchical relationship of the objects listed above is shown in <<fig.objekte-zusammenhang>>.
+On the left-hand side, you can see the four commits that are already in the repository, and on the right-hand side, the referenced contents of the most recent commit (C4).
+As described above, each commit contains a reference to its direct predecessor (the resulting graph of commits is discussed below).
+This relationship is illustrated by the arrows pointing from one commit to the next.
 
 
-.Hierarchische Beziehung der Git-Objekte
+// @TRANSLATE IMAGE TEXT
+// @TODO: TRANSLATE IMAGE ID
+
+// .Hierarchische Beziehung der Git-Objekte
+.Hierarchical Relationship of Git Objects
 image::objekte-zusammenhang.png[id="fig.objekte-zusammenhang",scaledwidth="65%",width="65%"]
 
 
-Jeder Commit referenziert den Top-Level Tree -- auch der Commit
-C4 in dem Beispiel. Der Top-Level Tree wiederum referenziert
-die Dateien `hello.py` und `README` in Form von Blobs
-sowie das Unterverzeichnis `test` in Form eines weiteren
-Trees. Durch diesen hierarchischen Aufbau und das Verhältnis der
-einzelnen Objekte zueinander ist Git in der Lage, die Inhalte eines
-hierarchischen Dateisystems als Git-Objekte abzubilden und in der
-Objektdatenbank zu speichern.
+////
+Jeder Commit referenziert den Top-Level Tree -- auch der Commit C4 in dem Beispiel.
+Der Top-Level Tree wiederum referenziert die Dateien `hello.py` und `README` in Form von Blobs sowie das Unterverzeichnis `test` in Form eines weiteren Trees.
+Durch diesen hierarchischen Aufbau und das Verhältnis der einzelnen Objekte zueinander ist Git in der Lage, die Inhalte eines hierarchischen Dateisystems als Git-Objekte abzubilden und in der Objektdatenbank zu speichern.
+////
+
+Each commit references the top-level tree -- including the C4 commit in the example.
+The top-level tree in turn references the files `hello.py` and `README` in the form of blobs, and the subdirectory `test` in the form of another tree.
+Because of this hierarchical structure and the relationship of the individual objects to one another, Git is able to map the contents of a hierarchical file system as Git objects and store them in the object database.
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.explore-od]]
 === Die Objektdatenbank untersuchen
-// Die Objektdatenbank untersuchen
+//  Die Objektdatenbank untersuchen
 
 In einem kleinen Exkurs gehen wir darauf ein, wie man die
 Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
