@@ -7,114 +7,150 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_2]
 
 
-In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
-mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar
-für eine fortgeschrittene Nutzung ist das Verständnis des
-Git-Objektmodells; dieses wichtige Konzept behandeln wir im zweiten Abschnitt
-des Kapitels. Mögen die Ausführungen zunächst allzu theoretisch
-scheinen, so möchten wir Sie Ihnen dennoch sehr ans Herz legen. Alle
-weiteren Aktionen werden Ihnen mit dem Wissen um diese Hintergründe
-deutlich leichter von der Hand gehen.
+////
+In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor, mit Hilfe derer Sie Ihre Projektdateien in Git verwalten.
+Unabdingbar für eine fortgeschrittene Nutzung ist das Verständnis des Git-Objektmodells; dieses wichtige Konzept behandeln wir im zweiten Abschnitt des Kapitels.
+Mögen die Ausführungen zunächst allzu theoretisch scheinen, so möchten wir Sie Ihnen dennoch sehr ans Herz legen.
+Alle weiteren Aktionen werden Ihnen mit dem Wissen um diese Hintergründe deutlich leichter von der Hand gehen.
+////
 
+In this chapter, we'll introduce you to the most important Git commands that you can use to manage your project files in Git.
+Understanding the Git object model is essential for advanced usage; we'll cover this important concept in the second section of the chapter.
+While these explanations may seem overly theoretical at first, we encourage you to read them carefully.
+All further actions will be much easier for you with the knowledge of this background.
 
 
 [[sec.grundlagen]]
-== Git-Kommandos
+==  Git Commands
+// Git-Kommandos
 
-Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem
-`add` und `commit`), arbeiten auf dem Index. Im
-Folgenden werden wir uns genauer mit dem Index auseinandersetzen und
-die erweiterte Benutzung dieser Kommandos behandeln.
+////
+Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem `add` und `commit`), arbeiten auf dem Index.
+Im Folgenden werden wir uns genauer mit dem Index auseinandersetzen und die erweiterte Benutzung dieser Kommandos behandeln.
+////
+
+The commands you learned to get started (especially `add` and `commit`) work on the index.
+In the following, we will take a closer look at the index and the extended use of these commands.
+
 
 [[sec.index]]
 === Index
+// Index
 
-Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem
-_Working Tree_, dem _Index_ und dem _Repository_.  Der
-Working Tree entspricht den Dateien, wie sie auf dem Dateisystem Ihres
-Arbeitsrechners liegen -- wenn Sie also Dateien mit einem Editor
-bearbeiten, mit `grep` darin suchen etc., operieren Sie immer
-auf dem Working Tree.
+////
+Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem _Working Tree_, dem _Index_ und dem _Repository_.
+Der Working Tree entspricht den Dateien, wie sie auf dem Dateisystem Ihres Arbeitsrechners liegen -- wenn Sie also Dateien mit einem Editor bearbeiten, mit `grep` darin suchen etc., operieren Sie immer auf dem Working Tree.
+////
 
-Das Repository ist der Sammelbehälter für Commits, also Änderungen,
-versehen mit Angaben zu Autor, Datum und Beschreibung. Die Commits
-ergeben zusammen die _Versionsgeschichte_.
+The content of files for Git resides on three levels: the _working tree_, the _index_, and the Git _repository_.
+The working tree corresponds to the files as they reside on your workstation's file system -- so if you edit files with an editor, search in them with `grep`, etc., you always operate on the working tree.
 
-Git führt nun, im Gegensatz zu vielen anderen
-Versionskontrollsystemen, eine Neuerung ein, den Index. Es handelt
-sich um eine etwas schwierig greifbare Zwischenebene zwischen Working
-Tree und Repository. Er dient dazu, Commits vorzubereiten. Das
-bedeutet, dass Sie nicht immer _alle_ Änderungen, die Sie an
-einer Datei vorgenommen haben, auch als Commit einchecken müssen.
 
-Die Git-Kommandos `add` und `reset` agieren (in ihrer
-Grundform) auf dem Index und bringen Änderungen in den Index ein bzw.
-löschen diese wieder; erst das Kommando `commit` überträgt die
-Datei, wie sie im Index vorgehalten wird, in das Repository (<<fig.index>>).
+////
+Das Repository ist der Sammelbehälter für Commits, also Änderungen, versehen mit Angaben zu Autor, Datum und Beschreibung.
+Die Commits ergeben zusammen die _Versionsgeschichte_.
+////
 
-.Kommandos `add`, `reset` und `commit`
+The repository is the repository for commits, that is, changes, with author, date, and description.
+The commits together make up the _version history_.
+
+
+////
+Git führt nun, im Gegensatz zu vielen anderen Versionskontrollsystemen, eine Neuerung ein, den Index.
+Es handelt sich um eine etwas schwierig greifbare Zwischenebene zwischen Working Tree und Repository.
+Er dient dazu, Commits vorzubereiten. D
+as bedeutet, dass Sie nicht immer _alle_ Änderungen, die Sie an einer Datei vorgenommen haben, auch als Commit einchecken müssen.
+////
+
+Unlike many other version control systems, Git now introduces a new feature, the index.
+It's a somewhat elusive intermediate level between the working tree and the repository.
+Its purpose is to prepare commits.
+This means that you don't always have to check in _all_ the changes you have made to a file as commits.
+
+
+////
+Die Git-Kommandos `add` und `reset` agieren (in ihrer Grundform) auf dem Index und bringen Änderungen in den Index ein bzw. löschen diese wieder; erst das Kommando `commit` überträgt die Datei, wie sie im Index vorgehalten wird, in das Repository (Abbildung 2.1, "Kommandos add, reset und commit").
+////
+
+The Git commands `add` and `reset` act (in their basic form) on the index, making changes to the index and deleting them again; only the `commit` command transfers the file to the repository as it is held in the index (<<fig.index>>).
+
+
+
+// .Kommandos `add`, `reset` und `commit`
+.Commands `add`, `reset` and `commit`
 image::index.png[id="fig.index",scaledwidth="90%",width="90%"]
 
-Im Ausgangszustand, das heißt wenn `git status` die Nachricht
-`nothing to commit` ausgibt, sind Working Tree und Index mit
-`HEAD` synchronisiert. Der Index ist also nicht
-"`leer`", sondern enthält die Dateien im gleichen Zustand, wie
-sie im Working Tree vorliegen.
-
-In der Regel ist dann der Arbeitsablauf folgender: Zuerst nehmen Sie mit
-einem Editor eine Veränderung am Working Tree vor. Diese Veränderung
-wird durch `add` in den Index übernommen und schließlich per
-`commit` im Repository abgespeichert.
 
 
-Sie können sich die Unterschiede zwischen diesen drei Ebenen jeweils
-durch das `diff`-Kommando anzeigen lassen.  Ein simples
-`git diff` zeigt die Unterschiede zwischen Working Tree und
-Index an -- also die Unterschiede zwischen den (tatsächlichen) Dateien
-auf Ihrem Arbeitssystem und den Dateien, wie sie eingecheckt würden,
-wenn Sie `git commit` aufrufen würden.
+////
+Im Ausgangszustand, das heißt wenn `git status` die Nachricht `nothing to commit` ausgibt, sind Working Tree und Index mit `HEAD` synchronisiert.
+Der Index ist also nicht "`leer`", sondern enthält die Dateien im gleichen Zustand, wie sie im Working Tree vorliegen.
+////
 
-Das Kommando `git diff --staged` zeigt hingegen die
-Unterschiede zwischen Index (der auch _Staging Area_ genannt
-wird) und Repository an, also die Unterschiede, die ein Commit ins
-Repository übertragen würde. Im Ausgangszustand, wenn Working Tree und Index
-mit `HEAD` synchron sind, erzeugen weder `git diff` noch
-`git diff --staged` eine Ausgabe.
-
-Wollen Sie alle
-Änderungen an allen Dateien übernehmen, gibt es zwei
-Abkürzungen: Zunächst die Option `-u` bzw. `--update`
-von `git add`.  Dadurch werden alle Veränderungen in den Index
-übertragen, aber noch kein Commit erzeugt. Weiter abkürzen können Sie
-mit der Option `-a` bzw.  `--all` von `git
- commit`. Dies ist eine Kombination aus `git add -u` und
-`git commit`, wodurch alle Veränderungen an allen Dateien in
-einem Commit zusammengefasst werden -- Sie umgehen den Index.
-Vermeiden Sie es, sich diese Optionen zur Angewohnheit zu machen -- sie
-sind zwar gelegentlich als Abkürzung ganz praktisch, verringern aber
-die Flexibilität.
+In the initial state, i.e. when `git status` outputs the message `nothing to commit`, the working tree and index are synchronized with `HEAD`.
+The index is therefore not "`empty`", but contains the files in the same state as they are in the working tree.
 
 
+////
+In der Regel ist dann der Arbeitsablauf folgender: Zuerst nehmen Sie mit einem Editor eine Veränderung am Working Tree vor.
+Diese Veränderung wird durch `add` in den Index übernommen und schließlich per `commit` im Repository abgespeichert.
+////
+
+Usually, the workflow is then as follows: First, you make a change to the working tree using an editor.
+This change is transferred to the index by `add` and finally saved in the repository by `commit`.
+
+
+////
+Sie können sich die Unterschiede zwischen diesen drei Ebenen jeweils durch das `diff`-Kommando anzeigen lassen.
+Ein simples `git diff` zeigt die Unterschiede zwischen Working Tree und Index an -- also die Unterschiede zwischen den (tatsächlichen) Dateien auf Ihrem Arbeitssystem und den Dateien, wie sie eingecheckt würden, wenn Sie `git commit` aufrufen würden.
+////
+
+You can display the differences between these three levels using the `diff` command.
+A simple `git diff` shows the differences between the working tree and the index -- the differences between the (actual) files on your working system and the files as they would be checked in if you called `git commit`.
+
+
+////
+Das Kommando `git diff --staged` zeigt hingegen die Unterschiede zwischen Index (der auch _Staging Area_ genannt wird) und Repository an, also die Unterschiede, die ein Commit ins Repository übertragen würde.
+Im Ausgangszustand, wenn Working Tree und Index mit `HEAD` synchron sind, erzeugen weder `git diff` noch `git diff --staged` eine Ausgabe.
+////
+
+The `git diff --staged` command, on the other hand, shows the differences between the index (also called the staging area) and the repository, that is, the differences that a commit would commit to the repository.
+In the initial state, when the working tree and index are in sync with `HEAD`, neither `git diff` nor `git diff --staged` produces output.
+
+
+////
+Wollen Sie alle Änderungen an allen Dateien übernehmen, gibt es zwei Abkürzungen: Zunächst die Option `-u` bzw. `--update` von `git add`.
+Dadurch werden alle Veränderungen in den Index übertragen, aber noch kein Commit erzeugt.
+Weiter abkürzen können Sie mit der Option `-a` bzw.  `--all` von `git commit`.
+Dies ist eine Kombination aus `git add -u` und `git commit`, wodurch alle Veränderungen an allen Dateien in einem Commit zusammengefasst werden -- Sie umgehen den Index.
+Vermeiden Sie es, sich diese Optionen zur Angewohnheit zu machen -- sie sind zwar gelegentlich als Abkürzung ganz praktisch, verringern aber die Flexibilität.
+////
+
+If you want to apply all changes to all files, there are two shortcuts: First, the `-u` or `--update` option of `git add`.
+This transfers all changes to the index, but does not yet create a commit.
+You can further abbreviate it with the `-a` or `--all` option of `git commit`.
+This is a combination of `git add -u` and `git commit`, which puts all changes to all files into one commit, bypassing the index.
+Avoid getting into the habit of using these options -- they may be handy as shortcuts on occasion, but they reduce flexibility.
 
 
 [[sec.diff-color-words]]
-==== Diff auf Wortbasis
+==== Word-Based Diff
+// Diff auf Wortbasis
 
-Ein alternatives Ausgabeformat für `git diff` ist das
-sog. _Word-Diff_, das über die Option
-`--word-diff` zur Verfügung steht.  Statt der entfernten
-und hinzugefügten Zeilen zeigt die Ausgabe von `git diff`
-mit einer entsprechenden Syntax sowie farblich kodiert die
-hinzugekommenen (grün) und entfernten (rot)
-Wörter.{fn12}
-Das ist dann praktisch, wenn Sie in
-einer Datei nur einzelne Wörter ändern, beispielsweise bei der
-Korrektur von AsciiDoc- oder LaTeX-Dokumenten, denn ein Diff ist schwierig zu lesen,
-wenn sich hinzugefügte und entfernte Zeile nur durch ein einziges Wort
-unterscheiden:
+////
+Ein alternatives Ausgabeformat für `git diff` ist das sog. _Word-Diff_, das über die Option `--word-diff` zur Verfügung steht.
+Statt der entfernten und hinzugefügten Zeilen zeigt die Ausgabe von `git diff` mit einer entsprechenden Syntax sowie farblich kodiert die hinzugekommenen (grün) und entfernten (rot) Wörter.[12]
+Das ist dann praktisch, wenn Sie in einer Datei nur einzelne Wörter ändern, beispielsweise bei der Korrektur von AsciiDoc- oder LaTeX-Dokumenten, denn ein Diff ist schwierig zu lesen, wenn sich hinzugefügte und entfernte Zeile nur durch ein einziges Wort unterscheiden:
+////
 
 
-[subs="macros,quotes"]
+An alternative output format for `git diff` is the so-called _Word-Diff_, which is available via the `--word-diff` option.
+Instead of the removed and added lines, the output of `git diff` shows the added (green) and removed (red) words with an appropriate syntax and color-coded.{fn12}
+This is useful when you are only changing single words in a file, for example when correcting AsciiDoc or LaTeX documents, because a diff is difficult to read if added and removed lines differ by only one word:
+
+// @TRANSLATE GIT LOG?
+
+[subs="quotes"]
 --------
 $ *git diff*
 ...
@@ -124,10 +160,18 @@ $ *git diff*
 --------
 
 
-Verwenden Sie hingegen die Option `--word-diff`, so werden nur geänderte
-Wörter entsprechend markiert angezeigt; außerdem werden Zeilenumbrüche
-ignoriert, was ebenfalls sehr praktisch ist, weil eine Neuausrichtung
-der Wörter nicht als Änderung in die Diff-Ausgabe eingeht:
+
+////
+Verwenden Sie hingegen die Option `--word-diff`, so werden nur geänderte Wörter entsprechend markiert angezeigt; außerdem werden Zeilenumbrüche ignoriert, was ebenfalls sehr praktisch ist, weil eine Neuausrichtung der Wörter nicht als Änderung in die Diff-Ausgabe eingeht:
+////
+
+However, if you use the `--word-diff` option, only words that have been changed will be displayed marked accordingly; in addition, line breaks are ignored, which is also very practical because a reorientation of the words is not included as a change in the diff output:
+
+// @TRANSLATE GIT LOG?
+// @CHECK GIT LOG: The plus symbols in '{+Verfügung+}' are omitted in the final
+//                 German books (HTML and PDF), but would be preserved here if
+//                 we keep the "macros" subs. Is that a mistake or was is
+//                 supposed to be so?
 
 [subs="macros,quotes"]
 --------
@@ -139,61 +183,92 @@ $ *git diff --word-diff*
 
 [TIP]
 =================
-Falls Sie viel mit Fließtext arbeiten, bietet es sich an, ein Alias zur
-Abkürzung dieses Befehls einzurichten, so dass Sie beispielsweise nur
-noch `git dw` eingeben müssen:
+////
+Falls Sie viel mit Fließtext arbeiten, bietet es sich an, ein Alias zur Abkürzung dieses Befehls einzurichten, so dass Sie beispielsweise nur noch `git dw` eingeben müssen:
+////
 
+If you work a lot with continuous text, it is a good idea to set up an alias to abbreviate this command, so that you only have to type `git dw`, for example:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 ------
 $ *git config --global alias.dw "diff --word-diff"*
 ------
 =================
 
+
 [[sec.add-p]]
-=== Commits schrittweise erstellen
+=== Creating Commits Step by Step
+//  Commits schrittweise erstellen
 
-Warum aber sollte man Commits schrittweise erstellen -- will man nicht
-immer alle Änderungen auch einchecken?
+////
+Warum aber sollte man Commits schrittweise erstellen -- will man nicht immer alle Änderungen auch einchecken?
+////
 
-Ja, natürlich will man seine Änderungen in der Regel vollständig
-übernehmen. Es kann allerdings sinnvoll sein, sie in Schritten
-einzupflegen, um etwa die Entwicklungsgeschichte besser abzubilden.
+But why create commits step-by-step -- don't you always want to check in all changes?
 
-Ein Beispiel: Sie haben in den vergangenen drei Stunden intensiv an
-Ihrem Software-Projekt gearbeitet, haben aber, weil es so spannend
-war, vergessen, die vier neuen Features in handliche Commits zu
-verpacken. Zudem sind die Features über diverse Dateien verstreut.
 
-Im besten Fall wollen Sie also selektiv arbeiten, d.h. nicht alle
-Veränderungen aus einer Datei in einen Commit übernehmen, sondern nur
-bestimmte Zeilen (Funktionen, Definitionen, Tests, ...), und das auch
-noch aus verschiedenen Dateien.
+////
+Ja, natürlich will man seine Änderungen in der Regel vollständig übernehmen.
+Es kann allerdings sinnvoll sein, sie in Schritten einzupflegen, um etwa die Entwicklungsgeschichte besser abzubilden.
+////
 
-Der Index von Git bietet dafür die gewünschte Flexibilität. Sie
-sammeln einige Änderungen im Index und verpacken sie in einem Commit
--- alle anderen Änderungen bleiben aber nach wie vor in den Dateien
-erhalten.
+Yes, of course, you usually want to commit your changes completely.
+However, it can be useful to check them in step by step, for example, to better reflect the development history.
 
-Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem
-vorigen Kapitel illustrieren.  Zur Erinnerung der Inhalt der Datei
-`hello.pl`:
 
+////
+Ein Beispiel: Sie haben in den vergangenen drei Stunden intensiv an Ihrem Software-Projekt gearbeitet, haben aber, weil es so spannend war, vergessen, die vier neuen Features in handliche Commits zu verpacken.
+Zudem sind die Features über diverse Dateien verstreut.
+////
+
+An example: You have worked intensively on your software project for the past three hours, but because it was so exciting, you forgot to pack the four new features into handy commits.
+In addition, the features are scattered over various files.
+
+
+////
+Im besten Fall wollen Sie also selektiv arbeiten, d.h. nicht alle Veränderungen aus einer Datei in einen Commit übernehmen, sondern nur bestimmte Zeilen (Funktionen, Definitionen, Tests, ...), und das auch noch aus verschiedenen Dateien.
+////
+
+At best, you want to be selective, that is, you don't want to commit all changes from one file, but only certain lines (functions, definitions, tests, ...), and from different files.
+
+
+////
+Der Index von Git bietet dafür die gewünschte Flexibilität.
+Sie sammeln einige Änderungen im Index und verpacken sie in einem Commit -- alle anderen Änderungen bleiben aber nach wie vor in den Dateien erhalten.
+////
+
+Git's index provides the flexibility you need for this.
+You collect some changes in the index and pack them into a commit -- but all other changes are still preserved in the files.
+
+
+Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem vorigen Kapitel illustrieren.
+Zur Erinnerung der Inhalt der Datei `hello.pl`:
+
+We'll illustrate this using the "`Hello World!`" example from the previous chapter.
+As a reminder, the contents of the `hello.pl` file
+
+
+// @TODO: PERL SYNTAX HIGHLIGHTING
 --------
 # Hello World! in Perl
 print "Hello World!\n";
 --------
 
-Nun präparieren wir die Datei so, dass sie mehrere unabhängige
-Veränderungen hat, die wir _nicht_ in einem einzelnen Commit
-zusammenfassen wollen. Zunächst fügen wir eine _Shebang_-Zeile
-am Anfang hinzu.{fn13}
-Außerdem
-kommt eine Zeile hinzu, die den Autor benennt, sowie eine
-Perl-Anweisung `use strict`, die den Perl-Interpreter anweist,
-bei der Syntaxanalyse möglichst streng zu sein. Wichtig ist für unser
-Beispiel, dass die Datei an mehreren Stellen verändert wurde:
 
+////
+Nun präparieren wir die Datei so, dass sie mehrere unabhängige Veränderungen hat, die wir _nicht_ in einem einzelnen Commit zusammenfassen wollen.
+Zunächst fügen wir eine _Shebang_-Zeile am Anfang hinzu.[13]
+Außerdem kommt eine Zeile hinzu, die den Autor benennt, sowie eine Perl-Anweisung `use strict`, die den Perl-Interpreter anweist, bei der Syntaxanalyse möglichst streng zu sein.
+Wichtig ist für unser Beispiel, dass die Datei an mehreren Stellen verändert wurde:
+////
+
+Now we prepare the file so that it has several independent changes that we _don't_ want to combine into a single commit.
+First, we add a shebang line at the beginning.{fn13}
+We also add a line naming the author, and the Perl statement `use strict`, which tells the Perl interpreter to be as strict as possible in its syntax analysis.
+It is important for our example that the file has been changed in several places:
+
+
+// @TODO: PERL SYNTAX HIGHLIGHTING
 --------
 #!/usr/bin/perl
 # Hello World! in Perl
@@ -202,66 +277,88 @@ use strict;
 print "Hello World!\n";
 --------
 
-Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen
-dem Index hinzugefügt -- der Stand der Datei im Index wäre also der
-gleiche wie im Working Tree. Stattdessen verwenden wir die Option
-`--patch` bzw. kurz `-p`.{fn14}
-Dies hat zur Folge, dass
-wir interaktiv gefragt werden, welche Veränderungen wir dem Index
-hinzufügen wollen. Git bietet uns jede Veränderung einzeln an, und wir
-können von Fall zu Fall entscheiden, wie wir mit dieser verfahren
-wollen:
 
-[subs="macros,quotes"]
+////
+Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen dem Index hinzugefügt -- der Stand der Datei im Index wäre also der gleiche wie im Working Tree.
+Stattdessen verwenden wir die Option `--patch` bzw. kurz `-p`.[14]
+Dies hat zur Folge, dass wir interaktiv gefragt werden, welche Veränderungen wir dem Index hinzufügen wollen.
+Git bietet uns jede Veränderung einzeln an, und wir können von Fall zu Fall entscheiden, wie wir mit dieser verfahren wollen:
+////
+
+With a simple `git add hello.pl` all new lines would be added to the index -- so the state of the file in the index would be the same as in the working tree.
+Instead, we use the `--patch` option or short `-p`.{fn14}
+This has the effect that we are interactively asked which changes we want to add to the index.
+Git offers us each change one by one, and we can decide on a case-by-case basis how we want to handle them:
+
+
+[subs="quotes"]
 --------
 $ *git add -p*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,5 @@
-+\#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
++&num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 Stage this hunk [y,n,q,a,d,/,s,e,?]?
 --------
 
-Hier zeigt Git alle Änderungen an, da sie im Code sehr nah
-beieinander liegen. Bei weit auseinanderliegenden oder auf
-verschiedene Dateien verteilten Veränderungen werden sie getrennt
-angeboten. Der Begriff _Hunk_ bezeichnet lose zusammenhängende
-Zeilen im Quellcode. Wir haben an dieser Stelle unter anderem folgende Optionen:
+
+////
+Hier zeigt Git alle Änderungen an, da sie im Code sehr nah beieinander liegen.
+Bei weit auseinanderliegenden oder auf verschiedene Dateien verteilten Veränderungen werden sie getrennt angeboten.
+Der Begriff _Hunk_ bezeichnet lose zusammenhängende Zeilen im Quellcode.
+Wir haben an dieser Stelle unter anderem folgende Optionen:
+////
+
+This is where Git shows all changes, since they're very close together in the code.
+If the changes are far apart or spread across different files, they're offered separately.
+The term _hunk_ refers to loosely connected lines in the source code.
+Some of the options we have at this point include the following:
+
 
 --------
 Stage this hunk[y,n,q,a,d,/,s,e,?]?
 --------
 
-Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu
-merken. Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
-Die wichtigsten Optionen haben wir im Folgenden
-zusammengefasst.
+Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu merken.
+Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
+Die wichtigsten Optionen haben wir im Folgenden zusammengefasst.
+
+The options are each only one letter long and difficult to remember.
+A small reminder is always given by _[?]_.
+We have summarized the most important options below.
+
+////
+`y` (_yes_)   :: Übernimm den aktuellen Hunk in den Index.
+`n` (_no_)    :: Übernimm den aktuellen Hunk nicht.
+`q` (_quit_)  :: Übernimm weder den aktuellen Hunk noch einen der folgenden.
+`a` (_all_)   :: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
+`s` (_split_) :: Versuche, den aktuellen Hunk zu teilen.
+`e` (_edit_)  :: Editiere den aktuellen Hunk.[15]
+////
+
+[horizontal]
+`y` (_yes_)   :: Transfer the current hunk to the index.
+`n` (_no_)    :: Don't pick up the current hunk.
+`q` (_quit_)  :: Do not pick up the current hunk or any of the following ones.
+`a` (_all_)   :: Pick up the current hunk and all those that follow (in the current file).
+`s` (_split_) :: Try to split the current hunk.
+`e` (_edit_)  :: Edit the current hunk.{fn15}
 
 
-`y` (_yes_):: Übernimm den aktuellen Hunk in den Index.
+////
+In dem Beispiel teilen wir den aktuellen Hunk und geben `s` für _split_ ein.
+////
 
-`n` (_no_):: Übernimm den aktuellen Hunk nicht.
-
-`q` (_quit_):: Übernimm weder den aktuellen Hunk noch einen der folgenden.
-
-`a` (_all_):: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
-
-`s` (_split_):: Versuche, den aktuellen Hunk zu teilen.
-
-`e` (_edit_):: Editiere den aktuellen Hunk.{fn15}
+In the example we split the current hunk and enter `s` for _split_.
 
 
-In dem Beispiel teilen wir den aktuellen Hunk und geben
-`s` für _split_ ein.
-
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 Stage this hunk [y,n,q,a,d,/,s,e,?]? *[s]*
 Split into 2 hunks.
@@ -270,121 +367,149 @@ Split into 2 hunks.
  # Hello World! in Perl
 --------
 
-Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und
-bietet uns nun ein Diff an, das nur die Shebang-Zeile
-enthält.{fn16}
-Wir geben `y` für
-_yes_ an und beim nächsten Hunk `q` für _quit_.  Um
-zu überprüfen, ob alles geklappt hat, verwenden wir `git diff`
-mit der Option `--staged`, die den Unterschied zwischen
-Index und `HEAD` (dem neuesten Commit)
-anzeigt:
+////
+Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und bietet uns nun ein Diff an, das nur die Shebang-Zeile enthält.[16]
+Wir geben `y` für _yes_ an und beim nächsten Hunk `q` für _quit_.
+Um zu überprüfen, ob alles geklappt hat, verwenden wir `git diff` mit der Option `--staged`, die den Unterschied zwischen Index und `HEAD` (dem neuesten Commit) anzeigt:
+////
 
-[subs="macros,quotes"]
+Git confirms that the hunk was successfully split, and now offers us a diff that contains only the shebang line.{fn16}
+We specify `y` for _yes_ and `q` for _quit_ on the next hunk.
+To check if everything worked, we use `git diff` with the `--staged` option, which shows the difference between index and `HEAD` (the latest commit):
+
+
+[subs="quotes"]
 --------
 $ *git diff --staged*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..d2cc6dc 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,3 @@
 +#!/usr/bin/perl
  # Hello World! in Perl
  print "Hello World!\n";
 --------
 
-Um zu sehen, welche Veränderungen sich noch _nicht_ im Index
-befinden, reicht ein einfacher Aufruf von `git diff`, der uns
-zeigt, dass sich -- wie erwartet -- noch zwei Zeilen im Working Tree
-befinden:
 
-[subs="macros,quotes"]
+////
+Um zu sehen, welche Veränderungen sich noch _nicht_ im Index befinden, reicht ein einfacher Aufruf von `git diff`, der uns zeigt, dass sich -- wie erwartet -- noch zwei Zeilen im Working Tree befinden:
+////
+
+To see which changes are _not_ yet in the index, a simple call to `git diff` is enough to show us that -- as expected -- there are still two lines in the working tree:
+
+
+[subs="quotes"]
 --------
 $ *git diff*
 diff --git a/hello.pl b/hello.pl
 index d2cc6dc..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,3 +1,5 @@
- \#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
+ &num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 --------
 
 
-An dieser Stelle könnten wir einen Commit erzeugen, wollen zur
-Demonstration aber noch einmal von vorn beginnen. Darum setzen wir
-mit `git reset HEAD` den Index zurück.
+////
+An dieser Stelle könnten wir einen Commit erzeugen, wollen zur Demonstration aber noch einmal von vorn beginnen.
+Darum setzen wir mit `git reset HEAD` den Index zurück.
+////
 
-[subs="macros,quotes"]
+At this point we could create a commit, but for demonstration purposes we want to start from scratch.
+So we use `git reset HEAD` to reset the index.
+
+
+[subs="quotes"]
 --------
 $ *git reset HEAD*
 Unstaged changes after reset:
 M   hello.pl
 --------
 
-Git bestätigt und nennt die Dateien, in denen sich Veränderungen
-befinden; in diesem Fall ist es nur die eine.
 
-Das Kommando `git reset` ist gewissermaßen das Gegenstück zu
-`git add`: Statt Unterschiede aus dem Working Tree in den Index
-zu übertragen, überträgt `reset` Unterschiede aus dem
-Repository in den Index. Änderungen _in den_ Working Tree zu
-übertragen, ist möglicherweise destruktiv, da Ihre Änderungen
-verlorengehen könnten. Daher ist dies nur mit der Option
-`--hard` möglich, die wir in <<sec.reset>>
-behandeln.
+////
+Git bestätigt und nennt die Dateien, in denen sich Veränderungen befinden; in diesem Fall ist es nur die eine.
+////
 
-Sollten Sie häufiger `git add -p` verwenden, ist es nur eine
-Frage der Zeit, bis Sie versehentlich einen Hunk auswählen, den Sie
-eigentlich gar nicht wollten. Sollte der Index leer gewesen sein, ist
-dies kein Problem, da Sie ihn ja zurücksetzen können, um von vorn
-anzufangen. Problematisch wird es erst, wenn Sie bereits viele
-Veränderungen im Index aufgezeichnet haben und diese nicht verlieren
-möchten, Sie also einen bestimmten Hunk aus dem Index entfernen, ohne
-die anderen Hunks anfassen zu wollen.
+Git confirms and names the files that have changes in them; in this case, it's just the one.
 
-Analog zu `git add -p` gibt es daher den Befehl `git
-  reset -p`, der einzelne Hunks wieder aus dem Index entfernt. Um das
-zu demonstrieren, übernehmen wir zunächst alle Veränderungen mit
-`git add hello.pl` und starten `git reset -p`.
 
-[subs="macros,quotes"]
+////
+Das Kommando `git reset` ist gewissermaßen das Gegenstück zu `git add`: Statt Unterschiede aus dem Working Tree in den Index zu übertragen, überträgt `reset` Unterschiede aus dem Repository in den Index.
+Änderungen _in den_ Working Tree zu übertragen, ist möglicherweise destruktiv, da Ihre Änderungen verlorengehen könnten.
+Daher ist dies nur mit der Option `--hard` möglich, die wir in Abschnitt 3.2.3, "Reset und der Index" behandeln.
+////
+
+The `git reset` command is in a sense the counterpart of `git add`: Instead of transferring differences from the working tree to the index, `reset` transfers differences from the repository to the index.
+Committing changes _to_ the working tree is potentially destructive, as your changes may be lost.
+Therefore, this is only possible with the `--hard` option, which we discuss in <<sec.reset>>.
+
+
+////
+Sollten Sie häufiger `git add -p` verwenden, ist es nur eine Frage der Zeit, bis Sie versehentlich einen Hunk auswählen, den Sie eigentlich gar nicht wollten.
+Sollte der Index leer gewesen sein, ist dies kein Problem, da Sie ihn ja zurücksetzen können, um von vorn anzufangen.
+Problematisch wird es erst, wenn Sie bereits viele Veränderungen im Index aufgezeichnet haben und diese nicht verlieren möchten, Sie also einen bestimmten Hunk aus dem Index entfernen, ohne die anderen Hunks anfassen zu wollen.
+////
+
+If you frequently use `git add -p`, it is only a matter of time before you accidentally select a hunk you didn't want.
+If the index was empty, this is not a problem since you can reset it to start over.
+It only becomes a problem if you have already recorded many changes in the index and don't want to lose them, i.e. you remove a particular hunk from the index without wanting to touch the other hunks.
+
+
+////
+Analog zu `git add -p` gibt es daher den Befehl `git reset -p`, der einzelne Hunks wieder aus dem Index entfernt.
+Um das zu demonstrieren, übernehmen wir zunächst alle Veränderungen mit `git add hello.pl` und starten `git reset -p`.
+////
+
+Analogous to `git add -p` there is the command `git reset -p`, which removes single hunks from the index.
+To demonstrate this, let's first apply all changes with `git add hello.pl` and then run `git reset -p`.
+
+
+
+[subs="quotes"]
 --------
 $ *git reset -p*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,5 @@
-+\#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
++&num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 Unstage this hunk [y,n,q,a,d,/,s,e,?]?
 --------
 
-Wie bei dem Beispiel mit `git add -p` bietet Git nach und nach
-Hunks an, jedoch sind es diesmal alle Hunks im Index. Entsprechend
-lautet die Frage: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, also
-ob wir den Hunk wieder aus dem Index herausnehmen möchten. Wie gehabt,
-erhalten wir durch die Eingabe des Fragezeichens eine erweiterte
-Beschreibung der verfügbaren Optionen.  Wir drücken an dieser Stelle
-einmal `s` für _split_, einmal `n` für _no_
-und einmal `y` für _yes_.  Damit sollte sich jetzt nur die
-Shebang-Zeile im Index befinden:
+
+////
+Wie bei dem Beispiel mit `git add -p` bietet Git nach und nach Hunks an, jedoch sind es diesmal alle Hunks im Index.
+Entsprechend lautet die Frage: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, also ob wir den Hunk wieder aus dem Index herausnehmen möchten.
+Wie gehabt, erhalten wir durch die Eingabe des Fragezeichens eine erweiterte Beschreibung der verfügbaren Optionen.
+Wir drücken an dieser Stelle einmal `s` für _split_, einmal `n` für _no_ und einmal `y` für _yes_.
+Damit sollte sich jetzt nur die Shebang-Zeile im Index befinden:
+////
+
+As in the example with `git add -p`, Git offers hunks one by one, but this time all the hunks in the index.
+Accordingly, the question is: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, i.e. whether we want to remove the hunk from the index again.
+As before, by entering the question mark we get an extended description of the available options.
+At this point we press `s` once for _split_, `n` once for _no_ and `y` once for _yes_.
+Now only the shebang line should be in the index:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git diff --staged*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..d2cc6dc 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,3 @@
 +#!/usr/bin/perl
  # Hello World! in Perl
@@ -395,12 +520,15 @@ pass:quotes[\+++ b/hello.pl]
 
 [TIP]
 =================
-Bei den interaktiven Modi von `git add` und `git
-reset` müssen Sie nach Eingabe einer Option die Enter-Taste
-drücken.  Mit folgender Konfigurationseinstellung sparen Sie sich
-diesen zusätzlichen Tastendruck.
+////
+Bei den interaktiven Modi von `git add` und `git reset` müssen Sie nach Eingabe einer Option die Enter-Taste drücken.
+Mit folgender Konfigurationseinstellung sparen Sie sich diesen zusätzlichen Tastendruck.
+////
 
-[subs="macros,quotes"]
+In the interactive modes of `git add` and `git reset`, you must press the kbd:[Enter] key after entering an option.
+The following configuration setting will save you this extra keystroke.
+
+[subs="quotes"]
 --------
 $ *git config --global interactive.singlekey true*
 --------
@@ -408,20 +536,22 @@ $ *git config --global interactive.singlekey true*
 
 
 
-Ein Wort der Warnung:
-Ein `git add -p` kann dazu verleiten, Versionen einer Datei
-einzuchecken, die nicht lauffähig oder syntaktisch korrekt sind
-(z.B. weil Sie eine wesentliche Zeile vergessen haben). Verlassen
-Sie sich daher nicht darauf, dass Ihr Commit korrekt ist, nur weil
-`make` -- was auf den Dateien des Working Tree arbeitet! --
-erfolgreich durchläuft. Auch wenn ein späterer Commit das Problem
-behebt, stellt dies unter anderem bei der automatisierten Fehlersuche
-via Bisect (siehe <<sec.bisect>>) ein Problem dar.
+////
+Ein Wort der Warnung: Ein `git add -p` kann dazu verleiten, Versionen einer Datei einzuchecken, die nicht lauffähig oder syntaktisch korrekt sind (z.B. weil Sie eine wesentliche Zeile vergessen haben).
+Verlassen Sie sich daher nicht darauf, dass Ihr Commit korrekt ist, nur weil `make` -- was auf den Dateien des Working Tree arbeitet! -- erfolgreich durchläuft.
+Auch wenn ein späterer Commit das Problem behebt, stellt dies unter anderem bei der automatisierten Fehlersuche via Bisect (siehe Abschnitt 4.8, "Regressionen finden -- git bisect") ein Problem dar.
+////
+
+A word of warning: A `git add -p` may tempt you to check in versions of a file that are not executable or syntactically correct (e.g. because you forgot an essential line).
+So don't rely on your commit being correct just because `make` -- which works on working tree files! -- runs successfully.
+Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <<sec.bisect>>).
 
 
+// ********** ARRIVED HERE!!! **********
 
 [[sec.commit]]
 === Commits erstellen
+// Commits erstellen
 
 Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und
 Repository austauschen. Wenden wir uns nun dem Kommando `git
@@ -477,6 +607,7 @@ $ *git commit -m "Dies ist die Commit-Nachricht"*
 
 [[sec.ci-amend]]
 ==== Einen Commit verbessern
+// Einen Commit verbessern
 
 Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
 Option `--amend` ("`berichtigen`"). Die Option
@@ -506,6 +637,7 @@ $ *git config --global alias.fixup "commit --amend --no-edit"*
 
 [[sec.commit-msg]]
 ==== Gute Commit-Nachrichten
+// Gute Commit-Nachrichten
 
 Wie sollte eine Commit-Nachricht aussehen?  An der äußeren Form lässt
 sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine
@@ -587,6 +719,7 @@ ausführlichen Beschreibungen voran.
 
 [[sec.git-mv-rm]]
 === Dateien verschieben und löschen
+// Dateien verschieben und löschen
 
 Wenn Sie Dateien, die von Git verwaltet werden, löschen oder
 verschieben wollen, dann verwenden Sie dafür `git rm` bzw.
@@ -646,6 +779,7 @@ $ *git log --follow -- &lt;datei&gt;*
 
 [[sec.grep]]
 === grep auf einem Repository
+// grep auf einem Repository
 
 Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen
 wollen, bietet sich normalerweise ein Aufruf von `grep -R
@@ -691,6 +825,7 @@ $ *git config alias.ack &#39;!git -c color.grep.filename="green bold" \*
 
 [[sec.git-log]]
 === Die Projektgeschichte untersuchen
+// Die Projektgeschichte untersuchen
 
 Mit `git log` untersuchen Sie die Versionsgeschichte des
 Projekts. Die Optionen dieses Kommandos (die großteils auch für
@@ -810,6 +945,7 @@ $ git log -1 --oneline *--shortstat* 4868b2ea
 
 [[sec.git-log-dates]]
 ==== Zeitliche Einschränkungen
+// Zeitliche Einschränkungen
 
 Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit
 den Optionen `--after` bzw. `--since` sowie
@@ -829,6 +965,7 @@ $ *git log --since=&#39;yesterday&#39;*
 
 [[sec.git-log-files]]
 ==== Einschränkungen auf Dateiebene
+// Einschränkungen auf Dateiebene
 
 Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei-
 oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die
@@ -853,6 +990,7 @@ Datei unterhalb von `Documentation/` vorgenommen wurden.
 
 [[sec.git-log-grep]]
 ==== grep für Commits
+// grep für Commits
 
 Sie können auch im Stile von `grep` nach Commits suchen; hier
 stehen die Optionen `--author`, `--committer` und
@@ -927,6 +1065,7 @@ die Anzahl der Commits zu verringern.
 
 [[sec.commit-ranges-intro]]
 === Commit-Ranges
+// Commit-Ranges
 
 Bisher haben wir lediglich Kommandos betrachtet, die nur einen
 einzelnen Commit als Argument fordern, explizit identifiziert durch
@@ -948,6 +1087,7 @@ dafür den Wert `HEAD` an.
 
 [[sec.git-diff]]
 === Unterschiede zwischen Commits
+// Unterschiede zwischen Commits
 
 Das Kommando `git show` bzw. `git log -p` hat bisher
 immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
@@ -967,6 +1107,7 @@ Commits angezeigt.
 
 [[sec.objektmodell]]
 == Das Objektmodell
+// Das Objektmodell
 
 Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell. Es
 dient dazu, die typischen Elemente eines Repositorys (Dateien,
@@ -1003,6 +1144,7 @@ b0400b0 Erste Version
 
 [[sec.sha1]]
 === SHA-1 – der sichere Hash-Algorithmus
+// SHA-1 – der sichere Hash-Algorithmus
 
 
 SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash
@@ -1063,6 +1205,7 @@ ausreicht, um einen Commit eindeutig zu identifizieren.
 
 [[sec.objekte]]
 === Die Git-Objekte
+// Die Git-Objekte
 
 Alle in einem Repository gespeicherten Daten liegen als
 _Git-Objekte_ vor. Man unterscheidet vier
@@ -1121,6 +1264,7 @@ Objekte. Ein Commit wiederum referenziert _einen_ Tree.
 
 [[sec.od]]
 === Die Objektdatenbank
+// Die Objektdatenbank
 
 Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und
 sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie
@@ -1182,6 +1326,7 @@ Objektdatenbank zu speichern.
 
 [[sec.explore-od]]
 === Die Objektdatenbank untersuchen
+// Die Objektdatenbank untersuchen
 
 In einem kleinen Exkurs gehen wir darauf ein, wie man die
 Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
@@ -1283,6 +1428,7 @@ nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
 
 [[sec.deduplication]]
 === Deduplication
+// Deduplication
 
 Die vier Commits, aus denen das Beispiel-Repository besteht, sind in
 <<fig.struktur>> nochmals dargestellt, doch auf andere
@@ -1341,6 +1487,7 @@ damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
 
 [[sec.git-graph]]
 === Die Graph-Struktur
+// Die Graph-Struktur
 
 Da jeder Commit seine direkten Vorfahren speichert, entsteht eine
 Graph-Struktur. Genauer gesagt erzeugt die Anordnung der Commits einen
@@ -1413,6 +1560,7 @@ nur eine Prüfsumme derselben.
 
 [[sec.graph-referenzen]]
 ==== Referenzen: Branches und Tags
+// Referenzen: Branches und Tags
 
 Mit einem reinen Commit-Graphen kann man aber noch nicht viel
 anfangen. Um einen Knoten zu referenzieren (also damit zu arbeiten),
