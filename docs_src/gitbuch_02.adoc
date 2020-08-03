@@ -822,164 +822,229 @@ Leider sind die Commit-Nachrichten in den meisten Projekten dennoch sehr spartan
 Unfortunately, the commit messages in most projects are still very spartan, so don't be disappointed if your peers are lazy about writing, but rather set a good example and provide detailed descriptions.
 
 
-// ********** ARRIVED HERE!!! **********
 
 [[sec.git-mv-rm]]
-=== Dateien verschieben und löschen
-// Dateien verschieben und löschen
+=== Moving and Deleting Files
+//  Dateien verschieben und löschen
 
-Wenn Sie Dateien, die von Git verwaltet werden, löschen oder
-verschieben wollen, dann verwenden Sie dafür `git rm` bzw.
-`git mv`. Sie wirken wie die regulären Unix-Kommandos,
-modifizieren aber darüber hinaus den Index, so dass die Aktion in den
-nächsten Commit einfließt.{fn19}
+////
+Wenn Sie Dateien, die von Git verwaltet werden, löschen oder verschieben wollen, dann verwenden Sie dafür `git rm` bzw. `git mv`.
+Sie wirken wie die regulären Unix-Kommandos, modifizieren aber darüber hinaus den Index, so dass die Aktion in den nächsten Commit einfließt.[19]
+////
 
-Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch
-die Optionen `-r` und `-f`, um rekursiv zu löschen bzw.
-das Löschen zu erzwingen. Auch `git mv` bietet eine Option
-`-f` (_force_), falls der neue Dateiname schon existiert
-und überschrieben werden soll. Beide Kommandos akzeptieren die Option
-`-n` bzw. `--dry-run`, die bewirkt, dass der Vorgang
-simuliert wird, Dateien also nicht modifiziert werden.
+If you want to delete or move files managed by Git, use `git rm` or `git mv`.
+They act like the regular Unix commands, but they also modify the index so that the action is included in the next commit.{fn19}
 
 
-[TIP]
-================
-Um eine Datei _nur_ aus dem Index zu löschen, verwenden Sie
-`git rm --cached`. Sie bleibt dann im Working Tree
-erhalten.
-================
+////
+Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch die Optionen `-r` und `-f`, um rekursiv zu löschen bzw. das Löschen zu erzwingen.
+Auch `git mv` bietet eine Option `-f` (_force_), falls der neue Dateiname schon existiert und überschrieben werden soll.
+Beide Kommandos akzeptieren die Option `-n` bzw. `--dry-run`, die bewirkt, dass der Vorgang simuliert wird, Dateien also nicht modifiziert werden.
+////
 
-
-Sie werden häufiger vergessen, eine Datei über `git mv` zu
-verschieben oder per `git rm` zu löschen, und stattdessen die
-Standard-Unix-Kommandos verwenden. In diesem Fall markieren Sie die
-(schon per `rm` gelöschte) Datei einfach auch als gelöscht im
-Index, und zwar per `git rm <datei>`.
-
-Für eine Umbenennung gehen Sie so vor: Markieren Sie zunächst den
-alten Dateinamen per `git rm <alter-name>` als gelöscht.  Fügen
-Sie dann die neue Datei hinzu: `git add <neuer-name>`.
-Überprüfen Sie anschließend per `git status`, ob die Datei als
-"`umbenannt`" gekennzeichnet ist.
+Like the standard Unix commands, `git rm` also accepts the `-r` and `-f` options to recursively delete or force deletion.
+`git mv` also offers an option `-f` (_force_) if the new filename already exists and should be overwritten.
+Both commands accept the option `-n` or `--dry-run`, which simulates the process and does not modify files.
 
 
 [TIP]
 ================
-Intern spielt es für Git keine Rolle, ob Sie eine Datei regulär per
-`mv` verschieben, dann `git add <neuer-name>` und `git rm
-<alter-name>` ausführen. In jedem Fall wird lediglich die Referenz auf
-ein Blob-Objekt geändert (siehe <<sec.objektmodell>>).
+////
+Um eine Datei _nur_ aus dem Index zu löschen, verwenden Sie `git rm --cached`.
+Sie bleibt dann im Working Tree erhalten.
+////
 
-Git kommt allerdings mit einer sogenannten _Rename Detection_: Wenn
-ein Blob gleich ist und nur von einem anderen Dateinamen referenziert
-wird, dann fasst Git dies als eine Umbenennung auf.  Wollen Sie die
-Geschichte einer Datei untersuchen und ihr bei eventuellen
-Umbenennungen folgen, verwenden Sie das folgende Kommando:
+To delete a file from the index only, use `git rm --cached`.
+It then remains in the working tree.
+================
 
-[subs="macros,quotes"]
+
+////
+Sie werden häufiger vergessen, eine Datei über `git mv` zu verschieben oder per `git rm` zu löschen, und stattdessen die Standard-Unix-Kommandos verwenden.
+In diesem Fall markieren Sie die (schon per `rm` gelöschte) Datei einfach auch als gelöscht im Index, und zwar per `git rm <datei>`.
+////
+
+You will often forget to move a file via `git mv` or delete it via `git rm`, and use the standard Unix commands instead.
+In this case, simply mark the file (already deleted by `rm`) as deleted in the index, too, using `git rm <file>`.
+
+
+////
+Für eine Umbenennung gehen Sie so vor: Markieren Sie zunächst den alten Dateinamen per `git rm <alter-name>` als gelöscht.
+Fügen Sie dann die neue Datei hinzu: `git add <neuer-name>`.
+Überprüfen Sie anschließend per `git status`, ob die Datei als "`umbenannt`" gekennzeichnet ist.
+////
+
+To rename the file, proceed as follows: First mark the old file name as deleted using `git rm <old-name>`.
+Then add the new file: `git add <new-name>`.
+Then check via `git status` whether the file is marked as "`renamed`".
+
+
+[TIP]
+================
+////
+Intern spielt es für Git keine Rolle, ob Sie eine Datei regulär per `mv` verschieben, dann `git add <neuer-name>` und `git rm <alter-name>` ausführen.
+In jedem Fall wird lediglich die Referenz auf ein Blob-Objekt geändert (siehe Abschnitt 2.2, "Das Objektmodell").
+////
+
+Internally, it doesn't matter to Git whether you move a file regularly via `mv`, then run `git add <new-name>` and `git rm <old-name>`.
+In any case, only the reference to a blob object is changed (see<<sec.objektmodell>>).
+
+
+////
+Git kommt allerdings mit einer sogenannten _Rename Detection_: Wenn ein Blob gleich ist und nur von einem anderen Dateinamen referenziert wird, dann fasst Git dies als eine Umbenennung auf.
+Wollen Sie die Geschichte einer Datei untersuchen und ihr bei eventuellen Umbenennungen folgen, verwenden Sie das folgende Kommando:
+////
+
+However, Git comes with a so-called _Rename Detection_: If a blob is the same and is only referenced by a different file name, Git interprets this as a rename.
+If you want to examine the history of a file and follow it if it is renamed, use the following command:
+
+[subs="quotes"]
 --------
-$ *git log --follow -- &lt;datei&gt;*
+$ *git log --follow -- &lt;file&gt;*
 --------
 ================
+
 
 
 [[sec.grep]]
-=== grep auf einem Repository
-// grep auf einem Repository
+=== Using Grep on a Repository
+//  grep auf einem Repository
 
-Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen
-wollen, bietet sich normalerweise ein Aufruf von `grep -R
-<ausdruck> .` an.
+////
+Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen wollen, bietet sich normalerweise ein Aufruf von `grep -R <ausdruck> .` an.
+////
 
-
-Git bietet allerdings ein eigenes Grep-Kommando, das Sie per
-`git grep <ausdruck>` aufrufen. In der Regel sucht das
-Kommando den Ausdruck in allen von Git verwalteten Dateien. Wollen Sie
-stattdessen nur einen Teil der Dateien untersuchen, können Sie das
-Muster explizit angeben. Mit folgendem Kommando finden Sie alle
-Vorkommnisse von `border-color` in allen CSS-Dateien:
+If you want to search for an expression in all files of your project, you can usually use `grep -R <expression> .`.
 
 
+Git bietet allerdings ein eigenes Grep-Kommando, das Sie per `git grep <ausdruck>` aufrufen.
+In der Regel sucht das Kommando den Ausdruck in allen von Git verwalteten Dateien.
+Wollen Sie stattdessen nur einen Teil der Dateien untersuchen, können Sie das Muster explizit angeben.
+Mit folgendem Kommando finden Sie alle Vorkommnisse von `border-color` in allen CSS-Dateien:
 
-[subs="macros,quotes"]
+However, Git offers its own grep command, which you can call up using `git grep <expression>`.
+This command usually searches for the expression in all files managed by Git.
+If you want to examine only some of the files instead, you can specify the pattern explicitly.
+With the following command you can find all occurrences of `border-color` in all CSS files:
+
+
+[subs="quotes"]
 --------
-$ *git grep border-color -- \_&#42;.css_*
+$ **git grep border-color -- '*.css'**
 --------
 
-Die Grep-Implementation von Git unterstützt alle gängigen Flags, die
-auch in GNU Grep vorhanden sind. Allerdings ist ein Aufruf von
-`git grep` in der Regel um eine Größenordnung schneller, da Git
-durch die Objektdatenbank sowie das Multithread-Design des Kommandos
-wesentliche Performance-Vorteile hat.
+
+////
+Die Grep-Implementation von Git unterstützt alle gängigen Flags, die auch in GNU Grep vorhanden sind.
+Allerdings ist ein Aufruf von `git grep` in der Regel um eine Größenordnung schneller, da Git durch die Objektdatenbank sowie das Multithread-Design des Kommandos wesentliche Performance-Vorteile hat.
+////
+
+The grep implementation of Git supports all common flags that are also present in GNU Grep.
+However, calling `git grep` is usually an order of magnitude faster, since Git has significant performance advantages due to the object database and the multithreaded design of the command.
+
 
 [TIP]
 =============
-Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch
-aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter
-einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante
-Farben verwendet. Sie können die Ausgabe von `ack` mit `git grep`
-emulieren, indem Sie folgendes Alias verwenden:
+Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante Farben verwendet.
+Sie können die Ausgabe von `ack` mit `git grep` emulieren, indem Sie folgendes Alias verwenden:
 
-[subs="macros,quotes"]
+The popular `grep` alternative `ack` is characterized mainly by the fact that it combines the lines of a file matching the search pattern under a corresponding "`heading`", and uses striking colors.
+You can emulate the output of `ack` with `git grep` by using the following alias:
+
+
+[subs="quotes"]
 -------
-$ *git config alias.ack &#39;!git -c color.grep.filename="green bold" \*
-  *-c color.grep.match="black yellow" -c color.grep.linenumber="yellow bold" \*
-  *grep -n --break --heading --color=always --untracked&#39;*
+$ **git config alias.ack '!git -c color.grep.filename="green bold" \
+  -c color.grep.match="black yellow" -c color.grep.linenumber="yellow bold" \
+  grep -n --break --heading --color=always --untracked'**
 -------
 =============
 
 
+
 [[sec.git-log]]
-=== Die Projektgeschichte untersuchen
-// Die Projektgeschichte untersuchen
+=== Examining the Project History
+//  Die Projektgeschichte untersuchen
 
-Mit `git log` untersuchen Sie die Versionsgeschichte des
-Projekts. Die Optionen dieses Kommandos (die großteils auch für
-`git show` funktionieren) sind sehr umfangreich, wir werden im
-Folgenden die wichtigsten vorstellen.
+////
+Mit `git log` untersuchen Sie die Versionsgeschichte des Projekts.
+Die Optionen dieses Kommandos (die großteils auch für `git show` funktionieren) sind sehr umfangreich, wir werden im Folgenden die wichtigsten vorstellen.
+////
 
-Ohne weitere Argumente gibt `git log` für jeden Commit Autor,
-Datum, Commit-ID sowie die komplette Commit-Nachricht aus.  Das ist
-dann praktisch, wenn Sie einen schnellen Überblick benötigen, wer wann
-was gemacht hat. Allerdings ist die Liste etwas unhandlich, sobald Sie
-viele Commits betrachten.
+Use `git log` to examine the project's version history.
+The options of this command (most of which also work for `git show`) are very extensive, and we will introduce the most important ones below.
 
-Wollen Sie nur die kürzlich erstellten Commits anschauen, begrenzen Sie die
-Ausgabe von `git log` durch die Option `-<n>` auf _n_
-Commits. Die letzten vier Commits erhalten Sie zum Beispiel mit:
 
-[subs="macros,quotes"]
+////
+Ohne weitere Argumente gibt `git log` für jeden Commit Autor, Datum, Commit-ID sowie die komplette Commit-Nachricht aus.
+Das ist dann praktisch, wenn Sie einen schnellen Überblick benötigen, wer wann was gemacht hat.
+Allerdings ist die Liste etwas unhandlich, sobald Sie viele Commits betrachten.
+////
+
+Without any arguments, `git log` will output the author, date, commit ID, and the full commit message for each commit.
+This is handy when you need a quick overview of who did what and when.
+However, the list is a bit cumbersome when you're looking at a lot of commits.
+
+
+////
+Wollen Sie nur die kürzlich erstellten Commits anschauen, begrenzen Sie die Ausgabe von `git log` durch die Option `-<n>` auf _n_ Commits.
+Die letzten vier Commits erhalten Sie zum Beispiel mit:
+////
+
+If you only want to look at recently created commits, limit `git log`{empty}`'s output to _n_ commits with the `-<n>` option.
+For example, the last four commits are shown with:
+
+
+[subs="quotes"]
 --------
 $ *git log -4*
 --------
 
-Um einen einzelnen Commit anzuzeigen, geben Sie stattdessen ein:
 
-[subs="macros,quotes"]
+////
+Um einen einzelnen Commit anzuzeigen, geben Sie stattdessen ein:
+////
+
+To display a single commit, enter:
+
+[subs="quotes"]
 --------
 $ *git log -1 &lt;commit&gt;*
 --------
 
-Das Argument `<commit>` ist eine legale Bezeichnung für einen einzelnen
-Commit, z.B. die Commit-ID bzw. SHA-1-Summe. Wenn Sie jedoch
-nichts angeben, verwendet Git automatisch `HEAD`. Abgesehen von einzelnen
-Commits versteht das Kommando allerdings auch sog. _Commit-Ranges_ (Reihe
-von Commits), siehe <<sec.commit-ranges-intro>>.
 
-Die Option `-p` (`--patch`) fügt den vollen Patch im
-Unified-Diff-Format unter der Beschreibung an. Damit ist also ein
-`git show <commit>` von der Ausgabe äquivalent zu `git
-  log -1 -p <commit>`.
+////
+Das Argument `<commit>` ist eine legale Bezeichnung für einen einzelnen Commit, z.B. die Commit-ID bzw. SHA-1-Summe.
+Wenn Sie jedoch nichts angeben, verwendet Git automatisch `HEAD`.
+Abgesehen von einzelnen Commits versteht das Kommando allerdings auch sog. _Commit-Ranges_ (Reihe von Commits), siehe Abschnitt 2.1.7, "Commit-Ranges".
+////
 
-Wollen Sie die Commits in komprimierter Form anzeigen, empfiehlt sich
-die Option `--oneline`: Sie fasst jeden Commit mit seiner
-abgekürzten SHA-1-Summe und der ersten Zeile der Commit-Nachricht
-zusammen. Daher ist es wichtig, dass Sie in dieser Zeile möglichst
-hilfreiche Informationen verpacken! Das sieht dann zum Beispiel so
-aus:{fn20}
+The `<commit>` argument is a legal name for a single commit, such as the commit ID or SHA-1 sum.
+However, if you do not specify anything, Git automatically uses `HEAD`.
+Apart from single commits, the command also understands so-called _commit ranges_ (series of commits), see <<sec.commit-ranges-intro>>.
 
-[subs="macros,quotes"]
+
+////
+Die Option `-p` (`--patch`) fügt den vollen Patch im Unified-Diff-Format unter der Beschreibung an.
+Damit ist also ein `git show <commit>` von der Ausgabe äquivalent zu `git log -1 -p <commit>`.
+
+////
+The `-p` (`--patch`) option appends the full patch in Unified-Diff format below the description.
+Thus, a `git show <commit>` from the output is equivalent to `git log -1 -p <commit>`.
+
+
+////
+Wollen Sie die Commits in komprimierter Form anzeigen, empfiehlt sich die Option `--oneline`: Sie fasst jeden Commit mit seiner abgekürzten SHA-1-Summe und der ersten Zeile der Commit-Nachricht zusammen.
+Daher ist es wichtig, dass Sie in dieser Zeile möglichst hilfreiche Informationen verpacken!
+Das sieht dann zum Beispiel so aus:[20]
+////
+
+If you want to display the commits in compressed form, we recommend the `--oneline` option: It summarizes each commit with its abbreviated SHA-1 sum and the first line of the commit message.
+It is therefore important that you include as much useful information as possible in this line!
+For example, this would look like this:{fn20}
+
+
+[subs="quotes"]
 --------
 $ *git log --oneline*
 *25f3af3* Correctly report corrupted objects
@@ -988,66 +1053,97 @@ $ *git log --oneline*
 *b312b41* exec_cmd: remove unused extern
 --------
 
-Die Option `--oneline` ist nur ein Alias für
-`--pretty=oneline`. Es gibt noch andere Möglichkeiten, die
-Ausgabe von `git log` anzupassen. Die möglichen Werte für die
-Option `--pretty` sind:
+
+////
+Die Option `--oneline` ist nur ein Alias für `--pretty=oneline`.
+Es gibt noch andere Möglichkeiten, die Ausgabe von `git log` anzupassen.
+Die möglichen Werte für die Option `--pretty` sind:
+////
+
+The `--oneline` option is only an alias for `--pretty=oneline`.
+There are other ways to customize the output of `git log`.
+The possible values for the `--pretty` option are:
 
 
 
-`oneline`::  Commit-ID und erste Zeile der   Beschreibung
+////
+`oneline` ::
+Commit-ID und erste Zeile der Beschreibung
+
+`short` ::
+Commit-ID, erste Zeile der Beschreibung sowie Autor des Commits; Ausgabe umfasst vier Zeilen.
+
+`medium` ::
+Default; Ausgabe von Commit-ID, Autor, Datum und kompletter Beschreibung.
+
+`full` ::
+Commit-ID, Name des Autors, Name des Committers und vollständige Beschreibung -- _kein_ Datum.
+
+`fuller` ::
+Wie `medium`, aber zusätzlich Datum und Name des Committers.
+
+`email` ::
+Formatiert die Informationen von `medium` so, dass sie wie eine E-Mail aussehen.
+
+`format:<string>`::
+Durch Platzhalter beliebig anpassbares Format; für Details siehe die Man-Page `git-log(1)`, Abschnitt "`Pretty Formats`".
+////
+
+[horizontal]
+`oneline` ::
+Commit-ID and first line of the description.
+
+`short` ::
+Commit ID, first line of the description and author of the commit; output is four lines.
+
+`medium` ::
+Default; output of commit ID, author, date and complete description.
+
+`full` ::
+Commit ID, author's name, name of the committer and full description -- _no_ date.
+
+`fuller` ::
+Like `medium`, but additionally date and name of the committer.
+
+`email` ::
+Formats the information from `medium` so that it looks like an e-mail.
+
+`format:{wj}<string>` ::
+Any format can be adapted by placeholders; for details see the man page `git-log(1)`, section "`Pretty Formats`".
 
 
-`short`::  Commit-ID, erste Zeile der
-  Beschreibung sowie Autor des Commits; Ausgabe umfasst vier Zeilen.
 
+////
+Unabhängig davon können Sie unterhalb der Commit-Nachricht weitere Informationen über die Veränderungen durch den Commit ausgeben.
+Betrachten Sie folgende Beispiele, in denen deutlich wird, welche Dateien an wie vielen Stellen geändert wurden:
+////
 
-`medium`::  Default; Ausgabe von Commit-ID, Autor,
-  Datum und kompletter Beschreibung.
+Independently of this, you can display more information about the changes made by the commit below the commit message.
+Consider the following examples, which clearly show which files were changed in how many places:
 
-
-`full`::  Commit-ID, Name des Autors, Name des
-  Committers und vollständige Beschreibung -- _kein_ Datum.
-
-
-`fuller`::  Wie `medium`, aber zusätzlich
-  Datum und Name des Committers.
-
-
-`email`::  Formatiert die Informationen von
-  `medium` so, dass sie wie eine E-Mail aussehen.
-
-
-`format:<string>`::  Durch Platzhalter beliebig
-  anpassbares Format; für Details siehe die Man-Page `git-log(1)`,
-  Abschnitt "`Pretty Formats`".
-
-
-Unabhängig davon können Sie unterhalb der Commit-Nachricht weitere
-Informationen über die Veränderungen durch den Commit ausgeben.
-Betrachten Sie folgende Beispiele, in denen deutlich wird, welche
-Dateien an wie vielen Stellen geändert wurden:
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git log -1 --oneline 4868b2ea*
 4868b2e setup: officially support --work-tree without --git-dir
 
-$ git log -1 --oneline *--name-status* 4868b2ea
+$ git log -1 --oneline **--name-status** 4868b2ea
 4868b2e setup: officially support --work-tree without --git-dir
 M       setup.c
 M       t/t1510-repo-setup.sh
 
-$ git log -1 --oneline *--stat* 4868b2ea
+$ git log -1 --oneline **--stat** 4868b2ea
 4868b2e setup: officially support --work-tree without --git-dir
- setup.c               |   19 +++++
- t/t1510-repo-setup.sh |  210 pass:a[{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}------------------]
- 2 files changed, 134 insertions(+), 95 deletions(-)
+ setup.c               |   19
+ t/t1510-repo-setup.sh |  210 +++++++++++++++++------------------
+ 2 files changed, 134 insertions(), 95 deletions(-)
 
-$ git log -1 --oneline *--shortstat* 4868b2ea
-4868b2e setup: officially support --work-tree without --gi-dir
+$ git log -1 --oneline **--shortstat** 4868b2ea
+4868b2e setup: officially support --work-tree without --git-dir
  2 files changed, 134 insertions(+), 95 deletions(-)
 --------
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.git-log-dates]]
