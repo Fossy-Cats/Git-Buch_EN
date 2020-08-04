@@ -1673,58 +1673,69 @@ The top-level tree in turn references the files `hello.py` and `README` in the f
 Because of this hierarchical structure and the relationship of the individual objects to one another, Git is able to map the contents of a hierarchical file system as Git objects and store them in the object database.
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.explore-od]]
-=== Die Objektdatenbank untersuchen
+=== Examining the Object Database
 //  Die Objektdatenbank untersuchen
 
-In einem kleinen Exkurs gehen wir darauf ein, wie man die
-Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
-_Plumbing_-Kommandos ("`Klempner-Kommandos`") zur
-Verfügung, eine Gruppe von Low-Level-Tools für Git, im
-Gegensatz zu den _Porcelain_-Kommandos, mit denen Sie in der
-Regel arbeiten. Diese Kommandos sind also nicht wichtig für
-Git-Anfänger, sondern sollen nur einen anderen Zugang zum Konzept der
-Objektdatenbank vermitteln.  Für mehr Informationen siehe
-<<sec.scripting>>.
+////
+In einem kleinen Exkurs gehen wir darauf ein, wie man die Objektdatenbank von Git untersucht.
+Dafür stellt Git sogenannte _Plumbing_-Kommandos ("`Klempner-Kommandos`") zur Verfügung, eine Gruppe von Low-Level-Tools für Git, im Gegensatz zu den _Porcelain_-Kommandos, mit denen Sie in der Regel arbeiten.
+Diese Kommandos sind also nicht wichtig für Git-Anfänger, sondern sollen nur einen anderen Zugang zum Konzept der Objektdatenbank vermitteln.
+Für mehr Informationen siehe Abschnitt 8.3, "Eigene Git-Kommandos schreiben".
+////
+
+In a short digression we will go into how to examine the object database of Git.
+To do this, Git provides so-called _plumbing_ commands, a group of low-level tools for Git, as opposed to the _porcelain_ commands you usually work with.
+These commands are therefore not important for Git beginners, but are simply intended to give you a different approach to the concept of the object database.
+For more information, see <<sec.scripting>>.
 
 
-Schauen wir uns zuerst den aktuellen Commit an. Wir verwenden dazu das
-Kommando `git show` mit der Option `--format=raw`,
-lassen uns also den Commit im Rohformat ausgeben, so dass alles, was
-dieser Commit enthält, auch angezeigt wird.
+////
+Schauen wir uns zuerst den aktuellen Commit an.
+Wir verwenden dazu das Kommando `git show` mit der Option `--format=raw`, lassen uns also den Commit im Rohformat ausgeben, so dass alles, was dieser Commit enthält, auch angezeigt wird.
+////
 
-[subs="macros,quotes"]
+Let's first look at the current commit.
+We'll use the `git show` command with the `--format=raw` option, so let's output the commit in raw format, so that everything this commit contains is displayed.
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git show --format=raw e2c67eb*
 *commit* e2c67ebb6d2db2aab831f477306baa44036af635
 *tree* a26b00aaef1492c697fd2f5a0593663ce07006bf
 *parent* 8e2f5f996373b900bd4e54c3aefc08ae44d0aac2
-*author* Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt; 1294515058 +0100
-*committer* Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt; 1294516312 +0100
+*author* Valentin Haenel &lt;valentin.haenel@gmx.de&gt; 1294515058 +0100
+*committer* Valentin Haenel &lt;valentin.haenel@gmx.de&gt; 1294516312 +0100
 
     Kommentar fehlte
 ...
 --------
 
-Wie Sie sehen, werden alle Informationen aus
-<<fig.objekte>> ausgegeben: die SHA-1-Summen des Commits, des
-Trees und des direkten Vorfahren, außerdem Autor und Committer (inkl.
-Datum als Unix-Timestamp) sowie die Commit-Beschreibung.  Das Kommando
-liefert zudem die Diff-Ausgabe zum vorherigen Commit  -- diese ist
-aber strenggenommen nicht Teil des Commits und wird daher hier
-ausgelassen.
 
-Als nächstes schauen wir uns den Tree an, der von diesem Commit
-referenziert wurde, und zwar mit `git ls-tree`, ein
-Plumbing-Kommando zum Auflisten der in einem Tree gespeicherten
-Inhalte. Es entspricht in etwa einem `ls -l`, nur eben in der
-Objektdatenbank.  Mit `--abbrev=7` kürzen wir die
-ausgegebenen SHA-1-Summen auf sieben Zeichen ab.
+////
+Wie Sie sehen, werden alle Informationen aus Abbildung 2.4, "Git-Objekte" ausgegeben: die SHA-1-Summen des Commits, des Trees und des direkten Vorfahren, außerdem Autor und Committer (inkl. Datum als Unix-Timestamp) sowie die Commit-Beschreibung.
+Das Kommando liefert zudem die Diff-Ausgabe zum vorherigen Commit  -- diese ist aber strenggenommen nicht Teil des Commits und wird daher hier ausgelassen.
+////
 
-[subs="macros,quotes"]
+As you can see, all the information in <<fig.objekte>> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
+The command also provides the diff output for the previous commit -- but this is not part of the commit, strictly speaking, and is therefore omitted here.
+
+
+////
+Als nächstes schauen wir uns den Tree an, der von diesem Commit referenziert wurde, und zwar mit `git ls-tree`, ein Plumbing-Kommando zum Auflisten der in einem Tree gespeicherten Inhalte.
+Es entspricht in etwa einem `ls -l`, nur eben in der Objektdatenbank.
+Mit `--abbrev=7` kürzen wir die ausgegebenen SHA-1-Summen auf sieben Zeichen ab.
+////
+
+Next, let's take a look at the tree referenced by this commit, using `git ls-tree`, a plumbing command to list the contents stored in a tree.
+It's similar to `ls -l`, except that it is in the object database.
+With `--abbrev=7` we shorten the output SHA-1 sums to seven characters.
+
+
+[subs="quotes"]
 --------
 $ *git ls-tree --abbrev=7 a26b00a*
 100644 *blob* 6cf9be8  *README*
@@ -1733,206 +1744,280 @@ $ *git ls-tree --abbrev=7 a26b00a*
 
 --------
 
-Analog zu <<fig.objekte>> enthält der von dem Commit
-referenzierte Tree je einen Blob für beide Dateien sowie einen Tree
-(auch: _Subtree_) für das `test`-Verzeichnis. Dessen
-Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja
-nun die SHA-1-Summe des Trees kennen.  Wie erwartet sehen Sie, dass
-der `test`-Tree ganz genau einen Blob referenziert, und zwar
-den Blob für die Datei `test.sh`.
 
-[subs="macros,quotes"]
+////
+Analog zu Abbildung 2.4, "Git-Objekte" enthält der von dem Commit referenzierte Tree je einen Blob für beide Dateien sowie einen Tree (auch: _Subtree_) für das `test`-Verzeichnis.
+Dessen Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja nun die SHA-1-Summe des Trees kennen.
+Wie erwartet sehen Sie, dass der `test`-Tree ganz genau einen Blob referenziert, und zwar den Blob für die Datei `test.sh`.
+////
+
+As in <<fig.objekte>> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: _subtree_) for the `test` directory.
+We can look at its contents again with `ls-tree`, since we now know the SHA-1 sum of the tree.
+As expected, you can see that the `test` tree references exactly one blob, the blob for the file `test.sh`.
+
+
+[subs="quotes"]
 --------
 $ *git ls-tree --abbrev=7 c37fd6f*
 100755 *blob* e92bf15  *test.sh*
 --------
 
-Zuletzt überzeugen wir uns noch davon, dass in dem Blob für
-`hello.py` auch wirklich unser ``Hello
-  World!__-Programm enthalten ist und dass die SHA-1-Summe
-stimmt. Das Kommando `git show` zeigt beliebige Objekte an.
-Übergeben wir die SHA-1-Summe eines Blobs, wird dessen Inhalt
-ausgegeben.  Zum Überprüfen der SHA-1-Summe verwenden wir das
-Plumbing-Kommando `git hash-object`.
 
 
-[subs="macros,quotes"]
+////
+Zuletzt überzeugen wir uns noch davon, dass in dem Blob für `hello.py` auch wirklich unser "Hello World!`"-Programm enthalten ist und dass die SHA-1-Summe stimmt.
+Das Kommando `git show` zeigt beliebige Objekte an.
+Übergeben wir die SHA-1-Summe eines Blobs, wird dessen Inhalt ausgegeben.
+Zum Überprüfen der SHA-1-Summe verwenden wir das Plumbing-Kommando `git hash-object`.
+////
+
+
+Finally, we make sure that the blob for `hello.py` really contains our "`Hello World!`" program and that the SHA-1 sum is correct.
+The command `git show` shows any objects.
+If we pass the SHA-1 sum of a blob, its contents are output.
+To check the SHA-1 sum we use the plumbing command `git hash-object`.
+
+
+[subs="quotes"]
 --------
 $ *git show 52ea6d6*
 #! /usr/bin/env python
 
 """ Hello World! """
 
-print \_Hello World!_
+print 'Hello World!'
 $ *git hash-object hello.py*
 52ea6d6f53b2990f5d6167553f43c98dc8788e81
 --------
 
-Ein Hinweis für neugierige Leser: `git hash-object
-  hello.py` liefert nicht die gleiche Ausgabe wie das Unix-Kommando
-`sha1sum hello.py`. Das liegt daran, dass nicht nur der
-Dateiinhalt in einem Blob gespeichert wird. Stattdessen wird
-zusätzlich der Objekttyp, in diesem Fall `blob`, sowie die
-Größe, in diesem Fall 67 Bytes, in einem _Header_ am Anfang des
-Blobs abgespeichert. Das `hash-object`-Kommando errechnet also
-nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
+
+////
+Ein Hinweis für neugierige Leser: `git hash-object hello.py` liefert nicht die gleiche Ausgabe wie das Unix-Kommando `sha1sum hello.py`.
+Das liegt daran, dass nicht nur der Dateiinhalt in einem Blob gespeichert wird.
+Stattdessen wird zusätzlich der Objekttyp, in diesem Fall `blob`, sowie die Größe, in diesem Fall 67 Bytes, in einem _Header_ am Anfang des Blobs abgespeichert.
+Das `hash-object`-Kommando errechnet also nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
+////
+
+A note for curious readers: `git hash-object hello.py` does not produce the same output as the Unix command `sha1sum hello.py`.
+This is because not only the file content is stored in a blob.
+Instead, the object type, in this case `blob`, and the size, in this case 67 bytes, are stored in a _header_ at the beginning of the blob.
+The `hash-object` command therefore does not calculate the checksum of the file content, but of the blob object.
+
+
+
 
 
 [[sec.deduplication]]
 === Deduplication
-// Deduplication
+//  Deduplication
 
-Die vier Commits, aus denen das Beispiel-Repository besteht, sind in
-<<fig.struktur>> nochmals dargestellt, doch auf andere
-Weise: Die gestrichelt umrandeten Tree- und Blob-Objekte bezeichnen
-unveränderte Objekte, alle anderen wurden in dem entsprechenden Commit
-neu hinzugefügt bzw. verändert. Die Leserichtung geht hier von unten
-nach oben: zuunterst steht C1, der nur die Datei `hello.py`
-enthält.
+////
+Die vier Commits, aus denen das Beispiel-Repository besteht, sind in  Abbildung 2.6, "Inhalt des Repositorys" nochmals dargestellt, doch auf andere Weise: Die gestrichelt umrandeten Tree- und Blob-Objekte bezeichnen unveränderte Objekte, alle anderen wurden in dem entsprechenden Commit neu hinzugefügt bzw. verändert.
+Die Leserichtung geht hier von unten nach oben: zuunterst steht C1, der nur die Datei `hello.py` enthält.
+////
 
-Da Trees nur Referenzen auf Blobs und weitere Trees enthalten,
-speichert jeder Commit zwar den Stand aller Dateien, aber nicht deren
-Inhalt. Normalerweise ändern sich bei einem Commit wenige Dateien. Für
-die neuen Dateien oder die, an denen Veränderungen vorgenommen wurden,
-werden nun neue Blob-Objekte (und daher auch neue Tree-Objekte)
-erzeugt. Die Referenzen auf die unveränderten Dateien bleiben aber die
-gleichen.
+The four commits that make up the sample repository are shown again in <<fig.struktur>>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
+The reading direction here is from bottom to top: at the bottom is C1, which contains only the file `hello.py`.
 
 
-.Inhalt des Repositorys
+////
+Da Trees nur Referenzen auf Blobs und weitere Trees enthalten, speichert jeder Commit zwar den Stand aller Dateien, aber nicht deren Inhalt.
+Normalerweise ändern sich bei einem Commit wenige Dateien.
+Für die neuen Dateien oder die, an denen Veränderungen vorgenommen wurden, werden nun neue Blob-Objekte (und daher auch neue Tree-Objekte) erzeugt.
+Die Referenzen auf die unveränderten Dateien bleiben aber die gleichen.
+////
+
+Since trees only contain references to blobs and other trees, each commit stores the status of all files, but not their contents.
+Normally, only a few files change during a commit.
+New blob objects (and therefore new tree objects) are now created for the new files or those to which changes have been made.
+However, the references to the unchanged files remain the same.
+
+
+// @TRANSLATE IMAGE TEXT
+// @TODO: TRANSLATE IMAGE ID
+
+// .Inhalt des Repositorys
+.Repository Content
 image::struktur.png[id="fig.struktur",scaledwidth="80%",width="80%"]
 
 
-Mehr noch: Eine Datei, die zweimal existiert, existiert nur einmal in
-der Objektdatenbank. Der Inhalt dieser Datei liegt als Blob in der
-Objektdatenbank und wird an zwei Stellen von einem Tree
-_referenziert_. Diesen Effekt bezeichnet man als
-_Deduplizierung_ (_Deduplication_): Duplikate werden nicht
-nur verhindert, sondern gar nicht erst möglich gemacht.
-Deduplizierung ist ein wesentliches Merkmal von sog.
-_Content-Addressable File Systems_, also Dateisystemen, die
-Dateien nur unter ihrem _Inhalt_ kennen (wie z.B. Git, indem es
-einem Objekt die SHA-1-Summe seiner selbst als "`Namen`"
-gibt).
+////
+Mehr noch: Eine Datei, die zweimal existiert, existiert nur einmal in der Objektdatenbank.
+Der Inhalt dieser Datei liegt als Blob in der Objektdatenbank und wird an zwei Stellen von einem Tree _referenziert_.
+Diesen Effekt bezeichnet man als _Deduplizierung_ (_Deduplication_): Duplikate werden nicht nur verhindert, sondern gar nicht erst möglich gemacht.
+Deduplizierung ist ein wesentliches Merkmal von sog. _Content-Addressable File Systems_, also Dateisystemen, die Dateien nur unter ihrem _Inhalt_ kennen (wie z.B. Git, indem es einem Objekt die SHA-1-Summe seiner selbst als "`Namen`"gibt).
+////
 
-Konsequenterweise nimmt ein Repository, in dem die gleiche, 1{nbsp}MB große
-Datei 1000 Mal existiert, nur etwas mehr als 1{nbsp}MB ein.  Git muss im
-Wesentlichen den Blob verwalten, außerdem einen Commit und einen Tree
-mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des
-Dateinamens). Ein _Checkout_ dieses Repositorys hingegen
-verbraucht ca. 1{nbsp}GB Speicherplatz auf dem Dateisystem, weil Git die
-Deduplizierung
-auflöst.{fn27}
+Even more: A file that exists twice only exists once in the object database.
+The contents of this file are stored as a blob in the object database and are _referenced_ by a tree in two places.
+This effect is known as _deduplication_: Duplicates are not only prevented, but not made possible in the first place.
+Deduplication is an essential feature of _Content-Addressable File Systems_, i.e. file systems that know files only by their contents (such as Git, for example, by giving an object the SHA-1 sum of itself as "`name`").
 
-Mit den Befehlen `git checkout` und `git reset` stellen
-Sie einen früheren Zustand so wieder her (siehe auch <<sec.undo>>): Sie geben die Referenz
-des entsprechenden Commits an, und Git sucht diesen aus der
-Objektdatenbank heraus. Danach wird anhand der Referenz das
-Tree-Objekt dieses Commits aus der Objektdatenbank herausgesucht.
-Schließlich sucht Git anhand der in dem Tree-Objekt enthaltenen
-Referenzen alle weiteren Tree- und Blob-Objekte aus der
-Objektdatenbank heraus und repliziert sie als Verzeichnisse und
-Dateien auf das Dateisystem. Somit kann genau der Projektzustand, der
-damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
+
+////
+Konsequenterweise nimmt ein Repository, in dem die gleiche, 1 MB große Datei 1000 Mal existiert, nur etwas mehr als 1 MB ein.
+Git muss im Wesentlichen den Blob verwalten, außerdem einen Commit und einen Tree mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des Dateinamens).
+Ein _Checkout_ dieses Repositorys hingegen verbraucht ca. 1 GB Speicherplatz auf dem Dateisystem, weil Git die Deduplizierung auflöst.[27]
+////
+
+Consequently, a repository in which the same 1{nbsp}MB file exists 1000 times takes up only slightly more than 1{nbsp}MB.
+Git essentially has to manage the blob, plus a commit and a tree with 1000 blob entries (20 bytes each plus the length of the filename).
+A _checkout_ of this repository, on the other hand, consumes about 1{nbsp}GB of space on the filesystem because Git resolves deduplication.{fn27}
+
+
+////
+Mit den Befehlen `git checkout` und `git reset` stellen Sie einen früheren Zustand so wieder her (siehe auch Abschnitt 3.2, "Versionen wiederherstellen"): Sie geben die Referenz des entsprechenden Commits an, und Git sucht diesen aus der Objektdatenbank heraus.
+Danach wird anhand der Referenz das Tree-Objekt dieses Commits aus der Objektdatenbank herausgesucht.
+Schließlich sucht Git anhand der in dem Tree-Objekt enthaltenen Referenzen alle weiteren Tree- und Blob-Objekte aus der Objektdatenbank heraus und repliziert sie als Verzeichnisse und Dateien auf das Dateisystem.
+Somit kann genau der Projektzustand, der damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
+////
+
+The `git checkout` and `git reset` commands restore a previous state (see also <<sec.undo>>): You specify the reference of the corresponding commit, and Git searches for it in the object database.
+The reference is then used to find the tree object of this commit from the object database.
+Finally, Git uses the references contained in the tree object to find all other tree and blob objects in the object database and replicates them as directories and files on the file system.
+This allows you to restore exactly the project state that was saved with the commit at the time.
 
 
 
 [[sec.git-graph]]
-=== Die Graph-Struktur
-// Die Graph-Struktur
+=== The Graph Structure
+//  Die Graph-Struktur
 
-Da jeder Commit seine direkten Vorfahren speichert, entsteht eine
-Graph-Struktur. Genauer gesagt erzeugt die Anordnung der Commits einen
-gerichteten, azyklischen Graphen (_Directed Acyclic Graph_, DAG).
-Ein Graph besteht aus zwei Kernelementen: den _Knoten_ und den
-_Kanten_, die diese Knoten verbinden. In einem _gerichteten_
-Graphen zeichnen sich die Kanten zusätzlich durch eine Richtung aus,
-das heißt, wenn Sie den Graphen ablaufen, so können Sie, um von einem
-Knoten zum nächsten zu gelangen, nur diejenigen Kanten verwenden, die
-in die entsprechende Richtung zeigen.  Die _azyklische_
-Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den
-Graphen von einem Knoten erneut zu diesem zurück finden kann. Man kann
-sich also nicht im Kreis
-bewegen.{fn28}
+////
+Da jeder Commit seine direkten Vorfahren speichert, entsteht eine Graph-Struktur.
+Genauer gesagt erzeugt die Anordnung der Commits einen gerichteten, azyklischen Graphen (_Directed Acyclic Graph_, DAG).
+Ein Graph besteht aus zwei Kernelementen: den _Knoten_ und den _Kanten_, die diese Knoten verbinden.
+In einem _gerichteten_ Graphen zeichnen sich die Kanten zusätzlich durch eine Richtung aus, das heißt, wenn Sie den Graphen ablaufen, so können Sie, um von einem Knoten zum nächsten zu gelangen, nur diejenigen Kanten verwenden, die in die entsprechende Richtung zeigen.
+Die _azyklische_ Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den Graphen von einem Knoten erneut zu diesem zurück finden kann.
+Man kann sich also nicht im Kreis bewegen.[28]
+////
+
+Because each commit stores its direct ancestors, a graph structure is created.
+More precisely, the arrangement of the commits creates a _Directed Acyclic Graph_ (DAG).
+A graph consists of two core elements: the _nodes_ and the _edges_ connecting these nodes.
+In a _directed_ graph, the edges are also characterized by a direction, which means that when you run the graph, you can only use the edges that point in the appropriate direction to move from one node to the next.
+The _acyclic_ property rules out that you can find your way back to a node by any route through the graph.
+So you cannot move in a circle.{fn28}
 
 
 [TIP]
 ==================
-Die meisten Git-Kommandos dienen dazu, den Graphen zu manipulieren: um
-Knoten hinzuzufügen/zu entfernen oder die Relation der Knoten
-untereinander zu ändern. Sie wissen, dass Sie eine fortgeschrittene
-Git-Kompetenz erreicht haben, wenn Sie dieses eher abstrakte Konzept
-verinnerlicht haben und beim täglichen Arbeiten mit Branches stets an
-den dahinterliegenden Graphen denken. Das Verständnis von Git auf
-dieser Ebene ist die erste und einzige wirkliche Hürde, um Git sicher
-im Alltag zu meistern.
+////
+Die meisten Git-Kommandos dienen dazu, den Graphen zu manipulieren: um Knoten hinzuzufügen/zu entfernen oder die Relation der Knoten untereinander zu ändern.
+Sie wissen, dass Sie eine fortgeschrittene Git-Kompetenz erreicht haben, wenn Sie dieses eher abstrakte Konzept verinnerlicht haben und beim täglichen Arbeiten mit Branches stets an den dahinterliegenden Graphen denken.
+Das Verständnis von Git auf dieser Ebene ist die erste und einzige wirkliche Hürde, um Git sicher im Alltag zu meistern.
+////
+
+Most Git commands are used to manipulate the graph: to add/remove nodes or to change the relation of the nodes to each other.
+You'll know you've reached an advanced level of Git competency when you've internalized this rather abstract concept, and when you're working with branches on a daily basis, you always think of the graph behind them.
+Understanding Git at this level is the first and only real hurdle to mastering Git safely in everyday life.
 ==================
 
-Die Graph-Struktur ergibt sich aus dem Objektmodell, weil jeder Commit
-seinen direkten Vorfahren (bei einem Merge-Commit evtl. auch mehrere)
-kennt. Die Commits bilden die Knoten dieses Graphen -- die Referenzen
-auf Vorfahren die Kanten.
 
-Einen beispielhaften Graphen sehen Sie in
-<<fig.graph>>. Er besteht aus mehreren Commits, die eingefärbt
-sind, um deren Zugehörigkeit zu verschiedenen Entwicklungssträngen
-(_Branches_) leichter voneinander zu unterscheiden. Zuerst wurden
-die Commits A, B, C und D gemacht. Sie bilden den
-Hauptentwicklungszweig. Commits E und F enthalten eine
-Feature-Entwicklung, die mit Commit H in den Hauptzweig übernommen
-wurde. Commit G ist ein einzelner Commit, der noch nicht in den
-Hauptentwicklungszweig integriert wurde.
+////
+Die Graph-Struktur ergibt sich aus dem Objektmodell, weil jeder Commit seinen direkten Vorfahren (bei einem Merge-Commit evtl. auch mehrere) kennt.
+Die Commits bilden die Knoten dieses Graphen -- die Referenzen auf Vorfahren die Kanten.
+////
 
-.Ein Commit-Graph
+The graph structure is derived from the object model, because each commit knows its direct ancestor (possibly several in the case of a merge commit).
+The commits form the nodes of this graph -- the references to ancestors form the edges.
+
+
+////
+Einen beispielhaften Graphen sehen Sie in Abbildung 2.7, "Ein Commit-Graph".
+Er besteht aus mehreren Commits, die eingefärbt sind, um deren Zugehörigkeit zu verschiedenen Entwicklungssträngen (_Branches_) leichter voneinander zu unterscheiden.
+Zuerst wurden die Commits A, B, C und D gemacht.
+Sie bilden den Hauptentwicklungszweig.
+Commits E und F enthalten eine Feature-Entwicklung, die mit Commit H in den Hauptzweig übernommen wurde.
+Commit G ist ein einzelner Commit, der noch nicht in den Hauptentwicklungszweig integriert wurde.
+////
+
+// @TODO: ADD MISSING EMPHASIS (in original: "(_Branches_)")
+
+An example graph is shown in <<fig.graph>>.
+It consists of several commits, which are colored to make it easier to distinguish between their affiliations to different development branches.
+First, the commits A, B, C, and D were made.
+They form the main development branch.
+Commits E and F contain feature development, which was transferred to the main development branch with commit H.
+Commit G is a single commit that has not yet been integrated into the main development branch.
+
+
+// .Ein Commit-Graph
+.A Commit Graph
 image::graph.png[id="fig.graph",scaledwidth="45%",width="45%"]
 
-Ein Resultat der Graph-Struktur ist die kryptographisch gesicherte
-_Integrität_ eines Repositorys. Git referenziert durch die
-SHA-1-Summe eines Commits nicht nur die Inhalte der Projektdateien zu
-einem bestimmten Zeitpunkt, sondern außerdem _alle_ bis dahin
-ausgeführten Commits und deren Relation untereinander, also die
-vollständige Versionsgeschichte.
 
-Das Objektmodell macht dies möglich: Jeder Commit speichert eine
-Referenz auf seine Vorfahren. Diese Referenzen fließen wiederum in die
-Berechnung der SHA-1-Summe des Commits selbst ein. Sie erhalten also
-einen anderen Commit, wenn Sie einen anderen Vorgänger referenzieren.
+////
+Ein Resultat der Graph-Struktur ist die kryptographisch gesicherte _Integrität_ eines Repositorys.
+Git referenziert durch die SHA-1-Summe eines Commits nicht nur die Inhalte der Projektdateien zu einem bestimmten Zeitpunkt, sondern außerdem _alle_ bis dahin ausgeführten Commits und deren Relation untereinander, also die vollständige Versionsgeschichte.
+////
+
+One result of the graph structure is the cryptographically secured _integrity_ of a repository.
+Git uses the SHA-1 sum of a commit to reference not only the contents of the project files at a given point in time, but also _all_ commits executed up to that point, and their relationship to each other, i.e. the complete version history.
 
 
+////
+Das Objektmodell macht dies möglich: Jeder Commit speichert eine Referenz auf seine Vorfahren.
+Diese Referenzen fließen wiederum in die Berechnung der SHA-1-Summe des Commits selbst ein.
+Sie erhalten also einen anderen Commit, wenn Sie einen anderen Vorgänger referenzieren.
+////
 
-Da der Vorgänger wiederum Vorgänger referenziert und dessen
-SHA-1-Summe von den Vorgängern abhängt usw., bedeutet das konkret,
-dass in der Commit-ID die _vollständige_ Versionsgeschichte
-implizit kodiert ist. Implizit bedeutet hier: Wenn sich auch nur ein
-Bit eines Commits irgendwo in der Versionsgeschichte ändert, dann ist
-die SHA-1-Summe der darauf folgenden Commits, insbesondere des
-obersten, nicht mehr dieselbe. Die SHA-1-Summe sagt aber nichts
-Detailliertes über die Versionsgeschichte aus, sondern ist wiederum
-nur eine Prüfsumme derselben.
+The object model makes this possible: each commit stores a reference to its ancestors.
+These references are then used to calculate the SHA-1 sum of the commit itself.
+So you get a different commit if you reference another ancestor.
+
+
+////
+Da der Vorgänger wiederum Vorgänger referenziert und dessen SHA-1-Summe von den Vorgängern abhängt usw., bedeutet das konkret, dass in der Commit-ID die _vollständige_ Versionsgeschichte implizit kodiert ist.
+Implizit bedeutet hier: Wenn sich auch nur ein Bit eines Commits irgendwo in der Versionsgeschichte ändert, dann ist die SHA-1-Summe der darauf folgenden Commits, insbesondere des obersten, nicht mehr dieselbe.
+Die SHA-1-Summe sagt aber nichts Detailliertes über die Versionsgeschichte aus, sondern ist wiederum nur eine Prüfsumme derselben.
+////
+
+Since the predecessor in turn references predecessors, and its SHA-1 sum depends on the predecessors, and so on, this means that the _complete_ version history is implicitly encoded in the commit ID.
+Implicit here means: If even one bit of a commit changes anywhere in the version history, then the SHA-1 sum of subsequent commits, especially the topmost one, is no longer the same.
+The SHA-1 sum doesn't say anything detailed about the version history, though; it's just a checksum of it.
+
+
 
 [[sec.graph-referenzen]]
-==== Referenzen: Branches und Tags
-// Referenzen: Branches und Tags
+==== References: Branches and Tags
+//   Referenzen: Branches und Tags
 
-Mit einem reinen Commit-Graphen kann man aber noch nicht viel
-anfangen. Um einen Knoten zu referenzieren (also damit zu arbeiten),
-muss man dessen Namen kennen, also die SHA-1-Summe des Commits.  Im
-täglichen Umgang verwendet man aber selten direkt die SHA-1-Summe
-eines Commits, sondern stattdessen symbolische Namen, sog.
-_Referenzen_, die Git auf die SHA-1-Summe auflösen kann.
+////
+Mit einem reinen Commit-Graphen kann man aber noch nicht viel anfangen.
+Um einen Knoten zu referenzieren (also damit zu arbeiten), muss man dessen Namen kennen, also die SHA-1-Summe des Commits.
+Im täglichen Umgang verwendet man aber selten direkt die SHA-1-Summe eines Commits, sondern stattdessen symbolische Namen, sog. _Referenzen_, die Git auf die SHA-1-Summe auflösen kann.
+////
 
-Git bietet im Wesentlichen zwei Typen von Referenzen an,
-_Branches_ und _Tags_. Das sind _Zeiger_ in einen
-Commit-Graphen, die verwendet werden, um bestimmte Knoten zu
-markieren.  Branches haben "`beweglichen`" Charakter, das
-heißt, sie rücken weiter an die Spitze, wenn neue Commits auf dem
-Branch dazu kommen. Tags hingegen haben statischen Charakter und
-markieren wichtige Punkte im Commit-Graphen, wie z.B. Releases.
+However, there is not much you can do with a pure commit graph.
+To reference (i.e., work with) a node, you need to know its name, which is the SHA-1 sum of the commit.
+In everyday use, however, you rarely use the SHA-1 sum of a commit directly, but instead use symbolic names, called _references_, which Git can resolve to the SHA-1 sum.
 
-<<fig.graph-mit-refs>> zeigt denselben Commit-Graphen mit den
-Branches `master`, `HEAD`, `feature` und  `bugfix`.
+
+////
+Git bietet im Wesentlichen zwei Typen von Referenzen an, _Branches_ und _Tags_.
+Das sind _Zeiger_ in einen Commit-Graphen, die verwendet werden, um bestimmte Knoten zu markieren.
+Branches haben "`beweglichen`" Charakter, das heißt, sie rücken weiter an die Spitze, wenn neue Commits auf dem Branch dazu kommen.
+Tags hingegen haben statischen Charakter und markieren wichtige Punkte im Commit-Graphen, wie z.B. Releases.
+////
+
+Git basically offers two types of references, _branches_ and _tags_.
+These are _pointers_ to a commit graph, which are used to mark specific nodes.
+Branches have a "`moving`" character, meaning that they move up as new commits are added to the branch.
+Tags, on the other hand, are static in nature, and mark important points in the commit graph, such as releases.
+
+
+////
+Abbildung 2.8, "Ein beispielhafter Commit-Graph mit Branches und Tags" zeigt denselben Commit-Graphen mit den Branches `master`, `HEAD`, `feature` und  `bugfix`.
 Sowie den Tags  `v0.1` und `v0.2`.
+////
 
-.Ein beispielhafter Commit-Graph mit Branches und Tags
+<<fig.graph-mit-refs>> shows the same commit graph with the `master`, `HEAD`, `feature`, and `bugfix` branches.
+And the `v0.1` and `v0.2` tags.
+
+// @TODO: TRANSLATE IMAGE ID
+
+// .Ein beispielhafter Commit-Graph mit Branches und Tags
+.Example of a Commit Graph with Branches and Tags
 image::graph-mit-refs.png[id="fig.graph-mit-refs",scaledwidth="75%",width="75%"]
 
