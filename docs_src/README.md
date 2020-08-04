@@ -72,11 +72,11 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [ ] Draft:
         * [x] DeepL translation.
         * [x] Reapply lost formatting.
-        * [ ] Restore and translate footnotes (12-28).
+        * [x] Restore and translate footnotes (12-28).
         * [x] Restore XRefs.
         * [x] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
-        * [ ] Check all external links.
+        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.

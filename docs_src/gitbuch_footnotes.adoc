@@ -62,67 +62,134 @@ Setting git options system-wide is unusual.]]
 // =============================================================================
 
 // tag::Chapter_2[]
+////
+Standardmäßig sind Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist: `git diff --word-diff-regex=<regex>`.
+Siehe hierzu auch die Man-Page `git-diff(1)`.
+////
 :fn12: pass:a,q[{wj}footnote:[ \
-Standardmäßig sind Wörter durch ein oder mehr Leerzeichen getrennt; Sie können aber einen anderen regulären Ausdruck angeben, um zu bestimmen, was ein Wort ist: `git diff --word-diff-regex=<regex>`. \
-Siehe hierzu auch die Man-Page `git-diff(1)`.]]
+By default, words are separated by one or more spaces, but you can specify another regular expression to determine what a word is: `git diff --word-diff-regex=<regex>`. \
+See also the `git-diff(1)` man page.]]
 
+////
+Das ist eine Anweisung für den Kernel, welches Programm zum Interpretieren des Scripts verwendet werden soll.
+Typische Shebang-Zeilen sind etwa `&num;!/bin/sh` oder `&num;!/usr/bin/perl`.
+////
 :fn13: pass:a,q[{wj}footnote:[ \
-Das ist eine Anweisung für den Kernel, welches Programm zum Interpretieren des Scripts verwendet werden soll. \
-Typische Shebang-Zeilen sind etwa `&num;!/bin/sh` oder `&num;!/usr/bin/perl`.]]
+This is an instruction for the Kernel, telling it which program to use to interpret the script. \
+Typical shebang lines include `&num;!/bin/sh` or `&num;!/usr/bin/perl`.]]
 
+////
+Genaugenommen führt die Option `-p` direkt in den _Patch-Mode_ des _Interactive-Mode_ von `git add`.
+Der Interactive-Mode wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr selten verwendet und ist deswegen hier nicht weiter beschrieben.
+Die Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im Abschnitt "`Interactive Mode`".
+////
 :fn14: pass:a,q[{wj}footnote:[ \
-Genaugenommen führt die Option `-p` direkt in den _Patch-Mode_ des _Interactive-Mode_ von `git add`. \
-Der Interactive-Mode wird aber in der Praxis -- im Gegensatz zu dem Patch-Mode -- sehr selten verwendet und ist deswegen hier nicht weiter beschrieben. \
-Die Dokumentation dazu finden Sie in der Man-Page `git-add(1)` im Abschnitt "`Interactive Mode`".]]
+Strictly speaking, the `-p` option leads directly to the _patch mode_ of ``git add``{wj}`'s _interactive mode_. \
+However, the interactive mode is rarely used in practice -- in contrast to the patch mode -- and is therefore not described further here. \
+The documentation for this can be found in the `git add(1)` man page in the "`Interactive Mode`" section.]]
 
+////
+Git öffnet dann den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen -- also nicht dem Index hinzuzufügen, sie aber im Working Tree zu behalten! --, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die Zeile wird zu "`Kontext`").
+Um `+`-Zeilen zu löschen, entfernen Sie diese einfach aus dem Hunk.
+////
 :fn15: pass:a,q[{wj}footnote:[ \
-Git öffnet dann den Hunk in einem Editor; unten sehen Sie eine Anleitung, wie Sie den Hunk editieren: Um gelöschte Zeilen (mit `-` präfigiert) zu löschen – also nicht dem Index hinzuzufügen, sie aber im Working Tree zu behalten! –, ersetzen Sie das Minuszeichen durch ein Leerzeichen (die Zeile wird zu "`Kontext`"). \
-Um `+`-Zeilen zu löschen, entfernen Sie diese einfach aus dem Hunk.]]
+Git then opens the hunk in an editor; below is a guide to editing the hunk: To delete deleted lines (prefixed with `-`) -- i.e. not add them to the index, but keep them in the working tree! -- replace the minus sign with a space (the line becomes "`context`"). \
+To delete `+` lines, simply remove them from the hunk.]]
 
+////
+Sie können Hunks in der Regel aber nicht beliebig teilen.
+Zumindest eine Zeile _Kontext_, also eine Zeile ohne Präfix `+` oder `-`, muss dazwischen liegen.
+Wollen Sie den Hunk dennoch teilen, müssen Sie mit `e` für _edit_ arbeiten.
+////
 :fn16: pass:a,q[{wj}footnote:[ \
-Sie können Hunks in der Regel aber nicht beliebig teilen. \
-Zumindest eine Zeile _Kontext_, also eine Zeile ohne Präfix `+` oder `-`, muss dazwischen liegen. \
-Wollen Sie den Hunk dennoch teilen, müssen Sie mit `e` für _edit_ arbeiten.]]
+However, you can usually not split hunks arbitrarily. \
+At least one line of _context_, i.e. a line without prefix `+` or `-`, must be in between. \
+If you still want to split the hunk, you have to use `e` for _edit_.]]
 
+////
+Sie können diese Informationen u.a. in `gitk` sehen oder mit dem Kommando `git log --pretty=fuller`.
+////
 :fn17: pass:a,q[{wj}footnote:[ \
-Sie können diese Informationen u.a. in `gitk` sehen oder mit dem Kommando `git log --pretty=fuller`.]]
+You can see this information in `gitk` or with the command `git log --pretty=fuller`.]]
 
+////
+Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist.
+Der neue Commit _ersetzt_ dann den alten.
+////
 :fn18: pass:a,q[{wj}footnote:[ \
-Tatsächlich erstellt Git einen neuen Commit, dessen Änderungen eine Kombination der Änderungen des alten Commits und des Index ist. \
-Der neue Commit _ersetzt_ dann den alten.]]
+In fact, Git creates a new commit whose changes are a combination of the changes made to the old commit and the index. \
+The new commit then _replaces_ the old one.]]
 
-:fn19: pass:a,q[{wj}footnote:[Durch `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie bleibt jedoch im Commit-Verlauf erhalten. Wie man eine Datei vollständig, also auch aus der Versionsgeschichte, löscht, ist in xref:gitbuch_08.adoc#sec.fb-censor[] nachzulesen.]]
+////
+Durch `git rm` löschen Sie eine Datei mit dem nächsten Commit; sie bleibt jedoch im Commit-Verlauf erhalten.
+Wie man eine Datei vollständig, also auch aus der Versionsgeschichte, löscht, ist in Abschnitt 8.4.1, £Sensitive Informationen nachträglich entfernen£ nachzulesen.
+////
+:fn19: pass:a,q[{wj}footnote:[ \
+`git rm` deletes a file with the next commit, but it remains in the commit history. \
+For information on how to delete a file completely, including from the version history, see xref:gitbuch_08.adoc#sec.fb-censor[].]]
 
-:fn20: {wj}footnote:[Dieses und die folgenden Beispiele stammen aus dem Git-Repository.]
+////
+Dieses und die folgenden Beispiele stammen aus dem Git-Repository.
+////
+:fn20: {wj}footnote:[This and the following examples are from the Git repository.]
 
-:fn21: pass:a,q[{wj}footnote:[ \
-Sie können das Repository, das auf den folgenden Seiten detailliert untersucht wird, mit dem Befehl `git clone git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.]]
+////
+Sie können das Repository, das auf den folgenden Seiten detailliert untersucht wird, mit dem Befehl `git clone git://github.com/gitbuch/objektmodell-beispiel.git` herunterladen.
+////
+:fn21: pass:a,q,p[{wj}footnote:[ \
+You can download the Git repository, which is examined in detail on the following pages, with the command: + \
+`git clone git://github.com/gitbuch/objektmodell-beispiel.git`]]
 
+////
+https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".
+////
 :fn22: pass:a,q[{wj}footnote:[ \
-https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".]]
+https://en.wikipedia.org/wiki/SHA-1, "`Attacks`".]]
 
-// @FIXME DEAD LINK IN FOOTNOTE 23
+////
+http://kerneltrap.org/mailarchive/git/2006/8/27/211001
+////
+:fn23: {wj}footnote:[https://web.archive.org/web/20120701221412/http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
 
-:fn23: {wj}footnote:[http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
-
+////
+Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.
+////
 :fn24: pass:a,q[{wj}footnote:[ \
-Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.]]
+The technical documentation is provided in the man page `gittutorial-2(7)`.]]
 
+////
+Das Tag-Objekt wird hier nicht dargestellt, da es für das Verständnis der Objektstruktur nicht notwendig ist.
+Sie finden es stattdessen in Abbildung 3.4, "Das Tag-Objekt".
+////
 :fn25: {wj}footnote:[ \
-Das Tag-Objekt wird hier nicht dargestellt, da es für das Verständnis der Objektstruktur nicht notwendig ist. \
-Sie finden es stattdessen in  <<fig.tag-objekt>>.]
+The tag object is not shown here because it is not necessary for understanding the object structure. \
+Instead, you will find it in <<fig.tag-objekt>>.]
 
+////
+Git speichert sämtliche Objekte unterhalb von `.git/objects`.
+Man unterscheidet zwischen _Loose Objects_ und _Packfiles_.
+Die "`losen`" Objekte speichern den Inhalt in einer Datei, deren Name der SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine Datei).
+Im Gegensatz dazu sind Packfiles komprimierte _Archive_ von vielen Objekten.
+Das geschieht aus Performancegründen: Nicht nur ist die Übertragung bzw. Speicherung dieser Archive effizienter, auch wird das Dateisystem entlastet.
+////
 :fn26: pass:a,q[{wj}footnote:[ \
-Git speichert sämtliche Objekte unterhalb von `.git/objects`. \
-Man unterscheidet zwischen _Loose Objects_ und _Packfiles_. Die "`losen`" Objekte speichern den Inhalt in einer Datei, deren Name der SHA-1-Summe des Inhalts entspricht (Git speichert pro Objekt eine Datei). \
-Im Gegensatz dazu sind Packfiles komprimierte _Archive_ von vielen Objekten. \
-Das geschieht aus Performancegründen: Nicht nur ist die Übertragung bzw. Speicherung dieser Archive effizienter, auch wird das Dateisystem entlastet.]]
+Git stores all objects under `.git/objects`. \
+A distinction is made between _loose objects_ and _packfiles_. \
+"`Loose`" objects store the content in a file whose name corresponds to the SHA-1 sum of the content (Git stores one file per object). \
+In contrast, packfiles are compressed _archives_ of many objects. \
+This is done for performance reasons: Not only is the transfer or storage of these archives more efficient, but the file system is also relieved.]]
 
+////
+Intern kennt Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu erkennen und diese platzsparend zu _Packfiles_ zusammenzuschnüren.
+////
 :fn27: pass:a,q[{wj}footnote:[ \
-Intern kennt Git natürlich Mechanismen, um Blobs als Deltas anderer Blobs zu erkennen und diese platzsparend zu _Packfiles_ zusammenzuschnüren.]]
+Internally, of course, Git has mechanisms to recognize blobs as deltas of other blobs and to tie them together to _packfiles_ to save space.]]
 
+////
+Diese beiden Eigenschaften _gerichtet_ und _azyklisch_ sind die einzig notwendige Beschränkung, die man an einen Graphen stellen muss, der Änderungen über Zeit abbildet: Weder kann man zukünftige Änderungen referenzieren (Richtung der Kanten zeigt immer in die Vergangenheit), noch kann man irgendwann an einem Punkt ankommen, von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).
+////
 :fn28: pass:a,q[{wj}footnote:[ \
-Diese beiden Eigenschaften _gerichtet_ und _azyklisch_ sind die einzig notwendige Beschränkung, die man an einen Graphen stellen muss, der Änderungen über Zeit abbildet: Weder kann man zukünftige Änderungen referenzieren (Richtung der Kanten zeigt immer in die Vergangenheit), noch kann man irgendwann an einem Punkt ankommen, von dem aus der Weg schon vorgezeichnet ist (Zirkelschluss).]]
+These two properties, _directional_ and _acyclic_, are the only necessary constraint to be placed on a graph that represents changes over time: Neither can future changes be referenced (the direction of the edges always points to the past), nor can you arrive at a point from which the path is already marked (circular reasoning).]]
 // end::Chapter_2[]
 
 // =============================================================================
