@@ -7,114 +7,150 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_2]
 
 
-In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor,
-mit Hilfe derer Sie Ihre Projektdateien in Git verwalten. Unabdingbar
-für eine fortgeschrittene Nutzung ist das Verständnis des
-Git-Objektmodells; dieses wichtige Konzept behandeln wir im zweiten Abschnitt
-des Kapitels. Mögen die Ausführungen zunächst allzu theoretisch
-scheinen, so möchten wir Sie Ihnen dennoch sehr ans Herz legen. Alle
-weiteren Aktionen werden Ihnen mit dem Wissen um diese Hintergründe
-deutlich leichter von der Hand gehen.
+////
+In diesem Kapitel stellen wir Ihnen die wichtigsten Git-Kommandos vor, mit Hilfe derer Sie Ihre Projektdateien in Git verwalten.
+Unabdingbar für eine fortgeschrittene Nutzung ist das Verständnis des Git-Objektmodells; dieses wichtige Konzept behandeln wir im zweiten Abschnitt des Kapitels.
+Mögen die Ausführungen zunächst allzu theoretisch scheinen, so möchten wir Sie Ihnen dennoch sehr ans Herz legen.
+Alle weiteren Aktionen werden Ihnen mit dem Wissen um diese Hintergründe deutlich leichter von der Hand gehen.
+////
+
+In this chapter, we'll introduce you to the most important Git commands that you can use to manage your project files in Git.
+Understanding the Git object model is essential for advanced usage; we'll cover this important concept in the second section of the chapter.
+While these explanations may seem overly theoretical at first, we encourage you to read them carefully.
+All further actions will be much easier for you with the knowledge of this background.
 
 
+[[sec.basics]]
+==  Git Commands
+//  Git-Kommandos
 
-[[sec.grundlagen]]
-== Git-Kommandos
+////
+Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem `add` und `commit`), arbeiten auf dem Index.
+Im Folgenden werden wir uns genauer mit dem Index auseinandersetzen und die erweiterte Benutzung dieser Kommandos behandeln.
+////
 
-Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem
-`add` und `commit`), arbeiten auf dem Index. Im
-Folgenden werden wir uns genauer mit dem Index auseinandersetzen und
-die erweiterte Benutzung dieser Kommandos behandeln.
+The commands you learned to get started (especially `add` and `commit`) work on the index.
+In the following, we will take a closer look at the index and the extended use of these commands.
+
 
 [[sec.index]]
 === Index
+//  Index
 
-Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem
-_Working Tree_, dem _Index_ und dem _Repository_.  Der
-Working Tree entspricht den Dateien, wie sie auf dem Dateisystem Ihres
-Arbeitsrechners liegen -- wenn Sie also Dateien mit einem Editor
-bearbeiten, mit `grep` darin suchen etc., operieren Sie immer
-auf dem Working Tree.
+////
+Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem _Working Tree_, dem _Index_ und dem _Repository_.
+Der Working Tree entspricht den Dateien, wie sie auf dem Dateisystem Ihres Arbeitsrechners liegen -- wenn Sie also Dateien mit einem Editor bearbeiten, mit `grep` darin suchen etc., operieren Sie immer auf dem Working Tree.
+////
 
-Das Repository ist der Sammelbehälter für Commits, also Änderungen,
-versehen mit Angaben zu Autor, Datum und Beschreibung. Die Commits
-ergeben zusammen die _Versionsgeschichte_.
+The content of files for Git resides on three levels: the _working tree_, the _index_, and the Git _repository_.
+The working tree corresponds to the files as they reside on your workstation's file system -- so if you edit files with an editor, search in them with `grep`, etc., you always operate on the working tree.
 
-Git führt nun, im Gegensatz zu vielen anderen
-Versionskontrollsystemen, eine Neuerung ein, den Index. Es handelt
-sich um eine etwas schwierig greifbare Zwischenebene zwischen Working
-Tree und Repository. Er dient dazu, Commits vorzubereiten. Das
-bedeutet, dass Sie nicht immer _alle_ Änderungen, die Sie an
-einer Datei vorgenommen haben, auch als Commit einchecken müssen.
 
-Die Git-Kommandos `add` und `reset` agieren (in ihrer
-Grundform) auf dem Index und bringen Änderungen in den Index ein bzw.
-löschen diese wieder; erst das Kommando `commit` überträgt die
-Datei, wie sie im Index vorgehalten wird, in das Repository (<<fig.index>>).
+////
+Das Repository ist der Sammelbehälter für Commits, also Änderungen, versehen mit Angaben zu Autor, Datum und Beschreibung.
+Die Commits ergeben zusammen die _Versionsgeschichte_.
+////
 
-.Kommandos `add`, `reset` und `commit`
+The repository is the repository for commits, that is, changes, with author, date, and description.
+The commits together make up the _version history_.
+
+
+////
+Git führt nun, im Gegensatz zu vielen anderen Versionskontrollsystemen, eine Neuerung ein, den Index.
+Es handelt sich um eine etwas schwierig greifbare Zwischenebene zwischen Working Tree und Repository.
+Er dient dazu, Commits vorzubereiten. D
+as bedeutet, dass Sie nicht immer _alle_ Änderungen, die Sie an einer Datei vorgenommen haben, auch als Commit einchecken müssen.
+////
+
+Unlike many other version control systems, Git now introduces a new feature, the index.
+It's a somewhat elusive intermediate level between the working tree and the repository.
+Its purpose is to prepare commits.
+This means that you don't always have to check in _all_ the changes you have made to a file as commits.
+
+
+////
+Die Git-Kommandos `add` und `reset` agieren (in ihrer Grundform) auf dem Index und bringen Änderungen in den Index ein bzw. löschen diese wieder; erst das Kommando `commit` überträgt die Datei, wie sie im Index vorgehalten wird, in das Repository (Abbildung 2.1, "Kommandos add, reset und commit").
+////
+
+The Git commands `add` and `reset` act (in their basic form) on the index, making changes to the index and deleting them again; only the `commit` command transfers the file to the repository as it is held in the index (<<fig.index>>).
+
+
+
+// .Kommandos `add`, `reset` und `commit`
+.Commands `add`, `reset` and `commit`
 image::index.png[id="fig.index",scaledwidth="90%",width="90%"]
 
-Im Ausgangszustand, das heißt wenn `git status` die Nachricht
-`nothing to commit` ausgibt, sind Working Tree und Index mit
-`HEAD` synchronisiert. Der Index ist also nicht
-"`leer`", sondern enthält die Dateien im gleichen Zustand, wie
-sie im Working Tree vorliegen.
-
-In der Regel ist dann der Arbeitsablauf folgender: Zuerst nehmen Sie mit
-einem Editor eine Veränderung am Working Tree vor. Diese Veränderung
-wird durch `add` in den Index übernommen und schließlich per
-`commit` im Repository abgespeichert.
 
 
-Sie können sich die Unterschiede zwischen diesen drei Ebenen jeweils
-durch das `diff`-Kommando anzeigen lassen.  Ein simples
-`git diff` zeigt die Unterschiede zwischen Working Tree und
-Index an -- also die Unterschiede zwischen den (tatsächlichen) Dateien
-auf Ihrem Arbeitssystem und den Dateien, wie sie eingecheckt würden,
-wenn Sie `git commit` aufrufen würden.
+////
+Im Ausgangszustand, das heißt wenn `git status` die Nachricht `nothing to commit` ausgibt, sind Working Tree und Index mit `HEAD` synchronisiert.
+Der Index ist also nicht "`leer`", sondern enthält die Dateien im gleichen Zustand, wie sie im Working Tree vorliegen.
+////
 
-Das Kommando `git diff --staged` zeigt hingegen die
-Unterschiede zwischen Index (der auch _Staging Area_ genannt
-wird) und Repository an, also die Unterschiede, die ein Commit ins
-Repository übertragen würde. Im Ausgangszustand, wenn Working Tree und Index
-mit `HEAD` synchron sind, erzeugen weder `git diff` noch
-`git diff --staged` eine Ausgabe.
-
-Wollen Sie alle
-Änderungen an allen Dateien übernehmen, gibt es zwei
-Abkürzungen: Zunächst die Option `-u` bzw. `--update`
-von `git add`.  Dadurch werden alle Veränderungen in den Index
-übertragen, aber noch kein Commit erzeugt. Weiter abkürzen können Sie
-mit der Option `-a` bzw.  `--all` von `git
- commit`. Dies ist eine Kombination aus `git add -u` und
-`git commit`, wodurch alle Veränderungen an allen Dateien in
-einem Commit zusammengefasst werden -- Sie umgehen den Index.
-Vermeiden Sie es, sich diese Optionen zur Angewohnheit zu machen -- sie
-sind zwar gelegentlich als Abkürzung ganz praktisch, verringern aber
-die Flexibilität.
+In the initial state, i.e. when `git status` outputs the message `nothing to commit`, the working tree and index are synchronized with `HEAD`.
+The index is therefore not "`empty`", but contains the files in the same state as they are in the working tree.
 
 
+////
+In der Regel ist dann der Arbeitsablauf folgender: Zuerst nehmen Sie mit einem Editor eine Veränderung am Working Tree vor.
+Diese Veränderung wird durch `add` in den Index übernommen und schließlich per `commit` im Repository abgespeichert.
+////
+
+Usually, the workflow is then as follows: First, you make a change to the working tree using an editor.
+This change is transferred to the index by `add` and finally saved in the repository by `commit`.
+
+
+////
+Sie können sich die Unterschiede zwischen diesen drei Ebenen jeweils durch das `diff`-Kommando anzeigen lassen.
+Ein simples `git diff` zeigt die Unterschiede zwischen Working Tree und Index an -- also die Unterschiede zwischen den (tatsächlichen) Dateien auf Ihrem Arbeitssystem und den Dateien, wie sie eingecheckt würden, wenn Sie `git commit` aufrufen würden.
+////
+
+You can display the differences between these three levels using the `diff` command.
+A simple `git diff` shows the differences between the working tree and the index -- the differences between the (actual) files on your working system and the files as they would be checked in if you called `git commit`.
+
+
+////
+Das Kommando `git diff --staged` zeigt hingegen die Unterschiede zwischen Index (der auch _Staging Area_ genannt wird) und Repository an, also die Unterschiede, die ein Commit ins Repository übertragen würde.
+Im Ausgangszustand, wenn Working Tree und Index mit `HEAD` synchron sind, erzeugen weder `git diff` noch `git diff --staged` eine Ausgabe.
+////
+
+The `git diff --staged` command, on the other hand, shows the differences between the index (also called the staging area) and the repository, that is, the differences that a commit would commit to the repository.
+In the initial state, when the working tree and index are in sync with `HEAD`, neither `git diff` nor `git diff --staged` produces output.
+
+
+////
+Wollen Sie alle Änderungen an allen Dateien übernehmen, gibt es zwei Abkürzungen: Zunächst die Option `-u` bzw. `--update` von `git add`.
+Dadurch werden alle Veränderungen in den Index übertragen, aber noch kein Commit erzeugt.
+Weiter abkürzen können Sie mit der Option `-a` bzw.  `--all` von `git commit`.
+Dies ist eine Kombination aus `git add -u` und `git commit`, wodurch alle Veränderungen an allen Dateien in einem Commit zusammengefasst werden -- Sie umgehen den Index.
+Vermeiden Sie es, sich diese Optionen zur Angewohnheit zu machen -- sie sind zwar gelegentlich als Abkürzung ganz praktisch, verringern aber die Flexibilität.
+////
+
+If you want to apply all changes to all files, there are two shortcuts: First, the `-u` or `--update` option of `git add`.
+This transfers all changes to the index, but does not yet create a commit.
+You can further abbreviate it with the `-a` or `--all` option of `git commit`.
+This is a combination of `git add -u` and `git commit`, which puts all changes to all files into one commit, bypassing the index.
+Avoid getting into the habit of using these options -- they may be handy as shortcuts on occasion, but they reduce flexibility.
 
 
 [[sec.diff-color-words]]
-==== Diff auf Wortbasis
+==== Word-Based Diff
+// Diff auf Wortbasis
 
-Ein alternatives Ausgabeformat für `git diff` ist das
-sog. _Word-Diff_, das über die Option
-`--word-diff` zur Verfügung steht.  Statt der entfernten
-und hinzugefügten Zeilen zeigt die Ausgabe von `git diff`
-mit einer entsprechenden Syntax sowie farblich kodiert die
-hinzugekommenen (grün) und entfernten (rot)
-Wörter.{fn12}
-Das ist dann praktisch, wenn Sie in
-einer Datei nur einzelne Wörter ändern, beispielsweise bei der
-Korrektur von AsciiDoc- oder LaTeX-Dokumenten, denn ein Diff ist schwierig zu lesen,
-wenn sich hinzugefügte und entfernte Zeile nur durch ein einziges Wort
-unterscheiden:
+////
+Ein alternatives Ausgabeformat für `git diff` ist das sog. _Word-Diff_, das über die Option `--word-diff` zur Verfügung steht.
+Statt der entfernten und hinzugefügten Zeilen zeigt die Ausgabe von `git diff` mit einer entsprechenden Syntax sowie farblich kodiert die hinzugekommenen (grün) und entfernten (rot) Wörter.[12]
+Das ist dann praktisch, wenn Sie in einer Datei nur einzelne Wörter ändern, beispielsweise bei der Korrektur von AsciiDoc- oder LaTeX-Dokumenten, denn ein Diff ist schwierig zu lesen, wenn sich hinzugefügte und entfernte Zeile nur durch ein einziges Wort unterscheiden:
+////
 
 
-[subs="macros,quotes"]
+An alternative output format for `git diff` is the so-called _Word-Diff_, which is available via the `--word-diff` option.
+Instead of the removed and added lines, the output of `git diff` shows the added (green) and removed (red) words with an appropriate syntax and color-coded.{fn12}
+This is useful when you are only changing single words in a file, for example when correcting AsciiDoc or LaTeX documents, because a diff is difficult to read if added and removed lines differ by only one word:
+
+// @TRANSLATE GIT LOG?
+
+[subs="quotes"]
 --------
 $ *git diff*
 ...
@@ -124,10 +160,18 @@ $ *git diff*
 --------
 
 
-Verwenden Sie hingegen die Option `--word-diff`, so werden nur geänderte
-Wörter entsprechend markiert angezeigt; außerdem werden Zeilenumbrüche
-ignoriert, was ebenfalls sehr praktisch ist, weil eine Neuausrichtung
-der Wörter nicht als Änderung in die Diff-Ausgabe eingeht:
+
+////
+Verwenden Sie hingegen die Option `--word-diff`, so werden nur geänderte Wörter entsprechend markiert angezeigt; außerdem werden Zeilenumbrüche ignoriert, was ebenfalls sehr praktisch ist, weil eine Neuausrichtung der Wörter nicht als Änderung in die Diff-Ausgabe eingeht:
+////
+
+However, if you use the `--word-diff` option, only words that have been changed will be displayed marked accordingly; in addition, line breaks are ignored, which is also very practical because a reorientation of the words is not included as a change in the diff output:
+
+// @TRANSLATE GIT LOG?
+// @CHECK GIT LOG: The plus symbols in '{+Verfügung+}' are omitted in the final
+//                 German books (HTML and PDF), but would be preserved here if
+//                 we keep the "macros" subs. Is that a mistake or was is
+//                 supposed to be so?
 
 [subs="macros,quotes"]
 --------
@@ -139,61 +183,92 @@ $ *git diff --word-diff*
 
 [TIP]
 =================
-Falls Sie viel mit Fließtext arbeiten, bietet es sich an, ein Alias zur
-Abkürzung dieses Befehls einzurichten, so dass Sie beispielsweise nur
-noch `git dw` eingeben müssen:
+////
+Falls Sie viel mit Fließtext arbeiten, bietet es sich an, ein Alias zur Abkürzung dieses Befehls einzurichten, so dass Sie beispielsweise nur noch `git dw` eingeben müssen:
+////
 
+If you work a lot with continuous text, it is a good idea to set up an alias to abbreviate this command, so that you only have to type `git dw`, for example:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 ------
 $ *git config --global alias.dw "diff --word-diff"*
 ------
 =================
 
+
 [[sec.add-p]]
-=== Commits schrittweise erstellen
+=== Creating Commits Step by Step
+//  Commits schrittweise erstellen
 
-Warum aber sollte man Commits schrittweise erstellen -- will man nicht
-immer alle Änderungen auch einchecken?
+////
+Warum aber sollte man Commits schrittweise erstellen -- will man nicht immer alle Änderungen auch einchecken?
+////
 
-Ja, natürlich will man seine Änderungen in der Regel vollständig
-übernehmen. Es kann allerdings sinnvoll sein, sie in Schritten
-einzupflegen, um etwa die Entwicklungsgeschichte besser abzubilden.
+But why create commits step-by-step -- don't you always want to check in all changes?
 
-Ein Beispiel: Sie haben in den vergangenen drei Stunden intensiv an
-Ihrem Software-Projekt gearbeitet, haben aber, weil es so spannend
-war, vergessen, die vier neuen Features in handliche Commits zu
-verpacken. Zudem sind die Features über diverse Dateien verstreut.
 
-Im besten Fall wollen Sie also selektiv arbeiten, d.h. nicht alle
-Veränderungen aus einer Datei in einen Commit übernehmen, sondern nur
-bestimmte Zeilen (Funktionen, Definitionen, Tests, ...), und das auch
-noch aus verschiedenen Dateien.
+////
+Ja, natürlich will man seine Änderungen in der Regel vollständig übernehmen.
+Es kann allerdings sinnvoll sein, sie in Schritten einzupflegen, um etwa die Entwicklungsgeschichte besser abzubilden.
+////
 
-Der Index von Git bietet dafür die gewünschte Flexibilität. Sie
-sammeln einige Änderungen im Index und verpacken sie in einem Commit
--- alle anderen Änderungen bleiben aber nach wie vor in den Dateien
-erhalten.
+Yes, of course, you usually want to commit your changes completely.
+However, it can be useful to check them in step by step, for example, to better reflect the development history.
 
-Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem
-vorigen Kapitel illustrieren.  Zur Erinnerung der Inhalt der Datei
-`hello.pl`:
 
+////
+Ein Beispiel: Sie haben in den vergangenen drei Stunden intensiv an Ihrem Software-Projekt gearbeitet, haben aber, weil es so spannend war, vergessen, die vier neuen Features in handliche Commits zu verpacken.
+Zudem sind die Features über diverse Dateien verstreut.
+////
+
+An example: You have worked intensively on your software project for the past three hours, but because it was so exciting, you forgot to pack the four new features into handy commits.
+In addition, the features are scattered over various files.
+
+
+////
+Im besten Fall wollen Sie also selektiv arbeiten, d.h. nicht alle Veränderungen aus einer Datei in einen Commit übernehmen, sondern nur bestimmte Zeilen (Funktionen, Definitionen, Tests, ...), und das auch noch aus verschiedenen Dateien.
+////
+
+At best, you want to be selective, that is, you don't want to commit all changes from one file, but only certain lines (functions, definitions, tests, ...), and from different files.
+
+
+////
+Der Index von Git bietet dafür die gewünschte Flexibilität.
+Sie sammeln einige Änderungen im Index und verpacken sie in einem Commit -- alle anderen Änderungen bleiben aber nach wie vor in den Dateien erhalten.
+////
+
+Git's index provides the flexibility you need for this.
+You collect some changes in the index and pack them into a commit -- but all other changes are still preserved in the files.
+
+
+Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem vorigen Kapitel illustrieren.
+Zur Erinnerung der Inhalt der Datei `hello.pl`:
+
+We'll illustrate this using the "`Hello World!`" example from the previous chapter.
+As a reminder, the contents of the `hello.pl` file
+
+
+// @TODO: PERL SYNTAX HIGHLIGHTING
 --------
 # Hello World! in Perl
 print "Hello World!\n";
 --------
 
-Nun präparieren wir die Datei so, dass sie mehrere unabhängige
-Veränderungen hat, die wir _nicht_ in einem einzelnen Commit
-zusammenfassen wollen. Zunächst fügen wir eine _Shebang_-Zeile
-am Anfang hinzu.{fn13}
-Außerdem
-kommt eine Zeile hinzu, die den Autor benennt, sowie eine
-Perl-Anweisung `use strict`, die den Perl-Interpreter anweist,
-bei der Syntaxanalyse möglichst streng zu sein. Wichtig ist für unser
-Beispiel, dass die Datei an mehreren Stellen verändert wurde:
 
+////
+Nun präparieren wir die Datei so, dass sie mehrere unabhängige Veränderungen hat, die wir _nicht_ in einem einzelnen Commit zusammenfassen wollen.
+Zunächst fügen wir eine _Shebang_-Zeile am Anfang hinzu.[13]
+Außerdem kommt eine Zeile hinzu, die den Autor benennt, sowie eine Perl-Anweisung `use strict`, die den Perl-Interpreter anweist, bei der Syntaxanalyse möglichst streng zu sein.
+Wichtig ist für unser Beispiel, dass die Datei an mehreren Stellen verändert wurde:
+////
+
+Now we prepare the file so that it has several independent changes that we _don't_ want to combine into a single commit.
+First, we add a shebang line at the beginning.{fn13}
+We also add a line naming the author, and the Perl statement `use strict`, which tells the Perl interpreter to be as strict as possible in its syntax analysis.
+It is important for our example that the file has been changed in several places:
+
+
+// @TODO: PERL SYNTAX HIGHLIGHTING
 --------
 #!/usr/bin/perl
 # Hello World! in Perl
@@ -202,66 +277,88 @@ use strict;
 print "Hello World!\n";
 --------
 
-Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen
-dem Index hinzugefügt -- der Stand der Datei im Index wäre also der
-gleiche wie im Working Tree. Stattdessen verwenden wir die Option
-`--patch` bzw. kurz `-p`.{fn14}
-Dies hat zur Folge, dass
-wir interaktiv gefragt werden, welche Veränderungen wir dem Index
-hinzufügen wollen. Git bietet uns jede Veränderung einzeln an, und wir
-können von Fall zu Fall entscheiden, wie wir mit dieser verfahren
-wollen:
 
-[subs="macros,quotes"]
+////
+Mit einem einfachen `git add hello.pl` würden alle neuen Zeilen dem Index hinzugefügt -- der Stand der Datei im Index wäre also der gleiche wie im Working Tree.
+Stattdessen verwenden wir die Option `--patch` bzw. kurz `-p`.[14]
+Dies hat zur Folge, dass wir interaktiv gefragt werden, welche Veränderungen wir dem Index hinzufügen wollen.
+Git bietet uns jede Veränderung einzeln an, und wir können von Fall zu Fall entscheiden, wie wir mit dieser verfahren wollen:
+////
+
+With a simple `git add hello.pl` all new lines would be added to the index -- so the state of the file in the index would be the same as in the working tree.
+Instead, we use the `--patch` option or short `-p`.{fn14}
+This has the effect that we are interactively asked which changes we want to add to the index.
+Git offers us each change one by one, and we can decide on a case-by-case basis how we want to handle them:
+
+
+[subs="quotes"]
 --------
 $ *git add -p*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,5 @@
-+\#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
++&num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 Stage this hunk [y,n,q,a,d,/,s,e,?]?
 --------
 
-Hier zeigt Git alle Änderungen an, da sie im Code sehr nah
-beieinander liegen. Bei weit auseinanderliegenden oder auf
-verschiedene Dateien verteilten Veränderungen werden sie getrennt
-angeboten. Der Begriff _Hunk_ bezeichnet lose zusammenhängende
-Zeilen im Quellcode. Wir haben an dieser Stelle unter anderem folgende Optionen:
+
+////
+Hier zeigt Git alle Änderungen an, da sie im Code sehr nah beieinander liegen.
+Bei weit auseinanderliegenden oder auf verschiedene Dateien verteilten Veränderungen werden sie getrennt angeboten.
+Der Begriff _Hunk_ bezeichnet lose zusammenhängende Zeilen im Quellcode.
+Wir haben an dieser Stelle unter anderem folgende Optionen:
+////
+
+This is where Git shows all changes, since they're very close together in the code.
+If the changes are far apart or spread across different files, they're offered separately.
+The term _hunk_ refers to loosely connected lines in the source code.
+Some of the options we have at this point include the following:
+
 
 --------
 Stage this hunk[y,n,q,a,d,/,s,e,?]?
 --------
 
-Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu
-merken. Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
-Die wichtigsten Optionen haben wir im Folgenden
-zusammengefasst.
+Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu merken.
+Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
+Die wichtigsten Optionen haben wir im Folgenden zusammengefasst.
+
+The options are each only one letter long and difficult to remember.
+A small reminder is always given by _[?]_.
+We have summarized the most important options below.
+
+////
+`y` (_yes_)   :: Übernimm den aktuellen Hunk in den Index.
+`n` (_no_)    :: Übernimm den aktuellen Hunk nicht.
+`q` (_quit_)  :: Übernimm weder den aktuellen Hunk noch einen der folgenden.
+`a` (_all_)   :: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
+`s` (_split_) :: Versuche, den aktuellen Hunk zu teilen.
+`e` (_edit_)  :: Editiere den aktuellen Hunk.[15]
+////
+
+[horizontal]
+`y` (_yes_)   :: Transfer the current hunk to the index.
+`n` (_no_)    :: Don't pick up the current hunk.
+`q` (_quit_)  :: Do not pick up the current hunk or any of the following ones.
+`a` (_all_)   :: Pick up the current hunk and all those that follow (in the current file).
+`s` (_split_) :: Try to split the current hunk.
+`e` (_edit_)  :: Edit the current hunk.{fn15}
 
 
-`y` (_yes_):: Übernimm den aktuellen Hunk in den Index.
+////
+In dem Beispiel teilen wir den aktuellen Hunk und geben `s` für _split_ ein.
+////
 
-`n` (_no_):: Übernimm den aktuellen Hunk nicht.
-
-`q` (_quit_):: Übernimm weder den aktuellen Hunk noch einen der folgenden.
-
-`a` (_all_):: Übernimm den aktuellen Hunk und alle, die folgen (in der aktuellen Datei).
-
-`s` (_split_):: Versuche, den aktuellen Hunk zu teilen.
-
-`e` (_edit_):: Editiere den aktuellen Hunk.{fn15}
+In the example we split the current hunk and enter `s` for _split_.
 
 
-In dem Beispiel teilen wir den aktuellen Hunk und geben
-`s` für _split_ ein.
-
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 Stage this hunk [y,n,q,a,d,/,s,e,?]? *[s]*
 Split into 2 hunks.
@@ -270,121 +367,149 @@ Split into 2 hunks.
  # Hello World! in Perl
 --------
 
-Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und
-bietet uns nun ein Diff an, das nur die Shebang-Zeile
-enthält.{fn16}
-Wir geben `y` für
-_yes_ an und beim nächsten Hunk `q` für _quit_.  Um
-zu überprüfen, ob alles geklappt hat, verwenden wir `git diff`
-mit der Option `--staged`, die den Unterschied zwischen
-Index und `HEAD` (dem neuesten Commit)
-anzeigt:
+////
+Git bestätigt, dass der Hunk erfolgreich geteilt werden konnte, und bietet uns nun ein Diff an, das nur die Shebang-Zeile enthält.[16]
+Wir geben `y` für _yes_ an und beim nächsten Hunk `q` für _quit_.
+Um zu überprüfen, ob alles geklappt hat, verwenden wir `git diff` mit der Option `--staged`, die den Unterschied zwischen Index und `HEAD` (dem neuesten Commit) anzeigt:
+////
 
-[subs="macros,quotes"]
+Git confirms that the hunk was successfully split, and now offers us a diff that contains only the shebang line.{fn16}
+We specify `y` for _yes_ and `q` for _quit_ on the next hunk.
+To check if everything worked, we use `git diff` with the `--staged` option, which shows the difference between index and `HEAD` (the latest commit):
+
+
+[subs="quotes"]
 --------
 $ *git diff --staged*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..d2cc6dc 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,3 @@
 +#!/usr/bin/perl
  # Hello World! in Perl
  print "Hello World!\n";
 --------
 
-Um zu sehen, welche Veränderungen sich noch _nicht_ im Index
-befinden, reicht ein einfacher Aufruf von `git diff`, der uns
-zeigt, dass sich -- wie erwartet -- noch zwei Zeilen im Working Tree
-befinden:
 
-[subs="macros,quotes"]
+////
+Um zu sehen, welche Veränderungen sich noch _nicht_ im Index befinden, reicht ein einfacher Aufruf von `git diff`, der uns zeigt, dass sich -- wie erwartet -- noch zwei Zeilen im Working Tree befinden:
+////
+
+To see which changes are _not_ yet in the index, a simple call to `git diff` is enough to show us that -- as expected -- there are still two lines in the working tree:
+
+
+[subs="quotes"]
 --------
 $ *git diff*
 diff --git a/hello.pl b/hello.pl
 index d2cc6dc..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,3 +1,5 @@
- \#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
+ &num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 --------
 
 
-An dieser Stelle könnten wir einen Commit erzeugen, wollen zur
-Demonstration aber noch einmal von vorn beginnen. Darum setzen wir
-mit `git reset HEAD` den Index zurück.
+////
+An dieser Stelle könnten wir einen Commit erzeugen, wollen zur Demonstration aber noch einmal von vorn beginnen.
+Darum setzen wir mit `git reset HEAD` den Index zurück.
+////
 
-[subs="macros,quotes"]
+At this point we could create a commit, but for demonstration purposes we want to start from scratch.
+So we use `git reset HEAD` to reset the index.
+
+
+[subs="quotes"]
 --------
 $ *git reset HEAD*
 Unstaged changes after reset:
 M   hello.pl
 --------
 
-Git bestätigt und nennt die Dateien, in denen sich Veränderungen
-befinden; in diesem Fall ist es nur die eine.
 
-Das Kommando `git reset` ist gewissermaßen das Gegenstück zu
-`git add`: Statt Unterschiede aus dem Working Tree in den Index
-zu übertragen, überträgt `reset` Unterschiede aus dem
-Repository in den Index. Änderungen _in den_ Working Tree zu
-übertragen, ist möglicherweise destruktiv, da Ihre Änderungen
-verlorengehen könnten. Daher ist dies nur mit der Option
-`--hard` möglich, die wir in <<sec.reset>>
-behandeln.
+////
+Git bestätigt und nennt die Dateien, in denen sich Veränderungen befinden; in diesem Fall ist es nur die eine.
+////
 
-Sollten Sie häufiger `git add -p` verwenden, ist es nur eine
-Frage der Zeit, bis Sie versehentlich einen Hunk auswählen, den Sie
-eigentlich gar nicht wollten. Sollte der Index leer gewesen sein, ist
-dies kein Problem, da Sie ihn ja zurücksetzen können, um von vorn
-anzufangen. Problematisch wird es erst, wenn Sie bereits viele
-Veränderungen im Index aufgezeichnet haben und diese nicht verlieren
-möchten, Sie also einen bestimmten Hunk aus dem Index entfernen, ohne
-die anderen Hunks anfassen zu wollen.
+Git confirms and names the files that have changes in them; in this case, it's just the one.
 
-Analog zu `git add -p` gibt es daher den Befehl `git
-  reset -p`, der einzelne Hunks wieder aus dem Index entfernt. Um das
-zu demonstrieren, übernehmen wir zunächst alle Veränderungen mit
-`git add hello.pl` und starten `git reset -p`.
 
-[subs="macros,quotes"]
+////
+Das Kommando `git reset` ist gewissermaßen das Gegenstück zu `git add`: Statt Unterschiede aus dem Working Tree in den Index zu übertragen, überträgt `reset` Unterschiede aus dem Repository in den Index.
+Änderungen _in den_ Working Tree zu übertragen, ist möglicherweise destruktiv, da Ihre Änderungen verlorengehen könnten.
+Daher ist dies nur mit der Option `--hard` möglich, die wir in Abschnitt 3.2.3, "Reset und der Index" behandeln.
+////
+
+The `git reset` command is in a sense the counterpart of `git add`: Instead of transferring differences from the working tree to the index, `reset` transfers differences from the repository to the index.
+Committing changes _to_ the working tree is potentially destructive, as your changes may be lost.
+Therefore, this is only possible with the `--hard` option, which we discuss in <<sec.reset>>.
+
+
+////
+Sollten Sie häufiger `git add -p` verwenden, ist es nur eine Frage der Zeit, bis Sie versehentlich einen Hunk auswählen, den Sie eigentlich gar nicht wollten.
+Sollte der Index leer gewesen sein, ist dies kein Problem, da Sie ihn ja zurücksetzen können, um von vorn anzufangen.
+Problematisch wird es erst, wenn Sie bereits viele Veränderungen im Index aufgezeichnet haben und diese nicht verlieren möchten, Sie also einen bestimmten Hunk aus dem Index entfernen, ohne die anderen Hunks anfassen zu wollen.
+////
+
+If you frequently use `git add -p`, it is only a matter of time before you accidentally select a hunk you didn't want.
+If the index was empty, this is not a problem since you can reset it to start over.
+It only becomes a problem if you have already recorded many changes in the index and don't want to lose them, i.e. you remove a particular hunk from the index without wanting to touch the other hunks.
+
+
+////
+Analog zu `git add -p` gibt es daher den Befehl `git reset -p`, der einzelne Hunks wieder aus dem Index entfernt.
+Um das zu demonstrieren, übernehmen wir zunächst alle Veränderungen mit `git add hello.pl` und starten `git reset -p`.
+////
+
+Analogous to `git add -p` there is the command `git reset -p`, which removes single hunks from the index.
+To demonstrate this, let's first apply all changes with `git add hello.pl` and then run `git reset -p`.
+
+
+
+[subs="quotes"]
 --------
 $ *git reset -p*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..908e967 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,5 @@
-+\#!/usr/bin/perl
- # Hello World! in Perl
-+# Author: Valentin Haenel
++&num;!/usr/bin/perl
+ &num; Hello World! in Perl
++&num; Author: Valentin Haenel
 +use strict;
  print "Hello World!\n";
 Unstage this hunk [y,n,q,a,d,/,s,e,?]?
 --------
 
-Wie bei dem Beispiel mit `git add -p` bietet Git nach und nach
-Hunks an, jedoch sind es diesmal alle Hunks im Index. Entsprechend
-lautet die Frage: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, also
-ob wir den Hunk wieder aus dem Index herausnehmen möchten. Wie gehabt,
-erhalten wir durch die Eingabe des Fragezeichens eine erweiterte
-Beschreibung der verfügbaren Optionen.  Wir drücken an dieser Stelle
-einmal `s` für _split_, einmal `n` für _no_
-und einmal `y` für _yes_.  Damit sollte sich jetzt nur die
-Shebang-Zeile im Index befinden:
+
+////
+Wie bei dem Beispiel mit `git add -p` bietet Git nach und nach Hunks an, jedoch sind es diesmal alle Hunks im Index.
+Entsprechend lautet die Frage: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, also ob wir den Hunk wieder aus dem Index herausnehmen möchten.
+Wie gehabt, erhalten wir durch die Eingabe des Fragezeichens eine erweiterte Beschreibung der verfügbaren Optionen.
+Wir drücken an dieser Stelle einmal `s` für _split_, einmal `n` für _no_ und einmal `y` für _yes_.
+Damit sollte sich jetzt nur die Shebang-Zeile im Index befinden:
+////
+
+As in the example with `git add -p`, Git offers hunks one by one, but this time all the hunks in the index.
+Accordingly, the question is: `Unstage this hunk [y,n,q,a,d,/,s,e,?]?`, i.e. whether we want to remove the hunk from the index again.
+As before, by entering the question mark we get an extended description of the available options.
+At this point we press `s` once for _split_, `n` once for _no_ and `y` once for _yes_.
+Now only the shebang line should be in the index:
 
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git diff --staged*
 diff --git a/hello.pl b/hello.pl
 index c6f28d5..d2cc6dc 100644
 --- a/hello.pl
-pass:quotes[\+++ b/hello.pl]
++++ b/hello.pl
 @@ -1,2 +1,3 @@
 +#!/usr/bin/perl
  # Hello World! in Perl
@@ -395,12 +520,15 @@ pass:quotes[\+++ b/hello.pl]
 
 [TIP]
 =================
-Bei den interaktiven Modi von `git add` und `git
-reset` müssen Sie nach Eingabe einer Option die Enter-Taste
-drücken.  Mit folgender Konfigurationseinstellung sparen Sie sich
-diesen zusätzlichen Tastendruck.
+////
+Bei den interaktiven Modi von `git add` und `git reset` müssen Sie nach Eingabe einer Option die Enter-Taste drücken.
+Mit folgender Konfigurationseinstellung sparen Sie sich diesen zusätzlichen Tastendruck.
+////
 
-[subs="macros,quotes"]
+In the interactive modes of `git add` and `git reset`, you must press the kbd:[Enter] key after entering an option.
+The following configuration setting will save you this extra keystroke.
+
+[subs="quotes"]
 --------
 $ *git config --global interactive.singlekey true*
 --------
@@ -408,336 +536,515 @@ $ *git config --global interactive.singlekey true*
 
 
 
-Ein Wort der Warnung:
-Ein `git add -p` kann dazu verleiten, Versionen einer Datei
-einzuchecken, die nicht lauffähig oder syntaktisch korrekt sind
-(z.B. weil Sie eine wesentliche Zeile vergessen haben). Verlassen
-Sie sich daher nicht darauf, dass Ihr Commit korrekt ist, nur weil
-`make` -- was auf den Dateien des Working Tree arbeitet! --
-erfolgreich durchläuft. Auch wenn ein späterer Commit das Problem
-behebt, stellt dies unter anderem bei der automatisierten Fehlersuche
-via Bisect (siehe <<sec.bisect>>) ein Problem dar.
+////
+Ein Wort der Warnung: Ein `git add -p` kann dazu verleiten, Versionen einer Datei einzuchecken, die nicht lauffähig oder syntaktisch korrekt sind (z.B. weil Sie eine wesentliche Zeile vergessen haben).
+Verlassen Sie sich daher nicht darauf, dass Ihr Commit korrekt ist, nur weil `make` -- was auf den Dateien des Working Tree arbeitet! -- erfolgreich durchläuft.
+Auch wenn ein späterer Commit das Problem behebt, stellt dies unter anderem bei der automatisierten Fehlersuche via Bisect (siehe Abschnitt 4.8, "Regressionen finden -- git bisect") ein Problem dar.
+////
+
+A word of warning: A `git add -p` may tempt you to check in versions of a file that are not executable or syntactically correct (e.g. because you forgot an essential line).
+So don't rely on your commit being correct just because `make` -- which works on working tree files! -- runs successfully.
+Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <<sec.bisect>>).
 
 
 
 [[sec.commit]]
-=== Commits erstellen
+=== Creating Commits
+//  Commits erstellen
 
-Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und
-Repository austauschen. Wenden wir uns nun dem Kommando `git
-  commit` zu, mit dem Sie Änderungen im Repository
-"`festschreiben`".
+////
+Sie wissen nun, wie Sie Änderungen zwischen Working Tree, Index und Repository austauschen.
+Wenden wir uns nun dem Kommando `git commit` zu, mit dem Sie Änderungen im Repository "`festschreiben`".
+////
 
-Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem
-bestimmten Zeitpunkt fest und enthält zudem
-Metainformationen:{fn17}
+You now know how to exchange changes between working tree, index, and repository.
+Let's turn to the `git commit` command, which you use to "`commit`" changes to the repository.
 
 
+////
+Ein Commit hält den Stand aller Dateien Ihres Projekts zu einem bestimmten Zeitpunkt fest und enthält zudem Metainformationen:[17]
+////
+
+A commit keeps track of the state of all the files in your project at any given time, and also contains meta-information:{fn17}
+
+
+////
 * Name des Autors und E-Mail-Adresse
 * Name des Committers und E-Mail-Adresse
 * Erstellungsdatum
 * Commit-Datum
+////
+
+* Name of the authors and e-mail address
+* Name of the committer and e-mail address
+* Creation date
+* Commit date
+
+////
+Tatsächlich ist es so, dass der Name des Autors _nicht_ der Name des Committers (der den Commit einpflegt) sein muss.
+Häufig werden Commits von Maintainern integriert oder bearbeitet (z.B. durch `rebase`, was auch die Committer-Informationen anpasst, siehe Abschnitt 4.1, "Commits verschieben –- Rebase").
+Die Committer-Informationen sind aber in der Regel von nachrangiger Bedeutung -- die meisten Programme zeigen nur den Autor und das Datum der Commit-Erstellung an.
+////
+
+In fact, the name of the author _does not_ have to be the name of the committer (who commits).
+Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <<sec.rebase>>).
+The committer information is usually of secondary importance, though -- most programs only show the author and the date the commit was made.
 
 
-Tatsächlich ist es so, dass der Name des Autors _nicht_ der Name
-des Committers (der den Commit einpflegt) sein muss.  Häufig werden
-Commits von Maintainern integriert oder bearbeitet (z.B.
-durch `rebase`, was auch die Committer-Informationen anpasst,
-siehe <<sec.rebase>>).  Die Committer-Informationen sind aber
-in der Regel von nachrangiger Bedeutung -- die meisten Programme
-zeigen nur den Autor und das Datum der Commit-Erstellung an.
+////
+Wenn Sie einen Commit erstellen, verwendet Git die im vorherigen Abschnitt konfigurierten Einstellungen `user.name` und `user.email`, um den Commit zu kennzeichnen.
+////
 
-Wenn Sie einen Commit erstellen, verwendet Git die im vorherigen
-Abschnitt konfigurierten Einstellungen `user.name` und
-`user.email`, um den Commit zu kennzeichnen.
+When you create a commit, Git uses the `user.name` and `user.email` settings configured in the previous section to identify the commit.
 
-Bei einem Aufruf von `git commit` ohne zusätzliche Argumente
-fasst Git alle Veränderungen im Index zu einem Commit zusammen und
-öffnet einen Editor, mit dem Sie eine Commit-Message erstellen.  Die
-Nachricht enthält jedoch immer eine mit Rautezeichen (`#`)
-auskommentierte Anleitung bzw. Informationen darüber, welche Dateien
-durch den Commit geändert werden. Rufen Sie `git commit -v`
-auf, erhalten Sie unterhalb der Anleitung noch ein Diff der
-Änderungen, die Sie einchecken werden. Das ist vor allem praktisch, um
-einen Überblick über die Änderungen zu behalten und die
-Auto-Vervollständigungsfunktion Ihres Editors zu verwenden.
 
-Sobald Sie den Editor beenden, erstellt Git den Commit. Geben Sie
-keine Commit-Nachricht an oder löschen den gesamten Inhalt der Datei,
-bricht Git ab und erstellt keinen Commit.
+////
+Bei einem Aufruf von `git commit` ohne zusätzliche Argumente fasst Git alle Veränderungen im Index zu einem Commit zusammen und öffnet einen Editor, mit dem Sie eine Commit-Message erstellen.
+Die Nachricht enthält jedoch immer eine mit Rautezeichen (`#`) auskommentierte Anleitung bzw. Informationen darüber, welche Dateien durch den Commit geändert werden.
+Rufen Sie `git commit -v` auf, erhalten Sie unterhalb der Anleitung noch ein Diff der Änderungen, die Sie einchecken werden.
+Das ist vor allem praktisch, um einen Überblick über die Änderungen zu behalten und die Auto-Vervollständigungsfunktion Ihres Editors zu verwenden.
+////
 
-Wollen Sie nur eine Zeile schreiben, bietet sich die Option
-`--message` oder kurz `-m` an, mit der Sie direkt auf
-der Kommandozeile die Nachricht angeben und so den Editor umgehen:
+If you call `git commit` without any additional arguments, Git will combine all changes in the index into one commit, and open an editor to create a commit message.
+However, the message will always contain instructions commented out with hash marks (`#`), or information about which files are changed by the commit.
+If you call `git commit -v`, you will still get a diff of the changes you will check in, below the instructions.
+This is especially useful for keeping track of the changes, and for using the auto-complete feature of your editor.
 
-[subs="macros,quotes"]
+
+////
+Sobald Sie den Editor beenden, erstellt Git den Commit.
+Geben Sie keine Commit-Nachricht an oder löschen den gesamten Inhalt der Datei, bricht Git ab und erstellt keinen Commit.
+////
+
+Once you exit the editor, Git creates the commit.
+If you don't specify a commit message or delete the entire contents of the file, Git will abort and not create a commit.
+
+
+////
+Wollen Sie nur eine Zeile schreiben, bietet sich die Option `--message` oder kurz `-m` an, mit der Sie direkt auf der Kommandozeile die Nachricht angeben und so den Editor umgehen:
+////
+
+If you only want to write one line, you can use the `--message` option, or short `-m`, which allows you to specify the message directly on the command line, thus bypassing the editor:
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git commit -m "Dies ist die Commit-Nachricht"*
 --------
 
+
 [[sec.ci-amend]]
-==== Einen Commit verbessern
+==== Improving a Commit
+//   Einen Commit verbessern
 
-Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die
-Option `--amend` ("`berichtigen`"). Die Option
-veranlasst Git, die Änderungen im Index dem eben getätigten Commit
-"`hinzuzufügen`".{fn18}
-Außerdem können Sie die
-Commit-Nachricht anpassen. Beachten Sie, dass sich die SHA-1-Summe des
-Commits in jedem Fall ändert.
+////
+Wenn Sie vorschnell `git commit` eingegeben haben, den Commit aber noch geringfügig verbessern wollen, hilft die Option `--amend` ("`berichtigen`").
+Die Option veranlasst Git, die Änderungen im Index dem eben getätigten Commit "`hinzuzufügen`".[18]
+Außerdem können Sie die Commit-Nachricht anpassen.
+Beachten Sie, dass sich die SHA-1-Summe des Commits in jedem Fall ändert.
+////
 
-Mit dem Aufruf `git commit --amend` verändern Sie nur den
-aktuellen Commit auf einem Branch. Wie Sie weiter zurückliegende
-Commits verbessern, beschreibt <<sec.rebase-onto-ci-amend>>.
+If you rashly entered `git commit`, but want to make the commit slightly better, the `--amend` ("`correct`") option helps.
+The option causes git to "`add`" the changes in the index to the commit you just made.{fn18}
+You can also customize the commit message.
+Note that the SHA-1 sum of the commit will change in any case.
+
+
+////
+Mit dem Aufruf `git commit --amend` verändern Sie nur den aktuellen Commit auf einem Branch.
+Wie Sie weiter zurückliegende Commits verbessern, beschreibt Abschnitt 4.1.9, "Einen Commit verbessern".
+////
+
+The `git commit --amend` call only changes the current commit on a branch.
+<<sec.rebase-onto-ci-amend>> describes how to improve past commits.
+
 
 [TIP]
 ============
-Der Aufruf von `git commit --amend` startet automatisch einen Editor, so
-dass Sie auch noch die Commit-Nachricht bearbeiten können. Häufig wollen
-Sie aber nur noch eine kleine Korrektur an einer Datei vornehmen, ohne die
-Nachricht anzupassen. Für die Autoren bewährt sich in dieser Situation
-ein Alias `fixup`:
+////
+Der Aufruf von `git commit --amend` startet automatisch einen Editor, so dass Sie auch noch die Commit-Nachricht bearbeiten können.
+Häufig wollen Sie aber nur noch eine kleine Korrektur an einer Datei vornehmen, ohne die Nachricht anzupassen.
+Für die Autoren bewährt sich in dieser Situation ein Alias `fixup`:
+////
 
-[subs="macros,quotes"]
+Calling `git commit --amend` automatically starts an editor, so you can edit the commit message as well.
+Often, however, you will only want to make a small correction to a file without adjusting the message.
+For authors, an alias `fixup` is useful in this situation:
+
+[subs="quotes"]
 -------
 $ *git config --global alias.fixup "commit --amend --no-edit"*
 -------
 ============
 
+
+
 [[sec.commit-msg]]
-==== Gute Commit-Nachrichten
+==== Good Commit Messages
+//   Gute Commit-Nachrichten
 
-Wie sollte eine Commit-Nachricht aussehen?  An der äußeren Form lässt
-sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine
-Zeile lang sein, die am besten aber maximal 50 Zeichen umfasst. Das
-macht Auflistungen der Commits besser lesbar.  Sofern Sie eine
-genauere Beschreibung hinzufügen wollen (was äußerst empfehlenswert
-ist!), trennen Sie diese von der ersten Zeile durch eine Leerzeile.
-Keine Zeile sollte -- wie auch bei E-Mails üblich -- länger als 76
-Zeichen sein.
+////
+Wie sollte eine Commit-Nachricht aussehen?
+An der äußeren Form lässt sich nicht viel ändern: Die Commit-Nachricht muss mindestens eine Zeile lang sein, die am besten aber maximal 50 Zeichen umfasst.
+Das macht Auflistungen der Commits besser lesbar.
+Sofern Sie eine genauere Beschreibung hinzufügen wollen (was äußerst empfehlenswert ist!), trennen Sie diese von der ersten Zeile durch eine Leerzeile.
+Keine Zeile sollte -- wie auch bei E-Mails üblich -- länger als 76 Zeichen sein.
+////
 
-Commit-Nachrichten folgen oft den Gewohnheiten oder Besonderheiten
-eines Projekts. Möglicherweise gibt es Konventionen, wie zum Beispiel
-Referenzen zum Bugtracking- oder Ticket-System oder ein Link zur
-entsprechenden API-Dokumentation.
-
-Beachten Sie die folgenden Punkte beim Verfassen einer
-Commit-Beschreibung:
+What should a commit message look like?
+Not much can be changed in the outer form: The commit message must be at least one line long, but preferably no longer than 50 characters.
+This makes lists of commits easier to read.
+If you want to add a more detailed description (which is highly recommended!), separate it from the first line with a blank line.
+No line should be longer than 76 characters, as is usual for email.
 
 
-* Erstellen Sie niemals leere Commit-Nachrichten. Auch
-  Commit-Nachrichten wie `Update`, `Verbesserung`,
+////
+Commit-Nachrichten folgen oft den Gewohnheiten oder Besonderheiten eines Projekts.
+Möglicherweise gibt es Konventionen, wie zum Beispiel Referenzen zum Bugtracking- oder Ticket-System oder ein Link zur entsprechenden API-Dokumentation.
+////
+
+Commit messages often follow the habits or specifics of a project.
+There may be conventions, such as references to the bug tracking or issue system, or a link to the appropriate API documentation.
+
+
+////
+Beachten Sie die folgenden Punkte beim Verfassen einer Commit-Beschreibung:
+////
+
+Note the following points when writing a commit description:
+
+
+////
+* Erstellen Sie niemals leere Commit-Nachrichten.
+  Auch Commit-Nachrichten wie `Update`, `Verbesserung`,
   `Fix` etc. sind ebenso aussagekräftig wie eine leere
   Nachricht -- dann können Sie es auch gleich lassen.
+////
 
+* Never create empty commit messages.
+Commit messages such as `Update`, `Fix`, `Improvement`, etc. are just as meaningful as an empty message -- you might as well leave it at that.
+
+////
 * Ganz wichtig: Beschreiben Sie, _warum_ etwas verändert
-  wurde und welche Implikationen das haben kann. _Was_ verändert
-  wurde, ist immer aus dem Diff ersichtlich!
+  wurde und welche Implikationen das haben kann.
+  _Was_ verändert wurde, ist immer aus dem Diff ersichtlich!
+////
 
+* Very important: Describe _why_ something was changed and what the implications are.
+_What_ has been changed is always obvious from the diff!
+
+////
 * Seien Sie kritisch und vermerken Sie, wenn Sie glauben,
   dass noch Verbesserungsbedarf besteht oder der Commit möglicherweise
   an anderer Stelle Fehler einführt.
+////
 
+* Be critical and note if you think there is room for improvement or the commit may introduce bugs elsewhere.
+
+////
 * Die erste Zeile sollte nicht länger als 50 Zeichen sein,
   damit bleibt die Ausgabe der Versionsgeschichte stets gut formatiert
   und lesbar.
+////
 
+* The first line should not be longer than 50 characters, so the output of the version history always remains well formatted and readable.
+
+////
 * Wird die Nachricht länger, sollte in der ersten Zeile eine
   kurze Zusammenfassung (mit den wichtigen Schlagwörtern) stehen.
   Nach einer Leerzeile folgt dann eine umfangreiche Beschreibung.
+////
+
+* If the message becomes longer, a short summary (with the important keywords) should be in the first line.
+After a blank line follows an extensive description.
 
 
-Wir können nicht häufig genug betonen, wie wichtig eine gute
-Commit-Beschreibung ist. Beim Commit sind einem Entwickler die
-Änderungen noch gut im Gedächtnis, aber schon nach wenigen Tagen ist
-die Motivation dahinter oft vergessen. Auch Ihre Kollegen oder
-Projektmitstreiter werden es Ihnen danken, weil sie Änderungen viel
-schneller erfassen können.
 
-Eine gute Commit-Nachricht zu schreiben hilft auch, kurz darüber zu
-reflektieren, was schon geschafft ist und was noch ansteht. Vielleicht
-merken Sie beim Schreiben, dass Sie noch ein wesentliches Detail
-vergessen haben.
 
-Man kann auch über eine Zeitbilanz argumentieren: Die Zeit, die Sie
-benötigen, um eine gute Commit-Nachricht zu schreiben, beläuft sich
-auf ein bis zwei Minuten.  Um wie viel Zeit wird sich die Fehlersuche
-aber verringern, wenn jeder Commit gut dokumentiert ist? Wie viel Zeit
-sparen Sie anderen (und sich selbst), wenn Sie zu einem --
-möglicherweise schwer verständlichen -- Diff noch eine gute
-Beschreibung mitliefern? Auch das Blame-Tool, das jede Zeile einer Datei mit
-dem Commit, der sie zuletzt geändert hat, annotiert, wird bei
-ausführlichen Commit-Beschreibungen zu einem unerlässlichen Hilfsmittel
-werden (siehe <<sec.blame>>).
+////
+Wir können nicht häufig genug betonen, wie wichtig eine gute Commit-Beschreibung ist.
+Beim Commit sind einem Entwickler die Änderungen noch gut im Gedächtnis, aber schon nach wenigen Tagen ist die Motivation dahinter oft vergessen.
+Auch Ihre Kollegen oder Projektmitstreiter werden es Ihnen danken, weil sie Änderungen viel schneller erfassen können.
+////
 
-Wenn Sie nicht gewöhnt sind, ausführliche Commit-Nachrichten zu
-schreiben, fangen Sie heute damit an. Übung macht den Meister, und
-wenn Sie sich erst einmal daran gewöhnt haben, geht die Arbeit schnell
-von der Hand -- Sie selbst und andere profitieren davon.
+We can't stress enough how important a good commit description is.
+When committing, a developer remembers the changes well, but after a few days, the motivation behind them is often forgotten.
+Your colleagues or project members will thank you, too, because they can commit changes much faster.
 
-Das Repository des Git-Projekts ist ein Paradebeispiel für gute
-Commit-Nachrichten. Ohne Details von Git zu kennen, wissen Sie schnell,
-wer warum was geändert hat. Außerdem sieht man, durch wie viele Hände
-solch ein Commit geht, bevor er integriert wird.
 
-Leider sind die Commit-Nachrichten in den meisten Projekten dennoch
-sehr spartanisch gehalten; seien Sie also nicht enttäuscht, wenn Ihre
-Mitstreiter schreibfaul sind, sondern gehen Sie mit gutem Beispiel und
-ausführlichen Beschreibungen voran.
+////
+Eine gute Commit-Nachricht zu schreiben hilft auch, kurz darüber zu reflektieren, was schon geschafft ist und was noch ansteht.
+Vielleicht merken Sie beim Schreiben, dass Sie noch ein wesentliches Detail vergessen haben.
+////
+
+Writing a good commit message also helps to briefly reflect on what has been done and what is still to come.
+You may find that you've forgotten one important detail as you write it.
+
+
+////
+Man kann auch über eine Zeitbilanz argumentieren: Die Zeit, die Sie benötigen, um eine gute Commit-Nachricht zu schreiben, beläuft sich auf ein bis zwei Minuten.
+Um wie viel Zeit wird sich die Fehlersuche aber verringern, wenn jeder Commit gut dokumentiert ist?
+Wie viel Zeit sparen Sie anderen (und sich selbst), wenn Sie zu einem -- möglicherweise schwer verständlichen -- Diff noch eine gute Beschreibung mitliefern?
+Auch das Blame-Tool, das jede Zeile einer Datei mit dem Commit, der sie zuletzt geändert hat, annotiert, wird bei ausführlichen Commit-Beschreibungen zu einem unerlässlichen Hilfsmittel werden (siehe Abschnitt 4.3, "Wer hat diese Änderungen gemacht? -- git blame").
+////
+
+You can also argue about a timeline: The time it takes you to write a good commit message is a minute or two.
+But how much less time will the bug-finding process take if each commit is well documented?
+How much time will you save others (and yourself) if you provide a good description of a diff, which may be hard to understand?
+Also, the blame tool, which annotates each line of a file with the commit that last changed it, will become an indispensable tool for detailed commit descriptions (see <<sec.blame>>).
+
+
+////
+Wenn Sie nicht gewöhnt sind, ausführliche Commit-Nachrichten zu schreiben, fangen Sie heute damit an.
+Übung macht den Meister, und wenn Sie sich erst einmal daran gewöhnt haben, geht die Arbeit schnell von der Hand -- Sie selbst und andere profitieren davon.
+////
+
+If you are not used to writing detailed commit messages, start today.
+Practice makes perfect, and once you get used to it, the work will go quickly -- you and others will benefit.
+
+
+////
+Das Repository des Git-Projekts ist ein Paradebeispiel für gute Commit-Nachrichten.
+Ohne Details von Git zu kennen, wissen Sie schnell, wer warum was geändert hat.
+Außerdem sieht man, durch wie viele Hände solch ein Commit geht, bevor er integriert wird.
+////
+
+The Git repository is a prime example of good commit messaging.
+Without knowing the details of Git, you'll quickly know who changed what and why.
+You can also see how many hands a commit goes through before it's integrated.
+
+
+////
+Leider sind die Commit-Nachrichten in den meisten Projekten dennoch sehr spartanisch gehalten; seien Sie also nicht enttäuscht, wenn Ihre Mitstreiter schreibfaul sind, sondern gehen Sie mit gutem Beispiel und ausführlichen Beschreibungen voran.
+////
+
+Unfortunately, the commit messages in most projects are still very spartan, so don't be disappointed if your peers are lazy about writing, but rather set a good example and provide detailed descriptions.
+
+
 
 [[sec.git-mv-rm]]
-=== Dateien verschieben und löschen
+=== Moving and Deleting Files
+//  Dateien verschieben und löschen
 
-Wenn Sie Dateien, die von Git verwaltet werden, löschen oder
-verschieben wollen, dann verwenden Sie dafür `git rm` bzw.
-`git mv`. Sie wirken wie die regulären Unix-Kommandos,
-modifizieren aber darüber hinaus den Index, so dass die Aktion in den
-nächsten Commit einfließt.{fn19}
+////
+Wenn Sie Dateien, die von Git verwaltet werden, löschen oder verschieben wollen, dann verwenden Sie dafür `git rm` bzw. `git mv`.
+Sie wirken wie die regulären Unix-Kommandos, modifizieren aber darüber hinaus den Index, so dass die Aktion in den nächsten Commit einfließt.[19]
+////
 
-Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch
-die Optionen `-r` und `-f`, um rekursiv zu löschen bzw.
-das Löschen zu erzwingen. Auch `git mv` bietet eine Option
-`-f` (_force_), falls der neue Dateiname schon existiert
-und überschrieben werden soll. Beide Kommandos akzeptieren die Option
-`-n` bzw. `--dry-run`, die bewirkt, dass der Vorgang
-simuliert wird, Dateien also nicht modifiziert werden.
+If you want to delete or move files managed by Git, use `git rm` or `git mv`.
+They act like the regular Unix commands, but they also modify the index so that the action is included in the next commit.{fn19}
 
 
-[TIP]
-================
-Um eine Datei _nur_ aus dem Index zu löschen, verwenden Sie
-`git rm --cached`. Sie bleibt dann im Working Tree
-erhalten.
-================
+////
+Analog zu den Standard-Unix-Kommandos akzeptiert `git rm` auch die Optionen `-r` und `-f`, um rekursiv zu löschen bzw. das Löschen zu erzwingen.
+Auch `git mv` bietet eine Option `-f` (_force_), falls der neue Dateiname schon existiert und überschrieben werden soll.
+Beide Kommandos akzeptieren die Option `-n` bzw. `--dry-run`, die bewirkt, dass der Vorgang simuliert wird, Dateien also nicht modifiziert werden.
+////
 
-
-Sie werden häufiger vergessen, eine Datei über `git mv` zu
-verschieben oder per `git rm` zu löschen, und stattdessen die
-Standard-Unix-Kommandos verwenden. In diesem Fall markieren Sie die
-(schon per `rm` gelöschte) Datei einfach auch als gelöscht im
-Index, und zwar per `git rm <datei>`.
-
-Für eine Umbenennung gehen Sie so vor: Markieren Sie zunächst den
-alten Dateinamen per `git rm <alter-name>` als gelöscht.  Fügen
-Sie dann die neue Datei hinzu: `git add <neuer-name>`.
-Überprüfen Sie anschließend per `git status`, ob die Datei als
-"`umbenannt`" gekennzeichnet ist.
+Like the standard Unix commands, `git rm` also accepts the `-r` and `-f` options to recursively delete or force deletion.
+`git mv` also offers an option `-f` (_force_) if the new filename already exists and should be overwritten.
+Both commands accept the option `-n` or `--dry-run`, which simulates the process and does not modify files.
 
 
 [TIP]
 ================
-Intern spielt es für Git keine Rolle, ob Sie eine Datei regulär per
-`mv` verschieben, dann `git add <neuer-name>` und `git rm
-<alter-name>` ausführen. In jedem Fall wird lediglich die Referenz auf
-ein Blob-Objekt geändert (siehe <<sec.objektmodell>>).
+////
+Um eine Datei _nur_ aus dem Index zu löschen, verwenden Sie `git rm --cached`.
+Sie bleibt dann im Working Tree erhalten.
+////
 
-Git kommt allerdings mit einer sogenannten _Rename Detection_: Wenn
-ein Blob gleich ist und nur von einem anderen Dateinamen referenziert
-wird, dann fasst Git dies als eine Umbenennung auf.  Wollen Sie die
-Geschichte einer Datei untersuchen und ihr bei eventuellen
-Umbenennungen folgen, verwenden Sie das folgende Kommando:
+To delete a file from the index only, use `git rm --cached`.
+It then remains in the working tree.
+================
 
-[subs="macros,quotes"]
+
+////
+Sie werden häufiger vergessen, eine Datei über `git mv` zu verschieben oder per `git rm` zu löschen, und stattdessen die Standard-Unix-Kommandos verwenden.
+In diesem Fall markieren Sie die (schon per `rm` gelöschte) Datei einfach auch als gelöscht im Index, und zwar per `git rm <datei>`.
+////
+
+You will often forget to move a file via `git mv` or delete it via `git rm`, and use the standard Unix commands instead.
+In this case, simply mark the file (already deleted by `rm`) as deleted in the index, too, using `git rm <file>`.
+
+
+////
+Für eine Umbenennung gehen Sie so vor: Markieren Sie zunächst den alten Dateinamen per `git rm <alter-name>` als gelöscht.
+Fügen Sie dann die neue Datei hinzu: `git add <neuer-name>`.
+Überprüfen Sie anschließend per `git status`, ob die Datei als "`umbenannt`" gekennzeichnet ist.
+////
+
+To rename the file, proceed as follows: First mark the old file name as deleted using `git rm <old-name>`.
+Then add the new file: `git add <new-name>`.
+Then check via `git status` whether the file is marked as "`renamed`".
+
+
+[TIP]
+================
+////
+Intern spielt es für Git keine Rolle, ob Sie eine Datei regulär per `mv` verschieben, dann `git add <neuer-name>` und `git rm <alter-name>` ausführen.
+In jedem Fall wird lediglich die Referenz auf ein Blob-Objekt geändert (siehe Abschnitt 2.2, "Das Objektmodell").
+////
+
+Internally, it doesn't matter to Git whether you move a file regularly via `mv`, then run `git add <new-name>` and `git rm <old-name>`.
+In any case, only the reference to a blob object is changed (see<<sec.object-model>>).
+
+
+////
+Git kommt allerdings mit einer sogenannten _Rename Detection_: Wenn ein Blob gleich ist und nur von einem anderen Dateinamen referenziert wird, dann fasst Git dies als eine Umbenennung auf.
+Wollen Sie die Geschichte einer Datei untersuchen und ihr bei eventuellen Umbenennungen folgen, verwenden Sie das folgende Kommando:
+////
+
+However, Git comes with a so-called _Rename Detection_: If a blob is the same and is only referenced by a different file name, Git interprets this as a rename.
+If you want to examine the history of a file and follow it if it is renamed, use the following command:
+
+[subs="quotes"]
 --------
-$ *git log --follow -- &lt;datei&gt;*
+$ *git log --follow -- &lt;file&gt;*
 --------
 ================
+
 
 
 [[sec.grep]]
-=== grep auf einem Repository
+=== Using Grep on a Repository
+//  grep auf einem Repository
 
-Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen
-wollen, bietet sich normalerweise ein Aufruf von `grep -R
-<ausdruck> .` an.
+////
+Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen wollen, bietet sich normalerweise ein Aufruf von `grep -R <ausdruck> .` an.
+////
 
-
-Git bietet allerdings ein eigenes Grep-Kommando, das Sie per
-`git grep <ausdruck>` aufrufen. In der Regel sucht das
-Kommando den Ausdruck in allen von Git verwalteten Dateien. Wollen Sie
-stattdessen nur einen Teil der Dateien untersuchen, können Sie das
-Muster explizit angeben. Mit folgendem Kommando finden Sie alle
-Vorkommnisse von `border-color` in allen CSS-Dateien:
+If you want to search for an expression in all files of your project, you can usually use `grep -R <expression> .`.
 
 
+Git bietet allerdings ein eigenes Grep-Kommando, das Sie per `git grep <ausdruck>` aufrufen.
+In der Regel sucht das Kommando den Ausdruck in allen von Git verwalteten Dateien.
+Wollen Sie stattdessen nur einen Teil der Dateien untersuchen, können Sie das Muster explizit angeben.
+Mit folgendem Kommando finden Sie alle Vorkommnisse von `border-color` in allen CSS-Dateien:
 
-[subs="macros,quotes"]
+However, Git offers its own grep command, which you can call up using `git grep <expression>`.
+This command usually searches for the expression in all files managed by Git.
+If you want to examine only some of the files instead, you can specify the pattern explicitly.
+With the following command you can find all occurrences of `border-color` in all CSS files:
+
+
+[subs="quotes"]
 --------
-$ *git grep border-color -- \_&#42;.css_*
+$ **git grep border-color -- '*.css'**
 --------
 
-Die Grep-Implementation von Git unterstützt alle gängigen Flags, die
-auch in GNU Grep vorhanden sind. Allerdings ist ein Aufruf von
-`git grep` in der Regel um eine Größenordnung schneller, da Git
-durch die Objektdatenbank sowie das Multithread-Design des Kommandos
-wesentliche Performance-Vorteile hat.
+
+////
+Die Grep-Implementation von Git unterstützt alle gängigen Flags, die auch in GNU Grep vorhanden sind.
+Allerdings ist ein Aufruf von `git grep` in der Regel um eine Größenordnung schneller, da Git durch die Objektdatenbank sowie das Multithread-Design des Kommandos wesentliche Performance-Vorteile hat.
+////
+
+The grep implementation of Git supports all common flags that are also present in GNU Grep.
+However, calling `git grep` is usually an order of magnitude faster, since Git has significant performance advantages due to the object database and the multithreaded design of the command.
+
 
 [TIP]
 =============
-Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch
-aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter
-einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante
-Farben verwendet. Sie können die Ausgabe von `ack` mit `git grep`
-emulieren, indem Sie folgendes Alias verwenden:
+Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante Farben verwendet.
+Sie können die Ausgabe von `ack` mit `git grep` emulieren, indem Sie folgendes Alias verwenden:
 
-[subs="macros,quotes"]
+The popular `grep` alternative `ack` is characterized mainly by the fact that it combines the lines of a file matching the search pattern under a corresponding "`heading`", and uses striking colors.
+You can emulate the output of `ack` with `git grep` by using the following alias:
+
+
+[subs="quotes"]
 -------
-$ *git config alias.ack &#39;!git -c color.grep.filename="green bold" \*
-  *-c color.grep.match="black yellow" -c color.grep.linenumber="yellow bold" \*
-  *grep -n --break --heading --color=always --untracked&#39;*
+$ **git config alias.ack '!git -c color.grep.filename="green bold" \
+  -c color.grep.match="black yellow" -c color.grep.linenumber="yellow bold" \
+  grep -n --break --heading --color=always --untracked'**
 -------
 =============
 
 
+
 [[sec.git-log]]
-=== Die Projektgeschichte untersuchen
+=== Examining the Project History
+//  Die Projektgeschichte untersuchen
 
-Mit `git log` untersuchen Sie die Versionsgeschichte des
-Projekts. Die Optionen dieses Kommandos (die großteils auch für
-`git show` funktionieren) sind sehr umfangreich, wir werden im
-Folgenden die wichtigsten vorstellen.
+////
+Mit `git log` untersuchen Sie die Versionsgeschichte des Projekts.
+Die Optionen dieses Kommandos (die großteils auch für `git show` funktionieren) sind sehr umfangreich, wir werden im Folgenden die wichtigsten vorstellen.
+////
 
-Ohne weitere Argumente gibt `git log` für jeden Commit Autor,
-Datum, Commit-ID sowie die komplette Commit-Nachricht aus.  Das ist
-dann praktisch, wenn Sie einen schnellen Überblick benötigen, wer wann
-was gemacht hat. Allerdings ist die Liste etwas unhandlich, sobald Sie
-viele Commits betrachten.
+Use `git log` to examine the project's version history.
+The options of this command (most of which also work for `git show`) are very extensive, and we will introduce the most important ones below.
 
-Wollen Sie nur die kürzlich erstellten Commits anschauen, begrenzen Sie die
-Ausgabe von `git log` durch die Option `-<n>` auf _n_
-Commits. Die letzten vier Commits erhalten Sie zum Beispiel mit:
 
-[subs="macros,quotes"]
+////
+Ohne weitere Argumente gibt `git log` für jeden Commit Autor, Datum, Commit-ID sowie die komplette Commit-Nachricht aus.
+Das ist dann praktisch, wenn Sie einen schnellen Überblick benötigen, wer wann was gemacht hat.
+Allerdings ist die Liste etwas unhandlich, sobald Sie viele Commits betrachten.
+////
+
+Without any arguments, `git log` will output the author, date, commit ID, and the full commit message for each commit.
+This is handy when you need a quick overview of who did what and when.
+However, the list is a bit cumbersome when you're looking at a lot of commits.
+
+
+////
+Wollen Sie nur die kürzlich erstellten Commits anschauen, begrenzen Sie die Ausgabe von `git log` durch die Option `-<n>` auf _n_ Commits.
+Die letzten vier Commits erhalten Sie zum Beispiel mit:
+////
+
+If you only want to look at recently created commits, limit `git log`{empty}`'s output to _n_ commits with the `-<n>` option.
+For example, the last four commits are shown with:
+
+
+[subs="quotes"]
 --------
 $ *git log -4*
 --------
 
-Um einen einzelnen Commit anzuzeigen, geben Sie stattdessen ein:
 
-[subs="macros,quotes"]
+////
+Um einen einzelnen Commit anzuzeigen, geben Sie stattdessen ein:
+////
+
+To display a single commit, enter:
+
+[subs="quotes"]
 --------
 $ *git log -1 &lt;commit&gt;*
 --------
 
-Das Argument `<commit>` ist eine legale Bezeichnung für einen einzelnen
-Commit, z.B. die Commit-ID bzw. SHA-1-Summe. Wenn Sie jedoch
-nichts angeben, verwendet Git automatisch `HEAD`. Abgesehen von einzelnen
-Commits versteht das Kommando allerdings auch sog. _Commit-Ranges_ (Reihe
-von Commits), siehe <<sec.commit-ranges-intro>>.
 
-Die Option `-p` (`--patch`) fügt den vollen Patch im
-Unified-Diff-Format unter der Beschreibung an. Damit ist also ein
-`git show <commit>` von der Ausgabe äquivalent zu `git
-  log -1 -p <commit>`.
+////
+Das Argument `<commit>` ist eine legale Bezeichnung für einen einzelnen Commit, z.B. die Commit-ID bzw. SHA-1-Summe.
+Wenn Sie jedoch nichts angeben, verwendet Git automatisch `HEAD`.
+Abgesehen von einzelnen Commits versteht das Kommando allerdings auch sog. _Commit-Ranges_ (Reihe von Commits), siehe Abschnitt 2.1.7, "Commit-Ranges".
+////
 
-Wollen Sie die Commits in komprimierter Form anzeigen, empfiehlt sich
-die Option `--oneline`: Sie fasst jeden Commit mit seiner
-abgekürzten SHA-1-Summe und der ersten Zeile der Commit-Nachricht
-zusammen. Daher ist es wichtig, dass Sie in dieser Zeile möglichst
-hilfreiche Informationen verpacken! Das sieht dann zum Beispiel so
-aus:{fn20}
+The `<commit>` argument is a legal name for a single commit, such as the commit ID or SHA-1 sum.
+However, if you do not specify anything, Git automatically uses `HEAD`.
+Apart from single commits, the command also understands so-called _commit ranges_ (series of commits), see <<sec.commit-ranges-intro>>.
 
-[subs="macros,quotes"]
+
+////
+Die Option `-p` (`--patch`) fügt den vollen Patch im Unified-Diff-Format unter der Beschreibung an.
+Damit ist also ein `git show <commit>` von der Ausgabe äquivalent zu `git log -1 -p <commit>`.
+
+////
+The `-p` (`--patch`) option appends the full patch in Unified-Diff format below the description.
+Thus, a `git show <commit>` from the output is equivalent to `git log -1 -p <commit>`.
+
+
+////
+Wollen Sie die Commits in komprimierter Form anzeigen, empfiehlt sich die Option `--oneline`: Sie fasst jeden Commit mit seiner abgekürzten SHA-1-Summe und der ersten Zeile der Commit-Nachricht zusammen.
+Daher ist es wichtig, dass Sie in dieser Zeile möglichst hilfreiche Informationen verpacken!
+Das sieht dann zum Beispiel so aus:[20]
+////
+
+If you want to display the commits in compressed form, we recommend the `--oneline` option: It summarizes each commit with its abbreviated SHA-1 sum and the first line of the commit message.
+It is therefore important that you include as much useful information as possible in this line!
+For example, this would look like this:{fn20}
+
+
+[subs="quotes"]
 --------
 $ *git log --oneline*
 *25f3af3* Correctly report corrupted objects
@@ -746,253 +1053,375 @@ $ *git log --oneline*
 *b312b41* exec_cmd: remove unused extern
 --------
 
-Die Option `--oneline` ist nur ein Alias für
-`--pretty=oneline`. Es gibt noch andere Möglichkeiten, die
-Ausgabe von `git log` anzupassen. Die möglichen Werte für die
-Option `--pretty` sind:
+
+////
+Die Option `--oneline` ist nur ein Alias für `--pretty=oneline`.
+Es gibt noch andere Möglichkeiten, die Ausgabe von `git log` anzupassen.
+Die möglichen Werte für die Option `--pretty` sind:
+////
+
+The `--oneline` option is only an alias for `--pretty=oneline`.
+There are other ways to customize the output of `git log`.
+The possible values for the `--pretty` option are:
 
 
 
-`oneline`::  Commit-ID und erste Zeile der   Beschreibung
+////
+`oneline` ::
+Commit-ID und erste Zeile der Beschreibung
+
+`short` ::
+Commit-ID, erste Zeile der Beschreibung sowie Autor des Commits; Ausgabe umfasst vier Zeilen.
+
+`medium` ::
+Default; Ausgabe von Commit-ID, Autor, Datum und kompletter Beschreibung.
+
+`full` ::
+Commit-ID, Name des Autors, Name des Committers und vollständige Beschreibung -- _kein_ Datum.
+
+`fuller` ::
+Wie `medium`, aber zusätzlich Datum und Name des Committers.
+
+`email` ::
+Formatiert die Informationen von `medium` so, dass sie wie eine E-Mail aussehen.
+
+`format:<string>`::
+Durch Platzhalter beliebig anpassbares Format; für Details siehe die Man-Page `git-log(1)`, Abschnitt "`Pretty Formats`".
+////
+
+[horizontal]
+`oneline` ::
+Commit-ID and first line of the description.
+
+`short` ::
+Commit ID, first line of the description and author of the commit; output is four lines.
+
+`medium` ::
+Default; output of commit ID, author, date and complete description.
+
+`full` ::
+Commit ID, author's name, name of the committer and full description -- _no_ date.
+
+`fuller` ::
+Like `medium`, but additionally date and name of the committer.
+
+`email` ::
+Formats the information from `medium` so that it looks like an e-mail.
+
+`format:{wj}<string>` ::
+Any format can be adapted by placeholders; for details see the man page `git-log(1)`, section "`Pretty Formats`".
 
 
-`short`::  Commit-ID, erste Zeile der
-  Beschreibung sowie Autor des Commits; Ausgabe umfasst vier Zeilen.
 
+////
+Unabhängig davon können Sie unterhalb der Commit-Nachricht weitere Informationen über die Veränderungen durch den Commit ausgeben.
+Betrachten Sie folgende Beispiele, in denen deutlich wird, welche Dateien an wie vielen Stellen geändert wurden:
+////
 
-`medium`::  Default; Ausgabe von Commit-ID, Autor,
-  Datum und kompletter Beschreibung.
+Independently of this, you can display more information about the changes made by the commit below the commit message.
+Consider the following examples, which clearly show which files were changed in how many places:
 
-
-`full`::  Commit-ID, Name des Autors, Name des
-  Committers und vollständige Beschreibung -- _kein_ Datum.
-
-
-`fuller`::  Wie `medium`, aber zusätzlich
-  Datum und Name des Committers.
-
-
-`email`::  Formatiert die Informationen von
-  `medium` so, dass sie wie eine E-Mail aussehen.
-
-
-`format:<string>`::  Durch Platzhalter beliebig
-  anpassbares Format; für Details siehe die Man-Page `git-log(1)`,
-  Abschnitt "`Pretty Formats`".
-
-
-Unabhängig davon können Sie unterhalb der Commit-Nachricht weitere
-Informationen über die Veränderungen durch den Commit ausgeben.
-Betrachten Sie folgende Beispiele, in denen deutlich wird, welche
-Dateien an wie vielen Stellen geändert wurden:
-
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git log -1 --oneline 4868b2ea*
 4868b2e setup: officially support --work-tree without --git-dir
 
-$ git log -1 --oneline *--name-status* 4868b2ea
+$ git log -1 --oneline **--name-status** 4868b2ea
 4868b2e setup: officially support --work-tree without --git-dir
 M       setup.c
 M       t/t1510-repo-setup.sh
 
-$ git log -1 --oneline *--stat* 4868b2ea
+$ git log -1 --oneline **--stat** 4868b2ea
 4868b2e setup: officially support --work-tree without --git-dir
- setup.c               |   19 +++++
- t/t1510-repo-setup.sh |  210 pass:a[{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}{plus}------------------]
- 2 files changed, 134 insertions(+), 95 deletions(-)
+ setup.c               |   19
+ t/t1510-repo-setup.sh |  210 +++++++++++++++++------------------
+ 2 files changed, 134 insertions(), 95 deletions(-)
 
-$ git log -1 --oneline *--shortstat* 4868b2ea
-4868b2e setup: officially support --work-tree without --gi-dir
+$ git log -1 --oneline **--shortstat** 4868b2ea
+4868b2e setup: officially support --work-tree without --git-dir
  2 files changed, 134 insertions(+), 95 deletions(-)
 --------
+
+
 
 
 [[sec.git-log-dates]]
-==== Zeitliche Einschränkungen
+==== Time Constraints
+//   Zeitliche Einschränkungen
 
-Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit
-den Optionen `--after` bzw. `--since` sowie
-`--until` bzw. `--before`. Die Optionen sind jeweils
-synonym, liefern also dieselben Ergebnisse.
+////
+Sie können die anzuzeigenden Commits zeitlich eingrenzen, und zwar mit den Optionen `--after` bzw. `--since` sowie `--until` bzw. `--before`.
+Die Optionen sind jeweils synonym, liefern also dieselben Ergebnisse.
+////
 
-Sie können absolute Daten in jedem gängigen Format angeben oder auch
-relative Daten, hier einige Beispiele:
+You can restrict the time of the commits to be displayed using the `--after` or `--since` and `--until` or `--before` options.
+The options are all synonymous, so they give the same results.
 
-[subs="macros,quotes"]
+
+////
+Sie können absolute Daten in jedem gängigen Format angeben oder auch relative Daten, hier einige Beispiele:
+////
+
+You can specify absolute dates in any common format, or relative dates, here are some examples:
+
+
+[subs="quotes"]
 --------
-$ *git log --after=&#39;Tue Feb 1st, 2011&#39;*
-$ *git log --since=&#39;2011-01-01&#39;*
-$ *git log --since=&#39;two weeks ago&#39; --before=&#39;one week ago&#39;*
-$ *git log --since=&#39;yesterday&#39;*
+$ *git log --after='Tue Feb 1st, 2011'*
+$ *git log --since='2011-01-01'*
+$ *git log --since='two weeks ago' --before='one week ago'*
+$ *git log --since='yesterday'*
 --------
+
+
 
 [[sec.git-log-files]]
-==== Einschränkungen auf Dateiebene
+==== File-Level Restrictions
+//   Einschränkungen auf Dateiebene
 
-Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei-
-oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die
-zumindest eine der angegebenen Dateien betrifft. Gute Strukturierung
-eines Projekts vorausgesetzt, lässt sich die Ausgabe der Commits stark
-begrenzen und eine bestimmte Änderung rasch finden.
+////
+Geben Sie nach einem `git log`-Aufruf einen oder mehrere Datei- oder Verzeichnisnamen an, wird Git nur die Commits anzeigen, die zumindest eine der angegebenen Dateien betrifft.
+Gute Strukturierung eines Projekts vorausgesetzt, lässt sich die Ausgabe der Commits stark begrenzen und eine bestimmte Änderung rasch finden.
+////
 
-Da Dateinamen möglicherweise mit Branches oder Tags kollidieren,
-sollten Sie die Dateinamen sicherheitshalber nach einem `--`
-angeben, der besagt, dass nur noch Datei-Argumente folgen.
+If you specify one or more file or directory names after a `git log` call, Git will only display the commits that affect at least one of the specified files.
+Provided a project is well structured, the output of commits can be severely limited and a particular change can be found quickly.
 
-[subs="macros,quotes"]
+
+////
+Da Dateinamen möglicherweise mit Branches oder Tags kollidieren, sollten Sie die Dateinamen sicherheitshalber nach einem `--` angeben, der besagt, dass nur noch Datei-Argumente folgen.
+////
+
+Since filenames may collide with branches or tags, you should be sure to specify the filenames after a `--` which means that only file arguments follow.
+
+
+[subs="quotes"]
 --------
 $ *git log -- main.c*
-$ *git log -- &#42;.h*
+$ *git log -- *.h*
 $ *git log -- Documentation/*
 --------
 
-Diese Aufrufe geben nur die Commits aus, in denen Änderungen an der
-Datei `main.c`, einer `.h`-Datei respektive an einer
-Datei unterhalb von `Documentation/` vorgenommen wurden.
+
+////
+Diese Aufrufe geben nur die Commits aus, in denen Änderungen an der Datei `main.c`, einer `.h`-Datei respektive an einer Datei unterhalb von `Documentation/` vorgenommen wurden.
+////
+
+These calls only output the commits in which changes were made to the `main.c` file, an `.h` file, or a file under `Documentation/`.
+
+
 
 [[sec.git-log-grep]]
-==== grep für Commits
+==== Grep for Commits
+//   grep für Commits
 
-Sie können auch im Stile von `grep` nach Commits suchen; hier
-stehen die Optionen `--author`, `--committer` und
-`--grep` zur Verfügung.
+////
+Sie können auch im Stile von `grep` nach Commits suchen; hier stehen die Optionen `--author`, `--committer` und `--grep` zur Verfügung.
+////
 
-Die ersten beiden Optionen filtern die Commits erwartungsgemäß nach
-Autor- bzw.  Committer-Name oder -Adresse. So listen Sie zum Beispiel alle
-Commits, die Linus Torvalds seit Anfang 2010 gemacht hat:
+You can also search for commits in the style of `grep`, where the `--author`, `--committer`, and `--grep` options are available.
 
-[subs="macros,quotes"]
+
+////
+Die ersten beiden Optionen filtern die Commits erwartungsgemäß nach Autor- bzw.  Committer-Name oder -Adresse.
+So listen Sie zum Beispiel alle Commits, die Linus Torvalds seit Anfang 2010 gemacht hat:
+////
+
+The first two options filter commits by author or committer name or address, as expected.
+For example, list all commits that Linus Torvalds has made since early 2010:
+
+
+[subs="quotes"]
 --------
-$ *git log --since=&#39;2010-01-01&#39; --author=&#39;Linus Torvalds&#39;*
+$ *git log --since='2010-01-01' --author='Linus Torvalds'*
 --------
 
-Hier können Sie auch nur Teile des Namens bzw. der E-Mail-Adresse angeben; die
-Suche nach `_Linus_` würde also dasselbe Ergebnis produzieren.
 
-Mit `--grep` suchen Sie zum Beispiel nach Schlagwörtern oder
-Satzteilen in der Commit-Nachricht, etwa nach allen Commits, in denen
-das Wort "`fix`" vorkommt (ohne die Groß- und Kleinschreibung
-zu beachten):
+////
+Hier können Sie auch nur Teile des Namens bzw. der E-Mail-Adresse angeben; die Suche nach `_Linus_` würde also dasselbe Ergebnis produzieren.
+////
 
-[subs="macros,quotes"]
+You can also enter only part of the name or e-mail address here, so searching for 'Linus' would produce the same result.
+
+
+////
+Mit `--grep` suchen Sie zum Beispiel nach Schlagwörtern oder Satzteilen in der Commit-Nachricht, etwa nach allen Commits, in denen das Wort "`fix`" vorkommt (ohne die Groß- und Kleinschreibung zu beachten):
+////
+
+For example, you can use `--grep` to search for keywords or phrases in the commit message, such as all commits that contain the word "`fix`" (not case-sensitive):
+
+
+[subs="quotes"]
 --------
 $ *git log -i --grep=fix*
 --------
 
-Die Option `-i` (bzw. `--regexp-ignore-case`) bewirkt, dass
-`git log` die Groß- und Kleinschreibung des Musters ignoriert
-(funktioniert auch in Verbindung mit `--author` und
-`--committer`).
 
-Alle drei Optionen behandeln die Werte -- wie `grep` auch --
-als reguläre Ausdrücke (siehe die Man-Page `regex(7)`). Durch
-`-E` und `-F` wird das Verhalten der
-Optionen analog zu `egrep` und `fgrep` umgestellt:
-erweiterte reguläre Ausdrücke zu verwenden bzw. nach dem literalen
-Suchterm (dessen spezielle Zeichen ihre Bedeutung verlieren) zu suchen.
+////
+Die Option `-i` (bzw. `--regexp-ignore-case`) bewirkt, dass `git log` die Groß- und Kleinschreibung des Musters ignoriert (funktioniert auch in Verbindung mit `--author` und `--committer`).
+////
+
+The `-i` (or `--regexp-ignore-case`) option causes `git log` to ignore the pattern case (also works with `--author` and `--committer`).
 
 
+////
+Alle drei Optionen behandeln die Werte -- wie `grep` auch -- als reguläre Ausdrücke (siehe die Man-Page `regex(7)`).
+Durch `-E` und `-F` wird das Verhalten der Optionen analog zu `egrep` und `fgrep` umgestellt: erweiterte reguläre Ausdrücke zu verwenden bzw. nach dem literalen Suchterm (dessen spezielle Zeichen ihre Bedeutung verlieren) zu suchen.
+////
+
+All three options treat the values as regular expressions, just like `grep` (see the `regex(7)` man page).
+The `-E` and `-F` options change the behaviour of the options in the same way as `egrep` and `fgrep`: to use extended regular expressions or to search for the literal search term (whose special characters lose their meaning).
 
 
 
 [TIP]
 ================
-Um nach _Änderungen_ zu suchen, verwenden Sie das sog.  _Pickaxe_-Tool
-("`Spitzhacke`"). So finden Sie Commits, in deren Diff ein bestimmter
-regulärer Ausdruck vorkommt ("``grep` für Diffs`"):
+////
+Um nach _Änderungen_ zu suchen, verwenden Sie das sog.  _Pickaxe_-Tool ("`Spitzhacke`").
+So finden Sie Commits, in deren Diff ein bestimmter regulärer Ausdruck vorkommt ("``grep` für Diffs`"):
+////
 
-[subs="macros,quotes"]
+To search for _changes_, use the so-called _Pickaxe_ tool.
+This will help you find commits whose diffs contain a certain regular expression ("`{empty}``grep`` for diffs`"):
+
+[subs="quotes"]
 --------
 $ *git log -p -G&lt;regex&gt;*
 --------
 
-Der `<regex>` ist direkt, d.h. ohne Leerzeichen, nach der
-Pickaxe-Option `-G` anzugeben. Die Option `--pickaxe-all` bewirkt, dass
-alle Veränderungen des Commits aufgelistet werden, nicht nur
-diejenigen, die die gesuchte Änderung enthalten.
 
-Beachten Sie, dass in früheren Git-Versionen für diese Operation die
-Option `-S` zuständig war, die allerdings einen Unterschied zu
-`-G` aufweist: Sie findet nur die Commits, die die _Anzahl_ der
-Vorkommnisse des Musters ändern -- insbesondere werden
-Code-Verschiebungen, also Entfernen und Hinzufügen an anderer Stelle in
-einer Datei, nicht gefunden.
+////
+Der `<regex>` ist direkt, d.h. ohne Leerzeichen, nach der Pickaxe-Option `-G` anzugeben.
+Die Option `--pickaxe-all` bewirkt, dass alle Veränderungen des Commits aufgelistet werden, nicht nur diejenigen, die die gesuchte Änderung enthalten.
+////
+
+The `<regex>` must be specified directly, i.e. without spaces, after the `-G` pickaxe option.
+The `--pickaxe-all` option causes all changes to the commit to be listed, not just those containing the change you are looking for.
+
+
+////
+Beachten Sie, dass in früheren Git-Versionen für diese Operation die Option `-S` zuständig war, die allerdings einen Unterschied zu `-G` aufweist: Sie findet nur die Commits, die die _Anzahl_ der Vorkommnisse des Musters ändern -- insbesondere werden Code-Verschiebungen, also Entfernen und Hinzufügen an anderer Stelle in einer Datei, nicht gefunden.
+////
+
+Note that in earlier versions of Git, this operation was performed by the `-S` option, but it differs from `-G` in that it only finds the commits that change the number of times the pattern occurs -- especially code shifts, i.e., removals and additions elsewhere in a file, are not found.
 ================
 
-Mit diesen Werkzeugen gerüstet, können Sie nun selbst Massen von
-Commits bändigen. Geben Sie nur entsprechend viele Kriterien an, um
-die Anzahl der Commits zu verringern.
+
+////
+Mit diesen Werkzeugen gerüstet, können Sie nun selbst Massen von Commits bändigen.
+Geben Sie nur entsprechend viele Kriterien an, um die Anzahl der Commits zu verringern.
+////
+
+Equipped with these tools, you can now tame masses of commits yourself.
+Just specify as many criteria as you need to reduce the number of commits.
+
 
 
 [[sec.commit-ranges-intro]]
 === Commit-Ranges
+//  Commit-Ranges
 
-Bisher haben wir lediglich Kommandos betrachtet, die nur einen
-einzelnen Commit als Argument fordern, explizit identifiziert durch
-seine Commit-ID oder implizit durch den symbolischen Namen
-`HEAD`, der den jeweils aktuellsten Commit referenziert.
+////
+Bisher haben wir lediglich Kommandos betrachtet, die nur einen einzelnen Commit als Argument fordern, explizit identifiziert durch seine Commit-ID oder implizit durch den symbolischen Namen `HEAD`, der den jeweils aktuellsten Commit referenziert.
+////
 
-Das Kommando `git show` zeigt Informationen zu einem Commit an,
-das Kommando `git log` beginnt bei einem Commit, und geht dann
-so weit in der Versionsgeschichte zurück, bis der Anfang des
-Repositorys (der sogenannte _Root-Commit_) erreicht ist.
+So far, we've only looked at commands that require only a single commit as an argument, explicitly identified by its commit ID, or implicitly by the symbolic name `HEAD`, which references the most recent commit.
 
-Ein wichtiges Hilfsmittel, um eine Reihe von Commits anzugeben, sind
-sogenannte Commit-Ranges der Form `<commit1>..<commit2>`.  Da
-wir bislang noch nicht mit mehreren Branches (Zweigen) arbeiten,
-ist dies einfach ein Ausschnitt der Commits in einem Repository, und
-zwar von `<commit1>` exklusive bis `<commit2>`
-inklusive. Sofern Sie eine der beiden Grenzen weglassen, nimmt Git
-dafür den Wert `HEAD` an.
+
+Das Kommando `git show` zeigt Informationen zu einem Commit an, das Kommando `git log` beginnt bei einem Commit, und geht dann so weit in der Versionsgeschichte zurück, bis der Anfang des Repositorys (der sogenannte _Root-Commit_) erreicht ist.
+
+The `git show` command displays information about a commit, while the `git log` command starts at a commit, and then goes back in the version history until the beginning of the repository (called the `root commit`) is reached.
+
+
+////
+Ein wichtiges Hilfsmittel, um eine Reihe von Commits anzugeben, sind sogenannte Commit-Ranges der Form `<commit1>..<commit2>`.
+Da wir bislang noch nicht mit mehreren Branches (Zweigen) arbeiten, ist dies einfach ein Ausschnitt der Commits in einem Repository, und zwar von `<commit1>` exklusive bis `<commit2>` inklusive.
+Sofern Sie eine der beiden Grenzen weglassen, nimmt Git dafür den Wert `HEAD` an.
+////
+
+An important tool for specifying a series of commits is the so-called commit ranges in the form `<commit1>..<commit2>`.
+Since we have not yet worked with multiple branches, this is simply a range of commits in a repository, from `<commit1>` exclusive to `<commit2>` inclusive.
+If you omit one of the two boundaries, Git will take the value `HEAD`.
+
+
 
 [[sec.git-diff]]
-=== Unterschiede zwischen Commits
+=== Differences between Commits
+//  Unterschiede zwischen Commits
 
-Das Kommando `git show` bzw. `git log -p` hat bisher
-immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
-Wollen Sie die Unterschiede mehrerer Commits einsehen, hilft
-das Kommando `git diff`.
+////
+Das Kommando `git show` bzw. `git log -p` hat bisher immer nur den Unterschied zu dem jeweils vorherigen Commit ausgegeben.
+Wollen Sie die Unterschiede mehrerer Commits einsehen, hilft das Kommando `git diff`.
+////
 
-Das Diff-Kommando erfüllt mehrere Aufgaben. Wie bereits gesehen,
-können Sie ohne weitere Angabe von Commits die Unterschiede zwischen
-Working Tree und Index bzw. mit der Option `--staged` die
-Unterschiede zwischen Index und `HEAD` untersuchen.
-
-Wenn Sie dem Kommando aber zwei Commits bzw. eine Commit-Range
-übergeben, wird stattdessen der Unterschied zwischen diesen
-Commits angezeigt.
+The command `git show` or `git log -p` has been used to show only the difference from the previous commit.
+If you want to see the differences between several commits, the command `git diff`.
 
 
+////
+Das Diff-Kommando erfüllt mehrere Aufgaben.
+Wie bereits gesehen, können Sie ohne weitere Angabe von Commits die Unterschiede zwischen Working Tree und Index bzw. mit der Option `--staged` die Unterschiede zwischen Index und `HEAD` untersuchen.
+////
 
-[[sec.objektmodell]]
-== Das Objektmodell
+The diff command performs several tasks.
+As already seen, you can examine the differences between the working tree and the index without specifying any commits, or the differences between index and `HEAD` with the `--staged` option.
 
-Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell. Es
-dient dazu, die typischen Elemente eines Repositorys (Dateien,
-Verzeichnisse, Commits) und die Entwicklung über die Zeit abzubilden.
-Das Verständnis dieses Modells ist von großer Bedeutung und hilft sehr
-dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie
-so besser zu verstehen.
 
-Im Folgenden dient uns als Beispiel wieder ein "`Hello
-World!`"-Programm, diesmal in der Programmiersprache Python.{fn21}
+////
+Wenn Sie dem Kommando aber zwei Commits bzw. eine Commit-Range übergeben, wird stattdessen der Unterschied zwischen diesen Commits angezeigt.
+////
 
-.Hello World!-Programm in Python
+However, if you pass two commits or a commit range to the command, the difference between these commits is displayed instead.
+
+
+
+[[sec.object-model]]
+== The Object Model
+// Das Objektmodell
+
+////
+Git basiert auf einem simplen, aber äußerst mächtigen Objektmodell.
+Es dient dazu, die typischen Elemente eines Repositorys (Dateien, Verzeichnisse, Commits) und die Entwicklung über die Zeit abzubilden.
+Das Verständnis dieses Modells ist von großer Bedeutung und hilft sehr dabei, von typischen Git-Arbeitsschritten zu abstrahieren und sie so besser zu verstehen.
+////
+
+Git is based on a simple but extremely powerful object model.
+It is used to map the typical elements of a repository (files, directories, commits) and the development over time.
+Understanding this model is very important, and it helps to abstract from typical Git steps to better understand them.
+
+
+////
+Im Folgenden dient uns als Beispiel wieder ein "`Hello World!`"-Programm, diesmal in der Programmiersprache Python.[21]
+////
+
+In the following, we will again use a "`Hello World!`" program as an example, this time in the Python programming language.{fn21}
+
+
+// @TODO: TRANSLATE IMAGE ID
+."`Hello World!`" Program in Python
 image::objektmodell-programm-crop.png[id="fig.objektmodell-program-crop",scaledwidth="25%",width="25%"]
 
-Das Projekt besteht aus der Datei `hello.py` sowie einer
-`README`-Datei und einem Verzeichnis `test`. Führt man
-das Programm mit dem Befehl `python hello.py` aus,  erhält
-man die Ausgabe: `Hello World!`. In dem Verzeichnis
-`test` liegt ein simples Shell-Script, `test.sh`,
-das eine Fehlermeldung anzeigt, sollte das Python-Programm nicht
-wie erwartet den String `Hello World!` ausgeben.
 
-Das Repository für dieses Projekt besteht aus den folgenden vier
-Commits:
+////
+Das Projekt besteht aus der Datei `hello.py` sowie einer `README`-Datei und einem Verzeichnis `test`.
+Führt man das Programm mit dem Befehl `python hello.py` aus,  erhält man die Ausgabe: `Hello World!`.
+In dem Verzeichnis `test` liegt ein simples Shell-Script, `test.sh`, das eine Fehlermeldung anzeigt, sollte das Python-Programm nicht wie erwartet den String `Hello World!` ausgeben.
+////
 
-[subs="macros,quotes"]
+The project consists of the file `hello.py` as well as a `README` file and a directory `test`.
+If you run the program with the command `python hello.py`, you will get the output: `Hello World!`.
+In the directory `test` is a simple shell script, `test.sh`, which displays an error message if the Python program does not output the string `Hello World!` as expected.
+
+
+////
+Das Repository für dieses Projekt besteht aus den folgenden vier Commits:
+////
+
+The repository for this project consists of the following four commits:
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git log --oneline*
 e2c67eb Kommentar fehlte
@@ -1001,233 +1430,311 @@ e2c67eb Kommentar fehlte
 b0400b0 Erste Version
 --------
 
+
+
 [[sec.sha1]]
-=== SHA-1 – der sichere Hash-Algorithmus
+=== SHA-1 -- The Secure Hash Algorithm
+//  SHA-1 – der sichere Hash-Algorithmus
 
 
-SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash
-  Algorithm'), der eine Prüfsumme digitaler Informationen berechnet:
-die SHA-1-Summe.  Der Algorithmus wurde 1995 vom amerikanischen
-_National Institute of Standards and Technology_ (NIST) und der
-_National Security Agency_ (NSA) vorgestellt.  SHA-1 wurde für
-kryptographische Zwecke entwickelt und findet bei der
-Integritätsprüfung von Nachrichten sowie als Basis für digitale
-Signaturen Anwendung. Die Funktionsweise stellt <<fig.sha>> dar, wo wir die Prüfsumme von `hello.py`
-berechnen.
+////
+SHA-1 ist ein sicherer Hash-Algorithmus ('Secure Hash Algorithm'), der eine Prüfsumme digitaler Informationen berechnet: die SHA-1-Summe.
+Der Algorithmus wurde 1995 vom amerikanischen _National Institute of Standards and Technology_ (NIST) und der _National Security Agency_ (NSA) vorgestellt.
+SHA-1 wurde für kryptographische Zwecke entwickelt und findet bei der Integritätsprüfung von Nachrichten sowie als Basis für digitale Signaturen Anwendung.
+Die Funktionsweise stellt Abbildung 2.3, "SHA-1-Algorithmus" dar, wo wir die Prüfsumme von `hello.py` berechnen.
+////
+
+SHA-1 is a secure hash algorithm that calculates a checksum of digital information: the SHA-1 sum.
+The algorithm was introduced in 1995 by the American _National Institute of Standards and Technology_ (NIST) and the _National Security Agency_ (NSA).
+SHA-1 was developed for cryptographic purposes and is used for checking the integrity of messages and as a basis for digital signatures.
+<<fig.sha>> shows how it works, where we calculate the checksum of `hello.py`.
 
 
-Es handelt sich bei dem Algorithmus um eine mathematische
-Einwegfunktion, die eine Bit-Sequenz mit maximaler Länge 2^64^-1
-Bit (ca. 2{nbsp}Exbibyte) auf eine Prüfsumme der Länge 160{nbsp}Bit
-(20{nbsp}Byte) abbildet.  Die Prüfsumme wird üblicherweise als hexadezimale
-Zeichenkette der Länge 40 dargestellt. Der Algorithmus führt bei
-dieser Länge der Prüfsumme zu 2^160^ (ca. 1.5 · 10^49^)
-verschiedenen Kombinationen, und daher ist es sehr, sehr
-unwahrscheinlich, dass zwei Bit-Sequenzen die gleiche Prüfsumme haben.
+////
+Es handelt sich bei dem Algorithmus um eine mathematische Einwegfunktion, die eine Bit-Sequenz mit maximaler Länge 2^64^-1 Bit (ca. 2{nbsp}Exbibyte) auf eine Prüfsumme der Länge 160{nbsp}Bit (20{nbsp}Byte) abbildet.
+Die Prüfsumme wird üblicherweise als hexadezimale Zeichenkette der Länge 40 dargestellt.
+Der Algorithmus führt bei dieser Länge der Prüfsumme zu 2^160^ (ca. 1.5 · 10^49^) verschiedenen Kombinationen, und daher ist es sehr, sehr unwahrscheinlich, dass zwei Bit-Sequenzen die gleiche Prüfsumme haben.
 Diese Eigenschaft wird als _Kollisionssicherheit_ bezeichnet.
+////
+
+The algorithm is a mathematical one-way function that maps a bit sequence of maximum length 2^64^-1 bits (about 2 exbibytes) to a checksum of length 160 bits (20 bytes).
+The checksum is usually represented as a hexadecimal character string of length 40.
+The algorithm results in 2^160^ (approx. 1.5 · 10^49^) different combinations for this length of checksum, and therefore it is very, very unlikely that two bit sequences have the same checksum.
+This property is called _collision safety_.
 
 
-.SHA-1-Algorithmus
+.SHA-1 Algorithm
 image::sha.png[id="fig.sha",scaledwidth="90%",width="90%"]
 
 
-Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren
-verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen
-von Kollisionen mit einem erheblichen Rechenaufwand möglich machen
-sollen.{fn22}
-Aus diesem Grund empfiehlt das NIST heute die
-Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die
-über längere Prüfsummen verfügen und somit das Erzeugen von
-Kollisionen erschweren. Auf der Git-Mailingliste wurde debattiert, ob
-man zu einer dieser Alternativen wechseln solle, doch wurde dieser
-Schritt nicht als nötig
-erachtet.{fn23}
 
 
-Denn obwohl ein theoretischer Angriffsvektor auf den SHA-1-Algorithmus
-besteht, beeinträchtigt dies nicht die Sicherheit von Git. Die
-Integrität eines Repositorys wird nämlich nicht vorrangig durch die
-Kollisionssicherheit eines Algorithmus geschützt, sondern dadurch,
-dass viele Entwickler identische Kopien des Repositorys haben.
+////
+Allen Bemühungen der Kryptologen zum Trotz wurden vor einigen Jahren verschiedene theoretische Angriffe auf SHA-1 bekannt, die das Erzeugen von Kollisionen mit einem erheblichen Rechenaufwand möglich machen sollen.[22]
+Aus diesem Grund empfiehlt das NIST heute die Verwendung der Nachfolger von SHA-1: SHA-256, SHA-384 und SHA-512, die über längere Prüfsummen verfügen und somit das Erzeugen von Kollisionen erschweren.
+Auf der Git-Mailingliste wurde debattiert, ob man zu einer dieser Alternativen wechseln solle, doch wurde dieser Schritt nicht als nötig erachtet.[23]
+////
 
-Der SHA-1-Algorithmus spielt bei Git eine zentrale Rolle, da er
-verwendet wird, um Prüfsummen von den im Git-Repository gespeicherten
-Daten, den _Git-Objekten_, zu bilden. Damit sind diese leicht und
-eindeutig als SHA-1-Summe ihres Inhalts zu referenzieren.  Im
-täglichen Umgang mit Git werden Sie meist nur SHA-1-Summen von Commits
-verwenden, sog. Commit-IDs. Diese Referenz kann an viele
-Git-Kommandos, wie z.B.{empty}{nbsp}`git show` und `git diff`,
-übergeben werden. Je nach Repository müssen Sie oft nur die ersten
-Zeichen einer SHA-1-Summe angeben, da ein Präfix in der Praxis
-ausreicht, um einen Commit eindeutig zu identifizieren.
-
-[[sec.objekte]]
-=== Die Git-Objekte
-
-Alle in einem Repository gespeicherten Daten liegen als
-_Git-Objekte_ vor. Man unterscheidet vier
-Typen:{fn24}
+Despite all efforts of cryptologists, several years ago various theoretical attacks on SHA-1 became known, which are supposed to make the generation of collisions possible with a considerable computing effort.{fn22}
+For this reason, NIST today recommends the use of the successors of SHA-1: SHA-256, SHA-384 and SHA-512, which have longer checksums and thus make the generation of collisions more difficult.
+On the Git mailing list there was a debate about switching to one of these alternatives, but this step was not considered necessary.{fn23}
 
 
+////
+Denn obwohl ein theoretischer Angriffsvektor auf den SHA-1-Algorithmus besteht, beeinträchtigt dies nicht die Sicherheit von Git.
+Die Integrität eines Repositorys wird nämlich nicht vorrangig durch die Kollisionssicherheit eines Algorithmus geschützt, sondern dadurch, dass viele Entwickler identische Kopien des Repositorys haben.
+////
+
+This is because, although there is a theoretical attack vector on the SHA-1 algorithm, this does not compromise the security of Git.
+In fact, the integrity of a repository is not primarily protected by the collision resistance of an algorithm, but by the fact that many developers have identical copies of the repository.
+
+
+////
+Der SHA-1-Algorithmus spielt bei Git eine zentrale Rolle, da er verwendet wird, um Prüfsummen von den im Git-Repository gespeicherten Daten, den _Git-Objekten_, zu bilden.
+Damit sind diese leicht und eindeutig als SHA-1-Summe ihres Inhalts zu referenzieren.
+Im täglichen Umgang mit Git werden Sie meist nur SHA-1-Summen von Commits verwenden, sog. Commit-IDs.
+Diese Referenz kann an viele Git-Kommandos, wie z.B. `git show` und `git diff`, übergeben werden.
+Je nach Repository müssen Sie oft nur die ersten Zeichen einer SHA-1-Summe angeben, da ein Präfix in der Praxis ausreicht, um einen Commit eindeutig zu identifizieren.
+////
+
+The SHA-1 algorithm plays a central role in Git because it is used to build checksums of the data stored in the Git repository, the _Git objects_.
+This makes them easy to reference as SHA-1 sums of their contents.
+In your daily work with Git, you will usually only use SHA-1 sums of commits, known as commit IDs.
+This reference can be passed to many Git commands, such as `git show` and `git diff`.
+Depending on the repository, you often only need to specify the first few characters of an SHA-1 sum, since in practice a prefix is sufficient to uniquely identify a commit.
+
+
+
+
+[[sec.objects]]
+=== The Git Objects
+//  Die Git-Objekte
+
+////
+Alle in einem Repository gespeicherten Daten liegen als _Git-Objekte_ vor.
+Man unterscheidet vier Typen:[24]
+////
+
+All data stored in a Git repository is available as _Git objects_.
+There are four types:{fn24}
+
+////
+| Objekt | Speichert...      | Referenziert andere Objekte        | Entsprechung
+| Blob   | Dateiinhalt       | Nein                               | Datei
+| Tree   | Blobs und Trees   | Ja                                 | Verzeichnis
+| Commit | Projekt-Zustand   | Ja, einen Tree und weitere Commits | Snapshot/Archiv zu einem Zeitpunkt
+| Tag    | Tag-Informationen | Ja, ein Objekt                     | Benennung wichtiger Snapshots oder Blobs
+////
 
 [[tab.cgit-options]]
-.Git-Objekte
+.Git Objects
 [options="header",cols="1,2,2,2"]
 |=====================
-| Objekt | Speichert... | Referenziert andere Objekte | Entsprechung
-| Blob | Dateiinhalt | Nein | Datei
-| Tree | Blobs und Trees | Ja | Verzeichnis
-| Commit | Projekt-Zustand | Ja, einen Tree und weitere Commits | Snapshot/Archiv zu einem Zeitpunkt
-| Tag | Tag-Informationen | Ja, ein Objekt | Benennung wichtiger Snapshots oder Blobs
+| Object | Saves...        | References other objects        | Correspondence
+| Blob   | File content    | No                              | File
+| Tree   | Blobs and Trees | Yes                             | Directory
+| Commit | Project state   | Yes, a tree and further commits | Snapshot/Archive at a time
+| Tag    | Tag information | Yes, an object                  | Naming important snapshots or blobs
 |=====================
 
-<<fig.objekte>> zeigt drei Objekte aus dem
-Beispielprojekt -- einen Blob, einen Tree und einen
-Commit.{fn25}
-Die Darstellung der einzelnen Objekte enthält den Objekttyp, die Größe
-in Byte, die SHA-1-Summe sowie den Inhalt. Der Blob enthält den Inhalt
-der Datei `hello.py` (aber nicht den Dateinamen).  Der Tree
-enthält Referenzen auf je einen Blob für jede Datei in dem Projekt,
-also eine für `hello.py` sowie eine für `README`,
-außerdem einen Tree pro Unterverzeichnis, also in diesem Fall nur
-einen einzigen für `test`. Die Dateien in den
-Unterverzeichnissen werden separat in den jeweiligen Trees
-referenziert, die diese Unterverzeichnisse abbilden.
 
+////
+Abbildung 2.4, "Git-Objekte" zeigt drei Objekte aus dem Beispielprojekt -- einen Blob, einen Tree und einen Commit.[25]
+Die Darstellung der einzelnen Objekte enthält den Objekttyp, die Größe in Byte, die SHA-1-Summe sowie den Inhalt.
+Der Blob enthält den Inhalt der Datei `hello.py` (aber nicht den Dateinamen).
+Der Tree enthält Referenzen auf je einen Blob für jede Datei in dem Projekt, also eine für `hello.py` sowie eine für `README`, außerdem einen Tree pro Unterverzeichnis, also in diesem Fall nur einen einzigen für `test`.
+Die Dateien in den Unterverzeichnissen werden separat in den jeweiligen Trees referenziert, die diese Unterverzeichnisse abbilden.
+////
 
+<<fig.objekte>> shows three objects from the example project -- a blob, a tree, and a commit.{fn25}
+The representation of each object includes the object type, the size in bytes, the SHA-1 sum, and the contents.
+The blob contains the content of the file `hello.py` (but not the file name).
+The tree contains references to one blob for each file in the project, i.e. one for `hello.py` and one for `README`, plus one tree per subdirectory, i.e. in this case only one for `test`.
+The files in the subdirectories are referenced separately in the respective trees that map these subdirectories.
 
-.Git-Objekte
+// @TRANSLATE IMAGE TEXT
+
+.Git Objects
+// .Git-Objekte
 image::objekte.png[id="fig.objekte",scaledwidth="90%",width="90%"]
 
 
-Das Commit-Objekt enthält also genau _eine_ Referenz auf einen
-Tree, und zwar auf den Tree des Projekt-Inhalts -- dies ist ein
-Schnappschuss des Projekt-Zustands. Des weiteren enthält das
-Commit-Objekt eine Referenz auf dessen direkten Vorfahren sowie die
-Metadaten "`Autor`" und "`Committer`" und die
-Commit-Nachricht.
+////
+Das Commit-Objekt enthält also genau _eine_ Referenz auf einen Tree, und zwar auf den Tree des Projekt-Inhalts -- dies ist ein Schnappschuss des Projekt-Zustands.
+Des weiteren enthält das Commit-Objekt eine Referenz auf dessen direkten Vorfahren sowie die Metadaten "`Autor`" und "`Committer`" und die Commit-Nachricht.
+////
 
-Viele Git-Kommandos erwarten als Argument einen Tree. Da aber z.B.
-ein Commit einen Tree referenziert, spricht man hier von einem sog.
-_tree-ish_, d.h. Tree-_artigen_ Argument. Gemeint ist
-damit jedes Objekt, das sich zuletzt auf einen Tree auflösen lässt.
-In diese Kategorie fallen auch Tags (vgl. <<sec.tags>>).
-Analog bezeichnet _commit-ish_ ein Argument, das sich auf einen
-Commit auflösen lässt.
+So the commit object contains exactly _one_ reference to a tree, and that reference is to the tree of the project content -- this is a snapshot of the state of the project.
+The commit object also contains a reference to its direct ancestors, along with the metadata "`author`" and "`committer`" and the commit message.
 
-Dateiinhalte werden immer in Blobs gespeichert. Trees enthalten nur
-Referenzen zu Blobs und anderen Trees in Form der SHA-1-Summen dieser
-Objekte. Ein Commit wiederum referenziert _einen_ Tree.
+
+////
+Viele Git-Kommandos erwarten als Argument einen Tree.
+Da aber z.B. ein Commit einen Tree referenziert, spricht man hier von einem sog. _tree-ish_, d.h. Tree-_artigen_ Argument.
+Gemeint ist damit jedes Objekt, das sich zuletzt auf einen Tree auflösen lässt.
+In diese Kategorie fallen auch Tags (vgl. Abschnitt 3.1.3, "Tags -- Wichtige Versionen markieren").
+Analog bezeichnet _commit-ish_ ein Argument, das sich auf einen Commit auflösen lässt.
+////
+
+Many Git commands expect a tree as an argument.
+However, because a commit, for example, references a tree, this is called a _tree-ish_ argument.
+This refers to any object that can last be resolved to a tree.
+This category also includes tags (see <<sec.tags>>).
+Similarly, _commit-ish_ is an argument that can be resolved to a commit.
+
+
+////
+Dateiinhalte werden immer in Blobs gespeichert.
+Trees enthalten nur Referenzen zu Blobs und anderen Trees in Form der SHA-1-Summen dieser Objekte.
+Ein Commit wiederum referenziert _einen_ Tree.
+////
+
+File contents are always stored in blobs.
+Trees only contain references to blobs and other trees in the form of the SHA-1 sums of these objects.
+A commit in turn references _a_ tree.
+
+
+
 
 [[sec.od]]
-=== Die Objektdatenbank
+=== The Object Database
+//  Die Objektdatenbank
 
-Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und
-sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie
-können ein Objekt, nachdem es gespeichert wurde, über seine
-SHA-1-Summe in der Datenbank finden. Dadurch funktioniert die
-Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die
-SHA-1-Summen als Schlüssel für den gespeicherten
-Inhalt{empty}{fn26} dienen:
+////
+Alle Git-Objekte werden in der _Objektdatenbank_ gespeichert und sind durch ihre eindeutige SHA-1-Summe identifizierbar, d.h. Sie können ein Objekt, nachdem es gespeichert wurde, über seine SHA-1-Summe in der Datenbank finden.
+Dadurch funktioniert die Objektdatenbank im Prinzip wie eine große _Hash-Tabelle_, wo die SHA-1-Summen als Schlüssel für den gespeicherten Inhalt dienen:[26]
+////
 
-[subs="macros,quotes"]
+All Git objects are stored in the _object database_ and are identifiable by their unique SHA-1 sum, i.e. you can find an object in the database by its SHA-1 sum once it has been stored.
+Thus, the object database basically functions like a large _hash table_, where the SHA-1 sums serve as keys for the stored contents:{fn26}
+
+
+[subs="quotes"]
 --------
-e2c67eb -> *commit*
-8e2f5f9 -> *commit*
-308aea1 -> *commit*
-b0400b0 -> *commit*
-a26b00a -> *tree*
-6cf9be8 -> *blob*  (README)
-52ea6d6 -> *blob*  (hello.py)
-c37fd6f -> *tree*  (test)
-e92bf15 -> *blob*  (test/test.sh)
-5b4b58b -> *tree*
-dcc027b -> *blob*  (hello.py)
-e4dc644 -> *tree*
-a347f5e -> *tree*
+e2c67eb &xrarr; *commit*
+8e2f5f9 &xrarr; *commit*
+308aea1 &xrarr; *commit*
+b0400b0 &xrarr; *commit*
+a26b00a &xrarr; *tree*
+6cf9be8 &xrarr; *blob*  (README)
+52ea6d6 &xrarr; *blob*  (hello.py)
+c37fd6f &xrarr; *tree*  (test)
+e92bf15 &xrarr; *blob*  (test/test.sh)
+5b4b58b &xrarr; *tree*
+dcc027b &xrarr; *blob*  (hello.py)
+e4dc644 &xrarr; *tree*
+a347f5e &xrarr; *tree*
 --------
 
-Sie sehen zunächst die vier Commits, die das Repository ausmachen,
-unter anderem auch den in  <<fig.objekte>> gezeigten
-Commit `e2c67eb`.  Darauf folgen Trees und Blobs, jeweils mit
-Datei- bzw. Verzeichnisentsprechung.  Sogenannte 'Top-Level
-  Trees' haben keinen Verzeichnisnamen: Sie referenzieren die oberste
-Ebene eines Projekts. Ein Commit referenziert immer einen Top-Level
-Tree, daher gibt es davon auch vier Stück.
+
+////
+Sie sehen zunächst die vier Commits, die das Repository ausmachen, unter anderem auch den in Abbildung 2.4, "Git-Objekte" gezeigten Commit `e2c67eb`.
+Darauf folgen Trees und Blobs, jeweils mit Datei- bzw. Verzeichnisentsprechung.
+Sogenannte _Top-Level Trees_ haben keinen Verzeichnisnamen: Sie referenzieren die oberste Ebene eines Projekts.
+Ein Commit referenziert immer einen Top-Level Tree, daher gibt es davon auch vier Stück.
+////
+
+You will first see the four commits that make up the Git repository, including the `e2c67eb` commit shown in <<fig.objekte>>.
+This is followed by trees and blobs, each with file or directory correspondence.
+So-called _top-level trees_ have no directory name: They refer to the top level of a project.
+A commit always references a top-level tree, so there are four of them.
 
 
-Die hierarchische Beziehung der oben aufgelisteten Objekte stellt
-<<fig.objekte-zusammenhang>> dar.  Sie sehen auf der
-linken Seite die vier Commits, die sich bereits im Repository
-befinden, auf der rechten Seite die referenzierten Inhalte des
-aktuellsten Commits (C4). So enthält jeder Commit, wie schon
-beschrieben, eine Referenz zu seinem direkten Vorfahren (auf den so
-entstehenden Graph von Commits wird weiter unten eingegangen).  Dieser
-Zusammenhang wird durch die Pfeile, die von einem Commit zum nächsten
-zeigen, illustriert.
+////
+Die hierarchische Beziehung der oben aufgelisteten Objekte stellt Abbildung 2.5, "Hierarchische Beziehung der Git-Objekte" dar.
+Sie sehen auf der linken Seite die vier Commits, die sich bereits im Repository befinden, auf der rechten Seite die referenzierten Inhalte des aktuellsten Commits (C4).
+So enthält jeder Commit, wie schon beschrieben, eine Referenz zu seinem direkten Vorfahren (auf den so entstehenden Graph von Commits wird weiter unten eingegangen).
+Dieser Zusammenhang wird durch die Pfeile, die von einem Commit zum nächsten zeigen, illustriert.
+////
+
+The hierarchical relationship of the objects listed above is shown in <<fig.objekte-zusammenhang>>.
+On the left-hand side, you can see the four commits that are already in the repository, and on the right-hand side, the referenced contents of the most recent commit (C4).
+As described above, each commit contains a reference to its direct predecessor (the resulting graph of commits is discussed below).
+This relationship is illustrated by the arrows pointing from one commit to the next.
 
 
-.Hierarchische Beziehung der Git-Objekte
+// @TRANSLATE IMAGE TEXT
+// @TODO: TRANSLATE IMAGE ID
+
+// .Hierarchische Beziehung der Git-Objekte
+.Hierarchical Relationship of Git Objects
 image::objekte-zusammenhang.png[id="fig.objekte-zusammenhang",scaledwidth="65%",width="65%"]
 
 
-Jeder Commit referenziert den Top-Level Tree -- auch der Commit
-C4 in dem Beispiel. Der Top-Level Tree wiederum referenziert
-die Dateien `hello.py` und `README` in Form von Blobs
-sowie das Unterverzeichnis `test` in Form eines weiteren
-Trees. Durch diesen hierarchischen Aufbau und das Verhältnis der
-einzelnen Objekte zueinander ist Git in der Lage, die Inhalte eines
-hierarchischen Dateisystems als Git-Objekte abzubilden und in der
-Objektdatenbank zu speichern.
+////
+Jeder Commit referenziert den Top-Level Tree -- auch der Commit C4 in dem Beispiel.
+Der Top-Level Tree wiederum referenziert die Dateien `hello.py` und `README` in Form von Blobs sowie das Unterverzeichnis `test` in Form eines weiteren Trees.
+Durch diesen hierarchischen Aufbau und das Verhältnis der einzelnen Objekte zueinander ist Git in der Lage, die Inhalte eines hierarchischen Dateisystems als Git-Objekte abzubilden und in der Objektdatenbank zu speichern.
+////
+
+Each commit references the top-level tree -- including the C4 commit in the example.
+The top-level tree in turn references the files `hello.py` and `README` in the form of blobs, and the subdirectory `test` in the form of another tree.
+Because of this hierarchical structure and the relationship of the individual objects to one another, Git is able to map the contents of a hierarchical file system as Git objects and store them in the object database.
+
+
 
 [[sec.explore-od]]
-=== Die Objektdatenbank untersuchen
+=== Examining the Object Database
+//  Die Objektdatenbank untersuchen
 
-In einem kleinen Exkurs gehen wir darauf ein, wie man die
-Objektdatenbank von Git untersucht. Dafür stellt Git sogenannte
-_Plumbing_-Kommandos ("`Klempner-Kommandos`") zur
-Verfügung, eine Gruppe von Low-Level-Tools für Git, im
-Gegensatz zu den _Porcelain_-Kommandos, mit denen Sie in der
-Regel arbeiten. Diese Kommandos sind also nicht wichtig für
-Git-Anfänger, sondern sollen nur einen anderen Zugang zum Konzept der
-Objektdatenbank vermitteln.  Für mehr Informationen siehe
-<<sec.scripting>>.
+////
+In einem kleinen Exkurs gehen wir darauf ein, wie man die Objektdatenbank von Git untersucht.
+Dafür stellt Git sogenannte _Plumbing_-Kommandos ("`Klempner-Kommandos`") zur Verfügung, eine Gruppe von Low-Level-Tools für Git, im Gegensatz zu den _Porcelain_-Kommandos, mit denen Sie in der Regel arbeiten.
+Diese Kommandos sind also nicht wichtig für Git-Anfänger, sondern sollen nur einen anderen Zugang zum Konzept der Objektdatenbank vermitteln.
+Für mehr Informationen siehe Abschnitt 8.3, "Eigene Git-Kommandos schreiben".
+////
+
+In a short digression we will go into how to examine the object database of Git.
+To do this, Git provides so-called _plumbing_ commands, a group of low-level tools for Git, as opposed to the _porcelain_ commands you usually work with.
+These commands are therefore not important for Git beginners, but are simply intended to give you a different approach to the concept of the object database.
+For more information, see <<sec.scripting>>.
 
 
-Schauen wir uns zuerst den aktuellen Commit an. Wir verwenden dazu das
-Kommando `git show` mit der Option `--format=raw`,
-lassen uns also den Commit im Rohformat ausgeben, so dass alles, was
-dieser Commit enthält, auch angezeigt wird.
+////
+Schauen wir uns zuerst den aktuellen Commit an.
+Wir verwenden dazu das Kommando `git show` mit der Option `--format=raw`, lassen uns also den Commit im Rohformat ausgeben, so dass alles, was dieser Commit enthält, auch angezeigt wird.
+////
 
-[subs="macros,quotes"]
+Let's first look at the current commit.
+We'll use the `git show` command with the `--format=raw` option, so let's output the commit in raw format, so that everything this commit contains is displayed.
+
+
+// @TRANSLATE GIT LOG?
+[subs="quotes"]
 --------
 $ *git show --format=raw e2c67eb*
 *commit* e2c67ebb6d2db2aab831f477306baa44036af635
 *tree* a26b00aaef1492c697fd2f5a0593663ce07006bf
 *parent* 8e2f5f996373b900bd4e54c3aefc08ae44d0aac2
-*author* Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt; 1294515058 +0100
-*committer* Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt; 1294516312 +0100
+*author* Valentin Haenel &lt;valentin.haenel@gmx.de&gt; 1294515058 +0100
+*committer* Valentin Haenel &lt;valentin.haenel@gmx.de&gt; 1294516312 +0100
 
     Kommentar fehlte
 ...
 --------
 
-Wie Sie sehen, werden alle Informationen aus
-<<fig.objekte>> ausgegeben: die SHA-1-Summen des Commits, des
-Trees und des direkten Vorfahren, außerdem Autor und Committer (inkl.
-Datum als Unix-Timestamp) sowie die Commit-Beschreibung.  Das Kommando
-liefert zudem die Diff-Ausgabe zum vorherigen Commit  -- diese ist
-aber strenggenommen nicht Teil des Commits und wird daher hier
-ausgelassen.
 
-Als nächstes schauen wir uns den Tree an, der von diesem Commit
-referenziert wurde, und zwar mit `git ls-tree`, ein
-Plumbing-Kommando zum Auflisten der in einem Tree gespeicherten
-Inhalte. Es entspricht in etwa einem `ls -l`, nur eben in der
-Objektdatenbank.  Mit `--abbrev=7` kürzen wir die
-ausgegebenen SHA-1-Summen auf sieben Zeichen ab.
+////
+Wie Sie sehen, werden alle Informationen aus Abbildung 2.4, "Git-Objekte" ausgegeben: die SHA-1-Summen des Commits, des Trees und des direkten Vorfahren, außerdem Autor und Committer (inkl. Datum als Unix-Timestamp) sowie die Commit-Beschreibung.
+Das Kommando liefert zudem die Diff-Ausgabe zum vorherigen Commit  -- diese ist aber strenggenommen nicht Teil des Commits und wird daher hier ausgelassen.
+////
 
-[subs="macros,quotes"]
+As you can see, all the information in <<fig.objekte>> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
+The command also provides the diff output for the previous commit -- but this is not part of the commit, strictly speaking, and is therefore omitted here.
+
+
+////
+Als nächstes schauen wir uns den Tree an, der von diesem Commit referenziert wurde, und zwar mit `git ls-tree`, ein Plumbing-Kommando zum Auflisten der in einem Tree gespeicherten Inhalte.
+Es entspricht in etwa einem `ls -l`, nur eben in der Objektdatenbank.
+Mit `--abbrev=7` kürzen wir die ausgegebenen SHA-1-Summen auf sieben Zeichen ab.
+////
+
+Next, let's take a look at the tree referenced by this commit, using `git ls-tree`, a plumbing command to list the contents stored in a tree.
+It's similar to `ls -l`, except that it is in the object database.
+With `--abbrev=7` we shorten the output SHA-1 sums to seven characters.
+
+
+[subs="quotes"]
 --------
 $ *git ls-tree --abbrev=7 a26b00a*
 100644 *blob* 6cf9be8  *README*
@@ -1236,203 +1743,280 @@ $ *git ls-tree --abbrev=7 a26b00a*
 
 --------
 
-Analog zu <<fig.objekte>> enthält der von dem Commit
-referenzierte Tree je einen Blob für beide Dateien sowie einen Tree
-(auch: _Subtree_) für das `test`-Verzeichnis. Dessen
-Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja
-nun die SHA-1-Summe des Trees kennen.  Wie erwartet sehen Sie, dass
-der `test`-Tree ganz genau einen Blob referenziert, und zwar
-den Blob für die Datei `test.sh`.
 
-[subs="macros,quotes"]
+////
+Analog zu Abbildung 2.4, "Git-Objekte" enthält der von dem Commit referenzierte Tree je einen Blob für beide Dateien sowie einen Tree (auch: _Subtree_) für das `test`-Verzeichnis.
+Dessen Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja nun die SHA-1-Summe des Trees kennen.
+Wie erwartet sehen Sie, dass der `test`-Tree ganz genau einen Blob referenziert, und zwar den Blob für die Datei `test.sh`.
+////
+
+As in <<fig.objekte>> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: _subtree_) for the `test` directory.
+We can look at its contents again with `ls-tree`, since we now know the SHA-1 sum of the tree.
+As expected, you can see that the `test` tree references exactly one blob, the blob for the file `test.sh`.
+
+
+[subs="quotes"]
 --------
 $ *git ls-tree --abbrev=7 c37fd6f*
 100755 *blob* e92bf15  *test.sh*
 --------
 
-Zuletzt überzeugen wir uns noch davon, dass in dem Blob für
-`hello.py` auch wirklich unser ``Hello
-  World!__-Programm enthalten ist und dass die SHA-1-Summe
-stimmt. Das Kommando `git show` zeigt beliebige Objekte an.
-Übergeben wir die SHA-1-Summe eines Blobs, wird dessen Inhalt
-ausgegeben.  Zum Überprüfen der SHA-1-Summe verwenden wir das
-Plumbing-Kommando `git hash-object`.
 
 
-[subs="macros,quotes"]
+////
+Zuletzt überzeugen wir uns noch davon, dass in dem Blob für `hello.py` auch wirklich unser "Hello World!`"-Programm enthalten ist und dass die SHA-1-Summe stimmt.
+Das Kommando `git show` zeigt beliebige Objekte an.
+Übergeben wir die SHA-1-Summe eines Blobs, wird dessen Inhalt ausgegeben.
+Zum Überprüfen der SHA-1-Summe verwenden wir das Plumbing-Kommando `git hash-object`.
+////
+
+
+Finally, we make sure that the blob for `hello.py` really contains our "`Hello World!`" program and that the SHA-1 sum is correct.
+The command `git show` shows any objects.
+If we pass the SHA-1 sum of a blob, its contents are output.
+To check the SHA-1 sum we use the plumbing command `git hash-object`.
+
+
+[subs="quotes"]
 --------
 $ *git show 52ea6d6*
 #! /usr/bin/env python
 
 """ Hello World! """
 
-print \_Hello World!_
+print 'Hello World!'
 $ *git hash-object hello.py*
 52ea6d6f53b2990f5d6167553f43c98dc8788e81
 --------
 
-Ein Hinweis für neugierige Leser: `git hash-object
-  hello.py` liefert nicht die gleiche Ausgabe wie das Unix-Kommando
-`sha1sum hello.py`. Das liegt daran, dass nicht nur der
-Dateiinhalt in einem Blob gespeichert wird. Stattdessen wird
-zusätzlich der Objekttyp, in diesem Fall `blob`, sowie die
-Größe, in diesem Fall 67 Bytes, in einem _Header_ am Anfang des
-Blobs abgespeichert. Das `hash-object`-Kommando errechnet also
-nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
+
+////
+Ein Hinweis für neugierige Leser: `git hash-object hello.py` liefert nicht die gleiche Ausgabe wie das Unix-Kommando `sha1sum hello.py`.
+Das liegt daran, dass nicht nur der Dateiinhalt in einem Blob gespeichert wird.
+Stattdessen wird zusätzlich der Objekttyp, in diesem Fall `blob`, sowie die Größe, in diesem Fall 67 Bytes, in einem _Header_ am Anfang des Blobs abgespeichert.
+Das `hash-object`-Kommando errechnet also nicht die Prüfsumme des Dateiinhalts, sondern des Blob-Objekts.
+////
+
+A note for curious readers: `git hash-object hello.py` does not produce the same output as the Unix command `sha1sum hello.py`.
+This is because not only the file content is stored in a blob.
+Instead, the object type, in this case `blob`, and the size, in this case 67 bytes, are stored in a _header_ at the beginning of the blob.
+The `hash-object` command therefore does not calculate the checksum of the file content, but of the blob object.
+
+
+
 
 
 [[sec.deduplication]]
 === Deduplication
+//  Deduplication
 
-Die vier Commits, aus denen das Beispiel-Repository besteht, sind in
-<<fig.struktur>> nochmals dargestellt, doch auf andere
-Weise: Die gestrichelt umrandeten Tree- und Blob-Objekte bezeichnen
-unveränderte Objekte, alle anderen wurden in dem entsprechenden Commit
-neu hinzugefügt bzw. verändert. Die Leserichtung geht hier von unten
-nach oben: zuunterst steht C1, der nur die Datei `hello.py`
-enthält.
+////
+Die vier Commits, aus denen das Beispiel-Repository besteht, sind in  Abbildung 2.6, "Inhalt des Repositorys" nochmals dargestellt, doch auf andere Weise: Die gestrichelt umrandeten Tree- und Blob-Objekte bezeichnen unveränderte Objekte, alle anderen wurden in dem entsprechenden Commit neu hinzugefügt bzw. verändert.
+Die Leserichtung geht hier von unten nach oben: zuunterst steht C1, der nur die Datei `hello.py` enthält.
+////
 
-Da Trees nur Referenzen auf Blobs und weitere Trees enthalten,
-speichert jeder Commit zwar den Stand aller Dateien, aber nicht deren
-Inhalt. Normalerweise ändern sich bei einem Commit wenige Dateien. Für
-die neuen Dateien oder die, an denen Veränderungen vorgenommen wurden,
-werden nun neue Blob-Objekte (und daher auch neue Tree-Objekte)
-erzeugt. Die Referenzen auf die unveränderten Dateien bleiben aber die
-gleichen.
+The four commits that make up the sample repository are shown again in <<fig.struktur>>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
+The reading direction here is from bottom to top: at the bottom is C1, which contains only the file `hello.py`.
 
 
-.Inhalt des Repositorys
+////
+Da Trees nur Referenzen auf Blobs und weitere Trees enthalten, speichert jeder Commit zwar den Stand aller Dateien, aber nicht deren Inhalt.
+Normalerweise ändern sich bei einem Commit wenige Dateien.
+Für die neuen Dateien oder die, an denen Veränderungen vorgenommen wurden, werden nun neue Blob-Objekte (und daher auch neue Tree-Objekte) erzeugt.
+Die Referenzen auf die unveränderten Dateien bleiben aber die gleichen.
+////
+
+Since trees only contain references to blobs and other trees, each commit stores the status of all files, but not their contents.
+Normally, only a few files change during a commit.
+New blob objects (and therefore new tree objects) are now created for the new files or those to which changes have been made.
+However, the references to the unchanged files remain the same.
+
+
+// @TRANSLATE IMAGE TEXT
+// @TODO: TRANSLATE IMAGE ID
+
+// .Inhalt des Repositorys
+.Repository Content
 image::struktur.png[id="fig.struktur",scaledwidth="80%",width="80%"]
 
 
-Mehr noch: Eine Datei, die zweimal existiert, existiert nur einmal in
-der Objektdatenbank. Der Inhalt dieser Datei liegt als Blob in der
-Objektdatenbank und wird an zwei Stellen von einem Tree
-_referenziert_. Diesen Effekt bezeichnet man als
-_Deduplizierung_ (_Deduplication_): Duplikate werden nicht
-nur verhindert, sondern gar nicht erst möglich gemacht.
-Deduplizierung ist ein wesentliches Merkmal von sog.
-_Content-Addressable File Systems_, also Dateisystemen, die
-Dateien nur unter ihrem _Inhalt_ kennen (wie z.B. Git, indem es
-einem Objekt die SHA-1-Summe seiner selbst als "`Namen`"
-gibt).
+////
+Mehr noch: Eine Datei, die zweimal existiert, existiert nur einmal in der Objektdatenbank.
+Der Inhalt dieser Datei liegt als Blob in der Objektdatenbank und wird an zwei Stellen von einem Tree _referenziert_.
+Diesen Effekt bezeichnet man als _Deduplizierung_ (_Deduplication_): Duplikate werden nicht nur verhindert, sondern gar nicht erst möglich gemacht.
+Deduplizierung ist ein wesentliches Merkmal von sog. _Content-Addressable File Systems_, also Dateisystemen, die Dateien nur unter ihrem _Inhalt_ kennen (wie z.B. Git, indem es einem Objekt die SHA-1-Summe seiner selbst als "`Namen`"gibt).
+////
 
-Konsequenterweise nimmt ein Repository, in dem die gleiche, 1{nbsp}MB große
-Datei 1000 Mal existiert, nur etwas mehr als 1{nbsp}MB ein.  Git muss im
-Wesentlichen den Blob verwalten, außerdem einen Commit und einen Tree
-mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des
-Dateinamens). Ein _Checkout_ dieses Repositorys hingegen
-verbraucht ca. 1{nbsp}GB Speicherplatz auf dem Dateisystem, weil Git die
-Deduplizierung
-auflöst.{fn27}
+Even more: A file that exists twice only exists once in the object database.
+The contents of this file are stored as a blob in the object database and are _referenced_ by a tree in two places.
+This effect is known as _deduplication_: Duplicates are not only prevented, but not made possible in the first place.
+Deduplication is an essential feature of _Content-Addressable File Systems_, i.e. file systems that know files only by their contents (such as Git, for example, by giving an object the SHA-1 sum of itself as "`name`").
 
-Mit den Befehlen `git checkout` und `git reset` stellen
-Sie einen früheren Zustand so wieder her (siehe auch <<sec.undo>>): Sie geben die Referenz
-des entsprechenden Commits an, und Git sucht diesen aus der
-Objektdatenbank heraus. Danach wird anhand der Referenz das
-Tree-Objekt dieses Commits aus der Objektdatenbank herausgesucht.
-Schließlich sucht Git anhand der in dem Tree-Objekt enthaltenen
-Referenzen alle weiteren Tree- und Blob-Objekte aus der
-Objektdatenbank heraus und repliziert sie als Verzeichnisse und
-Dateien auf das Dateisystem. Somit kann genau der Projektzustand, der
-damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
+
+////
+Konsequenterweise nimmt ein Repository, in dem die gleiche, 1 MB große Datei 1000 Mal existiert, nur etwas mehr als 1 MB ein.
+Git muss im Wesentlichen den Blob verwalten, außerdem einen Commit und einen Tree mit 1000 Blob-Einträgen (Größe jeweils 20 Byte plus Länge des Dateinamens).
+Ein _Checkout_ dieses Repositorys hingegen verbraucht ca. 1 GB Speicherplatz auf dem Dateisystem, weil Git die Deduplizierung auflöst.[27]
+////
+
+Consequently, a repository in which the same 1{nbsp}MB file exists 1000 times takes up only slightly more than 1{nbsp}MB.
+Git essentially has to manage the blob, plus a commit and a tree with 1000 blob entries (20 bytes each plus the length of the filename).
+A _checkout_ of this repository, on the other hand, consumes about 1{nbsp}GB of space on the filesystem because Git resolves deduplication.{fn27}
+
+
+////
+Mit den Befehlen `git checkout` und `git reset` stellen Sie einen früheren Zustand so wieder her (siehe auch Abschnitt 3.2, "Versionen wiederherstellen"): Sie geben die Referenz des entsprechenden Commits an, und Git sucht diesen aus der Objektdatenbank heraus.
+Danach wird anhand der Referenz das Tree-Objekt dieses Commits aus der Objektdatenbank herausgesucht.
+Schließlich sucht Git anhand der in dem Tree-Objekt enthaltenen Referenzen alle weiteren Tree- und Blob-Objekte aus der Objektdatenbank heraus und repliziert sie als Verzeichnisse und Dateien auf das Dateisystem.
+Somit kann genau der Projektzustand, der damals mit dem Commit abgespeichert wurde, wiederhergestellt werden.
+////
+
+The `git checkout` and `git reset` commands restore a previous state (see also <<sec.undo>>): You specify the reference of the corresponding commit, and Git searches for it in the object database.
+The reference is then used to find the tree object of this commit from the object database.
+Finally, Git uses the references contained in the tree object to find all other tree and blob objects in the object database and replicates them as directories and files on the file system.
+This allows you to restore exactly the project state that was saved with the commit at the time.
 
 
 
 [[sec.git-graph]]
-=== Die Graph-Struktur
+=== The Graph Structure
+//  Die Graph-Struktur
 
-Da jeder Commit seine direkten Vorfahren speichert, entsteht eine
-Graph-Struktur. Genauer gesagt erzeugt die Anordnung der Commits einen
-gerichteten, azyklischen Graphen (_Directed Acyclic Graph_, DAG).
-Ein Graph besteht aus zwei Kernelementen: den _Knoten_ und den
-_Kanten_, die diese Knoten verbinden. In einem _gerichteten_
-Graphen zeichnen sich die Kanten zusätzlich durch eine Richtung aus,
-das heißt, wenn Sie den Graphen ablaufen, so können Sie, um von einem
-Knoten zum nächsten zu gelangen, nur diejenigen Kanten verwenden, die
-in die entsprechende Richtung zeigen.  Die _azyklische_
-Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den
-Graphen von einem Knoten erneut zu diesem zurück finden kann. Man kann
-sich also nicht im Kreis
-bewegen.{fn28}
+////
+Da jeder Commit seine direkten Vorfahren speichert, entsteht eine Graph-Struktur.
+Genauer gesagt erzeugt die Anordnung der Commits einen gerichteten, azyklischen Graphen (_Directed Acyclic Graph_, DAG).
+Ein Graph besteht aus zwei Kernelementen: den _Knoten_ und den _Kanten_, die diese Knoten verbinden.
+In einem _gerichteten_ Graphen zeichnen sich die Kanten zusätzlich durch eine Richtung aus, das heißt, wenn Sie den Graphen ablaufen, so können Sie, um von einem Knoten zum nächsten zu gelangen, nur diejenigen Kanten verwenden, die in die entsprechende Richtung zeigen.
+Die _azyklische_ Eigenschaft schließt aus, dass man auf irgendeinem Weg durch den Graphen von einem Knoten erneut zu diesem zurück finden kann.
+Man kann sich also nicht im Kreis bewegen.[28]
+////
+
+Because each commit stores its direct ancestors, a graph structure is created.
+More precisely, the arrangement of the commits creates a _Directed Acyclic Graph_ (DAG).
+A graph consists of two core elements: the _nodes_ and the _edges_ connecting these nodes.
+In a _directed_ graph, the edges are also characterized by a direction, which means that when you run the graph, you can only use the edges that point in the appropriate direction to move from one node to the next.
+The _acyclic_ property rules out that you can find your way back to a node by any route through the graph.
+So you cannot move in a circle.{fn28}
 
 
 [TIP]
 ==================
-Die meisten Git-Kommandos dienen dazu, den Graphen zu manipulieren: um
-Knoten hinzuzufügen/zu entfernen oder die Relation der Knoten
-untereinander zu ändern. Sie wissen, dass Sie eine fortgeschrittene
-Git-Kompetenz erreicht haben, wenn Sie dieses eher abstrakte Konzept
-verinnerlicht haben und beim täglichen Arbeiten mit Branches stets an
-den dahinterliegenden Graphen denken. Das Verständnis von Git auf
-dieser Ebene ist die erste und einzige wirkliche Hürde, um Git sicher
-im Alltag zu meistern.
+////
+Die meisten Git-Kommandos dienen dazu, den Graphen zu manipulieren: um Knoten hinzuzufügen/zu entfernen oder die Relation der Knoten untereinander zu ändern.
+Sie wissen, dass Sie eine fortgeschrittene Git-Kompetenz erreicht haben, wenn Sie dieses eher abstrakte Konzept verinnerlicht haben und beim täglichen Arbeiten mit Branches stets an den dahinterliegenden Graphen denken.
+Das Verständnis von Git auf dieser Ebene ist die erste und einzige wirkliche Hürde, um Git sicher im Alltag zu meistern.
+////
+
+Most Git commands are used to manipulate the graph: to add/remove nodes or to change the relation of the nodes to each other.
+You'll know you've reached an advanced level of Git competency when you've internalized this rather abstract concept, and when you're working with branches on a daily basis, you always think of the graph behind them.
+Understanding Git at this level is the first and only real hurdle to mastering Git safely in everyday life.
 ==================
 
-Die Graph-Struktur ergibt sich aus dem Objektmodell, weil jeder Commit
-seinen direkten Vorfahren (bei einem Merge-Commit evtl. auch mehrere)
-kennt. Die Commits bilden die Knoten dieses Graphen -- die Referenzen
-auf Vorfahren die Kanten.
 
-Einen beispielhaften Graphen sehen Sie in
-<<fig.graph>>. Er besteht aus mehreren Commits, die eingefärbt
-sind, um deren Zugehörigkeit zu verschiedenen Entwicklungssträngen
-(_Branches_) leichter voneinander zu unterscheiden. Zuerst wurden
-die Commits A, B, C und D gemacht. Sie bilden den
-Hauptentwicklungszweig. Commits E und F enthalten eine
-Feature-Entwicklung, die mit Commit H in den Hauptzweig übernommen
-wurde. Commit G ist ein einzelner Commit, der noch nicht in den
-Hauptentwicklungszweig integriert wurde.
+////
+Die Graph-Struktur ergibt sich aus dem Objektmodell, weil jeder Commit seinen direkten Vorfahren (bei einem Merge-Commit evtl. auch mehrere) kennt.
+Die Commits bilden die Knoten dieses Graphen -- die Referenzen auf Vorfahren die Kanten.
+////
 
-.Ein Commit-Graph
+The graph structure is derived from the object model, because each commit knows its direct ancestor (possibly several in the case of a merge commit).
+The commits form the nodes of this graph -- the references to ancestors form the edges.
+
+
+////
+Einen beispielhaften Graphen sehen Sie in Abbildung 2.7, "Ein Commit-Graph".
+Er besteht aus mehreren Commits, die eingefärbt sind, um deren Zugehörigkeit zu verschiedenen Entwicklungssträngen (_Branches_) leichter voneinander zu unterscheiden.
+Zuerst wurden die Commits A, B, C und D gemacht.
+Sie bilden den Hauptentwicklungszweig.
+Commits E und F enthalten eine Feature-Entwicklung, die mit Commit H in den Hauptzweig übernommen wurde.
+Commit G ist ein einzelner Commit, der noch nicht in den Hauptentwicklungszweig integriert wurde.
+////
+
+// @TODO: ADD MISSING EMPHASIS (in original: "(_Branches_)")
+
+An example graph is shown in <<fig.graph>>.
+It consists of several commits, which are colored to make it easier to distinguish between their affiliations to different development branches.
+First, the commits A, B, C, and D were made.
+They form the main development branch.
+Commits E and F contain feature development, which was transferred to the main development branch with commit H.
+Commit G is a single commit that has not yet been integrated into the main development branch.
+
+
+// .Ein Commit-Graph
+.A Commit Graph
 image::graph.png[id="fig.graph",scaledwidth="45%",width="45%"]
 
-Ein Resultat der Graph-Struktur ist die kryptographisch gesicherte
-_Integrität_ eines Repositorys. Git referenziert durch die
-SHA-1-Summe eines Commits nicht nur die Inhalte der Projektdateien zu
-einem bestimmten Zeitpunkt, sondern außerdem _alle_ bis dahin
-ausgeführten Commits und deren Relation untereinander, also die
-vollständige Versionsgeschichte.
 
-Das Objektmodell macht dies möglich: Jeder Commit speichert eine
-Referenz auf seine Vorfahren. Diese Referenzen fließen wiederum in die
-Berechnung der SHA-1-Summe des Commits selbst ein. Sie erhalten also
-einen anderen Commit, wenn Sie einen anderen Vorgänger referenzieren.
+////
+Ein Resultat der Graph-Struktur ist die kryptographisch gesicherte _Integrität_ eines Repositorys.
+Git referenziert durch die SHA-1-Summe eines Commits nicht nur die Inhalte der Projektdateien zu einem bestimmten Zeitpunkt, sondern außerdem _alle_ bis dahin ausgeführten Commits und deren Relation untereinander, also die vollständige Versionsgeschichte.
+////
+
+One result of the graph structure is the cryptographically secured _integrity_ of a repository.
+Git uses the SHA-1 sum of a commit to reference not only the contents of the project files at a given point in time, but also _all_ commits executed up to that point, and their relationship to each other, i.e. the complete version history.
 
 
+////
+Das Objektmodell macht dies möglich: Jeder Commit speichert eine Referenz auf seine Vorfahren.
+Diese Referenzen fließen wiederum in die Berechnung der SHA-1-Summe des Commits selbst ein.
+Sie erhalten also einen anderen Commit, wenn Sie einen anderen Vorgänger referenzieren.
+////
 
-Da der Vorgänger wiederum Vorgänger referenziert und dessen
-SHA-1-Summe von den Vorgängern abhängt usw., bedeutet das konkret,
-dass in der Commit-ID die _vollständige_ Versionsgeschichte
-implizit kodiert ist. Implizit bedeutet hier: Wenn sich auch nur ein
-Bit eines Commits irgendwo in der Versionsgeschichte ändert, dann ist
-die SHA-1-Summe der darauf folgenden Commits, insbesondere des
-obersten, nicht mehr dieselbe. Die SHA-1-Summe sagt aber nichts
-Detailliertes über die Versionsgeschichte aus, sondern ist wiederum
-nur eine Prüfsumme derselben.
+The object model makes this possible: each commit stores a reference to its ancestors.
+These references are then used to calculate the SHA-1 sum of the commit itself.
+So you get a different commit if you reference another ancestor.
 
-[[sec.graph-referenzen]]
-==== Referenzen: Branches und Tags
 
-Mit einem reinen Commit-Graphen kann man aber noch nicht viel
-anfangen. Um einen Knoten zu referenzieren (also damit zu arbeiten),
-muss man dessen Namen kennen, also die SHA-1-Summe des Commits.  Im
-täglichen Umgang verwendet man aber selten direkt die SHA-1-Summe
-eines Commits, sondern stattdessen symbolische Namen, sog.
-_Referenzen_, die Git auf die SHA-1-Summe auflösen kann.
+////
+Da der Vorgänger wiederum Vorgänger referenziert und dessen SHA-1-Summe von den Vorgängern abhängt usw., bedeutet das konkret, dass in der Commit-ID die _vollständige_ Versionsgeschichte implizit kodiert ist.
+Implizit bedeutet hier: Wenn sich auch nur ein Bit eines Commits irgendwo in der Versionsgeschichte ändert, dann ist die SHA-1-Summe der darauf folgenden Commits, insbesondere des obersten, nicht mehr dieselbe.
+Die SHA-1-Summe sagt aber nichts Detailliertes über die Versionsgeschichte aus, sondern ist wiederum nur eine Prüfsumme derselben.
+////
 
-Git bietet im Wesentlichen zwei Typen von Referenzen an,
-_Branches_ und _Tags_. Das sind _Zeiger_ in einen
-Commit-Graphen, die verwendet werden, um bestimmte Knoten zu
-markieren.  Branches haben "`beweglichen`" Charakter, das
-heißt, sie rücken weiter an die Spitze, wenn neue Commits auf dem
-Branch dazu kommen. Tags hingegen haben statischen Charakter und
-markieren wichtige Punkte im Commit-Graphen, wie z.B. Releases.
+Since the predecessor in turn references predecessors, and its SHA-1 sum depends on the predecessors, and so on, this means that the _complete_ version history is implicitly encoded in the commit ID.
+Implicit here means: If even one bit of a commit changes anywhere in the version history, then the SHA-1 sum of subsequent commits, especially the topmost one, is no longer the same.
+The SHA-1 sum doesn't say anything detailed about the version history, though; it's just a checksum of it.
 
-<<fig.graph-mit-refs>> zeigt denselben Commit-Graphen mit den
-Branches `master`, `HEAD`, `feature` und  `bugfix`.
+
+
+[[sec.graph-references]]
+==== References: Branches and Tags
+//   Referenzen: Branches und Tags
+
+////
+Mit einem reinen Commit-Graphen kann man aber noch nicht viel anfangen.
+Um einen Knoten zu referenzieren (also damit zu arbeiten), muss man dessen Namen kennen, also die SHA-1-Summe des Commits.
+Im täglichen Umgang verwendet man aber selten direkt die SHA-1-Summe eines Commits, sondern stattdessen symbolische Namen, sog. _Referenzen_, die Git auf die SHA-1-Summe auflösen kann.
+////
+
+However, there is not much you can do with a pure commit graph.
+To reference (i.e., work with) a node, you need to know its name, which is the SHA-1 sum of the commit.
+In everyday use, however, you rarely use the SHA-1 sum of a commit directly, but instead use symbolic names, called _references_, which Git can resolve to the SHA-1 sum.
+
+
+////
+Git bietet im Wesentlichen zwei Typen von Referenzen an, _Branches_ und _Tags_.
+Das sind _Zeiger_ in einen Commit-Graphen, die verwendet werden, um bestimmte Knoten zu markieren.
+Branches haben "`beweglichen`" Charakter, das heißt, sie rücken weiter an die Spitze, wenn neue Commits auf dem Branch dazu kommen.
+Tags hingegen haben statischen Charakter und markieren wichtige Punkte im Commit-Graphen, wie z.B. Releases.
+////
+
+Git basically offers two types of references, _branches_ and _tags_.
+These are _pointers_ to a commit graph, which are used to mark specific nodes.
+Branches have a "`moving`" character, meaning that they move up as new commits are added to the branch.
+Tags, on the other hand, are static in nature, and mark important points in the commit graph, such as releases.
+
+
+////
+Abbildung 2.8, "Ein beispielhafter Commit-Graph mit Branches und Tags" zeigt denselben Commit-Graphen mit den Branches `master`, `HEAD`, `feature` und  `bugfix`.
 Sowie den Tags  `v0.1` und `v0.2`.
+////
 
-.Ein beispielhafter Commit-Graph mit Branches und Tags
+<<fig.graph-mit-refs>> shows the same commit graph with the `master`, `HEAD`, `feature`, and `bugfix` branches.
+And the `v0.1` and `v0.2` tags.
+
+// @TODO: TRANSLATE IMAGE ID
+
+// .Ein beispielhafter Commit-Graph mit Branches und Tags
+.Example of a Commit Graph with Branches and Tags
 image::graph-mit-refs.png[id="fig.graph-mit-refs",scaledwidth="75%",width="75%"]
 

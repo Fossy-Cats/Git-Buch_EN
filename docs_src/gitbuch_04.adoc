@@ -418,7 +418,7 @@ image::rebase-onto-nachher.png[id="fig.rebase-onto-nachher-dia",scaledwidth="90%
 [[sec.rebase-onto-ci-amend]]
 === Einen Commit verbessern
 
-Sie haben in <<sec.grundlagen>> das Kommando `commit
+Sie haben in <<sec.basics>> das Kommando `commit
   --amend` kennengelernt, mit dem Sie einen Commit verbessern. Es
 bezieht sich aber immer nur auf den aktuellen (letzten) Commit. Mit
 `rebase --onto` können Sie auch Commits anpassen, die weiter

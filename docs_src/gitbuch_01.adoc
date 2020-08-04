@@ -144,7 +144,7 @@ Für eine ausführliche Beschreibung des Objektmodells siehe Abschnitt 2.2, "Das
 _Object model_::
 A git repository can be modeled as a graph of commits, manipulated by git commands.
 This modeling makes it very easy to describe how Git works in detail.
-For a detailed description of the object model, see <<sec.objektmodell>>.
+For a detailed description of the object model, see <<sec.object-model>>.
 
 
 ////
