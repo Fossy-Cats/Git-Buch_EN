@@ -20,9 +20,9 @@ While these explanations may seem overly theoretical at first, we encourage you 
 All further actions will be much easier for you with the knowledge of this background.
 
 
-[[sec.grundlagen]]
+[[sec.basics]]
 ==  Git Commands
-// Git-Kommandos
+//  Git-Kommandos
 
 ////
 Die Kommandos, die Sie zum Einstieg kennengelernt haben (vor allem `add` und `commit`), arbeiten auf dem Index.
@@ -35,7 +35,7 @@ In the following, we will take a closer look at the index and the extended use o
 
 [[sec.index]]
 === Index
-// Index
+//  Index
 
 ////
 Der Inhalt von Dateien liegt für Git auf drei Ebenen, dem _Working Tree_, dem _Index_ und dem _Repository_.
@@ -887,7 +887,7 @@ In jedem Fall wird lediglich die Referenz auf ein Blob-Objekt geändert (siehe A
 ////
 
 Internally, it doesn't matter to Git whether you move a file regularly via `mv`, then run `git add <new-name>` and `git rm <old-name>`.
-In any case, only the reference to a blob object is changed (see<<sec.objektmodell>>).
+In any case, only the reference to a blob object is changed (see<<sec.object-model>>).
 
 
 ////
@@ -1375,7 +1375,7 @@ However, if you pass two commits or a commit range to the command, the differenc
 
 
 
-[[sec.objektmodell]]
+[[sec.object-model]]
 == The Object Model
 // Das Objektmodell
 
@@ -1429,7 +1429,6 @@ e2c67eb Kommentar fehlte
 308aea1 README Datei
 b0400b0 Erste Version
 --------
-
 
 
 
@@ -1507,7 +1506,7 @@ Depending on the repository, you often only need to specify the first few charac
 
 
 
-[[sec.objekte]]
+[[sec.objects]]
 === The Git Objects
 //  Die Git-Objekte
 
@@ -1979,7 +1978,7 @@ The SHA-1 sum doesn't say anything detailed about the version history, though; i
 
 
 
-[[sec.graph-referenzen]]
+[[sec.graph-references]]
 ==== References: Branches and Tags
 //   Referenzen: Branches und Tags
 
