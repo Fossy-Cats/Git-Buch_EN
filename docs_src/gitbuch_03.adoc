@@ -9,52 +9,93 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_3]
 
 
-Das folgende Kapitel stellt alle wesentlichen Techniken vor, die Sie
-im täglichen Umgang mit Git einsetzen werden. Neben einer
-genaueren Beschreibung des Index und wie man alte Versionen
-wiederherstellt, liegt der Fokus auf der effektiven Arbeit mit
-Branches.
+////
+Das folgende Kapitel stellt alle wesentlichen Techniken vor, die Sie im täglichen Umgang mit Git einsetzen werden.
+Neben einer genaueren Beschreibung des Index und wie man alte Versionen wiederherstellt, liegt der Fokus auf der effektiven Arbeit mit Branches.
+////
+
+The following chapter introduces all the essential techniques you'll use in your daily work with Git.
+In addition to a more detailed description of the index and how to restore old versions, the focus is on working effectively with branches.
+
+
 
 [[sec.branches]]
-== Referenzen: Branches und Tags
+== References: Branches and Tags
+// Referenzen: Branches und Tags
 
-"`Branch`" und "`Merge`" sind im CVS-/SVN-Umfeld für
-Neulinge oft ein Buch mit sieben Siegeln, für Könner regelmäßig Grund
-zum Haare raufen.  In Git sind das Abzweigen im Entwicklungszyklus
-(_Branching_) und das anschließende Wiederzusammenführen
-(_Merging_) alltäglich, einfach, transparent und schnell. Es
-kommt häufig vor, dass ein Entwickler an einem Tag mehrere Branches
-erstellt und mehrere Merges durchführt.
+////
+"`Branch`" und "`Merge`" sind im CVS-/SVN-Umfeld für Neulinge oft ein Buch mit sieben Siegeln, für Könner regelmäßig Grund zum Haare raufen.
+In Git sind das Abzweigen im Entwicklungszyklus (_Branching_) und das anschließende Wiederzusammenführen (_Merging_) alltäglich, einfach, transparent und schnell.
+Es kommt häufig vor, dass ein Entwickler an einem Tag mehrere Branches erstellt und mehrere Merges durchführt.
+////
 
-Das Tool Gitk ist hilfreich, um bei mehreren Branches nicht den
-Überblick zu verlieren. Mit
-`gitk --all` zeigen Sie alle Branches an. Das Tool visualisiert den im vorigen Abschnitt
-erläuterten Commit-Graphen. Jeder Commit stellt eine Zeile dar.
+// @TODO: Check translation of 2nd sentence! (something seems lost)
+
+In the CVS/SVN environment, "`Branch`" and "`Merge`" are often a book with seven seals for newcomers, but for experts they are a regular cause for hair-raising.
+In Git, _branching_ and _merging_ are commonplace, simple, transparent, and fast.
+It's common for a developer to create multiple branches and perform multiple merges in one day.
+
+
+////
+Das Tool Gitk ist hilfreich, um bei mehreren Branches nicht den Überblick zu verlieren.
+Mit `gitk --all` zeigen Sie alle Branches an.
+Das Tool visualisiert den im vorigen Abschnitt erläuterten Commit-Graphen.
+Jeder Commit stellt eine Zeile dar.
 Branches werden als grüne Labels, Tags als gelbe Zeiger dargestellt.
-Für weitere Informationen siehe <<sec.gitk>>.
+Für weitere Informationen siehe Abschnitt 3.6.2, "Gitk".
+////
 
-.Das Beispiel-Repository aus <<ch.basics>> in Gitk. Zur Illustration wurde der zweite Commit mit  dem Tag `v0.1` versehen.
+The tool Gitk is helpful in order not to lose the overview of several branches.
+With `gitk --all` you show all branches.
+The tool visualizes the commit graph explained in the previous section.
+Each commit represents one line.
+Branches are displayed as green labels, tags as yellow pointers.
+For more information, see <<sec.gitk>>.
+
+
+// .Das Beispiel-Repository aus Kapitel 2, Grundlagen in Gitk. Zur Illustration wurde der zweite Commit mit  dem Tag `v0.1` versehen.
+.The sample repository from <<ch.basics>>. For illustration purposes, the second commit has been tagged `v0.1`.
 image::gitk-basic.png[id="fig.gitk-basic",scaledwidth="90%",width="90%"]
 
-Da Branches in Git "`billig`" und Merges einfach sind, können
-Sie es sich leisten, Branches exzessiv zu verwenden.  Sie wollen etwas
-probieren, einen kleinen Bugfix vorbereiten oder mit einem
-experimentellen Feature beginnen? Für all das erstellen Sie jeweils
-einen neuen Branch.  Sie wollen testen, ob sich ein Branch mit dem
-anderen verträgt? Führen Sie die beiden zusammen, testen Sie alles,
-und löschen Sie danach den Merge wieder und entwickeln weiter.  Das
-ist gängige Praxis unter Entwicklern, die Git einsetzen.
 
+////
+Da Branches in Git "`billig`" und Merges einfach sind, können Sie es sich leisten, Branches exzessiv zu verwenden.
+Sie wollen etwas probieren, einen kleinen Bugfix vorbereiten oder mit einem experimentellen Feature beginnen?
+Für all das erstellen Sie jeweils einen neuen Branch.
+Sie wollen testen, ob sich ein Branch mit dem anderen verträgt?
+Führen Sie die beiden zusammen, testen Sie alles, und löschen Sie danach den Merge wieder und entwickeln weiter.
+Das ist gängige Praxis unter Entwicklern, die Git einsetzen.
+////
+
+Because branches in Git are "`cheap`" and merges are easy, you can afford to use branches excessively.
+Want to try something, prepare a small bug fix, or start with an experimental feature?
+You can create a new branch for each of these.
+You want to test if one branch is compatible with the other?
+Merge them together, test everything, then delete the merge again and continue developing.
+This is common practice among developers using Git.
+
+
+////
 Zunächst wollen wir uns mit Referenzen generell auseinandersetzen.
-Referenzen sind nichts weiter als symbolische Namen für die schwierig
-zu merkenden SHA-1-Summen von Commits.
+Referenzen sind nichts weiter als symbolische Namen für die schwierig zu merkenden SHA-1-Summen von Commits.
+////
 
-Diese Referenzen liegen in `.git/refs/`. Der Name einer
-Referenz wird anhand des Dateinamens, das Ziel anhand des Inhalts der
-Datei bestimmt. Der Master-Branch, auf dem Sie schon die ganze Zeit
-arbeiten, sieht darin zum Beispiel so aus:
+First, let's look at references in general.
+References are nothing more than symbolic names for the hard to remember SHA-1 sums of commits.
 
-[subs="macros,quotes"]
+
+////
+Diese Referenzen liegen in `.git/refs/`.
+Der Name einer Referenz wird anhand des Dateinamens, das Ziel anhand des Inhalts der Datei bestimmt.
+Der Master-Branch, auf dem Sie schon die ganze Zeit arbeiten, sieht darin zum Beispiel so aus:
+////
+
+These references are stored in `.git/refs/`.
+The name of a reference is determined by the file name, and the target is determined by the contents of the file.
+For example, the master branch you have been working on all along looks like this:
+
+
+[subs="quotes"]
 --------
 $ *cat .git/refs/heads/master*
 89062b72afccda5b9e8ed77bf82c38577e603251
@@ -63,76 +104,118 @@ $ *cat .git/refs/heads/master*
 
 [TIP]
 ===================
-Wenn Git sehr viele Referenzen verwalten muss, liegen diese nicht
-zwingend als Dateien unterhalb von `.git/refs/`. Git erstellt
-dann stattdessen einen Container, der _gepackte Referenzen_ ('Packed
-Refs') enthält: Eine Zeile pro Referenz mit Name und SHA-1-Summe. Das
-sequentielle Auflösen vieler Referenzen geht dann schneller.
-Git-Kommandos suchen Branches und Tags in der Datei `.git/packed-refs`, wenn die entsprechende Datei
-`.git/refs/<name>` nicht existiert.
+////
+Wenn Git sehr viele Referenzen verwalten muss, liegen diese nicht zwingend als Dateien unterhalb von `.git/refs/`.
+Git erstellt dann stattdessen einen Container, der _gepackte Referenzen_ (_Packed Refs_) enthält: Eine Zeile pro Referenz mit Name und SHA-1-Summe.
+Das sequentielle Auflösen vieler Referenzen geht dann schneller.
+Git-Kommandos suchen Branches und Tags in der Datei `.git/packed-refs`, wenn die entsprechende Datei `.git/refs/<name>` nicht existiert.
+////
+
+If Git needs to manage a lot of references, they may not be stored as files under `.git/refs/`.
+Instead, Git creates a container that contains packed references (_Packed Refs_): One line per reference with name and SHA-1 sum.
+This makes sequential resolution of many references faster.
+Git commands search for branches and tags in the `.git/packed-refs` file if the corresponding `.git/refs/<name>` file does not exist.
 ===================
 
-Unterhalb von `.git/refs/` gibt es verschiedene Verzeichnisse,
-die für die "`Art`" von Referenz stehen. Fundamental
-unterscheiden sich diese Referenzen aber nicht, lediglich darin, wann
-und wie sie angewendet werden. Die Referenzen, die Sie am häufigsten
-verwenden werden, sind Branches. Sie sind unter `.git/refs/heads/` gespeichert. _Heads_ bezeichnet das,
-was in anderen Systemen zuweilen auch "`Tip`" genannt wird:
-Den neuesten Commit auf einem Entwicklungsstrang.{fn29}
-Branches rücken weiter, wenn Sie
-Commits auf einem Branch erstellen -- sie bleiben also an der Spitze
-der Versionsgeschichte.
 
-.Der Branch referenziert immer den aktuellsten Commit
+////
+Unterhalb von `.git/refs/` gibt es verschiedene Verzeichnisse, die für die "`Art`" von Referenz stehen.
+Fundamental unterscheiden sich diese Referenzen aber nicht, lediglich darin, wann und wie sie angewendet werden.
+Die Referenzen, die Sie am häufigsten verwenden werden, sind Branches.
+Sie sind unter `.git/refs/heads/` gespeichert.
+_Heads_ bezeichnet das, was in anderen Systemen zuweilen auch "`Tip`" genannt wird: Den neuesten Commit auf einem Entwicklungsstrang.[29]
+Branches rücken weiter, wenn Sie Commits auf einem Branch erstellen -- sie bleiben also an der Spitze der Versionsgeschichte.
+////
+
+Under `.git/refs/` there are several directories that represent the "`type`" of reference.
+There is no fundamental difference between these references, only when and how they are used.
+The references you will use most often are branches.
+They are stored under `.git/refs/heads/`.
+_Heads_ refers to what is sometimes called a "`tip`" in other systems: The latest commit on a development branch.{fn29}
+Branches move up when you make commits on a branch, so they remain at the top of the version history.
+
+
+// .Der Branch referenziert immer den aktuellsten Commit
+.A branch always references the most recent commit
 image::commit.png[id="fig.commit",scaledwidth="80%",width="80%"]
 
-Branches in Repositories anderer Entwickler (z.B. der Master-Branch
-des offiziellen Repositorys), sog.
-Remote-Tracking-Branches, werden unter `.git/refs/remotes/` abgelegt (siehe <<sec.remote_tracking_branches>>). Tags, statische
-Referenzen, die meist der Versionierung dienen, liegen unter `.git/refs/tags/` (siehe <<sec.tags>>).
+
+////
+Branches in Repositories anderer Entwickler (z.B. der Master-Branch des offiziellen Repositorys), sog. Remote-Tracking-Branches, werden unter `.git/refs/remotes/` abgelegt (siehe Abschnitt 5.2.2, "Remote-Tracking-Branches").
+Tags, statische Referenzen, die meist der Versionierung dienen, liegen unter `.git/refs/tags/` (siehe Abschnitt 3.1.3, "Tags -- Wichtige Versionen markieren").
+////
+
+Branches in other developers' repositories (e.g. the master branch of the official repository), so-called remote tracking branches, are stored under `.git/refs/remotes/` (see <<sec.remote_tracking_branches>>).
+Tags, static references, which are mostly used for versioning, are stored under `.git/refs/tags/` (see <<sec.tags>>).
+
+
 
 [[sec.branch-refs]]
-=== HEAD und andere symbolische Referenzen
+=== HEAD and Other Symbolic References
+//  HEAD und andere symbolische Referenzen
 
-Eine Referenz, die Sie selten explizit, aber ständig implizit
-benutzen, ist `HEAD`. Sie referenziert meist den gerade
-ausgecheckten Branch, hier `master`:
+Eine Referenz, die Sie selten explizit, aber ständig implizit benutzen, ist `HEAD`.
+Sie referenziert meist den gerade ausgecheckten Branch, hier `master`:
 
-[subs="macros,quotes"]
+One reference that you rarely use explicitly, but always implicitly, is `HEAD`.
+It usually refers to the branch you just checked out, in this case `master`:
+
+
+[subs="quotes"]
 --------
 $ *cat .git/HEAD*
 ref: refs/heads/master
 --------
 
-`HEAD` kann auch direkt auf einen Commit zeigen, wenn Sie
-`git checkout <commit-id>` eingeben. Sie sind dann
-allerdings im sogenannten _Detached-Head_-Modus, in dem Commits
-möglicherweise verlorengehen, siehe auch
-<<sec.detached-head>>.
-
-Der `HEAD` bestimmt, welche Dateien im Working Tree zu finden
-sind, welcher Commit Vorgänger bei der Erstellung eines neuen wird,
-welcher Commit per `git show` angezeigt wird etc.  Wenn wir
-hier von "`dem aktuellen Branch`" sprechen, dann ist damit
-technisch korrekt der `HEAD` gemeint.
-
-Die simplen Kommandos `log`, `show` und `diff`
-nehmen ohne weitere Argumente `HEAD` als erstes Argument an.
-Die Ausgabe von `git log` ist gleich der von `git log HEAD` usw. -- dies gilt für die meisten Kommandos, die auf einem
-Commit operieren, wenn Sie keinen explizit angeben. `HEAD` ist
-somit vergleichbar mit der Shell-Variable `PWD`, die angibt
-"`wo man ist`".
-
-Wenn wir von einem Commit sprechen, dann ist es einem Kommando in der
-Regel egal, ob man die Commit-ID komplett oder verkürzt angibt oder
-den Commit über eine Referenz, wie z.B. ein Tag oder Branch,
-ansteuert. Eine solche Referenz muss aber nicht immer eindeutig sein.
-Was passiert, wenn es einen Branch `master` gibt und ein Tag
-gleichen Namens? Git überprüft, ob die folgenden Referenzen
-existieren:
 
 
+////
+`HEAD` kann auch direkt auf einen Commit zeigen, wenn Sie `git checkout <commit-id>` eingeben.
+Sie sind dann allerdings im sogenannten _Detached-Head_-Modus, in dem Commits möglicherweise verlorengehen, siehe auch Abschnitt 3.2.1, "Detached HEAD".
+////
+
+`HEAD` can also point directly to a commit if you type `git checkout <commit-id>`.
+However, you are then in so-called _detached-head_ mode, in which commits may get lost, see also <<sec.detached-head>>.
+
+
+////
+Der `HEAD` bestimmt, welche Dateien im Working Tree zu finden sind, welcher Commit Vorgänger bei der Erstellung eines neuen wird, welcher Commit per `git show` angezeigt wird etc.
+Wenn wir hier von "`dem aktuellen Branch`" sprechen, dann ist damit technisch korrekt der `HEAD` gemeint.
+////
+
+The `HEAD` determines which files are found in the working tree, which commit becomes the predecessor when a new one is created, which commit is displayed by `git show`, and so on.
+When we speak of "`the current branch`", we mean the `HEAD` in a technically correct sense.
+
+
+////
+Die simplen Kommandos `log`, `show` und `diff` nehmen ohne weitere Argumente `HEAD` als erstes Argument an.
+Die Ausgabe von `git log` ist gleich der von `git log HEAD` usw. -- dies gilt für die meisten Kommandos, die auf einem Commit operieren, wenn Sie keinen explizit angeben.
+`HEAD` ist somit vergleichbar mit der Shell-Variable `PWD`, die angibt "`wo man ist`".
+////
+
+The simple commands `log`, `show`, and `diff` take `HEAD` as their first argument, without any further arguments.
+The output of `git log` is the same as the output of `git log HEAD`, and so on -- this applies to most commands that operate on a commit if you don't specify one explicitly.
+`HEAD` is thus similar to the shell variable `PWD`, which specifies "`where you are`".
+
+
+////
+Wenn wir von einem Commit sprechen, dann ist es einem Kommando in der Regel egal, ob man die Commit-ID komplett oder verkürzt angibt oder den Commit über eine Referenz, wie z.B. ein Tag oder Branch, ansteuert.
+Eine solche Referenz muss aber nicht immer eindeutig sein.
+Was passiert, wenn es einen Branch `master` gibt und ein Tag gleichen Namens?
+Git überprüft, ob die folgenden Referenzen existieren:
+////
+
+When we talk about a commit, a command usually doesn't care whether you specify the commit ID in full or in abbreviated form, or whether you access the commit by reference, such as a tag or branch.
+However, such a reference may not always be unique.
+What happens if there is a branch `master` and a tag with the same name?
+Git checks if the following references exist:
+
+
+////
 * `.git/<name>` (meist nur sinnvoll für `HEAD` o.ä.)
+////
+
+* `.git/<name>` (mostly only useful for `HEAD` or similar)
 * `.git/refs/<name>`
 * `.git/refs/tags/<name>`
 * `.git/refs/heads/<name>`
@@ -140,47 +223,66 @@ existieren:
 * `.git/refs/remotes/<name>/HEAD`
 
 
-Die erste gefundene Referenz nimmt Git als Treffer an. Sie sollten
-also Tags immer ein eindeutiges Schema geben, um sie nicht mit
-Branches zu verwechseln. So können Sie Branches direkt über den Namen
-statt über `heads/<name>` ansprechen.
+////
+Die erste gefundene Referenz nimmt Git als Treffer an.
+Sie sollten also Tags immer ein eindeutiges Schema geben, um sie nicht mit Branches zu verwechseln.
+So können Sie Branches direkt über den Namen statt über `heads/<name>` ansprechen.
+////
+
+Git will take the first matching reference it finds.
+So you should always give tags a unique scheme so that they don't get confused with branches.
+This way you can address branches directly by name instead of `heads/<name>`.
 
 
-Besonders wichtig sind dafür die Suffixe `^` und `~<n>`. Die Syntax
-`<ref>^` bezeichnet den direkten Vorfahren von `<ref>`. Dieser muss
-aber nicht immer eindeutig sein: Wenn zwei oder mehr Branches
-zusammengeführt wurden, hat der Merge-Commit mehrere direkte
-Vorfahren. `<ref>^` bzw. `<ref>^1` bezeichnen dann den ersten
-_direkten_ Vorfahren, `<ref>^2` den zweiten usw.{fn30}
-Die Syntax `HEAD^^` bedeutet also ``der zwei
-Ebenen vorher liegende direkte Vorfahre des aktuellen
-Commits__. Achten Sie darauf, dass `^` in Ihrer Shell möglicherweise
-eine spezielle Bedeutung hat und Sie es durch Anführungszeichen oder
-mit einem Backslash schützen müssen.
+////
+Besonders wichtig sind dafür die Suffixe `^` und `~<n>`.
+Die Syntax `<ref>^` bezeichnet den direkten Vorfahren von `<ref>`.
+Dieser muss aber nicht immer eindeutig sein: Wenn zwei oder mehr Branches zusammengeführt wurden, hat der Merge-Commit mehrere direkte Vorfahren.
+`<ref>^` bzw. `<ref>^1` bezeichnen dann den ersten _direkten_ Vorfahren, `<ref>^2` den zweiten usw.[30]
+Die Syntax `HEAD^^` bedeutet also "`der zwei Ebenen vorher liegende direkte Vorfahre des aktuellen Commits`".
+Achten Sie darauf, dass `^` in Ihrer Shell möglicherweise eine spezielle Bedeutung hat und Sie es durch Anführungszeichen oder mit einem Backslash schützen müssen.
+////
 
-.Relative-Referenzen, `^` und `~<n>`
+Especially important are the suffixes `^` and `~<n>`.
+The syntax `<ref>^` indicates the direct ancestor of `<ref>`.
+This does not always have to be unique: If two or more branches were merged, the merge commit has several direct ancestors.
+`<ref>^` or `<ref>^1` then denotes the first direct ancestor, `<ref>^2` the second, and so on.{fn30}
+So the syntax `HEAD^^` means "`the two-level previous direct ancestor of the current commit`".
+Note that `^` may have a special meaning in your shell and you may need to protect it with quotes or a backslash.
+
+
+
+// .Relative-Referenzen, `^` und `~<n>`
+.Relative References, `^` and `~<n>`
 image::relative-refs.png[id="fig.relative-refs",scaledwidth="65%",width="65%"]
 
-Die Syntax `<ref>~<n>` kommt einer
-_n_-fachen Wiederholung von `^` gleich:
-`HEAD~10` bezeichnet also den zehnten direkten
-Vorgänger des aktuellen Commits. Achtung: Das heißt nicht, dass
-zwischen `HEAD` und `HEAD~10` nur elf
-Commits liegen: Da `^` bei einem etwaigen Merge nur dem
-ersten Strang folgt, liegen zwischen den beiden Referenzen die elf
-und alle durch einen Merge integrierten weiteren Commits.
-Die Syntax ist übrigens in der Man-Page `git-rev-parse(1)` im Abschnitt
-"`Specifying Revisions`" dokumentiert.
+
+////
+Die Syntax `<ref>~<n>` kommt einer _n_-fachen Wiederholung von `^` gleich: `HEAD~10` bezeichnet also den zehnten direkten Vorgänger des aktuellen Commits.
+Achtung: Das heißt nicht, dass zwischen `HEAD` und `HEAD~10` nur elf Commits liegen: Da `^` bei einem etwaigen Merge nur dem ersten Strang folgt, liegen zwischen den beiden Referenzen die elf und alle durch einen Merge integrierten weiteren Commits.
+Die Syntax ist übrigens in der Man-Page `git-rev-parse(1)` im Abschnitt "`Specifying Revisions`" dokumentiert.
+////
+
+// @NOTE: I've actually checked the "Specifying Revisions" section title at the
+//        'git-rev-parse(1)' man page, so it's correct!
+
+The syntax `<ref>~<n>` is equivalent to repeating `^` _n_ times: `HEAD~10` thus denotes the tenth direct predecessor of the current commit.
+Note: This does not mean that only eleven commits are stored between `HEAD` and `HEAD~10`: Since `^` only follows the first string in any merge, the eleven commits stored between the two references, and all the other commits integrated by a merge, are the same.
+The syntax is documented in the `git-rev-parse(1)` man page in the "`Specifying Revisions`" section.
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.branch-management]]
-=== Branches verwalten
+=== Managing Branches
+//  Branches verwalten
 
 Ein Branch ist in Git im Nu erstellt.  Git muss lediglich den aktuell
 ausgecheckten Commit identifizieren und die SHA-1-Summe in der Datei
 `.git/refs/heads/<branch-name>` ablegen.
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *time git branch neuer-branch*
 git branch neuer-branch  0.00s user 0.00s system 100% cpu 0.008 total
@@ -201,7 +303,7 @@ Hier eine Übersicht der wichtigsten Optionen:
   die Branches zeigen, sowie die erste Zeile der Beschreibung der
   entsprechenden Commits angezeigt.
 +
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git branch -v*
   maint  65f13f2 Start 1.7.5.1 maintenance track
@@ -225,7 +327,7 @@ In der ersten Form
   `<neuer-name>` umbenannt.  Das Kommando schlägt fehl,
   wenn dadurch ein anderer Branch überschrieben würde.
 +
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git branch -m master*
 fatal: A branch named \_master_ already exists.
@@ -234,7 +336,7 @@ fatal: A branch named \_master_ already exists.
 Wenn Sie einen Branch umbenennen, gibt Git keine Meldung aus. Sie können
 also hinterher überprüfen, dass die Umbenennung erfolgreich war:
 +
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git branch*
 * master
@@ -308,7 +410,7 @@ Liegen allerdings Änderungen im Working Tree oder Index vor, die mit
 beiden Branches verträglich sind, übernimmt ein Checkout diese
 Änderungen. Das sieht dann z.B. so aus:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout master*
 A   neue-datei.txt
@@ -398,7 +500,7 @@ Sie können also
 einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen
 (und vermeintlich gelöschten) Commit explizit als Referenz angeben:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git branch -D test*
 Deleted branch test (was e32bf29).
@@ -487,7 +589,7 @@ Version `1.7.1` des Git-Projekts an, also sowohl die
 Release-Candidates mit dem Zusatz `-rc*` sowie die
 (vierstelligen) Maintenance-Releases:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag -l v1.7.1&#42;*
 v1.7.1
@@ -504,7 +606,7 @@ v1.7.1.4
 
 Den Inhalt eines Tags liefert Ihnen `git show`:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show 0.1 | head*
 tag 0.1
@@ -531,7 +633,7 @@ Um den `HEAD` mit einem Lightweight Tag zu versehen, übergeben
 Sie den gewünschten Namen an das Kommando (in diesem Beispiel, um einen
 wichtigen Commit zu markieren):
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag api-aenderung*
 $ *git tag*
@@ -542,7 +644,7 @@ Sie können aber auch die SHA-1-Summe eines Objekts oder eine valide
 Revisionsbezeichnung (z.B.{empty}{nbsp}`master` oder `HEAD~23`)
 angeben, um ein Objekt nachträglich zu markieren.
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag pre-regression HEAD~23*
 $ *git tag*
@@ -553,7 +655,7 @@ pre-regression
 Tags sind einzigartig -- sollten Sie versuchen, ein Tag erneut zu
 erzeugen, bricht Git mit einer Fehlermeldung ab:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag pre-regression*
 fatal: tag \_pre-regression_ already exists
@@ -567,7 +669,7 @@ Annotated Tags erzeugen Sie mit der Option `-a`. Wie bei
 Tag-Message verfassen. Oder Sie übergeben die Tag-Message mit der
 Option `-m` -- dann ist die Option `-a` redundant:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag -m "Zweite Veröffentlichung" 0.2*
 --------
@@ -578,7 +680,7 @@ $ *git tag -m "Zweite Veröffentlichung" 0.2*
 Um ein signiertes Tag zu überprüfen, verwenden Sie die Option
 `-v` (_verify_):
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag -v v1.7.1*
 object d599e0484f8ebac8cc50e9557a4c3d246826843d
@@ -598,7 +700,7 @@ den Schlüssel des Signierenden bereits importiert haben.
 Um selbst Tags zu signieren, müssen Sie zunächst den dafür bevorzugten
 Key einstellen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git config --global user.signingkey &lt;GPG-Key-ID&gt;*
 --------
@@ -606,7 +708,7 @@ $ *git config --global user.signingkey &lt;GPG-Key-ID&gt;*
 Nun können Sie signierte Tags mit der Option `-s` (_sign_)
 erstellen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 --------
@@ -617,7 +719,7 @@ $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 Mit den Optionen `-d` und `-f` löschen Sie Tags bzw.
 überschreiben sie:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tag -d 0.2*
 Deleted tag \_0.2_ (was 4773c73)
@@ -661,7 +763,7 @@ hinterlegen.
 So zeigt das Tag `junio-gpg-pub` im Git-Repository von Git auf den
 Schlüssel von Junio C. Hamano:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show junio-gpg-pub | head -5*
 tag junio-gpg-pub
@@ -679,7 +781,7 @@ der Repository-Wartung gelöscht wird.{fn34}
 
 Um den Schlüssel zu verwenden, gehen Sie wie folgt vor:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git cat-file blob junio-gpg-pub | gpg --import*
 gpg: key F3119B9A: public key "Junio C Hamano &lt;pass:quotes[junkio@cox.net]&gt;" imported
@@ -704,7 +806,7 @@ befindet:
 .Der zu beschreibende Commit in Grau hervorgehoben
 image::describe-screenshot.png[id="fig.describe",scaledwidth="90%",width="90%"]
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git describe --tags*
 v1.7.1-7-g28ba96a
@@ -732,7 +834,7 @@ Bezeichner in etwas für Menschen Sinnvolles übersetzt:
 `v1.7.1-213-g3183286`. Dadurch können Sie die Ausgaben sinnvoll
 -- wie im Git-Projekt auch -- direkt in die Software einkompilieren:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git describe*
 v1.7.5-rc2-8-g0e73bb4
@@ -789,7 +891,7 @@ ersetzt dann `<datei>` durch die Version im aktuellen Branch.
 Auf diese Weise können Sie auch den älteren Zustand einer Datei
 rekonstruieren:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout ce66692 -- &lt;datei&gt;*
 --------
@@ -803,7 +905,7 @@ entsprechende(n) Datei(en) wiederherstellen möchten.
 Um den Inhalt einer Datei aus einem bestimmten Commit anzuschauen,
 ohne sie auszuchecken, nutzen Sie das folgende Kommando:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show ce66692:&lt;datei&gt;*
 --------
@@ -825,7 +927,7 @@ Wenn Sie einen Commit auschecken, der nicht durch einen Branch
 referenziert wird, befinden Sie sich im sogenannten
 _Detached-HEAD_-Modus:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout 3329661*
 Note: checking out \_3329661_.
@@ -865,7 +967,7 @@ machen wollen als sich bloß umzuschauen und beispielsweise testen möchten,
 ob Ihre Software schon damals einen bestimmten Bug hatte, sollten Sie
 einen Branch erstellen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout -b &lt;temp-branch&gt;*
 --------
@@ -897,7 +999,7 @@ erstellt. Der Patch des entsprechenden Commits sieht so aus:
 
 Nun können Sie die Änderungen rückgängig machen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git revert 3329661*
 Finished one revert.
@@ -909,7 +1011,7 @@ Finished one revert.
 Git erstellt einen neuen Commit auf dem aktuellen Branch -- sofern Sie
 nichts anderes angeben -- mit der Beschreibung `Revert "<Alte Commit-Nachricht>"`. Dieser Commit sieht so aus:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show*
 commit a68ad2d41e9219383449d703521573477ee7da48
@@ -944,7 +1046,7 @@ Sofern Sie einen Revert durchführen wollen, allerdings nicht für
 sämtliche Änderungen des Commits, sondern nur für die einer Datei,
 können Sie sich zum Beispiel so behelfen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show -R 3329661 -- LICENSE | git apply --index*
 $ *git commit -m \_Revert change to LICENSE from 3329661_*
@@ -962,7 +1064,7 @@ Eine weitere Möglichkeit, eine Änderung rückgängig zu machen, besteht
 darin, eine Datei aus einem vorherigen Commit auszuchecken, sie dem
 Index hinzuzufügen und neu einzuchecken:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout 3329661 -- &lt;datei&gt;*
 $ *git add &lt;datei&gt;*
@@ -1012,7 +1114,7 @@ Branch, der auf den `HEAD` zeigt, und setzt anschließend
 Commits zurück. Dann checken Sie den neuen Branch
 `<neues-feature>` aus.
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git branch &lt;neues-feature&gt;*
 $ *git reset --hard HEAD^^*
@@ -1025,7 +1127,7 @@ aktuellen Commit zeigt. Dann löschen Sie `master` und erstellen
 ihn neu, so dass er auf den zweiten Vorgänger des aktuellen Commits
 zeigt.
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout -b &lt;neues-feature&gt;*
 $ *git branch -D master*
@@ -1054,7 +1156,7 @@ unwiderruflich gelöscht.
 Das Resultat von oben (zwei Commits auf einen neuen Branch
 verschieben) erreichen Sie also alternativ auch so:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git reset --hard HEAD^^*
 $ *git checkout -b &lt;neues-feature&gt; ORIG_HEAD*
@@ -1073,7 +1175,7 @@ haben, die aber nicht  sinnvoll gegliedert (oder viel zu groß)
 sind, können Sie einen Branch `<reorder-feature>`
 erstellen und _alle_ Änderungen in neue Commits verpacken:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout -b &lt;reorder-feature&gt; &lt;feature&gt;*
 $ *git reset master*
@@ -1094,7 +1196,7 @@ Angenommen, Sie arbeiten an einer Änderung und wollen diese temporär
 einchecken (um später daran weiterzuarbeiten). Dann können Sie
 folgende Kommandos verwenden:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git commit -m \_feature (noch unfertig)_*
 (später)
@@ -1131,7 +1233,7 @@ Beachten Sie, dass das Kommando den angegebenen Branch in den
 _aktuell ausgecheckten Branch_ (d.h.{empty}{nbsp}`HEAD`)
 integriert. Das Kommando benötigt also nur ein Argument:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git merge &lt;branch-name&gt;*
 --------
@@ -1561,7 +1663,7 @@ Nun versucht Beatrice, ihre Änderungen auf Branch B in den
 Branch `master` zu übernehmen, auf dem Axel seine Änderungen
  schon integriert hat:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git checkout master*
 $ *git merge B*
@@ -1578,7 +1680,7 @@ sich Änderungen überschneiden. Es gibt zwei Seiten: Zum einen
 der zu integrierende Branch -- B. Die beiden Seiten werden
 durch eine Reihe von Gleichheitszeichen voneinander getrennt:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 int i;
 int tw = 72;
@@ -1626,7 +1728,7 @@ hinzufügen. Sofern keine Konflikt-Marker mehr in der Datei verbleiben,
 ist dies für Git das Zeichen, dass ein Konflikt gelöst wurde.
 Schließlich muss das Resultat noch eingecheckt werden:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git add output.c*
 $ *git commit*
@@ -1641,7 +1743,7 @@ Normalerweise sind Merge-Commits "`leer`", d.h. in
 von anderen Commits verursacht wurden). Im Falle eines Merge-Commits,
 der einen Konflikt löst, ist dies aber anders:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show*
 commit 6e6c55810c884356402c078f30e45a997047058e
@@ -1740,7 +1842,7 @@ zu integrierenden Branches (dieser hat die symbolische Referenz
 dieser drei Stufen mit Konflikt-Markern. Sie können diese Versionen
 aber jeweils mit `git show :<n>:<datei>` anzeigen:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git show :1:output.c*
 $ *git show :2:output.c*
@@ -1850,7 +1952,7 @@ Merge-Konflikt auftritt, nimmt Rerere automatisch ein _Preimage_
 auf, ein Abbild der Konfliktdatei inklusive Markern. Im Falle des
 obigen Beispiels sähe das so aus:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git merge B*
 Auto-merging output.c
@@ -1862,7 +1964,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 Wird der Konflikt wie oben gelöst und die Lösung eingecheckt,
 speichert Rerere die Konfliktlösung ab:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *vim output.c*
 $ *git add output.c*
@@ -1876,7 +1978,7 @@ den Merge-Commit komplett löschen (und sind wieder in der
 Ausgangssituation vor dem Merge). Dann führen wir den Merge noch
 einmal aus:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git reset --hard HEAD^*
 HEAD is now at f894659 wrap output at 72 chars
@@ -2019,7 +2121,7 @@ Kirschen herauspicken__) zuständig.
 Das Kommando erwartet einen oder mehrere Commits, die auf den aktuellen
 Branch kopiert werden sollen. Zum Beispiel:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git cherry-pick d0c915d*
 $ *git cherry-pick topic\~5 topic\~1*
@@ -2067,7 +2169,7 @@ Sie Git, die Änderungen eines Commits zwar in den Index zu
 mehrere kleine Commits erst im Index "`aggregieren`" und
 dann als _einen_ Commit verpacken:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git cherry-pick -n 785aa39 512f3e9 4e4a063*
 Finished one cherry-pick.
@@ -2110,7 +2212,7 @@ Diesen Baum können wir mit geeigneten Kommandozeilenoptionen auch per
 `log`-Kommando auf der Konsole anzeigen lassen (Branch- und
 Tag-Namen sind zur besseren Unterscheidung halbfett gedruckt):
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git log --decorate --pretty=oneline --abbrev-commit --graph --all*
 * c937566 (*HEAD*, *D*) commit on branch D
@@ -2143,7 +2245,7 @@ Alias einzurichten, das die vielen langen Optionen automatisch
 hinzufügt. Die Autoren verwenden dafür das Alias `tree`, das
 Sie wie folgt definieren können:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git config --global alias.tree \'log --decorate \*
    *--pretty=oneline --abbrev-commit --graph'*
@@ -2158,7 +2260,7 @@ Nun verändern wir obiges Kommando: Statt der Option `--all`,
 die alle Commits im Baum unterbringt, geben wir nun `B` an (den
 Namen des Branch):
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tree B*
 * 2417cf7 (*B*) commit on branch B
@@ -2181,7 +2283,7 @@ bereits "`eingesammelt`" wird.
 Natürlich können Sie statt symbolischer Referenzen auch direkt eine
 SHA-1-Summe angeben:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tree 5b2c291*
 *   5b2c291 Merge branch \_B_ into A
@@ -2202,7 +2304,7 @@ nur weiß, welche Commits _nicht_ angezeigt werden sollen. Wir fügen
 also wieder `--all` hinzu, um alle Commits aufzulisten, abzüglich
 derer, die von A erreichbar sind:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tree --all ^A*
 * c937566 (*HEAD*, *D*) commit on branch D
@@ -2215,7 +2317,7 @@ Besonders hilfreich sind solche Kommandos, um den _Unterschied_
 zwischen zwei Branches zu untersuchen: Welche Commits sind in Branch
 D, die nicht in A sind?  Die Antwort liefert das Kommando:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tree D ^A*
 * c937566 (*HEAD*, *D*) commit on branch D
@@ -2224,7 +2326,7 @@ $ *git tree D ^A*
 Weil sich diese Frage häufig stellt, gibt es dafür eine andere,
 intuitivere Notation: `A..D` ist gleichbedeutend mit `D ^A`:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git tree A..D*
 * c937566 (*HEAD*, *D*) commit on branch D
@@ -2315,7 +2417,7 @@ image::gitk.png[id="fig.gitk",scaledwidth="90%",width="90%"]
 Gitk akzeptiert im wesentlichen die gleichen Optionen wie `git
   log`. Einige Beispiele:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *gitk --since=yesterday -- doc/*
 $ *gitk e13404a..48effd3*
@@ -2377,7 +2479,7 @@ Namen der jeweiligen Referenz. Das Reflog für den
 `.git/logs/refs/heads/master`. Außerdem gibt es das Kommando
 `git reflog show <referenz>`, um das Reflog aufzulisten:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git reflog show master*
 48effd3 master@{0}: HEAD^: updating HEAD
@@ -2423,7 +2525,7 @@ dann referenziert.
 
 Zwei Beispiele:
 
-[subs="macros,quotes"]
+[subs="quotes"]
 --------
 $ *git log \_master@{two weeks ago}..\_*
 $ *git show \_@{1st of April, 2011}_*
@@ -2457,7 +2559,7 @@ Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden.
 Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also
 "`letzte Position des `HEAD``":
 
-[subs="macros,quotes"]
+[subs="quotes"]
 ------
 $ *git checkout feature*   # vorher auf "master"
 $ *git commit ...*         # Änderungen, Commits machen
