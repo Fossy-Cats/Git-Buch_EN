@@ -271,16 +271,19 @@ Note: This does not mean that only eleven commits are stored between `HEAD` and 
 The syntax is documented in the `git-rev-parse(1)` man page in the "`Specifying Revisions`" section.
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.branch-management]]
 === Managing Branches
 //  Branches verwalten
 
-Ein Branch ist in Git im Nu erstellt.  Git muss lediglich den aktuell
-ausgecheckten Commit identifizieren und die SHA-1-Summe in der Datei
-`.git/refs/heads/<branch-name>` ablegen.
+////
+Ein Branch ist in Git im Nu erstellt.
+Git muss lediglich den aktuell ausgecheckten Commit identifizieren und die SHA-1-Summe in der Datei `.git/refs/heads/<branch-name>` ablegen.
+////
+
+A branch is created in Git in no time.
+All Git needs to do is identify the currently checked out commit and store the SHA-1 sum in the `.git/refs/heads/<branch-name>` file.
+
 
 [subs="quotes"]
 --------
@@ -288,20 +291,34 @@ $ *time git branch neuer-branch*
 git branch neuer-branch  0.00s user 0.00s system 100% cpu 0.008 total
 --------
 
-Das Kommando ist so schnell, weil (im Gegensatz zu anderen Systemen)
-keine Dateien kopiert und keine weiteren Metadaten abgelegt werden
-müssen. Informationen über die Struktur der Versionsgeschichte sind
-immer aus dem Commit, den ein Branch referenziert, und seinen
-Vorfahren ableitbar.
 
+////
+Das Kommando ist so schnell, weil (im Gegensatz zu anderen Systemen) keine Dateien kopiert und keine weiteren Metadaten abgelegt werden müssen.
+Informationen über die Struktur der Versionsgeschichte sind immer aus dem Commit, den ein Branch referenziert, und seinen Vorfahren ableitbar.
+////
+
+The command is so fast because (unlike other systems) no files need to be copied and no additional metadata needs to be stored.
+Information about the structure of the version history can always be derived from the commit that a branch references and its ancestors.
+
+
+////
 Hier eine Übersicht der wichtigsten Optionen:
+////
+
+Here is an overview of the most important options:
 
 
-`git branch [-v]`::  Listet lokale Branches auf.
-  Dabei ist der aktuell ausgecheckte Branch mit einem Sternchen
-  markiert. Mit `-v` werden außerdem die Commit-IDs, auf die
-  die Branches zeigen, sowie die erste Zeile der Beschreibung der
-  entsprechenden Commits angezeigt.
+////
+`git branch [-v]` ::
+Listet lokale Branches auf.
+Dabei ist der aktuell ausgecheckte Branch mit einem Sternchen markiert.
+Mit `-v` werden außerdem die Commit-IDs, auf die die Branches zeigen, sowie die erste Zeile der Beschreibung der entsprechenden Commits angezeigt.
+////
+
+`git branch [-v]` ::
+Lists local branches.
+The currently checked-out branch is marked with an asterisk.
+You can also use `-v` to display the commit IDs to which the branches point and the first line of the description of the corresponding commits.
 +
 [subs="quotes"]
 --------
@@ -312,29 +329,45 @@ $ *git branch -v*
   pu     d7a491c Merge branch \_js/info-man-path_ into pu
 --------
 
-`git branch <branch> [<ref>]`:: Erstellt einen neuen
-  Branch `<branch>`, der auf Commit `<ref>` zeigt
-  (`<ref>` kann die SHA-1-Summe eines Commits sein, ein
-  anderer Branch usw.). Wenn Sie keine Referenz
-  angeben, ist dies `HEAD`, der aktuelle Branch.
+////
+`git branch <branch> [<ref>]` ::
+Erstellt einen neuen Branch `<branch>`, der auf Commit `<ref>` zeigt (`<ref>` kann die SHA-1-Summe eines Commits sein, ein anderer Branch usw.).
+Wenn Sie keine Referenz angeben, ist dies `HEAD`, der aktuelle Branch.
+////
 
+`git branch <branch> [<ref>]` ::
+Creates a new branch `<branch>` pointing to commit `<ref>` (`<ref>` can be the SHA-1 sum of a commit, another branch, etc.).
+If you do not specify a reference, this is HEAD, the current branch.
+
+////
 `git branch -m  <neuer-name>`::
 `git branch -m  <alter-name> <neuer-name>`
 +
-In der ersten Form
-  wird der aktuelle Branch in `<neuer-name>` umbenannt.
-  In der zweiten Form wird `<alter-name>` in
-  `<neuer-name>` umbenannt.  Das Kommando schlägt fehl,
-  wenn dadurch ein anderer Branch überschrieben würde.
+In der ersten Form wird der aktuelle Branch in `<neuer-name>` umbenannt.
+In der zweiten Form wird `<alter-name>` in `<neuer-name>` umbenannt.
+Das Kommando schlägt fehl, wenn dadurch ein anderer Branch überschrieben würde.
+////
+
+
+`git branch -m  <new-name>` :: {empty}
+
+`git branch -m  <old-name> <new-name>` ::
+In the first form the current branch is renamed to `<new-name>`.
+In the second form `<old-name>` is renamed to `<new-name>`.
+The command fails if this would overwrite another branch.
 +
 [subs="quotes"]
 --------
 $ *git branch -m master*
-fatal: A branch named \_master_ already exists.
+fatal: A branch named 'master' already exists.
 --------
 +
-Wenn Sie einen Branch umbenennen, gibt Git keine Meldung aus. Sie können
-also hinterher überprüfen, dass die Umbenennung erfolgreich war:
+////
+Wenn Sie einen Branch umbenennen, gibt Git keine Meldung aus.
+Sie können also hinterher überprüfen, dass die Umbenennung erfolgreich war:
+////
+If you rename a branch, Git will not display a message.
+So you can check afterwards to make sure the renaming was successful:
 +
 [subs="quotes"]
 --------
@@ -349,67 +382,117 @@ $ *git branch*
 
 
 
-`git branch -M ...`:: Wie `-m`, nur dass
-  ein Branch auch umbenannt wird, wenn dadurch ein anderer
-  überschrieben wird. Achtung: Dabei können Commits des
-  überschriebenen Branches verlorengehen!
+////
+`git branch -M ...` ::
+Wie `-m`, nur dass ein Branch auch umbenannt wird, wenn dadurch ein anderer überschrieben wird.
+Achtung: Dabei können Commits des überschriebenen Branches verlorengehen!
+////
 
-`git branch -d <branch>`:: Löscht
-  `<branch>`. Sie können mehrere Branches gleichzeitig
-  angeben. Git weigert sich, einen Branch zu löschen,
-  wenn er noch nicht komplett in seinen Upstream-Branch, oder, falls
-  dieser nicht existiert, in `HEAD`, also den aktuellen Branch,
-  integriert ist. (Mehr über Upstream-Branches finden Sie in
-  <<sec.pull>>.)
+`git branch -M ...` ::
+Like `-m`, except that a branch is also renamed if it overwrites another branch.
+Attention: Commits of the overwritten branch may be lost!
 
-`git branch -D ...`:: Löscht einen Branch, auch wenn
-  er Commits enthält, die noch nicht in den Upstream- oder aktuellen Branch
-  integriert wurden. Achtung: Diese Commits können möglicherweise
-  verlorengehen, wenn sie nicht anders referenziert werden.
+
+////
+`git branch -d <branch>` ::
+Löscht `<branch>`.
+Sie können mehrere Branches gleichzeitig angeben.
+Git weigert sich, einen Branch zu löschen, wenn er noch nicht komplett in seinen Upstream-Branch, oder, falls dieser nicht existiert, in `HEAD`, also den aktuellen Branch, integriert ist.
+(Mehr über Upstream-Branches finden Sie in Abschnitt 5.3.2, "git pull".)
+////
+
+`git branch -d <branch>` ::
+Delete `<branch>`.
+You can specify several branches at once.
+Git refuses to delete a branch if it is not yet fully integrated into its upstream branch, or, if it does not exist, into `HEAD`, the current branch.
+(For more on upstream branches, see <<sec.pull>>).
+
+
+
+////
+`git branch -D ...` ::
+Löscht einen Branch, auch wenn er Commits enthält, die noch nicht in den Upstream- oder aktuellen Branch integriert wurden.
+Achtung: Diese Commits können möglicherweise verlorengehen, wenn sie nicht anders referenziert werden.
+////
+
+`git branch -D ...` ::
+Deletes a branch, even if it contains commits that have not yet been integrated into the upstream or current branch.
+Note: These commits may be lost unless they are referenced differently.
+
+
 
 
 [[sec.branch-checkout]]
-==== Branches wechseln: checkout
+==== Changing Branches: checkout
+//   Branches wechseln: checkout
 
-Branches wechseln Sie mit `git checkout <branch>`.  Wenn Sie
-einen Branch erstellen und direkt darauf wechseln
-wollen, verwenden Sie `git checkout -b <branch>`. Das Kommando
-ist äquivalent zu `git branch <branch> && git checkout
-  <branch>`.
+////
+Branches wechseln Sie mit `git checkout <branch>`.
+Wenn Sie einen Branch erstellen und direkt darauf wechseln wollen, verwenden Sie `git checkout -b <branch>`.
+Das Kommando ist äquivalent zu `git branch <branch> && git checkout <branch>`.
+////
 
-Was passiert bei einem Checkout? Jeder Branch referenziert einen
-Commit, der wiederum einen Tree referenziert, also das Abbild einer
-Verzeichnisstruktur. Ein `git checkout <branch>` löst nun die
-Referenz `<branch>` auf einen Commit auf und repliziert den
-Tree des Commits auf den Index und auf den Working Tree (d.h.  auf
-das Dateisystem).
-
-Da Git weiß, in welcher Version Dateien aktuell in Index und Working
-Tree vorliegen, müssen nur die Dateien, die sich auf dem aktuellen und
-dem neuen Branch unterscheiden, ausgecheckt werden.
-
-Git macht es Anwendern schwer, Informationen zu verlieren. Daher
-wird ein Checkout eher fehlschlagen als eventuell nicht abgespeicherte
-Änderungen in einer Datei überschreiben. Das passiert in den folgenden
-beiden Fällen:
+You can change branches with `git checkout <branch>`.
+If you create a Branch and want to switch directly to it, use `git checkout -b <branch>`.
+The command is equivalent to `git branch <branch> && git checkout <branch>`.
 
 
 
-* Der Checkout würde eine Datei im Working Tree
-  überschreiben, in der sich Änderungen befinden. Git gibt folgende
-  Fehlermeldung aus: `error: Your local changes to the following files
+////
+Was passiert bei einem Checkout?
+Jeder Branch referenziert einen Commit, der wiederum einen Tree referenziert, also das Abbild einer Verzeichnisstruktur.
+Ein `git checkout <branch>` löst nun die Referenz `<branch>` auf einen Commit auf und repliziert den Tree des Commits auf den Index und auf den Working Tree (d.h.  auf das Dateisystem).
+////
+
+What happens during a checkout?
+Each branch references a commit, which in turn references a tree, that is, the image of a directory structure.
+A `git checkout <branch>` now resolves the reference `<branch>` to a commit and replicates the commit's tree to the index and to the working tree (i.e., the filesystem).
+
+
+////
+Da Git weiß, in welcher Version Dateien aktuell in Index und Working Tree vorliegen, müssen nur die Dateien, die sich auf dem aktuellen und dem neuen Branch unterscheiden, ausgecheckt werden.
+////
+
+Since Git knows which version of files are currently in the index and working tree, only the files that differ on the current and new branches need to be checked out.
+
+Git macht es Anwendern schwer, Informationen zu verlieren.
+Daher wird ein Checkout eher fehlschlagen als eventuell nicht abgespeicherte Änderungen in einer Datei überschreiben.
+Das passiert in den folgenden beiden Fällen:
+
+Git makes it hard for users to lose information.
+Therefore, a checkout is more likely to fail than overwrite any unsaved changes in a file.
+This happens in the following two cases:
+
+
+
+////
+* Der Checkout würde eine Datei im Working Tree überschreiben, in der sich Änderungen befinden.
+  Git gibt folgende Fehlermeldung aus: `error: Your local changes to the following files
   would be overwritten by checkout: datei`.
+////
 
-* Der Checkout würde eine ungetrackte Datei überschreiben,
-  d.h. eine Datei, die nicht von Git verwaltet wird. Git bricht dann mit
-  der Fehlermeldung ab: `error: The following untracked working tree
-  files would be overwritten by checkout: datei`.
+* The checkout would overwrite a file in the working tree that contains changes.
+  Git will display the following error message: `error: Your local changes to the following files would be overwritten by checkout: file`.
+
+////
+* Der Checkout würde eine ungetrackte Datei überschreiben, d.h. eine Datei, die nicht von Git verwaltet wird.
+  Git bricht dann mit der Fehlermeldung ab: `error: The following untracked working tree files would be overwritten by checkout: datei`.
+////
+
+* The checkout would overwrite an untracked file, i.e. a file that is not managed by Git.
+  Git then aborts with the error message: error: `The following untracked working tree files would be overwritten by checkout: file.`
 
 
-Liegen allerdings Änderungen im Working Tree oder Index vor, die mit
-beiden Branches verträglich sind, übernimmt ein Checkout diese
-Änderungen. Das sieht dann z.B. so aus:
+////
+Liegen allerdings Änderungen im Working Tree oder Index vor, die mit beiden Branches verträglich sind, übernimmt ein Checkout diese Änderungen.
+Das sieht dann z.B. so aus:
+////
 
+If, however, changes are stored in the working tree or index that are compatible with both branches, a checkout takes over these changes.
+This would look like this, for example:
+
+// @TRANSLATE GIT LOG?
+// @NOTE: Why "master" is in italics?
 [subs="quotes"]
 --------
 $ *git checkout master*
@@ -417,21 +500,37 @@ A   neue-datei.txt
 Switched to branch _master_
 --------
 
-Das bedeutet, dass die Datei `neue-datei.txt` hinzugefügt
-wurde, die auf keinem der beiden Branches existiert. Da hier also
-keine Informationen verlorengehen können, wird die Datei einfach
-übernommen. Die Meldung: `A neue-datei.txt` erinnert Sie, um
-welche Dateien Sie sich noch kümmern sollten.  Dabei steht `A`
-für hinzugefügt (_added_), `D` für gelöscht (_deleted_)
-und `M` für geändert (_modified_).
 
-Wenn Sie ganz sicher sind, dass Sie Ihre Änderungen nicht mehr
-brauchen, können Sie per `git checkout -f` die Fehlermeldungen
-ignorieren und den Checkout trotzdem ausführen.
+////
+Das bedeutet, dass die Datei `neue-datei.txt` hinzugefügt wurde, die auf keinem der beiden Branches existiert.
+Da hier also keine Informationen verlorengehen können, wird die Datei einfach übernommen.
+Die Meldung: `A neue-datei.txt` erinnert Sie, um welche Dateien Sie sich noch kümmern sollten.
+Dabei steht `A` für hinzugefügt (_added_), `D` für gelöscht (_deleted_) und `M` für geändert (_modified_).
+////
 
-Wenn Sie sowohl die Änderungen behalten als auch den Branch wechseln
-wollen (Beispiel: Arbeit unterbrechen und auf einem anderen Branch
-einen Fehler korrigieren), dann hilft `git stash` (<<sec.stash>>).
+This means that the file `new-file.txt` was added, which does not exist on either branch.
+So since no information can be lost here, the file is simply transferred.
+The message: `A new-file.txt` reminds you which files you should still take care of.
+`A` stands for _added_, `D` for _deleted_ and `M` for _modified_.
+
+
+////
+Wenn Sie ganz sicher sind, dass Sie Ihre Änderungen nicht mehr brauchen, können Sie per `git checkout -f` die Fehlermeldungen ignorieren und den Checkout trotzdem ausführen.
+////
+
+If you're sure you don't need your changes anymore, you can use `git checkout -f` to ignore the error messages and run the checkout anyway.
+
+
+////
+Wenn Sie sowohl die Änderungen behalten als auch den Branch wechseln wollen (Beispiel: Arbeit unterbrechen und auf einem anderen Branch einen Fehler korrigieren), dann hilft `git stash` (Abschnitt 4.5, "Veränderungen auslagern -- git stash").
+////
+
+If you want to keep the changes and change the branch (e.g., interrupt your work and fix a bug on another branch), `git stash` will help (<<sec.stash>>).
+
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.branch-naming]]
 ==== Konventionen zur Benennung von Branches
