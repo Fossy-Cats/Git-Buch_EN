@@ -943,100 +943,142 @@ $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 --------
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.tags-loeschen]]
 ==== Deleting and Overwriting Tags
 //   Tags löschen und überschreiben
 
+////
 Mit den Optionen `-d` und `-f` löschen Sie Tags bzw. überschreiben sie:
+////
 
+Use the `-d` and `-f` options to delete or overwrite tags:
 
 [subs="quotes"]
 --------
 $ *git tag -d 0.2*
-Deleted tag \_0.2_ (was 4773c73)
+Deleted tag '0.2' (was 4773c73)
 --------
 
 
-Die Optionen sind mit Vorsicht zu genießen, besonders wenn Sie die Tags nicht nur lokal verwenden, sondern auch veröffentlichen. Unter bestimmten Umständen kann es dazu kommen, dass Tags unterschiedliche Commits bezeichnen -- Version `1.0` im Repository X zeigt auf einen anderen Commit als Version `1.0` im Repository Y. Aber sehen Sie hierzu auch <<sec.remote-tags>>.
+////
+Die Optionen sind mit Vorsicht zu genießen, besonders wenn Sie die Tags nicht nur lokal verwenden, sondern auch veröffentlichen.
+Unter bestimmten Umständen kann es dazu kommen, dass Tags unterschiedliche Commits bezeichnen -- Version `1.0` im Repository X zeigt auf einen anderen Commit als Version `1.0` im Repository Y.
+Aber sehen Sie hierzu auch Abschnitt 5.8, "Tags austauschen".
+////
+
+The options should be used with caution, especially if you use the tags not only locally, but also publish them.
+Under certain circumstances, tags may indicate different commits -- version `1.0` in repository X points to a different commit than version `1.0` in repository Y.
+But see also <<sec.remote-tags>>.
+
 
 
 
 [[sec.tags-lightweight-vs-heavyweight]]
 ==== Lightweight vs. Annotated Tags
 
-Für die öffentliche Versionierung von Software sind allgemein
-Annotated Tags sinnvoller. Sie enthalten im Gegensatz zu Lightweight
-Tags Metainformationen, aus denen zu ersehen ist, wer wann ein Tag
-erstellt hat -- der Ansprechpartner ist eindeutig.  Auch erfahren
-Benutzer einer Software so, wer eine bestimmte Version abgesegnet hat.
-Zum Beispiel ist klar, dass Junio C. Hamano die Git-Version 1.7.1
-getaggt hat -- sie hat also quasi sein "`Gütesiegel`". Die
-Aussage bestätigt natürlich auch die kryptographische Signatur.
-Lightweight Tags hingegen eignen sich vor allem, um lokal Markierungen
-anzubringen, zum Beispiel um bestimmte, für die aktuelle Aufgabe
-relevante Commits zu kennzeichnen. Achten Sie aber darauf, solche Tags
-nicht in ein öffentliches Repository hochzuladen (siehe
-<<sec.remote-tags>>), da diese sich sonst verbreiten könnten.
-Sofern Sie die Tags nur lokal verwenden, können Sie sie auch löschen,
-wenn sie ihren Dienst erfüllt haben (s.o.).
+////
+Für die öffentliche Versionierung von Software sind allgemein Annotated Tags sinnvoller.
+Sie enthalten im Gegensatz zu Lightweight Tags Metainformationen, aus denen zu ersehen ist, wer wann ein Tag erstellt hat -- der Ansprechpartner ist eindeutig.
+Auch erfahren Benutzer einer Software so, wer eine bestimmte Version abgesegnet hat.
+Zum Beispiel ist klar, dass Junio C. Hamano die Git-Version 1.7.1 getaggt hat -- sie hat also quasi sein "`Gütesiegel`".
+Die Aussage bestätigt natürlich auch die kryptographische Signatur.
+Lightweight Tags hingegen eignen sich vor allem, um lokal Markierungen anzubringen, zum Beispiel um bestimmte, für die aktuelle Aufgabe relevante Commits zu kennzeichnen.
+Achten Sie aber darauf, solche Tags nicht in ein öffentliches Repository hochzuladen (siehe  Abschnitt 5.8, "Tags austauschen"), da diese sich sonst verbreiten könnten.
+Sofern Sie die Tags nur lokal verwenden, können Sie sie auch löschen, wenn sie ihren Dienst erfüllt haben (s.o.).
+////
+
+For public versioning of software, annotated tags are generally more useful.
+Unlike lightweight tags, they contain meta-information that shows who created a tag and when -- the person contact is unique.
+Users of software can also find out who has approved a particular version.
+For example, it's clear that Junio C. Hamano has tagged Git version 1.7.1 -- so it has his "`seal of approval`".
+The statement also confirms the cryptographic signature, of course.
+Lightweight tags, on the other hand, are particularly suitable for applying local markers, for example to identify certain commits relevant to the current task.
+However, make sure not to upload such tags to a public repository (see <<sec.remote-tags>>), as they might spread.
+If you only use the tags locally, you can also delete them once they have fulfilled their service (see above).
+
+
 
 [[sec.non-commit-tags]]
 ==== Non-Commit Tags
 
-Mit Tags markieren Sie beliebige Git-Objekte, also nicht nur Commits,
-sondern auch Tree-, Blob- und sogar Tag-Objekte selbst! Das klassische
-Beispiel ist, den öffentlichen GPG-Schlüssel, der von dem Maintainer
-eines Projekts zum Signieren von Tags verwendet wird, in einem Blob zu
-hinterlegen.
+////
+Mit Tags markieren Sie beliebige Git-Objekte, also nicht nur Commits, sondern auch Tree-, Blob- und sogar Tag-Objekte selbst!
+Das klassische Beispiel ist, den öffentlichen GPG-Schlüssel, der von dem Maintainer eines Projekts zum Signieren von Tags verwendet wird, in einem Blob zu hinterlegen.
+////
 
-So zeigt das Tag `junio-gpg-pub` im Git-Repository von Git auf den
-Schlüssel von Junio C. Hamano:
+With tags you can mark any Git object, not only commits, but also trees, blobs and even tag objects themselves!
+The classic example is to put the GPG public key used by the maintainer of a project to sign tags in a blob.
+
+////
+So zeigt das Tag `junio-gpg-pub` im Git-Repository von Git auf den Schlüssel von Junio C. Hamano:
+////
+
+For example, the tag `junio-gpg-pub` in the Git repository of Git points to the key of Junio C. Hamano:
+
 
 [subs="quotes"]
 --------
 $ *git show junio-gpg-pub | head -5*
 tag junio-gpg-pub
-Tagger: Junio C Hamano &lt;pass:quotes[junkio@cox.net]&gt;
+Tagger: Junio C Hamano &lt;junkio@cox.net&gt;
 Date:   Tue Dec 13 16:33:29 2005 -0800
 
 GPG key to sign git.git archive.
 --------
 
-Weil dieses Blob-Objekt von keinem Tree referenziert wird, ist die
-Datei quasi getrennt vom eigentlichen Code, aber dennoch im Repository
-vorhanden. Außerdem ist ein Tag auf einen "`einsamen`" Blob
-notwendig, damit dieser nicht als _unreachable_ gilt und im Zuge
-der Repository-Wartung gelöscht wird.{fn34}
 
+
+////
+Weil dieses Blob-Objekt von keinem Tree referenziert wird, ist die Datei quasi getrennt vom eigentlichen Code, aber dennoch im Repository vorhanden.
+Außerdem ist ein Tag auf einen "`einsamen`" Blob notwendig, damit dieser nicht als _unreachable_ gilt und im Zuge der Repository-Wartung gelöscht wird.[34]
+////
+
+Because this blob object is not referenced by any tree, the file is virtually separate from the actual code, but still exists in the repository.
+In addition, a tag on a "`lonely`" blob is necessary so that it is not considered unreachable and is deleted during repository maintenance.{fn34}
+
+////
 Um den Schlüssel zu verwenden, gehen Sie wie folgt vor:
+////
+
+To use the key, proceed as follows:
+
 
 [subs="quotes"]
 --------
 $ *git cat-file blob junio-gpg-pub | gpg --import*
-gpg: key F3119B9A: public key "Junio C Hamano &lt;pass:quotes[junkio@cox.net]&gt;" imported
+gpg: key F3119B9A: public key "Junio C Hamano &lt;junkio@cox.net&gt;" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
 --------
 
-Sie können dann, wie oben beschrieben, alle Tags im Git-via-Git-Repository
-verifizieren.
+
+////
+Sie können dann, wie oben beschrieben, alle Tags im Git-via-Git-Repository verifizieren.
+////
+
+You can then verify all tags in the Git-via-Git repository, as described above.
+
+
 
 [[sec.git-describe]]
-==== Commits beschreiben
+==== Describing Commits
+//   Commits beschreiben
 
-Tags sind sehr nützlich, um beliebige Commits "`besser`" zu
-beschreiben.  Das Kommando `git describe` gibt eine
-Beschreibung, die aus dem aktuellsten Tag und dessen relativer
-Position im Commit-Graphen besteht. Hier ein Beispiel aus dem
-Git-Projekt: Wir beschreiben einen Commit mit dem SHA-1-Präfix `28ba96a`,
-der sich im Commit-Graphen sieben Commits nach der Version `1.7.1`
-befindet:
+Tags sind sehr nützlich, um beliebige Commits "`besser`" zu beschreiben.
+Das Kommando `git describe` gibt eine Beschreibung, die aus dem aktuellsten Tag und dessen relativer Position im Commit-Graphen besteht.
+Hier ein Beispiel aus dem Git-Projekt: Wir beschreiben einen Commit mit dem SHA-1-Präfix `28ba96a`, der sich im Commit-Graphen sieben Commits nach der Version `1.7.1` befindet:
 
-.Der zu beschreibende Commit in Grau hervorgehoben
+Tags are very useful for describing any commit "`better`".
+The `git describe` command gives a description consisting of the most recent tag and its relative position in the commit graph.
+Here's an example from the git project: we describe a commit with the SHA-1 prefix `28ba96a`, which is located in the commit graph seven commits after version `1.7.1`:
+
+
+// .Der zu beschreibende Commit in Grau hervorgehoben
+.The commit to be described highlighted in gray
 image::describe-screenshot.png[id="fig.describe",scaledwidth="90%",width="90%"]
+
 
 [subs="quotes"]
 --------
@@ -1044,27 +1086,38 @@ $ *git describe --tags*
 v1.7.1-7-g28ba96a
 --------
 
+
+////
 Die Ausgabe von `git describe` ist wie folgt formatiert:
+////
+
+The output of `git describe` is formatted as follows:
+
 
 --------
 <tag>-<position>-g<SHA-1>
 --------
 
 
-Das Tag ist `v1.7.1`; die Position besagt, dass sich sieben
-neue Commits zwischen dem Tag und dem beschriebenen Commit
-befinden.{fn35}
-Das Kürzel `g` vor der ID besagt, dass die Beschreibung aus
-einem Git-Repository abgeleitet ist, was in Umgebungen mit mehreren
-Versionsverwaltungssystemen nützlich ist.  Standardmäßig sucht
-`git describe` nur nach Annotated Tags, mit der Option
-`--tags` erweitern Sie die Suche auch auf Lightweight Tags.
+////
+Das Tag ist `v1.7.1`; die Position besagt, dass sich sieben neue Commits zwischen dem Tag und dem beschriebenen Commit befinden.[35]
+Das Kürzel `g` vor der ID besagt, dass die Beschreibung aus einem Git-Repository abgeleitet ist, was in Umgebungen mit mehreren Versionsverwaltungssystemen nützlich ist.
+Standardmäßig sucht `git describe` nur nach Annotated Tags, mit der Option `--tags` erweitern Sie die Suche auch auf Lightweight Tags.
+////
 
-Das Kommando ist sehr nützlich, weil es einen inhaltsbasierten
-Bezeichner in etwas für Menschen Sinnvolles übersetzt:
-`v1.7.1-7-g28ba96a` ist deutlich näher an `v1.7.1` als
-`v1.7.1-213-g3183286`. Dadurch können Sie die Ausgaben sinnvoll
--- wie im Git-Projekt auch -- direkt in die Software einkompilieren:
+The tag is `v1.7.1`; the position indicates that there are seven new commits between the tag and the described commit.{fn35}
+The `g` before the ID indicates that the description is derived from a Git repository, which is useful in environments with multiple version control systems.
+By default, `git describe` only searches for annotated tags, but the `--tags` option extends the search to include lightweight tags.
+
+////
+Das Kommando ist sehr nützlich, weil es einen inhaltsbasierten Bezeichner in etwas für Menschen Sinnvolles übersetzt: `v1.7.1-7-g28ba96a` ist deutlich näher an `v1.7.1` als `v1.7.1-213-g3183286`.
+Dadurch können Sie die Ausgaben sinnvoll -- wie im Git-Projekt auch -- direkt in die Software einkompilieren:
+////
+
+The command is very useful because it translates a content-based identifier into something useful for humans: `v1.7.1-7-g28ba96a` is much closer to `v1.7.1` than `v1.7.1-213-g3183286`.
+This allows you to compile the output directly into the software in a way that makes sense, just like in the Git project:
+
+
 
 [subs="quotes"]
 --------
@@ -1078,64 +1131,50 @@ git version 1.7.5.rc2.8.g0e73bb
 --------
 
 
+////
+Somit weiß ein Benutzer ungefähr, welche Version er hat, und kann nachvollziehen, aus welchem Commit die Version kompiliert wurde.
+////
+
+This way a user knows roughly what version he has, and can track which commit the version was compiled from.
 
 
 
-Somit weiß ein Benutzer ungefähr, welche Version er hat, und kann
-nachvollziehen, aus welchem Commit die Version kompiliert wurde.
+// ********** ARRIVED HERE!!! **********
+
+
 
 [[sec.undo]]
 == Versionen wiederherstellen
+// Versionen wiederherstellen
 
-Ziel einer Versionskontrollsoftware ist es nicht nur, Änderungen
-zwischen Commits zu untersuchen. Wichtig ist vor allem auch, ältere
-Versionen einer Datei oder ganzer Verzeichnisbäume wiederherzustellen
-oder Änderungen rückgängig zu machen. Dafür sind in Git insbesondere
-die Kommandos `checkout`, `reset` und `revert`
-zuständig.
+Ziel einer Versionskontrollsoftware ist es nicht nur, Änderungen zwischen Commits zu untersuchen. Wichtig ist vor allem auch, ältere Versionen einer Datei oder ganzer Verzeichnisbäume wiederherzustellen oder Änderungen rückgängig zu machen. Dafür sind in Git insbesondere die Kommandos `checkout`, `reset` und `revert` zuständig.
 
 
 //\label{sec:checkout}
 
-Das Git-Kommando `checkout` kann nicht nur Branches wechseln,
-sondern auch Dateien aus früheren Commits wiederherstellen. Die Syntax
-lautet allgemein:
+Das Git-Kommando `checkout` kann nicht nur Branches wechseln, sondern auch Dateien aus früheren Commits wiederherstellen. Die Syntax lautet allgemein:
+
 
 --------
 git checkout [-f] <referenz> -- <muster>
 --------
 
-`checkout` löst die angegebene Referenz (und wenn diese fehlt,
-`HEAD`) auf einen Commit auf und extrahiert alle Dateien, die
-auf `<muster>` passen, in den Working Tree. Ist
-`<muster>` ein Verzeichnis, bezieht sich das auf alle darin
-enthaltenen Dateien und Unterverzeichnisse. Sofern Sie kein Muster
-explizit angeben, werden alle Dateien ausgecheckt.  Dabei werden
-Änderungen an einer Datei nicht einfach überschrieben, es sei denn,
-Sie geben die Option `-f` an (s.o.). Außerdem wird
-`HEAD` auf den entsprechenden Commit (bzw. Branch) gesetzt.
 
-Wenn Sie allerdings ein Muster angeben, dann überschreibt
-`checkout` diese Datei(en) ohne Nachfrage. Um also alle
-Änderungen an `<datei>` zu
-verwerfen, geben Sie `git checkout -- <datei>` ein: Git
-ersetzt dann `<datei>` durch die Version im aktuellen Branch.
-Auf diese Weise können Sie auch den älteren Zustand einer Datei
-rekonstruieren:
+`checkout` löst die angegebene Referenz (und wenn diese fehlt, `HEAD`) auf einen Commit auf und extrahiert alle Dateien, die auf `<muster>` passen, in den Working Tree. Ist `<muster>` ein Verzeichnis, bezieht sich das auf alle darin enthaltenen Dateien und Unterverzeichnisse. Sofern Sie kein Muster explizit angeben, werden alle Dateien ausgecheckt.  Dabei werden Änderungen an einer Datei nicht einfach überschrieben, es sei denn, Sie geben die Option `-f` an (s.o.). Außerdem wird `HEAD` auf den entsprechenden Commit (bzw. Branch) gesetzt.
+
+Wenn Sie allerdings ein Muster angeben, dann überschreibt `checkout` diese Datei(en) ohne Nachfrage. Um also alle Änderungen an `<datei>` zu verwerfen, geben Sie `git checkout -- <datei>` ein: Git ersetzt dann `<datei>` durch die Version im aktuellen Branch. Auf diese Weise können Sie auch den älteren Zustand einer Datei rekonstruieren:
+
 
 [subs="quotes"]
 --------
 $ *git checkout ce66692 -- &lt;datei&gt;*
 --------
 
-Das doppelte Minus trennt die Muster von den Optionen bzw.
-Argumenten. Es ist allerdings nicht notwendig: Gibt es keine Branches
-oder andere Referenzen mit dem Namen, versucht Git, eine solche Datei
-zu finden. Die Separierung macht also nur eindeutig, dass Sie die
-entsprechende(n) Datei(en) wiederherstellen möchten.
 
-Um den Inhalt einer Datei aus einem bestimmten Commit anzuschauen,
-ohne sie auszuchecken, nutzen Sie das folgende Kommando:
+Das doppelte Minus trennt die Muster von den Optionen bzw. Argumenten. Es ist allerdings nicht notwendig: Gibt es keine Branches oder andere Referenzen mit dem Namen, versucht Git, eine solche Datei zu finden. Die Separierung macht also nur eindeutig, dass Sie die entsprechende(n) Datei(en) wiederherstellen möchten.
+
+Um den Inhalt einer Datei aus einem bestimmten Commit anzuschauen, ohne sie auszuchecken, nutzen Sie das folgende Kommando:
+
 
 [subs="quotes"]
 --------
@@ -1145,10 +1184,7 @@ $ *git show ce66692:&lt;datei&gt;*
 
 [TIP]
 ==================
-Mit `--patch` bzw. `-p` rufen Sie `git checkout` im interaktiven Modus
-auf. Der Ablauf ist der gleiche wie bei `git add -p` (siehe
-<<sec.add-p>>), jedoch können Sie hier Hunks einer Datei schrittweise
-zurücksetzen.
+Mit `--patch` bzw. `-p` rufen Sie `git checkout` im interaktiven Modus auf. Der Ablauf ist der gleiche wie bei `git add -p` (siehe <<sec.add-p>>), jedoch können Sie hier Hunks einer Datei schrittweise zurücksetzen.
 ==================
 
 
