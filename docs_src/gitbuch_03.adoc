@@ -1533,37 +1533,74 @@ $ *git branch master HEAD^^*
 --------
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.reset-usage]]
 ==== Using reset
 //   reset benutzen
 
-Mit `reset` löschen Sie nicht beliebige Commits, sondern verschieben immer nur Referenzen. Dadurch gehen die nicht mehr referenzierten Commits verloren, werden also quasi gelöscht (_unreachable_). Sie können also mit `reset` nur die obersten Commits auf einem Branch löschen, nicht beliebige Commits "`irgendwo aus der Mitte`", da dies den Commit-Graphen zerstören würde. (Für das etwas kompliziertere Löschen von Commits "`mittendrin`" siehe Rebase, <<sec.rebase>>.)
+////
+Mit `reset` löschen Sie nicht beliebige Commits, sondern verschieben immer nur Referenzen.
+Dadurch gehen die nicht mehr referenzierten Commits verloren, werden also quasi gelöscht (_unreachable_).
+Sie können also mit `reset` nur die obersten Commits auf einem Branch löschen, nicht beliebige Commits "`irgendwo aus der Mitte`", da dies den Commit-Graphen zerstören würde.
+(Für das etwas kompliziertere Löschen von Commits "`mittendrin`" siehe Rebase, Abschnitt 4.1, "Commits verschieben -- Rebase".)
+////
 
-Git speichert den ursprünglichen `HEAD` immer unter `ORIG_HEAD` ab. Falls Sie also fälschlicherweise einen Reset durchgeführt haben, machen Sie diesen mit `git reset --hard ORIG_HEAD` rückgängig (auch wenn der Commit vermeintlich gelöscht wurde).  Das betrifft allerdings _nicht_ die verlorengegangenen Änderungen am Working Tree (die Sie noch nicht eingecheckt haben) -- diese werden unwiderruflich gelöscht.
+With `reset` you do not delete any commits, but only move references.
+As a result, the commits that are no longer referenced are lost, and are therefore deleted (_unreachable_).
+So you can use `reset` to delete only the topmost commits on a branch, not arbitrary commits "`somewhere in the middle,`" as this would destroy the commit graph.
+(For the somewhat more complicated deletion of commits "`in the middle,`" see _rebase_, <<sec.rebase>>).
 
+
+////
+Git speichert den ursprünglichen `HEAD` immer unter `ORIG_HEAD` ab.
+Falls Sie also fälschlicherweise einen Reset durchgeführt haben, machen Sie diesen mit `git reset --hard ORIG_HEAD` rückgängig (auch wenn der Commit vermeintlich gelöscht wurde).
+Das betrifft allerdings _nicht_ die verlorengegangenen Änderungen am Working Tree (die Sie noch nicht eingecheckt haben) -- diese werden unwiderruflich gelöscht.
+////
+
+Git always stores the original `HEAD` under `ORIG_HEAD`.
+So if you have performed a reset by mistake, use `git reset --hard ORIG_HEAD` to undo it (even if the commit was supposedly deleted).
+However, this _does not_ affect lost changes to the working tree (which you have not yet checked in) -- they are deleted irrevocably.
+
+
+////
 Das Resultat von oben (zwei Commits auf einen neuen Branch verschieben) erreichen Sie also alternativ auch so:
+////
+
+The result from above (moving two commits to a new branch) can also be achieved this way:
+
+
 
 [subs="quotes"]
 --------
 $ *git reset --hard HEAD^^*
-$ *git checkout -b &lt;neues-feature&gt; ORIG_HEAD*
+$ *git checkout -b &lt;new-feature&gt; ORIG_HEAD*
 --------
 
-Eine häufige Anwendung von `reset` ist, testweise Änderungen zu
-verwerfen. Sie wollen einen Patch probieren? Ein bisschen
-Debugging-Output einbauen? Ein paar Konstanten ändern? Gefällt das
-Ergebnis nicht, löscht ein `git reset --hard` alle
-Änderungen am Working Tree.
 
-Auch können Sie mit Hilfe von `reset` Ihre Versionsgeschichte
-"`schön machen`". Wenn Sie beispielsweise ein paar Commits auf
-einem auf `master` aufbauenden Branch `<feature>`
-haben, die aber nicht  sinnvoll gegliedert (oder viel zu groß)
-sind, können Sie einen Branch `<reorder-feature>`
-erstellen und _alle_ Änderungen in neue Commits verpacken:
+////
+Eine häufige Anwendung von `reset` ist, testweise Änderungen zu verwerfen.
+Sie wollen einen Patch probieren?
+Ein bisschen Debugging-Output einbauen?
+Ein paar Konstanten ändern?
+Gefällt das Ergebnis nicht, löscht ein `git reset --hard` alle Änderungen am Working Tree.
+////
+
+A common use of `reset` is to discard changes on a test basis.
+You want to try a patch?
+Add some debugging output?
+Change a few constants?
+If you don't like the result, a `git reset --hard` deletes all changes to the working tree.
+
+
+////
+Auch können Sie mit Hilfe von `reset` Ihre Versionsgeschichte "`schön machen`".
+Wenn Sie beispielsweise ein paar Commits auf einem auf `master` aufbauenden Branch `<feature>` haben, die aber nicht  sinnvoll gegliedert (oder viel zu groß) sind, können Sie einen Branch `<reorder-feature>` erstellen und _alle_ Änderungen in neue Commits verpacken:
+////
+
+You can also use `reset` to "`make your version history nice.`"
+For example, if you have a few commits on a branch `<feature>` based on `master`, but they are not well structured (or much too large), you can create a branch `<reorder-feature>` and pack all changes into new commits:
+
 
 [subs="quotes"]
 --------
@@ -1574,155 +1611,238 @@ $ *git commit*
 $ ...
 --------
 
-Das Kommando `git reset master` setzt Index und `HEAD`
-auf den Stand von `master`. Ihre Änderungen im Working Tree
-bleiben aber erhalten, d.h. alle Änderungen, die den Branch
-`<feature>` von `master` unterscheiden, sind nun
-lediglich in den Dateien im Working Tree enthalten. Jetzt können Sie
-die Änderungen _schrittweise_ per `git add -p` hinzufügen
-und in (mehrere) handliche Commits verpacken.{fn36}
 
-Angenommen, Sie arbeiten an einer Änderung und wollen diese temporär
-einchecken (um später daran weiterzuarbeiten). Dann können Sie
-folgende Kommandos verwenden:
+////
+Das Kommando `git reset master` setzt Index und `HEAD` auf den Stand von `master`.
+Ihre Änderungen im Working Tree bleiben aber erhalten, d.h. alle Änderungen, die den Branch `<feature>` von `master` unterscheiden, sind nun lediglich in den Dateien im Working Tree enthalten.
+Jetzt können Sie die Änderungen _schrittweise_ per `git add -p` hinzufügen und in (mehrere) handliche Commits verpacken.[36]
+////
 
+The command `git reset master` sets index and `HEAD` to the state of `master`.
+However, your changes in the working tree are preserved, i.e. all changes that distinguish the branch `<feature>` from `master` are now only contained in the files in the working tree.
+Now you can add the changes _incrementally_ using `git add -p` and package them into (several) handy commits.{fn36}
+
+
+////
+Angenommen, Sie arbeiten an einer Änderung und wollen diese temporär einchecken (um später daran weiterzuarbeiten).
+Dann können Sie folgende Kommandos verwenden:
+////
+
+Suppose you are working on a change and want to check it in temporarily (to continue working on it later).
+You can then use the following commands:
+
+
+// @TRANSLATE GIT LOG?
 [subs="quotes"]
 --------
-$ *git commit -m \_feature (noch unfertig)_*
+$ *git commit -m 'feature (noch unfertig)'*
 (später)
 $ *git reset --soft HEAD^*
 (weiterarbeiten)
 --------
 
-Das Kommando `git reset --soft HEAD^` setzt den
-`HEAD` einen Commit zurück, lässt allerdings den Index sowie
-den Working Tree unberührt. Alle Änderungen aus Ihrem temporären
-Commit sind also nach wie vor im Index und Working Tree, aber der
-eigentliche Commit geht verloren. Sie können nun weitere Änderungen
-machen und später einen neuen Commit erstellen. Eine ähnliche
-Funktionalität stellt die Option `--amend` für `git
-  commit` sowie auch das Kommando `git stash` (dt.
-"`verstauen`") bereit, das in <<sec.stash>> erklärt
-wird.
+
+////
+Das Kommando `git reset --soft HEAD^` setzt den `HEAD` einen Commit zurück, lässt allerdings den Index sowie den Working Tree unberührt.
+Alle Änderungen aus Ihrem temporären Commit sind also nach wie vor im Index und Working Tree, aber der eigentliche Commit geht verloren.
+Sie können nun weitere Änderungen machen und später einen neuen Commit erstellen.
+Eine ähnliche Funktionalität stellt die Option `--amend` für `git commit` sowie auch das Kommando `git stash` (dt. "`verstauen`") bereit, das in Abschnitt 4.5, "Veränderungen auslagern -- git stash" erklärt wird.
+////
+
+The command `git reset --soft HEAD^` resets the `HEAD` one commit, but leaves the index and the working tree untouched.
+So all changes from your temporary commit are still in the index and working tree, but the actual commit is lost.
+You can now make further changes and create a new commit later.
+Similar functionality is provided by the `--amend` option for `git commit`, as well as the `git stash` command, which is explained in <<sec.stash>>.
 
 
 
 [[sec.merge]]
-== Branches zusammenführen: Merges
+== Merging Branches
+// Branches zusammenführen: Merges
 
-Das Zusammenführen von Branches nennt man in Git _mergen_;
-der Commit, der zwei oder mehr Branches miteinander verbindet,
-heißt entsprechend _Merge-Commit_.
+////
+Das Zusammenführen von Branches nennt man in Git _mergen_; der Commit, der zwei oder mehr Branches miteinander verbindet, heißt entsprechend _Merge-Commit_.
+////
 
-Git stellt das Subkommando `merge` bereit, mit dem Sie einen
-Branch in einen anderen integrieren. Das bedeutet, dass alle
-Änderungen, die Sie auf dem Branch getätigt haben, in den aktuellen
-einfließen.
+Merging branches is called _merging_ in Git; the commit that merges two or more branches together is called a _merge commit_.
 
-Beachten Sie, dass das Kommando den angegebenen Branch in den
-_aktuell ausgecheckten Branch_ (d.h.{empty}{nbsp}`HEAD`)
-integriert. Das Kommando benötigt also nur ein Argument:
+
+////
+Git stellt das Subkommando `merge` bereit, mit dem Sie einen Branch in einen anderen integrieren.
+Das bedeutet, dass alle Änderungen, die Sie auf dem Branch getätigt haben, in den aktuellen einfließen.
+////
+
+Git provides the `merge` subcommand, which allows you to merge one branch into another.
+This means that any changes you make to the branch will be reflected in the current one.
+
+
+////
+Beachten Sie, dass das Kommando den angegebenen Branch in den _aktuell ausgecheckten Branch_ (d.h. `HEAD`) integriert.
+Das Kommando benötigt also nur ein Argument:
+////
+
+Note that the command integrates the specified branch into the _currently checked-out branch_ (i.e., `HEAD`).
+The command therefore only needs one argument:
+
 
 [subs="quotes"]
 --------
 $ *git merge &lt;branch-name&gt;*
 --------
 
-Wenn Sie wohlüberlegt mit Ihren Branches hantieren, dürfte es
-keine Probleme beim Mergen geben. Wenn doch, dann stellen
-wir in diesem Abschnitt auch Strategien vor, wie Sie Merge-Konflikte
-lösen.
 
+////
+Wenn Sie wohlüberlegt mit Ihren Branches hantieren, dürfte es keine Probleme beim Mergen geben.
+Wenn doch, dann stellen wir in diesem Abschnitt auch Strategien vor, wie Sie Merge-Konflikte lösen.
+////
+
+If you handle your branches carefully, there should be no problems with merging.
+If there are, then this section also presents strategies for resolving merge conflicts.
+
+
+////
 Zunächst schauen wir uns einen Merge-Vorgang auf Objektebene an.
+////
+
+First, we will look at an object-level merge process.
+
+
 
 [[sec.merge-detail]]
-=== Zwei Branches verschmelzen
+=== Two-Branches Merge
+//  Zwei Branches verschmelzen
 
-Die zwei Branches `topic` und `master`, die Sie mergen
-wollen, referenzieren jeweils den aktuellsten Commit in einer Kette
-von Commits (F und D), und diese beiden Commits wiederum einen Tree
-(entspricht dem obersten Verzeichnis Ihres Projekts).
+////
+Die zwei Branches `topic` und `master`, die Sie mergen wollen, referenzieren jeweils den aktuellsten Commit in einer Kette von Commits (F und D), und diese beiden Commits wiederum einen Tree (entspricht dem obersten Verzeichnis Ihres Projekts).
+////
 
-Zunächst berechnet Git eine sogenannte _Merge-Basis_, also einen
-Commit, den beide zu verschmelzenden Commits als gemeinsamen Vorfahren
-haben. In der Regel gibt es mehrere solcher Basen -- im untenstehenden
-Diagramm A und B -- , dann wird die neueste (die also die anderen Basen
-als Vorfahren hat) verwendet.{fn37}
-Anschaulich gesprochen, ist dies für einfache Fälle der Commit, an dem
-die Branches divergiert haben (also B).
-
-Wenn Sie nun zwei Commits miteinander verschmelzen wollen (D und F zu
-M), dann müssen also die von den Commits referenzierten Trees
-verschmolzen werden.
+The two branches, `topic` and `master`, that you want to merge, each reference the most recent commit in a chain of commits (F and D), and these two commits in turn reference a tree (corresponding to the top-level directory of your project).
 
 
+////
+Zunächst berechnet Git eine sogenannte _Merge-Basis_, also einen Commit, den beide zu verschmelzenden Commits als gemeinsamen Vorfahren haben.
+In der Regel gibt es mehrere solcher Basen -- im untenstehenden Diagramm A und B -- , dann wird die neueste (die also die anderen Basen als Vorfahren hat) verwendet.[37]
+Anschaulich gesprochen, ist dies für einfache Fälle der Commit, an dem die Branches divergiert haben (also B).
+////
 
-.Merge-Basis und Merge-Commit
+First, Git calculates a so-called _merge base_, that is, a commit that both of the commits to be merged have as common ancestors.
+Usually there are several such bases -- in the diagram below, A and B -- and then the most recent one (which has the other bases as ancestors) is used.{fn37}
+In simple terms, this is the commit where the branches diverged (i.e., B).
+
+
+////
+Wenn Sie nun zwei Commits miteinander verschmelzen wollen (D und F zu M), dann müssen also die von den Commits referenzierten Trees verschmolzen werden.
+////
+
+Now, if you want to merge two commits (D and F to M), then the trees referenced by the commits must be merged.
+
+
+
+// .Merge-Basis und Merge-Commit
+.Merge base and merge commit
 image::merge-base-commit.png[id="fig.merge-base-commit",scaledwidth="70%",width="70%"]
 
 
-Dafür geht Git so vor:{fn38}
-Wenn ein Tree-Eintrag (ein
-weiterer Tree oder ein Blob) in beiden Commits gleich ist, wird
-genau dieser Tree-Eintrag auch im Merge-Commit übernommen. Das
-passiert in zwei Fällen:
+
+////
+Dafür geht Git so vor:[38] Wenn ein Tree-Eintrag (ein weiterer Tree oder ein Blob) in beiden Commits gleich ist, wird genau dieser Tree-Eintrag auch im Merge-Commit übernommen.
+Das passiert in zwei Fällen:
+////
+
+Git does this as follows:{fn38} If a tree entry (another tree or a blob) is the same in both commits, then that very tree entry will be taken over in the merge commit.
+This happens in two cases:
+
+////
+. Eine Datei wurde von keinem der beiden Commits geändert, oder ein Unterverzeichnis enthält keine geänderte Datei: Im ersten Fall ist die Blob-SHA-1-Summe dieser Datei in beiden Commits gleich, im zweiten Fall wird von beiden Commits das gleiche Tree-Objekt referenziert.
+Der referenzierte Blob bzw. Tree ist also derselbe wie der in der Merge-Basis referenzierte.
+
+. Eine Datei wurde _auf beiden Seiten_ und _äquivalent_ geändert (gleiche Blobs).
+Das passiert zum Beispiel, wenn aus dem einen Branch alle Änderungen an einer Datei per `git cherry-pick` (siehe Abschnitt 3.5, "Einzelne Commits übernehmen: Cherry-Pick") übernommen wurden.
+Der referenzierte Blob ist dann _nicht_ derselbe wie in der Merge-Basis.
+////
+
+. A file has not been changed by either commit, or a subdirectory does not contain a changed file: In the first case, the blob SHA 1 sum of this file is the same in both commits.
+In the second case, the same tree object is referenced by both commits.
+The referenced blob or tree is therefore the same as the one referenced in the merge base.
+
+. A file was changed _on both sides_ and _equivalently_ (same blobs).
+This happens, for example, if all changes to a file were copied from one branch using `git cherry-pick` (see <<sec.cherry-pick>>).
+The referenced blob is then _not_ the same as in the merge base.
 
 
-. Eine Datei wurde von keinem der beiden Commits geändert, oder ein Unterverzeichnis enthält keine geänderte Datei: Im ersten Fall ist die Blob-SHA-1-Summe dieser Datei in beiden Commits gleich, im zweiten Fall wird von beiden Commits das gleiche Tree-Objekt referenziert. Der referenzierte Blob bzw. Tree ist also derselbe wie der in der Merge-Basis referenzierte.
 
-. Eine Datei wurde _auf beiden Seiten_ und _äquivalent_ geändert (gleiche Blobs). Das passiert zum Beispiel, wenn aus dem einen Branch alle Änderungen an einer Datei per `git cherry-pick` (siehe <<sec.cherry-pick>>) übernommen wurden. Der referenzierte Blob ist dann _nicht_ derselbe wie in der Merge-Basis.
+////
+Wenn ein Tree-Eintrag in einem der Commits verschwindet, im anderen aber noch vorhanden ist und 'der gleiche ist wie in der Merge-Basis', dann wird er nicht übernommen.
+Das entspricht dem Löschen einer Datei oder eines Verzeichnisses, wenn an der Datei auf der anderen Seite keine Änderungen vorgenommen wurden.
+Analog, wenn ein Commit einen neuen Tree-Eintrag mitbringt, wird dieser in den Merge-Tree übernommen.
+////
 
-
-
-Wenn ein Tree-Eintrag in einem der Commits verschwindet, im anderen
-aber noch vorhanden ist und 'der gleiche ist wie in der
-Merge-Basis', dann wird er nicht übernommen. Das entspricht
-dem Löschen einer Datei oder eines Verzeichnisses, wenn an der Datei
-auf der anderen Seite keine Änderungen vorgenommen wurden. Analog,
-wenn ein Commit einen neuen Tree-Eintrag mitbringt, wird dieser in den
-Merge-Tree übernommen.
-
-Was passiert nun, wenn eine Datei aus den Commits verschiedene Blobs
-aufweist, die Datei also zumindest auf der einen Seite verändert
-wurde? Im Falle, dass einer der Blobs der gleiche ist wie in der
-Merge-Basis, wurden nur auf einer Seite Änderungen an der Datei
-durchgeführt -- Git kann diese Änderungen also einfach übernehmen.
+If a tree entry disappears in one of the commits, but is still present in the other, and is the same as in the merge base, then it is not taken over.
+This is equivalent to deleting a file or directory if no changes have been made to the file on the other side.
+Similarly, if a commit brings a new tree entry, it is copied to the merge tree.
 
 
+////
+Was passiert nun, wenn eine Datei aus den Commits verschiedene Blobs aufweist, die Datei also zumindest auf der einen Seite verändert wurde?
+Im Falle, dass einer der Blobs der gleiche ist wie in der Merge-Basis, wurden nur auf einer Seite Änderungen an der Datei durchgeführt -- Git kann diese Änderungen also einfach übernehmen.
+////
 
-Wenn sich aber _beide_ Blobs von der Merge-Basis unterscheiden,
-könnte es möglicherweise zu Problemen kommen.  Zunächst versucht Git,
-die Änderungen beider Seiten zu übernehmen.
+Now what happens if a file from the commits has different blobs, that is, the file has been changed at least on one side?
+In the event that one of the blobs is the same as in the merge base, only one side of the file has been changed, so Git can simply adopt those changes.
 
+
+////
+Wenn sich aber _beide_ Blobs von der Merge-Basis unterscheiden, könnte es möglicherweise zu Problemen kommen.
+Zunächst versucht Git, die Änderungen beider Seiten zu übernehmen.
+////
+
+However, if _both_ blobs are different from the merge base, you might run into problems.
+First, Git tries to apply the changes on both sides.
+
+
+////
 Dafür wird in der Regel ein _3-Wege-Merge_-Algorithmus verwendet.
-Im Gegensatz zum klassischen 2-Wege-Merge-Algorithmus, der eingesetzt
-wird, wenn Sie zwei unterschiedliche Versionen A und B einer Datei
-haben und diese zusammenführen wollen, bezieht dieser
-3-Wege-Algorithmus eine dritte Version C der Datei ein,
-extrahiert aus obiger Merge-Basis. Der Algorithmus kann daher, weil
-ein gemeinsamer Vorgänger der Datei bekannt ist, in vielen Fällen
-besser (d.h. nicht nur anhand der Zeilennummer bzw. des Kontextes)
-entscheiden, wie Änderungen zusammengeführt werden. In der Praxis
-werden so viele trivial lösbare Merge-Konflikte schon automatisch ohne
-Zutun des Nutzers gelöst.
+Im Gegensatz zum klassischen 2-Wege-Merge-Algorithmus, der eingesetzt wird, wenn Sie zwei unterschiedliche Versionen A und B einer Datei haben und diese zusammenführen wollen, bezieht dieser 3-Wege-Algorithmus eine dritte Version C der Datei ein, extrahiert aus obiger Merge-Basis.
+Der Algorithmus kann daher, weil ein gemeinsamer Vorgänger der Datei bekannt ist, in vielen Fällen besser (d.h. nicht nur anhand der Zeilennummer bzw. des Kontextes) entscheiden, wie Änderungen zusammengeführt werden.
+In der Praxis werden so viele trivial lösbare Merge-Konflikte schon automatisch ohne Zutun des Nutzers gelöst.
+////
 
-Es gibt allerdings Konflikte, die kein noch so guter Merge-Algorithmus
-zusammenführen kann. Das passiert zum Beispiel, wenn in Version A der
-Datei der Kontext direkt vor einer Änderung in Datei B geändert wurde,
-oder, schlimmer noch, Version A und B und C unterschiedliche Versionen
-einer Zeile aufweisen.
+A _3-way merge_ algorithm is usually employed for this purpose.
+Unlike the classic 2-way merge algorithm, which is used when you have two different versions A and B of a file and want to merge them, this 3-way algorithm involves a third version C of the file, extracted from the above merge base.
+Therefore, because a common ancestor of the file is known, the algorithm can in many cases better (that is, not only based on the line number or context) decide how to merge changes.
+In practice, so many trivial merge conflicts are already solved automatically without user intervention.
 
-Einen solchen Fall nennt man _Merge-Konflikt_. Git führt
-alle Dateien so gut es geht zusammen und präsentiert dem Nutzer
-dann die in Konflikt stehenden Änderungen, damit dieser sie manuell
-verschmelzen (und damit den Konflikt lösen) kann (siehe dafür <<sec.merge-conflicts>>).
 
-Zwar ist es grundsätzlich möglich, mit einem speziell auf die
-jeweilige Programmiersprache ausgerichteten Algorithmus eine
-syntaktisch korrekte Auflösung zu erzeugen -- allerdings kann ein
-Algorithmus nicht hinter die _Semantik_ des Codes schauen, also
-die Bedeutung des Codes erfassen. Daher wäre eine so generierte
-Lösung in der Regel nicht sinnvoll.
+////
+Es gibt allerdings Konflikte, die kein noch so guter Merge-Algorithmus zusammenführen kann.
+Das passiert zum Beispiel, wenn in Version A der Datei der Kontext direkt vor einer Änderung in Datei B geändert wurde, oder, schlimmer noch, Version A und B und C unterschiedliche Versionen einer Zeile aufweisen.
+////
+
+However, there are conflicts that no merge algorithm, no matter how good, can merge.
+This happens, for example, if the context in version A of the file was changed just before a change in file B, or, worse still, version A and B and C have different versions of a line.
+
+
+////
+Einen solchen Fall nennt man _Merge-Konflikt_.
+Git führt alle Dateien so gut es geht zusammen und präsentiert dem Nutzer dann die in Konflikt stehenden Änderungen, damit dieser sie manuell verschmelzen (und damit den Konflikt lösen) kann (siehe dafür Abschnitt 3.4, "Merge-Konflikte lösen").
+
+////
+Such a case is called a _merge conflict_.
+Git merges all the files as best it can, and then presents the conflicting changes to the user so they can manually merge them (and thus resolve the conflict) (see <<sec.merge-conflicts>>).
+
+
+////
+Zwar ist es grundsätzlich möglich, mit einem speziell auf die jeweilige Programmiersprache ausgerichteten Algorithmus eine syntaktisch korrekte Auflösung zu erzeugen -- allerdings kann ein Algorithmus nicht hinter die _Semantik_ des Codes schauen, also die Bedeutung des Codes erfassen.
+Daher wäre eine so generierte Lösung in der Regel nicht sinnvoll.
+////
+
+Although it is basically possible to generate a syntactically correct resolution with an algorithm that is specially designed for the respective programming language, an algorithm cannot look beyond the _semantics_ of the code, i.e., cannot grasp the meaning of the code.
+Therefore, a solution generated in this way would usually not make sense.
+
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.merge-ff]]
 === Fast-Forward-Merges: Einen Branch vorspulen
