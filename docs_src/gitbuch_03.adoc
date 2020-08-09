@@ -529,75 +529,108 @@ If you want to keep the changes and change the branch (e.g., interrupt your work
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.branch-naming]]
-==== Konventionen zur Benennung von Branches
+====  Conventions for Naming Branches
+//    Konventionen zur Benennung von Branches
 
-Sie können Branches prinzipiell fast beliebig benennen. Ausnahmen sind
-aber Leerzeichen, einige Sonderzeichen mit spezieller Bedeutung für Git
-(z.B.{empty}{nbsp}``{asterisk}``, `^`, `:`, `~`), sowie zwei aufeinanderfolgende Punkte
-(`..`) oder ein Punkt am Anfang des Namens.{fn31}
+////
+Sie können Branches prinzipiell fast beliebig benennen.
+Ausnahmen sind aber Leerzeichen, einige Sonderzeichen mit spezieller Bedeutung für Git (z.B.``{asterisk}``, `^`, `:`, `~`), sowie zwei aufeinanderfolgende Punkte (`..`) oder ein Punkt am Anfang des Namens.[31]
+////
 
-Sinnvollerweise sollten Sie Branch-Namen immer komplett in
-Kleinbuchstaben angeben. Da Git Branch-Namen unter
-`.git/refs/heads/` als Dateien verwaltet, ist die Groß- und
-Kleinschreibung wesentlich.
+In principle, you can name branches almost arbitrarily.
+Exceptions are spaces, some special characters with special meaning for Git (e.g. ``{asterisk}``, `^`, `:`, `~`), as well as two consecutive dots (`..`) or a dot at the beginning of the name.{fn31}
 
-Sie können Branches in "`Namespaces`" gruppieren, indem Sie
-als Separator einen `/` verwenden. Branches, die mit der
-Übersetzung einer Software zu tun haben, können Sie dann z.B.{empty}{nbsp}`i18n/german`, `i18n/english` etc. nennen. Auch können
-Sie, wenn sich mehrere Entwickler ein Repository teilen,
-"`private`" Branches unter `<username>/<topic>`
-anlegen. Diese Namespaces werden durch eine Verzeichnisstruktur
-abgebildet, so dass dann unter `.git/refs/heads/` ein
-Verzeichnis `<username>/` mit der Branch-Datei `<topic>`
-erstellt wird.
 
-Der Hauptentwicklungszweig Ihres Projekts sollte immer `master`
-heißen. Bugfixes werden häufig auf einem Branch `maint` (kurz
-für "`maintenance`") verwaltet. Das nächste Release wird
-meist auf `next` vorbereitet. Features, die sich noch in einem
-experimentellen Zustand befinden, sollten in `pu` (für
-"`proposed updates`") entwickelt werden oder in
-`pu/<feature>`. Eine detailliertere Beschreibung, wie Sie mit
-Branches die Entwicklung strukturieren und Release-Zyklen
-organisieren, finden Sie in <<ch.workflows>> über Workflows.
+////
+Sinnvollerweise sollten Sie Branch-Namen immer komplett in Kleinbuchstaben angeben.
+Da Git Branch-Namen unter `.git/refs/heads/` als Dateien verwaltet, ist die Groß- und Kleinschreibung wesentlich.
+////
+
+It makes sense to always enter branch names completely in lower case letters.
+Since Git manages branch names under `.git/refs/heads/` as files, it is essential that you use upper and lower case.
+
+
+////
+Sie können Branches in "`Namespaces`" gruppieren, indem Sie als Separator einen `/` verwenden.
+Branches, die mit der Übersetzung einer Software zu tun haben, können Sie dann z.B. `i18n/german`, `i18n/english` etc. nennen.
+Auch können Sie, wenn sich mehrere Entwickler ein Repository teilen, "`private`" Branches unter `<username>/<topic>` anlegen.
+Diese Namespaces werden durch eine Verzeichnisstruktur abgebildet, so dass dann unter `.git/refs/heads/` ein Verzeichnis `<username>/` mit der Branch-Datei `<topic>` erstellt wird.
+////
+
+You can group branches into "`namespaces`" by using a `/` as a separator.
+Branches that are related to the translation of a software can then be named e.g. `i18n/german`, `i18n/english` etc.
+If several developers share a repository, you can also create "`private`" branches under `<username>/<topic>`.
+These namespaces are represented by a directory structure, so that a directory `<username>/` with the branch file `<topic>` is created under `.git/refs/heads/`.
+
+
+////
+Der Hauptentwicklungszweig Ihres Projekts sollte immer `master` heißen.
+Bugfixes werden häufig auf einem Branch `maint` (kurz für "`maintenance`") verwaltet.
+Das nächste Release wird meist auf `next` vorbereitet.
+Features, die sich noch in einem experimentellen Zustand befinden, sollten in `pu` (für "`proposed updates`") entwickelt werden oder in `pu/<feature>`.
+Eine detailliertere Beschreibung, wie Sie mit Branches die Entwicklung strukturieren und Release-Zyklen organisieren, finden Sie in Kapitel 6, _Workflows_ über Workflows.
+////
+
+The main development branch of your project should always be called `master`.
+Bugfixes are often managed on a branch `maint` (short for "`maintenance`").
+The next release is usually prepared for `next`.
+Features that are still in an experimental state should be developed in `pu` (for "`proposed updates`") or in `pu/<feature>`.
+For a more detailed description of how to use branches to structure development and organize release cycles, see <<ch.workflows>> on Workflows.
+
+
 
 
 [[sec.no-ref-commits]]
-==== Gelöschte Branches und "`verlorene`" Commits
+==== Deleted Branches and "`Lost`" Commits
+//   Gelöschte Branches und "`verlorene`" Commits
 
-Commits kennen jeweils einen oder mehrere Vorgänger. Daher kann man
-den Commit-Graphen "`gerichtet`", d.h. von neueren zu
-älteren Commits, durchlaufen, bis man an einem Wurzel-Commit ankommt.
+////
+Commits kennen jeweils einen oder mehrere Vorgänger.
+Daher kann man den Commit-Graphen "`gerichtet`", d.h. von neueren zu älteren Commits, durchlaufen, bis man an einem Wurzel-Commit ankommt.
+////
 
-Andersherum geht das nicht: Wenn ein Commit seinen Nachfolger kennen
-würde, müsste diese Version irgendwo gespeichert werden. Dadurch würde
-sich die SHA-1-Summe des Commits ändern, worauf der Nachfolger den
-entsprechend neuen Commit referenzieren müsste, dadurch eine neue
-SHA-1-Summe erhielte, so dass wiederum der Vorgänger geändert werden
-müsste usw.  Git kann also die Commits nur von einer benannten
-Referenz aus (z.B.  ein Branch oder `HEAD`) in Richtung
-früherer Commits durchgehen.
+Commits each have one or more predecessors.
+Therefore, you can walk through the commit graph "`directed`", that is, from newer to older commits, until you reach a root commit.
 
-Wenn daher die "`Spitze`" eines Branches gelöscht wird, wird
-der oberste Commit nicht mehr referenziert (im Git-Jargon:
-_unreachable_). Dadurch wird der Vorgänger nicht mehr
-referenziert usw. -- bis der nächste Commit auftaucht, der irgendwie
-referenziert wird (sei es von einem Branch oder dadurch, dass er einen
-Nachfolger hat, der wiederum von einem Branch referenziert wird).
 
-Wenn Sie einen Branch löschen, werden die Commits auf diesem Branch
-also nicht gelöscht, sie gehen nur "`verloren`". Git findet
-sie einfach nicht mehr.
+////
+Andersherum geht das nicht: Wenn ein Commit seinen Nachfolger kennen würde, müsste diese Version irgendwo gespeichert werden.
+Dadurch würde sich die SHA-1-Summe des Commits ändern, worauf der Nachfolger den entsprechend neuen Commit referenzieren müsste, dadurch eine neue SHA-1-Summe erhielte, so dass wiederum der Vorgänger geändert werden müsste usw.
+Git kann also die Commits nur von einer benannten Referenz aus (z.B.  ein Branch oder `HEAD`) in Richtung früherer Commits durchgehen.
+////
 
-In der Objektdatenbank sind sie allerdings noch eine Weile lang
-vorhanden.{fn32}
-Sie können also
-einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen
-(und vermeintlich gelöschten) Commit explizit als Referenz angeben:
+It's not the other way around: if a commit knew its successor, that version would have to be stored somewhere.
+This would change the SHA-1 sum of the commit, and the successor would have to reference the corresponding new commit, which would give it a new SHA-1 sum, so the predecessor would have to be changed, and so on.
+So Git can only go through the commits from a named reference (such as a branch or `HEAD`) in the direction of earlier commits.
+
+
+////
+Wenn daher die "`Spitze`" eines Branches gelöscht wird, wird der oberste Commit nicht mehr referenziert (im Git-Jargon: _unreachable_).
+Dadurch wird der Vorgänger nicht mehr referenziert usw. -- bis der nächste Commit auftaucht, der irgendwie referenziert wird (sei es von einem Branch oder dadurch, dass er einen Nachfolger hat, der wiederum von einem Branch referenziert wird).
+////
+
+Therefore, if the "`top`" of a branch is deleted, the topmost commit is no longer referenced (in Git jargon: _unreachable_).
+As a result, the predecessor is no longer referenced, and so on, until the next commit comes along that is referenced in some way (either by a branch, or by having a successor that is itself referenced by a branch).
+
+
+////
+Wenn Sie einen Branch löschen, werden die Commits auf diesem Branch also nicht gelöscht, sie gehen nur "`verloren`".
+Git findet sie einfach nicht mehr.
+////
+
+So when you delete a branch, the commits on that branch are not deleted, they are just "`lost`".
+Git simply doesn't find them anymore.
+
+
+////
+In der Objektdatenbank sind sie allerdings noch eine Weile lang vorhanden.{fn32} Sie können also einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen (und vermeintlich gelöschten) Commit explizit als Referenz angeben:
+////
+
+However, they will still be present in the object database for a while, so you can easily restore a branch by explicitly specifying the previous (and supposedly deleted) commit as a reference:
+
+
 
 [subs="quotes"]
 --------
@@ -606,91 +639,130 @@ Deleted branch test (was e32bf29).
 $ *git branch test e32bf29*
 --------
 
+
+////
 Eine weitere Möglichkeit, gelöschte Commits wiederzufinden, ist das
-_Reflog_ (siehe dafür <<sec.reflog>>).
+_Reflog_ (siehe dafür Abschnitt 3.7, "Reflog").
+////
+
+Another way to retrieve deleted commits is the _reflog_ (see <<sec.reflog>>).
+
+
+
 
 [[sec.tags]]
-=== Tags – Wichtige Versionen markieren
+=== Tags -- Marking Important Versions
+//  Tags -- Wichtige Versionen markieren
 
-SHA-1-Summen sind zwar eine sehr elegante Lösung, um Versionen
-dezentral zu beschreiben, aber semantikarm und für Menschen
-unhandlich. Im Gegensatz zu linearen Revisionsnummern sagen uns
-Commit-IDs allein nichts über die Reihenfolge der Versionen.
+////
+SHA-1-Summen sind zwar eine sehr elegante Lösung, um Versionen dezentral zu beschreiben, aber semantikarm und für Menschen unhandlich.
+Im Gegensatz zu linearen Revisionsnummern sagen uns Commit-IDs allein nichts über die Reihenfolge der Versionen.
+////
 
-Während der Entwicklung von Softwareprojekten müssen
-verschiedene "`wichtige`" Versionen so markiert
-werden, dass sie leicht in dem Repository zu finden sind. Die
-wichtigsten sind meist solche, die veröffentlicht werden, die
-sogenannten _Releases_.  Auch _Release Candidates_ werden
-häufig auf diese Weise markiert, also Versionen, die die Basis für die
-nächste Version bilden und im Zuge der Qualitätssicherung auf
-kritische Fehler untersucht werden, ohne dass neue Features
-hinzugefügt werden. Je nach Projekt und Entwicklungsmodell gibt es
-verschiedene Konventionen, um Releases zu bezeichnen, und Abläufe, wie
-sie vorbereitet und publiziert werden.
+SHA-1 sums are a very elegant solution to describe versions decentrally, but they are semantically poor and unwieldy for humans.
+Unlike linear revision numbers, commit IDs alone tell us nothing about the order of versions.
 
-Im Open-Source-Bereich haben sich zwei Versionierungsschemata
-durchgesetzt: die klassische _Major/Minor/Micro-Versionierung_
-und neuerdings auch die _datumsbasierte Versionierung_. Bei der
-Major/Minor/Micro-Versionierung, welche z.B. beim Linux-Kernel und
-auch Git eingesetzt wird, ist eine Version durch drei (oft auch vier)
-Zahlen gekennzeichnet: `2.6.39` oder `1.7.1`. Bei der
-datumsbasierten Versionierung hingegen ist die Bezeichnung aus dem
-Zeitpunkt des Releases abgeleitet, z.B.: `2011.05` oder
-`2011-05-19`. Das hat den großen Vorteil, dass das Alter einer
-Version leicht ersichtlich ist.{fn33}
 
-Git bietet Ihnen mit _Tags_ ("`Etiketten`") die Möglichkeit,
-beliebige Git-Objekte -- meist Commits -- zu markieren, um markante
-Zustände in der Entwicklungsgeschichte hervorzuheben. Tags sind, wie
-Branches auch, als Referenzen auf Objekte implementiert. Im Gegensatz
-zu Branches jedoch sind Tags statisch, das heißt, sie werden nicht
-verschoben, wenn neue Commits hinzukommen, und zeigen stets auf
-dasselbe Objekt. Es gibt zwei Arten von Tags: _Annotated_ (mit
-Anmerkungen versehen) und _Lightweight_
-("`leichtgewichtig`", d.h. ohne Anmerkungen).  Annotated
-Tags sind mit Metadaten -- z.B. Autor, Beschreibung oder
-GPG-Signatur -- versehen.  Lightweight Tags zeigen hingegen
-"`einfach nur`" auf ein bestimmtes Git-Objekt. Für beide Arten
-von Tags legt Git unter `.git/refs/tags/` bzw.
-`.git/packed-refs` Referenzen an.  Der Unterschied ist,
-dass Git für jedes Annotated Tag ein spezielles Git-Objekt -- und zwar
-ein _Tag-Objekt_ -- in der Objektdatenbank anlegt, um die
-Metadaten sowie die SHA-1-Summe des markierten Objekts zu speichern,
-während ein Lightweight Tag direkt auf das markierte Objekt zeigt.
-<<fig.tag-objekt>> zeigt den Inhalt eines Tag-Objekts;
-vergleichen Sie auch die anderen Git-Objekte, <<fig.objekte>>.
+////
+Während der Entwicklung von Softwareprojekten müssen verschiedene "`wichtige`" Versionen so markiert werden, dass sie leicht in dem Repository zu finden sind.
+Die wichtigsten sind meist solche, die veröffentlicht werden, die sogenannten _Releases_.
+Auch _Release Candidates_ werden häufig auf diese Weise markiert, also Versionen, die die Basis für die nächste Version bilden und im Zuge der Qualitätssicherung auf kritische Fehler untersucht werden, ohne dass neue Features hinzugefügt werden.
+Je nach Projekt und Entwicklungsmodell gibt es verschiedene Konventionen, um Releases zu bezeichnen, und Abläufe, wie sie vorbereitet und publiziert werden.
+////
 
-.Das Tag-Objekt
-image::tags.png[id="fig.tag-objekt",scaledwidth="90%",width="90%"]
+During the development of software projects, different "`important`" versions need to be marked so that they can be easily found in the repository.
+The most important ones are usually those that are released, called _releases_.
+_Release candidates_ are also often marked in this way, i.e. versions that form the basis for the next version and are checked for critical bugs in the course of quality assurance without adding new features.
+Depending on the project and development model, there are different conventions for marking releases and procedures for preparing and publishing them.
 
-Das gezeigte Tag-Objekt hat sowohl eine Größe (158 Byte) als auch eine
-SHA-1-Summe. Es enthält die Bezeichnung (`0.1`), den Objekt-Typ
-und die SHA-1-Summe des referenzierten Objekts sowie den Namen und
-E-Mail des Autors, der im Git-Jargon _Tagger_ heißt. Außerdem
-enthält das Tag eine Tag-Message, die zum Beispiel die Version beschreibt,
-sowie optional eine GPG-Signatur. Im Git-Projekt etwa besteht eine Tag-Message
-aus der aktuellen Versionsbezeichnung und der Signatur des
-Maintainers.
 
-Schauen wir im Folgenden zunächst, wie Sie Tags lokal verwalten. Wie
-Sie Tags zwischen Repositories austauschen, beschreibt <<sec.remote-tags>>.
+////
+Im Open-Source-Bereich haben sich zwei Versionierungsschemata durchgesetzt: die klassische _Major/Minor/Micro-Versionierung_ und neuerdings auch die _datumsbasierte Versionierung_.
+Bei der Major/Minor/Micro-Versionierung, welche z.B. beim Linux-Kernel und auch Git eingesetzt wird, ist eine Version durch drei (oft auch vier) Zahlen gekennzeichnet: `2.6.39` oder `1.7.1`.
+Bei der datumsbasierten Versionierung hingegen ist die Bezeichnung aus dem Zeitpunkt des Releases abgeleitet, z.B.: `2011.05` oder `2011-05-19`.
+Das hat den großen Vorteil, dass das Alter einer Version leicht ersichtlich ist.[33]
+////
+
+In the open source area, two versioning schemes have become established: the classic _major_/_minor_/_micro versioning_ scheme and, more recently, _date-based versioning_.
+With major/minor/micro versioning, which is used e.g. with the Linux kernel and also Git, a version is identified by three (often four) numbers: `2.6.39` or `1.7.1`.
+With date-based versioning, on the other hand, the designation is derived from the time of the release, e.g.: `2011.05` or `2011-05-19`.
+This has the great advantage that the age of a version is easily identifiable.{fn33}
+
+
+////
+Git bietet Ihnen mit _Tags_ ("`Etiketten`") die Möglichkeit, beliebige Git-Objekte -- meist Commits -- zu markieren, um markante Zustände in der Entwicklungsgeschichte hervorzuheben.
+Tags sind, wie Branches auch, als Referenzen auf Objekte implementiert.
+Im Gegensatz zu Branches jedoch sind Tags statisch, das heißt, sie werden nicht verschoben, wenn neue Commits hinzukommen, und zeigen stets auf dasselbe Objekt.
+Es gibt zwei Arten von Tags: _Annotated_ (mit Anmerkungen versehen) und _Lightweight_ ("`leichtgewichtig`", d.h. ohne Anmerkungen).
+Annotated Tags sind mit Metadaten -- z.B. Autor, Beschreibung oder GPG-Signatur -- versehen.
+Lightweight Tags zeigen hingegen "`einfach nur`" auf ein bestimmtes Git-Objekt.
+Für beide Arten von Tags legt Git unter `.git/refs/tags/` bzw. `.git/packed-refs` Referenzen an.
+Der Unterschied ist, dass Git für jedes Annotated Tag ein spezielles Git-Objekt -- und zwar ein _Tag-Objekt_ -- in der Objektdatenbank anlegt, um die Metadaten sowie die SHA-1-Summe des markierten Objekts zu speichern, während ein Lightweight Tag direkt auf das markierte Objekt zeigt.
+Abbildung 3.4, "Das Tag-Objekt" zeigt den Inhalt eines Tag-Objekts; vergleichen Sie auch die anderen Git-Objekte, Abbildung 2.4, "Git-Objekte".
+////
+
+Git offers _tags_ ("`labels`") that can be used to mark any Git object -- usually commits -- to highlight prominent states in its development history.
+Like branches, tags are implemented as references to objects.
+Unlike branches, however, tags are static, meaning that they are not moved when new commits are added, and always point to the same object.
+There are two types of tags: _annotated_ and _lightweight_.
+Annotated tags are tagged with metadata, such as author, description, or GPG signature.
+Lightweight tags, on the other hand, "`simply`" point to a specific Git object.
+For both types of tags, Git creates references under `.git/refs/tags/` or `.git/packed-refs`.
+The difference is that for each annotated tag, Git creates a special Git object -- a _tag object_ -- in the Object Database to store the metadata and SHA-1 sum of the selected object, while a Lightweight tag points directly to the selected object.
+<<fig.tag-object>> shows the contents of a tag object; compare also the other git objects, <<fig.objekte>>.
+
+
+// @TRANSLATE IMAGE TEXT?
+
+// .Das Tag-Objekt
+.The Tag Object
+image::tags.png[id="fig.tag-object",scaledwidth="90%",width="90%"]
+
+
+////
+Das gezeigte Tag-Objekt hat sowohl eine Größe (158 Byte) als auch eine SHA-1-Summe.
+Es enthält die Bezeichnung (`0.1`), den Objekt-Typ und die SHA-1-Summe des referenzierten Objekts sowie den Namen und E-Mail des Autors, der im Git-Jargon _Tagger_ heißt.
+Außerdem enthält das Tag eine Tag-Message, die zum Beispiel die Version beschreibt, sowie optional eine GPG-Signatur.
+Im Git-Projekt etwa besteht eine Tag-Message aus der aktuellen Versionsbezeichnung und der Signatur des Maintainers.
+////
+
+The tag object shown has both a size (158 bytes) and a SHA-1 sum.
+It contains the name (`0.1`), the object type and the SHA-1 sum of the referenced object as well as the name and e-mail of the author, which is called _tagger_ in Git jargon.
+In addition, the tag contains a tag message that describes the version, for example, and optionally a GPG signature.
+In the Git project, for example, a tag message consists of the current version designation and the signature of the maintainer.
+
+
+////
+Schauen wir im Folgenden zunächst, wie Sie Tags lokal verwalten.
+Wie Sie Tags zwischen Repositories austauschen, beschreibt Abschnitt 5.8, "Tags austauschen".
+////
+
+In the following, let's first look at how you manage tags locally.
+<<sec.remote-tags>> describes how you exchange tags between repositories.
+
+
 
 
 [[sec.tags-verwalten]]
-==== Tags verwalten
+==== Managing Tags
+//   Tags verwalten
 
-Tags verwalten Sie mit dem Kommando `git tag`. Ohne Argumente
-zeigt es alle vorhandenen Tags an. Je nach Projektgröße lohnt es sich,
-die Ausgabe mit der Option `-l` und einem entsprechenden Muster
-einzuschränken. Mit folgendem Befehl zeigen Sie alle Varianten der
-Version `1.7.1` des Git-Projekts an, also sowohl die
-Release-Candidates mit dem Zusatz `-rc*` sowie die
-(vierstelligen) Maintenance-Releases:
+////
+Tags verwalten Sie mit dem Kommando `git tag`.
+Ohne Argumente zeigt es alle vorhandenen Tags an.
+Je nach Projektgröße lohnt es sich, die Ausgabe mit der Option `-l` und einem entsprechenden Muster einzuschränken.
+Mit folgendem Befehl zeigen Sie alle Varianten der Version `1.7.1` des Git-Projekts an, also sowohl die Release-Candidates mit dem Zusatz `-rc*` sowie die (vierstelligen) Maintenance-Releases:
+////
 
-[subs="quotes"]
+You can manage tags with the command `git tag`.
+Without arguments it shows all existing tags.
+Depending on the size of the project, it is worth limiting the output with the `-l` option and a corresponding pattern.
+With the following command you display all variants of version 1.7.1 of the git project, i.e. both the release candidates with the addition `-rc*` and the (four-digit) maintenance releases:
+
+
+[subs="quotes,attributes"]
 --------
-$ *git tag -l v1.7.1&#42;*
+$ *git tag -l v1.7.1{asterisk}*
 v1.7.1
 v1.7.1-rc0
 v1.7.1-rc1
@@ -703,35 +775,56 @@ v1.7.1.4
 
 
 
+////
 Den Inhalt eines Tags liefert Ihnen `git show`:
+////
 
+The content of a tag is provided by `git show`:
+
+
+// @TRANSLATE GIT LOG?
 [subs="quotes"]
 --------
 $ *git show 0.1 | head*
 tag 0.1
-Tagger: Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
+Tagger: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Wed Mar 23 16:52:03 2011 +0100
 
 Erste Veröffentlichung
 
 commit e2c67ebb6d2db2aab831f477306baa44036af635
-Author: Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
+Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Sat Jan 8 20:30:58 2011 +0100
 --------
 
+
+////
 Gitk stellt Tags als gelbe, pfeilartige Kästchen dar, die sich
 deutlich von den grünen, rechteckigen Branches unterscheiden:
+////
+
+Gitk presents tags as yellow, arrow-like boxes that are clearly distinguishable from the green, rectangular branches:
 
 .Tags in Gitk
 image::tag-screenshot.png[id="fig.tag-gitk",scaledwidth="90%",width="90%"]
 
+
+
+
+
 [[sec.lightweight-tags]]
 ==== Lightweight Tags
 
+////
 Um den `HEAD` mit einem Lightweight Tag zu versehen, übergeben
 Sie den gewünschten Namen an das Kommando (in diesem Beispiel, um einen
 wichtigen Commit zu markieren):
+////
 
+To add a lightweight tag to the `HEAD`, pass the desired name to the command (in this example, to mark an important commit)
+
+
+// @TRANSLATE GIT LOG?
 [subs="quotes"]
 --------
 $ *git tag api-aenderung*
@@ -739,10 +832,15 @@ $ *git tag*
 api-aenderung
 --------
 
-Sie können aber auch die SHA-1-Summe eines Objekts oder eine valide
-Revisionsbezeichnung (z.B.{empty}{nbsp}`master` oder `HEAD~23`)
-angeben, um ein Objekt nachträglich zu markieren.
 
+////
+Sie können aber auch die SHA-1-Summe eines Objekts oder eine valide Revisionsbezeichnung (z.B.{empty}{nbsp}`master` oder `HEAD~23`) angeben, um ein Objekt nachträglich zu markieren.
+////
+
+To add a lightweight tag to the `HEAD`, pass the desired name to the command (in this example, to mark an important commit)
+
+
+// @TRANSLATE GIT LOG?
 [subs="quotes"]
 --------
 $ *git tag pre-regression HEAD~23*
@@ -751,33 +849,53 @@ api-aenderung
 pre-regression
 --------
 
-Tags sind einzigartig -- sollten Sie versuchen, ein Tag erneut zu
-erzeugen, bricht Git mit einer Fehlermeldung ab:
+
+////
+Tags sind einzigartig -- sollten Sie versuchen, ein Tag erneut zu erzeugen, bricht Git mit einer Fehlermeldung ab:
+////
+
+Tags are unique -- if you try to recreate a tag, Git will abort with an error message:
+
 
 [subs="quotes"]
 --------
 $ *git tag pre-regression*
-fatal: tag \_pre-regression_ already exists
+fatal: tag 'pre-regression' already exists
 --------
+
+
+
+
 
 [[sec.annotated-tags]]
 ==== Annotated Tags
 
-Annotated Tags erzeugen Sie mit der Option `-a`. Wie bei
-`git commit` öffnet sich ein Editor, mit dem Sie die
-Tag-Message verfassen. Oder Sie übergeben die Tag-Message mit der
-Option `-m` -- dann ist die Option `-a` redundant:
+////
+Annotated Tags erzeugen Sie mit der Option `-a`.
+Wie bei `git commit` öffnet sich ein Editor, mit dem Sie die Tag-Message verfassen.
+Oder Sie übergeben die Tag-Message mit der Option `-m` -- dann ist die Option `-a` redundant:
+////
+
+Annotated tags are created with the `-a` option.
+As with `git commit`, an editor will open and allow you to write the tag message.
+Or you can pass the tag message with the option `-m` -- in which case the option `-a` is redundant:
+
 
 [subs="quotes"]
 --------
 $ *git tag -m "Zweite Veröffentlichung" 0.2*
 --------
 
-[[sec.signierte-tags]]
-==== Signierte Tags
 
-Um ein signiertes Tag zu überprüfen, verwenden Sie die Option
-`-v` (_verify_):
+
+
+[[sec.signierte-tags]]
+==== Signed Tags
+//   Signierte Tags
+
+Um ein signiertes Tag zu überprüfen, verwenden Sie die Option `-v` (_verify_):
+
+To verify a signed tag, use the `-v` (_verify_) option:
 
 [subs="quotes"]
 --------
@@ -785,38 +903,55 @@ $ *git tag -v v1.7.1*
 object d599e0484f8ebac8cc50e9557a4c3d246826843d
 type commit
 tag v1.7.1
-tagger Junio C Hamano &lt;pass:quotes[gitster@pobox.com]&gt; 1272072587 -0700
+tagger Junio C Hamano &lt;gitster@pobox.com&gt; 1272072587 -0700
 
 Git 1.7.1
 gpg: Signature made Sat Apr 24 03:29:47 2010 CEST using DSA key ID F3119B9A
-gpg: Good signature from "Junio C Hamano &lt;pass:quotes[junkio@cox.net]&gt;"
+gpg: Good signature from "Junio C Hamano &lt;junkio@cox.net&gt;"
 ...
 --------
 
-Das setzt natürlich voraus, dass Sie sowohl GnuPG installiert als auch
-den Schlüssel des Signierenden bereits importiert haben.
 
-Um selbst Tags zu signieren, müssen Sie zunächst den dafür bevorzugten
-Key einstellen:
+////
+Das setzt natürlich voraus, dass Sie sowohl GnuPG installiert als auch den Schlüssel des Signierenden bereits importiert haben.
+////
+
+Of course, this assumes that you have both GnuPG installed and that you have already imported the signer's key.
+
+////
+Um selbst Tags zu signieren, müssen Sie zunächst den dafür bevorzugten Key einstellen:
+////
+
+In order to sign tags yourself, you must first set the preferred key:
+
 
 [subs="quotes"]
 --------
 $ *git config --global user.signingkey &lt;GPG-Key-ID&gt;*
 --------
 
-Nun können Sie signierte Tags mit der Option `-s` (_sign_)
-erstellen:
+////
+Nun können Sie signierte Tags mit der Option `-s` (_sign_) erstellen:
+////
+
+Now you can create signed tags with the `-s` (_sign_) option:
+
 
 [subs="quotes"]
 --------
 $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 --------
 
-[[sec.tags-loeschen]]
-==== Tags löschen und überschreiben
 
-Mit den Optionen `-d` und `-f` löschen Sie Tags bzw.
-überschreiben sie:
+// ********** ARRIVED HERE!!! **********
+
+
+[[sec.tags-loeschen]]
+==== Deleting and Overwriting Tags
+//   Tags löschen und überschreiben
+
+Mit den Optionen `-d` und `-f` löschen Sie Tags bzw. überschreiben sie:
+
 
 [subs="quotes"]
 --------
@@ -824,12 +959,10 @@ $ *git tag -d 0.2*
 Deleted tag \_0.2_ (was 4773c73)
 --------
 
-Die Optionen sind mit Vorsicht zu genießen, besonders wenn Sie die
-Tags nicht nur lokal verwenden, sondern auch veröffentlichen. Unter
-bestimmten Umständen kann es dazu kommen, dass Tags unterschiedliche
-Commits bezeichnen -- Version `1.0` im Repository X zeigt auf
-einen anderen Commit als Version `1.0` im Repository Y. Aber
-sehen Sie hierzu auch <<sec.remote-tags>>.
+
+Die Optionen sind mit Vorsicht zu genießen, besonders wenn Sie die Tags nicht nur lokal verwenden, sondern auch veröffentlichen. Unter bestimmten Umständen kann es dazu kommen, dass Tags unterschiedliche Commits bezeichnen -- Version `1.0` im Repository X zeigt auf einen anderen Commit als Version `1.0` im Repository Y. Aber sehen Sie hierzu auch <<sec.remote-tags>>.
+
+
 
 [[sec.tags-lightweight-vs-heavyweight]]
 ==== Lightweight vs. Annotated Tags
