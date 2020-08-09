@@ -1427,51 +1427,86 @@ $ *git commit -m 'Reverting &lt;datei&gt; to resemble 3329661'*
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.reset]]
-=== Reset und der Index
+=== Reset and the Index
+//  Reset und der Index
 
-Wenn Sie einen Commit gänzlich löschen, also nicht nur rückgängig
-machen, dann verwenden Sie `git reset`. Das Reset-Kommando
-setzt den `HEAD` (und damit auch den aktuellen Branch) sowie
-wahlweise auch Index und Working Tree auf einen bestimmten Commit.
+////
+Wenn Sie einen Commit gänzlich löschen, also nicht nur rückgängig machen, dann verwenden Sie `git reset`.
+Das Reset-Kommando setzt den `HEAD` (und damit auch den aktuellen Branch) sowie wahlweise auch Index und Working Tree auf einen bestimmten Commit.
 Die Syntax lautet `git reset [<option>] [<commit>]`.
+////
 
+If you are deleting a commit completely, not just undoing it, use `git reset`.
+The reset command sets the `HEAD` (and thus the current branch), and optionally the index and working tree, to a particular commit.
+The syntax is `git reset [<option>] [<commit>]`.
+
+
+////
 Die wichtigsten Reset-Typen sind die folgenden:
+////
 
-`--soft`:: Setzt nur den `HEAD` zurück;
-  Index und Working Tree bleiben unberührt.
-
-`--mixed`:: Voreinstellung, wenn Sie keine Option
-  angeben. Setzt `HEAD` und Index auf den angegebenen Commit,
-  die Dateien im Working Tree bleiben aber unberührt.
-
-`--hard`:: Synchronisiert `HEAD`, Index und
-  Working Tree und setzt sie auf den gleichen Commit. Dabei gehen
-  möglicherweise Änderungen im Working Tree verloren!
+The most important types of resets are the following:
 
 
-Wenn Sie `git reset` ohne Optionen aufrufen, entspricht dies
-einem `git reset --mixed HEAD`. Das Kommando haben wir schon
-kennengelernt: Git setzt den aktuellen `HEAD` auf
-`HEAD` (verändert ihn also nicht) und den Index auf
-`HEAD` -- dabei gehen die vorher hinzugefügten Änderungen
-verloren.
 
-Die Anwendungsmöglichkeiten dieses Kommandos sind vielfältig und werden
-in den verschiedenen Kommandosequenzen wieder auftauchen. Daher ist
-es wichtig, die Funktionalität zu verstehen, auch wenn es teilweise
-alternative Kommandos gibt, die den gleichen Effekt haben.
 
-Angenommen, Sie haben auf `master` zwei Commits gemacht, die Sie
-eigentlich auf einen neuen Branch verschieben wollen, um noch weiter
-daran zu arbeiten.  Die folgende Kommandosequenz erstellt einen neuen
-Branch, der auf den `HEAD` zeigt, und setzt anschließend
-`HEAD` und damit den aktuellen Branch `master` zwei
-Commits zurück. Dann checken Sie den neuen Branch
-`<neues-feature>` aus.
+////
+`--soft` ::
+Setzt nur den `HEAD` zurück; Index und Working Tree bleiben unberührt.
+
+`--mixed` ::
+Voreinstellung, wenn Sie keine Option angeben.
+Setzt `HEAD` und Index auf den angegebenen Commit, die Dateien im Working Tree bleiben aber unberührt.
+
+`--hard` ::
+Synchronisiert `HEAD`, Index und Working Tree und setzt sie auf den gleichen Commit.
+Dabei gehen möglicherweise Änderungen im Working Tree verloren!
+////
+
+[horizontal]
+`-{wj}-{wj}soft` ::
+Resets only the `HEAD`; index and working tree remain unaffected.
+
+`-{wj}-{wj}mixed` ::
+Default setting if you do not specify an option.
+Sets `HEAD` and index to the specified commit, but the files in the working tree are not affected.
+
+`-{wj}-{wj}hard` ::
+Synchronizes `HEAD`, Index and Working Tree and sets them to the same commit.
+Changes in the working tree may be lost!
+
+
+
+////
+Wenn Sie `git reset` ohne Optionen aufrufen, entspricht dies einem `git reset --mixed HEAD`.
+Das Kommando haben wir schon kennengelernt: Git setzt den aktuellen `HEAD` auf `HEAD` (verändert ihn also nicht) und den Index auf `HEAD` -- dabei gehen die vorher hinzugefügten Änderungen verloren.
+////
+
+If you call `git reset` without any options, this is equivalent to a `git reset --mixed HEAD`.
+We've already seen this command: Git sets the current `HEAD` to `HEAD` (so it doesn't change it) and the index to `HEAD` -- in this case, the changes you added before are lost.
+
+
+////
+Die Anwendungsmöglichkeiten dieses Kommandos sind vielfältig und werden in den verschiedenen Kommandosequenzen wieder auftauchen.
+Daher ist es wichtig, die Funktionalität zu verstehen, auch wenn es teilweise alternative Kommandos gibt, die den gleichen Effekt haben.
+////
+
+The possible uses of this command are many and varied and will reappear in the various command sequences.
+Therefore it is important to understand the functionality, even if there are sometimes alternative commands that have the same effect.
+
+
+////
+Angenommen, Sie haben auf `master` zwei Commits gemacht, die Sie eigentlich auf einen neuen Branch verschieben wollen, um noch weiter daran zu arbeiten.
+Die folgende Kommandosequenz erstellt einen neuen Branch, der auf den `HEAD` zeigt, und setzt anschließend `HEAD` und damit den aktuellen Branch `master` zwei Commits zurück.
+Dann checken Sie den neuen Branch `<neues-feature>` aus.
+////
+
+Suppose you have made two commits to `master` that you actually want to move to a new branch to work on further.
+The following command sequence creates a new branch pointing to `HEAD`, and then resets `HEAD` and the current branch `master` two commits.
+Then check out the new branch `<new-feature>`.
+
 
 [subs="quotes"]
 --------
@@ -1480,40 +1515,36 @@ $ *git reset --hard HEAD^^*
 $ *git checkout &lt;neues-feature&gt;*
 --------
 
-Alternativ hat die folgende Sequenz den gleichen Effekt: Sie
-erstellen einen Branch `<neues-feature>`, der auf den
-aktuellen Commit zeigt. Dann löschen Sie `master` und erstellen
-ihn neu, so dass er auf den zweiten Vorgänger des aktuellen Commits
-zeigt.
+
+////
+Alternativ hat die folgende Sequenz den gleichen Effekt: Sie erstellen einen Branch `<neues-feature>`, der auf den aktuellen Commit zeigt.
+Dann löschen Sie `master` und erstellen ihn neu, so dass er auf den zweiten Vorgänger des aktuellen Commits zeigt.
+////
+
+Alternatively, the following sequence has the same effect: you create a Branch `<new-feature>` that points to the current commit.
+Then you delete `master` and re-create it so that it points to the second predecessor of the current commit.
+
 
 [subs="quotes"]
 --------
-$ *git checkout -b &lt;neues-feature&gt;*
+$ *git checkout -b &lt;new-feature&gt;*
 $ *git branch -D master*
 $ *git branch master HEAD^^*
 --------
 
+
+// ********** ARRIVED HERE!!! **********
+
+
 [[sec.reset-usage]]
-==== reset benutzen
+==== Using reset
+//   reset benutzen
 
-Mit `reset` löschen Sie nicht beliebige Commits, sondern
-verschieben immer nur Referenzen. Dadurch gehen die nicht mehr
-referenzierten Commits verloren, werden also quasi gelöscht
-(_unreachable_). Sie können also mit `reset` nur die
-obersten Commits auf einem Branch löschen, nicht beliebige Commits
-"`irgendwo aus der Mitte`", da dies den Commit-Graphen
-zerstören würde. (Für das etwas kompliziertere Löschen von Commits
-"`mittendrin`" siehe Rebase, <<sec.rebase>>.)
+Mit `reset` löschen Sie nicht beliebige Commits, sondern verschieben immer nur Referenzen. Dadurch gehen die nicht mehr referenzierten Commits verloren, werden also quasi gelöscht (_unreachable_). Sie können also mit `reset` nur die obersten Commits auf einem Branch löschen, nicht beliebige Commits "`irgendwo aus der Mitte`", da dies den Commit-Graphen zerstören würde. (Für das etwas kompliziertere Löschen von Commits "`mittendrin`" siehe Rebase, <<sec.rebase>>.)
 
-Git speichert den ursprünglichen `HEAD` immer unter
-`ORIG_HEAD` ab. Falls Sie also fälschlicherweise einen Reset durchgeführt haben, machen Sie diesen mit `git reset --hard ORIG_HEAD`
-rückgängig (auch wenn der Commit vermeintlich gelöscht wurde).  Das
-betrifft allerdings _nicht_ die verlorengegangenen Änderungen am
-Working Tree (die Sie noch nicht eingecheckt haben) -- diese werden
-unwiderruflich gelöscht.
+Git speichert den ursprünglichen `HEAD` immer unter `ORIG_HEAD` ab. Falls Sie also fälschlicherweise einen Reset durchgeführt haben, machen Sie diesen mit `git reset --hard ORIG_HEAD` rückgängig (auch wenn der Commit vermeintlich gelöscht wurde).  Das betrifft allerdings _nicht_ die verlorengegangenen Änderungen am Working Tree (die Sie noch nicht eingecheckt haben) -- diese werden unwiderruflich gelöscht.
 
-Das Resultat von oben (zwei Commits auf einen neuen Branch
-verschieben) erreichen Sie also alternativ auch so:
+Das Resultat von oben (zwei Commits auf einen neuen Branch verschieben) erreichen Sie also alternativ auch so:
 
 [subs="quotes"]
 --------
