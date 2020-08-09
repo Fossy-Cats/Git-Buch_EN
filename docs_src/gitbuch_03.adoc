@@ -1139,20 +1139,30 @@ This way a user knows roughly what version he has, and can track which commit th
 
 
 
-// ********** ARRIVED HERE!!! **********
-
-
 
 [[sec.undo]]
-== Versionen wiederherstellen
+== Restoring Versions
 // Versionen wiederherstellen
 
-Ziel einer Versionskontrollsoftware ist es nicht nur, Änderungen zwischen Commits zu untersuchen. Wichtig ist vor allem auch, ältere Versionen einer Datei oder ganzer Verzeichnisbäume wiederherzustellen oder Änderungen rückgängig zu machen. Dafür sind in Git insbesondere die Kommandos `checkout`, `reset` und `revert` zuständig.
+////
+Ziel einer Versionskontrollsoftware ist es nicht nur, Änderungen zwischen Commits zu untersuchen.
+Wichtig ist vor allem auch, ältere Versionen einer Datei oder ganzer Verzeichnisbäume wiederherzustellen oder Änderungen rückgängig zu machen.
+Dafür sind in Git insbesondere die Kommandos `checkout`, `reset` und `revert` zuständig.
+////
 
+The goal of version control software is not just to examine changes between commits.
+Above all, it is also important to restore older versions of a file or entire directory trees, or to undo changes.
+In Git, the commands `checkout`, `reset`, and `revert` are particularly useful for this.
 
 //\label{sec:checkout}
 
-Das Git-Kommando `checkout` kann nicht nur Branches wechseln, sondern auch Dateien aus früheren Commits wiederherstellen. Die Syntax lautet allgemein:
+////
+Das Git-Kommando `checkout` kann nicht nur Branches wechseln, sondern auch Dateien aus früheren Commits wiederherstellen.
+Die Syntax lautet allgemein:
+////
+
+The Git command `checkout` can not only change branches, but also restore files from previous commits.
+The syntax is general:
 
 
 --------
@@ -1160,9 +1170,30 @@ git checkout [-f] <referenz> -- <muster>
 --------
 
 
-`checkout` löst die angegebene Referenz (und wenn diese fehlt, `HEAD`) auf einen Commit auf und extrahiert alle Dateien, die auf `<muster>` passen, in den Working Tree. Ist `<muster>` ein Verzeichnis, bezieht sich das auf alle darin enthaltenen Dateien und Unterverzeichnisse. Sofern Sie kein Muster explizit angeben, werden alle Dateien ausgecheckt.  Dabei werden Änderungen an einer Datei nicht einfach überschrieben, es sei denn, Sie geben die Option `-f` an (s.o.). Außerdem wird `HEAD` auf den entsprechenden Commit (bzw. Branch) gesetzt.
+////
+`checkout` löst die angegebene Referenz (und wenn diese fehlt, `HEAD`) auf einen Commit auf und extrahiert alle Dateien, die auf `<muster>` passen, in den Working Tree.
+Ist `<muster>` ein Verzeichnis, bezieht sich das auf alle darin enthaltenen Dateien und Unterverzeichnisse.
+Sofern Sie kein Muster explizit angeben, werden alle Dateien ausgecheckt.
+Dabei werden Änderungen an einer Datei nicht einfach überschrieben, es sei denn, Sie geben die Option `-f` an (s.o.).
+Außerdem wird `HEAD` auf den entsprechenden Commit (bzw. Branch) gesetzt.
+////
 
-Wenn Sie allerdings ein Muster angeben, dann überschreibt `checkout` diese Datei(en) ohne Nachfrage. Um also alle Änderungen an `<datei>` zu verwerfen, geben Sie `git checkout -- <datei>` ein: Git ersetzt dann `<datei>` durch die Version im aktuellen Branch. Auf diese Weise können Sie auch den älteren Zustand einer Datei rekonstruieren:
+`checkout` resolves the given reference (and `HEAD` if missing) to a commit and extracts all files matching `<pattern>` to the working tree.
+If `<pattern>` is a directory, it refers to all files and subdirectories in it.
+Unless you explicitly specify a pattern, all files are checked out.
+Changes to a file are not simply overwritten, unless you specify the `-f` option (see above).
+`HEAD` is also set to the corresponding commit (or branch).
+
+
+////
+Wenn Sie allerdings ein Muster angeben, dann überschreibt `checkout` diese Datei(en) ohne Nachfrage.
+Um also alle Änderungen an `<datei>` zu verwerfen, geben Sie `git checkout -- <datei>` ein: Git ersetzt dann `<datei>` durch die Version im aktuellen Branch.
+Auf diese Weise können Sie auch den älteren Zustand einer Datei rekonstruieren:
+////
+
+However, if you specify a pattern, `checkout` overwrites this file(s) without prompting.
+So to discard all changes to `<file>`, enter `git checkout -- <file>`: Git then replaces `<file>` with the version in the current branch.
+This way, you can also reconstruct the older state of a file:
 
 
 [subs="quotes"]
@@ -1178,29 +1209,38 @@ Um den Inhalt einer Datei aus einem bestimmten Commit anzuschauen, ohne sie ausz
 
 [subs="quotes"]
 --------
-$ *git show ce66692:&lt;datei&gt;*
+$ *git show ce66692:&lt;file&gt;*
 --------
 
 
 [TIP]
 ==================
-Mit `--patch` bzw. `-p` rufen Sie `git checkout` im interaktiven Modus auf. Der Ablauf ist der gleiche wie bei `git add -p` (siehe <<sec.add-p>>), jedoch können Sie hier Hunks einer Datei schrittweise zurücksetzen.
+////
+Mit `--patch` bzw. `-p` rufen Sie `git checkout` im interaktiven Modus auf.
+Der Ablauf ist der gleiche wie bei `git add -p` (siehe Abschnitt 2.1.2, "Commits schrittweise erstellen"), jedoch können Sie hier Hunks einer Datei schrittweise zurücksetzen.
+////
+
+Use `--patch` or `-p` to call `git checkout` in interactive mode.
+The procedure is the same as for `git add -p` (see <<sec.add-p>>), but here you can reset hunks of a file step-by-step.
 ==================
+
+
 
 
 [[sec.detached-head]]
 === Detached HEAD
 
-Wenn Sie einen Commit auschecken, der nicht durch einen Branch
-referenziert wird, befinden Sie sich im sogenannten
-_Detached-HEAD_-Modus:
+Wenn Sie einen Commit auschecken, der nicht durch einen Branch referenziert wird, befinden Sie sich im sogenannten _Detached-HEAD_-Modus:
+
+If you check out a commit that is not referenced by a branch, you are in _detached-HEAD_ mode:
+
 
 [subs="quotes"]
 --------
 $ *git checkout 3329661*
-Note: checking out \_3329661_.
+Note: checking out '3329661'.
 
-You are in \_detached HEAD_ state. You can look around, make
+You are in 'detached HEAD' state. You can look around, make
 experimental changes and commit them, and you can discard any
 commits you make in this state without impacting any branches
 by performing another checkout.
@@ -1214,49 +1254,64 @@ again. Example:
 HEAD is now at 3329661... Add LICENSE file
 --------
 
-Wie die Erklärung, die Sie durch setzen der Option
-`advice.detachedHead` auf `false` ausblenden können,
-schon warnt, werden Änderungen, die Sie nun tätigen, im Zweifel
-verlorengehen: Da Ihr `HEAD` danach die einzige direkte
-Referenz auf den Commit ist, werden weitere Commits nicht direkt von
-einem Branch referenziert (sie sind _unreachable_, s.o.).
 
-Im Detached-HEAD-Modus zu arbeiten bietet sich also vor allem dann an,
-wenn Sie schnell etwas probieren wollen: Ist der Fehler eigentlich
-schon im Commit `3329661` aufgetaucht? Gab es zum
-Zeitpunkt von `3329661` eigentlich schon die Datei
-`README`?
+////
+Wie die Erklärung, die Sie durch setzen der Option `advice.detachedHead` auf `false` ausblenden können, schon warnt, werden Änderungen, die Sie nun tätigen, im Zweifel verlorengehen: Da Ihr `HEAD` danach die einzige direkte Referenz auf den Commit ist, werden weitere Commits nicht direkt von einem Branch referenziert (sie sind _unreachable_, s.o.).
+////
+
+As the explanation, which you can hide by setting the option `advice.detachedHead` to `false`, already warns you, changes you make now will be lost in case of doubt: Since your `HEAD` is the only direct reference to the commit after that, further commits are not directly referenced by a branch (they are _unreachable_, see above).
+
+
+////
+Im Detached-HEAD-Modus zu arbeiten bietet sich also vor allem dann an, wenn Sie schnell etwas probieren wollen: Ist der Fehler eigentlich schon im Commit `3329661` aufgetaucht? Gab es zum Zeitpunkt von `3329661` eigentlich schon die Datei `README`?
+////
+
+So working in detached HEAD mode is especially useful if you want to try something quickly: Has the bug actually already appeared in commit `3329661`? Was there actually a `README` file at the time of `3329661`?
 
 
 [TIP]
 ============
-Wenn Sie von dem ausgecheckten Commit aus mehr
-machen wollen als sich bloß umzuschauen und beispielsweise testen möchten,
-ob Ihre Software schon damals einen bestimmten Bug hatte, sollten Sie
-einen Branch erstellen:
+////
+Wenn Sie von dem ausgecheckten Commit aus mehr machen wollen als sich bloß umzuschauen und beispielsweise testen möchten, ob Ihre Software schon damals einen bestimmten Bug hatte, sollten Sie einen Branch erstellen:
+////
+
+If you want to do more than just look around from the commit you checked out, for example, to see if your software already had a particular bug at the time, you should create a branch:
 
 [subs="quotes"]
 --------
 $ *git checkout -b &lt;temp-branch&gt;*
 --------
 
-Dann können Sie wie gewohnt Commits machen, ohne befürchten zu müssen,
-dass diese verlorengehen.
+////
+Dann können Sie wie gewohnt Commits machen, ohne befürchten zu müssen, dass diese verlorengehen.
+////
+
+Then you can make commits as usual without fear of losing them.
 ============
 
 
 
 [[sec.revert]]
-=== Commits rückgängig machen
+=== Rolling Back Commits
+//  Commits rückgängig machen
 
-Wenn Sie alle Änderungen, die ein Commit einbringt, rückgängig machen
-wollen, hilft das Kommando `revert`. Es löscht aber keinen
-Commit, sondern erstellt einen neuen, dessen Änderungen genau dem
-Gegenteil des anderen Commits entsprechen: Gelöschte Zeilen werden zu
-hinzugefügten und umgekehrt.
+////
+Wenn Sie alle Änderungen, die ein Commit einbringt, rückgängig machen wollen, hilft das Kommando `revert`.
+Es löscht aber keinen Commit, sondern erstellt einen neuen, dessen Änderungen genau dem Gegenteil des anderen Commits entsprechen: Gelöschte Zeilen werden zu hinzugefügten und umgekehrt.
+////
 
-Angenommen, Sie haben einen Commit, der eine Datei `LICENSE`
-erstellt. Der Patch des entsprechenden Commits sieht so aus:
+If you want to undo all the changes a commit makes, the `revert` command helps.
+However, it does not delete a commit, but creates a new one whose changes are exactly the opposite of the other commit: Deleted lines become added lines, and vice versa.
+
+
+////
+Angenommen, Sie haben einen Commit, der eine Datei `LICENSE` erstellt.
+Der Patch des entsprechenden Commits sieht so aus:
+////
+
+Suppose you have a commit that creates a `LICENSE` file.
+The patch of the corresponding commit looks like this:
+
 
 --------
 --- /dev/null
@@ -1265,7 +1320,13 @@ erstellt. Der Patch des entsprechenden Commits sieht so aus:
 +This software is released under the GNU GPL version 3 or newer.
 --------
 
+
+////
 Nun können Sie die Änderungen rückgängig machen:
+////
+
+Now you can undo the changes:
+
 
 [subs="quotes"]
 --------
@@ -1276,14 +1337,18 @@ Finished one revert.
  delete mode 100644 LICENSE
 --------
 
-Git erstellt einen neuen Commit auf dem aktuellen Branch -- sofern Sie
-nichts anderes angeben -- mit der Beschreibung `Revert "<Alte Commit-Nachricht>"`. Dieser Commit sieht so aus:
+Git erstellt einen neuen Commit auf dem aktuellen Branch -- sofern Sie nichts anderes angeben -- mit der Beschreibung `Revert "<Alte Commit-Nachricht>"`.
+Dieser Commit sieht so aus:
+
+Git creates a new commit on the current branch -- unless you specify otherwise -- with the description `Revert "<Old commit message>"`.
+This commit looks like this:
+
 
 [subs="quotes"]
 --------
 $ *git show*
 commit a68ad2d41e9219383449d703521573477ee7da48
-Author: Julius Plenz &lt;pass:quotes[feh@mali]&gt;
+Author: Julius Plenz &lt;feh@mali&gt;
 Date:   Mon Mar 7 05:28:47 2011 +0100
 
     Revert "Add LICENSE file"
@@ -1294,50 +1359,76 @@ diff --git a/LICENSE b/LICENSE
 deleted file mode 100644
 index 3fd9c20..0000000
 --- a/LICENSE
-pass:quotes[\+++ /dev/null]
++++ /dev/null
 @@ -1 +0,0 @@
 -This software is released under the GNU GPL version 3 or newer.
 --------
 
-Beachten Sie also, dass in der Versionsgeschichte eines Projekts ab
-nun sowohl der Commit als auch der Revert auftauchen. Sie machen also
-nur die _Änderungen_ rückgängig, löschen aber keine Informationen
-aus der Versionsgeschichte.
 
-Sie sollten daher `revert` nur einsetzen, wenn Sie eine
-Änderung, die bereits veröffentlicht wurde, rückgängig machen müssen.
-Entwickeln Sie allerdings lokal in einem eigenen Branch, ist es
-sinnvoller, diese Commits komplett zu löschen (siehe dafür den
-folgenden Abschnitt über `reset` sowie das Thema _Rebase_, <<sec.rebase>>).
+////
+Beachten Sie also, dass in der Versionsgeschichte eines Projekts ab nun sowohl der Commit als auch der Revert auftauchen.
+Sie machen also nur die _Änderungen_ rückgängig, löschen aber keine Informationen aus der Versionsgeschichte.
+////
 
-Sofern Sie einen Revert durchführen wollen, allerdings nicht für
-sämtliche Änderungen des Commits, sondern nur für die einer Datei,
-können Sie sich zum Beispiel so behelfen:
+Note that from now on, both the commit and the revert will appear in the version history of a project.
+You therefore only undo the _changes_, but do not delete any information from the version history.
+
+
+////
+Sie sollten daher `revert` nur einsetzen, wenn Sie eine Änderung, die bereits veröffentlicht wurde, rückgängig machen müssen.
+Entwickeln Sie allerdings lokal in einem eigenen Branch, ist es sinnvoller, diese Commits komplett zu löschen (siehe dafür den folgenden Abschnitt über `reset` sowie das Thema _Rebase_, Abschnitt 4.1, "Commits verschieben – Rebase").
+////
+
+You should therefore only use `revert` if you need to undo a change that has already been published.
+However, if you are developing locally in a separate branch, it makes more sense to delete these commits completely (see the following section on `reset` and the topic _Rebase_, <<sec.rebase>>).
+
+
+////
+Sofern Sie einen Revert durchführen wollen, allerdings nicht für sämtliche Änderungen des Commits, sondern nur für die einer Datei, können Sie sich zum Beispiel so behelfen:
+////
+
+If you want to perform a rebase, but not for all changes to the commit, but only for those to a file, you can use this procedure:
+
+
 
 [subs="quotes"]
 --------
 $ *git show -R 3329661 -- LICENSE | git apply --index*
-$ *git commit -m \_Revert change to LICENSE from 3329661_*
+$ *git commit -m 'Revert change to LICENSE from 3329661'*
 --------
 
-Das Kommando `git show` gibt die Änderungen von Commit
-`3329661` aus, die sich auf die Datei `LICENSE`
-beziehen. Die Option `-R` sorgt dafür, dass das
-Unified-Diff-Format "`andersherum`" angezeigt wird
-(_reverse_). Die Ausgabe wird an `git apply`
-weitergeleitet, um die Änderungen an der Datei und dem Index
-vorzunehmen. Anschließend werden die Änderungen eingecheckt.
 
-Eine weitere Möglichkeit, eine Änderung rückgängig zu machen, besteht
-darin, eine Datei aus einem vorherigen Commit auszuchecken, sie dem
-Index hinzuzufügen und neu einzuchecken:
+////
+Das Kommando `git show` gibt die Änderungen von Commit `3329661` aus, die sich auf die Datei `LICENSE` beziehen.
+Die Option `-R` sorgt dafür, dass das Unified-Diff-Format "`andersherum`" angezeigt wird (_reverse_).
+Die Ausgabe wird an `git apply` weitergeleitet, um die Änderungen an der Datei und dem Index vorzunehmen.
+Anschließend werden die Änderungen eingecheckt.
+////
+
+The `git show` command prints the changes from commit `3329661` that apply to the `LICENSE` file.
+The `-R` option causes the unified-diff format to be displayed "`the other way around`" (_reverse_).
+The output is passed to `git apply` to make the changes to the file and index.
+The changes are then checked in.
+
+
+////
+Eine weitere Möglichkeit, eine Änderung rückgängig zu machen, besteht darin, eine Datei aus einem vorherigen Commit auszuchecken, sie dem Index hinzuzufügen und neu einzuchecken:
+////
+
+Another way to undo a change is to check out a file from a previous commit, add it to the index, and check it in again:
+
 
 [subs="quotes"]
 --------
 $ *git checkout 3329661 -- &lt;datei&gt;*
 $ *git add &lt;datei&gt;*
-$ *git commit -m \_Reverting &lt;datei&gt; to resemble 3329661_*
+$ *git commit -m 'Reverting &lt;datei&gt; to resemble 3329661'*
 --------
+
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.reset]]
 === Reset und der Index
