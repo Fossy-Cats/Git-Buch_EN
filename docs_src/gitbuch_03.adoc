@@ -2576,59 +2576,79 @@ With a program specially developed for 3-way merges, however, it is much easier 
 The program looks at the three stages of a file, visualizes them accordingly and offers you options to move changes back and forth.
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.mergetool]]
-=== Hilfe beim Merge: mergetool
+=== Help with Merging: Mergetool
+//  Hilfe beim Merge: mergetool
 
-Bei nicht-trivialen Merge-Konflikten empfiehlt sich ein Merge-Tool,
-das die drei Stufen einer Datei entsprechend visualisiert und dadurch
-die Lösung des Konflikts erleichtert.
+////
+Bei nicht-trivialen Merge-Konflikten empfiehlt sich ein Merge-Tool, das die drei Stufen einer Datei entsprechend visualisiert und dadurch die Lösung des Konflikts erleichtert.
+////
+
+In the case of non-trivial merge conflicts, a merge tool is recommended that visualizes the three stages of a file accordingly, thereby facilitating the resolution of the conflict.
 
 
-Gängige IDEs und Editoren wie z.B. Vim und Emacs bieten einen
-solchen Modus an. Außerdem gibt es externe Tools, wie zum Beispiel
-_KDiff3_{empty}{fn41}
-und
-_Meld_{empty}{fn42}.
-Letzteres visualisiert besonders gut, wie sich eine Datei zwischen den
-Commits verändert hat.
+////
+Gängige IDEs und Editoren wie z.B. Vim und Emacs bieten einen solchen Modus an.
+Außerdem gibt es externe Tools, wie zum Beispiel _KDiff3_[41] und _Meld_[42].
+Letzteres visualisiert besonders gut, wie sich eine Datei zwischen den Commits verändert hat.
+////
 
-.Der Beispiel-Merge-Konflikt, im Merge-Tool "`Meld`" visualisiert
+Common IDEs and editors such as Vim and Emacs offer such a mode.
+There are also external tools such as _KDiff3_{fn41} and _Meld_.{fn42}
+The latter visualizes particularly well how a file has changed between commits.
+
+
+// .Der Beispiel-Merge-Konflikt, im Merge-Tool "`Meld`" visualisiert
+.The example merge conflict, visualized in the merge tool "`Meld`"
 image::meld-example.png[id="fig.meld",scaledwidth="100%",width="100%"]
 
-Sie starten ein solches Merge-Tool über `git mergetool`. Git wird alle
-Dateien, die Konflikte enthalten, durchgehen und jeweils (wenn Sie
-Eingabe drücken) in einem Merge-Tool anzeigen.  Per Default ist das
-Vimdiff{empty}{fn43}.
+
+////
+Sie starten ein solches Merge-Tool über `git mergetool`.
+Git wird alle Dateien, die Konflikte enthalten, durchgehen und jeweils (wenn Sie Eingabe drücken) in einem Merge-Tool anzeigen.
+Per Default ist das Vimdiff[43].
+////
+
+You launch such a merge tool via `git mergetool`.
+Git will go through all the files that contain conflicts and display each one (when you press enter) in a merge tool.
+By default this is Vimdiff.{fn43}
 
 
+////
+Ein solches Programm wird in der Regel die drei Versionen einer Datei -- _unsere_ Seite, _deren_ Seite sowie die soweit wie möglich zusammengeführte Datei inklusive Konflikt-Markern -- in drei Spalten nebeneinander anzeigen, letztere sinnvollerweise in der Mitte.
+Wesentlich ist immer, dass Sie die Änderung (Konfliktlösung) in der mittleren Datei machen, also auf der Working-Copy.
+Die anderen Dateien sind temporär und werden wieder gelöscht, wenn das Merge-Tool beendet wurde.
+////
 
-Ein solches Programm wird in der Regel die drei Versionen einer Datei
--- _unsere_ Seite, _deren_ Seite sowie die soweit wie
-möglich zusammengeführte Datei inklusive Konflikt-Markern -- in drei
-Spalten nebeneinander anzeigen, letztere sinnvollerweise in der Mitte.
-Wesentlich ist immer, dass Sie die Änderung (Konfliktlösung) in der
-mittleren Datei machen, also auf der Working-Copy. Die anderen Dateien
-sind temporär und werden wieder gelöscht, wenn das Merge-Tool beendet
-wurde.
+Such a program will usually display the three versions of a file -- _our_ page, _their_ page, and the file merged as far as possible, including conflict markers -- in three columns side by side, the latter sensibly in the middle.
+It is always essential that you make the change (conflict resolution) in the middle file, i.e. in the working copy.
+The other files are temporary and are deleted again when the merge tool is finished.
 
-Prinzipiell können Sie ein beliebiges anderes Tool verwenden. Das
-`mergetool`-Script legt lediglich die drei Stufen der Datei mit
-entsprechendem Dateinamen ab und startet das Diff-Tool auf diesen
-drei Dateien. Beendet sich das Programm wieder, überprüft Git, ob noch
-Konflikt-Marker in der Datei enthalten sind -- wenn nicht, wird Git
-annehmen, dass der Konflikt erfolgreich gelöst wurde, und die Datei
-automatisch per `git add` dem Index hinzufügen. Wenn Sie also
-alle Dateien abarbeiten, müssen Sie schließlich nur noch einen
-Commit-Aufruf ausführen, um die Konfliktlösung zu besiegeln.
 
-Welches Tool Git auf der Datei startet, regelt die Option
-`merge.tool`. Die folgenden Kommandos sind bereits
-vorkonfiguriert, d.h. Git weiß bereits, in welcher Reihenfolge das
-Programm die Argumente erwartet und welche Zusatzoptionen angegeben
-werden müssen:
+////
+Prinzipiell können Sie ein beliebiges anderes Tool verwenden.
+Das `mergetool`-Script legt lediglich die drei Stufen der Datei mit entsprechendem Dateinamen ab und startet das Diff-Tool auf diesen drei Dateien.
+Beendet sich das Programm wieder, überprüft Git, ob noch Konflikt-Marker in der Datei enthalten sind -- wenn nicht, wird Git annehmen, dass der Konflikt erfolgreich gelöst wurde, und die Datei automatisch per `git add` dem Index hinzufügen.
+Wenn Sie also alle Dateien abarbeiten, müssen Sie schließlich nur noch einen Commit-Aufruf ausführen, um die Konfliktlösung zu besiegeln.
+////
+
+In principle, you can use any other tool.
+The `mergetool` script simply stores the three stages of the file with the corresponding file name and starts the diff tool on these three files.
+If it quits again, Git checks to see if there are any conflict markers left in the file -- if not, Git will assume that the conflict was resolved successfully and automatically add the file to the index using `git add`.
+Finally, when you have finished processing all the files, you only need to make one commit call to seal the conflict resolution.
+
+
+////
+Welches Tool Git auf der Datei startet, regelt die Option `merge.tool`.
+Die folgenden Kommandos sind bereits vorkonfiguriert, d.h. Git weiß bereits, in welcher Reihenfolge das Programm die Argumente erwartet und welche Zusatzoptionen angegeben werden müssen:
+////
+
+The `merge.tool` option determines which tool Git starts on the file.
+The following commands are already preconfigured, meaning that Git already knows in which order the program expects the arguments and which additional options need to be specified:
+
+
 
 -------------------
 araxis bc3 codecompare deltawalker diffmerge diffuse
@@ -2637,71 +2657,90 @@ meld opendiff p4merge tkdiff tortoisemerge
 vimdiff vimdiff2 vimdiff3 xxdiff
 -------------------
 
-Um Ihr eigenes Merge-Tool zu verwenden, müssen Sie
-`merge.tool` auf einen geeigneten Namen setzen, zum Beispiel
-`mymerge`, und anschließend zumindest die Option
-`mergetool.mymerge.cmd` angeben. Den darin gespeicherten
-Ausdruck wertet die Shell aus, und die Variablen
-`BASE`, `LOCAL`, `REMOTE` sowie `MERGED`,
-die die Datei mit den Konflikt-Markern enthält, sind auf die
-entsprechend erzeugten temporären Dateien gesetzt. Sie können die
-Eigenschaften Ihres Merge-Kommandos weiter konfigurieren, siehe
-dafür die Man-Page `git-config(1)` im Abschnitt der
-`mergetool`-Konfiguration.
+
+////
+Um Ihr eigenes Merge-Tool zu verwenden, müssen Sie `merge.tool` auf einen geeigneten Namen setzen, zum Beispiel `mymerge`, und anschließend zumindest die Option `mergetool.mymerge.cmd` angeben.
+Den darin gespeicherten Ausdruck wertet die Shell aus, und die Variablen `BASE`, `LOCAL`, `REMOTE` sowie `MERGED`, die die Datei mit den Konflikt-Markern enthält, sind auf die entsprechend erzeugten temporären Dateien gesetzt.
+Sie können die Eigenschaften Ihres Merge-Kommandos weiter konfigurieren, siehe dafür die Man-Page `git-config(1)` im Abschnitt der `mergetool`-Konfiguration.
+////
+
+To use your own merge tool, you must set `merge.tool` to a suitable name, for example `mymerge`, and then at least specify the `mergetool.mymerge.cmd` option.
+The shell evaluates the expression stored in it, and the variables `BASE`, `LOCAL`, `REMOTE`, and `MERGED`, which are contained in the file with the conflict markers, are set to the corresponding temporary files.
+You can further configure the properties of your merge command, see the `git-config(1)` man page in the `mergetool` configuration section.
+
 
 [TIP]
 ================
-Wenn Sie sich zeitweise (nicht dauerhaft) für ein
-anderes Merge-Programm entscheiden, geben Sie dieses über die
-Option `-t <tool>` an. Um also Meld auszuprobieren,
-geben Sie während eines Merge-Konflikts einfach `git
-mergetool -t meld` ein -- dafür muss Meld natürlich installiert
-sein.
+////
+Wenn Sie sich zeitweise (nicht dauerhaft) für ein anderes Merge-Programm entscheiden, geben Sie dieses über die Option `-t <tool>` an.
+Um also Meld auszuprobieren, geben Sie während eines Merge-Konflikts einfach `git mergetool -t meld` ein -- dafür muss Meld natürlich installiert sein.
+////
+
+If you temporarily (not permanently) decide to use another merge program, specify it with the `-t <tool>` option.
+So to try Meld, during a merge conflict, simply type `git mergetool -t meld` -- of course Meld must be installed for this to work.
 ================
 
 
 
 [[sec.rerere]]
 === rerere: Reuse Recorded Resolution
+//  rerere: Reuse Recorded Resolution
 
-Git besitzt ein relativ unbekanntes (und schlecht dokumentiertes),
-aber sehr hilfreiches Feature: Rerere, kurz für 'Reuse Recorded
-  Resolution' (``gespeicherte Konfliktlösung
-wiederverwenden__). Sie müssen die Option
-`rerere.enabled` auf `true` setzen, damit das Kommando
-automatisch aufgerufen wird (beachten Sie das `d` am Ende von
-`enabled`).
+////
+Git besitzt ein relativ unbekanntes (und schlecht dokumentiertes), aber sehr hilfreiches Feature: Rerere, kurz für _Reuse Recorded Resolution_ ("`gespeicherte Konfliktlösung wiederverwenden`"").
+Sie müssen die Option `rerere.enabled` auf `true` setzen, damit das Kommando automatisch aufgerufen wird (beachten Sie das `d` am Ende von `enabled`).
+////
 
-Die Idee hinter Rerere ist simpel, aber effektiv: Sobald ein
-Merge-Konflikt auftritt, nimmt Rerere automatisch ein _Preimage_
-auf, ein Abbild der Konfliktdatei inklusive Markern. Im Falle des
-obigen Beispiels sähe das so aus:
+Git has a relatively unknown (and poorly documented), but very helpful feature: Rerere, short for _Reuse Recorded Resolution_.
+You need to set the `rerere.enabled` option to `true` to have the command called automatically (note the `d` at the end of `enabled`).
+
+
+////
+Die Idee hinter Rerere ist simpel, aber effektiv: Sobald ein Merge-Konflikt auftritt, nimmt Rerere automatisch ein _Preimage_ auf, ein Abbild der Konfliktdatei inklusive Markern.
+Im Falle des obigen Beispiels sähe das so aus:
+////
+
+The idea behind Rerere is simple but effective: Whenever a merge conflict occurs, Rerere automatically records a _pre-image_, an image of the conflict file including markers.
+In the case of the example above, it would look like this:
+
 
 [subs="quotes"]
 --------
 $ *git merge B*
 Auto-merging output.c
 CONFLICT (content): Merge conflict in output.c
-*Recorded preimage for \_output.c_*
+*Recorded preimage for 'output.c'*
 Automatic merge failed; fix conflicts and then commit the result.
 --------
 
-Wird der Konflikt wie oben gelöst und die Lösung eingecheckt,
-speichert Rerere die Konfliktlösung ab:
+
+////
+Wird der Konflikt wie oben gelöst und die Lösung eingecheckt, speichert Rerere die Konfliktlösung ab:
+////
+
+If the conflict is resolved as above and the solution is checked in, Rerere saves the conflict resolution:
+
 
 [subs="quotes"]
 --------
 $ *vim output.c*
 $ *git add output.c*
 $ *git commit*
-*Recorded resolution for \_output.c_.*
-[master 681acc2] Merge branch \_B_
+*Recorded resolution for 'output.c'.*
+[master 681acc2] Merge branch 'B'
 --------
 
-Bisher hat Rerere noch nicht wirklich geholfen. Jetzt aber können wir
-den Merge-Commit komplett löschen (und sind wieder in der
-Ausgangssituation vor dem Merge). Dann führen wir den Merge noch
-einmal aus:
+
+////
+Bisher hat Rerere noch nicht wirklich geholfen.
+Jetzt aber können wir den Merge-Commit komplett löschen (und sind wieder in der Ausgangssituation vor dem Merge).
+Dann führen wir den Merge noch einmal aus:
+////
+
+So far Rerere has not really helped.
+But now we can delete the merge commit completely (and are back to the situation before the merge).
+Then we execute the merge again:
+
 
 [subs="quotes"]
 --------
@@ -2710,55 +2749,76 @@ HEAD is now at f894659 wrap output at 72 chars
 $ *git merge B*
 Auto-merging output.c
 CONFLICT (content): Merge conflict in output.c
-*Resolved \_output.c_ using previous resolution.*
+*Resolved 'output.c' using previous resolution.*
 Automatic merge failed; fix conflicts and then commit the result.
 --------
 
-Rerere bemerkt, dass der Konflikt bekannt ist und dass bereits eine
-Lösung gefunden wurde.{fn44}
-Also berechnet Rerere einen 3-Wege-Merge zwischen dem gespeicherten
-Preimage, der gespeicherten Lösung und der im Working Tree
-vorliegenden Version der Datei. So kann Rerere nicht nur dieselben
-Konflikte lösen, sondern auch _ähnliche_ (wenn zwischenzeitlich
-weitere Zeilen außerhalb des Konfliktbereichs geändert wurden).
 
-Das Ergebnis wird _nicht_ direkt dem Index hinzugefügt. Die
-Lösung wird lediglich in die Datei übernommen. Sie können dann per
-`git diff` nachschauen, ob die Lösung sinnvoll aussieht,
-eventuell Tests laufen lassen etc. Wenn alles gut aussieht, übernehmen
-Sie wie üblich die automatische Lösung per `git add`.
+////
+Rerere bemerkt, dass der Konflikt bekannt ist und dass bereits eine Lösung gefunden wurde. [44]
+Also berechnet Rerere einen 3-Wege-Merge zwischen dem gespeicherten Preimage, der gespeicherten Lösung und der im Working Tree vorliegenden Version der Datei.
+So kann Rerere nicht nur dieselben Konflikte lösen, sondern auch _ähnliche_ (wenn zwischenzeitlich weitere Zeilen außerhalb des Konfliktbereichs geändert wurden).
+////
+
+Rerere notices that the conflict is known and that a solution has already been found.{fn44}
+So Rerere calculates a 3-way-merge between the saved pre-image, the saved solution and the version of the file in the working tree.
+This way Rerere can resolve not only the same conflicts, but also _similar_ ones (if in the meantime further lines outside the conflict area have been changed).
+
+
+Das Ergebnis wird _nicht_ direkt dem Index hinzugefügt.
+Die Lösung wird lediglich in die Datei übernommen.
+Sie können dann per `git diff` nachschauen, ob die Lösung sinnvoll aussieht, eventuell Tests laufen lassen etc.
+Wenn alles gut aussieht, übernehmen Sie wie üblich die automatische Lösung per `git add`.
+
+The result is _not_ directly added to the index.
+The solution is simply copied to the file.
+You can then use `git diff` to check whether the solution looks useful, run tests if necessary, etc.
+If everything looks good, you can use the automatic solution via `git add` as usual.
+
+
 
 [[sec.rerere-explained]]
-==== Warum Rerere sinnvoll ist
+==== Why Rerere Makes Sense
+//   Warum Rerere sinnvoll ist
 
-Man könnte einwenden: Wer geht denn freiwillig das Risiko ein, einen
-bereits (möglicherweise aufwendig) gelösten Merge-Konflikt zu löschen,
-um ihn irgendwann wiederholen zu wollen?
+////
+Man könnte einwenden: Wer geht denn freiwillig das Risiko ein, einen bereits (möglicherweise aufwendig) gelösten Merge-Konflikt zu löschen, um ihn irgendwann wiederholen zu wollen?
+////
 
-Das Vorgehen ist allerdings wünschenswert: Zunächst ist es
-_nicht_ sinnvoll, einfach periodisch und aus Gewohnheit die
-Mainline -- also den Hauptentwicklungsstrang, z.B.{empty}{nbsp}`master`
--- in den Topic-Branch zu mergen (wir werden noch darauf
-zurückkommen). Wenn Sie aber einen langlebigen Topic-Branch haben und
-diesen gelegentlich darauf testen wollen, ob er sich mit der Mainline
-verträgt, dann wollen Sie nicht jedes Mal die Konflikte von Hand
-auflösen -- einmal gelöste Konflikte wird Rerere dann automatisch
-auflösen. Sie können so sukzessive Ihr Feature weiterentwickeln,
-wohlwissend, dass es mit der Mainline in Konflikt steht.  Zum
-Zeitpunkt der Integration des Features sind die Konflikte aber alle
-automatisch lösbar (weil Sie gelegentlich Konfliktlösungen mit Rerere
-abgespeichert haben).
+One might object: Who voluntarily takes the risk of deleting an already (possibly costly) resolved merge conflict in order to want to repeat it at some point?
 
-Außerdem wird Rerere auch automatisch in Konfliktfällen aufgerufen,
-die in einem Rebase-Prozess (siehe <<sec.rebase>>) entstehen.
-Auch hier gilt wieder: Einmal gelöste Konflikte können automatisch
-wieder gelöst werden. Wenn Sie einen Branch einmal testweise per Merge
-in die Mainline integriert und einen Konflikt gelöst haben, wird diese
-Lösung automatisch angewendet, wenn Sie diesen Branch per Rebase auf
-die Mainline neu aufbauen.
+
+////
+Das Vorgehen ist allerdings wünschenswert: Zunächst ist es _nicht_ sinnvoll, einfach periodisch und aus Gewohnheit die Mainline -- also den Hauptentwicklungsstrang, z.B. `master` -- in den Topic-Branch zu mergen (wir werden noch darauf zurückkommen).
+Wenn Sie aber einen langlebigen Topic-Branch haben und diesen gelegentlich darauf testen wollen, ob er sich mit der Mainline verträgt, dann wollen Sie nicht jedes Mal die Konflikte von Hand auflösen -- einmal gelöste Konflikte wird Rerere dann automatisch auflösen.
+Sie können so sukzessive Ihr Feature weiterentwickeln, wohlwissend, dass es mit der Mainline in Konflikt steht.
+Zum Zeitpunkt der Integration des Features sind die Konflikte aber alle automatisch lösbar (weil Sie gelegentlich Konfliktlösungen mit Rerere abgespeichert haben).
+////
+
+However, the procedure is desirable: First of all, it _doesn't_ make sense to simply periodically and out of habit merge the mainline -- i.e. the main development thread, e.g. `master` -- into the topic branch (we will come back to this later).
+But if you have a long-lived topic branch and want to test it occasionally to see if it is compatible with the mainline, you don't want to resolve the conflicts by hand every time -- once resolved, Rerere will resolve conflicts automatically.
+This way you can successively develop your feature, knowing that it is in conflict with the mainline.
+But at the time of the integration of the feature the conflicts are all automatically resolvable (because you have occasionally saved conflict solutions with Rerere).
+
+
+////
+Außerdem wird Rerere auch automatisch in Konfliktfällen aufgerufen, die in einem Rebase-Prozess (siehe Abschnitt 4.1, "Commits verschieben – Rebase") entstehen.
+Auch hier gilt wieder: Einmal gelöste Konflikte können automatisch wieder gelöst werden.
+Wenn Sie einen Branch einmal testweise per Merge in die Mainline integriert und einen Konflikt gelöst haben, wird diese Lösung automatisch angewendet, wenn Sie diesen Branch per Rebase auf die Mainline neu aufbauen.
+////
+
+In addition, Rerere is also called automatically in conflict cases that arise in a rebase process (see <<sec.rebase>>).
+Again, once conflicts have been resolved, they can be automatically resolved again.
+Once you have merged a branch into the mainline for test purposes and resolved a conflict, this solution is automatically applied when you rebuild this branch on the mainline via rebase.
+
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.rerere-usage]]
-==== Rerere benutzen
+==== Using Rerere
+//   Rerere benutzen
 
 Damit die Rerere-Funktionalität verwendet wird, müssen Sie, wie schon
 erwähnt, die Option `rerere.enabled` auf `true` setzen.
