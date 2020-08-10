@@ -163,7 +163,7 @@ Sie finden es stattdessen in Abbildung 3.4, "Das Tag-Objekt".
 ////
 :fn25: {wj}footnote:[ \
 The tag object is not shown here because it is not necessary for understanding the object structure. \
-Instead, you will find it in <<fig.tag-objekt>>.]
+Instead, you will find it in <<fig.tag-object>>.]
 
 ////
 Git speichert sämtliche Objekte unterhalb von `.git/objects`.
