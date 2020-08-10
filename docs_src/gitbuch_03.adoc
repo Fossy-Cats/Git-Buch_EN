@@ -2017,143 +2017,138 @@ In the above example, `-m 1` would cause the changes made by the four commits fr
 
 
 
+
+[[sec.merge-strategies]]
+=== Merging Strategies
+//  Merge-Strategien
+
+Git kennt fünf verschiedene Merge-Strategien, deren Verhalten teilweise noch durch Strategie-Optionen weiter angepasst werden kann.
+Die Strategie bestimmen Sie per `-s`, so dass ein Merge-Aufruf  wie folgt lautet:
+
+Git has five different merge strategies, some of which can be further adjusted by strategy options.
+You determine the strategy by `-s`, so a merge call is as follows:
+
+
+--------
+git merge -s <strategy> <branch>
+--------
+
+
+////
+Manche dieser Strategien können nur zwei Branches zusammenführen, andere eine beliebige Anzahl.
+////
+
+Some of these strategies can only merge two branches, others any number.
+
+
+////
+`resolve` ::
+Die `resolve`-Strategie kann zwei Branches mit Hilfe einer 3-Wege-Merge-Technik zusammenführen.
+Als Merge-Basis wird dafür die neueste (beste) aller möglichen Basen verwendet.
+Diese Strategie ist schnell und erzeugt generell gute Ergebnisse.
+////
+
+`resolve` ::
+The `resolve` strategy can merge two branches using a 3-way merge technique.
+The newest (best) of all possible bases is used as the merge base.
+This strategy is fast and generally produces good results.
+
+
+////
+`recursive` ::
+Dies ist die Standard-Strategie, die Git einsetzt, um zwei Branches zu verschmelzen.
+Auch hier wird ein 3-Wege-Merge-Algorithmus eingesetzt.
+Allerdings geht diese Strategie geschickter vor als `resolve`: Existieren mehrere Merge-Basen, die allesamt "`gleiche Berechtigung`"haben,[39] dann führt Git zunächst diese Basen zusammen, um das Ergebnis dann als Merge-Basis für den 3-Wege-Merge-Algorithmus zu verwenden.
+Neben der Tatsache, dass dadurch auch Merges mit Dateiumbenennungen besser verarbeitet werden können, hat ein Testlauf auf der Versionsgeschichte des Linux-Kernels gezeigt, dass durch diese Strategien weniger Merge-Konflikte auftreten als mit der `resolve`-Strategie.
+Die Strategie kann durch diverse Optionen angepasst werden (s.u.).
+////
+
+`recursive` ::
+This is the standard strategy that Git uses to merge two branches.
+A 3-way merge algorithm is also used here.
+However, this strategy is more clever than `resolve`: If several merge bases exist, all of which have "`equal rights,`"{fn39} then Git first merges these bases together, and then uses the result as the merge base for the 3-way merge algorithm.
+In addition to the fact that merges with file renames can be processed more easily as a result, a test run on the version history of the Linux kernel has shown that these strategies result in fewer merge conflicts than the `resolve` strategy.
+The strategy can be adapted by various options (see below).
+
+
+////
+`octopus` ::
+Standard-Strategie, wenn drei oder mehr Branches zusammengeführt werden.
+Die Octopus-Strategie kann im Gegensatz zu den beiden vorher genannten Strategien nur dann Merges durchführen, wenn kein Fehler auftritt, also keine manuelle Konfliktauflösung notwendig ist.
+Die Strategie ist besonders dafür gedacht, viele Topic-Branches, von denen bekannt ist, dass sie sich mit der Mainline (Haupt-Entwicklungsstrang) vertragen, zu integrieren.
+////
+
+`octopus` ::
+Standard strategy when three or more branches are merged.
+In contrast to the two strategies mentioned above, the octopus strategy can only perform merges if no error occurs, i.e. if no manual conflict resolution is necessary.
+The strategy is especially designed to integrate many topic branches that are known to be compatible with the mainline (main development strand).
+
+
+////
+`ours` ::
+Kann beliebig viele Branches verschmelzen, nutzt aber keinen Merge-Algorithmus.
+Stattdessen werden immer die Blobs bzw. Trees des aktuellen Branch (d.h. von dem Branch, von dem aus Sie `git merge` eingegeben haben) übernommen.
+Die Strategie wird vor allem dann verwendet, wenn Sie alte Entwicklungen mit dem aktuellen Stand der Dinge überschreiben wollen.
+////
+
+`ours` ::
+Can merge any number of branches, but does not use a merge algorithm.
+Instead, the blobs or trees of the current branch (that is, the branch from which you entered `git merge`) are always used.
+This strategy is mainly used when you want to overwrite old developments with the current state of affairs.
+
+
+////
+`subtree` ::
+Funktioniert wie `recursive`, allerdings vergleicht die Strategie die Trees nicht "`auf gleicher Augenhöhe`", sondern bemüht sich, den Tree der einen Seite als Subtree der anderen Seite zu finden und erst dann zu verschmelzen.
+Diese Strategie ist zum Beispiel dann sinnvoll, wenn Sie das Unterverzeichnis `Documentation/` Ihres Projekts in einem separaten Repository verwalten.
+Dann können Sie die Änderungen aus diesem Repository in das Haupt-Repository übernehmen, indem Sie über  `git pull -s subtree <documentation-repo>` die `subtree`-Strategie bemühen, die die Inhalte von `<documentation-repo>` als Unterverzeichnis des Haupt-Repositorys erkennt und den Merge-Vorgang nur auf das entsprechende Unterverzeichnis anwendet.
+Dieses Thema wird eingehender in Abschnitt 5.11, "Unterprojekte verwalten" behandelt.
+////
+
+`subtree` ::
+Works like `recursive`, but the strategy does not compare the trees "`on equal footing,`" but tries to find the tree of one side as a subtree of the other side and only then merge them.
+This strategy is useful, for example, if you manage the `Documentation/` subdirectory of your project in a separate repository.
+Then you can merge the changes from that repository into the master repository by using `git pull -s subtree <documentation-repo>` to apply the `subtree` strategy, which recognizes the contents of `<documentation-repo>` as a subdirectory of the master repository and applies the merge process only to that subdirectory.
+This topic is discussed in more detail in <<sec.subprojects>>.
+
+
+
 // ********** ARRIVED HERE!!! **********
 
 
-
-[[sec.merge-strategies]]
-=== Merge-Strategien
-
-Git kennt fünf verschiedene Merge-Strategien, deren Verhalten
-teilweise noch durch Strategie-Optionen weiter angepasst werden
-kann. Die Strategie bestimmen Sie per `-s`, so dass ein
-Merge-Aufruf  wie folgt lautet:
-
---------
-git merge -s <strategie> <branch>
---------
-
-Manche dieser Strategien können nur zwei Branches zusammenführen,
-andere eine beliebige Anzahl.
-
-
-
-`resolve`:: Die `resolve`-Strategie kann
-    zwei Branches mit Hilfe einer 3-Wege-Merge-Technik zusammenführen.
-    Als Merge-Basis wird dafür die neueste (beste) aller
-    möglichen Basen verwendet. Diese Strategie ist schnell und erzeugt
-    generell gute Ergebnisse.
-
-`recursive`:: Dies ist die Standard-Strategie, die
-    Git einsetzt, um zwei Branches zu verschmelzen. Auch hier wird ein
-    3-Wege-Merge-Algorithmus eingesetzt. Allerdings geht diese
-    Strategie geschickter vor als `resolve`: Existieren mehrere
-    Merge-Basen, die allesamt "`gleiche Berechtigung`"
-    haben,{fn39}
-    dann führt Git zunächst diese Basen zusammen, um das Ergebnis dann
-    als Merge-Basis für den 3-Wege-Merge-Algorithmus zu verwenden.
-    Neben der Tatsache, dass dadurch auch Merges mit
-    Dateiumbenennungen besser verarbeitet werden können, hat ein
-    Testlauf auf der Versionsgeschichte des Linux-Kernels gezeigt,
-    dass durch diese Strategien weniger Merge-Konflikte auftreten als
-    mit der `resolve`-Strategie. Die Strategie kann durch
-    diverse Optionen angepasst werden (s.u.).
-
-`octopus`:: Standard-Strategie, wenn drei oder
-    mehr Branches zusammengeführt werden. Die Octopus-Strategie kann
-    im Gegensatz zu den beiden vorher genannten Strategien nur dann
-    Merges durchführen, wenn kein Fehler auftritt, also keine manuelle
-    Konfliktauflösung notwendig ist. Die Strategie ist besonders
-    dafür gedacht, viele Topic-Branches, von denen bekannt ist, dass
-    sie sich mit der Mainline (Haupt-Entwicklungsstrang) vertragen, zu
-    integrieren.
-
-`ours`:: Kann beliebig viele Branches
-    verschmelzen, nutzt aber keinen Merge-Algorithmus. Stattdessen
-    werden immer die Blobs bzw. Trees des aktuellen Branch (d.h.
-    von dem Branch, von dem aus Sie `git merge` eingegeben
-    haben) übernommen. Die Strategie wird vor allem dann verwendet,
-    wenn Sie alte Entwicklungen mit dem aktuellen Stand der Dinge
-    überschreiben wollen.
-
-`subtree`:: Funktioniert wie `recursive`,
-allerdings vergleicht die Strategie die Trees nicht ``auf
-gleicher Augenhöhe__, sondern bemüht sich, den Tree der einen
-Seite als Subtree der anderen Seite zu finden und erst dann zu
-verschmelzen. Diese Strategie ist zum Beispiel dann sinnvoll, wenn
-Sie das Unterverzeichnis `Documentation/` Ihres Projekts
-in einem separaten Repository verwalten. Dann können Sie die
-Änderungen aus diesem Repository in das Haupt-Repository
-übernehmen, indem Sie über  `git pull -s subtree
-<documentation-repo>` die `subtree`-Strategie bemühen,
-die die Inhalte von `<documentation-repo>` als
-Unterverzeichnis des Haupt-Repositorys erkennt und den
-Merge-Vorgang nur auf das entsprechende Unterverzeichnis anwendet.
-Dieses Thema wird eingehender in <<sec.subprojects>> behandelt.
-
-
 [[sec.recursive-options]]
-=== Optionen für die recursive-Strategie
+=== Options for the Recursive Strategy
+//  Optionen für die recursive-Strategie
 
-Die Default-Strategie `recursive` kennt mehrere Optionen, die das
-Verhalten besonders bezüglich der Konfliktlösung anpassen. Sie
-bestimmen sie über die Option `-X`; die Syntax lautet also:
+Die Default-Strategie `recursive` kennt mehrere Optionen, die das Verhalten besonders bezüglich der Konfliktlösung anpassen. Sie bestimmen sie über die Option `-X`; die Syntax lautet also:
 
 --------
 git merge -s recursive -X <option> <branch>
 --------
 
-Sofern Sie nur zwei Branches mergen, müssen Sie die
-`recursive`-Strategie nicht explizit per `-s recursive`
-angeben.
+Sofern Sie nur zwei Branches mergen, müssen Sie die `recursive`-Strategie nicht explizit per `-s recursive` angeben.
 
-Da die Strategie nur zwei Branches zusammenführen kann, ist es
-möglich, von _unserer_ (engl. _our_) und _deren_ (engl.
-_theirs_) Version zu sprechen: _unsere_ Version ist dabei
-der ausgecheckte Branch beim Merge-Vorgang, während _deren_
-Version den Branch, den Sie integrieren wollen, referenziert.
+Da die Strategie nur zwei Branches zusammenführen kann, ist es möglich, von _unserer_ (engl. _our_) und _deren_ (engl. _theirs_) Version zu sprechen: _unsere_ Version ist dabei der ausgecheckte Branch beim Merge-Vorgang, während _deren_ Version den Branch, den Sie integrieren wollen, referenziert.
 
 
-`ours`:: Wenn ein Merge-Konflikt auftritt, der
-    normalerweise manuell gelöst werden müsste, wird stattdessen
-    _unsere_ Version verwendet. Die Strategie-_Option_
-    unterscheidet sich allerdings von der _Strategie_{empty}{nbsp}`ours`, denn dort werden jegliche Änderungen der
-    Gegenseite(n) ignoriert. Die `ours`-Option hingegen
-    übernimmt alle Änderungen unserer sowie der Gegenseite und gibt
-    nur im Konfliktfall und nur an den Konfliktstellen
-    _unserer_ Seite Vorrang.
+`ours` ::
+Wenn ein Merge-Konflikt auftritt, der normalerweise manuell gelöst werden müsste, wird stattdessen _unsere_ Version verwendet. Die Strategie-_Option_ unterscheidet sich allerdings von der _Strategie_{empty}{nbsp}`ours`, denn dort werden jegliche Änderungen der Gegenseite(n) ignoriert. Die `ours`-Option hingegen übernimmt alle Änderungen unserer sowie der Gegenseite und gibt nur im Konfliktfall und nur an den Konfliktstellen _unserer_ Seite Vorrang.
 
-`theirs`:: Wie `ours`, nur dass genau
-    gegenteilig vorgegangen wird: bei Konflikten wird _deren_
-    Version bevorzugt.
+`theirs` ::
+Wie `ours`, nur dass genau gegenteilig vorgegangen wird: bei Konflikten wird _deren_ Version bevorzugt.
 
-`ignore-space-change`, `ignore-all-space`, `ignore-space-at-eol`:: Da Whitespace in den meisten Sprachen keine syntaktische Rolle spielt, können Sie mit diesen Optionen Git anweisen, im Falle eines Merge-Konfliktes zu probieren, ob dieser automatisch lösbar ist, wenn Whitespace keine Rolle spielt. Ein häufiger Anwendungsfall ist, dass ein Editor oder eine IDE Quellcode automatisch umformatiert hat.
+
+`ignore-space-change`, `ignore-all-space`, `ignore-space-at-eol` ::
+Da Whitespace in den meisten Sprachen keine syntaktische Rolle spielt, können Sie mit diesen Optionen Git anweisen, im Falle eines Merge-Konfliktes zu probieren, ob dieser automatisch lösbar ist, wenn Whitespace keine Rolle spielt. Ein häufiger Anwendungsfall ist, dass ein Editor oder eine IDE Quellcode automatisch umformatiert hat.
 +
-Die Option `ignore-space-at-eol` ignoriert Whitespace am Ende der
-Zeile, was insbesondere dann hilfreich ist, wenn beide Seiten
-verschiedene Zeilenende-Konventionen (LF/CRLF) verwenden. Geben
-Sie `ignore-space-change` an, wird _außerdem_ Whitespace als reiner    Trenner betrachtet: Für den Vergleich einer Zeile ist also
-unwesentlich, wie viele Leerzeichen oder Tabs an einer Stelle stehen --
-eingerückte Zeilen bleiben eingerückt, und getrennte Wörter
-bleiben getrennt. Die Option `ignore-all-space` ignoriert jeglichen
-Whitespace.
+Die Option `ignore-space-at-eol` ignoriert Whitespace am Ende der Zeile, was insbesondere dann hilfreich ist, wenn beide Seiten verschiedene Zeilenende-Konventionen (LF/CRLF) verwenden. Geben Sie `ignore-space-change` an, wird _außerdem_ Whitespace als reiner    Trenner betrachtet: Für den Vergleich einer Zeile ist also unwesentlich, wie viele Leerzeichen oder Tabs an einer Stelle stehen -- eingerückte Zeilen bleiben eingerückt, und getrennte Wörter bleiben getrennt. Die Option `ignore-all-space` ignoriert jeglichen Whitespace.
 +
-Generell geht die Strategie so vor: Falls _deren_ Version nur durch
-die angegebene Option abgedeckte Whitespace-Änderungen hineinbringt,
-werden diese ignoriert und _unsere_ Version verwendet; bringt sie
-weitere Änderungen mit, und _unsere_ Version hat nur
-Whitespace-Änderungen, so wird _deren_ Version verwendet. Wenn aber
-auf beiden Seiten nicht nur Whitespace geändert wurde, so gibt es
-weiterhin einen Merge-Konflikt.
+Generell geht die Strategie so vor: Falls _deren_ Version nur durch die angegebene Option abgedeckte Whitespace-Änderungen hineinbringt, werden diese ignoriert und _unsere_ Version verwendet; bringt sie weitere Änderungen mit, und _unsere_ Version hat nur Whitespace-Änderungen, so wird _deren_ Version verwendet. Wenn aber auf beiden Seiten nicht nur Whitespace geändert wurde, so gibt es weiterhin einen Merge-Konflikt.
 +
-Generell empfiehlt es sich nach einem Merge, den Sie nur mit Hilfe
-einer dieser Optionen lösen konnten, die entsprechenden Dateien noch
-einmal zu normalisieren, also die Zeilenenden und Einrückungen
-einheitlich zu machen.
+Generell empfiehlt es sich nach einem Merge, den Sie nur mit Hilfe einer dieser Optionen lösen konnten, die entsprechenden Dateien noch einmal zu normalisieren, also die Zeilenenden und Einrückungen einheitlich zu machen.
 
-`subtree=<tree>`:: Ähnlich wie die
-`subtree`-_Strategie_, allerdings wird hier ein
-expliziter Pfad angegeben. Analog zum obigen Beispiel würden Sie
+`subtree=<tree>` ::
+Ähnlich wie die `subtree`-_Strategie_, allerdings wird hier ein expliziter Pfad angegeben. Analog zum obigen Beispiel würden Sie
 +
 ------------
 git pull -Xsubtree=Documentation <documentation-repo>
