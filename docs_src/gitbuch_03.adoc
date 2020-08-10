@@ -2113,73 +2113,146 @@ This topic is discussed in more detail in <<sec.subprojects>>.
 
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.recursive-options]]
 === Options for the Recursive Strategy
 //  Optionen für die recursive-Strategie
 
-Die Default-Strategie `recursive` kennt mehrere Optionen, die das Verhalten besonders bezüglich der Konfliktlösung anpassen. Sie bestimmen sie über die Option `-X`; die Syntax lautet also:
+////
+Die Default-Strategie `recursive` kennt mehrere Optionen, die das Verhalten besonders bezüglich der Konfliktlösung anpassen.
+Sie bestimmen sie über die Option `-X`; die Syntax lautet also:
+////
+
+The default strategy `recursive` knows several options that adjust the behavior especially with regard to conflict resolution.
+You specify them with the option `-X`; the syntax is:
+
 
 --------
 git merge -s recursive -X <option> <branch>
 --------
 
+
+////
 Sofern Sie nur zwei Branches mergen, müssen Sie die `recursive`-Strategie nicht explizit per `-s recursive` angeben.
+////
 
+If you only merge two branches, you do not need to explicitly specify the `recursive` strategy by `-s recursive`.
+
+
+////
 Da die Strategie nur zwei Branches zusammenführen kann, ist es möglich, von _unserer_ (engl. _our_) und _deren_ (engl. _theirs_) Version zu sprechen: _unsere_ Version ist dabei der ausgecheckte Branch beim Merge-Vorgang, während _deren_ Version den Branch, den Sie integrieren wollen, referenziert.
+////
 
+Since the strategy can only merge two branches, it is possible to speak of _our_ version and _theirs_: _our_ version is the checked-out branch in the merge process, while _their_ version references the branch you want to integrate.
+
+
+////
+`ours` ::
+Wenn ein Merge-Konflikt auftritt, der normalerweise manuell gelöst werden müsste, wird stattdessen _unsere_ Version verwendet.
+Die Strategie-_Option_ unterscheidet sich allerdings von der _Strategie_ `ours`, denn dort werden jegliche Änderungen der Gegenseite(n) ignoriert.
+Die `ours`-Option hingegen übernimmt alle Änderungen unserer sowie der Gegenseite und gibt nur im Konfliktfall und nur an den Konfliktstellen _unserer_ Seite Vorrang.
+////
 
 `ours` ::
-Wenn ein Merge-Konflikt auftritt, der normalerweise manuell gelöst werden müsste, wird stattdessen _unsere_ Version verwendet. Die Strategie-_Option_ unterscheidet sich allerdings von der _Strategie_{empty}{nbsp}`ours`, denn dort werden jegliche Änderungen der Gegenseite(n) ignoriert. Die `ours`-Option hingegen übernimmt alle Änderungen unserer sowie der Gegenseite und gibt nur im Konfliktfall und nur an den Konfliktstellen _unserer_ Seite Vorrang.
+If a merge conflict occurs that would normally need to be resolved manually, _our_ version is used instead.
+The strategy _option_ is different from `ours`, however, because it ignores any changes made by the other side(s).
+The `ours` option, on the other hand, takes all changes made by our side and the other side, and only gives priority in the event of a conflict and only at the points of conflict on _our_ side.
 
+
+////
 `theirs` ::
 Wie `ours`, nur dass genau gegenteilig vorgegangen wird: bei Konflikten wird _deren_ Version bevorzugt.
+////
+
+`theirs` ::
+Like `ours`, except that the opposite is true: in case of conflicts, _their_ version is preferred.
 
 
+////
 `ignore-space-change`, `ignore-all-space`, `ignore-space-at-eol` ::
-Da Whitespace in den meisten Sprachen keine syntaktische Rolle spielt, können Sie mit diesen Optionen Git anweisen, im Falle eines Merge-Konfliktes zu probieren, ob dieser automatisch lösbar ist, wenn Whitespace keine Rolle spielt. Ein häufiger Anwendungsfall ist, dass ein Editor oder eine IDE Quellcode automatisch umformatiert hat.
+Da Whitespace in den meisten Sprachen keine syntaktische Rolle spielt, können Sie mit diesen Optionen Git anweisen, im Falle eines Merge-Konfliktes zu probieren, ob dieser automatisch lösbar ist, wenn Whitespace keine Rolle spielt.
+Ein häufiger Anwendungsfall ist, dass ein Editor oder eine IDE Quellcode automatisch umformatiert hat.
 +
-Die Option `ignore-space-at-eol` ignoriert Whitespace am Ende der Zeile, was insbesondere dann hilfreich ist, wenn beide Seiten verschiedene Zeilenende-Konventionen (LF/CRLF) verwenden. Geben Sie `ignore-space-change` an, wird _außerdem_ Whitespace als reiner    Trenner betrachtet: Für den Vergleich einer Zeile ist also unwesentlich, wie viele Leerzeichen oder Tabs an einer Stelle stehen -- eingerückte Zeilen bleiben eingerückt, und getrennte Wörter bleiben getrennt. Die Option `ignore-all-space` ignoriert jeglichen Whitespace.
+Die Option `ignore-space-at-eol` ignoriert Whitespace am Ende der Zeile, was insbesondere dann hilfreich ist, wenn beide Seiten verschiedene Zeilenende-Konventionen (LF/CRLF) verwenden.
+Geben Sie `ignore-space-change` an, wird _außerdem_ Whitespace als reiner Trenner betrachtet: Für den Vergleich einer Zeile ist also unwesentlich, wie viele Leerzeichen oder Tabs an einer Stelle stehen -- eingerückte Zeilen bleiben eingerückt, und getrennte Wörter bleiben getrennt.
+Die Option `ignore-all-space` ignoriert jeglichen Whitespace.
 +
-Generell geht die Strategie so vor: Falls _deren_ Version nur durch die angegebene Option abgedeckte Whitespace-Änderungen hineinbringt, werden diese ignoriert und _unsere_ Version verwendet; bringt sie weitere Änderungen mit, und _unsere_ Version hat nur Whitespace-Änderungen, so wird _deren_ Version verwendet. Wenn aber auf beiden Seiten nicht nur Whitespace geändert wurde, so gibt es weiterhin einen Merge-Konflikt.
+Generell geht die Strategie so vor: Falls _deren_ Version nur durch die angegebene Option abgedeckte Whitespace-Änderungen hineinbringt, werden diese ignoriert und _unsere_ Version verwendet; bringt sie weitere Änderungen mit, und _unsere_ Version hat nur Whitespace-Änderungen, so wird _deren_ Version verwendet.
+Wenn aber auf beiden Seiten nicht nur Whitespace geändert wurde, so gibt es weiterhin einen Merge-Konflikt.
 +
 Generell empfiehlt es sich nach einem Merge, den Sie nur mit Hilfe einer dieser Optionen lösen konnten, die entsprechenden Dateien noch einmal zu normalisieren, also die Zeilenenden und Einrückungen einheitlich zu machen.
+////
 
+`ignore-space-change`, `ignore-all-space`, `ignore-space-at-eol` ::
+Since whitespace does not play a syntactic role in most languages, these options allow you to tell Git to try to resolve a merge conflict automatically if whitespace is not important.
+A common use case is when an editor or IDE has automatically reformatted source code.
++
+The option `ignore-space-at-eol` ignores whitespace at the end of the line, which is especially helpful if both sides use different line-end conventions (LF/CRLF).
+If you specify `ignore-space-change`, whitespace is also treated as a pure separator: Thus, when comparing a line, it is irrelevant how many spaces or tabs are in one place -- indented lines remain indented, and separated words remain separated.
+The option `ignore-all-space` ignores any whitespace.
++
+This is the general strategy: If _their_ version brings in only whitespace changes covered by the specified option, they are ignored and _our_ version is used; if they bring in further changes and _our_ version has only whitespace changes, _their_ version is used.
+However, if both sides have not only whitespace changes, there is still a merge conflict.
++
+In general, after a merge that you could only solve by using one of these options, it is recommended to normalize the corresponding files again, i.e. to make the line endings and indentations uniform.
+
+
+////
 `subtree=<tree>` ::
-Ähnlich wie die `subtree`-_Strategie_, allerdings wird hier ein expliziter Pfad angegeben. Analog zum obigen Beispiel würden Sie
+Ähnlich wie die `subtree`-_Strategie_, allerdings wird hier ein expliziter Pfad angegeben.
+Analog zum obigen Beispiel würden Sie
 +
 ------------
 git pull -Xsubtree=Documentation <documentation-repo>
 ------------
 +
 verwenden.
+////
 
+`subtree=<tree>` ::
+Similar to the `subtree` _strategy_, but an explicit path is specified here.
+Similar to the above example, you would use:
++
+------------
+git pull -Xsubtree=Documentation <documentation-repo>
+------------
 
 
 
 [[sec.merge-conflicts]]
-== Merge-Konflikte lösen
+== Resolving Merge Conflicts
+// Merge-Konflikte lösen
 
-Wie bereits beschrieben, sind manche Konflikte nicht durch Algorithmen
-aufzulösen -- hier ist manuelle Nachbesserung nötig.  Gute
-Team-Koordination sowie schnelle Integrationszyklen können größere
-Merge-Konflikte minimieren. Aber gerade in der frühen Entwicklung,
-wenn möglicherweise die Interna einer Software geändert werden, statt
-neue Features hinzuzufügen, kann es zu Konflikten kommen.
+////
+Wie bereits beschrieben, sind manche Konflikte nicht durch Algorithmen aufzulösen -- hier ist manuelle Nachbesserung nötig.
+Gute Team-Koordination sowie schnelle Integrationszyklen können größere Merge-Konflikte minimieren.
+Aber gerade in der frühen Entwicklung, wenn möglicherweise die Interna einer Software geändert werden, statt neue Features hinzuzufügen, kann es zu Konflikten kommen.
+////
 
-Wenn Sie in einem größeren Team arbeiten, dann ist in der Regel der
-Entwickler, der maßgeblich am konfliktbehafteten Code gearbeitet hat,
-dafür verantwortlich, eine Lösung zu finden. Eine solche
-Konfliktlösung ist aber meist nicht schwierig, wenn der Entwickler
-einen guten Überblick über die Software allgemein und insbesondere
-über sein Stück Code und dessen Interaktion mit anderen Teilen
-hat.
+As already described, some conflicts cannot be resolved by algorithms -- in this case manual rework is necessary.
+Good team coordination and fast integration cycles can minimize major merge conflicts.
+But especially in early development, when possibly the internals of a software are changed instead of adding new features, conflicts can occur.
 
-Wir werden die Lösung eines Merge-Konflikts anhand eines einfachen
-Beispiels in C durchgehen. Betrachten Sie die folgende Datei `output.c`:
 
+////
+Wenn Sie in einem größeren Team arbeiten, dann ist in der Regel der Entwickler, der maßgeblich am konfliktbehafteten Code gearbeitet hat, dafür verantwortlich, eine Lösung zu finden.
+Eine solche Konfliktlösung ist aber meist nicht schwierig, wenn der Entwickler einen guten Überblick über die Software allgemein und insbesondere über sein Stück Code und dessen Interaktion mit anderen Teilen hat.
+////
+
+If you are working in a larger team, the developer who has done most of the work on the conflicted code is usually responsible for finding a solution.
+However, such a conflict resolution is usually not difficult if the developer has a good overview of the software in general and of his piece of code and its interaction with other parts in particular.
+
+
+Wir werden die Lösung eines Merge-Konflikts anhand eines einfachen Beispiels in C durchgehen.
+Betrachten Sie die folgende Datei `output.c`:
+
+We will go through the solution of a merge conflict using a simple example in C.
+Take a look at the following `output.c` file:
+
+
+
+// @TODO: C SYNTAX HIGHLIGHTING
 --------
 int i;
 
@@ -2189,15 +2262,28 @@ for(i = 0; i < nr_of_lines(); i++)
 print_stats();
 --------
 
-Das Stück Code geht alle Zeilen einer Ausgabe durch und gibt diese
-nacheinander aus. Zuletzt liefert es eine kleine Statistik.
 
-Nun ändern zwei Entwickler etwas an diesem Code. Der erste,
-Axel, schreibt eine Funktion, die die Zeilen umbricht, bevor sie
-ausgegeben werden, und ersetzt im obigen Codestück
-`output_line` durch seine verbesserte Version
-`output_wrapped_line`:
 
+////
+Das Stück Code geht alle Zeilen einer Ausgabe durch und gibt diese nacheinander aus.
+Zuletzt liefert es eine kleine Statistik.
+////
+
+The piece of code goes through all lines of an output and outputs them one after the other.
+Finally it returns a small statistic.
+
+
+////
+Nun ändern zwei Entwickler etwas an diesem Code.
+Der erste, Axel, schreibt eine Funktion, die die Zeilen umbricht, bevor sie ausgegeben werden, und ersetzt im obigen Codestück `output_line` durch seine verbesserte Version `output_wrapped_line`:
+////
+
+Now two developers change something in this code.
+The first one, Axel, writes a function that wraps the lines before they are output and replaces `output_line` in the above piece of code with his improved version `output_wrapped_line`:
+
+
+
+// @TODO: C SYNTAX HIGHLIGHTING
 --------
 int i;
 int tw = 72;
@@ -2208,10 +2294,15 @@ for(i = 0; i < nr_of_lines(); i++)
 print_stats();
 --------
 
-Die zweite Entwicklerin, Beatrice, modifiziert den Code, damit ihre
-neu eingeführte Konfigurationseinstellung `max_output_lines`
-honoriert wird, und nicht zu viele Zeilen ausgegeben werden:
 
+////
+Die zweite Entwicklerin, Beatrice, modifiziert den Code, damit ihre neu eingeführte Konfigurationseinstellung `max_output_lines` honoriert wird, und nicht zu viele Zeilen ausgegeben werden:
+////
+
+The second developer, Beatrice, modifies the code so that her newly introduced configuration setting `max_output_lines` is honored and not too many lines are output:
+
+
+// @TODO: C SYNTAX HIGHLIGHTING
 --------
 int i;
 
@@ -2224,13 +2315,19 @@ for(i = 0; i < nr_of_lines(); i++) {
 print_stats();
 --------
 
-Beatrice verwendet also die "`veraltete`" Version
-`output_line`, und Axel hat noch nicht das Konstrukt, das die
-Konfigurationseinstellung überprüft.
 
-Nun versucht Beatrice, ihre Änderungen auf Branch B in den
-Branch `master` zu übernehmen, auf dem Axel seine Änderungen
- schon integriert hat:
+////
+Beatrice verwendet also die "`veraltete`" Version `output_line`, und Axel hat noch nicht das Konstrukt, das die Konfigurationseinstellung überprüft.
+////
+
+So Beatrice uses the "`obsolete`" version `output_line`, and Axel does not yet have the construct that checks the configuration setting.
+
+////
+Nun versucht Beatrice, ihre Änderungen auf Branch B in den Branch `master` zu übernehmen, auf dem Axel seine Änderungen schon integriert hat:
+////
+
+Now Beatrice tries to transfer her changes on Branch B to the branch `master`, where Axel has already integrated his changes:
+
 
 [subs="quotes"]
 --------
@@ -2241,13 +2338,19 @@ CONFLICT (content): Merge conflict in output.c
 Automatic merge failed; fix conflicts and then commit the result.
 --------
 
-In der Datei `output.c` platziert Git nun sogenannte
-_Konflikt-Marker_, unten halbfett hervorgehoben, die anzeigen, wo
-sich Änderungen überschneiden. Es gibt zwei Seiten: Zum einen
-`HEAD`, d.h. der Branch, in den Beatrice die Änderungen
-übernehmen will -- in diesem Falle `master`. Die andere Seite ist
-der zu integrierende Branch -- B. Die beiden Seiten werden
-durch eine Reihe von Gleichheitszeichen voneinander getrennt:
+
+////
+In der Datei `output.c` platziert Git nun sogenannte _Konflikt-Marker_, unten halbfett hervorgehoben, die anzeigen, wo sich Änderungen überschneiden.
+Es gibt zwei Seiten: Zum einen `HEAD`, d.h. der Branch, in den Beatrice die Änderungen übernehmen will -- in diesem Falle `master`.
+Die andere Seite ist der zu integrierende Branch -- B.
+Die beiden Seiten werden durch eine Reihe von Gleichheitszeichen voneinander getrennt:
+////
+
+In the `output.c` file, Git now places _conflict markers_, highlighted in semi-bold at the bottom to indicate where changes overlap.
+There are two pages: The first is `HEAD`, i.e. the branch to which Beatrice wants to apply the changes -- in this case `master`.
+The other side is the branch to be integrated -- B.
+The two sides are separated by a series of equal signs:
+
 
 [subs="quotes"]
 --------
@@ -2255,10 +2358,10 @@ int i;
 int tw = 72;
 
 *&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD*
-for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++])
+for(i = 0; i &lt; nr_of_lines(); i++)
     output_wrapped_line(i, tw);
 *=======*
-for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++]) {
+for(i = 0; i &lt; nr_of_lines(); i++) {
     if(i &gt; config_get("max_output_lines"))
         break;
     output_line(i);
@@ -2268,17 +2371,27 @@ for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++]) {
 print_stats();
 --------
 
-Zu beachten ist hier, dass nur die wirklich _konfliktbehafteten_
-Änderungen von Beatrice beanstandet werden. Axels Definition von
-`tw` weiter oben wird, obwohl bei Beatrice noch nicht
-vorhanden, anstandslos übernommen.
 
-Beatrice muss nun den Konflikt lösen. Das passiert, indem sie zunächst
-die Datei direkt editiert, den Code so abwandelt, wie er sein soll,
-und anschließend die Konflikt-Marker entfernt. Wenn Axel in seiner
-Commit-Nachricht entsprechend ausführlich dokumentiert hat{fn40}
-wie seine neue Funktion arbeitet, sollte das schnell gehen:
+////
+Zu beachten ist hier, dass nur die wirklich _konfliktbehafteten_ Änderungen von Beatrice beanstandet werden.
+Axels Definition von `tw` weiter oben wird, obwohl bei Beatrice noch nicht vorhanden, anstandslos übernommen.
+////
 
+It should be noted here that only the actual _conflicting changes_ are objected to by Beatrice.
+Axel's definition of `tw` above is accepted without any problems, although it is not yet available in Beatrice.
+
+////
+Beatrice muss nun den Konflikt lösen.
+Das passiert, indem sie zunächst die Datei direkt editiert, den Code so abwandelt, wie er sein soll, und anschließend die Konflikt-Marker entfernt.
+Wenn Axel in seiner Commit-Nachricht entsprechend ausführlich dokumentiert hat[40] wie seine neue Funktion arbeitet, sollte das schnell gehen:
+////
+
+Beatrice must now resolve the conflict.
+This is done by first editing the file directly, modifying the code as it should be, and then removing the conflict markers.
+If Axel has documented in detail in his commit message{fn40} how his new function works, this should be done quickly:
+
+
+// @TODO: C SYNTAX HIGHLIGHTING
 --------
 int i;
 int tw = 72;
@@ -2292,10 +2405,17 @@ for(i = 0; i < nr_of_lines(); i++) {
 print_stats();
 --------
 
-Anschließend muss Beatrice die Änderungen per `git add`
-hinzufügen. Sofern keine Konflikt-Marker mehr in der Datei verbleiben,
-ist dies für Git das Zeichen, dass ein Konflikt gelöst wurde.
+
+////
+Anschließend muss Beatrice die Änderungen per `git add` hinzufügen.
+Sofern keine Konflikt-Marker mehr in der Datei verbleiben, ist dies für Git das Zeichen, dass ein Konflikt gelöst wurde.
 Schließlich muss das Resultat noch eingecheckt werden:
+////
+
+Beatrice must then add the changes using `git add`.
+If no conflict markers remain in the file, Git will indicate that a conflict has been resolved.
+Finally, the result has to be checked in:
+
 
 [subs="quotes"]
 --------
@@ -2303,24 +2423,34 @@ $ *git add output.c*
 $ *git commit*
 --------
 
-In der Commit-Nachricht sollte unbedingt stehen, wie dieser Konflikt
-gelöst wurde. Auch mögliche Seiteneffekte auf andere Teile des
-Programms sollten nicht unerwähnt bleiben.
 
-Normalerweise sind Merge-Commits "`leer`", d.h. in
-`git show` erscheint keine Diff-Ausgabe (weil die Änderungen ja
-von anderen Commits verursacht wurden). Im Falle eines Merge-Commits,
-der einen Konflikt löst, ist dies aber anders:
+////
+In der Commit-Nachricht sollte unbedingt stehen, wie dieser Konflikt gelöst wurde.
+Auch mögliche Seiteneffekte auf andere Teile des Programms sollten nicht unerwähnt bleiben.
+////
+
+The commit message should definitely state how this conflict was resolved.
+It should also mention possible side effects on other parts of the program.
+
+
+////
+Normalerweise sind Merge-Commits "`leer`", d.h. in `git show` erscheint keine Diff-Ausgabe (weil die Änderungen ja von anderen Commits verursacht wurden).
+Im Falle eines Merge-Commits, der einen Konflikt löst, ist dies aber anders:
+////
+
+Normally, merge commits are "`empty`", i.e., there is no diff output in `git show` (because the changes were caused by other commits).
+This is different in the case of a merge commit that resolves a conflict:
+
 
 [subs="quotes"]
 --------
 $ *git show*
 commit 6e6c55810c884356402c078f30e45a997047058e
 Merge: f894659 256329f
-Author: Beatrice &lt;pass:quotes[beatrice@gitbu.ch]&gt;
+Author: Beatrice &lt;beatrice@gitbu.ch&gt;
 Date:   Mon Feb 28 05:59:36 2011 +0100
 
-    Merge branch \_B_
+    Merge branch 'B'
 
     * B:
       honor max_output_lines config option
@@ -2331,18 +2461,18 @@ Date:   Mon Feb 28 05:59:36 2011 +0100
 diff --cc output.c
 index a2bd8ed,f4c8bec..e39e39d
 --- a/output.c
-pass:quotes[\+++ b/output.c]
++++ b/output.c
 @@@ -1,7 -1,9 +1,10 @@@
   int i;
- pass:quotes[*+*]int tw = 72;
+ **+**int tw = 72;
 
-pass:quotes[*-*] for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++])
-pass:quotes[*+*] for(i = 0; i &lt; nr_of_lines(); pass:quotes[i++]) {
-pass:quotes[*+*]     if(i &gt; config_get("max_output_lines"))
-pass:quotes[*+*]         break;
- pass:quotes[*-*]    output_line(i);
- pass:quotes[*+*]    output_wrapped_line(i, tw);
-pass:quotes[*+*] }
+*-* for(i = 0; i < nr_of_lines(); i++)
+*+* for(i = 0; i < nr_of_lines(); i++) {
+*+*     if(i > config_get("max_output_lines"))
+*+*         break;
+ *-*    output_line(i);
+ *+*    output_wrapped_line(i, tw);
+*+* }
 
   print_stats();
 --------
@@ -2350,66 +2480,84 @@ pass:quotes[*+*] }
 
 
 
-Diese _kombinierte_ Diff-Ausgabe unterscheidet sich vom üblichen
-Unidiff-Format: Es gibt nicht nur _eine_ Spalte mit den Markern für
-hinzugefügt (`+`), entfernt (`-`) und Kontext bzw.
-ungeändert (&#x2423;), sondern zwei. Git vergleicht also
-das Resultat mit _beiden_ Vorfahren. Die in der zweiten Spalte
-geänderten Zeilen entsprechen genau denen des Commits von Axel; die
-(halbfett markierten) Änderungen in der ersten Spalte sind der Commit
-von Beatrice inklusive Konfliktlösung.
+////
+Diese _kombinierte_ Diff-Ausgabe unterscheidet sich vom üblichen Unidiff-Format: Es gibt nicht nur _eine_ Spalte mit den Markern für hinzugefügt (`+`), entfernt (`-`) und Kontext bzw. ungeändert (&#x2423;), sondern zwei.
+Git vergleicht also das Resultat mit _beiden_ Vorfahren.
+Die in der zweiten Spalte geänderten Zeilen entsprechen genau denen des Commits von Axel; die (halbfett markierten) Änderungen in der ersten Spalte sind der Commit von Beatrice inklusive Konfliktlösung.
+////
+
+This _combined_ diff output differs from the usual unidiff format: There is not only one column with the markers for added (`+`), removed (`-`) and context or unchanged (`␣`), but two.
+So Git compares the result with _both_ ancestors.
+The lines changed in the second column are exactly the same as Axel's commit; the (semi-bold) changes in the first column are Beatrice's commit including conflict resolution.
+
 
 //\label{sec:merge-conflicts-detailed}
 
+////
 Der Standard-Weg, wie oben gesehen, ist der folgende:
+////
+
+The default way, as seen above, is the following:
 
 
+////
 . konfliktbehaftete Datei öffnen
-
 . Konflikt lösen, Marker entfernen
-
 . Datei per `git add` als "`gelöst`" markieren
-
-. Schritt eins bis drei für alle Dateien wiederholen, in denen
-  Konflikte auftraten
-
+. Schritt eins bis drei für alle Dateien wiederholen, in denen Konflikte auftraten
 . Konfliktlösungen per `git commit` einchecken
+////
+
+. Open conflicting file
+. Resolve conflict, remove markers
+. Mark file as "`resolved`" via `git add`
+. Repeat steps one to three for all files where conflicts occurred
+. Check in conflict solutions via `git commit`
 
 
-Wenn Sie ad hoc nicht wissen, wie der Konflikt zu lösen ist (und zum
-Beispiel den ursprünglichen Entwickler damit beauftragen wollen, eine
-konfliktfreie Version des Codes zu produzieren), können Sie per
-`git merge --abort` den Merge-Vorgang abbrechen -- also den
-Zustand Ihres Working Trees wieder auf den Stand bringen, auf dem er
-war, bevor Sie den Merge-Vorgang angestoßen haben. Dieses Kommando
-bricht auch einen Merge ab, den Sie schon teilweise gelöst haben.
+
+////
+Wenn Sie ad hoc nicht wissen, wie der Konflikt zu lösen ist (und zum Beispiel den ursprünglichen Entwickler damit beauftragen wollen, eine konfliktfreie Version des Codes zu produzieren), können Sie per `git merge --abort` den Merge-Vorgang abbrechen -- also den Zustand Ihres Working Trees wieder auf den Stand bringen, auf dem er war, bevor Sie den Merge-Vorgang angestoßen haben.
+Dieses Kommando bricht auch einen Merge ab, den Sie schon teilweise gelöst haben.
 Achtung: Dabei gehen alle nicht eingecheckten Änderungen verloren.
+////
+
+If you don't know how to resolve the conflict on an _ad hoc_ basis (for example, if you want to hire the original developer to produce a conflict-free version of the code), you can use `git merge --abort` to abort the merge process -- that is, to restore your working tree to the state it was in before you initiated the merge.
+This command also aborts a merge that you have already partially resolved.
+Attention: All changes that have not been checked in will be lost.
 
 
 [TIP]
 =====================
-Um einen Überblick zu erhalten, welche Commits für den
-Merge-Konflikt relevante Änderungen an Ihrer Datei verursacht haben,
-können Sie das Kommando
+////
+Um einen Überblick zu erhalten, welche Commits für den Merge-Konflikt relevante Änderungen an Ihrer Datei verursacht haben, können Sie das Kommando
+////
+
+To get an overview of which commits caused changes to your file relevant to the merge conflict, you can use the command
 
 --------
-git log --merge -p -- <datei>
+git log --merge -p -- <file>
 --------
 
-verwenden.  Git listet dann die Diffs von Commits auf, die seit der
-Merge-Basis Änderungen an `<datei>` vorgenommen haben.
+////
+verwenden.
+Git listet dann die Diffs von Commits auf, die seit der Merge-Basis Änderungen an `<datei>` vorgenommen haben.
+////
+
+Git then lists the diffs of commits that have made changes to `<file>` since the merge base.
 =====================
 
-Wenn Sie sich in einem Merge-Konflikt befinden, liegt eine Datei mit
-Konflikten in drei Stufen (_Stages_) vor: Stufe eins enthält die
-Version der Datei in der Merge-Basis (also die gemeinsame
-Ursprungsversion der Datei), Stufe zwei enthält die Version aus dem
-`HEAD` (also die Version aus dem Branch, _in den_ Sie
-mergen). Stufe drei enthält schließlich die Datei in der Version des
-zu integrierenden Branches (dieser hat die symbolische Referenz
-`MERGE_HEAD`). Im Working Tree befindet sich die Kombination
-dieser drei Stufen mit Konflikt-Markern. Sie können diese Versionen
-aber jeweils mit `git show :<n>:<datei>` anzeigen:
+
+Wenn Sie sich in einem Merge-Konflikt befinden, liegt eine Datei mit Konflikten in drei Stufen (_Stages_) vor: Stufe eins enthält die Version der Datei in der Merge-Basis (also die gemeinsame Ursprungsversion der Datei), Stufe zwei enthält die Version aus dem `HEAD` (also die Version aus dem Branch, _in den_ Sie mergen).
+Stufe drei enthält schließlich die Datei in der Version des zu integrierenden Branches (dieser hat die symbolische Referenz `MERGE_HEAD`).
+Im Working Tree befindet sich die Kombination dieser drei Stufen mit Konflikt-Markern.
+Sie können diese Versionen aber jeweils mit `git show :<n>:<datei>` anzeigen:
+
+If you are in a merge conflict, a file with conflicts is stored in three _stages_: Stage one contains the version of the file in the merge base (that is, the common original version of the file), stage two contains the version from the `HEAD` (that is, the version from the branch _into_ which you are merging).
+Finally, stage three contains the file in the version of the branch you are merging into (this has the symbolic reference `MERGE_HEAD`).
+The working tree contains the combination of these three stages with conflict markers.
+However, you can display these versions with `git show :<n>:<file>`:
+
 
 [subs="quotes"]
 --------
@@ -2418,10 +2566,18 @@ $ *git show :2:output.c*
 $ *git show :3:output.c*
 --------
 
-Mit einem speziell für 3-Wege-Merges entwickelten Programm behalten
-Sie allerdings wesentlich leichter den Überblick. Das Programm
-betrachtet die drei Stufen einer Datei, visualisiert sie entsprechend
-und bietet Ihnen Möglichkeiten an, Änderungen hin- und herzuschieben.
+
+////
+Mit einem speziell für 3-Wege-Merges entwickelten Programm behalten Sie allerdings wesentlich leichter den Überblick.
+Das Programm betrachtet die drei Stufen einer Datei, visualisiert sie entsprechend und bietet Ihnen Möglichkeiten an, Änderungen hin- und herzuschieben.
+
+////
+With a program specially developed for 3-way merges, however, it is much easier for you to keep an overview.
+The program looks at the three stages of a file, visualizes them accordingly and offers you options to move changes back and forth.
+
+
+// ********** ARRIVED HERE!!! **********
+
 
 [[sec.mergetool]]
 === Hilfe beim Merge: mergetool
