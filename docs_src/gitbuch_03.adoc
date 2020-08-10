@@ -743,7 +743,7 @@ In the following, let's first look at how you manage tags locally.
 
 
 
-[[sec.tags-verwalten]]
+[[sec.managing-tags]]
 ==== Managing Tags
 //   Tags verwalten
 
@@ -889,7 +889,7 @@ $ *git tag -m "Zweite Veröffentlichung" 0.2*
 
 
 
-[[sec.signierte-tags]]
+[[sec.signed-tags]]
 ==== Signed Tags
 //   Signierte Tags
 
@@ -945,7 +945,7 @@ $ *git tag -s -m "Dritte Veröffentlichung" 3.0*
 
 
 
-[[sec.tags-loeschen]]
+[[sec.deleting-tags]]
 ==== Deleting and Overwriting Tags
 //   Tags löschen und überschreiben
 
