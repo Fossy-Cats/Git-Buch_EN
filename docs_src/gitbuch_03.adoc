@@ -3268,39 +3268,105 @@ It is equivalent to the argument `A B --not $(git merge-base A B)`, so it includ
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[rev-list-explained]]
 ==== Reference vs. List of References
 //   Referenz vs. Liste von Referenzen
 
-Im Beispiel werden mit A immer alle Commits bezeichnet, die von A erreichbar sind. Aber eigentlich ist ein Branch ja nur eine Referenz auf _einen_ Commit. Warum listet also `log` immer alle von A erreichbaren Commits auf, während das Git-Kommando `show` mit dem Argument `A` nur diesen einen Commit anzeigt?
+////
+Im Beispiel werden mit A immer alle Commits bezeichnet, die von A erreichbar sind.
+Aber eigentlich ist ein Branch ja nur eine Referenz auf _einen_ Commit.
+Warum listet also `log` immer alle von A erreichbaren Commits auf, während das Git-Kommando `show` mit dem Argument `A` nur diesen einen Commit anzeigt?
+////
 
-Der Unterschied liegt darin, was die Kommandos als Argument erwarten: `show` erwartet ein _Objekt_, also eine Referenz auf _ein_ Objekt, das dann angezeigt wird.{fn51} Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere) _Commits_, und diese Kommandos wandeln die Argumente in eine Liste von Commits um (traversieren die Liste bis zum Root-Commit).
+In the example, A always refers to all commits that are accessible from A.
+But actually a branch is just a reference to a _single_ commit.
+So why does `log` always list all commits reachable from A, while the git command `show` with the argument A only shows this one commit?
+
+
+////
+Der Unterschied liegt darin, was die Kommandos als Argument erwarten: `show` erwartet ein _Objekt_, also eine Referenz auf _ein_ Objekt, das dann angezeigt wird.[51]
+Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere) _Commits_, und diese Kommandos wandeln die Argumente in eine Liste von Commits um (traversieren die Liste bis zum Root-Commit).
+////
+
+The difference is what the commands expect as an argument: `show` expects an _object_, that is, a reference to a _single_ object, which is then displayed.{fn51}
+Many other commands expect one (or more) commits instead, and these commands convert the arguments into a list of commits (traversing the list until the root commit).
+
 
 
 
 [[sec.gitk]]
 === Gitk
 
+////
 Gitk ist ein in Tcl implementiertes grafisches Programm, das in der Regel von Distributoren zusammen mit den eigentlichen Git-Kommandos paketiert wird -- Sie können sich also darauf verlassen, es auf fast jedem System vorzufinden.
+////
 
+Gitk is a graphical program implemented in Tcl, which is usually packaged by distributors along with the actual Git commands -- so you can be sure to find it on almost any system.
+
+
+////
 Es repräsentiert einzelne Commits oder das ganze Repository in einer dreiteiligen Ansicht: Oben die Baumstruktur mit zwei weiteren Spalten für Autor und Datum, unten eine Auflistung der Änderungen im Unified-Diff-Format sowie eine Liste von Dateien, um die angezeigten Änderungen einzuschränken.
+////
 
-Die Graph-Ansicht ist intuitiv: Verschiedene Farben helfen, die verschiedenen Versionsstränge zu unterscheiden. Commits sind jeweils blaue Punkte, mit zwei Ausnahmen: Der `HEAD` ist gelb markiert, und ein Commit, der nicht Root-Commit ist, dessen Vorgänger aber nicht angezeigt ist, wird weiß dargestellt.
-
-Branches mit einer Pfeilspitze deuten an, dass auf dem Branch weitere Commits getätigt wurden. Aufgrund der zeitlichen Distanz der Commits blendet Gitk aber den Branch aus. Ein Klick auf die Pfeilspitze bringt Sie zu der Weiterführung des Branches.
-
-Branches erscheinen als grüne Labels, der aktuell ausgecheckte Branch zusätzlich fett. Tags sind als gelbe Pfeile dargestellt.
-
-Mit einem Rechtsklick auf einen Branch können Sie diesen löschen oder auschecken. Auf Commits öffnet ein Rechtsklick ein Menü, in dem Sie Aktionen mit dem markierten Commit ausführen können. Die einzige, die mit Gitk möglicherweise leichter zu bewerkstelligen ist als über die Kommandozeile, ist _Cherry-Picking_, also das Übernehmen einzelner Commits in einen anderen Branch (siehe auch <<sec.cherry-pick>>).
+It represents individual commits or the entire repository in a three-part view: at the top is the tree structure with two additional columns for author and date, below is a list of changes in unified diff format, and a list of files to restrict the changes displayed.
 
 
-.Komplizierte Topologie in Gitk
+////
+Die Graph-Ansicht ist intuitiv: Verschiedene Farben helfen, die verschiedenen Versionsstränge zu unterscheiden.
+Commits sind jeweils blaue Punkte, mit zwei Ausnahmen: Der `HEAD` ist gelb markiert, und ein Commit, der nicht Root-Commit ist, dessen Vorgänger aber nicht angezeigt ist, wird weiß dargestellt.
+////
+
+The graph view is intuitive: Different colors help to distinguish the different version strings.
+Commits are always blue dots, with two exceptions: The `HEAD` is highlighted in yellow, and a commit that is not a root commit, but whose predecessor is not displayed, is shown in white.
+
+
+////
+Branches mit einer Pfeilspitze deuten an, dass auf dem Branch weitere Commits getätigt wurden.
+Aufgrund der zeitlichen Distanz der Commits blendet Gitk aber den Branch aus.
+Ein Klick auf die Pfeilspitze bringt Sie zu der Weiterführung des Branches.
+////
+
+Branches with an arrowhead indicate that further commits have been made on the branch.
+However, Gitk hides the branch due to the time distance between commits.
+A click on the arrowhead will take you to the continuation of the branch.
+
+
+////
+Branches erscheinen als grüne Labels, der aktuell ausgecheckte Branch zusätzlich fett.
+Tags sind als gelbe Pfeile dargestellt.
+////
+
+Branches appear as green labels, the currently checked out branch additionally bold.
+Tags are shown as yellow arrows.
+
+
+////
+Mit einem Rechtsklick auf einen Branch können Sie diesen löschen oder auschecken.
+Auf Commits öffnet ein Rechtsklick ein Menü, in dem Sie Aktionen mit dem markierten Commit ausführen können.
+Die einzige, die mit Gitk möglicherweise leichter zu bewerkstelligen ist als über die Kommandozeile, ist _Cherry-Picking_, also das Übernehmen einzelner Commits in einen anderen Branch (siehe auch Abschnitt 3.5, "Einzelne Commits übernehmen: Cherry-Pick").
+////
+
+You can delete or check out a branch with a right click on it.
+Right-clicking on commits opens a menu in which you can perform actions on the selected commit.
+The only thing that might be easier to do with Gitk than from the command line is _cherry picking_, i.e. transferring individual commits to another branch (see also <<sec.cherry-pick>>).
+
+
+
+// .Komplizierte Topologie in Gitk
+.Complex topology in Gitk
 image::gitk.png[id="fig.gitk",scaledwidth="90%",width="90%"]
 
-Gitk akzeptiert im wesentlichen die gleichen Optionen wie `git log`. Einige Beispiele:
+
+////
+Gitk akzeptiert im wesentlichen die gleichen Optionen wie `git log`.
+Einige Beispiele:
+////
+
+Gitk accepts essentially the same options as `git log`.
+Some examples:
+
+
 
 [subs="quotes"]
 --------
@@ -3309,25 +3375,85 @@ $ *gitk e13404a..48effd3*
 $ *gitk --all -n 100*
 --------
 
-Das erste Kommando zeigt alle Commits seit gestern an, die Änderungen an einer Datei unterhalb des Verzeichnisses `doc/` vorgenommen haben. Das zweite Kommando limitiert die Commits auf eine spezielle Range, während das dritte Kommando die 100 neuesten Commits aller Branches anzeigt.
+
+
+////
+Das erste Kommando zeigt alle Commits seit gestern an, die Änderungen an einer Datei unterhalb des Verzeichnisses `doc/` vorgenommen haben.
+Das zweite Kommando limitiert die Commits auf eine spezielle Range, während das dritte Kommando die 100 neuesten Commits aller Branches anzeigt.
+////
+
+The first command shows all commits since yesterday that have made changes to a file under the `doc/` directory.
+The second command limits the commits to a specific range, while the third command shows the 100 most recent commits from all branches.
 
 
 [TIP]
 ========
-Erfahrungsgemäß sind Anfänger oft verwirrt, weil `gitk` standardmäßig nur den aktuellen Branch anzeigt. Das liegt vermutlich daran, dass `gitk` oft aufgerufen wird, um sich einen Überblick aller Branches zu verschaffen.  Daher bietet sich folgendes Shell-Alias an: `alias gik=_gitk --all_`
+////
+Erfahrungsgemäß sind Anfänger oft verwirrt, weil `gitk` standardmäßig nur den aktuellen Branch anzeigt.
+Das liegt vermutlich daran, dass `gitk` oft aufgerufen wird, um sich einen Überblick aller Branches zu verschaffen.
+Daher bietet sich folgendes Shell-Alias an: `alias gik='gitk --all'`.
+////
+
+Experience shows that beginners are often confused because `gitk` by default only shows the current branch.
+This is probably because `gitk` is often called to get an overview of all branches.
+Therefore the following shell alias is useful: `alias gik='gitk --all'`.
 ========
 
-Viele Nutzer lassen `gitk` während der Arbeit offen. Dann ist es wichtig, von Zeit zu Zeit die Anzeige zu aktualisieren, damit auch aktuellere Commits erscheinen. Mit _F5_ (_Update_) laden Sie alle neuen Commits und erneuern die Darstellung der Referenzen. Manchmal, wenn Sie z.B. einen Branch löschen, reicht dies jedoch nicht aus. Zwar wird der Branch nicht mehr angezeigt, aber evtl. sind unerreichbare Commits weiterhin quasi als Artefakte in der GUI vorhanden. Mit der Tastenkombination _Strg+F5_ (_Reload_) wird das Repository vollständig neu eingelesen, was das Problem beseitigt.
 
-Alternativ zu `gitk` können Sie auf UNIX-Systemen das GTK-basierte `gitg` oder Qt-basierte `qgit` verwenden; auf einem OS-X-System können Sie beispielsweise _GitX_ verwenden; für Windows bieten sich die _GitExtensions_ an. Einige IDEs verfügen mittlerweile auch über entsprechende Visualisierungen (z.B. das _Eclipse_-Plugin _EGit_). Weiterhin können Sie vollwertige Git-Clients wie _Atlassian SourceTree_ (OS X, Windows; kostenlos), _Tower_ (OS X; kommerziell) sowie _SmartGit_ (Linux, OS X und Windows; kostenlos für nichtkommerzielle Nutzung) verwenden.
+////
+Viele Nutzer lassen `gitk` während der Arbeit offen.
+Dann ist es wichtig, von Zeit zu Zeit die Anzeige zu aktualisieren, damit auch aktuellere Commits erscheinen.
+Mit _F5_ (_Update_) laden Sie alle neuen Commits und erneuern die Darstellung der Referenzen.
+Manchmal, wenn Sie z.B. einen Branch löschen, reicht dies jedoch nicht aus. Zwar wird der Branch nicht mehr angezeigt, aber evtl. sind unerreichbare Commits weiterhin quasi als Artefakte in der GUI vorhanden.
+Mit der Tastenkombination _Strg+F5_ (_Reload_) wird das Repository vollständig neu eingelesen, was das Problem beseitigt.
+////
+
+Many users leave `gitk` open during work.
+Then it's important to update the display from time to time so that more recent commits appear.
+With kbd:[F5] (_Update_) you load all new commits and refresh the display of the references.
+Sometimes, however, if you delete a branch, for example, this is not enough.
+Although the branch is no longer displayed, there may still be unreachable commits in the GUI as artifacts.
+The key combination kbd:[Ctrl+F5] (_Reload_) completely reloads the repository, which solves the problem.
+
+
+////
+Alternativ zu `gitk` können Sie auf UNIX-Systemen das GTK-basierte `gitg` oder Qt-basierte `qgit` verwenden; auf einem OS-X-System können Sie beispielsweise _GitX_ verwenden; für Windows bieten sich die _GitExtensions_ an.
+Einige IDEs verfügen mittlerweile auch über entsprechende Visualisierungen (z.B. das _Eclipse_-Plugin _EGit_).
+Weiterhin können Sie vollwertige Git-Clients wie _Atlassian SourceTree_ (OS X, Windows; kostenlos), _Tower_ (OS X; kommerziell) sowie _SmartGit_ (Linux, OS X und Windows; kostenlos für nichtkommerzielle Nutzung) verwenden.
+////
+
+As an alternative to `gitk`, you can use the GTK-based `gitg` or Qt-based `qgit` on UNIX systems; on an OS X system, for example, you can use _GitX_; for Windows, you can use _GitExtensions_.
+Some IDEs now also have corresponding visualizations (e.g. the _Eclipse_ plugin _EGit_).
+Furthermore, you can use full-fledged Git clients like _Atlassian SourceTree_ (OS X, Windows; free of charge), _Tower_ (OS X; commercial) as well as _SmartGit_ (Linux, OS X and Windows; free for non-commercial use).
+
+
 
 
 [[sec.reflog]]
 == Reflog
 
-Das _Reference Log_ (_Reflog_) sind Log-Dateien, die Git für jeden Branch sowie `HEAD` anlegt. Darin wird gespeichert, wann eine Referenz von wo nach wo verschoben wurde. Das passiert vor allem bei den Kommandos `checkout`, `reset`, `merge` und `rebase`.
+////
+Das _Reference Log_ (_Reflog_) sind Log-Dateien, die Git für jeden Branch sowie `HEAD` anlegt.
+Darin wird gespeichert, wann eine Referenz von wo nach wo verschoben wurde.
+Das passiert vor allem bei den Kommandos `checkout`, `reset`, `merge` und `rebase`.
+////
 
-Diese Log-Dateien liegen unter `.git/logs/` und tragen den Namen der jeweiligen Referenz. Das Reflog für den `master`-Branch finden Sie also unter `.git/logs/refs/heads/master`. Außerdem gibt es das Kommando `git reflog show <referenz>`, um das Reflog aufzulisten:
+The _Reference Log_ (_Reflog_) are log files that Git creates for each branch and `HEAD`.
+They store when a reference was moved from where to where.
+This happens especially with the `checkout`, `reset`, `merge` and `rebase` commands.
+
+
+////
+Diese Log-Dateien liegen unter `.git/logs/` und tragen den Namen der jeweiligen Referenz.
+Das Reflog für den `master`-Branch finden Sie also unter `.git/logs/refs/heads/master`.
+Außerdem gibt es das Kommando `git reflog show <referenz>`, um das Reflog aufzulisten:
+////
+
+These log files are stored under `.git/logs/` and are named after the reference.
+The reflog for the `master` branch can be found under `.git/logs/refs/heads/master`.
+There is also the command `git reflog show <reference>` to list the reflog:
+
+
 
 [subs="quotes"]
 --------
@@ -3338,33 +3464,109 @@ ef51665 master@{1}: rebase -i (finish): refs/heads/master onto 69b9e27
 ...
 --------
 
-Das Reflog-Kommando wird selten direkt benutzt und ist nur ein Alias für `git log -g --oneline`. Die Option `-g` bewirkt nämlich, dass das Kommando nicht die Vorgänger im Commit-Graphen anzeigt, sondern die Commits in der Reihenfolge des Reflogs abarbeitet.
-
-Das können Sie ganz leicht ausprobieren: Erstellen Sie einen Test-Commit und löschen Sie ihn danach wieder mit `git reset --hard HEAD^`. Das Kommando `git log -g` wird nun zuerst den `HEAD` anzeigen, dann den gelöschten Commit und dann wieder den `HEAD`.
-
-Das Reflog referenziert also auch Commits, die sonst nicht mehr referenziert sind, also "`verloren`" sind (siehe <<sec.branch-management>>). So hilft das Reflog Ihnen möglicherweise, wenn Sie einen Branch gelöscht haben, von dem sich im Nachhinein herausstellt, dass Sie ihn doch gebraucht hätten. Zwar löscht ein `git branch -D` auch das Reflog des Branches. Allerdings haben Sie den Branch ja auschecken müssen, um Commits darauf zu machen: Suchen Sie also mit `git log -g HEAD` nach dem letzten Zeitpunkt, zu dem Sie den gesuchten Branch ausgecheckt haben. Dann erstellen Sie einen Branch, der auf diese (scheinbar verlorene) Commit-ID zeigt, und Ihre verlorenen Commits sollten wieder da sein.{fn52}
 
 
-Kommandos, die eine oder mehrere Referenzen erwarten, können allerdings auch implizit das Reflog verwenden. Neben der Syntax, die sich schon bei der Ausgabe von `git log -g` findet (z.B.{empty}{nbsp}`HEAD@{1}` für die vorherige Position des `HEAD`), versteht Git auch `<ref>@{<wann>}`.  Git interpretiert den Zeitpunkt `<wann>` als absolutes oder relatives Datum und konsultiert dann das Reflog der entsprechenden Referenz, um herauszufinden, was der zeitlich nächste Log-Eintrag ist. Dieser wird dann referenziert.
+////
+Das Reflog-Kommando wird selten direkt benutzt und ist nur ein Alias für `git log -g --oneline`.
+Die Option `-g` bewirkt nämlich, dass das Kommando nicht die Vorgänger im Commit-Graphen anzeigt, sondern die Commits in der Reihenfolge des Reflogs abarbeitet.
+////
 
+The Reflog command is rarely used directly and is just an alias for `git log -g --oneline`.
+In fact, the `-g` option causes the command not to show the predecessors in the commit graph, but to process the commits in the order in which they were reflogged.
+
+
+////
+Das können Sie ganz leicht ausprobieren: Erstellen Sie einen Test-Commit und löschen Sie ihn danach wieder mit `git reset --hard HEAD^`.
+Das Kommando `git log -g` wird nun zuerst den `HEAD` anzeigen, dann den gelöschten Commit und dann wieder den `HEAD`.
+////
+
+You can easily try this: Create a test commit, then delete it again with `git reset --hard HEAD^`.
+The command `git log -g` will now first show the `HEAD`, then the deleted commit, and then the `HEAD` again.
+
+
+////
+Das Reflog referenziert also auch Commits, die sonst nicht mehr referenziert sind, also "`verloren`" sind (siehe Abschnitt 3.1.2, "Branches verwalten").
+So hilft das Reflog Ihnen möglicherweise, wenn Sie einen Branch gelöscht haben, von dem sich im Nachhinein herausstellt, dass Sie ihn doch gebraucht hätten.
+Zwar löscht ein `git branch -D` auch das Reflog des Branches.
+Allerdings haben Sie den Branch ja auschecken müssen, um Commits darauf zu machen: Suchen Sie also mit `git log -g HEAD` nach dem letzten Zeitpunkt, zu dem Sie den gesuchten Branch ausgecheckt haben.
+Dann erstellen Sie einen Branch, der auf diese (scheinbar verlorene) Commit-ID zeigt, und Ihre verlorenen Commits sollten wieder da sein.[52]
+////
+
+The reflog thus also references commits that are otherwise no longer referenced, i.e. are "`lost`" (see <<sec.branch-management>>).
+The reflog might help you if you have deleted a branch that you would have needed after all.
+Although a `git branch -D` also deletes the branch's reflog.
+However, you had to check out the branch to commit to it, so use `git log -g HEAD` to find the last time you checked out the branch you were looking for.
+Then create a branch that points to this (seemingly lost) commit ID, and your lost commits should be back.{fn52}
+
+
+////
+Kommandos, die eine oder mehrere Referenzen erwarten, können allerdings auch implizit das Reflog verwenden.
+Neben der Syntax, die sich schon bei der Ausgabe von `git log -g` findet (z.B. `HEAD@{1}` für die vorherige Position des `HEAD`), versteht Git auch `<ref>@{<wann>}`.
+Git interpretiert den Zeitpunkt `<wann>` als absolutes oder relatives Datum und konsultiert dann das Reflog der entsprechenden Referenz, um herauszufinden, was der zeitlich nächste Log-Eintrag ist.
+Dieser wird dann referenziert.
+////
+
+Commands that expect one or more references can also implicitly use Reflog.
+In addition to the syntax already found in the output of `git log -g` (e.g. `HEAD@{1}` for the previous position of the HEAD), Git also understands `<ref>@{<when>}`.
+Git interprets the time `<when>` as an absolute or relative date and then consults the reflog of the corresponding reference to find out what the next log entry in time is.
+This is then referenced.
+
+
+////
 Zwei Beispiele:
+////
+
+Two examples:
+
+
 
 [subs="quotes"]
 --------
-$ *git log \_master@{two weeks ago}..\_*
-$ *git show \_@{1st of April, 2011}_*
+$ *git log 'master@{two weeks ago}..'*
+$ *git show '@{1st of April, 2011}'*
 --------
 
-Das erste Kommando listet alle Commits zwischen `HEAD` und dem Commit auf, auf den der `master`-Branch vor zwei Wochen gezeigt hat (beachten Sie das Suffix `..`, was eine Commit-Range bis `HEAD` bedeutet). Das muss nicht nötigerweise auch ein Commit sein, der zwei Wochen alt ist: Wenn Sie vor zwei Wochen testweise per `git reset --hard <initial-commit>` den Branch auf den allerersten Commit des Repositorys verschoben haben, dann wird genau dieser Commit referenziert.{fn53}
 
-Die zweite Zeile zeigt den Commit an, auf den der (wegen fehlender expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am 1. April 2011 gezeigt hat. In beiden Kommandos muss das Argument mit Reflog-Anhang sinnvoll in Anführungszeichen eingefasst werden, damit Git das Argument komplett erhält.
 
-Beachten Sie, dass das Reflog _nur_ lokal vorliegt und somit nicht zum Repository gehört. Wenn Sie einem anderen Entwickler eine Commit-ID oder einen Tag-Namen schicken, dann referenziert dies den gleichen Commit -- ein `master@{yesterday}` kann aber je nach Entwickler _verschiedene_ Commits referenzieren.
+
+////
+Das erste Kommando listet alle Commits zwischen `HEAD` und dem Commit auf, auf den der `master`-Branch vor zwei Wochen gezeigt hat (beachten Sie das Suffix `..`, was eine Commit-Range bis `HEAD` bedeutet).
+Das muss nicht nötigerweise auch ein Commit sein, der zwei Wochen alt ist: Wenn Sie vor zwei Wochen testweise per `git reset --hard <initial-commit>` den Branch auf den allerersten Commit des Repositorys verschoben haben, dann wird genau dieser Commit referenziert.[53]
+////
+
+The first command lists all commits between `HEAD` and the commit the `master` branch pointed to two weeks ago (note the suffix `..` which means a commit range up to `HEAD`).
+This doesn't necessarily have to be a commit that is two weeks old: if you test moved the branch to the very first commit in the repository two weeks ago using `git reset --hard <initial-commit>`, then that very commit will be referenced.{fn53}
+
+
+////
+Die zweite Zeile zeigt den Commit an, auf den der (wegen fehlender expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am 1. April 2011 gezeigt hat.
+In beiden Kommandos muss das Argument mit Reflog-Anhang sinnvoll in Anführungszeichen eingefasst werden, damit Git das Argument komplett erhält.
+////
+
+The second line shows the commit to which the currently checked out branch (due to missing explicit reference before the `@`) pointed on April 1, 2011.
+In both commands, the argument with a Reflog attachment must be enclosed in quotation marks to make sure Git gets the argument completely.
+
+
+////
+Beachten Sie, dass das Reflog _nur_ lokal vorliegt und somit nicht zum Repository gehört.
+Wenn Sie einem anderen Entwickler eine Commit-ID oder einen Tag-Namen schicken, dann referenziert dies den gleichen Commit -- ein `master@{yesterday}` kann aber je nach Entwickler _verschiedene_ Commits referenzieren.
+////
+
+Note that the reflog is _only_ available locally and therefore does not belong to the repository.
+If you send a commit ID or tag name to another developer, it references the same commit, but a `master@{yesterday}` can reference _different_ commits depending on the developer.
+
 
 [TIP]
 ==================
-Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an. Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden. Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also "`letzte Position des `HEAD``":
+Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an.
+Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden.
+Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also "`letzte Position des `HEAD``":
 
+If you don't specify a branch and time, Git will assume `HEAD`.
+This allows you to use `@` as the short form for `HEAD` in commands.
+Furthermore, many commands understand the argument `-` as `@{-1}`, which is "`last position of `HEAD``":
+
+// @TRANSLATE SIDE COMMENTS IN GIT COMMANDS
 [subs="quotes"]
 ------
 $ *git checkout feature*   # vorher auf "master"
