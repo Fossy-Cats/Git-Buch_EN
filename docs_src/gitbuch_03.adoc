@@ -2813,133 +2813,171 @@ Once you have merged a branch into the mainline for test purposes and resolved a
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.rerere-usage]]
 ==== Using Rerere
 //   Rerere benutzen
 
-Damit die Rerere-Funktionalität verwendet wird, müssen Sie, wie schon
-erwähnt, die Option `rerere.enabled` auf `true` setzen.
-Rerere wird dann automatisch aufgerufen, wenn ein Merge-Konflikt
-auftritt (um das Preimage aufzunehmen, möglicherweise auch um den
-Konflikt zu lösen) und wenn eine Konfliktlösung eingecheckt wird (um
-die Lösung abzuspeichern).
+////
+Damit die Rerere-Funktionalität verwendet wird, müssen Sie, wie schon erwähnt, die Option `rerere.enabled` auf `true` setzen.
+Rerere wird dann automatisch aufgerufen, wenn ein Merge-Konflikt auftritt (um das Preimage aufzunehmen, möglicherweise auch um den Konflikt zu lösen) und wenn eine Konfliktlösung eingecheckt wird (um die Lösung abzuspeichern).
+////
 
-Rerere legt Informationen wie Preimage und Lösung in
-`.git/rr-cache/` ab, eindeutig identifiziert durch eine
-SHA-1-Summe. Das Subkommando `git rerere` müssen Sie fast nie
-aufrufen, da es von `merge` und `commit` schon erledigt
-wird. Sie können analog zu `git gc` auch `git rerere gc`
-verwenden, um sehr alte Lösungen zu löschen.
+In order for the Rere functionality to be used, you must set the `rerere.enabled` option to `true`, as mentioned above.
+Rerere will then be called automatically when a merge conflict occurs (to capture the pre-image, possibly to resolve the conflict) and when a conflict resolution is checked in (to save the resolution).
 
+
+////
+Rerere legt Informationen wie Preimage und Lösung in `.git/rr-cache/` ab, eindeutig identifiziert durch eine SHA-1-Summe.
+Das Subkommando `git rerere` müssen Sie fast nie aufrufen, da es von `merge` und `commit` schon erledigt wird.
+Sie können analog zu `git gc` auch `git rerere gc` verwenden, um sehr alte Lösungen zu löschen.
+
+////
+Rerere stores information such as pre-image and resolution in `.git/rr-cache/`, uniquely identified by a SHA-1 sum.
+You almost never need to call the `git rerere` subcommand, as it is already handled by `merge` and `commit`.
+You can also use `git rerere gc` to delete very old solutions.
+
+
+////
 Was passiert, wenn eine falsche Konfliktlösung eingecheckt wurde?
-Dann sollten Sie die Konfliktlösung löschen, andernfalls wird Rerere
-die Lösung, wenn Sie den konfliktbehafteten Merge wiederholen, erneut
-anwenden. Dafür gibt es das Kommando `git rerere forget
-  <datei>` -- direkt nachdem Rerere eine falsche Lösung eingespielt
-hat, können Sie auf diese Weise die falsche Lösung löschen und den
-Ursprungszustand der Datei wiederherstellen (d.h.  mit
-Konflikt-Markern). Wollen Sie nur Letzteres bewirken, hilft auch ein
-`git checkout -m <datei>`.
+Dann sollten Sie die Konfliktlösung löschen, andernfalls wird Rerere die Lösung, wenn Sie den konfliktbehafteten Merge wiederholen, erneut anwenden.
+Dafür gibt es das Kommando `git rerere forget <datei>` -- direkt nachdem Rerere eine falsche Lösung eingespielt hat, können Sie auf diese Weise die falsche Lösung löschen und den Ursprungszustand der Datei wiederherstellen (d.h.  mit Konflikt-Markern).
+Wollen Sie nur Letzteres bewirken, hilft auch ein `git checkout -m <datei>`.
+////
+
+What happens if a wrong conflict resolution was checked in?
+Then you should delete the conflict resolution, otherwise Rerere will reapply the solution when you repeat the conflicted merge.
+To do this, there is the command `git rerere forget <file>` -- directly after Rerere has checked in a wrong solution, you can delete the wrong solution in this way and restore the original state of the file (i.e. with conflict markers).
+If you only want to do the latter, a `git checkout -m <file>` will also help.
 
 
 
 [[sec.avoid-conflicts]]
-=== Konflikte vermeiden
+=== Avoiding Conflicts
+//  Konflikte vermeiden
 
-Dezentrale Versionskontrollsysteme verwalten Merges generell
-wesentlich besser als zentrale. Das liegt vor allem daran,
-dass es bei dezentralen Systemen Usus ist, viele kleine Änderungen
-zunächst _lokal_ einzuchecken. Dadurch entstehen keine
-"`Monster-Commits`", die wesentlich mehr
-Konfliktpotential bieten. Diese feiner granulierte
-Entwicklungsgeschichte und der Umstand, dass Merges in der Regel
-wiederum Daten in der Versionsgeschichte sind (im Gegensatz zu einem
-simplen Kopieren der Codezeilen), führen dazu, dass dezentrale Systeme
-bei einem Merge nicht nur auf den bloßen Inhalt von Dateien schauen
-müssen.
+////
+Dezentrale Versionskontrollsysteme verwalten Merges generell wesentlich besser als zentrale.
+Das liegt vor allem daran, dass es bei dezentralen Systemen Usus ist, viele kleine Änderungen zunächst _lokal_ einzuchecken.
+Dadurch entstehen keine "`Monster-Commits`", die wesentlich mehr Konfliktpotential bieten.
+Diese feiner granulierte Entwicklungsgeschichte und der Umstand, dass Merges in der Regel wiederum Daten in der Versionsgeschichte sind (im Gegensatz zu einem simplen Kopieren der Codezeilen), führen dazu, dass dezentrale Systeme bei einem Merge nicht nur auf den bloßen Inhalt von Dateien schauen müssen.
+////
+
+Decentralized version control systems generally manage merges much better than central ones.
+This is mainly due to the fact that it is common practice in decentralized systems to check in many small changes _locally_ first.
+This avoids "`monster commits`", which offer much more potential for conflict.
+This finer granular development history and the fact that merges are usually data in the version history (as opposed to simply copying the lines of code) mean that decentralized systems do not have to look at the mere contents of files when merging.
 
 
+////
 Um Merge-Konflikte zu minimieren, ist Vorbeugung das beste Mittel.
-Machen Sie kleine Commits! Fassen Sie Ihre Änderungen so zusammen,
-dass der resultierende Commit als Einheit Sinn ergibt. Bauen Sie
-Topic-Branches immer auf dem neuesten Release auf. Mergen Sie von
-Topic-Branches in "`Sammel-Branches`" oder direkt in den
-`master`, nicht anders
-herum.{fn45}
-Der
-Einsatz von Rerere erlaubt es, dass bereits gelöste Konflikte nicht
-ständig erneut auftreten.
+Machen Sie kleine Commits!
+Fassen Sie Ihre Änderungen so zusammen, dass der resultierende Commit als Einheit Sinn ergibt.
+Bauen Sie Topic-Branches immer auf dem neuesten Release auf.
+Mergen Sie von Topic-Branches in "`Sammel-Branches`" oder direkt in den `master`, nicht anders herum.[45]
+Der Einsatz von Rerere erlaubt es, dass bereits gelöste Konflikte nicht ständig erneut auftreten.
+////
 
-Offensichtlich zählt zur Vorbeugung auch gute Kommunikation unter den
-Entwicklern: Wenn mehrere Entwickler an der gleichen Funktion
-unterschiedliche und sich gegenseitig beeinflussende Änderungen
-implementieren, wird das früher oder später sicher zu Konflikten
-führen.
+Prevention is the best way to minimize merge conflicts.
+Make small commits!
+Combine your changes so that the resulting commit makes sense as a unit.
+Always build Topic Branches on the latest release.
+Merge from topic branches into "`collection branches`" or directly into `master`, not the other way around.{fn45}
+Using Rerere prevents conflicts that have already been resolved from constantly reoccurring.
 
-Ein weiterer Faktor, der leider häufig zu unnötigen(!) Konflikten
-führt, sind autogenerierte Inhalte. Angenommen, Sie schreiben die
-Dokumentation einer Software in
-_AsciiDoc_{empty}{fn46}
-oder arbeiten an einem
-LaTeX-Projekt mit mehreren Mitstreitern: Fügen Sie keinesfalls die
-kompilierten Man-Pages oder das kompilierte DVI/PS/PDF im Repository
-ein! In den autogenerierten Formaten können kleine Änderungen am
-Plaintext (d.h. in der Ascii- bzw. LaTeX-Version) große (und
-unvorhersehbare) Änderungen an den kompilierten Formaten hervorrufen,
-die Git nicht adäquat auflösen wird. Sinnvoll ist es stattdessen,
-entsprechende Makefile-Targets oder Scripte bereitzustellen, um die
-Dateien zu generieren, und möglicherweise die kompilierte
-Version auf einem separaten Branch vorzuhalten.{fn47}
+
+////
+Offensichtlich zählt zur Vorbeugung auch gute Kommunikation unter den Entwicklern: Wenn mehrere Entwickler an der gleichen Funktion unterschiedliche und sich gegenseitig beeinflussende Änderungen implementieren, wird das früher oder später sicher zu Konflikten führen.
+////
+
+Obviously, good communication among developers is also important for prevention: If several developers implement different and mutually influencing changes to the same function, this will certainly lead to conflicts sooner or later.
+
+
+////
+Ein weiterer Faktor, der leider häufig zu unnötigen(!) Konflikten führt, sind autogenerierte Inhalte.
+Angenommen, Sie schreiben die Dokumentation einer Software in _AsciiDoc_[46] oder arbeiten an einem LaTeX-Projekt mit mehreren Mitstreitern: Fügen Sie keinesfalls die kompilierten Man-Pages oder das kompilierte DVI/PS/PDF im Repository ein!
+In den autogenerierten Formaten können kleine Änderungen am Plaintext (d.h. in der Ascii- bzw. LaTeX-Version) große (und unvorhersehbare) Änderungen an den kompilierten Formaten hervorrufen, die Git nicht adäquat auflösen wird.
+Sinnvoll ist es stattdessen, entsprechende Makefile-Targets oder Scripte bereitzustellen, um die Dateien zu generieren, und möglicherweise die kompilierte Version auf einem separaten Branch vorzuhalten.[47]
+////
+
+Another factor that unfortunately often leads to unnecessary(!) conflicts is autogenerated content.
+Suppose you write the documentation of a software in _AsciiDoc_{fn46} or work on a LaTeX project with several contributors: Never add the compiled man pages or the compiled DVI/PS/PDF to the repository!
+In the autogenerated formats, small changes to the plaintext (i.e. in the Ascii or LaTeX version) can cause large (and unpredictable) changes to the compiled formats that Git will not resolve adequately.
+Instead, it makes sense to provide appropriate Makefile targets or scripts to generate the files, and possibly keep the compiled version on a separate branch.{fn47}
+
+
 
 
 [[sec.cherry-pick]]
-== Einzelne Commits übernehmen: Cherry-Pick
+== Taking over Individual Commits: Cherry Pick
+// Einzelne Commits übernehmen: Cherry-Pick
 
-Es wird vorkommen, dass Sie nicht direkt einen ganzen Branch
-integrieren wollen, sondern zunächst Teile, also einzelne Commits.
-Dafür ist das Git-Kommando `cherry-pick` (``die guten
-Kirschen herauspicken__) zuständig.
+////
+Es wird vorkommen, dass Sie nicht direkt einen ganzen Branch integrieren wollen, sondern zunächst Teile, also einzelne Commits.
+Dafür ist das Git-Kommando `cherry-pick` ("`die guten Kirschen herauspicken`"") zuständig.
+////
 
-Das Kommando erwartet einen oder mehrere Commits, die auf den aktuellen
-Branch kopiert werden sollen. Zum Beispiel:
+It will happen that you don't want to integrate an entire branch directly, but rather parts, i.e. individual commits, first.
+The `cherry-pick` ("`pick the good cherries`") git command is responsible for this.
 
-[subs="quotes"]
+
+////
+Das Kommando erwartet einen oder mehrere Commits, die auf den aktuellen Branch kopiert werden sollen.
+Zum Beispiel:
+
+////
+The command expects one or more commits to be copied to the current branch.
+For example:
+
+
+[subs="quotes,attributes"]
 --------
 $ *git cherry-pick d0c915d*
-$ *git cherry-pick topic\~5 topic\~1*
-$ *git cherry-pick topic\~5..topic~1*
+$ *git cherry-pick topic~5 topic~1*
+$ *git cherry-pick topic{tilde}5..topic~1*
 --------
 
-Das mittlere Kommando kopiert zwei explizit angegebene Commits; das
-letzte Kommando hingegen kopiert alle zu der angegebenen Commit-Range
-gehörigen Commits.
 
-Im Gegensatz zu einem Merge werden aber nur die Änderungen integriert,
-nicht der Commit selbst. Dafür müsste er nämlich seinen Vorgänger
-referenzieren, so dass dieser auch integriert werden müsste usw. --
-was einem Merge gleichkommt. Wenn Sie Commits mit `cherry-pick`
-übernehmen, entstehen dabei also _neue_ Commits mit neuer
-Commit-ID. Git kann danach _nicht_ ohne weiteres wissen, dass
-diese Commits eigentlich die gleichen sind.
+////
+Das mittlere Kommando kopiert zwei explizit angegebene Commits; das letzte Kommando hingegen kopiert alle zu der angegebenen Commit-Range gehörigen Commits.
+////
 
-Daher kann es, wenn Sie zwei Branches mergen, zwischen denen Sie
-Änderungen per Cherry-Pick ausgetauscht haben, zu Konflikten kommen.{fn48}
-Diese
-sind meist trivial zu lösen, möglicherweise sind auch die
-Strategie-Optionen `ours` bzw. `theirs` hilfreich
-(siehe <<sec.recursive-options>>).
-Das Rebase-Kommando hingegen erkennt solche Commit-Doppelungen,{fn49}
-und lässt die gedoppelten Commits aus. So können Sie einige Commits
-"`aus der Mitte`" übernehmen und dann den Branch, aus dem die
-Commits stammten, neu aufbauen.
+The middle command copies two explicitly specified commits; the last command, on the other hand, copies all commits belonging to the specified commit range.
 
-Das `cherry-pick`-Kommando versteht außerdem selbst diese
-Merge-Strategie-Optionen: Wenn Sie einen Commit in den aktuellen Branch
-kopieren wollen, und im Konfliktfall dem neuen Commit recht geben
-wollen, verwenden Sie:
+
+////
+Im Gegensatz zu einem Merge werden aber nur die Änderungen integriert, nicht der Commit selbst.
+Dafür müsste er nämlich seinen Vorgänger referenzieren, so dass dieser auch integriert werden müsste usw. -- was einem Merge gleichkommt.
+Wenn Sie Commits mit `cherry-pick` übernehmen, entstehen dabei also _neue_ Commits mit neuer Commit-ID.
+Git kann danach _nicht_ ohne weiteres wissen, dass diese Commits eigentlich die gleichen sind.
+////
+
+Unlike a merge, however, only the changes are integrated, not the commit itself.
+To do this, it would have to reference its predecessor, so that the predecessor would also have to be integrated, and so on, which is equivalent to a merge.
+So when you take over commits with `cherry-pick`, _new_ commits are created with a new commit ID.
+Git _can't_ know that these commits are actually the same.
+
+
+////
+Daher kann es, wenn Sie zwei Branches mergen, zwischen denen Sie Änderungen per Cherry-Pick ausgetauscht haben, zu Konflikten kommen.[48]
+Diese sind meist trivial zu lösen, möglicherweise sind auch die Strategie-Optionen `ours` bzw. `theirs` hilfreich (siehe Abschnitt 3.3.4, "Optionen für die recursive-Strategie").
+Das Rebase-Kommando hingegen erkennt solche Commit-Doppelungen,[49] und lässt die gedoppelten Commits aus.
+So können Sie einige Commits "`aus der Mitte`" übernehmen und dann den Branch, aus dem die Commits stammten, neu aufbauen.
+////
+
+So if you are merging two branches that you have cherry-picked changes between, conflicts can occur.{fn48}
+These are usually trivial to resolve, and the strategy options `ours` and `theirs` might be helpful (see <<sec.recursive-options>>).
+The rebase command, on the other hand, recognizes such commit duplications,{fn49} and omits the duplicated commits.
+This allows you to take some commits "`from the middle`" and then rebuild the branch the commits came from.
+
+
+////
+Das `cherry-pick`-Kommando versteht außerdem selbst diese Merge-Strategie-Optionen: Wenn Sie einen Commit in den aktuellen Branch kopieren wollen, und im Konfliktfall dem neuen Commit recht geben wollen, verwenden Sie:
+////
+
+The `cherry-pick` command also understands these merge strategy options itself: If you want to copy a commit to the current branch, and if you want to make sure the new commit is right in case of conflict, use:
+
+
 
 ------
 git cherry-pick -Xtheirs <commit>
@@ -2948,11 +2986,13 @@ git cherry-pick -Xtheirs <commit>
 
 [TIP]
 ========
-Über die Option `-n` bzw. `--no-commit` veranlassen
-Sie Git, die Änderungen eines Commits zwar in den Index zu
-übernehmen, aber noch keinen Commit daraus zu machen. So können Sie
-mehrere kleine Commits erst im Index "`aggregieren`" und
-dann als _einen_ Commit verpacken:
+////
+Über die Option `-n` bzw. `--no-commit` veranlassen Sie Git, die Änderungen eines Commits zwar in den Index zu übernehmen, aber noch keinen Commit daraus zu machen.
+So können Sie mehrere kleine Commits erst im Index "`aggregieren`" und dann als _einen_ Commit verpacken:
+////
+
+The `-n or` `--no-commit` option tells Git to commit the changes from a commit to the index, but not to make a commit yet.
+This allows you to "`aggregate`" several small commits into the index first, and then package them as _one_ commit:
 
 [subs="quotes"]
 --------
@@ -2967,48 +3007,69 @@ $ *git commit -m "Diverse kleine Änderungen"*
 
 
 [[sec.visualization]]
-== Visualisierung von Repositories
+== Visualizing Repositories
+// Visualisierung von Repositories
 
-Wenn Sie einige Branches erstellt und wieder zusammengeführt haben,
-werden Sie gemerkt haben: Man verliert leicht den Überblick.
+////
+Wenn Sie einige Branches erstellt und wieder zusammengeführt haben, werden Sie gemerkt haben: Man verliert leicht den Überblick.
+////
 
-Die Anordnung der Commits und ihre Beziehungen untereinander
-bezeichnet man als _Topologie_ eines Repositorys. Im Folgenden
-werden wir unter anderem das grafische Programm `gitk`
-vorstellen, um diese Topologien zu untersuchen.
+When you have created and merged some branches, you will have noticed that the following is the case: it's easy to lose track.
 
-Rufen Sie bei kleinen Repositories zunächst ganz einfach `gitk
-  --all` auf, das das komplette Repository als Graphen darstellt. Ein
-Klick auf die einzelnen Commits zeigt die Metainformationen sowie den
-erzeugten Patch an.
+
+////
+Die Anordnung der Commits und ihre Beziehungen untereinander bezeichnet man als _Topologie_ eines Repositorys.
+Im Folgenden werden wir unter anderem das grafische Programm `gitk` vorstellen, um diese Topologien zu untersuchen.
+////
+
+The arrangement of commits and their relationships to each other is called the _topology_ of a repository.
+In the following, we will introduce the graphical program `gitk`, among other things, to examine these topologies.
+
+
+////
+Rufen Sie bei kleinen Repositories zunächst ganz einfach `gitk --all` auf, das das komplette Repository als Graphen darstellt.
+Ein Klick auf die einzelnen Commits zeigt die Metainformationen sowie den erzeugten Patch an.
+////
+
+For small repositories, first call `gitk --all`, which displays the entire repository as a graph.
+Clicking on the individual commits displays the meta-information as well as the generated patch.
+
+
 
 [[rev-list]]
 === Revision Parameters
 
-Da die Auflistung mehrerer Commits kaum zu überblicken ist,
-untersuchen wir ein kleines Beispiel-Repository mit mehreren Branches,
-die untereinander gemergt wurden:
+////
+Da die Auflistung mehrerer Commits kaum zu überblicken ist, untersuchen wir ein kleines Beispiel-Repository mit mehreren Branches, die untereinander gemergt wurden:
+////
 
-.Der Graph der Commits, wie er in `gitk` dargestellt wird
+Since the listing of multiple commits is hard to keep track of, we examine a small sample repository with several branches merged together:
+
+
+// .Der Graph der Commits, wie er in `gitk` dargestellt wird
+.The graph of commits as displayed in `gitk`
 image::revision-list-commit-graph-gitk.png[id="fig.rev-list-graph",scaledwidth="90%",width="90%"]
 
+
 Wir erkennen vier Branches (A-D) sowie einen Tag `release`.
-Diesen Baum können wir mit geeigneten Kommandozeilenoptionen auch per
-`log`-Kommando auf der Konsole anzeigen lassen (Branch- und
-Tag-Namen sind zur besseren Unterscheidung halbfett gedruckt):
+Diesen Baum können wir mit geeigneten Kommandozeilenoptionen auch per `log`-Kommando auf der Konsole anzeigen lassen (Branch- und Tag-Namen sind zur besseren Unterscheidung halbfett gedruckt):
+
+We recognize four branches (A-D) and one tag `release`.
+We can also display this tree on the console with the appropriate command line options using the `log` command (branch and tag names are printed in semi-bold for better distinction):
+
 
 [subs="quotes"]
 --------
 $ *git log --decorate --pretty=oneline --abbrev-commit --graph --all*
 * c937566 (*HEAD*, *D*) commit on branch D
-| *   b0b30ef (*release*, *A*) Merge branch \_C_ into A
+| *   b0b30ef (*release*, *A*) Merge branch 'C' into A
 | |\
 | | * 807db47 (*C*) commit on branch C
 | | * 996a53b commit on branch C
 | |/
 |/|
 | * 83f6bf3 commit on branch A
-| *   5b2c291 Merge branch \_B_ into A
+| *   5b2c291 Merge branch 'B' into A
 | |\
 | | * 2417cf7 (*B*) commit on branch B
 | |/
@@ -3021,14 +3082,23 @@ $ *git log --decorate --pretty=oneline --abbrev-commit --graph --all*
 
 [TIP]
 ========
-Die Ausgabe des `log`-Kommandos ist äquivalent zu der Ansicht
-in Gitk. Allerdings ist `git log` sehr viel schneller als
-Gitk und kommt ohne ein weiteres Programmfenster aus.
+////
+Die Ausgabe des `log`-Kommandos ist äquivalent zu der Ansicht in Gitk.
+Allerdings ist `git log` sehr viel schneller als Gitk und kommt ohne ein weiteres Programmfenster aus.
+////
 
-Für eine schnelle Übersicht ist es also viel praktischer, ein
-Alias einzurichten, das die vielen langen Optionen automatisch
-hinzufügt. Die Autoren verwenden dafür das Alias `tree`, das
-Sie wie folgt definieren können:
+The output of the `log` command is equivalent to the view in Gitk.
+However, `git log` is much faster than Gitk and does not require another program window.
+
+
+////
+Für eine schnelle Übersicht ist es also viel praktischer, ein Alias einzurichten, das die vielen langen Optionen automatisch hinzufügt.
+Die Autoren verwenden dafür das Alias `tree`, das Sie wie folgt definieren können:
+////
+
+So for a quick overview, it's much more convenient to set up an alias that automatically adds the many long options.
+The authors use the alias `tree` for this, which you can define as follows:
+
 
 [subs="quotes"]
 --------
@@ -3036,14 +3106,20 @@ $ *git config --global alias.tree \'log --decorate \*
    *--pretty=oneline --abbrev-commit --graph'*
 --------
 
-Per `git tree --all` erhalten Sie eine ASCII-Version des
-Graphen des Git-Repositorys. Im Folgenden nutzen wir dieses Alias, um
-die Topologie darzustellen.
+
+////
+Per `git tree --all` erhalten Sie eine ASCII-Version des Graphen des Git-Repositorys.
+Im Folgenden nutzen wir dieses Alias, um die Topologie darzustellen.
+////
+
+By using `git tree --all` you get an ASCII version of the graph of the git repository.
+In the following, we use this alias to represent the topology.
 ========
 
-Nun verändern wir obiges Kommando: Statt der Option `--all`,
-die alle Commits im Baum unterbringt, geben wir nun `B` an (den
-Namen des Branch):
+
+Nun verändern wir obiges Kommando: Statt der Option `--all`, die alle Commits im Baum unterbringt, geben wir nun `B` an (den Namen des Branch):
+
+Now we change the above command: instead of the `--all` option, which puts all commits in the tree, we now specify `B` (the name of the branch)
 
 [subs="quotes"]
 --------
@@ -3052,26 +3128,40 @@ $ *git tree B*
 * 4783886 initial commit
 --------
 
-Wir erhalten alle Commits, die von B aus erreichbar sind. Ein
-Commit kennt jeweils nur seinen bzw. seine Vorgänger (mehrere dann,
-wenn Branches zusammengeführt werden).  ``Alle von B erreichbaren
-Commits__ bezeichnet also die Liste der Commits von B an weiter
-bis zu einem Commit, der keinen Vorgänger hat (genannt
-_Root-Commit_).
 
+////
+Wir erhalten alle Commits, die von B aus erreichbar sind.
+Ein Commit kennt jeweils nur seinen bzw. seine Vorgänger (mehrere dann, wenn Branches zusammengeführt werden).
+"`Alle von B erreichbaren Commits`"" bezeichnet also die Liste der Commits von B an weiter bis zu einem Commit, der keinen Vorgänger hat (genannt _Root-Commit_).
+////
+
+We receive all commits that are accessible from B.
+A commit only knows its predecessor(s) (several if branches are merged).
+"`All commits reachable from B`" thus refers to the list of commits from B onwards, up to a commit that has no predecessor (called a _root commit_).
+
+
+////
 Statt einer kann das Kommando auch mehrere Referenzen entgegennehmen.
-Um also die gleiche Ausgabe wie mit der Option `--all` zu
-erhalten, müssen Sie die Referenzen A, B und D angeben. C kann
-ausgelassen werden, weil der Commit auf dem Weg von A zum Root-Commit
-bereits "`eingesammelt`" wird.
+Um also die gleiche Ausgabe wie mit der Option `--all` zu erhalten, müssen Sie die Referenzen A, B und D angeben.
+C kann ausgelassen werden, weil der Commit auf dem Weg von A zum Root-Commit bereits "`eingesammelt`" wird.
+////
 
-Natürlich können Sie statt symbolischer Referenzen auch direkt eine
-SHA-1-Summe angeben:
+Instead of one, the command can also accept multiple references.
+So to get the same output as with the `--all` option, you must specify references A, B, and D.
+C can be omitted because the commit is already "`collected`" on the way from A to the root commit.
+
+
+////
+Natürlich können Sie statt symbolischer Referenzen auch direkt eine SHA-1-Summe angeben:
+////
+
+Of course, you can also specify an SHA-1 sum directly instead of symbolic references:
+
 
 [subs="quotes"]
 --------
 $ *git tree 5b2c291*
-*   5b2c291 Merge branch \_B_ into A
+*   5b2c291 Merge branch 'B' into A
 |\
 | * 2417cf7 (*B*) commit on branch B
 * | 0bf1433 commit on branch A
@@ -3079,15 +3169,19 @@ $ *git tree 5b2c291*
 * 4783886 initial commit
 --------
 
-Wird einer Referenz ein Caret (`^`) vorangestellt, so negiert das
-die Bedeutung.{fn50}
-Die Notation `^A` bedeutet also: _nicht_ die Commits,
-die von A aus erreichbar sind. Allerdings schließt dieser Schalter
-lediglich diese Commits aus, nicht jedoch die anderen ein.  Obiges
-`log`-Kommando mit dem Argument `^A` wird also nichts ausgeben, da Git
-nur weiß, welche Commits _nicht_ angezeigt werden sollen. Wir fügen
-also wieder `--all` hinzu, um alle Commits aufzulisten, abzüglich
-derer, die von A erreichbar sind:
+
+Wird einer Referenz ein Caret (`^`) vorangestellt, so negiert das die Bedeutung.[50]
+Die Notation `^A` bedeutet also: _nicht_ die Commits, die von A aus erreichbar sind.
+Allerdings schließt dieser Schalter lediglich diese Commits aus, nicht jedoch die anderen ein.
+Obiges `log`-Kommando mit dem Argument `^A` wird also nichts ausgeben, da Git nur weiß, welche Commits _nicht_ angezeigt werden sollen.
+Wir fügen also wieder `--all` hinzu, um alle Commits aufzulisten, abzüglich derer, die von A erreichbar sind:
+
+If a reference is preceded by a caret (`^`), this negates the meaning.{fn50}
+So the notation `^A` means: _not_ the commits that are accessible from A.
+However, this switch only excludes these commits, but not the others.
+So the above log command with the argument `^A` will not output anything, because Git only knows which commits should _not_ be displayed.
+So again, we add `--all` to list all commits, minus those that are accessible from A:
+
 
 [subs="quotes"]
 --------
@@ -3095,12 +3189,22 @@ $ *git tree --all ^A*
 * c937566 (*HEAD*, *D*) commit on branch D
 --------
 
-Eine alternative Notation ist mit `--not` verfügbar: Statt
-`^A` kann man auch `--not A` schreiben.
 
-Besonders hilfreich sind solche Kommandos, um den _Unterschied_
-zwischen zwei Branches zu untersuchen: Welche Commits sind in Branch
-D, die nicht in A sind?  Die Antwort liefert das Kommando:
+////
+Eine alternative Notation ist mit `--not` verfügbar: Statt `^A` kann man auch `--not A` schreiben.
+////
+
+An alternative notation is available with `--not`: Instead of `^A` you can also write `--not A`.
+
+
+////
+Besonders hilfreich sind solche Kommandos, um den _Unterschied_ zwischen zwei Branches zu untersuchen: Welche Commits sind in Branch D, die nicht in A sind?
+Die Antwort liefert das Kommando:
+////
+
+Such commands are especially useful for examining the _difference_ between two branches: Which commits are in branch D that are not in A?
+The command returns the answer:
+
 
 [subs="quotes"]
 --------
@@ -3108,8 +3212,11 @@ $ *git tree D ^A*
 * c937566 (*HEAD*, *D*) commit on branch D
 --------
 
-Weil sich diese Frage häufig stellt, gibt es dafür eine andere,
-intuitivere Notation: `A..D` ist gleichbedeutend mit `D ^A`:
+
+Weil sich diese Frage häufig stellt, gibt es dafür eine andere, intuitivere Notation: `A..D` ist gleichbedeutend mit `D ^A`:
+
+Because this question is often asked, there is another, more intuitive notation for it: `A..D` is equivalent to `D ^A`:
+
 
 [subs="quotes"]
 --------
@@ -3117,15 +3224,23 @@ $ *git tree A..D*
 * c937566 (*HEAD*, *D*) commit on branch D
 --------
 
-Natürlich ist hier die Reihenfolge wichtig: "`D ohne A`" ist
-eine andere Menge von Commits als "`A ohne D`"! (Vergleiche
-auch den vollständigen Graphen.)
 
-Im unserem Beispiel gibt es einen Tag `release`. Um zu
-überprüfen, welche Commits aus dem Branch D (der für
-"`Development`" stehen könnte) noch nicht im aktuellen Release
-enthalten sind, genügt die Angabe `release..D`.
+////
+Natürlich ist hier die Reihenfolge wichtig: "`D ohne A`" ist eine andere Menge von Commits als "`A ohne D`"!
+(Vergleiche auch den vollständigen Graphen.)
+////
 
+Of course the order is important here: "`D without A`" is a different set of commits than "`A without D`"!
+(Compare also the complete graph.)
+
+
+////
+Im unserem Beispiel gibt es einen Tag `release`.
+Um zu überprüfen, welche Commits aus dem Branch D (der für "`Development`" stehen könnte) noch nicht im aktuellen Release enthalten sind, genügt die Angabe `release..D`.
+////
+
+In our example there is a tag `release`.
+To check which commits from branch D (which could stand for "`Development`") are not yet included in the current release, simply specify `release..D`.
 
 
 //\label{sec:rev-symmetric}
@@ -3133,74 +3248,59 @@ enthalten sind, genügt die Angabe `release..D`.
 
 [TIP]
 ========
-Die Syntax `A..B` kann man sich als Idiom ``von
-A bis B__ merken. Diese "`Differenz`"
-ist aber nicht symmetrisch, d.h.{empty}{nbsp}`A..B` sind in der Regel
-nicht die gleichen Commits wie `B..A`.
+////
+Die Syntax `A..B` kann man sich als Idiom "`von A bis B`"" merken.
+Diese "`Differenz`"ist aber nicht symmetrisch, d.h. `A..B` sind in der Regel nicht die gleichen Commits wie `B..A`.
 
-Alternativ stellt Git die _symmetrische Differenz_{empty}{nbsp}`A...B` bereit. Sie entspricht dem Argument `A B
-    --not $(git merge-base A B)`, bezieht also alle Commits ein,
-  die von A _oder_ von B erreichbar sind -- aber nicht von beiden.
+////
+The syntax `A..B` can be remembered as the idiom "`from A to B`".
+However, this "`difference`" is not symmetrical, i.e. `A..B` are usually not the same commits as `B..A`.
+
+
+////
+Alternativ stellt Git die _symmetrische Differenz_ `A...B` bereit.
+Sie entspricht dem Argument `A B --not $(git merge-base A B)`, bezieht also alle Commits ein, die von A _oder_ von B erreichbar sind -- aber nicht von beiden.
+////
+
+Alternatively, Git provides the _symmetrical difference_ `A..B`.
+It is equivalent to the argument `A B --not $(git merge-base A B)`, so it includes all the commits that can be reached from A _or_ B, but not both.
 ========
 
+
+
+// ********** ARRIVED HERE!!! **********
+
+
 [[rev-list-explained]]
-==== Referenz vs. Liste von Referenzen
+==== Reference vs. List of References
+//   Referenz vs. Liste von Referenzen
 
-Im Beispiel werden mit A immer alle Commits bezeichnet, die von A
-erreichbar sind. Aber eigentlich ist ein Branch ja nur eine Referenz
-auf _einen_ Commit. Warum listet also `log` immer alle von
-A erreichbaren Commits auf, während das Git-Kommando
-`show` mit dem Argument `A` nur diesen einen Commit
-anzeigt?
+Im Beispiel werden mit A immer alle Commits bezeichnet, die von A erreichbar sind. Aber eigentlich ist ein Branch ja nur eine Referenz auf _einen_ Commit. Warum listet also `log` immer alle von A erreichbaren Commits auf, während das Git-Kommando `show` mit dem Argument `A` nur diesen einen Commit anzeigt?
 
-Der Unterschied liegt darin, was die Kommandos als Argument erwarten:
-`show` erwartet ein _Objekt_, also eine Referenz auf
-_ein_ Objekt, das dann angezeigt wird.{fn51}
-Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere)
-_Commits_, und diese Kommandos wandeln die Argumente in eine
-Liste von Commits um (traversieren die Liste bis zum Root-Commit).
+Der Unterschied liegt darin, was die Kommandos als Argument erwarten: `show` erwartet ein _Objekt_, also eine Referenz auf _ein_ Objekt, das dann angezeigt wird.{fn51} Viele andere Kommandos erwarten stattdessen einen (oder auch mehrere) _Commits_, und diese Kommandos wandeln die Argumente in eine Liste von Commits um (traversieren die Liste bis zum Root-Commit).
+
+
 
 [[sec.gitk]]
 === Gitk
 
-Gitk ist ein in Tcl implementiertes grafisches Programm, das in der
-Regel von Distributoren zusammen mit den eigentlichen Git-Kommandos
-paketiert wird -- Sie können sich also darauf verlassen, es auf fast
-jedem System vorzufinden.
+Gitk ist ein in Tcl implementiertes grafisches Programm, das in der Regel von Distributoren zusammen mit den eigentlichen Git-Kommandos paketiert wird -- Sie können sich also darauf verlassen, es auf fast jedem System vorzufinden.
 
-Es repräsentiert einzelne Commits oder das ganze Repository in einer
-dreiteiligen Ansicht: Oben die Baumstruktur mit zwei weiteren Spalten
-für Autor und Datum, unten eine Auflistung der Änderungen im
-Unified-Diff-Format sowie eine Liste von Dateien, um die angezeigten
-Änderungen einzuschränken.
+Es repräsentiert einzelne Commits oder das ganze Repository in einer dreiteiligen Ansicht: Oben die Baumstruktur mit zwei weiteren Spalten für Autor und Datum, unten eine Auflistung der Änderungen im Unified-Diff-Format sowie eine Liste von Dateien, um die angezeigten Änderungen einzuschränken.
 
-Die Graph-Ansicht ist intuitiv: Verschiedene Farben helfen, die
-verschiedenen Versionsstränge zu unterscheiden. Commits sind jeweils
-blaue Punkte, mit zwei Ausnahmen: Der `HEAD` ist gelb markiert,
-und ein Commit, der nicht Root-Commit ist, dessen Vorgänger aber nicht
-angezeigt ist, wird weiß dargestellt.
+Die Graph-Ansicht ist intuitiv: Verschiedene Farben helfen, die verschiedenen Versionsstränge zu unterscheiden. Commits sind jeweils blaue Punkte, mit zwei Ausnahmen: Der `HEAD` ist gelb markiert, und ein Commit, der nicht Root-Commit ist, dessen Vorgänger aber nicht angezeigt ist, wird weiß dargestellt.
 
-Branches mit einer Pfeilspitze deuten an, dass auf dem
-Branch weitere Commits getätigt wurden. Aufgrund der zeitlichen
-Distanz der Commits blendet Gitk aber den Branch aus. Ein Klick auf
-die Pfeilspitze bringt Sie zu der Weiterführung des Branches.
+Branches mit einer Pfeilspitze deuten an, dass auf dem Branch weitere Commits getätigt wurden. Aufgrund der zeitlichen Distanz der Commits blendet Gitk aber den Branch aus. Ein Klick auf die Pfeilspitze bringt Sie zu der Weiterführung des Branches.
 
-Branches erscheinen als grüne Labels, der aktuell ausgecheckte Branch
-zusätzlich fett. Tags sind als gelbe Pfeile dargestellt.
+Branches erscheinen als grüne Labels, der aktuell ausgecheckte Branch zusätzlich fett. Tags sind als gelbe Pfeile dargestellt.
 
-Mit einem Rechtsklick auf einen Branch können Sie diesen löschen oder
-auschecken. Auf Commits öffnet ein Rechtsklick ein Menü, in dem Sie
-Aktionen mit dem markierten Commit ausführen können. Die einzige, die
-mit Gitk möglicherweise leichter zu bewerkstelligen ist als über die
-Kommandozeile, ist _Cherry-Picking_, also das Übernehmen
-einzelner Commits in einen anderen Branch (siehe auch
-<<sec.cherry-pick>>).
+Mit einem Rechtsklick auf einen Branch können Sie diesen löschen oder auschecken. Auf Commits öffnet ein Rechtsklick ein Menü, in dem Sie Aktionen mit dem markierten Commit ausführen können. Die einzige, die mit Gitk möglicherweise leichter zu bewerkstelligen ist als über die Kommandozeile, ist _Cherry-Picking_, also das Übernehmen einzelner Commits in einen anderen Branch (siehe auch <<sec.cherry-pick>>).
+
 
 .Komplizierte Topologie in Gitk
 image::gitk.png[id="fig.gitk",scaledwidth="90%",width="90%"]
 
-Gitk akzeptiert im wesentlichen die gleichen Optionen wie `git
-  log`. Einige Beispiele:
+Gitk akzeptiert im wesentlichen die gleichen Optionen wie `git log`. Einige Beispiele:
 
 [subs="quotes"]
 --------
@@ -3209,60 +3309,25 @@ $ *gitk e13404a..48effd3*
 $ *gitk --all -n 100*
 --------
 
-Das erste Kommando zeigt alle Commits seit gestern an, die Änderungen
-an einer Datei unterhalb des Verzeichnisses `doc/` vorgenommen
-haben. Das zweite Kommando limitiert die Commits auf eine spezielle
-Range, während das dritte Kommando die 100 neuesten Commits aller
-Branches anzeigt.
-
-
+Das erste Kommando zeigt alle Commits seit gestern an, die Änderungen an einer Datei unterhalb des Verzeichnisses `doc/` vorgenommen haben. Das zweite Kommando limitiert die Commits auf eine spezielle Range, während das dritte Kommando die 100 neuesten Commits aller Branches anzeigt.
 
 
 [TIP]
 ========
-Erfahrungsgemäß sind Anfänger oft verwirrt, weil `gitk`
-standardmäßig nur den aktuellen Branch anzeigt. Das liegt vermutlich
-daran, dass `gitk` oft aufgerufen wird, um sich einen
-Überblick aller Branches zu verschaffen.  Daher bietet sich
-folgendes Shell-Alias an: `alias gik=_gitk --all_`
+Erfahrungsgemäß sind Anfänger oft verwirrt, weil `gitk` standardmäßig nur den aktuellen Branch anzeigt. Das liegt vermutlich daran, dass `gitk` oft aufgerufen wird, um sich einen Überblick aller Branches zu verschaffen.  Daher bietet sich folgendes Shell-Alias an: `alias gik=_gitk --all_`
 ========
 
-Viele Nutzer lassen `gitk` während der Arbeit offen. Dann ist
-es wichtig, von Zeit zu Zeit die Anzeige zu aktualisieren, damit auch
-aktuellere Commits erscheinen. Mit _F5_ (_Update_) laden
-Sie alle neuen Commits und erneuern die Darstellung der Referenzen.
-Manchmal, wenn Sie z.B. einen Branch löschen, reicht dies jedoch
-nicht aus. Zwar wird der Branch nicht mehr angezeigt, aber evtl. sind
-unerreichbare Commits weiterhin quasi als Artefakte in der GUI
-vorhanden. Mit der Tastenkombination _Strg+F5_
-(_Reload_) wird das Repository vollständig neu eingelesen, was
-das Problem beseitigt.
+Viele Nutzer lassen `gitk` während der Arbeit offen. Dann ist es wichtig, von Zeit zu Zeit die Anzeige zu aktualisieren, damit auch aktuellere Commits erscheinen. Mit _F5_ (_Update_) laden Sie alle neuen Commits und erneuern die Darstellung der Referenzen. Manchmal, wenn Sie z.B. einen Branch löschen, reicht dies jedoch nicht aus. Zwar wird der Branch nicht mehr angezeigt, aber evtl. sind unerreichbare Commits weiterhin quasi als Artefakte in der GUI vorhanden. Mit der Tastenkombination _Strg+F5_ (_Reload_) wird das Repository vollständig neu eingelesen, was das Problem beseitigt.
 
-Alternativ zu `gitk` können Sie auf UNIX-Systemen das GTK-basierte
-`gitg` oder Qt-basierte `qgit` verwenden; auf einem OS-X-System können
-Sie beispielsweise _GitX_ verwenden; für Windows bieten sich die
-_GitExtensions_ an. Einige IDEs verfügen mittlerweile auch über
-entsprechende Visualisierungen (z.B. das _Eclipse_-Plugin _EGit_).
-Weiterhin können Sie vollwertige Git-Clients wie _Atlassian SourceTree_
-(OS X, Windows; kostenlos), _Tower_ (OS X; kommerziell) sowie _SmartGit_
-(Linux, OS X und Windows; kostenlos für nichtkommerzielle Nutzung)
-verwenden.
+Alternativ zu `gitk` können Sie auf UNIX-Systemen das GTK-basierte `gitg` oder Qt-basierte `qgit` verwenden; auf einem OS-X-System können Sie beispielsweise _GitX_ verwenden; für Windows bieten sich die _GitExtensions_ an. Einige IDEs verfügen mittlerweile auch über entsprechende Visualisierungen (z.B. das _Eclipse_-Plugin _EGit_). Weiterhin können Sie vollwertige Git-Clients wie _Atlassian SourceTree_ (OS X, Windows; kostenlos), _Tower_ (OS X; kommerziell) sowie _SmartGit_ (Linux, OS X und Windows; kostenlos für nichtkommerzielle Nutzung) verwenden.
 
 
 [[sec.reflog]]
 == Reflog
 
-Das _Reference Log_ (_Reflog_) sind Log-Dateien, die Git für
-jeden Branch sowie `HEAD` anlegt. Darin wird gespeichert, wann
-eine Referenz von wo nach wo verschoben wurde. Das passiert vor allem
-bei den Kommandos `checkout`, `reset`, `merge`
-und `rebase`.
+Das _Reference Log_ (_Reflog_) sind Log-Dateien, die Git für jeden Branch sowie `HEAD` anlegt. Darin wird gespeichert, wann eine Referenz von wo nach wo verschoben wurde. Das passiert vor allem bei den Kommandos `checkout`, `reset`, `merge` und `rebase`.
 
-Diese Log-Dateien liegen unter `.git/logs/` und tragen den
-Namen der jeweiligen Referenz. Das Reflog für den
-`master`-Branch finden Sie also unter
-`.git/logs/refs/heads/master`. Außerdem gibt es das Kommando
-`git reflog show <referenz>`, um das Reflog aufzulisten:
+Diese Log-Dateien liegen unter `.git/logs/` und tragen den Namen der jeweiligen Referenz. Das Reflog für den `master`-Branch finden Sie also unter `.git/logs/refs/heads/master`. Außerdem gibt es das Kommando `git reflog show <referenz>`, um das Reflog aufzulisten:
 
 [subs="quotes"]
 --------
@@ -3273,40 +3338,14 @@ ef51665 master@{1}: rebase -i (finish): refs/heads/master onto 69b9e27
 ...
 --------
 
-Das Reflog-Kommando wird selten direkt benutzt und ist nur ein Alias
-für `git log -g --oneline`. Die Option `-g` bewirkt
-nämlich, dass das Kommando nicht die Vorgänger im Commit-Graphen
-anzeigt, sondern die Commits in der Reihenfolge des Reflogs
-abarbeitet.
+Das Reflog-Kommando wird selten direkt benutzt und ist nur ein Alias für `git log -g --oneline`. Die Option `-g` bewirkt nämlich, dass das Kommando nicht die Vorgänger im Commit-Graphen anzeigt, sondern die Commits in der Reihenfolge des Reflogs abarbeitet.
 
-Das können Sie ganz leicht ausprobieren: Erstellen Sie einen
-Test-Commit und löschen Sie ihn danach wieder mit `git reset
-  --hard HEAD^`. Das Kommando `git log -g` wird nun zuerst
-den `HEAD` anzeigen, dann den gelöschten Commit und dann wieder
-den `HEAD`.
+Das können Sie ganz leicht ausprobieren: Erstellen Sie einen Test-Commit und löschen Sie ihn danach wieder mit `git reset --hard HEAD^`. Das Kommando `git log -g` wird nun zuerst den `HEAD` anzeigen, dann den gelöschten Commit und dann wieder den `HEAD`.
 
-Das Reflog referenziert also auch Commits, die sonst nicht mehr
-referenziert sind, also "`verloren`" sind (siehe
-<<sec.branch-management>>). So hilft das Reflog Ihnen
-möglicherweise, wenn Sie einen Branch gelöscht haben, von dem sich im
-Nachhinein herausstellt, dass Sie ihn doch gebraucht hätten. Zwar
-löscht ein `git branch -D` auch das Reflog des Branches.
-Allerdings haben Sie den Branch ja auschecken müssen, um Commits
-darauf zu machen: Suchen Sie also mit `git log -g HEAD` nach
-dem letzten Zeitpunkt, zu dem Sie den gesuchten Branch ausgecheckt
-haben. Dann erstellen Sie einen Branch, der auf diese (scheinbar
-verlorene) Commit-ID zeigt, und Ihre verlorenen Commits sollten wieder
-da sein.{fn52}
+Das Reflog referenziert also auch Commits, die sonst nicht mehr referenziert sind, also "`verloren`" sind (siehe <<sec.branch-management>>). So hilft das Reflog Ihnen möglicherweise, wenn Sie einen Branch gelöscht haben, von dem sich im Nachhinein herausstellt, dass Sie ihn doch gebraucht hätten. Zwar löscht ein `git branch -D` auch das Reflog des Branches. Allerdings haben Sie den Branch ja auschecken müssen, um Commits darauf zu machen: Suchen Sie also mit `git log -g HEAD` nach dem letzten Zeitpunkt, zu dem Sie den gesuchten Branch ausgecheckt haben. Dann erstellen Sie einen Branch, der auf diese (scheinbar verlorene) Commit-ID zeigt, und Ihre verlorenen Commits sollten wieder da sein.{fn52}
 
 
-Kommandos, die eine oder mehrere Referenzen erwarten, können
-allerdings auch implizit das Reflog verwenden. Neben der Syntax, die
-sich schon bei der Ausgabe von `git log -g` findet (z.B.{empty}{nbsp}`HEAD@{1}` für die vorherige Position des `HEAD`),
-versteht Git auch `<ref>@{<wann>}`.  Git interpretiert den
-Zeitpunkt `<wann>` als absolutes oder relatives Datum und
-konsultiert dann das Reflog der entsprechenden Referenz, um
-herauszufinden, was der zeitlich nächste Log-Eintrag ist. Dieser wird
-dann referenziert.
+Kommandos, die eine oder mehrere Referenzen erwarten, können allerdings auch implizit das Reflog verwenden. Neben der Syntax, die sich schon bei der Ausgabe von `git log -g` findet (z.B.{empty}{nbsp}`HEAD@{1}` für die vorherige Position des `HEAD`), versteht Git auch `<ref>@{<wann>}`.  Git interpretiert den Zeitpunkt `<wann>` als absolutes oder relatives Datum und konsultiert dann das Reflog der entsprechenden Referenz, um herauszufinden, was der zeitlich nächste Log-Eintrag ist. Dieser wird dann referenziert.
 
 Zwei Beispiele:
 
@@ -3316,33 +3355,15 @@ $ *git log \_master@{two weeks ago}..\_*
 $ *git show \_@{1st of April, 2011}_*
 --------
 
-Das erste Kommando listet alle Commits zwischen `HEAD` und dem
-Commit auf, auf den der `master`-Branch vor zwei Wochen gezeigt
-hat (beachten Sie das Suffix `..`, was eine Commit-Range bis
-`HEAD` bedeutet). Das muss nicht nötigerweise auch ein Commit
-sein, der zwei Wochen alt ist: Wenn Sie vor zwei Wochen testweise per
-`git reset --hard <initial-commit>` den Branch auf den
-allerersten Commit des Repositorys verschoben haben, dann wird genau
-dieser Commit referenziert.{fn53}
+Das erste Kommando listet alle Commits zwischen `HEAD` und dem Commit auf, auf den der `master`-Branch vor zwei Wochen gezeigt hat (beachten Sie das Suffix `..`, was eine Commit-Range bis `HEAD` bedeutet). Das muss nicht nötigerweise auch ein Commit sein, der zwei Wochen alt ist: Wenn Sie vor zwei Wochen testweise per `git reset --hard <initial-commit>` den Branch auf den allerersten Commit des Repositorys verschoben haben, dann wird genau dieser Commit referenziert.{fn53}
 
-Die zweite Zeile zeigt den Commit an, auf den der (wegen fehlender
-expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am
-1. April 2011 gezeigt hat. In beiden Kommandos muss das Argument mit
-Reflog-Anhang sinnvoll in Anführungszeichen eingefasst werden, damit
-Git das Argument komplett erhält.
+Die zweite Zeile zeigt den Commit an, auf den der (wegen fehlender expliziter Referenz vor dem `@`) aktuell ausgecheckte Branch am 1. April 2011 gezeigt hat. In beiden Kommandos muss das Argument mit Reflog-Anhang sinnvoll in Anführungszeichen eingefasst werden, damit Git das Argument komplett erhält.
 
-Beachten Sie, dass das Reflog _nur_ lokal vorliegt und somit
-nicht zum Repository gehört. Wenn Sie einem anderen Entwickler eine
-Commit-ID oder einen Tag-Namen schicken, dann referenziert dies den
-gleichen Commit -- ein `master@{yesterday}` kann aber je nach
-Entwickler _verschiedene_ Commits referenzieren.
+Beachten Sie, dass das Reflog _nur_ lokal vorliegt und somit nicht zum Repository gehört. Wenn Sie einem anderen Entwickler eine Commit-ID oder einen Tag-Namen schicken, dann referenziert dies den gleichen Commit -- ein `master@{yesterday}` kann aber je nach Entwickler _verschiedene_ Commits referenzieren.
 
 [TIP]
 ==================
-Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an.
-Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden.
-Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also
-"`letzte Position des `HEAD``":
+Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an. Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden. Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also "`letzte Position des `HEAD``":
 
 [subs="quotes"]
 ------
