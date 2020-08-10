@@ -1841,94 +1841,145 @@ Therefore, a solution generated in this way would usually not make sense.
 
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.merge-ff]]
-=== Fast-Forward-Merges: Einen Branch vorspulen
+=== Fast Forward Merges: Fast Forwarding One Branch
+//  Fast-Forward-Merges: Einen Branch vorspulen
 
-Das Kommando `git merge` erzeugt nicht immer einen
-Merge-Commit. Ein trivialer Fall, der aber häufig vorkommt, ist der
-sogenannte _Fast-Forward-Merge_, also ein Vorspulen des Branches.
+////
+Das Kommando `git merge` erzeugt nicht immer einen Merge-Commit.
+Ein trivialer Fall, der aber häufig vorkommt, ist der sogenannte _Fast-Forward-Merge_, also ein Vorspulen des Branches.
+////
 
-Ein Fast-Forward-Merge tritt dann auf, wenn ein Branch, z.B.{empty}{nbsp}`topic`, Kind eines zweiten Branches, `master`,
-ist:
+The `git merge` command does not always create a merge commit.
+A trivial case, but one that does occur frequently, is the so-called _fast-forward merge_, i.e. a fast forward merge of the branch.
 
-.Vor dem _Fast-Forward_-Merge
+
+////
+Ein Fast-Forward-Merge tritt dann auf, wenn ein Branch, z.B. `topic`, Kind eines zweiten Branches, `master`, ist:
+////
+
+A fast forward merge occurs when a branch, for example `topic`, is the child of a second branch, `master`:
+
+
+// .Vor dem _Fast-Forward_-Merge
+.Before the _fast forward_ merge
 image::ff-vorher.png[id="fig.merge-ff-before",scaledwidth="90%",width="90%"]
 
-Ein einfaches `git merge topic` im Branch `master` führt
-nun dazu, dass `master` einfach weitergerückt wird -- es wird
-kein Merge-Commit erzeugt.
 
-.Nach dem _Fast-Forward_-Merge – es wurde kein Merge-Commit erzeugt
+////
+Ein einfaches `git merge topic` im Branch `master` führt nun dazu, dass `master` einfach weitergerückt wird -- es wird kein Merge-Commit erzeugt.
+////
+
+A simple `git merge topic` in Branch `master` now causes `master` to simply be moved forward -- no merge commit is created.
+
+
+// .Nach dem _Fast-Forward_-Merge – es wurde kein Merge-Commit erzeugt
+.After the _fast forward_ merge -- no merge commit was created
 image::ff-nachher.png[id="fig.merge-ff-after",scaledwidth="90%",width="90%"]
 
-Ein solches Verhalten geht natürlich nur dann, wenn die beiden
-Branches nicht divergiert haben, wenn also die Merge-Basis beider
-Branches einer der beiden Branches selbst ist, in diesem Falle
-`master`.
 
+////
+Ein solches Verhalten geht natürlich nur dann, wenn die beiden Branches nicht divergiert haben, wenn also die Merge-Basis beider Branches einer der beiden Branches selbst ist, in diesem Falle `master`.
+////
+
+Of course, such a behavior only works if the two branches have not diverged, i.e. if the merge base of both branches is one of the two branches itself, in this case `master`.
+
+
+////
 Dieses Verhalten ist häufig wünschenswert:
+////
+
+This behavior is often desirable:
 
 
-. Sie wollen Upstream-Änderungen, also Änderungen aus einem
-  anderen Git-Repository, integrieren. Dafür verwenden Sie
-  typischerweise ein Kommando wie `git merge origin/master`.
-  Auch ein `git pull` wird einen Merge ausführen. Wie Sie
-  Änderungen zwischen Git-Repositories austauschen, behandeln wir in
-  <<ch.distributed-git>>.
+////
+. Sie wollen Upstream-Änderungen, also Änderungen aus einem anderen Git-Repository, integrieren.
+Dafür verwenden Sie typischerweise ein Kommando wie `git merge origin/master`.
+Auch ein `git pull` wird einen Merge ausführen.
+Wie Sie Änderungen zwischen Git-Repositories austauschen, behandeln wir in Kapitel 5, Verteiltes Git.
 
-. Sie wollen einen experimentellen Branch einpflegen. Da Sie
-  besonders einfach und schnell Branches in Git erstellen, empfiehlt
-  es sich, für jedes Feature einen neuen Branch anzufangen.  Wenn Sie
-  nun etwas Experimentelles auf einem Branch ausprobiert haben und
-  dies integrieren wollen, ohne dass man einen ``Zeitpunkt der
-  Integration__ erkennen kann, dann geschieht das per
-  _Fast-Forward_.
+. Sie wollen einen experimentellen Branch einpflegen.
+Da Sie besonders einfach und schnell Branches in Git erstellen, empfiehlt es sich, für jedes Feature einen neuen Branch anzufangen.
+Wenn Sie nun etwas Experimentelles auf einem Branch ausprobiert haben und dies integrieren wollen, ohne dass man einen "`Zeitpunkt der Integration`"" erkennen kann, dann geschieht das per _Fast-Forward_.
+////
+
+
+. You want to integrate upstream changes, that is, changes from another Git repository.
+You typically use a command like `git merge origin/master` to do this.
+A `git pull` will also perform a merge.
+To learn how to merge changes between git repositories, see <<ch.distributed-git>>.
+
+. You want to add an experimental branch.
+Because it's quick and easy to create branches in Git, it's a good idea to start a new branch for each feature.
+If you've tried something experimental on a branch and want to integrate it without being able to tell when it's "`time to integrate`", you can do so by _fast-forwarding_.
 
 
 [TIP]
 ===============
-Mit den Optionen `--ff-only` und `--no-ff` können
-Sie das Merge-Verhalten anpassen. Wenn Sie die erste Option verwenden
-und die Branches können nicht per Fast-Forward zusammengeführt
-werden, wird Git mit einer Fehlermeldung abbrechen. Die zweite
-Option zwingt Git dazu, einen Merge-Commit zu erstellen, obwohl ein
-Fast-Forward möglich gewesen wäre.
+////
+Mit den Optionen `--ff-only` und `--no-ff` können Sie das Merge-Verhalten anpassen.
+Wenn Sie die erste Option verwenden und die Branches können nicht per Fast-Forward zusammengeführt werden, wird Git mit einer Fehlermeldung abbrechen.
+Die zweite Option zwingt Git dazu, einen Merge-Commit zu erstellen, obwohl ein Fast-Forward möglich gewesen wäre.
+////
+
+With the options `--ff-only` and `--no-ff` you can adjust the merge behavior.
+If you use the first option and the branches cannot be merged using fast-forward, Git will abort with an error message.
+The second option forces Git to create a merge commit even though fast forward would have been possible.
 ===============
 
-Es gibt verschiedene Meinungen, ob man Änderungen immer per
-Fast-Forward integrieren sollte oder lieber einen Merge-Commit
-erstellt, obwohl dies nicht unbedingt nötig ist. Die Resultate sind in
-beiden Fällen gleich: Die Änderungen aus einem Branch werden in
-einen anderen integriert.
 
-Wenn Sie allerdings einen Merge-Commit erstellen, dann wird die
-_Integration_ eines Features deutlich. Betrachten Sie die beiden
-folgenden Ausschnitte aus der Versionsgeschichte eines Projekts:
+////
+Es gibt verschiedene Meinungen, ob man Änderungen immer per Fast-Forward integrieren sollte oder lieber einen Merge-Commit erstellt, obwohl dies nicht unbedingt nötig ist.
+Die Resultate sind in beiden Fällen gleich: Die Änderungen aus einem Branch werden in einen anderen integriert.
+////
 
+There are different opinions on whether changes should always be integrated via fast-forward or whether it is better to create a merge commit, although this is not absolutely necessary.
+The results are the same in both cases: Changes from one branch are integrated into another.
 
 
-.Integration eines Features mit und ohne Fast-Forward
+////
+Wenn Sie allerdings einen Merge-Commit erstellen, dann wird die _Integration_ eines Features deutlich.
+Betrachten Sie die beiden folgenden Ausschnitte aus der Versionsgeschichte eines Projekts:
+////
+
+However, when you create a Merge-Commit, the _integration_ of a feature becomes clear.
+Consider the following two excerpts from the version history of a project:
+
+
+
+// @TODO: TRANSLATE IMAGE ID
+
+// .Integration eines Features mit und ohne Fast-Forward
+.Integration of a feature with and without fast forward
 image::ff-no-ff-vergleich.png[id="fig.ff-vergleich",scaledwidth="80%",width="80%"]
 
-Im oberen Fall können Sie nicht ohne weiteres erkennen, welche
-Commits ehemals im Branch `sha1-caching` entwickelt wurden,
-also mit einem spezifischen Feature der Software zu tun haben.
 
-In der unteren Version jedoch können Sie auf den ersten Blick
-erkennen, dass es genau vier Commits auf diesem Branch gab und er
-dann integriert wurde. Da parallel nichts entwickelt wurde, wäre der
-Merge-Commit prinzipiell unnötig, allerdings macht er die Integration
-des Features deutlich.
+
+////
+Im oberen Fall können Sie nicht ohne weiteres erkennen, welche Commits ehemals im Branch `sha1-caching` entwickelt wurden, also mit einem spezifischen Feature der Software zu tun haben.
+////
+
+In the above case, you cannot easily see which commits were previously developed in branch `sha1-caching`, that is, they have to do with a specific feature of the software.
+
+
+////
+In der unteren Version jedoch können Sie auf den ersten Blick erkennen, dass es genau vier Commits auf diesem Branch gab und er dann integriert wurde.
+Da parallel nichts entwickelt wurde, wäre der Merge-Commit prinzipiell unnötig, allerdings macht er die Integration des Features deutlich.
+////
+
+In the lower version, however, you can see at first glance that there were exactly four commits on that branch, and that it was then integrated.
+Since nothing was developed in parallel, the merge commit would in principle be unnecessary, but it does make the integration of the feature clear.
 
 
 [TIP]
 ===============
-Es bietet sich daher an, statt auf die Magie von `git merge` zu
-vertrauen, zwei Aliase (siehe auch <<sec.git-alias>>) zu kreieren, die
-einen Fast-Forward-Merge forcieren oder verbieten:
+////
+Es bietet sich daher an, statt auf die Magie von `git merge` zu vertrauen, zwei Aliase (siehe auch Abschnitt 1.3.1, "Git Aliase") zu kreieren, die einen Fast-Forward-Merge forcieren oder verbieten:
+////
+
+So instead of relying on the magic of `git merge`, it makes sense to create two aliases (see <<sec.git-alias>>) that force or forbid fast forward merge:
 
 --------
 nfm = merge --no-ff     # no-ff-merge
@@ -1938,24 +1989,37 @@ ffm = merge --ff-only   #    ff-merge
 
 
 
-Ein expliziter Merge-Commit ist auch hilfreich, weil Sie diesen mit
-einem einzigen Kommando rückgängig machen können.
-Dies ist beispielsweise dann sinnvoll, wenn Sie einen Branch integriert
-haben, der aber Fehler aufweist: Wenn der Code in Produktion läuft, ist
-es häufig wünschenswert, die gesamte Änderung vorerst wieder auszubauen,
-bis der Fehler korrigiert ist. Verwenden Sie dafür:
+////
+Ein expliziter Merge-Commit ist auch hilfreich, weil Sie diesen mit einem einzigen Kommando rückgängig machen können.
+Dies ist beispielsweise dann sinnvoll, wenn Sie einen Branch integriert haben, der aber Fehler aufweist: Wenn der Code in Produktion läuft, ist es häufig wünschenswert, die gesamte Änderung vorerst wieder auszubauen, bis der Fehler korrigiert ist.
+Verwenden Sie dafür:
+////
+
+An explicit merge commit is also helpful because you can undo it with a single command.
+This is useful, for example, if you have integrated a branch but it has bugs: If the code is running in production, it is often desirable to merge the entire change back in until the bug is fixed.
+Use for this:
+
 
 ------
 git revert -m 1 <merge-commit>
 ------
 
-Git produziert dann einen neuen Commit, der alle Änderungen rückgängig
-macht, die durch den Merge verursacht wurden. Die Option `-m 1` gibt
-hier an, welche "`Seite`" des Merges als _Mainline_, also stabile
-Entwicklungslinie, gelten soll: deren Änderungen bleiben bestehen.
-Im obigen Beispiel würde `-m 1` dazu führen, dass die Änderungen der
-vier Commits aus dem Branch `sha1-caching`, also dem zweiten Strang des
-Merges, rückgängig gemacht würden.
+
+////
+Git produziert dann einen neuen Commit, der alle Änderungen rückgängig macht, die durch den Merge verursacht wurden.
+Die Option `-m 1` gibt hier an, welche "`Seite`" des Merges als _Mainline_, also stabile Entwicklungslinie, gelten soll: deren Änderungen bleiben bestehen.
+Im obigen Beispiel würde `-m 1` dazu führen, dass die Änderungen der vier Commits aus dem Branch `sha1-caching`, also dem zweiten Strang des Merges, rückgängig gemacht würden.
+////
+
+Git then produces a new commit that reverses any changes made by the merge.
+The `-m 1` option here specifies which "`side`" of the merge should be considered the _mainline_, or stable line of development: its changes are preserved.
+In the above example, `-m 1` would cause the changes made by the four commits from branch `sha1-caching`, the second string of the merge, to be undone.
+
+
+
+// ********** ARRIVED HERE!!! **********
+
+
 
 [[sec.merge-strategies]]
 === Merge-Strategien
