@@ -391,22 +391,57 @@ Git provides the `git config -e` command for this: it opens this file in your ed
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.remote_tracking_branches]]
 === Remote-Tracking-Branches
 
-Der aktuelle Zustand des Remote-Repositorys wird lokal gespeichert. Git verwendet dazu den Mechanismus der _Remote-Tracking-Branches_, spezielle Branches -- also lokale Referenzen -- , die den Zustand der Branches im Remote, sog. _Remote-Branches_, widerspiegeln. Sie "`verfolgen`"also die Remote-Branches und werden bei einer Synchronisation mit dem Remote entsprechend von Git vorgerückt bzw.  gesetzt, sofern sich die Branches in dem Remote verändert haben.  Im Hinblick auf den Commit-Graphen sind Remote-Tracking-Branches Markierungen innerhalb des Graphen, die auf die gleichen Commits zeigen wie die Branches im Remote-Repository.  Sie können Remote-Tracking-Branches nicht wie normale Branches verändern, Git verwaltet sie automatisch, sorgt also für deren Aktualisierung. Wenn Sie ein Repository klonen, initialisiert Git für jeden Remote-Branch einen Remote-Tracking-Branch.
+////
+Der aktuelle Zustand des Remote-Repositorys wird lokal gespeichert.
+Git verwendet dazu den Mechanismus der _Remote-Tracking-Branches_, spezielle Branches -- also lokale Referenzen -- , die den Zustand der Branches im Remote, sog. _Remote-Branches_, widerspiegeln.
+Sie "`verfolgen`"also die Remote-Branches und werden bei einer Synchronisation mit dem Remote entsprechend von Git vorgerückt bzw.  gesetzt, sofern sich die Branches in dem Remote verändert haben.
+Im Hinblick auf den Commit-Graphen sind Remote-Tracking-Branches Markierungen innerhalb des Graphen, die auf die gleichen Commits zeigen wie die Branches im Remote-Repository.
+Sie können Remote-Tracking-Branches nicht wie normale Branches verändern, Git verwaltet sie automatisch, sorgt also für deren Aktualisierung.
+Wenn Sie ein Repository klonen, initialisiert Git für jeden Remote-Branch einen Remote-Tracking-Branch.
+////
 
-.Erzeugte Remote-Tracking-Branches
+The current status of the remote repository is stored locally.
+Git uses the mechanism of _remote tracking branches_, special branches -- local references -- that reflect the state of the remote branches.
+They "`track`" the remote branches and are advanced or set by Git when synchronizing with the remote, if the branches in the remote have changed.
+In terms of the commit graph, remote tracking branches are markers within the graph that point to the same commits as the branches in the remote repository.
+You can't modify remote tracking branches like normal branches; Git manages them automatically, so it updates them.
+When you clone a repository, Git initializes a remote tracking branch for each remote branch.
+
+// .Erzeugte Remote-Tracking-Branches
+.Generated Remote Tracking Branches
 image::clone.png[id="fig.clone",scaledwidth="100%",width="100%"]
 
 
-In <<fig.clone>> sehen Sie ein Beispiel. Das Remote-Repository `origin` hat drei Branches: `pu`, `maint` und `master`. Git erstellt in dem geklonten Repository für jeden dieser _Remote-Branches_ einen _Remote-Tracking-Branch_.  Außerdem wird in dem Klon ein lokaler Branch `master` erstellt, der dem Remote-Branch `master` entspricht. Dieser wird ausgecheckt und ist der Branch, in dem Sie arbeiten sollten, wenn Sie vorhaben, Commits in den `master` hochzuladen (siehe aber auch <<sec.git-fetch>>).
+////
+In Abbildung 5.2, "Erzeugte Remote-Tracking-Branches" sehen Sie ein Beispiel.
+Das Remote-Repository `origin` hat drei Branches: `pu`, `maint` und `master`.
+Git erstellt in dem geklonten Repository für jeden dieser _Remote-Branches_ einen _Remote-Tracking-Branch_.
+Außerdem wird in dem Klon ein lokaler Branch `master` erstellt, der dem Remote-Branch `master` entspricht.
+Dieser wird ausgecheckt und ist der Branch, in dem Sie arbeiten sollten, wenn Sie vorhaben, Commits in den `master` hochzuladen (siehe aber auch Abschnitt 5.3.1, "git fetch").
+////
+
+<<fig.clone>> shows an example.
+The `origin` remote repository has three branches: `pu`, `maint`, and `master`.
+Git creates a _remote tracking branch_ in the cloned repository for each of these _remote branches_.
+It also creates a local branch `master` in the clone that corresponds to the remote branch `master`.
+This is checked out and is the branch you should work in if you plan to upload commits to the `master` (but see <<sec.git-fetch>>).
 
 
-In dem Beispiel mit dem Git-Spickzettel gibt es auf der Remote-Seite nur einen einzigen Branch, nämlich `master`. Darum erzeugt Git in dem Klon auch nur einen Remote-Tracking-Branch, und zwar `origin/master`. Der Befehl `git branch -r` zeigt alle Remote-Tracking-Branches an:
+////
+In dem Beispiel mit dem Git-Spickzettel gibt es auf der Remote-Seite nur einen einzigen Branch, nämlich `master`.
+Darum erzeugt Git in dem Klon auch nur einen Remote-Tracking-Branch, und zwar `origin/master`.
+Der Befehl `git branch -r` zeigt alle Remote-Tracking-Branches an:
+////
+
+In the git fetch example, there is only one branch on the remote side, master.
+That's why Git creates only one remote tracking branch in the clone, `origin/master`.
+The `git branch -r` command shows all remote tracking branches:
+
+
 
 [subs="quotes"]
 -------------------
@@ -416,7 +451,16 @@ $ *git branch -r*
 -------------------
 
 
-Der Sondereintrag `origin/HEAD -> origin/master` besagt, dass in dem Remote-Repository der `HEAD` auf den Branch `master` zeigt. Das ist für das Klonen insofern wichtig, als dieser Branch nach dem Klonen ausgecheckt wird. Die Liste der Remote-Tracking-Branches ist in dem Beispiel etwas spärlich, mehr Einträge sehen Sie in einem Klon des Git-via-Git Repositorys:
+////
+Der Sondereintrag `origin/HEAD -> origin/master` besagt, dass in dem Remote-Repository der `HEAD` auf den Branch `master` zeigt.
+Das ist für das Klonen insofern wichtig, als dieser Branch nach dem Klonen ausgecheckt wird.
+Die Liste der Remote-Tracking-Branches ist in dem Beispiel etwas spärlich, mehr Einträge sehen Sie in einem Klon des Git-via-Git Repositorys:
+////
+
+The special entry `origin/HEAD -> origin/master` states that in the remote repository the `HEAD` points to the branch `master`.
+This is important for cloning, because this branch is checked out after cloning.
+The list of remote tracking branches is a bit sparse in this example, you can see more entries in a clone of the Git-via-Git repository:
+
 
 [subs="quotes"]
 -----------------------
@@ -431,7 +475,13 @@ $ *git branch -r*
   origin/todo
 -----------------------
 
+
+////
 Alle Branches lassen Sie sich mit `git branch -a` anzeigen:
+////
+
+All branches can be displayed with `git branch -a`:
+
 
 [subs="quotes"]
 -------------------------
@@ -441,14 +491,33 @@ $ *git branch -a*
   remotes/origin/master
 -------------------------
 
-In diesem Fall verwendet Git das Präfix `remotes/`, um Remote-Tracking-Branches eindeutig von den normalen zu unterscheiden. Haben Sie die Farbausgabe aktiviert, werden die unterschiedlichen Branches zudem farblich kodiert: der ausgecheckte Branch grün, Remote-Tracking-Branches rot.
+
+////
+In diesem Fall verwendet Git das Präfix `remotes/`, um Remote-Tracking-Branches eindeutig von den normalen zu unterscheiden.
+Haben Sie die Farbausgabe aktiviert, werden die unterschiedlichen Branches zudem farblich kodiert: der ausgecheckte Branch grün, Remote-Tracking-Branches rot.
+////
+
+In this case, Git uses the prefix `remotes/` to clearly distinguish remote tracking branches from normal ones.
+If you have enabled color output, the different branches will also be color-coded: the checked-out branch green, remote tracking branches red.
 
 
-Remote-Tracking-Branches sind auch nur Referenzen und werden daher wie alle Referenzen unter `.git/refs` gespeichert. Da es sich aber um besondere Referenzen handelt, die zudem noch mit einem Remote-Repository verknüpft sind, landen sie unter `.git/refs/remotes/<remote-name>` (siehe auch <<sec.branch-refs>>). In Gitk werden die Remote-Tracking-Branches mit dem Präfix `remotes/<remote-name>/` angezeigt, das zudem dunkelgelb gefärbt ist (<<fig.remote-tracking-gitk>>).
+////
+Remote-Tracking-Branches sind auch nur Referenzen und werden daher wie alle Referenzen unter `.git/refs` gespeichert.
+Da es sich aber um besondere Referenzen handelt, die zudem noch mit einem Remote-Repository verknüpft sind, landen sie unter `.git/refs/remotes/<remote-name>` (siehe auch Abschnitt 3.1.1, "HEAD und andere symbolische Referenzen").
+In Gitk werden die Remote-Tracking-Branches mit dem Präfix `remotes/<remote-name>/` angezeigt, das zudem dunkelgelb gefärbt ist (Abbildung 5.3, "Branch next und der entsprechende Remote-Tracking-Branch in Gitk").
 
-.Branch `next` und der entsprechende Remote-Tracking-Branch in Gitk
+////
+Remote Tracking Branches are also references only and are therefore stored under `.git/refs` like all references.
+However, since they are special references that are also linked to a remote repository, they end up under `.git/refs/remotes/<remote-name>` (see <<sec.branch-refs>>).
+In Gitk, the remote tracking branches are displayed with the prefix `remotes/<remote-name>/`, which is also colored dark yellow (<<fig.remote-tracking-gitk>>).
+
+
+// .Branch `next` und der entsprechende Remote-Tracking-Branch in Gitk
+.Branch `next` and the corresponding remote tracking branch in Gitk
 image::remote-tracking-gitk.png[id="fig.remote-tracking-gitk",scaledwidth="90%",width="90%"]
 
+
+// ********** ARRIVED HERE!!! **********
 
 
 
