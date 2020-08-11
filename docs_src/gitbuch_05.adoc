@@ -517,25 +517,49 @@ In Gitk, the remote tracking branches are displayed with the prefix `remotes/<re
 image::remote-tracking-gitk.png[id="fig.remote-tracking-gitk",scaledwidth="90%",width="90%"]
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 
 [[sec.git_fetch]]
-== Commits herunterladen
+== Downloading Commits
+// Commits herunterladen
 
-Was bedeutet es nun, wenn Sie zwei Repositories synchronisieren, etwa einen Klon mit dem Ursprung? Synchronisation bedeutet in diesem Kontext zweierlei: erstens das Herunterladen von Commits und Referenzen, zweitens das Hochladen. Im Hinblick auf den Commit-Graphen muss der lokale Graph mit dem auf der Remote-Seite synchronisiert werden, damit beide dieselbe Struktur haben.  In diesem Abschnitt behandeln wir zunächst, wie Sie Commits und Referenzen aus einem Remote herunterladen. Dafür gibt es zwei Kommandos: `git fetch` und `git pull`. Wir stellen zuerst beide Kommandos vor und beschreiben in <<sec.fetch-vs-pull>>, welches Kommando unter welchen Umständen zu bevorzugen ist.
+////
+Was bedeutet es nun, wenn Sie zwei Repositories synchronisieren, etwa einen Klon mit dem Ursprung?
+Synchronisation bedeutet in diesem Kontext zweierlei: erstens das Herunterladen von Commits und Referenzen, zweitens das Hochladen.
+Im Hinblick auf den Commit-Graphen muss der lokale Graph mit dem auf der Remote-Seite synchronisiert werden, damit beide dieselbe Struktur haben.
+In diesem Abschnitt behandeln wir zunächst, wie Sie Commits und Referenzen aus einem Remote herunterladen.
+Dafür gibt es zwei Kommandos: `git fetch` und `git pull`.
+Wir stellen zuerst beide Kommandos vor und beschreiben in Abschnitt 5.3.3, "git fetch vs. git pull", welches Kommando unter welchen Umständen zu bevorzugen ist.
+////
 
-
+Now what does it mean when you synchronize two repositories, such as a clone with the source?
+Synchronization in this context means two things: first, downloading commits and references, and second, uploading.
+As far as the commit graph is concerned, the local graph needs to be synchronized with the one on the remote side, so that both have the same structure.
+In this section, we first discuss how to download commits and references from a remote.
+There are two commands for this: `git fetch` and `git pull`.
+We'll first introduce both commands, and in <<sec.fetch-vs-pull>> we'll describe which command is preferable under which circumstances.
 
 
 
 [[sec.git-fetch]]
 === git fetch
 
-Sobald in einem Remote neue Commits von anderen Entwicklern angelegt wurden, wollen Sie diese in Ihr lokales Repository herunterladen. Im einfachsten Fall wollen Sie nur herausfinden, welche Commits Sie lokal noch nicht haben, diese herunterladen und die Remote-Tracking-Branches auf den neuesten Stand bringen, so dass sie den aktuellen Zustand im Remote widerspiegeln.
+////
+Sobald in einem Remote neue Commits von anderen Entwicklern angelegt wurden, wollen Sie diese in Ihr lokales Repository herunterladen.
+Im einfachsten Fall wollen Sie nur herausfinden, welche Commits Sie lokal noch nicht haben, diese herunterladen und die Remote-Tracking-Branches auf den neuesten Stand bringen, so dass sie den aktuellen Zustand im Remote widerspiegeln.
+////
 
+As soon as new commits are created by other developers in a remote, you want to download them to your local repository.
+In the simplest case, you just want to find out which commits you don't have locally, download them, and update the remote tracking branches so that they reflect the current status in the remote.
+
+
+////
 Verwenden Sie dazu das Kommando `git fetch`:
+////
+
+Use the `git fetch` command to do this:
+
 
 [subs="quotes"]
 --------
@@ -545,11 +569,35 @@ From github.com:esc/git-cheatsheet-de
    79170e8..003e3c7  master     -&gt; origin/master
 --------
 
-Git quittiert den Aufruf mit einer Meldung, dass `origin/master` von dem Commit `79170e8` auf den Commit `003e3c7` gesetzt wurde. Die Notation `master -> origin/master` besagt, dass der Branch `master` aus dem Remote verwendet wurde, um den Remote-Tracking-Branch `origin/master` zu aktualisieren.  Sprich: Branches aus dem Remote auf der linken Seite und Remote-Tracking-Branches auf der rechten.
 
-Welche Auswirkung das auf den Commit-Graphen hat, sehen Sie in <<fig.fetch>>: Auf der linken Seite ist der Ausgangszustand des Remote `origin` und daneben der des Klons dargestellt. Sowohl im Remote als auch im Klon sind seit der letzten Synchronisation neue Commits hinzugekommen (C und D). Der Remote-Tracking-Branch `origin/master` im Klon zeigt auf Commit B; dies ist der letzte Zustand des Remotes, der dem Klon bekannt ist. Durch einen Aufruf von `git fetch origin` aktualisiert Git den Remote-Tracking-Branch im Klon, damit dieser den aktuellen Zustand des `master` (zeigt auf Commit C) im Remote widerspiegelt.  Dazu lädt Git den fehlenden Commit C herunter und setzt anschließend den Remote-Tracking-Branch darauf.
+////
+Git quittiert den Aufruf mit einer Meldung, dass `origin/master` von dem Commit `79170e8` auf den Commit `003e3c7` gesetzt wurde.
+Die Notation `master -> origin/master` besagt, dass der Branch `master` aus dem Remote verwendet wurde, um den Remote-Tracking-Branch `origin/master` zu aktualisieren.
+Sprich: Branches aus dem Remote auf der linken Seite und Remote-Tracking-Branches auf der rechten.
+////
 
-.Remote-Tracking-Branches werden aktualisiert
+Git acknowledges the call with a message that `origin/master` has been set from commit `79170e8` to commit `003e3c7`.
+The notation `master -> origin/master` indicates that the branch `master` from the remote was used to update the remote tracking branch `origin/master`.
+In other words: Branches from the remote on the left and remote tracking branches on the right.
+
+
+////
+Welche Auswirkung das auf den Commit-Graphen hat, sehen Sie Abbildung 5.4, "Remote-Tracking-Branches werden aktualisiert": Auf der linken Seite ist der Ausgangszustand des Remote `origin` und daneben der des Klons dargestellt.
+Sowohl im Remote als auch im Klon sind seit der letzten Synchronisation neue Commits hinzugekommen (C und D).
+Der Remote-Tracking-Branch `origin/master` im Klon zeigt auf Commit B; dies ist der letzte Zustand des Remotes, der dem Klon bekannt ist.
+Durch einen Aufruf von `git fetch origin` aktualisiert Git den Remote-Tracking-Branch im Klon, damit dieser den aktuellen Zustand des `master` (zeigt auf Commit C) im Remote widerspiegelt.
+Dazu lädt Git den fehlenden Commit C herunter und setzt anschließend den Remote-Tracking-Branch darauf.
+////
+
+See <<fig.fetch> for the effect this has on the commit graph: On the left side is the initial state of the remote origin and next to it that of the clone.
+Both the remote and the clone have new commits since the last synchronization (C and D).
+The remote tracking branch `origin/master` in the clone points to commit B; this is the last state of the remote known to the clone.
+By calling `git fetch origin`, Git updates the remote tracking branch in the clone to reflect the current status of the `master` (pointing to commit C) in the remote.
+To do this, Git downloads the missing commit C and then sets the remote tracking branch on it.
+
+
+// .Remote-Tracking-Branches werden aktualisiert
+.Remote Tracking Branches are updated
 image::fetch.png[id="fig.fetch",scaledwidth="90%",width="90%"]
 
 
@@ -558,7 +606,16 @@ image::fetch.png[id="fig.fetch",scaledwidth="90%",width="90%"]
 [[sec.refspec]]
 ==== Refspec
 
-Der _Refspec_ (_Reference Specification_) sorgt dafür, dass die Remote-Tracking-Branches gesetzt werden.  Dies ist eine Beschreibung der Referenzen, die aus dem Remote geholt werden sollen. Ein Beispiel gab es schon weiter oben:
+////
+Der _Refspec_ (_Reference Specification_) sorgt dafür, dass die Remote-Tracking-Branches gesetzt werden.
+Dies ist eine Beschreibung der Referenzen, die aus dem Remote geholt werden sollen.
+Ein Beispiel gab es schon weiter oben:
+////
+
+The _refspec_ (_reference specification_) ensures that the remote tracking branches are set.
+This is a description of the references to be retrieved from the remote.
+An example was given above:
+
 
 --------
 [remote "origin"]
@@ -566,15 +623,55 @@ Der _Refspec_ (_Reference Specification_) sorgt dafür, dass die Remote-Tracking
     url = git://github.com/esc/git-cheatsheet-de.git
 --------
 
-In dem Eintrag `fetch` wird der Refspec für das Remote gespeichert. Er hat die Form: `<remote-refs>:<lokale-refs>` mit einem optionalen Plus (+). Das Beispiel ist so konfiguriert, dass alle Branches, also alle Referenzen, die im Remote unter `refs/heads` gespeichert sind, lokal unter `refs/remotes/origin` landen.{fn69} Somit wird z.B. der Branch `master` aus dem Remote `origin` (`refs/heads/master`) lokal als `refs/remotes/origin/master` gespeichert.
 
-Im Normalfall werden die Remote-Tracking-Branches, ähnlich wie bei einem Fast-Forward-Merge, "`vorgespult`". Der Remote-Tracking-Branch wird also nur aktualisiert, wenn der Ziel-Commit ein Nachfahre der aktuellen Referenz ist. Es kann vorkommen, dass dies nicht möglich ist, z.B. nach einem Rebase. In dem Fall verweigert Git, den Remote-Tracking-Branch zu aktualisieren. Das Plus setzt jedoch dieses Verhalten außer Kraft, und der Remote-Tracking-Branch wird trotzdem aktualisiert. Sollte das vorkommen, weist Git mit dem Zusatz `(forced update)` darauf hin:
+////
+In dem Eintrag `fetch` wird der Refspec für das Remote gespeichert.
+Er hat die Form: `<remote-refs>:<lokale-refs>` mit einem optionalen Plus (+).
+Das Beispiel ist so konfiguriert, dass alle Branches, also alle Referenzen, die im Remote unter `refs/heads` gespeichert sind, lokal unter `refs/remotes/origin` landen.[69]
+Somit wird z.B. der Branch `master` aus dem Remote `origin` (`refs/heads/master`) lokal als `refs/remotes/origin/master` gespeichert.
+////
+
+In the entry `fetch` the refspec for the remote is stored.
+It has the form: `<remote-refs>:<local-refs>` with an optional plus (+).
+The example is configured so that all branches, i.e. all references stored in the remote under `refs/heads`, end up locally under `refs/remotes/origin`.{fn69}
+Thus, for example, the branch `master` from the remote `origin` (`refs/heads/master`) is stored locally as `refs/remotes/origin/master`.
+
+
+////
+Im Normalfall werden die Remote-Tracking-Branches, ähnlich wie bei einem Fast-Forward-Merge, "`vorgespult`".
+Der Remote-Tracking-Branch wird also nur aktualisiert, wenn der Ziel-Commit ein Nachfahre der aktuellen Referenz ist.
+Es kann vorkommen, dass dies nicht möglich ist, z.B. nach einem Rebase.
+In dem Fall verweigert Git, den Remote-Tracking-Branch zu aktualisieren.
+Das Plus setzt jedoch dieses Verhalten außer Kraft, und der Remote-Tracking-Branch wird trotzdem aktualisiert.
+Sollte das vorkommen, weist Git mit dem Zusatz `(forced update)` darauf hin:
+////
+
+Normally the remote tracking branches are "`fast-forwarded`", similar to a fast-forward merge.
+The remote tracking branch is therefore only updated if the target commit is a descendant of the current reference.
+This may not be possible, for example, after a rebase.
+In this case, Git will refuse to update the remote tracking branch.
+However, the plus overrides this behavior, and the remote tracking branch is still updated.
+If this happens, Git will indicate this with the addition `(forced update)`:
+
 
 --------
  + f5225b8..0efec48 pu         -> origin/pu  (forced update)
 --------
 
-Diese Einstellung ist in der Praxis sinnvoll und wird daher standardmäßig gesetzt. Außerdem müssen Sie sich als Benutzer nicht darum kümmern, den Refspec zu setzen, denn wenn Sie das Kommando `git clone` oder `git remote add` verwenden, erstellt Ihnen Git automatisch den entsprechenden Default-Eintrag. Manchmal wollen Sie den Refspec explizit einschränken. Wenn Sie z.B. Namespaces für alle Entwickler verwenden und Sie nur an dem `master`-Branch sowie an den Branches der anderen Entwickler in Ihrem Team (Beatrice und Carlos) interessiert sind, könnte das so aussehen:
+
+
+////
+Diese Einstellung ist in der Praxis sinnvoll und wird daher standardmäßig gesetzt.
+Außerdem müssen Sie sich als Benutzer nicht darum kümmern, den Refspec zu setzen, denn wenn Sie das Kommando `git clone` oder `git remote add` verwenden, erstellt Ihnen Git automatisch den entsprechenden Default-Eintrag.
+Manchmal wollen Sie den Refspec explizit einschränken.
+Wenn Sie z.B. Namespaces für alle Entwickler verwenden und Sie nur an dem `master`-Branch sowie an den Branches der anderen Entwickler in Ihrem Team (Beatrice und Carlos) interessiert sind, könnte das so aussehen:
+////
+
+This setting is useful in practice and is therefore set by default.
+Furthermore, as a user you do not need to worry about setting the refspec, because if you use the command `git clone` or `git remote add`, Git automatically creates the corresponding default entry for you.
+Sometimes you may want to restrict the refspec explicitly.
+For example, if you use namespaces for all developers and you are only interested in the `master` branch and the branches of the other developers in your team (Beatrice and Carlos), it might look like this:
+
 
 --------
 [remote "firma"]
@@ -584,17 +681,39 @@ Diese Einstellung ist in der Praxis sinnvoll und wird daher standardmäßig gese
     fetch = +refs/heads/carlos/*:refs/remotes/origin/carlos/*
 --------
 
-Im Hinblick auf den Commit-Graphen ist es so, dass Git nur die Commits herunterlädt, die notwendig sind, um Referenzen in dem Commit-Graphen zu erreichen.  Das ist sinnvoll, weil Commits, die nicht durch eine Referenz "`gesichert`" sind, als unerreichbar gelten, und letztlich irgendwann gelöscht werden (siehe auch <<sec.branch-management>>). In dem letzten Beispiel ist es deshalb für Git nicht notwendig, Commits herunterzuladen, die durch die Branches referenziert werden, die nicht im Refspec stehen.  Im Sinne der Verteiltheit muss Git also nicht zwingend den gesamten Commit-Graphen synchronisieren, es reichen die "`relevanten`"Teile.
+////
+Im Hinblick auf den Commit-Graphen ist es so, dass Git nur die Commits herunterlädt, die notwendig sind, um Referenzen in dem Commit-Graphen zu erreichen.
+Das ist sinnvoll, weil Commits, die nicht durch eine Referenz "`gesichert`" sind, als unerreichbar gelten, und letztlich irgendwann gelöscht werden (siehe auch Abschnitt 3.1.2, "Branches verwalten").
+In dem letzten Beispiel ist es deshalb für Git nicht notwendig, Commits herunterzuladen, die durch die Branches referenziert werden, die nicht im Refspec stehen.
+Im Sinne der Verteiltheit muss Git also nicht zwingend den gesamten Commit-Graphen synchronisieren, es reichen die "`relevanten`"Teile.
+////
 
+With regard to the commit graph, Git only downloads those commits that are necessary to get references in the commit graph.
+This makes sense, because commits that are not "`secured`" by a reference are considered unreachable, and will eventually be deleted (see also <<sec.branch-management>>).
+In the last example, Git therefore does not need to download commits that are referenced by the branches that are not in the refspec.
+In terms of distribution, Git does not necessarily need to synchronize the entire commit graph, the "`relevant`" parts are sufficient.
+
+
+////
 Sie können alternativ auch den Refspec auf der Kommandozeile angeben:
+////
+
+Alternatively, you can specify the refspec on the command line:
+
+
 
 [subs="quotes"]
 --------
 $ *git fetch origin +refs/heads/master:refs/remotes/origin/master*
 --------
 
-Sollte ein Refspec vorliegen, der keine Referenz auf der rechten Seite des Doppelpunkts hat, liegt kein Ziel zum Speichern vor. In dem Fall legt Git die Referenz stattdessen in der Datei `.git/FETCH_HEAD` ab, und Sie können den Spezialbegriff `FETCH_HEAD` für einen Merge verwenden:
+////
+Sollte ein Refspec vorliegen, der keine Referenz auf der rechten Seite des Doppelpunkts hat, liegt kein Ziel zum Speichern vor.
+In dem Fall legt Git die Referenz stattdessen in der Datei `.git/FETCH_HEAD` ab, und Sie können den Spezialbegriff `FETCH_HEAD` für einen Merge verwenden:
+////
 
+If there is a refspec that has no reference on the right side of the colon, there is no target to store.
+In this case, Git places the reference in the `.git/FETCH_HEAD` file instead, and you can use the special term `FETCH_HEAD` for a merge:
 
 
 [subs="quotes"]
@@ -604,16 +723,25 @@ From github.com:esc/git-cheatsheet-de
  * branch            master     -&gt; FETCH_HEAD
 $ *cat .git/FETCH_HEAD*
 003e3c70ce7310f6d6836748f45284383480d40e
-    branch \_master_ of github.com:esc/git-cheatsheet-de
+    branch 'master' of github.com:esc/git-cheatsheet-de
 $ *git merge FETCH_HEAD*
 --------
 
+////
 Das Feature kann nützlich sein, wenn Sie ein einziges Mal an einem Branch im Remote interessiert sind, für den Sie keinen Remote-Tracking-Branch konfiguriert haben und das auch nicht tun wollen.
+////
 
+This feature can be useful if you are interested in a single remote branch that you have not configured a remote tracking branch for and do not want to do so.
+
+
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.prune]]
-==== Verfallene Remote-Tracking-Branches löschen
+==== Deleting Expired Remote Tracking Branches
+//   Verfallene Remote-Tracking-Branches löschen
 
 Sollte ein Remote-Branch gelöscht werden (wie z.B. in <<sec.push-delete>> beschrieben), bezeichnet man den entsprechenden Remote-Tracking-Branch als _stale_ ("`abgelaufen`" bzw.  "`verfallen`").  Da solche Branches meist keinen weiteren Nutzen haben, löschen Sie sie (engl. _prune_, "`beschneiden`"):
 
