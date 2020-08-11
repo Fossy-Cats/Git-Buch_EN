@@ -145,9 +145,16 @@ Upload commits and references to a remote.
 
 
 [[sec.clone]]
-== Repositories klonen
+== Cloning Repositories
+// Repositories klonen
 
-Den ersten Befehl in Zusammenhang mit den Remote-Repositories haben Sie bereits kennengelernt: `git clone`. Hier illustrieren wir den Klonvorgang mit unserem "`Git-Spickzettel`"{fn65}:
+////
+Den ersten Befehl in Zusammenhang mit den Remote-Repositories haben Sie bereits kennengelernt: `git clone`.
+Hier illustrieren wir den Klonvorgang mit unserem "`Git-Spickzettel`"[65]:
+////
+
+You have already seen the first command related to remote repositories: `git clone`.
+Here we illustrate the cloning process with our "`git cheat sheet`":{fn65}
 
 [subs="quotes"]
 --------
@@ -160,7 +167,17 @@ Receiving objects: 100% (77/77), 132.44 KiB, done.
 Resolving deltas: 100% (45/45), done.
 --------
 
-Bei diesem Aufruf gibt Git diverse Statusmeldungen aus. Die wichtigsten sind: die Benachrichtigung, in welches Verzeichnis das neue Repository geklont wird (`Initialized empty Git repository in /tmp/test/git-cheatsheet-de/.git/`), sowie die Bestätigung, dass alle Objekte erfolgreich empfangen wurden (`Receiving objects: 100% (77/77), 132.44 KiB, done.`). Ist der Klonvorgang erfolgreich, wird der `master`-Branch ausgecheckt,{fn66} und der Working Tree samt Repository befindet sich in dem Verzeichnis `git-cheatsheet-de`.
+
+////
+Bei diesem Aufruf gibt Git diverse Statusmeldungen aus.
+Die wichtigsten sind: die Benachrichtigung, in welches Verzeichnis das neue Repository geklont wird (`Initialized empty Git repository in /tmp/test/git-cheatsheet-de/.git/`), sowie die Bestätigung, dass alle Objekte erfolgreich empfangen wurden (`Receiving objects: 100% (77/77), 132.44 KiB, done.`).
+Ist der Klonvorgang erfolgreich, wird der `master`-Branch ausgecheckt,[66] und der Working Tree samt Repository befindet sich in dem Verzeichnis `git-cheatsheet-de`.
+////
+
+Git will issue various status messages when this call is made.
+The most important ones are: the notification of which directory the new repository will be cloned to (`Initialized empty Git repository in /tmp/test/git-cheatsheet-de/.git/`), and the confirmation that all objects have been successfully received ((`Receiving objects: 100% (77/77), 132.44 KiB, done.`)
+If the cloning process is successful, the `master` branch is checked out,{fn66} and the working tree including repository is located in the directory `git-cheatsheet-en`.
+
 
 [subs="quotes"]
 --------
@@ -171,7 +188,13 @@ $ *ls -d .&#42;*
 .git/
 --------
 
+
+////
 Um den Klon in einem anderen Verzeichnis zu erstellen, übergeben Sie es einfach als Argument:
+////
+
+To create the clone in a different directory, simply pass it as an argument:
+
 
 [subs="quotes"]
 --------
@@ -181,7 +204,15 @@ $ *ls*
 cheatsheet/
 --------
 
-Außerdem wird das Ursprungsrepository, also die Herkunft des Klons, als Remote-Repository mit dem Namen `origin` konfiguriert. Das Kommando `git remote` zeigt die Einstellung an:
+
+////
+Außerdem wird das Ursprungsrepository, also die Herkunft des Klons, als Remote-Repository mit dem Namen `origin` konfiguriert.
+Das Kommando `git remote` zeigt die Einstellung an:
+////
+
+Furthermore, the source repository, i.e. the origin of the clone, is configured as a remote repository named `origin`.
+The git remote command displays the setting:
+
 
 [subs="quotes"]
 --------
@@ -189,7 +220,14 @@ $ *git remote*
 origin
 --------
 
+
+
+////
 Die Einstellung wird in der Konfigurationsdatei `.git/config` mit dem Eintrag `remote` festgehalten, in diesem Fall nur für `origin`:
+////
+
+The setting is stored in the configuration file `.git/config` with the entry `remote`, in this case only for `origin`:
+
 
 --------
 [remote "origin"]
@@ -197,11 +235,30 @@ Die Einstellung wird in der Konfigurationsdatei `.git/config` mit dem Eintrag `r
     url = git://github.com/esc/git-cheatsheet-de.git
 --------
 
-Sie sehen in dem Ausschnitt zwei Einstellungen: `fetch` und `url`.  Die erste, der sog. _Refspec_, gibt an, welche Veränderungen bei der Synchronisation mit dem Remote-Repository heruntergeladen werden sollen, und die zweite, mit welcher URL dies geschieht.
 
-Außerdem dient `git remote` zum Verwalten von Remote-Repositories.  Sie können z.B. mit `git remote add` weitere Remote-Repositories hinzufügen, über `git remote set-url` die URL für das Remote-Repository anpassen usw., doch dazu später mehr.
+////
+Sie sehen in dem Ausschnitt zwei Einstellungen: `fetch` und `url`.
+Die erste, der sog. _Refspec_, gibt an, welche Veränderungen bei der Synchronisation mit dem Remote-Repository heruntergeladen werden sollen, und die zweite, mit welcher URL dies geschieht.
+////
+
+You will see two settings in the section: `fetch` and `url`.
+The first, called the _refspec_, specifies which changes are to be downloaded when synchronizing with the remote repository, and the second specifies the URL used to do this.
+
+
+////
+Außerdem dient `git remote` zum Verwalten von Remote-Repositories.
+Sie können z.B. mit `git remote add` weitere Remote-Repositories hinzufügen, über `git remote set-url` die URL für das Remote-Repository anpassen usw., doch dazu später mehr.
+////
+
+`git remote` is also used to manage remote repositories.
+For example, you can add more remote repositories using `git remote add`, adapt the URL for the remote repository using `git remote set-url`, and so on, but more on this later.
+
+
 
 Der Name `origin` ist nur eine Konvention; mit `git remote rename` passen Sie den Namen des Ursprungsrepositorys Ihren Wünschen entsprechend an, z.B. von `origin` zu `github`:
+
+The name `origin` is just a convention; with `git remote rename` you can change the name of the source repository to suit your needs, for example, from `origin` to `github`:
+
 
 [subs="quotes"]
 --------
@@ -210,7 +267,13 @@ $ *git remote*
 github
 --------
 
+
+////
 Mit der Option `--origin` bzw. `-o` setzen Sie den Namen gleich beim Klonen:
+////
+
+With the option `--origin` or `-o` you set the name immediately when cloning:
+
 
 [subs="quotes"]
 --------
@@ -220,29 +283,61 @@ $ *git clone -o github git://github.com/esc/git-cheatsheet-de.git*
 
 
 [[sec.repository-url]]
-=== Repository-URLs
+=== Repository URLs
 
-Git unterstützt mehrere Protokolle, um auf ein Remote-Repository zuzugreifen, die gängigsten drei sind das Git-Protokoll, SSH und HTTP(S). Das Git-Protokoll wurde speziell für Git entwickelt und begünstigt die Datenübertragung, da immer die kleinstmögliche Datenmenge übertragen wird. Es unterstützt keine Authentifizierung und wird daher häufig in einer SSH-Verbindung übertragen. Dadurch wird sowohl eine effiziente (Git-Protokoll) als auch sichere (SSH) Übertragung gewährleistet. HTTP(S) kommt dann zum Einsatz, wenn eine Firewall sehr restriktiv konfiguriert ist und die zugelassenen Ports drastisch eingeschränkt sind.{fn67}
+////
+Git unterstützt mehrere Protokolle, um auf ein Remote-Repository zuzugreifen, die gängigsten drei sind das Git-Protokoll, SSH und HTTP(S).
+Das Git-Protokoll wurde speziell für Git entwickelt und begünstigt die Datenübertragung, da immer die kleinstmögliche Datenmenge übertragen wird.
+Es unterstützt keine Authentifizierung und wird daher häufig in einer SSH-Verbindung übertragen.
+Dadurch wird sowohl eine effiziente (Git-Protokoll) als auch sichere (SSH) Übertragung gewährleistet.
+HTTP(S) kommt dann zum Einsatz, wenn eine Firewall sehr restriktiv konfiguriert ist und die zugelassenen Ports drastisch eingeschränkt sind.[67]
+////
 
-Im Allgemeinen enthält eine valide URL das Übertragungsprotokoll, die Adresse des Servers sowie den Pfad zu dem Repository:{fn68}
+Git supports several protocols for accessing a remote repository, the most common three being Git protocol, SSH, and HTTP(S).
+Designed specifically for Git, the Git protocol favors data transfer by always transferring the smallest possible amount of data.
+It doesn't support authentication, so it's often transmitted over an SSH connection.
+This ensures both efficient (Git protocol) and secure (SSH) transmission.
+HTTP(S) is used when a firewall is configured very restrictively and the allowed ports are drastically restricted.{fn67}
+
+
+////
+Im Allgemeinen enthält eine valide URL das Übertragungsprotokoll, die Adresse des Servers sowie den Pfad zu dem Repository:[68]
+////
+
+In general, a valid URL contains the transfer protocol, the address of the server and the path to the repository:{fn68}
+
+
 
 * `ssh://[user@]gitbu.ch[:port]/pfad/zum/repo.git/`
 * `git://gitbu.ch[:port]/pfad/zum/repo.git/`
 * `http[s]://gitbu.ch[:port]/pfad/zum/repo.git/`
 
 
+////
 Für das SSH-Protokoll existiert noch die Kurzform:
+////
+
+For the SSH protocol the short form still exists:
 
 * `[user@]gitbu.ch:pfad/zum/repo.git/`
 
 
+////
 Außerdem ist es möglich, lokale Repositories mit der folgenden Syntax zu klonen:
+////
+
+It is also possible to clone repositories locally using the following syntax:
+
 
 * `/pfad/zum/repo.git/`
 * `file:///pfad/zum/repo.git/`
 
 
+////
 Wenn Sie wissen wollen, welche URLs für ein Remote-Repository konfiguriert sind, verwenden Sie die Option `--verbose` bzw. `-v` von `git remote`:
+////
+
+If you want to know what URLs are configured for a remote repository, use git remote's `--verbose` or `-v` option:
 
 
 [subs="quotes"]
@@ -253,7 +348,24 @@ origin  git://github.com/esc/git-cheatsheet-de.git (push)
 --------------------
 
 
-Sie sehen, dass es zwei URLs für das Remote-Repository `origin` gibt, die aber standardmäßig auf denselben Wert gesetzt sind. Die erste URL (`fetch`) gibt an, von wo und mit welchem Protokoll Veränderungen heruntergeladen werden. Die zweite URL (`push`) gibt an, wohin und mit welchem Protokoll Veränderungen hochgeladen werden. Unterschiedliche URLs sind vor allem dann interessant, wenn Sie mit verschiedenen Protokollen herunter- bzw.  hochladen.  Ein gängiges Beispiel ist, mit dem Git-Protokoll (`git://`) herunterzuladen und mit dem SSH-Protokoll (`ssh://`) hoch.  Es wird dann ohne Authentifizierung und Verschlüsselung heruntergeladen, was einen Geschwindigkeitsvorteil bietet, aber mit Authentifizierung und Verschlüsselung hochgeladen, was sicherstellt, dass nur Sie oder andere zugriffsberechtigte Personen hochladen können. Mit dem Kommando `git remote set-url` passen Sie die URLs an:
+////
+Sie sehen, dass es zwei URLs für das Remote-Repository `origin` gibt, die aber standardmäßig auf denselben Wert gesetzt sind.
+Die erste URL (`fetch`) gibt an, von wo und mit welchem Protokoll Veränderungen heruntergeladen werden.
+Die zweite URL (`push`) gibt an, wohin und mit welchem Protokoll Veränderungen hochgeladen werden.
+Unterschiedliche URLs sind vor allem dann interessant, wenn Sie mit verschiedenen Protokollen herunter- bzw.  hochladen.
+Ein gängiges Beispiel ist, mit dem Git-Protokoll (`git://`) herunterzuladen und mit dem SSH-Protokoll (`ssh://`) hoch.
+Es wird dann ohne Authentifizierung und Verschlüsselung heruntergeladen, was einen Geschwindigkeitsvorteil bietet, aber mit Authentifizierung und Verschlüsselung hochgeladen, was sicherstellt, dass nur Sie oder andere zugriffsberechtigte Personen hochladen können.
+Mit dem Kommando `git remote set-url` passen Sie die URLs an:
+////
+
+You can see that there are two URLs for the remote repository origin, but they are set to the same value by default.
+The first URL (`fetch`) specifies from where and with which protocol changes are downloaded.
+The second URL (`push`) specifies where changes are uploaded to and with which protocol.
+Different URLs are particularly interesting if you download or upload with different protocols.
+A common example is to download with the git protocol (`git://`) and upload with the SSH protocol (`ssh://`).
+It is then downloaded without authentication and encryption, which provides a speed advantage, but uploaded with authentication and encryption, which ensures that only you or other authorized people can upload.
+You can use the `git remote set-url` command to customize the URLs:
+
 
 [subs="quotes"]
 --------------------
@@ -261,16 +373,25 @@ $ *git remote set-url --add \*
   *--push origin pass:quotes[git@github.com]:esc/git-cheatsheet-de.git*
 $ *git remote -v*
 origin  git://github.com/esc/git-cheatsheet-de.git (fetch)
-origin  pass:quotes[git@github.com]:esc/git-cheatsheet-de.git (push)
+origin  git@github.com:esc/git-cheatsheet-de.git (push)
 --------------------
 
 
 [TIP]
 ==================================
-Falls Sie die URL eines Repositorys anpassen wollen, ist es häufig schneller, dies direkt in der Konfigurationsdatei `.git/config` zu tun. Git stellt dafür das Kommando `git config -e` bereit: es öffnet diese Datei in Ihrem Editor.
+////
+Falls Sie die URL eines Repositorys anpassen wollen, ist es häufig schneller, dies direkt in der Konfigurationsdatei `.git/config` zu tun.
+Git stellt dafür das Kommando `git config -e` bereit: es öffnet diese Datei in Ihrem Editor.
+////
+
+If you want to customize the URL of a repository, it is often faster to do this directly in the `.git/config` configuration file.
+Git provides the `git config -e` command for this: it opens this file in your editor.
 ==================================
 
 
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.remote_tracking_branches]]
