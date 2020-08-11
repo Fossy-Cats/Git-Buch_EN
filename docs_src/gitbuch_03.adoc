@@ -627,10 +627,12 @@ Git simply doesn't find them anymore.
 
 
 ////
-In der Objektdatenbank sind sie allerdings noch eine Weile lang vorhanden.{fn32} Sie können also einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen (und vermeintlich gelöschten) Commit explizit als Referenz angeben:
+In der Objektdatenbank sind sie allerdings noch eine Weile lang vorhanden.[32]
+Sie können also einen Branch ohne weiteres wiederherstellen, indem Sie den vorherigen (und vermeintlich gelöschten) Commit explizit als Referenz angeben:
 ////
 
-However, they will still be present in the object database for a while, so you can easily restore a branch by explicitly specifying the previous (and supposedly deleted) commit as a reference:
+However, they will still be present in the object database for a while.{fn32}
+So you can easily restore a branch by explicitly specifying the previous (and supposedly deleted) commit as a reference:
 
 
 
