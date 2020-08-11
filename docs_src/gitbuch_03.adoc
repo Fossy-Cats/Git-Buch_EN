@@ -455,9 +455,11 @@ Da Git weiß, in welcher Version Dateien aktuell in Index und Working Tree vorli
 
 Since Git knows which version of files are currently in the index and working tree, only the files that differ on the current and new branches need to be checked out.
 
+////
 Git macht es Anwendern schwer, Informationen zu verlieren.
 Daher wird ein Checkout eher fehlschlagen als eventuell nicht abgespeicherte Änderungen in einer Datei überschreiben.
 Das passiert in den folgenden beiden Fällen:
+////
 
 Git makes it hard for users to lose information.
 Therefore, a checkout is more likely to fail than overwrite any unsaved changes in a file.
@@ -893,7 +895,9 @@ $ *git tag -m "Zweite Veröffentlichung" 0.2*
 ==== Signed Tags
 //   Signierte Tags
 
+////
 Um ein signiertes Tag zu überprüfen, verwenden Sie die Option `-v` (_verify_):
+////
 
 To verify a signed tag, use the `-v` (_verify_) option:
 
@@ -1066,9 +1070,11 @@ You can then verify all tags in the Git-via-Git repository, as described above.
 ==== Describing Commits
 //   Commits beschreiben
 
+////
 Tags sind sehr nützlich, um beliebige Commits "`besser`" zu beschreiben.
 Das Kommando `git describe` gibt eine Beschreibung, die aus dem aktuellsten Tag und dessen relativer Position im Commit-Graphen besteht.
 Hier ein Beispiel aus dem Git-Projekt: Wir beschreiben einen Commit mit dem SHA-1-Präfix `28ba96a`, der sich im Commit-Graphen sieben Commits nach der Version `1.7.1` befindet:
+////
 
 Tags are very useful for describing any commit "`better`".
 The `git describe` command gives a description consisting of the most recent tag and its relative position in the commit graph.
@@ -1202,9 +1208,21 @@ $ *git checkout ce66692 -- &lt;datei&gt;*
 --------
 
 
-Das doppelte Minus trennt die Muster von den Optionen bzw. Argumenten. Es ist allerdings nicht notwendig: Gibt es keine Branches oder andere Referenzen mit dem Namen, versucht Git, eine solche Datei zu finden. Die Separierung macht also nur eindeutig, dass Sie die entsprechende(n) Datei(en) wiederherstellen möchten.
+////
+Das doppelte Minus trennt die Muster von den Optionen bzw. Argumenten.
+Es ist allerdings nicht notwendig: Gibt es keine Branches oder andere Referenzen mit dem Namen, versucht Git, eine solche Datei zu finden.
+Die Separierung macht also nur eindeutig, dass Sie die entsprechende(n) Datei(en) wiederherstellen möchten.
+////
 
+The double minus separates the patterns from the options or arguments.
+It is not necessary, however: If there are no branches or other references with that name, Git will try to find one.
+So the separation only makes it clear that you want to recover the file(s) in question.
+
+////
 Um den Inhalt einer Datei aus einem bestimmten Commit anzuschauen, ohne sie auszuchecken, nutzen Sie das folgende Kommando:
+////
+
+To view the contents of a file from a particular commit without checking it out, use the following command:
 
 
 [subs="quotes"]
@@ -1230,7 +1248,9 @@ The procedure is the same as for `git add -p` (see <<sec.add-p>>), but here you 
 [[sec.detached-head]]
 === Detached HEAD
 
+////
 Wenn Sie einen Commit auschecken, der nicht durch einen Branch referenziert wird, befinden Sie sich im sogenannten _Detached-HEAD_-Modus:
+////
 
 If you check out a commit that is not referenced by a branch, you are in _detached-HEAD_ mode:
 
@@ -1337,8 +1357,11 @@ Finished one revert.
  delete mode 100644 LICENSE
 --------
 
+
+////
 Git erstellt einen neuen Commit auf dem aktuellen Branch -- sofern Sie nichts anderes angeben -- mit der Beschreibung `Revert "<Alte Commit-Nachricht>"`.
 Dieser Commit sieht so aus:
+////
 
 Git creates a new commit on the current branch -- unless you specify otherwise -- with the description `Revert "<Old commit message>"`.
 This commit looks like this:
@@ -2022,8 +2045,10 @@ In the above example, `-m 1` would cause the changes made by the four commits fr
 === Merging Strategies
 //  Merge-Strategien
 
+////
 Git kennt fünf verschiedene Merge-Strategien, deren Verhalten teilweise noch durch Strategie-Optionen weiter angepasst werden kann.
 Die Strategie bestimmen Sie per `-s`, so dass ein Merge-Aufruf  wie folgt lautet:
+////
 
 Git has five different merge strategies, some of which can be further adjusted by strategy options.
 You determine the strategy by `-s`, so a merge call is as follows:
@@ -2244,8 +2269,10 @@ If you are working in a larger team, the developer who has done most of the work
 However, such a conflict resolution is usually not difficult if the developer has a good overview of the software in general and of his piece of code and its interaction with other parts in particular.
 
 
+////
 Wir werden die Lösung eines Merge-Konflikts anhand eines einfachen Beispiels in C durchgehen.
 Betrachten Sie die folgende Datei `output.c`:
+////
 
 We will go through the solution of a merge conflict using a simple example in C.
 Take a look at the following `output.c` file:
@@ -2548,10 +2575,12 @@ Git then lists the diffs of commits that have made changes to `<file>` since the
 =====================
 
 
+////
 Wenn Sie sich in einem Merge-Konflikt befinden, liegt eine Datei mit Konflikten in drei Stufen (_Stages_) vor: Stufe eins enthält die Version der Datei in der Merge-Basis (also die gemeinsame Ursprungsversion der Datei), Stufe zwei enthält die Version aus dem `HEAD` (also die Version aus dem Branch, _in den_ Sie mergen).
 Stufe drei enthält schließlich die Datei in der Version des zu integrierenden Branches (dieser hat die symbolische Referenz `MERGE_HEAD`).
 Im Working Tree befindet sich die Kombination dieser drei Stufen mit Konflikt-Markern.
 Sie können diese Versionen aber jeweils mit `git show :<n>:<datei>` anzeigen:
+////
 
 If you are in a merge conflict, a file with conflicts is stored in three _stages_: Stage one contains the version of the file in the merge base (that is, the common original version of the file), stage two contains the version from the `HEAD` (that is, the version from the branch _into_ which you are merging).
 Finally, stage three contains the file in the version of the branch you are merging into (this has the symbolic reference `MERGE_HEAD`).
@@ -2765,10 +2794,12 @@ So Rerere calculates a 3-way-merge between the saved pre-image, the saved soluti
 This way Rerere can resolve not only the same conflicts, but also _similar_ ones (if in the meantime further lines outside the conflict area have been changed).
 
 
+////
 Das Ergebnis wird _nicht_ direkt dem Index hinzugefügt.
 Die Lösung wird lediglich in die Datei übernommen.
 Sie können dann per `git diff` nachschauen, ob die Lösung sinnvoll aussieht, eventuell Tests laufen lassen etc.
 Wenn alles gut aussieht, übernehmen Sie wie üblich die automatische Lösung per `git add`.
+////
 
 The result is _not_ directly added to the index.
 The solution is simply copied to the file.
@@ -3051,8 +3082,10 @@ Since the listing of multiple commits is hard to keep track of, we examine a sma
 image::revision-list-commit-graph-gitk.png[id="fig.rev-list-graph",scaledwidth="90%",width="90%"]
 
 
+////
 Wir erkennen vier Branches (A-D) sowie einen Tag `release`.
 Diesen Baum können wir mit geeigneten Kommandozeilenoptionen auch per `log`-Kommando auf der Konsole anzeigen lassen (Branch- und Tag-Namen sind zur besseren Unterscheidung halbfett gedruckt):
+////
 
 We recognize four branches (A-D) and one tag `release`.
 We can also display this tree on the console with the appropriate command line options using the `log` command (branch and tag names are printed in semi-bold for better distinction):
@@ -3117,7 +3150,9 @@ In the following, we use this alias to represent the topology.
 ========
 
 
+////
 Nun verändern wir obiges Kommando: Statt der Option `--all`, die alle Commits im Baum unterbringt, geben wir nun `B` an (den Namen des Branch):
+////
 
 Now we change the above command: instead of the `--all` option, which puts all commits in the tree, we now specify `B` (the name of the branch)
 
@@ -3170,11 +3205,13 @@ $ *git tree 5b2c291*
 --------
 
 
+////
 Wird einer Referenz ein Caret (`^`) vorangestellt, so negiert das die Bedeutung.[50]
 Die Notation `^A` bedeutet also: _nicht_ die Commits, die von A aus erreichbar sind.
 Allerdings schließt dieser Schalter lediglich diese Commits aus, nicht jedoch die anderen ein.
 Obiges `log`-Kommando mit dem Argument `^A` wird also nichts ausgeben, da Git nur weiß, welche Commits _nicht_ angezeigt werden sollen.
 Wir fügen also wieder `--all` hinzu, um alle Commits aufzulisten, abzüglich derer, die von A erreichbar sind:
+////
 
 If a reference is preceded by a caret (`^`), this negates the meaning.{fn50}
 So the notation `^A` means: _not_ the commits that are accessible from A.
@@ -3213,7 +3250,9 @@ $ *git tree D ^A*
 --------
 
 
+////
 Weil sich diese Frage häufig stellt, gibt es dafür eine andere, intuitivere Notation: `A..D` ist gleichbedeutend mit `D ^A`:
+////
 
 Because this question is often asked, there is another, more intuitive notation for it: `A..D` is equivalent to `D ^A`:
 
@@ -3558,9 +3597,11 @@ If you send a commit ID or tag name to another developer, it references the same
 
 [TIP]
 ==================
+////
 Wenn Sie keinen Branch und keinen Zeitpunkt angeben, nimmt Git `HEAD` an.
 Somit können Sie in Kommandos `@` als Kurzform für `HEAD` verwenden.
 Weiterhin verstehen viele Kommandos das Argument `-` als `@{-1}`, also "`letzte Position des `HEAD``":
+////
 
 If you don't specify a branch and time, Git will assume `HEAD`.
 This allows you to use `@` as the short form for `HEAD` in commands.
