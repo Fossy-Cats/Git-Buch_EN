@@ -917,10 +917,12 @@ Wenn Sie nach einem Ausdruck in allen Dateien Ihres Projektes suchen wollen, bie
 If you want to search for an expression in all files of your project, you can usually use `grep -R <expression> .`.
 
 
+////
 Git bietet allerdings ein eigenes Grep-Kommando, das Sie per `git grep <ausdruck>` aufrufen.
 In der Regel sucht das Kommando den Ausdruck in allen von Git verwalteten Dateien.
 Wollen Sie stattdessen nur einen Teil der Dateien untersuchen, können Sie das Muster explizit angeben.
 Mit folgendem Kommando finden Sie alle Vorkommnisse von `border-color` in allen CSS-Dateien:
+////
 
 However, Git offers its own grep command, which you can call up using `git grep <expression>`.
 This command usually searches for the expression in all files managed by Git.
@@ -945,8 +947,10 @@ However, calling `git grep` is usually an order of magnitude faster, since Git h
 
 [TIP]
 =============
+////
 Die populäre `grep`-Alternative `ack` zeichnet sich vor allem dadurch aus, dass es die auf das Suchmuster passenden Zeilen einer Datei unter einer entsprechenden "`Überschrift`" zusammenfasst, sowie prägnante Farben verwendet.
 Sie können die Ausgabe von `ack` mit `git grep` emulieren, indem Sie folgendes Alias verwenden:
+////
 
 The popular `grep` alternative `ack` is characterized mainly by the fact that it combines the lines of a file matching the search pattern under a corresponding "`heading`", and uses striking colors.
 You can emulate the output of `ack` with `git grep` by using the following alias:
