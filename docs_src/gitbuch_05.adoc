@@ -736,35 +736,60 @@ This feature can be useful if you are interested in a single remote branch that 
 
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.prune]]
 ==== Deleting Expired Remote Tracking Branches
 //   Verfallene Remote-Tracking-Branches löschen
 
-Sollte ein Remote-Branch gelöscht werden (wie z.B. in <<sec.push-delete>> beschrieben), bezeichnet man den entsprechenden Remote-Tracking-Branch als _stale_ ("`abgelaufen`" bzw.  "`verfallen`").  Da solche Branches meist keinen weiteren Nutzen haben, löschen Sie sie (engl. _prune_, "`beschneiden`"):
+////
+Sollte ein Remote-Branch gelöscht werden (wie z.B. in  Abschnitt 5.4.1, "Remote-Referenzen löschen" beschrieben), bezeichnet man den entsprechenden Remote-Tracking-Branch als _stale_ ("`abgelaufen`" bzw.  "`verfallen`").
+Da solche Branches meist keinen weiteren Nutzen haben, löschen Sie sie (engl. _prune_, "`beschneiden`"):
+////
+
+If a Remote Branch is deleted (as described in <<sec.push-delete>>), the corresponding Remote Tracking Branch is referred to as _stale_ ("`expired`").
+Since such branches usually have no further use, delete them (_prune_):
 
 [subs="quotes"]
 --------
 $ *git remote prune origin*
 --------
 
+////
 Direkt beim Herunterladen löschen:
+////
+
+Delete directly during download:
 
 [subs="quotes"]
 --------
 $ *git fetch --prune*
 --------
 
-Da dies häufig das gewünschte Verhalten ist, bietet Git die Option `fetch.prune` an. Setzen Sie diese auf `true`, dann verhält sich `git fetch` bei jedem Aufruf so, als ob Sie es mit der Option `--prune` aufgerufen hätten.
+
+////
+Da dies häufig das gewünschte Verhalten ist, bietet Git die Option `fetch.prune` an.
+Setzen Sie diese auf `true`, dann verhält sich `git fetch` bei jedem Aufruf so, als ob Sie es mit der Option `--prune` aufgerufen hätten.
+////
+
+Since this is often the desired behavior, Git offers the `fetch.prune` option.
+If you set it to `true`, git fetch will behave as if you had called it with the `--prune` option.
+
+
 
 
 
 [[sec.local-working-branches]]
-==== Lokale Branches zum Arbeiten
+==== Working with Local Branches
+//   Lokale Branches zum Arbeiten
 
-Bisher haben wir nur besprochen, wie Sie die Veränderung in einem Remote verfolgen. Wenn Sie selbst Veränderungen vornehmen, die auf einem der Branches im Remote aufbauen, müssen Sie zuerst einen lokalen Branch erstellen, in dem Sie Commits machen dürfen:{fn70}
+////
+Bisher haben wir nur besprochen, wie Sie die Veränderung in einem Remote verfolgen.
+Wenn Sie selbst Veränderungen vornehmen, die auf einem der Branches im Remote aufbauen, müssen Sie zuerst einen lokalen Branch erstellen, in dem Sie Commits machen dürfen:[70]
+////
+
+So far we have only discussed how to track the change in a remote.
+If you make changes yourself that are based on one of the branches in the remote, you must first create a local branch where you are allowed to make commits:{fn70}
 
 [subs="quotes"]
 --------
@@ -773,7 +798,13 @@ Branch next set up to track remote branch next from origin.
 Switched to a new branch _next_
 --------
 
+
+////
 Wenn noch kein lokaler Branch mit Namen `next` existiert, funktioniert auch folgende Abkürzung:
+////
+
+If no local branch named `next` exists yet, the following abbreviation also works:
+
 
 [subs="quotes"]
 --------
@@ -782,9 +813,27 @@ Branch next set up to track remote branch next from origin.
 Switched to a new branch _next_
 --------
 
-Die Meldung `set up to track` besagt, dass Git den Branch `next` aus dem Remote `origin` als _Upstream-Branch_ für den lokalen Branch `next` konfiguriert. Dies ist eine Art "`Verknüpfung`", die anderen Git-Kommandos zugute kommt. Genaueres finden Sie in <<sec.pull>>.
 
-In dem lokalen Branch können Sie wie gewohnt arbeiten. Beachten Sie aber, dass Sie die Commits immer nur _lokal_ tätigen. Um Ihre Arbeit zu veröffentlichen, also in ein Remote hochzuladen, brauchen Sie noch das Kommando `git push` (<<sec.hochladen>>).
+////
+Die Meldung `set up to track` besagt, dass Git den Branch `next` aus dem Remote `origin` als _Upstream-Branch_ für den lokalen Branch `next` konfiguriert.
+Dies ist eine Art "`Verknüpfung`", die anderen Git-Kommandos zugute kommt.
+Genaueres finden Sie in Abschnitt 5.3.2, "git pull".
+////
+
+The `set up to track` message indicates that Git is configuring the branch `next` from the remote `origin` as the _upstream branch_ for the local branch `next`.
+This is a kind of "`shortcut`" that benefits other Git commands.
+For more details, see <<sec.pull>>.
+
+
+////
+In dem lokalen Branch können Sie wie gewohnt arbeiten.
+Beachten Sie aber, dass Sie die Commits immer nur _lokal_ tätigen.
+Um Ihre Arbeit zu veröffentlichen, also in ein Remote hochzuladen, brauchen Sie noch das Kommando `git push` (Abschnitt 5.4, "Commits hochladen: git push").
+////
+
+You can work in the local branch as usual.
+Note, however, that you only ever commit _locally_.
+To publish your work, i.e. upload it to a remote branch, you still need the `git push` command (<<sec.hochladen>>).
 
 
 
@@ -792,7 +841,13 @@ In dem lokalen Branch können Sie wie gewohnt arbeiten. Beachten Sie aber, dass 
 [[sec.pull]]
 === git pull
 
-Angenommen, Sie wollen Commits aus dem Remote-Repository in Ihren lokalen Branch übernehmen. Dazu führen Sie zuerst ein `git fetch` aus, um neue Commits zu holen, und anschließend mergen Sie die Veränderung aus dem entsprechenden Remote-Tracking-Branch:{fn71}
+////
+Angenommen, Sie wollen Commits aus dem Remote-Repository in Ihren lokalen Branch übernehmen.
+Dazu führen Sie zuerst ein `git fetch` aus, um neue Commits zu holen, und anschließend mergen Sie die Veränderung aus dem entsprechenden Remote-Tracking-Branch:[71]
+////
+
+Suppose you want to transfer commits from the remote repository to your local branch.
+To do this, first run a `git fetch` to fetch new commits, and then merge the change from the corresponding remote tracking branch:{fn71}
 
 
 [subs="quotes"]
@@ -801,13 +856,26 @@ $ *git merge origin/master*
 Updating 79170e8..003e3c7
 Fast-forward
  cheatsheet.pdf |  Bin 89792 -&gt; 95619 bytes
- cheatsheet.tex |   19 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---
+ cheatsheet.tex |   19 +++++++++++++++++---
  2 files changed, 16 insertions(+), 3 deletions(-)
 --------
 
-Für diesen Anwendungsfall stellt Git das Kommando `git pull` bereit, um Ihren Workflow zu beschleunigen. Es ist eine Kombination von `git fetch` und `git merge` oder `git rebase`.
 
+////
+Für diesen Anwendungsfall stellt Git das Kommando `git pull` bereit, um Ihren Workflow zu beschleunigen.
+Es ist eine Kombination von `git fetch` und `git merge` oder `git rebase`.
+////
+
+For this use case, Git provides the `git pull` command to speed up your workflow.
+It is a combination of `git fetch` and `git merge` or `git rebase`.
+
+
+////
 Neue Commits von `origin` herunterladen und alle Commits, die vom dortigen `master` referenziert werden, in den aktuellen Branch mergen ist also mit folgendem Kommando zu erledigen:
+////
+
+Downloading new commits from `origin` and merging all commits referenced by the `master` there into the current branch can be done with the following command:
+
 
 [subs="quotes"]
 --------
@@ -818,36 +886,86 @@ From github.com:esc/git-cheatsheet-de
 Updating 79170e8..003e3c7
 Fast-forward
  cheatsheet.pdf |  Bin 89792 -> 95619 bytes
- cheatsheet.tex |   19 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---
+ cheatsheet.tex |   19 ++++++++++++++++---
  2 files changed, 16 insertions(+), 3 deletions(-)
 --------
 
-In <<fig.pull>> illustrieren wir den Vorgang. Auf der linken Seite sehen Sie das Remote-Repository `origin` und daneben den aktuellen Zustand des lokalen Repositorys. Das Repository wurde geklont, als es nur die Commits A und B enthielt, daher zeigt der Remote-Tracking-Branch `origin/master` auf B. Mittlerweile sind sowohl im Remote (`C`) als auch im lokalen Repository (`D`) Commits hinzugekommen.
 
-Auf der rechten Seite ist der Zustand nach `git pull origin master` abgebildet.  Commit C wurde ins lokale Repository übernommen.  Der im `pull` enthaltene `fetch`-Aufruf hat den Remote-Tracking-Branch aktualisiert, d.h. er zeigt auf denselben Commit wie der `master` in `origin` und spiegelt somit den dortigen Zustand wider. Außerdem hat der im `pull` enthaltene `merge`-Aufruf den `master` aus `origin` in den lokalen `master` integriert, was Sie an dem Merge-Commit M sowie der aktuellen Position des lokalen `master` erkennen.
+////
+In Abbildung 5.5, "Was bei einem Pull passiert" illustrieren wir den Vorgang.
+Auf der linken Seite sehen Sie das Remote-Repository `origin` und daneben den aktuellen Zustand des lokalen Repositorys.
+Das Repository wurde geklont, als es nur die Commits A und B enthielt, daher zeigt der Remote-Tracking-Branch `origin/master` auf B.
+Mittlerweile sind sowohl im Remote (`C`) als auch im lokalen Repository (`D`) Commits hinzugekommen.
+////
 
-.Was bei einem Pull passiert
+In <<fig.pull>> we illustrate the process.
+On the left, you see the remote repository `origin` and next to it the current status of the local repository.
+The repository was cloned when it only contained commits A and B, so the remote tracking branch points `origin/master` to B.
+In the meantime, both the remote (`C`) and local (`D`) repositories have been added.
+
+
+////
+Auf der rechten Seite ist der Zustand nach `git pull origin master` abgebildet.
+Commit C wurde ins lokale Repository übernommen.
+Der im `pull` enthaltene `fetch`-Aufruf hat den Remote-Tracking-Branch aktualisiert, d.h. er zeigt auf denselben Commit wie der `master` in `origin` und spiegelt somit den dortigen Zustand wider.
+Außerdem hat der im `pull` enthaltene `merge`-Aufruf den `master` aus `origin` in den lokalen `master` integriert, was Sie an dem Merge-Commit M sowie der aktuellen Position des lokalen `master` erkennen.
+////
+
+On the right side is the state after `git pull origin master`.
+Commit C has been added to the local repository.
+The `fetch` call contained in the `pull` has updated the remote tracking branch, i.e. it points to the same commit as the `master` in `origin` and thus reflects the state there.
+In addition, the `merge` call contained in the `pull` has integrated the `master` from `origin` into the local `master`, as you can see from the merge commit M and the current position of the local `master`.
+
+
+// .Was bei einem Pull passiert
+.What happens with a pull
 image::pull.png[id="fig.pull",scaledwidth="90%",width="90%"]
 
+
+////
 Alternativ weist die Option `--rebase` das Pull-Kommando an, nach dem `fetch` den lokalen Branch per Rebase auf den Remote-Tracking-Branch aufzubauen:
+////
+
+Alternatively, the `--rebase` option instructs the `pull` command to rebase the local branch to the remote tracking branch after `fetch`:
+
 
 [subs="quotes"]
 --------
 $ *git pull --rebase  origin master*
 --------
 
-In <<fig.pull_rebase>> sehen Sie, was passiert, wenn Sie statt des Standard-Merge einen Rebase ausführen.
+
+////
+In Abbildung 5.6, "Was bei einem Pull mit Rebase passiert" sehen Sie, was passiert, wenn Sie statt des Standard-Merge einen Rebase ausführen.
+////
+
+In <<fig.pull_rebase>> you can see what happens if you perform a rebase instead of the default merge.
 
 
-.Was bei einem Pull mit Rebase passiert
+// .Was bei einem Pull mit Rebase passiert
+.What happens during a pull with rebase
 image::pull_rebase.png[id="fig.pull_rebase",scaledwidth="90%",width="90%"]
 
 
-Die Ausgangssituation ist dieselbe wie in <<fig.pull>>.  Der im `pull` enthaltene `fetch` rückt den Remote-Tracking-Branch `origin/master` auf den Commit C. Der `rebase` erzeugt jedoch keinen Merge-Commit; stattdessen erhält der Commit D durch einen Aufruf von `rebase` eine neue Basis, und der lokale `master` wird auf den neuen Commit D&#39; gesetzt.  (Rebase wird ausführlich in <<sec.rebase>> beschrieben.)
+////
+Die Ausgangssituation ist dieselbe wie in Abbildung 5.5, "Was bei einem Pull passiert".
+Der im `pull` enthaltene `fetch` rückt den Remote-Tracking-Branch `origin/master` auf den Commit C.
+Der `rebase` erzeugt jedoch keinen Merge-Commit; stattdessen erhält der Commit D durch einen Aufruf von `rebase` eine neue Basis, und der lokale `master` wird auf den neuen Commit D' gesetzt.
+(Rebase wird ausführlich in Abschnitt 4.1, "Commits verschieben -- Rebase" beschrieben.)
+////
+
+The initial situation is the same as in <<fig.pull>>.
+The `fetch` contained in the `pull` moves the remote tracking branch `origin/master` to commit C.
+However, `rebase` does not create a merge commit; instead, a call to `rebase` gives the commit D a new base, and the local `master` is set to the new commit D'.
+(Rebase is described in detail in <<sec.rebase>>).
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.upstream]]
-==== Upstream-Branches
+==== Upstream Branches
+//   Upstream-Branches
 
 Oft werden `git fetch`, `git pull` und `git push` ohne Argumente ausgeführt.  Git verwendet in dem Fall unter anderem die Konfiguration der Upstream-Branches, um zu entscheiden, was zu tun ist. Aus der Config des Repositorys:
 
