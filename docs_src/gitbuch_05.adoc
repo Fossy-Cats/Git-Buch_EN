@@ -2721,15 +2721,27 @@ The library, written in C, can extend its functions to Lua, Ruby, Python, PHP an
 
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.submodules]]
 === Submodules
 
-Submodules werden von Git als Unterverzeichnisse verwaltet, die einen speziellen Eintrag in der Datei `.gitmodules` besitzen. Zuständig für den Umgang mit ihnen ist das Kommando `git submodule`.
+////
+Submodules werden von Git als Unterverzeichnisse verwaltet, die einen speziellen Eintrag in der Datei `.gitmodules` besitzen.
+Zuständig für den Umgang mit ihnen ist das Kommando `git submodule`.
+////
 
-Zunächst müssen wir die Bibliothek importieren. Das geschieht mit dem folgenden Kommando:
+Submodules are managed by Git as subdirectories that have a special entry in the `.gitmodules` file.
+The command `git submodule` is responsible for handling them.
+
+////
+Zunächst müssen wir die Bibliothek importieren.
+Das geschieht mit dem folgenden Kommando:
+////
+
+First we need to import the library.
+This is done with the following command:
+
 
 [subs="quotes"]
 --------
@@ -2743,7 +2755,12 @@ Resolving deltas: 100% (3214/3214), done.
 --------
 
 
+////
 An der Ausgabe von `git status` können wir nun erkennen, dass ein neues Verzeichnis `libgit2` vorliegt, sowie die Datei `.gitmodules` mit folgendem Inhalt erstellt wurde:
+////
+
+From the output of `git status` we can now see that there is a new directory `libgit2` and that the file `.gitmodules` with the following content has been created
+
 
 --------
 [submodule "libgit2"]
@@ -2751,7 +2768,14 @@ An der Ausgabe von `git status` können wir nun erkennen, dass ein neues Verzeic
   url = git://github.com/libgit2/libgit2.git
 --------
 
-Diese Datei wurde auch schon dem Index hinzugefügt, also für den Commit vorbereitet. Das Verzeichnis `libgit2` hingegen taucht in der Ausgabe von `git diff --staged` nicht wie gewohnt auf:
+////
+Diese Datei wurde auch schon dem Index hinzugefügt, also für den Commit vorbereitet.
+Das Verzeichnis `libgit2` hingegen taucht in der Ausgabe von `git diff --staged` nicht wie gewohnt auf:
+////
+
+This file has already been added to the index, prepared for committing.
+The `libgit2` directory, on the other hand, does not appear in the output of `git diff --staged` as usual:
+
 
 [subs="quotes"]
 --------
@@ -2760,15 +2784,25 @@ diff --git a/libgit2 b/libgit2
 new file mode 160000
 index 0000000..b64e11d
 --- /dev/null
-\+++ b/libgit2
++++ b/libgit2
 @@ -0,0 +1 @@
 +Subproject commit 7c80c19e1dffb4421f91913bc79b9cb7596634a4
 --------
 
 
+////
 Anstatt alle Dateien des Verzeichnisses aufzulisten, speichert Git eine "`spezielle`" Datei (erkennbar an dem unüblichen Datei-Modus `160000`), die lediglich den Commit, auf dem das Modul gerade steht, festhält.
+////
 
+Instead of listing all the files in the directory, Git saves a "`special`" file (recognizable by the unusual file mode `160000`) that simply records the commit the module is currently on.
+
+
+////
 Wir importieren diese Änderungen und können von nun an die `libgit2` in ihrem Unterverzeichnis kompilieren und dann gegen sie linken:
+////
+
+We import these changes, and from now on we can compile `libgit2` in its subdirectory and then link against it:
+
 
 [subs="quotes"]
 --------
@@ -2776,16 +2810,40 @@ $ *git commit -m "libgit2-submodule importiert"*
 --------
 
 
-Das übergeordnete Projekt und die `libgit2` sind nun im Working Tree zusammengeführt -- ihre Versionsgeschichte aber ist und bleibt getrennt. In dem Git-Repository der `libgit2` können Sie sich genau so verhalten wie in einem "`echten`" Repository.  Sie können sich zum Beispiel die Ausgabe von `git log` in dem übergeordneten Projekt und nach einem `cd libgit2` in dem Submodule anschauen.
+////
+Das übergeordnete Projekt und die `libgit2` sind nun im Working Tree zusammengeführt -- ihre Versionsgeschichte aber ist und bleibt getrennt.
+In dem Git-Repository der `libgit2` können Sie sich genau so verhalten wie in einem "`echten`" Repository.
+Sie können sich zum Beispiel die Ausgabe von `git log` in dem übergeordneten Projekt und nach einem `cd libgit2` in dem Submodule anschauen.
+////
+
+The parent project and `libgit2` are now merged in the working tree, but their version history is and remains separate.
+In the Git repository of `libgit2` you can behave exactly the same way as in a "`real`" repository.
+For example, you can look at the output of `git log` in the parent project and after a `cd libgit2` in the submodule.
+
+
 
 
 
 [[sec.submodule-mod]]
-==== Änderungen im Submodule
+==== Changes in Submodules
+//   Änderungen im Submodule
 
-Nun hat die `libgit2` als Default-Branch (also der `HEAD` auf der Serverseite) den Branch `development` ausgewählt. Es ist möglicherweise nicht die beste Idee, diesen Entwicklungsbranch mehr oder weniger mit Ihrem Repository zu verdrahten.
+////
+Nun hat die `libgit2` als Default-Branch (also der `HEAD` auf der Serverseite) den Branch `development` ausgewählt.
+Es ist möglicherweise nicht die beste Idee, diesen Entwicklungsbranch mehr oder weniger mit Ihrem Repository zu verdrahten.
+////
 
+Now `libgit2` has selected the branch development as default branch (i.e. the `HEAD` on the server side).
+It may not be the best idea to more or less wire this development branch to your repository.
+
+////
 Wir wechseln also in das Verzeichnis `libgit2` und checken das neueste Tag aus, `v0.10.0`:
+////
+
+So we change to the `libgit2` directory and check out the latest tag, `v0.10.0`:
+
+
+// @TRANSLATE GIT LOG?
 
 [subs="quotes"]
 --------
@@ -2797,15 +2855,26 @@ $ *git diff*
 diff --git a/libgit2 b/libgit2
 index 7c80c19..7064938 160000
 --- a/libgit2
-\+++ b/libgit2
++++ b/libgit2
 @@ -1 +1 @@
 -Subproject commit 7c80c19e1dffb4421f91913bc79b9cb7596634a4
 +Subproject commit 7064938bd5e7ef47bfd79a685a62c1e2649e2ce7
 --------
 
+////
 Das übergeordnete Git-Repository sieht also einen Wechsel des `HEAD`, der durch das Kommando `git checkout v0.10.0` in `libgit2/` passiert ist, als Änderung der Pseudo-Datei `libgit2`, die nun auf den entsprechenden neuen Commit zeigt.
+////
 
+So the parent Git repository sees a change of `HEAD`, which was done by the `git checkout v0.10.0` command in `libgit2/`, as a change to the pseudo-file `libgit2`, which now points to the corresponding new commit.
+
+////
 Jetzt können wir diese Änderung dem Index hinzufügen und als Commit abspeichern:
+////
+
+Now we can add this change to the index and save it as a commit:
+
+
+// @TRANSLATE GIT LOG?
 
 [subs="quotes"]
 --------
@@ -2813,15 +2882,34 @@ $ *git add libgit2*
 $ *git commit -m "Libgit2-Version auf v0.10.0 setzen"*
 --------
 
-Achtung: Fügen Sie niemals _Dateien_ aus `libgit2` oder das _Verzeichnis_{nbsp}`libgit2/` (endet mit Slash) hinzu -- das zerbricht das Modulkonzept von Git, Sie verwalten dann auf einmal Dateien aus dem Submodule in dem übergeordneten Projekt.
+////
+Achtung: Fügen Sie niemals _Dateien_ aus `libgit2` oder das _Verzeichnis_ `libgit2/` (endet mit Slash) hinzu -- das zerbricht das Modulkonzept von Git, Sie verwalten dann auf einmal Dateien aus dem Submodule in dem übergeordneten Projekt.
+////
 
+Attention: Never add _files_ from `libgit2` or the _directory_ `libgit2/` (ends with slash) -- this breaks the modular concept of Git, you will suddenly manage files from the submodules in the parent project.
+
+////
 Analog können Sie per `submodule update` (oder `git remote update` im Verzeichnis `libgit2/`) neue Commits runterladen und ein Update der Bibliothek entsprechend im übergeordneten Repository festhalten.
+////
+
+Similarly, you can use `submodule update` (or `git remote update` in the `libgit2/` directory) to download new commits and record a library update in the parent repository accordingly.
+
+
+
 
 
 [[sec.submodule-userview]]
-==== Aus Sicht eines Nutzers
+==== From a User Perspective
+//   Aus Sicht eines Nutzers
 
-Wie sieht das Ganze nun aus Sicht eines Nutzer aus, der das Projekt zum ersten Mal klont? Zunächst ist offensichtlich, dass das oder die Submodules _nicht_ fest mit dem Repository verbunden sind und nicht mit ausgeliefert werden:
+////
+Wie sieht das Ganze nun aus Sicht eines Nutzer aus, der das Projekt zum ersten Mal klont?
+Zunächst ist offensichtlich, dass das oder die Submodules _nicht_ fest mit dem Repository verbunden sind und nicht mit ausgeliefert werden:
+////
+
+So what does it all look like from the perspective of a user cloning the project for the first time?
+First, it's obvious that the submodule(s) are _not_ hard-coded into the repository and are not shipped with it:
+
 
 [subs="quotes"]
 --------
@@ -2833,20 +2921,38 @@ $ *ls -l libgit2*
 total 0
 --------
 
-Das Verzeichnis `libgit2/` ist leer. Alles, was Git also über die Submodules weiß, steckt in der Datei `.gitmodules`. Sie müssen dieses Modul erst initialisieren und dann das Repository des Moduls herunterladen:
+////
+Das Verzeichnis `libgit2/` ist leer.
+Alles, was Git also über die Submodules weiß, steckt in der Datei `.gitmodules`.
+Sie müssen dieses Modul erst initialisieren und dann das Repository des Moduls herunterladen:
+////
+
+The directory `libgit2/` is empty.
+So everything Git knows about the submodules is in the `.gitmodules` file.
+You need to initialize this module first and then download the module's repository:
+
 
 [subs="quotes"]
 --------
 $ *git submodule init*
-Submodule \_libgit2_ (git://github.com/libgit2/libgit2.git)
-registered for path \_libgit2_
+Submodule 'libgit2' (git://github.com/libgit2/libgit2.git)
+registered for path 'libgit2'
 $ *git submodule update*
 ...
-Submodule path \_libgit2_: checked out \_7064938bd5e7ef47bfd79a685a62c1e2649e2ce7_
+Submodule path 'libgit2': checked out '7064938bd5e7ef47bfd79a685a62c1e2649e2ce7'
 --------
 
-Wir sehen also, dass `libgit2` automatisch auf den in unserem Repository festgelegten Stand von `v0.10.0` gesetzt wird. Prinzipiell kann nun aber der Nutzer auch in das Verzeichnis wechseln, den Branch `development` auschecken und das Projekt gegen diese Version kompilieren. Submodules erhalten die Flexibilität des Unter-Repositorys -- der Eintrag, auf welchem Stand das Modul steht, ist also nur eine "`Empfehlung`".
+Wir sehen also, dass `libgit2` automatisch auf den in unserem Repository festgelegten Stand von `v0.10.0` gesetzt wird.
+Prinzipiell kann nun aber der Nutzer auch in das Verzeichnis wechseln, den Branch `development` auschecken und das Projekt gegen diese Version kompilieren.
+Submodules erhalten die Flexibilität des Unter-Repositorys -- der Eintrag, auf welchem Stand das Modul steht, ist also nur eine "`Empfehlung`".
 
+So we see that `libgit2` is automatically set to the `v0.10.0` version  defined in our repository.
+But in principle the user can now also change to the directory, check out the branch `development` and compile the project against this version.
+Submodules get the flexibility of the sub-repository -- so the entry on which state the module is on is only a "`recommendation`".
+
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.subtrees]]
