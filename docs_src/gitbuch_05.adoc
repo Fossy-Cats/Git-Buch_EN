@@ -1249,15 +1249,18 @@ In this context, <<ch.workflows>> is also helpful, where it is described how to 
 
 
 
-// ********** ARRIVED HERE!!! **********
-
-
 
 [[sec.hochladen]]
 == Uploading Commits: git push
 // Commits hochladen: git push
 
-Das Gegenstück zu `fetch` und `pull` bildet das Kommando `git push`. Damit laden Sie Git-Objekte und Referenzen in ein Remote hoch -- z.B. den lokalen `master` in den Branch `master` im Remote `origin`:
+////
+Das Gegenstück zu `fetch` und `pull` bildet das Kommando `git push`.
+Damit laden Sie Git-Objekte und Referenzen in ein Remote hoch -- z.B. den lokalen `master` in den Branch `master` im Remote `origin`:
+////
+
+The counterpart to `fetch` and `pull` is the command `git push`.
+This is used to upload git objects and references to a remote -- e.g. the local `master` to the branch `master` in the remote `origin`:
 
 [subs="quotes"]
 --------
@@ -1265,16 +1268,31 @@ $ *git push origin master:master*
 --------
 
 
+////
+Wie bei `git fetch` geben Sie die Referenzen zum Hochladen mit einem Refspec an.
+Dieser hat jedoch die umgekehrte Form:
+////
 
-Wie bei `git fetch` geben Sie die Referenzen zum Hochladen mit einem Refspec an. Dieser hat jedoch die umgekehrte Form:
+As with `git fetch`, you specify the references for uploading with a refspec.
+However, the refspec has the opposite form:
 
 --------
-<lokale-refs>:<remote-refs>
+<local-refs>:<remote-refs>
 --------
 
+////
 Diesmal befinden sich die lokalen Referenzen auf der linken Seite des Doppelpunktes, und die Remote-Referenzen auf der rechten.
+////
 
+This time the local references are on the left side of the colon, and the remote references on the right.
+
+
+////
 Lassen Sie den Doppelpunkt und die Remote-Referenz weg, wird der lokale Name auch auf der Remote-Seite verwendet und von Git erstellt, falls er nicht existiert:
+////
+
+If you omit the colon and the remote reference, the local name will also be used on the remote side, and will be created by Git if it doesn't exist:
+
 
 [subs="quotes"]
 --------
@@ -1284,31 +1302,54 @@ Compressing objects: 100% (33/33), done.
 Writing objects: 100% (73/73), 116.22 KiB, done.
 Total 73 (delta 42), reused 68 (delta 40)
 Unpacking objects: 100% (73/73), done.
-To pass:quotes[git@github.com]:esc/git-cheatsheet-de.git
+To git@github.com:esc/git-cheatsheet-de.git
  * [new branch]      master -&gt; master
 --------
 
-Den Vorgang hinter `git push` zeigt <<fig.push>>. Die Ausgangssituation sehen Sie auf der linken Seite (es ist das Ergebnis eines `pull`-Aufrufes). Die fehlenden Commits D und M lädt Git in das Remote `origin` hoch. Gleichzeitig wird der Remote-Branch `master` auf den Commit M vorgerückt, so dass dieser dem lokalen Branch `master` entspricht. Außerdem wird der Remote-Tracking-Branch `origin/master` vorgerückt, damit er den aktuellen Zustand im Remote widerspiegelt.
+////
+Den Vorgang hinter `git push` zeigt Abbildung 5.7, "Referenzen und Commits hochladen".
+Die Ausgangssituation sehen Sie auf der linken Seite (es ist das Ergebnis eines `pull`-Aufrufes).
+Die fehlenden Commits D und M lädt Git in das Remote `origin` hoch.
+Gleichzeitig wird der Remote-Branch `master` auf den Commit M vorgerückt, so dass dieser dem lokalen Branch `master` entspricht.
+Außerdem wird der Remote-Tracking-Branch `origin/master` vorgerückt, damit er den aktuellen Zustand im Remote widerspiegelt.
+////
 
-.Referenzen und Commits hochladen
+<<fig.push>> shows the process behind `git push`.
+The initial situation is shown on the left (it is the result of a `pull` call).
+Git uploads the missing commits D and M to the remote `origin`.
+At the same time, the remote branch master is advanced to the commit M, so that it matches the local branch `master`.
+In addition, the remote tracking branch `origin/master` is advanced so that it reflects the current status in the remote.
+
+
+// .Referenzen und Commits hochladen
+.Upload references and commits
 image::push.png[id="fig.push",scaledwidth="100%",width="100%"]
 
+
+////
 Analog zu `fetch` weigert sich Git, Referenzen zu aktualisieren, bei denen der Ziel-Commit kein Nachfahre des aktuellen Commits ist:
+////
+
+Like `fetch`, Git refuses to update references where the target commit is not a descendant of the current commit:
+
 
 [subs="quotes"]
 --------
 $ *git push origin master*
 ...
  ! [rejected]        master -&gt; master (non-fast-forward)
-error: failed to push some refs to \_pass:quotes[git@github.com]:esc/git-cheatsheet-de.git_
+error: failed to push some refs to 'git@github.com:esc/git-cheatsheet-de.git'
 To prevent you from losing history, non-fast-forward updates were
 rejected
-Merge the remote changes before pushing again.  See the \'Note about
-fast-forwards_ section of \_git push --help' for details.
+Merge the remote changes before pushing again.  See the 'Note about
+fast-forwards' section of 'git push --help' for details.
 --------
 
-Dieses Verhalten setzen Sie entweder durch ein vorangestelltes Plus (`+`) im Refspec oder durch die Option `--force` bzw. kurz `-f` außer Kraft:{fn72}
+////
+Dieses Verhalten setzen Sie entweder durch ein vorangestelltes Plus (`+`) im Refspec oder durch die Option `--force` bzw. kurz `-f` außer Kraft:[72]
+////
 
+You can override this behavior either by prefixing it with a plus (`+`) in the refspec or by using the `--force` or short `-f` option:{fn72}
 
 [subs="quotes"]
 --------
@@ -1317,36 +1358,78 @@ $ *git push origin +master*
 --------
 
 
-Vorsicht! Es können Commits auf der Remote-Seite verloren gehen -- zum Beispiel wenn sie per `git reset --hard` einen Branch verschoben haben und Commits nicht mehr referenziert werden.
+////
+Vorsicht!
+Es können Commits auf der Remote-Seite verloren gehen -- zum Beispiel wenn sie per `git reset --hard` einen Branch verschoben haben und Commits nicht mehr referenziert werden.
+////
 
-Sie erhalten die Fehlermeldung auch, wenn Sie Commits, die bereits per `git push` veröffentlicht wurden, nachträglich mit `git rebase` oder `git commit --amend` modifiziert haben. Daher hier noch einmal die ausdrückliche Warnung: Vermeiden Sie es, Commits, die Sie bereits veröffentlicht haben, nachträglich zu verändern! Durch die veränderten SHA-1-Summen kommt es zu Doppelungen, wenn Andere die ursprünglichen Commits bereits heruntergeladen haben.
+Look out!
+Commits may be lost on the remote side -- for example, if you have moved a branch using `git reset --hard` and commits are no longer referenced.
+
+
+////
+Sie erhalten die Fehlermeldung auch, wenn Sie Commits, die bereits per `git push` veröffentlicht wurden, nachträglich mit `git rebase` oder `git commit --amend` modifiziert haben.
+Daher hier noch einmal die ausdrückliche Warnung: Vermeiden Sie es, Commits, die Sie bereits veröffentlicht haben, nachträglich zu verändern!
+Durch die veränderten SHA-1-Summen kommt es zu Doppelungen, wenn Andere die ursprünglichen Commits bereits heruntergeladen haben.
+////
+
+You'll also get the error message if you have modified commits that have already been published via `git push` using `git rebase` or `git commit --amend`.
+So here's the explicit warning again: avoid modifying commits that you have already published!
+The modified SHA-1 sums will cause duplication if others have already downloaded the original commits.
+
 
 
 
 [[sec.push-delete]]
-=== Remote-Referenzen löschen
+=== Deleting Remote References
+//  Remote-Referenzen löschen
 
-Es gibt zwei Möglichkeiten, um Referenzen im Remote wieder zu löschen: Die ältere (vor Git Version 1.7.0) ist, beim Refspec die lokale Referenz wegzulassen -- diese Anweisung bedeutet, Sie möchten "`nichts`" hochladen. Sie ersetzen also eine existierende durch die leere Referenz.
+////
+Es gibt zwei Möglichkeiten, um Referenzen im Remote wieder zu löschen: Die ältere (vor Git Version 1.7.0) ist, beim Refspec die lokale Referenz wegzulassen -- diese Anweisung bedeutet, Sie möchten "`nichts`" hochladen.
+Sie ersetzen also eine existierende durch die leere Referenz.
+////
+
+There are two ways to delete references in the remote: The older one (before Git version 1.7.0) is to omit the local reference in the refspec -- this statement means you want to upload "`nothing`".
+So you replace an existing reference with the empty one.
+
 
 [subs="quotes"]
 --------
 $ *git push origin :bugfix*
 --------
 
+
+////
 In neueren Git-Versionen wird aber in der Regel das Kommando `git push` mit der Option `--delete` verwendet, was syntaktisch viel deutlicher ist:
+////
+
+However, newer git versions usually use the `git push` command with the `--delete` option, which is syntactically much clearer:
+
 
 [subs="quotes"]
 --------
 $ *git push origin --delete bugfix*
 --------
 
-Beachten Sie, dass in anderen Klonen der ggf. vorhandene Remote-Tracking-Branch `origin/bugfix` dadurch _nicht_ automatisch verschwindet! Siehe dafür den Abschnitt über _Pruning_ weiter oben (<<sec.git_fetch>>).
+
+////
+Beachten Sie, dass in anderen Klonen der ggf. vorhandene Remote-Tracking-Branch `origin/bugfix` dadurch _nicht_ automatisch verschwindet!
+Siehe dafür den Abschnitt über _Pruning_ weiter oben (Abschnitt 5.3, "Commits herunterladen").
+////
+
+Note that in other clones, the remote tracking branch `origin/bugfix`, if present, does _not_ automatically disappear!
+See the section on _pruning_ above (<<sec.git_fetch>>).
 
 
+
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.push-default]]
-=== Push ohne Argumente: push.default
+=== Pushing without Arguments: push.default
+//  Push ohne Argumente: push.default
 
 Im Alltag führen Sie `git push` oft ohne Angabe von Remote und Refspec aus. In dem Fall entscheidet Git anhand der Konfigurationseinträge (Upstream-Branch und `push.default`), welche Referenzen wohin geschickt werden.
 
