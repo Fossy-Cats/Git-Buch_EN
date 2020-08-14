@@ -2376,7 +2376,6 @@ Then use the `git format-patch` command with the `--reroll-count=<n>` option (or
 ================================
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 // @NOTE: "Sending Patches" or "Submitting Patches"??
@@ -2384,49 +2383,103 @@ Then use the `git format-patch` command with the `--reroll-count=<n>` option (or
 === Sending Patches
 //  Patches versenden
 
-Versenden Sie die generierten Dateien mit `git send-email` (oder einem E-Mail-Client Ihrer Wahl).  Das Kommando erwartet als einziges zwingendes Argument entweder eine oder mehrere Patch-Dateien, ein Verzeichnis voller Patches oder aber eine Auswahl von Commits (in dem Fall ruft Git zusätzlich intern `git format-patch` auf):
+////
+Versenden Sie die generierten Dateien mit `git send-email` (oder einem E-Mail-Client Ihrer Wahl).
+Das Kommando erwartet als einziges zwingendes Argument entweder eine oder mehrere Patch-Dateien, ein Verzeichnis voller Patches oder aber eine Auswahl von Commits (in dem Fall ruft Git zusätzlich intern `git format-patch` auf):
+////
 
-[subs="quotes"]
+Send the generated files with `git send-email` (or an email client of your choice).
+The command expects as its only mandatory argument either one or more patch files, a directory full of patches, or a selection of commits (in which case Git also calls `git format-patch` internally):
+
+
+[subs="quotes,attributes"]
 --------
-$ *git send-email 000&#42;*
+$ *git send-email 000{asterisk}*
 0000-cover-letter.patch
 0001-git-svn.txt-fix-usage-of-add-author-from.patch
 0002-git-svn.txt-move-option-descriptions.patch
 0003-git-svn.txt-small-typeface-improvements.patch
 Who should the emails appear to be from? [Valentin Haenel
-&lt;pass:quotes[valentin.haenel@gmx.de]&gt;]
+&lt;valentin.haenel@gmx.de&gt;]
 
 $ *git send-email master*
 /tmp/HMSotqIfnB/0001-git-svn.txt-fix-usage-of-add-author-from.patch
 /tmp/HMSotqIfnB/0002-git-svn.txt-move-option-descriptions.patch
 /tmp/HMSotqIfnB/0003-git-svn.txt-small-typeface-improvements.patch
 Who should the emails appear to be from? [Valentin Haenel
-&lt;pass:quotes[valentin.haenel@gmx.de]&gt;]
+&lt;valentin.haenel@gmx.de&gt;]
 --------
 
-Das Kommando `git send-email` setzt die Felder `Message-Id` sowie `In-Reply-To`. Damit sehen alle E-Mails nach der ersten wie Antworten auf diese aus und werden dadurch von den meisten Mail-Programmen als zusammenhängender _Thread_ angezeigt:{fn79}
+////
+Das Kommando `git send-email` setzt die Felder `Message-Id` sowie `In-Reply-To`.
+Damit sehen alle E-Mails nach der ersten wie Antworten auf diese aus und werden dadurch von den meisten Mail-Programmen als zusammenhängender _Thread_ angezeigt:[79]
+////
+
+The command `git send-email` sets the fields `Message-Id` and `In-Reply-To`.
+This makes all e-mails after the first one look like replies to them and thus most mail programs will display them as a continuous _thread_:{fn79}
 
 
-.Patch-Serie als Mail-Thread
+// .Patch-Serie als Mail-Thread
+.Patch series as mail thread
 image::mail-thread.png[id="fig.mail-thread",scaledwidth="100%",width="100%"]
 
-Das Kommando können Sie über Optionen -- beispielsweise `--to`, `--from` und `--cc` -- anpassen (siehe die Man-Page `git-send-email(1)`).  Die unbedingt benötigten Angaben werden aber, sofern nicht angegeben, interaktiv abgefragt -- vor allem wird eine Adresse benötigt, an die die Patches geschickt werden sollen.{fn80}
 
-Bevor die E-Mails tatsächlich versendet werden, wird Ihnen der Header nochmals angezeigt; Sie sollten überprüfen, ob alles Ihren Wünschen entspricht, und anschließend die Frage `Send this email?  ([y]es|[n]o|[q]uit|[a]ll):` mit `y` für "`yes`" beantworten. Um sich mit dem Kommando vertraut zu machen, kann man zunächst alle E-Mails nur an sich selbst schicken oder die Option `--dry-run` verwenden.
+////
+Das Kommando können Sie über Optionen -- beispielsweise `--to`, `--from` und `--cc` -- anpassen (siehe die Man-Page `git-send-email(1)`).
+Die unbedingt benötigten Angaben werden aber, sofern nicht angegeben, interaktiv abgefragt -- vor allem wird eine Adresse benötigt, an die die Patches geschickt werden sollen.[80]
+////
+
+You can customize the command with options such as `--to`, `--from` and` --cc` (see the `git-send-email(1)` man page).
+However, if not specified, the essential information is queried interactively -- most important is an address to which the patches should be sent.{fn80}
+
+
+////
+Bevor die E-Mails tatsächlich versendet werden, wird Ihnen der Header nochmals angezeigt; Sie sollten überprüfen, ob alles Ihren Wünschen entspricht, und anschließend die Frage `Send this email?  ([y]es|[n]o|[q]uit|[a]ll):` mit `y` für "`yes`" beantworten.
+Um sich mit dem Kommando vertraut zu machen, kann man zunächst alle E-Mails nur an sich selbst schicken oder die Option `--dry-run` verwenden.
+////
+
+Before the emails are actually sent, you will see the header again; you should check if everything is as you want it, and then answer  the question` Send this email? ([y]es|[n]o|[q]uit|[a]ll):` answer with `y` for "`yes`".
+To get familiar with the command, you can first send all emails only to yourself or use the `--dry-run` option.
 
 
 [TIP]
 ========
-Alternativ zu `git send-email` können Sie den Inhalt der Dateien in einen der vielen online _Pastebin_-Dienste, zum Beispiel _dpaste_{fn81} oder _gist.github_{fn82} einwerfen und den Verweis darauf per IRC oder Jabber verschicken. Zum Einpflegen lädt sich der Empfänger den Inhalt in eine Datei herunter und übergibt diese an `git am` (s.u.).
+////
+Alternativ zu `git send-email` können Sie den Inhalt der Dateien in einen der vielen online _Pastebin_-Dienste, zum Beispiel _dpaste_[81] oder _gist.github_[82] einwerfen und den Verweis darauf per IRC oder Jabber verschicken.
+Zum Einpflegen lädt sich der Empfänger den Inhalt in eine Datei herunter und übergibt diese an `git am` (s.u.).
+////
+
+As an alternative to `git send-email`, you can post the contents of the files to one of the many online _pastebin_ services, for example _dpaste_{fn81} or _gist.github_{fn82}, and send the reference to it via IRC or Jabber.
+For pastebin, the recipient downloads the content into a file and submits it via `git am` (see below).
 ========
 
-Wenn Sie Ihren bevorzugten _Mail User Agent_ (MUA) (z.B. Thunderbird, Kmail o.a.) verwenden wollen, um Patches zu verschicken, gibt es eventuell einiges zu beachten. Manche MUAs sind berüchtigt, Patches so zu verstümmeln, dass sie Git nicht mehr als solche erkennt.{fn83}
+////
+Wenn Sie Ihren bevorzugten _Mail User Agent_ (MUA) (z.B. Thunderbird, Kmail o.a.) verwenden wollen, um Patches zu verschicken, gibt es eventuell einiges zu beachten.
+Manche MUAs sind berüchtigt, Patches so zu verstümmeln, dass sie Git nicht mehr als solche erkennt.[83]
+////
 
+If you want to use your preferred _Mail User Agent_ (MUA) (e.g. Thunderbird, Kmail or others) to send patches, there may be a few things to consider.
+Some MUAs are notorious for mutilating patches so that Git won't recognize them as such.{fn83}
+
+
+
+// @TRANSLATE SECTION ID
 
 [[sec.patches-einpflegen]]
-=== Patches einpflegen
+=== Applying Patches
+//  Patches einpflegen
 
-Mit `git format-patch` exportierte Patch-E-Mails werden von dem Git-Kommando `git am` (_apply from mailbox_) wieder in Commits zurückübersetzt. Aus jeder E-Mail wird ein neuer Commit erzeugt, dessen Meta-Informationen (Autor, Commit-Message usw.) aus den Header-Zeilen der E-Mail (`From`, `Date`) generiert werden. Wie schon erwähnt, erkennt Git an der Nummer im Subject, in welcher Reihenfolge die Commits einzupflegen sind.  Um das Beispiel von vorhin zu vollenden: Befinden sich die E-Mails im Maildir-Verzeichnis `patches`, dann reicht:
+////
+Mit `git format-patch` exportierte Patch-E-Mails werden von dem Git-Kommando `git am` (_apply from mailbox_) wieder in Commits zurückübersetzt.
+Aus jeder E-Mail wird ein neuer Commit erzeugt, dessen Meta-Informationen (Autor, Commit-Message usw.) aus den Header-Zeilen der E-Mail (`From`, `Date`) generiert werden.
+Wie schon erwähnt, erkennt Git an der Nummer im Subject, in welcher Reihenfolge die Commits einzupflegen sind.
+Um das Beispiel von vorhin zu vollenden: Befinden sich die E-Mails im Maildir-Verzeichnis `patches`, dann reicht:
+////
+
+Patch emails exported with `git format-patch` are translated back into commits by the git command `git am` (_apply from mailbox_).
+A new commit is created from each email, and its meta-information (author, commit message, etc.) is generated from the email header lines (`From`, `Date`).
+As mentioned earlier, Git uses the number in the subject to determine the order in which the commits should be entered.
+To complete the example from earlier: If the emails are in the Maildir directory `patches`, then that's enough:
 
 [subs="quotes"]
 --------
@@ -2439,7 +2492,11 @@ Applying: git-svn.txt: small typeface improvements
 
 [TIP]
 ========
+////
 Das Kommando versteht neben den Formaten _Maildir_ und _mbox_ auch Dateien, die die Ausgabe von `git format-patch` enthalten:
+////
+
+The command understands _Maildir_ and _mbox_ formats as well as files that contain the output of `git format-patch`:
 
 [subs="quotes"]
 --------
@@ -2449,15 +2506,26 @@ Applying: git-svn.txt: fix usage of --add-author-from
 --------
 ========
 
-Wenn Sie Patches von Anderen mit `git am` einpflegen, unterscheiden sich die Werte von _Author_/_AuthorDate_ und _Committer_/_CommitDate_. Somit werden sowohl der Autor des Commits als auch der, der ihn einspielt, gewürdigt. Insbesondere bleiben die Attribuierungen erhalten; es bleibt nachvollziehbar, wer welche Codezeilen geschrieben hat. Mit Gitk werden die Author- und Committer-Werte standardmäßig angezeigt; auf der Kommandozeile setzen Sie die Option `--format=fuller` ein, die unter anderem von `git log` und `git show` akzeptiert wird:
+////
+Wenn Sie Patches von Anderen mit `git am` einpflegen, unterscheiden sich die Werte von _Author_/_AuthorDate_ und _Committer_/_CommitDate_.
+Somit werden sowohl der Autor des Commits als auch der, der ihn einspielt, gewürdigt.
+Insbesondere bleiben die Attribuierungen erhalten; es bleibt nachvollziehbar, wer welche Codezeilen geschrieben hat.
+Mit Gitk werden die Author- und Committer-Werte standardmäßig angezeigt; auf der Kommandozeile setzen Sie die Option `--format=fuller` ein, die unter anderem von `git log` und `git show` akzeptiert wird:
+////
+
+When you apply patches from others using `git am`, the values of _Author_/_AuthorDate_ and _Committer_/_CommitDate_ are different.
+This means that both the author of the commit and the person who commits it are honored.
+In particular, the attributes are retained; it remains traceable who wrote which lines of code.
+With Gitk, the author and committer values are displayed by default; on the command line, set the `--format=fuller` option, which is accepted by `git log` and `git show`, among others:
+
 
 [subs="quotes"]
 --------
 $ *git show --format=fuller  12d3065*
 commit 12d30657d411979af3ab9ca7139b5290340e4abb
-Author:     Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
+Author:     Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 AuthorDate: Mon Apr 25 23:36:15 2011 +0200
-Commit:     Junio C Hamano &lt;pass:quotes[gitster@pobox.com]&gt;
+Commit:     Junio C Hamano &lt;gitster@pobox.com&gt;
 CommitDate: Tue Apr 26 11:48:34 2011 -0700
 
     git-svn.txt: fix usage of --add-author-from
@@ -2465,29 +2533,73 @@ CommitDate: Tue Apr 26 11:48:34 2011 -0700
 
 
 
-Bei dem Workflow _Dictator and Lieutenants_ (<<sec.dictator>>) kommt es vor, dass mehr als nur zwei Personen in einen Commit involviert sind. In dem Fall ist es sinnvoll, dass jeder, der den Patch begutachtet, ihn auch "`absegnet`", allen voran der Autor. Zu diesem Zweck gibt es die Option `--signoff` (kurz `-s`) für die Kommandos `git commit` und `git am`, die Name und E-Mail des Committers der Commit-Message anhängt:
+////
+Bei dem Workflow _Dictator and Lieutenants_ (Abschnitt 5.10, "Ein verteilter, hierarchischer Workflow") kommt es vor, dass mehr als nur zwei Personen in einen Commit involviert sind.
+In dem Fall ist es sinnvoll, dass jeder, der den Patch begutachtet, ihn auch "`absegnet`", allen voran der Autor.
+Zu diesem Zweck gibt es die Option `--signoff` (kurz `-s`) für die Kommandos `git commit` und `git am`, die Name und E-Mail des Committers der Commit-Message anhängt:
+////
+
+With the _Dictator and Lieutenants_ Workflow (<<sec.dictator>>), it can happen that more than two people are involved in a commit.
+In this case, it makes sense that everyone who reviews the patch also "`approves`" it, especially the author.
+For this purpose, there is a `--signoff` option (`-s` for short) for the `git commit` and `git am` commands, which appends the committer's name and email to the commit message:
+
 
 --------
 Signed-off-by: Valentin Haenel <valentin.haenel@gmx.de>
 --------
 
-Das Feature ist vor allem bei größeren Projekten von Vorteil, meist haben diese auch Richtlinien, wie Commits zu formatieren sind und wie sie am besten verschickt werden.{fn84}
+////
+Das Feature ist vor allem bei größeren Projekten von Vorteil, meist haben diese auch Richtlinien, wie Commits zu formatieren sind und wie sie am besten verschickt werden.[84]
+////
 
-Beim Einpflegen von Patches mit `git am` kann es zu Konflikten kommen, z.B. wenn die Patches auf einer älteren Version beruhen und die betreffenden Zeilen bereits verändert wurden. In dem Fall wird der Prozess unterbrochen und Sie haben dann mehrere Möglichkeiten, wie Sie weiter vorgehen. Entweder Sie lösen den Konflikt, aktualisieren den Index und führen den Prozess mit `git am --continue` fort, oder Sie überspringen den Patch mit `git am --skip`.  Mit `git am --abort` brechen Sie den Prozess ab und stellen den ursprünglichen Zustand des aktuellen Branches wieder her.
+This feature is especially useful for larger projects, which usually have guidelines on how to format commits and how best to send them.{fn84}
 
-Da die Patches meist Veränderungen von Anderen enthalten, kann es mitunter schwierig sein, die richtige Lösung für einen Konflikt zu finden.  Die beste Strategie für Patches, die sich nicht anwenden lassen, ist es, den Autor der Patches zu bitten, diese per Rebase auf eine wohldefinierte Basis, bspw. den aktuellen `master`, aufzubauen und erneut zu schicken.
 
+////
+Beim Einpflegen von Patches mit `git am` kann es zu Konflikten kommen, z.B. wenn die Patches auf einer älteren Version beruhen und die betreffenden Zeilen bereits verändert wurden.
+In dem Fall wird der Prozess unterbrochen und Sie haben dann mehrere Möglichkeiten, wie Sie weiter vorgehen.
+Entweder Sie lösen den Konflikt, aktualisieren den Index und führen den Prozess mit `git am --continue` fort, oder Sie überspringen den Patch mit `git am --skip`.
+Mit `git am --abort` brechen Sie den Prozess ab und stellen den ursprünglichen Zustand des aktuellen Branches wieder her.
+////
+
+Conflicts can occur when patches are entered with `git am`, e.g. if the patches are based on an older version and the lines concerned have already been changed.
+In this case, the process is interrupted and you then have several options for how to proceed.
+Either resolve the conflict, update the index and continue the process with `git am --continue`, or skip the patch with `git am --skip`.
+Use `git am --abort` to abort the process and restore the current status of the branch.
+
+
+////
+Da die Patches meist Veränderungen von Anderen enthalten, kann es mitunter schwierig sein, die richtige Lösung für einen Konflikt zu finden.
+Die beste Strategie für Patches, die sich nicht anwenden lassen, ist es, den Autor der Patches zu bitten, diese per Rebase auf eine wohldefinierte Basis, bspw. den aktuellen `master`, aufzubauen und erneut zu schicken.
+////
+
+Because patches usually contain changes made by others, it can sometimes be difficult to find the right solution to a conflict.
+The best strategy for patches that cannot be applied is to ask the author of the patches to rebase them to a well-defined base, such as the current `master`, and send them again.
 
 
 [TIP]
 ========
-Eine Alternative zu `git am` ist das etwas rudimentäre Kommando `git apply`. Es dient dazu, einen Patch auf den Working Tree oder Index (mit der Option `--index`) anzuwenden. Es ähnelt so dem klassischen Unix-Kommando `patch`. Es ist vor allem dann nützlich, wenn Sie den Patch bzw. die Metadaten vor dem Commit noch bearbeiten wollen oder auch wenn Ihnen jemand die Ausgabe von `git diff` statt `git format-patch` als Patch geschickt hat.
+////
+Eine Alternative zu `git am` ist das etwas rudimentäre Kommando `git apply`.
+Es dient dazu, einen Patch auf den Working Tree oder Index (mit der Option `--index`) anzuwenden.
+Es ähnelt so dem klassischen Unix-Kommando `patch`.
+Es ist vor allem dann nützlich, wenn Sie den Patch bzw. die Metadaten vor dem Commit noch bearbeiten wollen oder auch wenn Ihnen jemand die Ausgabe von `git diff` statt `git format-patch` als Patch geschickt hat.
+////
+
+An alternative to `git am` is the somewhat rudimentary command `git apply`.
+It is used to apply a patch to the working tree or index (with the `--index` option).
+It is similar to the classic Unix command `patch`.
+It is especially useful if you want to edit the patch or metadata before committing, or if someone has sent you the output of `git diff` instead of `git format-patch` as a patch.
 ========
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 
 [[sec.dictator]]
-== Ein verteilter, hierarchischer Workflow
+== A Distributed, Hierarchical Workflow
+// Ein verteilter, hierarchischer Workflow
 
 Der Integration-Manager-Workflow skaliert nicht mit der Größe des Projekts.  Bei großem Wachstum ist irgendwann der Maintainer mit der Komplexität des Projekts und der Anzahl der eingehenden Patches überfordert.  Der sog. _Dictator and Lieutenants_-Workflow, der ausgiebig bei der Entwicklung des Linux-Kerns angewandt wird, schafft hier Abhilfe. In diesem Fall ist die Software meist in verschiedene Subsysteme unterteilt, und Beiträge werden von den _Lieutenants_ (auch _Subsystem-Maintainer_) untersucht und dann an den _Benevolent Dictator_ ("`Gütiger Diktator`") weitergeleitet. Dieser lädt die Veränderungen schließlich in das _blessed_ ("`gesegnete`") Repository hoch, mit dem sich wiederum alle Mitstreiter synchronisieren.
 
