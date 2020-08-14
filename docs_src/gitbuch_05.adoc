@@ -255,7 +255,9 @@ For example, you can add more remote repositories using `git remote add`, adapt 
 
 
 
+////
 Der Name `origin` ist nur eine Konvention; mit `git remote rename` passen Sie den Namen des Ursprungsrepositorys Ihren Wünschen entsprechend an, z.B. von `origin` zu `github`:
+////
 
 The name `origin` is just a convention; with `git remote rename` you can change the name of the source repository to suit your needs, for example, from `origin` to `github`:
 
@@ -330,7 +332,7 @@ It is also possible to clone repositories locally using the following syntax:
 
 
 * `/pfad/zum/repo.git/`
-* `file:///pfad/zum/repo.git/`
+* `+file:///pfad/zum/repo.git/+`
 
 
 ////
@@ -589,7 +591,7 @@ Durch einen Aufruf von `git fetch origin` aktualisiert Git den Remote-Tracking-B
 Dazu lädt Git den fehlenden Commit C herunter und setzt anschließend den Remote-Tracking-Branch darauf.
 ////
 
-See <<fig.fetch> for the effect this has on the commit graph: On the left side is the initial state of the remote origin and next to it that of the clone.
+See <<fig.fetch>> for the effect this has on the commit graph: On the left side is the initial state of the remote origin and next to it that of the clone.
 Both the remote and the clone have new commits since the last synchronization (C and D).
 The remote tracking branch `origin/master` in the clone points to commit B; this is the last state of the remote known to the clone.
 By calling `git fetch origin`, Git updates the remote tracking branch in the clone to reflect the current status of the `master` (pointing to commit C) in the remote.
@@ -1786,11 +1788,13 @@ Maintainers who integrate new code are often referred to as _Integration Manager
 Such maintainers often have several remotes configured, one for each contributor.
 
 
+////
 Einer der großen Vorteile dieses Workflows ist, dass außer den Maintainern auch interessierte User Zugriff auf die öffentlichen Entwickler-Repositories haben, etwa Kollegen oder Freunde des Entwicklers.
 Diese müssen nicht warten, bis der Code seinen Weg in das offizielle Repository gefunden hat, sondern können direkt nach der Bereitstellung die Verbesserungen ausprobieren.
 Insbesondere die Hosting-Plattform Github setzt sehr stark auf diesen Workflow.
 Die dort eingesetzte Weboberfläche bietet eine Vielzahl von Features, um diesen Workflow zu unterstützen, z.B. eine Visualisierung, die alle verfügbaren Klons eines Projekts und die darin enthaltenen Commits anzeigt, sowie die Möglichkeit, Merges direkt im Webinterface durchzuführen.
 Eine ausführliche Beschreibung dieses Dienstes finden Sie in Kapitel 11, Github.
+////
 
 One of the great advantages of this workflow is that, in addition to the maintainers, interested users, such as colleagues or friends of the developer, also have access to the public developer repositories.
 They don't have to wait until the code has found its way into the official repository, but can try out the improvements immediately after deployment.
@@ -2942,9 +2946,11 @@ $ *git submodule update*
 Submodule path 'libgit2': checked out '7064938bd5e7ef47bfd79a685a62c1e2649e2ce7'
 --------
 
+////
 Wir sehen also, dass `libgit2` automatisch auf den in unserem Repository festgelegten Stand von `v0.10.0` gesetzt wird.
 Prinzipiell kann nun aber der Nutzer auch in das Verzeichnis wechseln, den Branch `development` auschecken und das Projekt gegen diese Version kompilieren.
 Submodules erhalten die Flexibilität des Unter-Repositorys -- der Eintrag, auf welchem Stand das Modul steht, ist also nur eine "`Empfehlung`".
+////
 
 So we see that `libgit2` is automatically set to the `v0.10.0` version  defined in our repository.
 But in principle the user can now also change to the directory, check out the branch `development` and compile the project against this version.
@@ -2952,17 +2958,39 @@ Submodules get the flexibility of the sub-repository -- so the entry on which st
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.subtrees]]
 === Subtrees
 
-Im Gegensatz zu Submodules, die ihren Charakter als eigenständiges Git-Repository wahren, verschmelzen Sie die Geschichte zweier Projekte direkt, wenn Sie mit Subtrees arbeiten. Eine Gegenüberstellung beider Ansätze folgt im Anschluss.
+////
+Im Gegensatz zu Submodules, die ihren Charakter als eigenständiges Git-Repository wahren, verschmelzen Sie die Geschichte zweier Projekte direkt, wenn Sie mit Subtrees arbeiten.
+Eine Gegenüberstellung beider Ansätze folgt im Anschluss.
+////
 
-Im Wesentlichen basiert diese Technik auf sogenannten Subtree-Merges, auf die schon kurz in <<sec.merge-strategies>> über Merge-Strategien eingegangen wurde. In unserem Beispiel erfolgt ein Subtree-Merge, indem reguläre Commits aus dem Repository der `libgit2` unterhalb des _Trees_ (Verzeichnisses) `libgit2/` gemergt werden -- eine Datei auf oberster Ebene in dem Repository der Bibliothek wird also zu einer Datei auf oberster Ebene des Trees `libgit2/`, der wiederum Teil eines Repositorys ist.
+Unlike submodules, which maintain their character as a standalone Git repository, when you work with Subtrees, you directly merge the history of two projects.
+A comparison of the two approaches follows.
 
-Git verfügt über ein Kommando, um Subtree-Merges zu verwalten.{fn86} Dabei müssen Sie immer explizit durch `-P <prefix>` angeben, auf welches Unterverzeichnis Sie sich beziehen. Um die `libgit2` in Version 0.8.0 zu importieren, verwenden Sie:
+
+////
+Im Wesentlichen basiert diese Technik auf sogenannten Subtree-Merges, auf die schon kurz in Abschnitt 3.3.3, "Merge-Strategien" über Merge-Strategien eingegangen wurde.
+In unserem Beispiel erfolgt ein Subtree-Merge, indem reguläre Commits aus dem Repository der `libgit2` unterhalb des _Trees_ (Verzeichnisses) `libgit2/` gemergt werden -- eine Datei auf oberster Ebene in dem Repository der Bibliothek wird also zu einer Datei auf oberster Ebene des Trees `libgit2/`, der wiederum Teil eines Repositorys ist.
+////
+
+Essentially, this technique is based on so-called subtree-merges, which were briefly discussed in <<sec.merge-strategies>> about merge strategies.
+In our example, a subtree-merge is done by merging regular commits from the `libgit2` repository under the `libgit2/` _tree_ (directory) -- a top-level file in the library repository thus becomes a top-level file in the `libgit2/` tree, which in turn is part of the repository.
+
+
+////
+Git verfügt über ein Kommando, um Subtree-Merges zu verwalten.[86]
+Dabei müssen Sie immer explizit durch `-P <prefix>` angeben, auf welches Unterverzeichnis Sie sich beziehen.
+Um die `libgit2` in Version 0.8.0 zu importieren, verwenden Sie:
+////
+
+Git has a command to manage subtree-merges.{fn86}
+You must always explicitly specify which subdirectory you are referring to by using `-P <prefix>`.
+To import the `libgit2` in version 0.8.0, use:
+
+
 
 [subs="quotes"]
 --------
@@ -2971,16 +2999,44 @@ $ *git subtree add -P libgit2 \*
 git fetch git://github.com/libgit2/libgit2.git v0.8.0
 From git://github.com/libgit2/libgit2
  * tag               v0.8.0     -&gt; FETCH_HEAD
-Added dir \_libgit2_
+Added dir 'libgit2'
 --------
 
-Das Kommando lädt automatisch alle benötigten Commits herunter und erzeugt einen Merge-Commit, der alle Dateien der `libgit2` unterhalb des Verzeichnisses `libgit2/` erstellt. Der Merge-Commit verknüpft nun die bisherige Versionsgeschichte mit der der `libgit2` (dadurch, dass ein Original-Commit referenziert wird und der wiederum andere Commits referenziert).
+////
+Das Kommando lädt automatisch alle benötigten Commits herunter und erzeugt einen Merge-Commit, der alle Dateien der `libgit2` unterhalb des Verzeichnisses `libgit2/` erstellt.
+Der Merge-Commit verknüpft nun die bisherige Versionsgeschichte mit der der `libgit2` (dadurch, dass ein Original-Commit referenziert wird und der wiederum andere Commits referenziert).
+////
 
-Dieses Vorgehen hat nun zur Folge, dass in Ihrem Repository von nun an _alle_ relevanten Commits der `libgit2` vorhanden sind. Ihr Repository hat also nun zwei Root-Commits (siehe auch Multi-Root-Repositories in <<sec.multi-root>>).
+The command automatically downloads all required commits and creates a merge commit that creates all the files of `libgit2` under the directory `libgit2/`.
+The merge commit now links the previous version history to that of `libgit2` (by referencing an original commit and then referencing other commits).
 
-Die Dateien liegen nun untrennbar mit dem Projekt verbunden vor. Ein `git clone` dieses Repositorys würde auch alle Dateien unterhalb von `libgit2` übertragen.{fn87}
 
-Was passiert nun, wenn Sie ein "`Upgrade`" auf `v0.10.0` machen wollen? Verwenden Sie dafür das `pull`-Kommando von `git subtree`:
+////
+Dieses Vorgehen hat nun zur Folge, dass in Ihrem Repository von nun an _alle_ relevanten Commits der `libgit2` vorhanden sind.
+Ihr Repository hat also nun zwei Root-Commits (siehe auch Multi-Root-Repositories in Abschnitt 4.7, "Mehrere Root-Commits").
+////
+
+The result of this procedure is that your repository now contains all relevant commits from `libgit2`.
+Your repository now has two root commits (see also multi-root repositories in <<sec.multi-root>>).
+
+
+////
+Die Dateien liegen nun untrennbar mit dem Projekt verbunden vor.
+Ein `git clone` dieses Repositorys würde auch alle Dateien unterhalb von `libgit2` übertragen.[87]
+////
+
+The files are now stored inseparably linked to the project.
+A `git clone` of this repository would also transfer all files under libgit2.{fn87}
+
+
+////
+Was passiert nun, wenn Sie ein "`Upgrade`" auf `v0.10.0` machen wollen?
+Verwenden Sie dafür das `pull`-Kommando von `git subtree`:
+////
+
+Now what happens when you want to "`upgrade`" to `v0.10.0`?
+Use the `pull` command from `git subtree` for this:
+
 
 [subs="quotes"]
 --------
@@ -2988,47 +3044,114 @@ $ *git subtree -P libgit2 \*
   *pull git://github.com/libgit2/libgit2.git v0.10.0*
 From git://github.com/libgit2/libgit2
  * tag               v0.10.0    -&gt; FETCH_HEAD
-Merge made by the \_recursive_ strategy.
+Merge made by the 'recursive' strategy.
 ...
 --------
 
-Beachten Sie: Da die Original-Commits der `libgit2` vorliegen, ändern diese Commits auch scheinbar Dateien auf oberster Ebene (z.B.{nbsp}`COPYING`, wenn Sie per `git log --name-status` die Versionsgeschichte untersuchen). Tatsächlich werden diese Änderungen aber in `libgit2` ausgeführt -- dafür ist der jeweilige Merge-Commit verantwortlich, der die Trees entsprechend ausrichtet.
+
+////
+Beachten Sie: Da die Original-Commits der `libgit2` vorliegen, ändern diese Commits auch scheinbar Dateien auf oberster Ebene (z.B. `COPYING`, wenn Sie per `git log --name-status` die Versionsgeschichte untersuchen). Tatsächlich werden diese Änderungen aber in `libgit2` ausgeführt -- dafür ist der jeweilige Merge-Commit verantwortlich, der die Trees entsprechend ausrichtet.
+////
+
+Note: Since the original `libgit2` commits are present, these commits also seem to change top-level files (e.g., `COPYING` when you use `git log --name-status` to examine the version history).
+In fact, these changes are actually made in `libgit2`, which is the responsibility of the merge commit, which aligns the trees accordingly.
+
 
 [TIP]
 ===============================
-Wenn Sie nicht an der Versionsgeschichte eines Unterprojektes interessiert sind, aber einen bestimmten Stand im Repository verankern wollen, können Sie die Option `--squash` verwenden. Die Kommandos `git subtree add/pull` mergen dann nicht die entsprechenden Commits, sondern erzeugen nur _einen_ Commit, der alle Änderungen enthält. Achtung: Verwenden Sie diese Option nicht, wenn Sie das Projekt nicht auch per `--squash` importiert haben; dies führt zu Merge-Konflikten.
+////
+Wenn Sie nicht an der Versionsgeschichte eines Unterprojektes interessiert sind, aber einen bestimmten Stand im Repository verankern wollen, können Sie die Option `--squash` verwenden.
+Die Kommandos `git subtree add/pull` mergen dann nicht die entsprechenden Commits, sondern erzeugen nur _einen_ Commit, der alle Änderungen enthält.
+Achtung: Verwenden Sie diese Option nicht, wenn Sie das Projekt nicht auch per `--squash` importiert haben; dies führt zu Merge-Konflikten.
+////
+
+If you're not interested in the version history of a subproject, but want to anchor a particular state in the repository, you can use the `--squash` option.
+The `git subtree add`/`pull` commands then do not merge the corresponding commits, but only create a _single_ commit that contains all changes.
+Note: Do not use this option unless you have also imported the project using `--squash`; this will cause merge conflicts.
 ===============================
 
 
 
 [[sec.split-off-subtree]]
-==== Ein Unterverzeichnis abspalten
+==== Splitting off a Subdirectory
+//   Ein Unterverzeichnis abspalten
 
-Möglicherweise stehen Sie irgendwann vor der Aufgabe, ein Unterverzeichnis Ihres Projektes als eigenes Repository verwalten zu wollen. Sie möchten die Änderungen aber weiterhin in dem ursprünglichen Projekt integrieren.
+////
+Möglicherweise stehen Sie irgendwann vor der Aufgabe, ein Unterverzeichnis Ihres Projektes als eigenes Repository verwalten zu wollen.
+Sie möchten die Änderungen aber weiterhin in dem ursprünglichen Projekt integrieren.
+////
 
-Beispielsweise wird die Dokumentation, die unter `doc/` lag, von nun an in einem eigenen Repository verwaltet. Gelegentlich, das heißt alle paar Wochen, wollen Sie die neuesten Entwicklungen dann in das Haupt-Repository übernehmen.
+At some point, you may be faced with the task of managing a subdirectory of your project as a separate repository.
+However, you may still want to integrate the changes into the original project.
 
-Das Kommando `git subtree` bietet dafür ein eigenes Subkommando `split` an, mit dem Sie diesen Schritt automatisieren können. Es erstellt eine Versionsgeschichte, die alle Änderungen eines Verzeichnisses enthält, und gibt den neuesten Commit aus -- diesen können Sie dann in ein (leeres) Remote hochladen.
+
+////
+Beispielsweise wird die Dokumentation, die unter `doc/` lag, von nun an in einem eigenen Repository verwaltet.
+Gelegentlich, das heißt alle paar Wochen, wollen Sie die neuesten Entwicklungen dann in das Haupt-Repository übernehmen.
+////
+
+For example, the documentation stored under `doc/` will be managed in a separate repository from now on.
+Occasionally, that is, every few weeks, you want to transfer the latest developments to the master repository.
+
+
+////
+Das Kommando `git subtree` bietet dafür ein eigenes Subkommando `split` an, mit dem Sie diesen Schritt automatisieren können.
+Es erstellt eine Versionsgeschichte, die alle Änderungen eines Verzeichnisses enthält, und gibt den neuesten Commit aus -- diesen können Sie dann in ein (leeres) Remote hochladen.
+////
+
+The `git sub-tree` command provides a separate sub-command `split` for this purpose, which you can use to automate this step.
+It creates a version history containing all changes to a directory, and issues the latest commit -- which you can then upload to an (empty) remote.
+
+
 
 [subs="quotes"]
 --------
 $ *git subtree split -P doc --rejoin*
-Merge made by the \_ours_ strategy.
+Merge made by the 'ours' strategy.
 563c68aa14375f887d104d63bf817f1357482576
 $ *git push &lt;neues-doku-repo&gt; 563c68aa14375:refs/heads/master*
 --------
 
-Die Option `--rejoin` bewirkt, dass die so abgespaltene Versionsgeschichte direkt wieder per `git subtree merge` in das aktuelle Projekt integriert wird. Sie können von nun an per `git subtree pull` die neuen Commits integrieren. Wollen Sie stattdessen mit der Option `--squash` arbeiten, lassen Sie `--rejoin` weg.
+////
+Die Option `--rejoin` bewirkt, dass die so abgespaltene Versionsgeschichte direkt wieder per `git subtree merge` in das aktuelle Projekt integriert wird.
+Sie können von nun an per `git subtree pull` die neuen Commits integrieren.
+Wollen Sie stattdessen mit der Option `--squash` arbeiten, lassen Sie `--rejoin` weg.
+////
+
+The `--rejoin` option causes the version history split off in this way to be directly reintegrated into the current project via `git subtree merge`.
+From now on you can integrate the new commits via `git subtree pull`.
+If you want to use the `--squash` option instead, omit `--rejoin`.
+
 
 
 
 [[sec.submodule-vs-subtree]]
 === Submodules vs. Subtrees
 
-Die Frage "`Submodules oder Subtrees?`" lässt sich nicht generell, sondern nur von Fall zu Fall beantworten. Ausschlaggebendes Kriterium sollte die Zugehörigkeit des Unterprojektes zu dem übergeordneten sein: Wenn Sie fremde Software einbinden, dann vermutlich eher als Submodule, eigene mit begrenztem Aufkommen an Commits und einer direkten Relation zum Hauptprojekt eher als Subtree.
+////
+Die Frage "`Submodules oder Subtrees?`" lässt sich nicht generell, sondern nur von Fall zu Fall beantworten.
+Ausschlaggebendes Kriterium sollte die Zugehörigkeit des Unterprojektes zu dem übergeordneten sein: Wenn Sie fremde Software einbinden, dann vermutlich eher als Submodule, eigene mit begrenztem Aufkommen an Commits und einer direkten Relation zum Hauptprojekt eher als Subtree.
+////
 
-Beispielsweise müssen Sie bei der Installation von CGit (siehe <<sec.cgit>>) ein Submodule initialisieren und updaten, um die `libgit.a` zu kompilieren. CGit benötigt also den Sourcecode von Git, will aber nicht die Entwicklungsgeschichte mit der von Git verschmelzen (die im Vergleich wenigen CGit-Commits würden darin auch untergehen!). Sie können aber CGit auch gegen eine andere Git-Version kompilieren, wenn Sie das möchten -- die Flexibilität des Unter-Repositorys bleibt gewahrt.
+The question "`Submodules or Subtrees?`" cannot be answered in general, but only on a case by case basis.
+The decisive criterion should be the affiliation of the subproject to the superordinate one: If you include third-party software, it is probably more likely to be submodules, your own with limited commits and a direct relationship to the main project rather than a subtree.
 
-Der grafische Repository-Browser Gitk hingegen wird als Subtree verwaltet. Er wird in `git://ozlabs.org/~paulus/gitk` entwickelt, aber im Haupt-Git-Repository mit der Subtree-Merge-Strategie unterhalb von `gitk-git/` eingebunden.
+
+////
+Beispielsweise müssen Sie bei der Installation von CGit (siehe Abschnitt 7.5, "CGit .. CGI for Git") ein Submodule initialisieren und updaten, um die `libgit.a` zu kompilieren.
+CGit benötigt also den Sourcecode von Git, will aber nicht die Entwicklungsgeschichte mit der von Git verschmelzen (die im Vergleich wenigen CGit-Commits würden darin auch untergehen!).
+Sie können aber CGit auch gegen eine andere Git-Version kompilieren, wenn Sie das möchten -- die Flexibilität des Unter-Repositorys bleibt gewahrt.
+////
+
+For example, when you install CGit (see <<sec.cgit>>), you must initialize and update a submodule to compile `libgit.a`.
+So CGit needs the source code of Git, but doesn't want to merge the development history with that of Git (the comparatively few CGit commits would be lost in this!).
+You can, however, compile CGit against another version of Git if you wish -- the flexibility of the sub-repository is preserved.
 
 
+////
+Der grafische Repository-Browser Gitk hingegen wird als Subtree verwaltet.
+Er wird in `git://ozlabs.org/~paulus/gitk` entwickelt, aber im Haupt-Git-Repository mit der Subtree-Merge-Strategie unterhalb von `gitk-git/` eingebunden.
+////
+
+The graphical repository browser Gitk, on the other hand, is managed as a subtree.
+It is developed in `git://ozlabs.org/~paulus/gitk`, but is included in the main Git repository with the subtree-merge strategy under `gitk-git/`.
