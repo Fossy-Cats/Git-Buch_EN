@@ -1802,14 +1802,22 @@ For a detailed description of this service, see <<ch.github>>.
 
 
 
-// ********** ARRIVED HERE!!! **********
-
 
 [[sec.remotes-verwalten]]
-== Remotes verwalten
+== Managing Remotes
+// Remotes verwalten
 
 
-Mit `git remote` verwalten Sie zusätzliche Remotes. Um z.B. ein neues Remote eines anderen Entwicklers hinzuzufügen, verwenden Sie das Kommando `git remote add`. Meist wollen Sie im Anschluss die Remote-Tracking-Branches initialisieren, was Sie mit `git fetch` erreichen:
+////
+Mit `git remote` verwalten Sie zusätzliche Remotes.
+Um z.B. ein neues Remote eines anderen Entwicklers hinzuzufügen, verwenden Sie das Kommando `git remote add`.
+Meist wollen Sie im Anschluss die Remote-Tracking-Branches initialisieren, was Sie mit `git fetch` erreichen:
+////
+
+With `git remote` you can manage additional remotes.
+For example, to add a new remote from another developer, use the command `git remote add`.
+Most of the time you'll want to initialize the remote tracking branches afterwards, which you can do with `git fetch`:
+
 
 [subs="quotes"]
 --------
@@ -1820,7 +1828,11 @@ $ *git fetch example*
 
 [TIP]
 ========
+////
 Um beide Arbeitsschritte in einem Aufruf zu erledigen, verwenden Sie die Option `-f`, für _fetch_:
+////
+
+To do both steps in one call, use the `-f` option, for _fetch_:
 
 [subs="quotes"]
 --------
@@ -1828,28 +1840,58 @@ $ *git remote add -f example git://example.com/example.git*
 --------
 ========
 
-Brauchen Sie das Remote nicht mehr, können Sie es mit `git remote rm` aus Ihrer lokalen Konfiguration wieder entfernen. Dadurch werden auch alle Remote-Tracking-Branches für dieses Remote wieder gelöscht:
+////
+Brauchen Sie das Remote nicht mehr, können Sie es mit `git remote rm` aus Ihrer lokalen Konfiguration wieder entfernen.
+Dadurch werden auch alle Remote-Tracking-Branches für dieses Remote wieder gelöscht:
+////
+
+If you no longer need the remote, you can remove it from your local configuration using `git remote rm`.
+This will also delete all remote tracking branches for that remote:
+
 
 [subs="quotes"]
 --------
 $ *git remote rm example*
 --------
 
-Remotes müssen nicht zwingend per `git remote add` konfiguriert werden. Sie können einfach die URL auf der Kommandozeile verwenden,{fn74} zum Beispiel, um die Objekte und Referenzen für einen Bugfix herunterzuladen:
+
+////
+Remotes müssen nicht zwingend per `git remote add` konfiguriert werden.
+Sie können einfach die URL auf der Kommandozeile verwenden,[74] zum Beispiel, um die Objekte und Referenzen für einen Bugfix herunterzuladen:
+////
+
+Remotes do not necessarily have to be configured via `git remote add`.
+You can simply use the URL on the command line,{fn74} for example to download the objects and references for a bugfix:
+
 
 [subs="quotes"]
 --------
 $ *git fetch git://example.com/example.git bugfix:bugfix*
 --------
 
+////
 Selbstverständlich geht das auch mit `pull` und `push`.
+////
 
-Arbeiten Sie mit mehreren Remotes, bietet sich das Kommando `git remote update --prune` an. Damit führen Sie `fetch` für alle Remotes durch, wobei die Option `--prune` dafür sorgt, dass alle abgelaufenen Remote-Tracking-Branches gelöscht werden.
+Of course this also works with `pull` and `push`.
+
+
+////
+Arbeiten Sie mit mehreren Remotes, bietet sich das Kommando `git remote update --prune` an.
+Damit führen Sie `fetch` für alle Remotes durch, wobei die Option `--prune` dafür sorgt, dass alle abgelaufenen Remote-Tracking-Branches gelöscht werden.
+////
+
+If you work with several remotes, the command `git remote update --prune` is a good choice.
+This will `fetch` all remotes, and the `--prune` option will delete all expired remote tracking branches.
 
 
 [TIP]
 ========
+////
 Folgendes Alias hat sich bei uns sehr bewährt, da es viele Arbeitsschritte, die in der Praxis oft hintereinander ausgeführt werden, vereint:
+////
+
+The following alias has proved to be very useful for us, as it combines many work steps that are often performed one after the other in practice:
 
 [subs="quotes"]
 --------
@@ -1859,20 +1901,51 @@ $ *git config --global alias.ru "remote update --prune"*
 
 
 
+
+
 [[sec.pull-request]]
 === Pull-Request
 
-Um einen Pull-Request automatisch zu generieren, gibt es das Git-Kommando `request-pull`. Die Syntax lautet:
+////
+Um einen Pull-Request automatisch zu generieren, gibt es das Git-Kommando `request-pull`.
+Die Syntax lautet:
+////
+
+To generate a pull request automatically, there is the git command `request-pull`.
+The syntax is:
+
 
 --------
-git request-pull <Anfang> <URL> [<Ende>]
+git request-pull <start> <URL> [<end>]
 --------
 
-Als `<URL>` geben Sie Ihr öffentliches Repository an (entweder als tatsächliche URL oder als konfiguriertes Remote-Repository), und als `<Anfang>` wählen Sie die Referenz, auf die das Feature aufbaut (in vielen Fällen den Branch `master`, der mit dem Master-Branch des offiziellen Repositorys übereinstimmen sollte).  Optional können Sie ein `<Ende>` angeben; lassen Sie diese Angabe weg, so verwendet Git `HEAD`.
 
-Die Ausgabe erfolgt nach Standard-Out und enthält die URL sowie den Branch-Namen des Repositorys, die Kurzbeschreibung aller Commits nach Autor sowie ein Diff-Stat, also eine Bilanz von hinzugekommenen und gelöschten Zeilen nach Dateien.  Diese Ausgabe lässt sich bequem an ein E-Mail-Programm weiterleiten.  Fügen Sie noch die Option `-p` hinzu, wird unter den Text noch ein Patch mit allen Änderungen angehängt.
+////
+Als `<URL>` geben Sie Ihr öffentliches Repository an (entweder als tatsächliche URL oder als konfiguriertes Remote-Repository), und als `<Anfang>` wählen Sie die Referenz, auf die das Feature aufbaut (in vielen Fällen den Branch `master`, der mit dem Master-Branch des offiziellen Repositorys übereinstimmen sollte).
+Optional können Sie ein `<Ende>` angeben; lassen Sie diese Angabe weg, so verwendet Git `HEAD`.
+////
 
+As `<URL>` you specify your public repository (either as the actual URL or as a configured remote repository), and as `<start>` you select the reference on which the feature is built (in many cases the branch `master`, which should match the master branch of the official repository).
+Optionally, you can specify an `<end>`; if you omit this, Git will use `HEAD`.
+
+
+////
+Die Ausgabe erfolgt nach Standard-Out und enthält die URL sowie den Branch-Namen des Repositorys, die Kurzbeschreibung aller Commits nach Autor sowie ein Diff-Stat, also eine Bilanz von hinzugekommenen und gelöschten Zeilen nach Dateien.
+Diese Ausgabe lässt sich bequem an ein E-Mail-Programm weiterleiten.
+Fügen Sie noch die Option `-p` hinzu, wird unter den Text noch ein Patch mit allen Änderungen angehängt.
+////
+
+The output is by default STDOUT, and includes the repository's URL and branch name, a short description of all commits by author, and a diff state, i.e., a balance of added and deleted lines by file.
+This output can easily be forwarded to an e-mail program.
+If you add the `-p` option, a patch with all changes is appended below the text.
+
+
+////
 Zum Beispiel um jemanden darum zu bitten, die zwei neuesten Commits aus einem Repository herunterzuladen:
+////
+
+For example, to ask someone to download the two latest commits from a repository:
+
 
 [subs="quotes"]
 --------
@@ -1882,32 +1955,65 @@ The following changes since commit d2640ac6a1a552781[...]c48e08e695d53:
   README verbessert (2010-11-20 21:27:20 +0100)
 
 are available in the git repository at:
-  pass:quotes[git@github.com]:esc/git-cheatsheet-de.git master
+  git@github.com:esc/git-cheatsheet-de.git master
 
 Valentin Haenel (2):
       Lizenz hinzugefügt
       URL hinzugefügt und Metadaten neu formatiert
 
  cheatsheet.pdf |  Bin 89513 -> 95619 bytes
- cheatsheet.tex |   18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--
- 2 files changed, 16 insertions(+), 2 deletions(-)
+ cheatsheet.tex |   18 ++++++++++++++++--
+ 2 files changed, 16 insertions(), 2 deletions(-)
 --------
 
 
 
-[[sec.remote-tags]]
-== Tags austauschen
 
-Tags werden ebenfalls mit den Remote-Kommandos `fetch` bzw. `pull` und `push` ausgetauscht.  Im Gegensatz zu Branches, die sich verändern, sind Tags jedoch "`statisch`". Aus diesem Grund werden Remote-Tags nicht noch einmal zusätzlich lokal referenziert, es gibt also kein Äquivalent zu den Remote-Tracking-Branches für die Tags. Tags, die Sie aus Ihren Remote-Repositories erhalten, speichert Git ganz normal unter `.git/refs/tags/` bzw. `.git/packed-refs`.
+[[sec.remote-tags]]
+== Exchanging Tags
+// Tags austauschen
+
+////
+Tags werden ebenfalls mit den Remote-Kommandos `fetch` bzw. `pull` und `push` ausgetauscht.
+Im Gegensatz zu Branches, die sich verändern, sind Tags jedoch "`statisch`".
+Aus diesem Grund werden Remote-Tags nicht noch einmal zusätzlich lokal referenziert, es gibt also kein Äquivalent zu den Remote-Tracking-Branches für die Tags.
+Tags, die Sie aus Ihren Remote-Repositories erhalten, speichert Git ganz normal unter `.git/refs/tags/` bzw. `.git/packed-refs`.
+////
+
+Tags are also exchanged with the remote commands `fetch` or `pull` and `push`.
+In contrast to branches, which change, tags are "`static`".
+For this reason, remote tags are not referenced locally again, so there is no equivalent to the remote tracking branches for the tags.
+Tags that you get from your remote repositories are stored by Git as `.git/refs/tags/` or `.git/packed-refs`, as usual.
 
 
 
 [[sec.tags-download]]
-=== Tags herunterladen
+=== Downloading Tags
+//  Tags herunterladen
 
-Prinzipiell lädt Git neue Tags automatisch bei einem Aufruf von `git fetch` bzw.  `git pull` herunter. Das heißt, wenn Sie einen Commit herunterladen, auf den ein Tag zeigt, so wird dieses Tag mitgeliefert.  Schließen Sie jedoch mit einem Refspec einzelne Branches aus, so werden Commits in diesen Branches nicht heruntergeladen -- und somit auch keine Tags, die evtl. auf diese Commits zeigen. Fazit: Git lädt nur relevante Tags herunter. Mit den Optionen `--no-tags` (keine Tags) und `--tags` bzw. `-t` (alle Tags) passen Sie das Standardverhalten an. Beachten Sie aber, dass Sie mit `--tags` nicht nur die Tags herunterladen, sondern notwendigerweise auch die Commits, auf die die Tags zeigen.
+////
+Prinzipiell lädt Git neue Tags automatisch bei einem Aufruf von `git fetch` bzw.  `git pull` herunter.
+Das heißt, wenn Sie einen Commit herunterladen, auf den ein Tag zeigt, so wird dieses Tag mitgeliefert.
+Schließen Sie jedoch mit einem Refspec einzelne Branches aus, so werden Commits in diesen Branches nicht heruntergeladen -- und somit auch keine Tags, die evtl. auf diese Commits zeigen.
+Fazit: Git lädt nur relevante Tags herunter.
+Mit den Optionen `--no-tags` (keine Tags) und `--tags` bzw. `-t` (alle Tags) passen Sie das Standardverhalten an.
+Beachten Sie aber, dass Sie mit `--tags` nicht nur die Tags herunterladen, sondern notwendigerweise auch die Commits, auf die die Tags zeigen.
+////
 
+In principle, Git automatically downloads new tags when you call `git fetch` or `git pull`.
+That is, if you download a commit that has a tag pointing to it, that tag will be included.
+However, if you use a refspec to exclude individual branches, then commits in those branches will not be downloaded, and thus no tags that may point to those commits will be downloaded.
+Conclusion: Git only downloads relevant tags.
+With the options `--no-tags` (no tags) and `--tags` or `-t` (all tags) you can adjust the default behavior.
+Note, however, that `--tags` not only downloads the tags, but necessarily the commits to which they point.
+
+
+////
 Git benachrichtigt Sie, wenn neue Tags eintreffen:
+////
+
+Git notifies you when new tags arrive:
+
 
 [subs="quotes"]
 --------
@@ -1917,65 +2023,161 @@ From git://git.kernel.org/pub/scm/git/git
  * [new tag]         v1.7.4.2   -&gt; v1.7.4.2
 --------
 
-Wenn Sie wissen wollen, welche Tags auf der Remote-Seite vorhanden sind, verwenden Sie `git ls-remote` mit der Option `--tags`. Zum Beispiel erhalten Sie alle Release-Candidates der Git-Version `1.7.1` mit folgendem Aufruf:
+////
+Wenn Sie wissen wollen, welche Tags auf der Remote-Seite vorhanden sind, verwenden Sie `git ls-remote` mit der Option `--tags`.
+Zum Beispiel erhalten Sie alle Release-Candidates der Git-Version `1.7.1` mit folgendem Aufruf:
+////
 
-[subs="quotes"]
+If you want to know what tags are present on the remote side, use `git ls-remote` with the `--tags` option.
+For example, you can get all release candidates of git version `1.7.1` with the following call:
+
+
+
+[subs="quotes,attributes"]
 --------
-$ *git ls-remote origin --tags v1.7.1-rc&#42;*
+$ *git ls-remote origin --tags v1.7.1-rc{asterisk}*
 bdf533f9b47dc58ac452a4cc92c81dc0b2f5304f    refs/tags/v1.7.1-rc0
-537f6c7fb40257776a513128043112ea43b5cdb8    refs/tags/v1.7.1-rc0\^{}
+537f6c7fb40257776a513128043112ea43b5cdb8    refs/tags/v1.7.1-rc0^{}
 d34cb027c31d8a80c5dbbf74272ecd07001952e6    refs/tags/v1.7.1-rc1
-b9aa901856cee7ad16737343f6a372bb37871258    refs/tags/v1.7.1-rc1\^{}
+b9aa901856cee7ad16737343f6a372bb37871258    refs/tags/v1.7.1-rc1^{}
 03c5bd5315930d8d88d0c6b521e998041a13bb26    refs/tags/v1.7.1-rc2
 5469e2dab133a197dc2ca2fa47eb9e846ac19b66    refs/tags/v1.7.1-rc2^{}
 --------
 
-Git gibt die SHA-1-Summen der Tags und deren Inhalt{fn75} aus.
+////
+Git gibt die SHA-1-Summen der Tags und deren Inhalt[75] aus.
+////
+
+Git outputs the SHA-1 sums of the tags and their contents.{fn75}
 
 
 
+// @TRANSLATE SECTION ID
 [[sec.tags-hochladen]]
-=== Tags hochladen
+=== Uploading Tags
+//  Tags hochladen
 
-Git lädt Tags nicht automatisch hoch. Sie müssen diese, ähnlich den Branches, explizit an `git push` übergeben, z.B. um das Tag `v0.1` hochzuladen:
+////
+Git lädt Tags nicht automatisch hoch.
+Sie müssen diese, ähnlich den Branches, explizit an `git push` übergeben, z.B. um das Tag `v0.1` hochzuladen:
+////
+
+Git does not automatically upload tags.
+You need to pass them explicitly to `git push`, similar to the branches, e.g. to upload the tag `v0.1`:
+
 
 [subs="quotes"]
 --------
 $ *git push origin v0.1*
 --------
 
-Wenn Sie gleich alle Tags hochladen wollen, verwenden Sie die Option `--tags`. Aber Vorsicht: Vermeiden Sie diese Option, wenn Sie, wie in <<sec.tags>> beschrieben, Annotated Tags zur Kennzeichnung von Versionen verwenden und Lightweight Tags, um lokal etwas zu markieren. Denn mit der Option würden Sie, wie schon gesagt, _alle_ Tags hochladen.
 
-Achtung: Wenn Sie ein Tag einmal hochgeladen haben, sollten Sie es auf keinen Fall verändern! Der Grund: Angenommen, Axel verändert ein Tag, etwa `v0.7`, das er bereits veröffentlicht hat. Zunächst zeigte es auf den Commit `5b6eef` und nun auf `bab18e`. Beatrice hatte bereits die erste Version, die auf `5b6eef` zeigt, heruntergeladen, Carlos aber noch nicht. Beim nächsten Mal, wenn Beatrice `git pull` aufruft, lädt Git _nicht_ die neue Version von dem Tag `v0.7` herunter; die Annahme ist, dass sich Tags nicht verändern, und darum überprüft Git die Gültigkeit des Tags nicht!  Führt Carlos nun `git pull` aus, erhält er auch das Tag `v0.7`, das aber jetzt auf `bab18e` zeigt. Zuletzt sind zwei Versionen des Tags -- die jeweils auf unterschiedliche Commits zeigen -- im Umlauf.  Keine besonders hilfreiche Situation. Wirklich verwirrend wird es, wenn sowohl Carlos als auch Beatrice dasselbe, öffentliche Repository verwenden und standardmäßig alle Tags hochladen.{fn76} Das Tag "`springt`" quasi im öffentlichen Repository zwischen zwei Commits hin und her; welche Version Sie mit einem Klon erhalten, hängt davon ab, wer zuletzt gepusht hat.
+////
+Wenn Sie gleich alle Tags hochladen wollen, verwenden Sie die Option `--tags`.
+Aber Vorsicht: Vermeiden Sie diese Option, wenn Sie, wie in Abschnitt 3.1.3, "Tags -- Wichtige Versionen markieren" beschrieben, Annotated Tags zur Kennzeichnung von Versionen verwenden und Lightweight Tags, um lokal etwas zu markieren. Denn mit der Option würden Sie, wie schon gesagt, _alle_ Tags hochladen.
+////
 
+If you want to upload all tags at once, use the `--tags` option.
+But be careful: Avoid this option if you use Annotated Tags to mark versions and Lightweight Tags to mark something locally, as described in <<sec.tags>>, because with this option you would upload _all_ tags, as already mentioned.
+
+
+////
+Achtung: Wenn Sie ein Tag einmal hochgeladen haben, sollten Sie es auf keinen Fall verändern!
+Der Grund: Angenommen, Axel verändert ein Tag, etwa `v0.7`, das er bereits veröffentlicht hat.
+Zunächst zeigte es auf den Commit `5b6eef` und nun auf `bab18e`.
+Beatrice hatte bereits die erste Version, die auf `5b6eef` zeigt, heruntergeladen, Carlos aber noch nicht.
+Beim nächsten Mal, wenn Beatrice `git pull` aufruft, lädt Git _nicht_ die neue Version von dem Tag `v0.7` herunter; die Annahme ist, dass sich Tags nicht verändern, und darum überprüft Git die Gültigkeit des Tags nicht!
+Führt Carlos nun `git pull` aus, erhält er auch das Tag `v0.7`, das aber jetzt auf `bab18e` zeigt.
+Zuletzt sind zwei Versionen des Tags -- die jeweils auf unterschiedliche Commits zeigen -- im Umlauf.
+Keine besonders hilfreiche Situation.
+Wirklich verwirrend wird es, wenn sowohl Carlos als auch Beatrice dasselbe, öffentliche Repository verwenden und standardmäßig alle Tags hochladen.[76]
+Das Tag "`springt`" quasi im öffentlichen Repository zwischen zwei Commits hin und her; welche Version Sie mit einem Klon erhalten, hängt davon ab, wer zuletzt gepusht hat.
+////
+
+Attention: Once you have uploaded a tag, you should never change it!
+The reason: Let's say Axel changes a tag, like `v0.7`, that he has already released.
+First it pointed to the `5b6eef` commit, and now to `bab18e`.
+Beatrice had already downloaded the first version pointing to `5b6eef`, but Carlos had not yet.
+The next time Beatrice calls `git pull`, Git won't download the new version from the `v0.7` tag; the assumption is that tags don't change, so Git doesn't check the validity of the tag!
+When Carlos now runs `git pull`, he also gets the `v0.7` tag, but it now points to `bab18e`.
+Finally, two versions of the tag -- each pointing to different commits --- are in circulation.
+Not a very helpful situation.
+It gets really confusing when both Carlos and Beatrice use the same public repository, and upload all tags by default.{fn76}
+The tag "`jumps`" back and forth between two commits in the public repository, so to speak; which version you get with a clone depends on who pushed last.
+
+
+////
 Sollte Ihnen dieses Missgeschick doch einmal passieren, haben Sie zwei Möglichkeiten:
+////
+
+If you do get this mishap, you have two options:
 
 
 
-. Die vernünftige Alternative: Statt das Tag zu ersetzen, erstellen Sie
-  ein neues und laden es ebenfalls hoch. Benennen Sie das neue Tag
-  entsprechend den Projektkonventionen. Heißt das alte `v0.7`, nennen
-  Sie das neue etwa `v0.7.1`.
+////
+. Die vernünftige Alternative: Statt das Tag zu ersetzen, erstellen Sie ein neues und laden es ebenfalls hoch.
+Benennen Sie das neue Tag entsprechend den Projektkonventionen.
+Heißt das alte `v0.7`, nennen Sie das neue etwa `v0.7.1`.
 
-. Wenn Sie das Tag _wirklich_ ersetzen wollen: Geben Sie
-  öffentlich zu (Mailingliste, Wiki, Blog), dass Sie einen Fehler
-  gemacht haben. Weisen Sie alle Entwickler und Nutzer darauf hin,
-  dass sich ein Tag geändert hat, und bitten Sie darum, dass jeder
-  dieses Tag bei sich überprüft. Die Größe des Projekts und Ihre
-  Risikobereitschaft entscheiden, ob diese Lösung machbar ist.
+. Wenn Sie das Tag _wirklich_ ersetzen wollen: Geben Sie öffentlich zu (Mailingliste, Wiki, Blog), dass Sie einen Fehler gemacht haben.
+Weisen Sie alle Entwickler und Nutzer darauf hin, dass sich ein Tag geändert hat, und bitten Sie darum, dass jeder dieses Tag bei sich überprüft.
+Die Größe des Projekts und Ihre Risikobereitschaft entscheiden, ob diese Lösung machbar ist.
+////
+
+. The sensible alternative: Instead of replacing the tag, create a new one and upload it as well.
+Name the new tag according to the project conventions.
+If the old tag is `v0.7`, name the new one something like `v0.7.1`.
+
+. If you really want to replace the tag: Admit publicly (mailing list, wiki, blog) that you made a mistake.
+Let all developers and users know that a tag has changed and ask them to check the tag with you.
+The size of the project and your willingness to take risks will determine whether this solution is feasible.
+
+
 
 
 
 [[sec.patch-queue]]
-== Patches per E-Mail
+== Patches via E-mail
+// Patches per E-Mail
 
-Eine Alternative zum Einrichten eines öffentlichen Repositorys ist es, automatisch Patches per E-Mail zu verschicken. Das Format der E-Mail wird dabei so gewählt, dass die Maintainer die per E-Mail empfangenen Patches automatisch von Git einspielen lassen können. Gerade für kleine Fehlerkorrekturen und sporadische Mitarbeit ist das meist weniger aufwändig und schneller. Es gibt viele Projekte, die auf diese Art des Austauschs setzen, allen voran das Git-Projekt selbst.
+////
+Eine Alternative zum Einrichten eines öffentlichen Repositorys ist es, automatisch Patches per E-Mail zu verschicken.
+Das Format der E-Mail wird dabei so gewählt, dass die Maintainer die per E-Mail empfangenen Patches automatisch von Git einspielen lassen können.
+Gerade für kleine Fehlerkorrekturen und sporadische Mitarbeit ist das meist weniger aufwändig und schneller.
+Es gibt viele Projekte, die auf diese Art des Austauschs setzen, allen voran das Git-Projekt selbst.
+////
 
-Der Großteil der Patches für Git wird über die Mailingliste beigesteuert. Dort durchlaufen sie einen stringenten Review-Prozess, der meistens zu Korrekturen und Verbesserungen führt. Die Patches werden vom Autor so lange verbessert und erneut an die Liste geschickt, bis ein Konsens erreicht ist. Währenddessen speichert der Maintainer die Patches regelmäßig in einem Branch in seinem Repository, und stellt sie über den `pu`-Branch zum Testen bereit. Sofern die Patch-Serie von den Teilnehmern auf der Liste als fertig betrachtet wird, wandert der Branch über die verschiedenen Integrations-Branches `pu` und `next`, wo die Veränderungen auf Kompatibilität und Stabilität geprüft werden.  Ist alles in Ordnung, landet der Branch schließlich im `master` und bildet von dort aus einen Teil des nächsten Releases.
+An alternative to setting up a public repository is to automatically send patches via email.
+The format of the email is chosen so that maintainers can have Git automatically apply patches received via email.
+Especially for small bug fixes and sporadic collaboration, this is usually less time-consuming and faster.
+There are many projects that rely on this type of exchange, most notably the Git project itself.
 
+
+////
+Der Großteil der Patches für Git wird über die Mailingliste beigesteuert.
+Dort durchlaufen sie einen stringenten Review-Prozess, der meistens zu Korrekturen und Verbesserungen führt.
+Die Patches werden vom Autor so lange verbessert und erneut an die Liste geschickt, bis ein Konsens erreicht ist.
+Währenddessen speichert der Maintainer die Patches regelmäßig in einem Branch in seinem Repository, und stellt sie über den `pu`-Branch zum Testen bereit.
+Sofern die Patch-Serie von den Teilnehmern auf der Liste als fertig betrachtet wird, wandert der Branch über die verschiedenen Integrations-Branches `pu` und `next`, wo die Veränderungen auf Kompatibilität und Stabilität geprüft werden.
+Ist alles in Ordnung, landet der Branch schließlich im `master` und bildet von dort aus einen Teil des nächsten Releases.
+////
+
+The majority of patches for Git are contributed via the mailing list.
+There they go through a stringent review process, which usually leads to corrections and improvements.
+The patches are improved by the author and sent back to the list until a consensus is reached.
+Meanwhile, the maintainer regularly stores the patches in a branch in his repository, and makes them available for testing via the `pu` branch.
+If the patch series is considered finished by the participants on the list, the branch moves on to the different integration branches `pu` and `next`, where the changes are tested for compatibility and stability.
+If everything is in order, the branch finally ends up in the `master` and from there forms part of the next release.
+
+
+////
 Der Ansatz _Patches per E-Mail_ wird durch folgende Git-Kommandos realisiert:
+////
+
+The approach _patches via e-mail_ is realized by the following git commands:
 
 
+////
 `git format-patch` ::
 Commits zum Verschicken als Patches formatieren.
 
@@ -1984,19 +2186,56 @@ Patches verschicken.
 
 `git am` ::
 Patches aus einer Mailbox in den aktuellen Branch einpflegen (__a__pply from __m__ailbox).
+////
+
+[horizontal]
+`git format-patch` ::
+Format commits for sending as patches.
+
+`git send-email` ::
+Send patches.
+
+`git am` ::
+Add patches from a mailbox to the current branch (__a__pply from __m__ailbox).
 
 
 
 
+
+// @TRANSLATE SECTION ID
 [[sec.patches-exportieren]]
-=== Patches exportieren
+=== Exporting Patches
+//  Patches exportieren
 
-Das Kommando `git format-patch` exportiert einen oder mehrere Commits als Patches im Unix-Mailbox-Format und gibt pro Commit eine Datei aus. Die Dateinamen bestehen aus einer sequenziellen Nummerierung und der Commit-Message und enden auf `.patch`.{fn77} Als Argument erwartet das Kommando entweder einen einzelnen Commit oder eine Auswahl wie z.B. `A..B`. Geben Sie einen einzelnen Commit an, wertet Git dies als die Auswahl von dem Commit bis zum `HEAD`.
+////
+Das Kommando `git format-patch` exportiert einen oder mehrere Commits als Patches im Unix-Mailbox-Format und gibt pro Commit eine Datei aus.
+Die Dateinamen bestehen aus einer sequenziellen Nummerierung und der Commit-Message und enden auf `.patch`.[77]
+Als Argument erwartet das Kommando entweder einen einzelnen Commit oder eine Auswahl wie z.B. `A..B`.
+Geben Sie einen einzelnen Commit an, wertet Git dies als die Auswahl von dem Commit bis zum `HEAD`.
+////
 
-.Drei Commits nach  `master` als Patches formatieren
+The `git format-patch` command exports one or more commits as patches in Unix mailbox format and prints one file per commit.
+The file names consist of a sequential numbering and the commit message, and end in `.patch`.{fn77}
+As an argument, the command expects either a single commit or a range such as `A..B`.
+If you specify a single commit, Git will evaluate this as the selection from the commit to the `HEAD`.
+
+
+// @NOTE: "Formatting three commits..." or "The format of three commits..."?
+
+// .Drei Commits nach  `master` als Patches formatieren
+.Formatting three commits to 'master' as patches
 image::gitk-screen-format-patch.png[id="fig.gitk-screen-format-patch",scaledwidth="90%",width="90%"]
 
-<<fig.gitk-screen-format-patch>> zeigt die Ausgangssituation. Wir wollen die drei Commits in dem Branch `fix-git-svn-docs`, also alle Commits ab `master`, als Patches exportieren:
+
+
+////
+Abbildung 5.9, "Drei Commits nach master als Patches formatieren" zeigt die Ausgangssituation.
+Wir wollen die drei Commits in dem Branch `fix-git-svn-docs`, also alle Commits ab `master`, als Patches exportieren:
+////
+
+<<fig.gitk-screen-format-patch>> shows the initial situation.
+We want to export the three commits in the `fix-git-svn-docs` branch, that is, all commits from `master`, as patches:
+
 
 [subs="quotes"]
 --------
@@ -2009,7 +2248,12 @@ $ *git format-patch master*
 
 [TIP]
 ========
-Um nur den `HEAD` zu exportieren, verwenden Sie die Option `-1`. Dann erzeugt `format-patch` nur für den ersten Commit einen Patch:
+////
+Um nur den `HEAD` zu exportieren, verwenden Sie die Option `-1`.
+Dann erzeugt `format-patch` nur für den ersten Commit einen Patch:
+////
+
+To export only the `HEAD`, use option `-1`, and `format-patch` will create a patch for the first commit only:
 
 [subs="quotes"]
 --------
@@ -2017,7 +2261,12 @@ $ *git format-patch -1*
 0001-git-svn.txt-small-typeface-improvements.patch
 --------
 
+////
 Das geht auch für beliebige SHA-1-Summen:
+////
+
+This also works for any SHA-1 sums:
+
 
 [subs="quotes"]
 --------
@@ -2026,29 +2275,55 @@ $ *git format-patch -1 9126ce7*
 --------
 ========
 
-Die generierten Dateien enthalten unter anderem die Header-Felder `From`, `Date` und `Subject`, die zum Verschicken als E-Mail dienen. Diese Felder werden anhand der im Commit vorhandenen Information -- Autor, Datum und Commit-Message -- vervollständigt. Des weiteren enthalten die Dateien eine Diff-Stat-Zusammenfassung sowie die Veränderungen selbst als Patch im Unified-Diff-Format. Den Zusatz `[PATCH m/n]`{fn78} in der Betreff-Zeile nutzt Git später, um die Patches in der richtigen Reihenfolge anzuwenden.
 
+////
+Die generierten Dateien enthalten unter anderem die Header-Felder `From`, `Date` und `Subject`, die zum Verschicken als E-Mail dienen.
+Diese Felder werden anhand der im Commit vorhandenen Information -- Autor, Datum und Commit-Message -- vervollständigt.
+Des weiteren enthalten die Dateien eine Diff-Stat-Zusammenfassung sowie die Veränderungen selbst als Patch im Unified-Diff-Format.
+Den Zusatz `[PATCH m/n]`[78] in der Betreff-Zeile nutzt Git später, um die Patches in der richtigen Reihenfolge anzuwenden.
+////
+
+The generated files contain, among other things, the header fields `From`, `Date` and `Subject`, which are used for sending as e-mail.
+These fields are completed using the information available in the commit -- author, date, and commit message.
+The files also contain a diff-stat summary and the changes themselves as a patch in unified diff format.
+The `[PATCH m/n]` suffix{fn78} in the subject line is used later by Git to apply the patches in the correct order.
+
+
+////
 Es folgt ein entsprechender Ausschnitt:
+////
+
+A corresponding excerpt follows:
+
 
 [subs="quotes"]
 --------
 $ *cat 0003-git-svn.txt-small-typeface-improvements.patch*
 From 6cf93e4dae1e5146242338b1b9297e6d2d8a08f4 Mon Sep 17 00:00:00 2001
-From: Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
-Date: Fri, 22 Apr 2011 18:18:55 +0200
+From: Valentin Haenel <valentin.haenel@gmx.de>
+Date: Fri, 22 Apr 2011 18:18:55 0200
 Subject: [PATCH 3/3] git-svn.txt: small typeface improvements
 
-Signed-off-by: Valentin Haenel &lt;pass:quotes[valentin.haenel@gmx.de]&gt;
-Acked-by: Eric Wong &lt;pass:quotes[normalperson@yhbt.net]&gt;
+Signed-off-by: Valentin Haenel <valentin.haenel@gmx.de>
+Acked-by: Eric Wong <normalperson@yhbt.net>
 ---
- Documentation/git-svn.txt |    8 &#43;&#43;&#43;&#43;----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ Documentation/git-svn.txt |    8 ++++----
+ 1 files changed, 4 insertions(), 4 deletions(-)
 
 diff --git a/Documentation/git-svn.txt b/Documentation/git-svn.txt
 ...
 --------
 
-Wenn Sie vorhaben, eine Serie von Patches zu verschicken, ist es empfehlenswert, mit der Option `--cover-letter` eine Art "`Deckblatt`" zu erzeugen, in dem Sie die Serie beschreiben. Die Datei heißt standardmäßig `0000-cover-letter.patch`. Abgesehen von den Standard-Headern, sieht eine solche Datei wie folgt aus:
+////
+Wenn Sie vorhaben, eine Serie von Patches zu verschicken, ist es empfehlenswert, mit der Option `--cover-letter` eine Art "`Deckblatt`" zu erzeugen, in dem Sie die Serie beschreiben.
+Die Datei heißt standardmäßig `0000-cover-letter.patch`.
+Abgesehen von den Standard-Headern, sieht eine solche Datei wie folgt aus:
+////
+
+If you plan to send a series of patches, it is recommended that you use the `--cover-letter` option to create a kind of "`cover page`" in which you describe the series.
+By default the file is called `0000-cover-letter.patch`.
+Apart from the default headers, such a file looks like this:
+
 
 --------
 Subject: [PATCH 0/3] *** SUBJECT HERE ***
@@ -2064,19 +2339,50 @@ Valentin Haenel (3):
  1 files changed, 11 insertions(+), 11 deletions(-)
 --------
 
-Wie Sie sehen, ist im `Subject:` noch das Präfix `[PATCH 0/3]` eingetragen; so sehen alle Empfänger sofort, dass es sich um ein Deckblatt handelt. Außerdem enthält die Datei die Ausgabe von `git shortlog` sowie `git diff --stat`. Ersetzen Sie `*** SUBJECT HERE ***` durch einen Betreff und `*** BLURB HERE ***` durch eine Zusammenfassung der Patch-Serie. Verschicken Sie die Datei zusammen mit den Patch-Dateien.
+////
+Wie Sie sehen, ist im `Subject:` noch das Präfix `[PATCH 0/3]` eingetragen; so sehen alle Empfänger sofort, dass es sich um ein Deckblatt handelt.
+Außerdem enthält die Datei die Ausgabe von `git shortlog` sowie `git diff --stat`.
+Ersetzen Sie `*** SUBJECT HERE ***` durch einen Betreff und `*** BLURB HERE ***` durch eine Zusammenfassung der Patch-Serie.
+Verschicken Sie die Datei zusammen mit den Patch-Dateien.
+////
+
+
+As you can see, the `Subject:` still has the prefix `[PATCH 0/3]`; this way, all recipients can immediately see that it is a cover page.
+The file also contains the output of `git shortlog` and `git diff --stat`.
+Replace `*** SUBJECT HERE ***` with a subject and `*** BLURB HERE ***` with a summary of the patch series.
+Send the file together with the patch files.
+
 
 [TIP]
 ================================
-Häufig werden Mailing-Listen, auf die Patches geschickt werden, dazu verwendet, die Patches inhaltlich und syntaktisch zu kritisieren und den Autor um Verbesserung zu bitten. Hat der Autor die Verbesserungen vorgenommen, schickt er die korrigierte Serie als _Reroll_ erneut an die Liste. Je nach Größe der Patch-Serie und Anforderungen des Projektes kann eine Patch-Serie durchaus mehrere Rerolls durchlaufen, bis sie angenommen wird.
+////
+Häufig werden Mailing-Listen, auf die Patches geschickt werden, dazu verwendet, die Patches inhaltlich und syntaktisch zu kritisieren und den Autor um Verbesserung zu bitten.
+Hat der Autor die Verbesserungen vorgenommen, schickt er die korrigierte Serie als _Reroll_ erneut an die Liste.
+Je nach Größe der Patch-Serie und Anforderungen des Projektes kann eine Patch-Serie durchaus mehrere Rerolls durchlaufen, bis sie angenommen wird.
+////
 
-Wenn Sie eine Patch-Serie an eine Mailing-Liste schicken: Halten Sie die Commits auf einem eigenen Branch vor, und arbeiten Sie die Korrekturen in neuen Commits (bei fehlender Funktionalität) oder mit interaktivem Rebase (zum Anpassen bestehender Commits) ein. Verwenden Sie anschließend das Kommando `git format-patch` mit der Option `--reroll-count=<n>` (oder kurz `-v <n>`): Sie erzeugen so Patches, die als Subject-Zeile z.B.{nbsp}`[PATCH v2]` tragen und machen so deutlich, dass es sich um den ersten Reroll dieser Serie handelt.
+Frequently, mailing lists to which patches are sent are used to criticize the patches in terms of content and syntax and to ask the author for improvement.
+Once the author has made the improvements, he sends the corrected series back to the list as a _reroll_.
+Depending on the size of the patch series and the requirements of the project, a patch series may go through several rerolls until it is accepted.
+
+
+////
+Wenn Sie eine Patch-Serie an eine Mailing-Liste schicken: Halten Sie die Commits auf einem eigenen Branch vor, und arbeiten Sie die Korrekturen in neuen Commits (bei fehlender Funktionalität) oder mit interaktivem Rebase (zum Anpassen bestehender Commits) ein.
+Verwenden Sie anschließend das Kommando `git format-patch` mit der Option `--reroll-count=<n>` (oder kurz `-v <n>`): Sie erzeugen so Patches, die als Subject-Zeile z.B. `[PATCH v2]` tragen und machen so deutlich, dass es sich um den ersten Reroll dieser Serie handelt.
+////
+
+When you send a patch series to a mailing list: Keep the commits on a separate branch, and incorporate the fixes in new commits (for missing functionality) or with interactive rebase (to adjust existing commits).
+Then use the `git format-patch` command with the `--reroll-count=<n>` option (or `-v <n>` for short): this will create patches with `[PATCH v2]` as the subject line, making it clear that this is the first reroll in the series.
 ================================
 
 
+// ********** ARRIVED HERE!!! **********
 
+
+// @NOTE: "Sending Patches" or "Submitting Patches"??
 [[sec.patches-versenden]]
-=== Patches versenden
+=== Sending Patches
+//  Patches versenden
 
 Versenden Sie die generierten Dateien mit `git send-email` (oder einem E-Mail-Client Ihrer Wahl).  Das Kommando erwartet als einziges zwingendes Argument entweder eine oder mehrere Patch-Dateien, ein Verzeichnis voller Patches oder aber eine Auswahl von Commits (in dem Fall ruft Git zusätzlich intern `git format-patch` auf):
 
