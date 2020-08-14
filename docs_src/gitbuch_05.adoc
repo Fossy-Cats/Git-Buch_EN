@@ -960,14 +960,22 @@ However, `rebase` does not create a merge commit; instead, a call to `rebase` gi
 (Rebase is described in detail in <<sec.rebase>>).
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 [[sec.upstream]]
 ==== Upstream Branches
 //   Upstream-Branches
 
-Oft werden `git fetch`, `git pull` und `git push` ohne Argumente ausgeführt.  Git verwendet in dem Fall unter anderem die Konfiguration der Upstream-Branches, um zu entscheiden, was zu tun ist. Aus der Config des Repositorys:
+////
+Oft werden `git fetch`, `git pull` und `git push` ohne Argumente ausgeführt.
+Git verwendet in dem Fall unter anderem die Konfiguration der Upstream-Branches, um zu entscheiden, was zu tun ist.
+Aus der Config des Repositorys:
+////
+
+Often `git fetch`, `git pull` and `git push` are executed without arguments.
+Git uses the configuration of the upstream branches to decide what to do, among other things.
+From the repository's config:
+
 
 --------
 [branch "master"]
@@ -975,9 +983,24 @@ Oft werden `git fetch`, `git pull` und `git push` ohne Argumente ausgeführt.  G
     merge = refs/heads/master
 --------
 
-Der Eintrag besagt, dass der lokale Branch `master` mit dem Remote-Branch `master` im `origin`-Repository verknüpft ist.
 
-Der Eintrag `remote` weist `git fetch` und `git pull` an, von welchem Remote aus Commits heruntergeladen werden. Der Eintrag `merge` wiederum weist `git pull` an, dass die neuen Commits aus dem Remote-Branch `master` in den lokalen `master` gemergt werden sollen. Das erlaubt es, beide Kommandos ohne Argumente zu verwenden, was in der Praxis sehr häufig vorkommt.
+////
+Der Eintrag besagt, dass der lokale Branch `master` mit dem Remote-Branch `master` im `origin`-Repository verknüpft ist.
+////
+
+The entry states that the local branch `master` is linked to the remote branch `master` in the `origin` repository.
+
+
+////
+Der Eintrag `remote` weist `git fetch` und `git pull` an, von welchem Remote aus Commits heruntergeladen werden.
+Der Eintrag `merge` wiederum weist `git pull` an, dass die neuen Commits aus dem Remote-Branch `master` in den lokalen `master` gemergt werden sollen.
+Das erlaubt es, beide Kommandos ohne Argumente zu verwenden, was in der Praxis sehr häufig vorkommt.
+////
+
+The `remote` entry instructs `git fetch` and `git pull`, from which remote commits are downloaded.
+The `merge` entry tells `git pull` to merge the new commits from the remote branch `master` to the local `master`.
+This allows both commands to be used without arguments, which is very common in practice.
+
 
 [subs="quotes"]
 --------
@@ -992,11 +1015,15 @@ From github.com:esc/git-cheatsheet-de
 Updating 79170e8..003e3c7
 Fast-forward
  cheatsheet.pdf |  Bin 89792 -> 95619 bytes
- cheatsheet.tex |   19 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---
+ cheatsheet.tex |   19 ++++++++++++++++---
  2 files changed, 16 insertions(+), 3 deletions(-)
 --------
 
+////
 Wenn kein Upstream-Branch konfiguriert ist, versucht es `git fetch` mit `origin` und bricht ansonsten ab:
+////
+
+If no upstream branch is configured, it tries `git fetch` with `origin` and otherwise aborts:
 
 [subs="quotes"]
 --------
@@ -1010,7 +1037,11 @@ a remote name from which new revisions should be fetched.
 
 [TIP]
 ========
+////
 Wenn Sie möchten, dass die Änderungen aus einem Upstream-Branch bei `git pull` standardmäßig per Rebase statt mit einem Merge übernommen werden, setzen Sie den Wert der Einstellung `branch.<name>.rebase` auf `true`, z.B.:
+////
+
+If you want changes from an upstream branch on `git pull` to be applied by rebase instead of merge by default, set the value of the `branch.<name>.rebase` setting to `true`, for example
 
 [subs="quotes"]
 --------
@@ -1024,14 +1055,38 @@ $ *git config branch.master.rebase true*
 [[sec.fetch-vs-pull]]
 === git fetch vs. git pull
 
-Git-Anfängern stellt sich häufig die Frage, ob sie nun `fetch` oder `pull` verwenden sollen. Die Antwort hängt davon ab, wie entwickelt wird: Wie groß ist das Projekt? Wie viele Remotes gibt es? Wie stark werden Branches eingesetzt?
+////
+Git-Anfängern stellt sich häufig die Frage, ob sie nun `fetch` oder `pull` verwenden sollen.
+Die Antwort hängt davon ab, wie entwickelt wird: Wie groß ist das Projekt?
+Wie viele Remotes gibt es?
+Wie stark werden Branches eingesetzt?
+////
+
+Git beginners often ask themselves whether they should use `fetch` or `pull`.
+The answer depends on how you develop: How big is the project?
+How many remotes are there?
+How heavily are branches used?
+
 
 [[sec.push-pull]]
-==== Verteiltes Git für Anfänger
+==== Distributed Git for Beginners
+//   Verteiltes Git für Anfänger
 
-Besonders für Anfänger ist es sinnvoll, dass alle Teilnehmer auf demselben Branch arbeiten (meist `master`), sich mit demselben Repository synchronisieren (zentraler Workflow) und nur `git pull` zum Herunterladen bzw. `git push` zum Hochladen verwenden. Das erübrigt die Auseinandersetzung mit komplexeren Aspekten wie Objektmodell, Branching und Verteilung; und die Teilnehmer können mit einigen wenigen Kommandos Verbesserungen beisteuern.
+////
+Besonders für Anfänger ist es sinnvoll, dass alle Teilnehmer auf demselben Branch arbeiten (meist `master`), sich mit demselben Repository synchronisieren (zentraler Workflow) und nur `git pull` zum Herunterladen bzw. `git push` zum Hochladen verwenden.
+Das erübrigt die Auseinandersetzung mit komplexeren Aspekten wie Objektmodell, Branching und Verteilung; und die Teilnehmer können mit einigen wenigen Kommandos Verbesserungen beisteuern.
+////
 
+Especially for beginners, it makes sense that all participants work on the same branch (usually `master`), synchronize with the same repository (central workflow) and use only `git pull` for downloading and `git push` for uploading.
+This eliminates the need to deal with more complex aspects such as object model, branching and distribution; and participants can contribute improvements with just a few commands.
+
+
+////
 Es entsteht der folgende Arbeitsablauf:
+////
+
+This results in the following workflow:
+
 
 [subs="quotes"]
 --------
@@ -1048,22 +1103,88 @@ $ *git push*
 $ *git commit*
 --------
 
-Dieser Ansatz hat Vor- und Nachteile. Von Vorteil ist sicherlich, dass nur ein geringes Verständnis von Git notwendig ist, um dem Arbeitsablauf erfolgreich zu folgen. Die automatische Konfiguration der Upstream-Branches sorgt dafür, dass `git push` und `git pull` auch ohne Argument das "`Richtige`" tun. Außerdem ähnelt dieser Workflow dem, was Umsteiger von Subversion gewöhnt sind.
+////
+Dieser Ansatz hat Vor- und Nachteile.
+Von Vorteil ist sicherlich, dass nur ein geringes Verständnis von Git notwendig ist, um dem Arbeitsablauf erfolgreich zu folgen.
+Die automatische Konfiguration der Upstream-Branches sorgt dafür, dass `git push` und `git pull` auch ohne Argument das "`Richtige`" tun.
+Außerdem ähnelt dieser Workflow dem, was Umsteiger von Subversion gewöhnt sind.
+////
 
-Allerdings gibt es auch Nachteile, die hauptsächlich mit dem impliziten Merge zusammenhängen. Angenommen, das Team besteht aus zwei Teilnehmern, Beatrice und Carlos.  Beide haben lokale Commits gemacht, und Beatrice hat ihre bereits hochgeladen.  Carlos führt nun `git pull` aus und erhält die Meldung `Merge made by recursive`.  Behält man den Commit-Graphen im Hinterkopf, ist das logisch: Der lokale Branch und der `master` des Remote sind auseinandergelaufen (_diverged_), darum wurden sie durch einen Merge wieder vereint.  Jedoch versteht Carlos die Meldung nicht, da er ja an einem anderen Teil des Codes gearbeitet hat als seine Kollegin und seines Erachtens kein Merge notwendig war. Ein Problem liegt darin, dass der Term _Merge_ bei vielen, die zentrale Versionsverwaltung gewohnt sind, die Assoziation hat, Veränderungen würden an derselben Datei zusammengeführt.  Bei Git jedoch ist ein Merge in jedem Fall als Zusammenführung von Commits in einem Commit-Graphen zu verstehen.  Dies kann das Zusammenführen von Veränderungen an derselben Datei meinen, setzt das aber nicht voraus.
+This approach has advantages and disadvantages.
+The advantage is certainly that only a basic understanding of Git is necessary to follow the workflow successfully.
+The automatic configuration of upstream branches ensures that `git push` and `git pull` do the "`right thing`" without argument.
+In addition, this workflow is similar to what Subversion users are used to.
 
-Neben der Verwirrung der Nutzer sorgt dieser Arbeitsablauf für "`unsinnige`" Commits in der Geschichte. Im Idealfall sollen Merge-Commits ein sinnvoller Eintrag in der Geschichte sein. Ein Außenstehender erkennt sofort, dass ein Entwicklungszweig eingeflossen ist.  Jedoch kommt bei diesem Arbeitsablauf zwangsläufig hinzu, dass der lokale `master` und dessen Pendant im Remote auseinanderlaufen und durch einen Merge wieder zusammengeführt werden. Die dabei entstehenden Merge-Commits sind aber nicht sinnvoll -- sie sind eigentlich nur eine Nebenwirkung des Workflows und verringern die Lesbarkeit der Geschichte. Zwar bietet die Option `--rebase` für `git pull` Abhilfe, aber die Man-Page rät explizit vom Einsatz der Option ab, sofern Sie nicht schon das Prinzip des Rebase verinnerlicht haben. Haben Sie dieses verstanden, ist Ihnen auch die Entstehung des Commit-Graphen vertraut und wie er zu manipulieren ist -- dann lohnt es sich für Sie, als Workflow gleich die featuregetriebene Entwicklung mit Branches anzustreben.
+
+////
+Allerdings gibt es auch Nachteile, die hauptsächlich mit dem impliziten Merge zusammenhängen.
+Angenommen, das Team besteht aus zwei Teilnehmern, Beatrice und Carlos.
+Beide haben lokale Commits gemacht, und Beatrice hat ihre bereits hochgeladen.
+Carlos führt nun `git pull` aus und erhält die Meldung `Merge made by recursive`.
+Behält man den Commit-Graphen im Hinterkopf, ist das logisch: Der lokale Branch und der `master` des Remote sind auseinandergelaufen (_diverged_), darum wurden sie durch einen Merge wieder vereint.
+Jedoch versteht Carlos die Meldung nicht, da er ja an einem anderen Teil des Codes gearbeitet hat als seine Kollegin und seines Erachtens kein Merge notwendig war.
+Ein Problem liegt darin, dass der Term _Merge_ bei vielen, die zentrale Versionsverwaltung gewohnt sind, die Assoziation hat, Veränderungen würden an derselben Datei zusammengeführt.
+Bei Git jedoch ist ein Merge in jedem Fall als Zusammenführung von Commits in einem Commit-Graphen zu verstehen.
+Dies kann das Zusammenführen von Veränderungen an derselben Datei meinen, setzt das aber nicht voraus.
+////
+
+However, there are also drawbacks, mainly related to implicit merging.
+Suppose the team consists of two people, Beatrice and Carlos.
+Both have made local commits, and Beatrice has already uploaded hers.
+Carlos now runs `git pull` and receives the message `Merge made by recursive`.
+If you keep the commit graph in mind, it's logical: the local branch and the `master` of the remote have _diverged_, so they have been merged back together.
+However, Carlos doesn't understand the message, since he was working on a different part of the code than his colleague, and in his opinion no merge was necessary.
+One problem is that term _merge_ stores the association that many people used to have with centralized version control that changes would be merged into the same file.
+With Git, however, a merge is always to be understood as the merging of commits into a commit graph.
+This may mean merging changes to the same file, but it does not require it.
+
+
+////
+Neben der Verwirrung der Nutzer sorgt dieser Arbeitsablauf für "`unsinnige`" Commits in der Geschichte.
+Im Idealfall sollen Merge-Commits ein sinnvoller Eintrag in der Geschichte sein.
+Ein Außenstehender erkennt sofort, dass ein Entwicklungszweig eingeflossen ist.
+Jedoch kommt bei diesem Arbeitsablauf zwangsläufig hinzu, dass der lokale `master` und dessen Pendant im Remote auseinanderlaufen und durch einen Merge wieder zusammengeführt werden.
+Die dabei entstehenden Merge-Commits sind aber nicht sinnvoll -- sie sind eigentlich nur eine Nebenwirkung des Workflows und verringern die Lesbarkeit der Geschichte.
+Zwar bietet die Option `--rebase` für `git pull` Abhilfe, aber die Man-Page rät explizit vom Einsatz der Option ab, sofern Sie nicht schon das Prinzip des Rebase verinnerlicht haben.
+Haben Sie dieses verstanden, ist Ihnen auch die Entstehung des Commit-Graphen vertraut und wie er zu manipulieren ist -- dann lohnt es sich für Sie, als Workflow gleich die featuregetriebene Entwicklung mit Branches anzustreben.
+////
+
+Besides confusing users, this workflow creates "`nonsensical`" commits in the history.
+Ideally, merge commits should be meaningful entries in the repository history.
+An outsider can immediately see that a development branch has been included.
+However, this workflow inevitably involves the local `master` and its remote counterpart diverging and being merged back together.
+The resulting merge commits make no sense -- they are actually only a side effect of the workflow and reduce the readability of the history.
+Although the `--rebase` option for `git pull` offers a remedy, the man page explicitly advises against using this option unless you have already internalized the principle of rebase.
+Once you understand this, you're also familiar with how the commit graph is created and how to manipulate it -- it's worthwhile for you to go straight for feature-driven development with branches as a workflow.
+
 
 
 
 
 [[sec.fetch-push]]
-==== Verteiltes Git für Fortgeschrittene
+==== Distributed Git for Advanced Users
+//   Verteiltes Git für Fortgeschrittene
 
-Sobald Sie das Objektmodell und den Commit-Graphen verstanden haben, empfehlen wir Ihnen einen Workflow einzusetzen, der im Wesentlichen aus `git fetch`, manuellen Merges und vielen Branches besteht. Es folgen als Anregung einige Rezepte.
+////
+Sobald Sie das Objektmodell und den Commit-Graphen verstanden haben, empfehlen wir Ihnen einen Workflow einzusetzen, der im Wesentlichen aus `git fetch`, manuellen Merges und vielen Branches besteht.
+Es folgen als Anregung einige Rezepte.
+////
 
-Sofern Sie `master` als Integrationsbranch verwenden, müssen Sie nach einem Aufruf von `git fetch` Ihren lokalen `master` vorrücken.  Um genau zu sein, müssen Sie alle lokalen Branches, die eine Entsprechung auf der Remote-Seite haben, vorrücken. Git bietet dafür die Syntax `@{upstream}` bzw. `@{u}` an, was dem für den aktuellen Branch konfigurierten Remote-Tracking-Branch entspricht. Dies kann sehr hilfreich sein.
+Once you understand the object model and the commit graph, we recommend that you use a workflow that essentially consists of `git fetch`, manual merges, and many branches.
+The following are some recipes as a suggestion.
 
+
+////
+Sofern Sie `master` als Integrationsbranch verwenden, müssen Sie nach einem Aufruf von `git fetch` Ihren lokalen `master` vorrücken.
+Um genau zu sein, müssen Sie alle lokalen Branches, die eine Entsprechung auf der Remote-Seite haben, vorrücken.
+Git bietet dafür die Syntax `@{upstream}` bzw. `@{u}` an, was dem für den aktuellen Branch konfigurierten Remote-Tracking-Branch entspricht.
+Dies kann sehr hilfreich sein.
+////
+
+If you are using `master` as your integration branch, you will need to move your local U forward after calling `git fetch`.
+To be precise, you need to advance all local branches that have a remote equivalent.
+Git provides the syntax `@{upstream}` and `@{u}`, which corresponds to the remote tracking branch configured for the current branch.
+This can be very helpful.
 
 
 
@@ -1097,23 +1218,44 @@ $ *git push*
 
 [TIP]
 ========
+////
 Wenn Sie häufiger lokale Branches mit Ihrem Remote-Tracking-Branch synchronisieren, empfehlen wir Ihnen folgendes Alias:
+////
+
+If you frequently synchronize local branches with your remote tracking branch, we recommend the following alias:
+
 
 [subs="quotes"]
 --------
 $ *git config --global alias.fft "merge --ff-only @{u}"*
 --------
 
-Damit können Sie ganz bequem mit `git fft` (_Fast-Forward-Tracking_) einen Branch vorrücken. Die Option `--ff-only` verhindert, dass versehentlich Merge-Commits entstehen, wo eigentlich keine hingehören.
+
+////
+Damit können Sie ganz bequem mit `git fft` (_Fast-Forward-Tracking_) einen Branch vorrücken.
+Die Option `--ff-only` verhindert, dass versehentlich Merge-Commits entstehen, wo eigentlich keine hingehören.
+////
+
+This allows you to easily move forward a branch with `git fft` (_Fast Forward Tracking_).
+The `--ff-only` option prevents accidental merge commits from occurring where none should.
 ========
 
-Hilfreich ist in diesem Kontext auch <<ch.workflows>>, wo beschrieben wird, wie Sie übersichtlich mit vielen Topic-Branches arbeiten.
+////
+Hilfreich ist in diesem Kontext auch Kapitel 6, Workflows, wo beschrieben wird, wie Sie übersichtlich mit vielen Topic-Branches arbeiten.
+////
 
+In this context, <<ch.workflows>> is also helpful, where it is described how to work clearly with many Topic Branches.
+
+
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 
 [[sec.hochladen]]
-== Commits hochladen: git push
+== Uploading Commits: git push
+// Commits hochladen: git push
 
 Das Gegenstück zu `fetch` und `pull` bildet das Kommando `git push`. Damit laden Sie Git-Objekte und Referenzen in ein Remote hoch -- z.B. den lokalen `master` in den Branch `master` im Remote `origin`:
 
