@@ -2593,7 +2593,6 @@ It is especially useful if you want to edit the patch or metadata before committ
 ========
 
 
-// ********** ARRIVED HERE!!! **********
 
 
 
@@ -2601,43 +2600,128 @@ It is especially useful if you want to edit the patch or metadata before committ
 == A Distributed, Hierarchical Workflow
 // Ein verteilter, hierarchischer Workflow
 
-Der Integration-Manager-Workflow skaliert nicht mit der Größe des Projekts.  Bei großem Wachstum ist irgendwann der Maintainer mit der Komplexität des Projekts und der Anzahl der eingehenden Patches überfordert.  Der sog. _Dictator and Lieutenants_-Workflow, der ausgiebig bei der Entwicklung des Linux-Kerns angewandt wird, schafft hier Abhilfe. In diesem Fall ist die Software meist in verschiedene Subsysteme unterteilt, und Beiträge werden von den _Lieutenants_ (auch _Subsystem-Maintainer_) untersucht und dann an den _Benevolent Dictator_ ("`Gütiger Diktator`") weitergeleitet. Dieser lädt die Veränderungen schließlich in das _blessed_ ("`gesegnete`") Repository hoch, mit dem sich wiederum alle Mitstreiter synchronisieren.
+////
+Der Integration-Manager-Workflow skaliert nicht mit der Größe des Projekts.
+Bei großem Wachstum ist irgendwann der Maintainer mit der Komplexität des Projekts und der Anzahl der eingehenden Patches überfordert.
+Der sog. _Dictator and Lieutenants_-Workflow, der ausgiebig bei der Entwicklung des Linux-Kerns angewandt wird, schafft hier Abhilfe.
+In diesem Fall ist die Software meist in verschiedene Subsysteme unterteilt, und Beiträge werden von den _Lieutenants_ (auch _Subsystem-Maintainer_) untersucht und dann an den _Benevolent Dictator_ ("`Gütiger Diktator`") weitergeleitet.
+Dieser lädt die Veränderungen schließlich in das _blessed_ ("`gesegnete`") Repository hoch, mit dem sich wiederum alle Mitstreiter synchronisieren.
+////
+
+The Integration Manager workflow does not scale with the size of the project.
+With large growth, at some point the maintainer is overwhelmed by the complexity of the project and the number of incoming patches.
+The so-called _Dictator and Lieutenants_ workflow, which is used extensively in the development of the Linux kernel, provides a remedy.
+In this case, the software is usually divided into different subsystems, and contributions are examined by the _lieutenants_ (also _subsystem maintainers_) and then forwarded to the _Benevolent Dictator_.
+The Benevolent Dictator uploads the changes to the _blessed_ repository, which in turn is synchronized with all other participants.
 
 
 
+// @TRANSLATE IMAGE TEXT
 .Workflow: _Dictator and Lieutenants_
 image::patches-per-mail.png[id="fig.dictator",scaledwidth="90%",width="90%"]
 
-Der Workflow basiert auf Vertrauen: Der Diktator vertraut seinen Lieutenants und übernimmt deren weitergeleitete Modifikationen meist ohne Kontrolle.  Vorteil ist, dass der Diktator entlastet wird, aber trotzdem ein Vetorecht behält, was zu dem Titel Benevolent Dictator führte.
 
-Historisch bedingt ist das offizielle Repository oft nur das öffentliche Repository des aktuellen Haupt-Maintainers oder des Original-Autors.  Wichtig ist, dass dieses Repository nur aufgrund sozialer Konventionen existiert.  Sollte eines Tages ein anderer Entwickler das Projekt besser vorantreiben, kann es sein, dass sein öffentliches Repository das neue Blessed Repository wird. Aus technischer Sicht spricht nichts dagegen.
+////
+Der Workflow basiert auf Vertrauen: Der Diktator vertraut seinen Lieutenants und übernimmt deren weitergeleitete Modifikationen meist ohne Kontrolle.
+Vorteil ist, dass der Diktator entlastet wird, aber trotzdem ein Vetorecht behält, was zu dem Titel Benevolent Dictator führte.
+////
 
-Die Projekte, die in der Praxis diesen Workflow einsetzen, favorisieren den Patch-Austausch per Mail. Jedoch ist die Art des Austauschs eher zweitrangig, und die Subsystem-Maintainer könnten genauso gut Pull-Requests von den ihnen bekannten Entwicklern erhalten; oder aber die Mitstreiter mischen ganz nach Belieben öffentliche Repositories und per E-Mail verschickte Patches.  Die Flexibilität von Git -- insbesondere die Vielzahl von verschiedenen Methoden zum Austausch von Veränderungen -- unterstützen jeden erdenklichen Workflow im Sinne der freien, offenen Entwicklung. Sicherlich eine Eigenschaft, die maßgeblich zur Beliebtheit von Git beigetragen hat.
+The workflow is based on trust: The dictator trusts his lieutenants and usually takes over their forwarded modifications without control.
+The advantage is that the dictator is exonerated, but still retains a veto right, which led to the title Benevolent Dictator.
+
+
+////
+Historisch bedingt ist das offizielle Repository oft nur das öffentliche Repository des aktuellen Haupt-Maintainers oder des Original-Autors.
+Wichtig ist, dass dieses Repository nur aufgrund sozialer Konventionen existiert.
+Sollte eines Tages ein anderer Entwickler das Projekt besser vorantreiben, kann es sein, dass sein öffentliches Repository das neue Blessed Repository wird.
+Aus technischer Sicht spricht nichts dagegen.
+////
+
+For historical reasons, the official repository is often only the public repository of the current main maintainer or the original author.
+It is important to note that this repository exists only because of social conventions.
+Should another developer one day better advance the project, his public repository may become the new Blessed Repository.
+From a technical point of view, there is no reason not to do so.
+
+
+////
+Die Projekte, die in der Praxis diesen Workflow einsetzen, favorisieren den Patch-Austausch per Mail.
+Jedoch ist die Art des Austauschs eher zweitrangig, und die Subsystem-Maintainer könnten genauso gut Pull-Requests von den ihnen bekannten Entwicklern erhalten; oder aber die Mitstreiter mischen ganz nach Belieben öffentliche Repositories und per E-Mail verschickte Patches.
+Die Flexibilität von Git -- insbesondere die Vielzahl von verschiedenen Methoden zum Austausch von Veränderungen -- unterstützen jeden erdenklichen Workflow im Sinne der freien, offenen Entwicklung.
+Sicherlich eine Eigenschaft, die maßgeblich zur Beliebtheit von Git beigetragen hat.
+////
+
+The projects that use this workflow in practice prefer to exchange patches by mail.
+However, the nature of the exchange is secondary, and subsystem maintainers may just as well receive pull requests from developers they know; or they may mix public repositories and patches sent by email at will.
+Git's flexibility -- especially the variety of different methods for exchanging changes -- supports every conceivable workflow in the spirit of free, open development.
+Certainly a feature that has contributed greatly to Git's popularity.
+
 
 
 
 [[sec.subprojects]]
-== Unterprojekte verwalten
+== Managing Subprojects
+// Unterprojekte verwalten
 
-Bei größeren Softwareprojekten ist es bisweilen nötig, bestimmte Teile eines Programms in eigene Projekte auszulagern. Das ist zum Beispiel in den folgenden Situationen der Fall:
+////
+Bei größeren Softwareprojekten ist es bisweilen nötig, bestimmte Teile eines Programms in eigene Projekte auszulagern.
+Das ist zum Beispiel in den folgenden Situationen der Fall:
+////
 
-* Ihre Software hängt von einer bestimmten Version einer
-  Bibliothek ab, die Sie mit dem Quellcode zusammen ausliefern wollen.
-
-* Ihr anfänglich kleines Projekt wird mit der Zeit so groß,
-  dass Sie die Funktionalität in eine Bibliothek auslagern wollen, die
-  als eigenständiges Projekt verwaltet werden soll.
-
-* Eigenständige Teile Ihrer Software werden von anderen
-  Entwicklergruppen verwaltet.
+For larger software projects, it is sometimes necessary to outsource certain parts of a program into separate projects.
+This is the case in the following situations, for example:
 
 
+////
+* Ihre Software hängt von einer bestimmten Version einer Bibliothek ab, die Sie mit dem Quellcode zusammen ausliefern wollen.
+////
+
+* Your software depends on a specific version of a library that you want to ship with the source code.
+
+////
+* Ihr anfänglich kleines Projekt wird mit der Zeit so groß, dass Sie die Funktionalität in eine Bibliothek auslagern wollen, die als eigenständiges Projekt verwaltet werden soll.
+////
+
+* Your initially small project grows so large over time that you want to move functionality to a library that you want to manage as a separate project.
+
+////
+* Eigenständige Teile Ihrer Software werden von anderen Entwicklergruppen verwaltet.
+////
+
+* Independent parts of your software are managed by other development groups.
+
+
+
+////
 Mit Git können Sie auf zwei verschiedene Weisen damit umgehen: Sie verwalten die Module als sogenannte _Git-Submodules_ oder als _Subtrees_ -- in beiden Fällen verwalten Sie Quellcode in einem Unterverzeichnis Ihres Projekts.
+////
 
-Als Submodule verwalten Sie ein abgekoppeltes Repository, das nichts mit Ihrem übergeordneten Repository zu tun hat. Arbeiten Sie stattdessen mit Subtrees, dann wird die Projektgeschichte des Unterverzeichnisses untrennbar mit dem übergeordneten Projekt verbunden. Beides hat Vor- und Nachteile.
+With Git, you can use it in two different ways: You can manage the modules as _Git submodules_ or as _subtrees_ -- in either case, you manage source code in a subdirectory of your project.
 
-Wir betrachten beide Techniken beispielhaft, indem wir ein fiktionales Projekt erstellen, das die `libgit2` benötigt. Die Bibliothek bietet, ähnlich der `libgit.a`, eine API, um Git-Repositories zu untersuchen und zu verändern.{fn85} Die in C geschriebene Bibliothek kann ihre Funktionen u.a. auch nach Lua, Ruby, Python, PHP und JavaScript herausreichen.
 
+////
+Als Submodule verwalten Sie ein abgekoppeltes Repository, das nichts mit Ihrem übergeordneten Repository zu tun hat.
+Arbeiten Sie stattdessen mit Subtrees, dann wird die Projektgeschichte des Unterverzeichnisses untrennbar mit dem übergeordneten Projekt verbunden.
+Beides hat Vor- und Nachteile.
+////
+
+As submodules, you manage an isolated repository that has nothing to do with your parent repository.
+If you work with subtrees instead, the project history of the subdirectory becomes inseparable from the parent project.
+Both have advantages and disadvantages.
+
+
+////
+Wir betrachten beide Techniken beispielhaft, indem wir ein fiktionales Projekt erstellen, das die `libgit2` benötigt.
+Die Bibliothek bietet, ähnlich der `libgit.a`, eine API, um Git-Repositories zu untersuchen und zu verändern.[85]
+Die in C geschriebene Bibliothek kann ihre Funktionen u.a. auch nach Lua, Ruby, Python, PHP und JavaScript herausreichen.
+////
+
+We'll look at both techniques by way of example, creating a fictional project that requires `libgit2`.
+The library provides, similar to `libgit.a`, an API to examine and modify Git repositories.{fn85}
+The library, written in C, can extend its functions to Lua, Ruby, Python, PHP and JavaScript, among others.
+
+
+
+// ********** ARRIVED HERE!!! **********
 
 
 [[sec.submodules]]
