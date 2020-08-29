@@ -6,93 +6,131 @@
 
 include::gitbuch_footnotes.adoc[tag=Chapter_4]
 
-
+////
 Das folgende Kapitel behandelt ausgewählte fortgeschrittene Konzepte.
-Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen
-Anwendungen. Wir finden heraus, wer wann eine Zeile im Quellcode
-verändert hat (_Blame_) und wie Sie Git anweisen, Dateien und
-Verzeichnisse zu ignorieren.  Außerdem wird darauf eingegangen, wie
-Sie Änderungen am Working Tree in den Hintergrund stellen
-(_Stash_) und Commits annotieren (_Notes_).  Zuletzt zeigen
-wir Ihnen, wie Sie schnell und automatisiert Commits finden, die einen
-Bug einführen (_Bisect_).
+Im Vordergrund steht das Rebase-Kommando mit seinen vielfältigen Anwendungen.
+Wir finden heraus, wer wann eine Zeile im Quellcode verändert hat (_Blame_) und wie Sie Git anweisen, Dateien und Verzeichnisse zu ignorieren.
+Außerdem wird darauf eingegangen, wie Sie Änderungen am Working Tree in den Hintergrund stellen (_Stash_) und Commits annotieren (_Notes_).
+Zuletzt zeigen wir Ihnen, wie Sie schnell und automatisiert Commits finden, die einen Bug einführen (_Bisect_).
+////
+
+The following chapter covers selected advanced concepts.
+The focus is on the Rebase command with its many applications.
+We find out who changed a line in the source code (_Blame_) and when, and how to tell Git to ignore files and directories.
+We'll also look at how to stash changes to the working tree and annotate commits (_Notes_).
+Finally, we show you how to quickly and automatically find commits that introduce a bug (_Bisect_).
 
 [[sec.rebase]]
-== Commits verschieben – Rebase
+== Move commits - Rebase
+// Commits verschieben – Rebase
 
-Im Abschnitt über die Interna von Git wurde bereits erwähnt, dass man
-Commits in einem Git-Repository (anschaulich: dem Graphen) beliebig
-verschieben und modifizieren kann. Möglich wird das in der Praxis vor
-allem durch das Git-Kommando `rebase`. Das Kommando ist sehr
-mächtig und wichtig, aber zum Teil auch etwas anspruchsvoller in der
-Anwendung.
+////
+Im Abschnitt über die Interna von Git wurde bereits erwähnt, dass man Commits in einem Git-Repository (anschaulich: dem Graphen) beliebig verschieben und modifizieren kann.
+Möglich wird das in der Praxis vor allem durch das Git-Kommando `rebase`.
+Das Kommando ist sehr mächtig und wichtig, aber zum Teil auch etwas anspruchsvoller in der Anwendung.
+////
 
-_Rebase_ ist ein Kunstwort, was soviel bedeutet wie "`etwas
-auf eine neue Basis stellen`". Gemeint ist damit, dass eine Gruppe
-von Commits innerhalb des Commit-Graphen verschoben, also Commit für
-Commit auf Basis eines anderen Knotens aufgebaut wird.  Die
-nachfolgenden Grafiken veranschaulichen die Funktionsweise:
+In the section on Git's internals, we mentioned earlier that you can move and modify commits in a Git repository (graphically speaking) at will.
+In practice, this is made possible primarily by the git command `rebase`.
+This command is very powerful and important, but sometimes a bit more demanding to use.
 
-.Vor dem Rebase
+////
+_Rebase_ ist ein Kunstwort, was soviel bedeutet wie "`etwas auf eine neue Basis stellen`".
+Gemeint ist damit, dass eine Gruppe von Commits innerhalb des Commit-Graphen verschoben, also Commit für Commit auf Basis eines anderen Knotens aufgebaut wird.
+Die nachfolgenden Grafiken veranschaulichen die Funktionsweise:
+////
+
+_Rebase_ is an artificial word which means "`to put something on a new basis`".
+What it means is that a group of commits is moved around within the commit graph, building commit after commit based on another node.
+The following graphics illustrate how this works:
+
+// .Vor dem Rebase
+.Before the rebase
 image::rebase-vorher.png[id="fig.rebase-vorher-dia",scaledwidth="90%",width="90%"]
 
-.{empty}...und danach
+// .{empty}...und danach
+.{empty}...and after that
 image::rebase-nachher.png[id="fig.rebase-nachher-dia",scaledwidth="90%",width="90%"]
 
-In der einfachsten Form lautet das Kommando `git rebase
-  <referenz>` (im o.g. Diagramm: `git rebase master`).  Damit
-markiert Git zunächst alle Commits `<referenz>..HEAD`, also die
-Commits, die von `HEAD` aus erreichbar sind (dem aktuellen
-Branch) abzüglich der Commits, die von `<referenz>` aus
-erreichbar sind – anschaulich gesprochen also alles, was im aktuellen
-Branch, aber nicht in `<referenz>` liegt. Im Diagramm sind das
-also E und F.
+////
+In der einfachsten Form lautet das Kommando `git rebase <referenz>` (im o.g. Diagramm: `git rebase master`).
+Damit markiert Git zunächst alle Commits `<referenz>..HEAD`, also die Commits, die von `HEAD` aus erreichbar sind (dem aktuellen Branch) abzüglich der Commits, die von `<referenz>` aus erreichbar sind – anschaulich gesprochen also alles, was im aktuellen Branch, aber nicht in `<referenz>` liegt.
+Im Diagramm sind das also E und F.
+////
 
-Die Liste dieser Commits wird zwischengespeichert. Anschließend checkt
-Git den Commit `<referenz>` aus und kopiert die einzelnen,
-zwischengespeicherten Commits in der ursprünglichen Reihenfolge als
-neue Commits in den Branch.
+In its simplest form the command is `git rebase <reference>` (in the above diagram: `git rebase master`).
+This means that Git first marks all commits `<reference>..HEAD`, i.e. the commits that can be reached from `HEAD` (the current branch) minus the commits that can be reached from `<reference>` - in other words, everything that is in the current branch but not in `<reference>`.
+In the diagram, these are E and F.
 
+////
+Die Liste dieser Commits wird zwischengespeichert.
+Anschließend checkt Git den Commit `<referenz>` aus und kopiert die einzelnen, zwischengespeicherten Commits in der ursprünglichen Reihenfolge als neue Commits in den Branch.
+////
+
+The list of these commits is stored temporarily.
+Git then checks out the commit `<reference>` and copies the individual cached commits in the original order as new commits to the branch.
+
+////
 Hierbei sind einige Punkte zu beachten:
+////
 
+There are a few points to consider:
 
+////
+* Weil der erste Knoten des +topic+-Branches (E) nun einen neuen Vorgänger (D) hat, ändern sich seine Metadaten und somit seine SHA-1-Summe (er wird zu E_).
+  Der zweite Commit (F) hat dann ebenfalls einen anderen Vorgänger (E_ statt E), dessen SHA-1-Summe ändert sich (er wird zu F_) usw. – dies wird auch als _Ripple Effect_ bezeichnet.
+  Insgesamt werden _alle_ kopierten Commits neue SHA-1-Summen haben – sie sind also im Zweifel gleich (was die Änderungen betrifft), aber nicht identisch.
+////
 
-* Weil der erste Knoten des +topic+-Branches (E) nun einen neuen Vorgänger (D) hat, ändern sich seine Metadaten und somit seine SHA-1-Summe (er wird zu E_). Der zweite Commit (F) hat dann ebenfalls einen anderen Vorgänger (E_ statt E), dessen SHA-1-Summe ändert sich (er wird zu F_) usw. – dies wird auch als _Ripple Effect_ bezeichnet. Insgesamt werden _alle' kopierten Commits neue SHA-1-Summen haben – sie sind also im Zweifel gleich (was die Änderungen betrifft), aber nicht identisch.
+* Because the first node of the +topic+ branch (E) now has a new predecessor (D), its metadata and thus its SHA-1 sum changes (it becomes E_).
+  The second commit (F) then also has a different predecessor (E_ instead of E), its SHA-1 sum changes (it becomes F_) and so on - this is also called the _ripple effect_.
+  Overall, _all_ copied commits will have new SHA-1 sums - so they're the same (in terms of changes), but not identical.
 
-* Bei einer solchen Aktion können, genau wie bei
-  einem Merge-Vorgang, konfliktbehaftete Änderungen auftreten. Git
-  kann diese teilweise automatisch lösen, bricht aber mit einer
-  entsprechenden Fehlermeldung ab, wenn die Konflikte nicht trivial
-  sind. Der Rebase-Prozess kann dann entweder "`repariert`"
-  und weitergeführt oder abgebrochen werden (s.u.).
+////
+* Bei einer solchen Aktion können, genau wie bei einem Merge-Vorgang, konfliktbehaftete Änderungen auftreten.
+  Git kann diese teilweise automatisch lösen, bricht aber mit einer entsprechenden Fehlermeldung ab, wenn die Konflikte nicht trivial sind.
+  Der Rebase-Prozess kann dann entweder "`repariert`" und weitergeführt oder abgebrochen werden (s.u.).
+////
 
+* Such an action, just like a merge operation, can result in conflicting changes.
+  Git can partially resolve them automatically, but aborts with an error message if the conflicts are not trivial.
+  The rebase process can then either be "`repaired`" and continued, or aborted (see below).
 
-* Sofern keine weitere Referenz auf den Knoten F zeigt, geht
-  dieser verloren, weil die Referenz +HEAD+ (und gegebenenfalls
-  der entsprechende Branch) bei einem erfolgreichen Rebase auf den
-  Knoten F_ _verschoben' wird.  Wenn also F keine Referenz mehr
-  hat (und auch keine Vorgänger, die F referenzieren), kann Git den
-  Knoten nicht mehr finden, und der Baum "`verschwindet`".
-  Wenn Sie sich nicht sicher sind, ob Sie den Original-Baum noch
-  einmal benötigen, können Sie zum Beispiel mit dem
-  `tag`-Kommando einfach eine Referenz darauf setzen. Dann
-  bleiben die Commits auch nach einem Rebase erhalten (dann aber in
-  doppelter Form an verschiedenen Stellen im Commit-Graphen).
+////
+* Sofern keine weitere Referenz auf den Knoten F zeigt, geht dieser verloren, weil die Referenz +HEAD+ (und gegebenenfalls der entsprechende Branch) bei einem erfolgreichen Rebase auf den Knoten F_ _verschoben_ wird.
+  Wenn also F keine Referenz mehr hat (und auch keine Vorgänger, die F referenzieren), kann Git den Knoten nicht mehr finden, und der Baum "`verschwindet`".
+  Wenn Sie sich nicht sicher sind, ob Sie den Original-Baum noch einmal benötigen, können Sie zum Beispiel mit dem `tag`-Kommando einfach eine Referenz darauf setzen.
+  Dann bleiben die Commits auch nach einem Rebase erhalten (dann aber in doppelter Form an verschiedenen Stellen im Commit-Graphen).
+////
 
+* If no other reference points to node F, it will be lost, because reference +HEAD+ (and the corresponding branch, if applicable) will be _shifted_ to node F_ in case of a successful rebase.
+  So if F has no more reference (and no predecessors referencing F), Git can no longer find the node, and the tree "`disappears`".
+  If you're not sure whether you need the original tree again, you can simply reference it with the `tag` command, for example.
+  In that case, the commits will be preserved even after a rebase (but then in duplicate at different places in the commit graph).
 
 [[sec.rebase-bsp]]
-=== Ein Beispiel
+=== An example
+//  Ein Beispiel
 
-Betrachten Sie folgende Situation: Der Branch `sqlite-support`
-zweigt vom Commit "`fixed a bug...`" ab. Der
-`master`-Branch ist aber schon weitergerückt, und ein neues
-Release 1.4.2 ist erschienen.
+////
+Betrachten Sie folgende Situation:
+Der Branch `sqlite-support` zweigt vom Commit "`fixed a bug...`" ab.
+Der `master`-Branch ist aber schon weitergerückt, und ein neues Release 1.4.2 ist erschienen.
+////
 
-.Vor dem Rebase
+Consider the following situation:
+The `sqlite-support` branch branches off from the "`fixed a bug...`" commit.
+But the `master` branch has already moved on, and a new 1.4.2 release has been made.
+
+// .Vor dem Rebase
+.Before the rebase
 image::screenshot-rebase-vorher.png[id="fig.screenshot-rebase-vorher",scaledwidth="90%",width="90%"]
 
-Nun wird `sqlite-support` ausgecheckt und neu auf
-`master` aufgebaut:
+////
+Nun wird `sqlite-support` ausgecheckt und neu auf `master` aufgebaut:
+////
+
+Now `sqlite-support` is checked out and rebuilt to `master`:
 
 [subs="macros,quotes"]
 --------
@@ -104,28 +142,42 @@ Applying: generalize queries
 Applying: modify Makefile to support sqlite
 --------
 
-Rebase wendet die drei Änderungen, die durch Commits aus dem Branch
-`sqlite-support` eingeführt werden, auf den
-`master`-Branch an. Danach sieht das Repository in Gitk wie
-folgt aus:
+////
+Rebase wendet die drei Änderungen, die durch Commits aus dem Branch `sqlite-support` eingeführt werden, auf den `master`-Branch an.
+Danach sieht das Repository in Gitk wie folgt aus:
+////
 
-.Nach Rebase
+Rebase applies the three changes introduced by commits from the `sqlite-support` branch to the `master` branch.
+After that, the repository looks like this in Gitk:
+
+// .Nach Rebase
+.After rebase
 image::screenshot-rebase-nachher.png[id="fig.screenshot-rebase-nachher",scaledwidth="90%",width="90%"]
 
 [[sec.rebase-extended]]
-=== Erweiterte Syntax und Konflikte
+=== Extended syntax and conflicts
+//  Erweiterte Syntax und Konflikte
 
-Normalerweise wird `git rebase` immer den Branch, auf dem Sie
-gerade arbeiten, auf einen neuen aufbauen. Allerdings gibt es eine
-Abkürzung: Wollen Sie `topic` auf `master` aufbauen,
-befinden sich aber auf einem ganz anderen Branch, können Sie das per
+////
+Normalerweise wird `git rebase` immer den Branch, auf dem Sie gerade arbeiten, auf einen neuen aufbauen.
+Allerdings gibt es eine Abkürzung:
+Wollen Sie `topic` auf `master` aufbauen, befinden sich aber auf einem ganz anderen Branch, können Sie das per
+////
+
+Normally `git rebase` will always build the branch you are currently working on on a new one.
+However, there is a shortcut:
+If you want to base `topic` on `master`, but you are on a completely different branch, you can do this via
 
 [subs="macros,quotes"]
 --------
 $ *git rebase master topic*
 --------
 
+////
 Git macht intern Folgendes:
+////
+
+Git does the following internally:
 
 [subs="macros,quotes"]
 --------
@@ -133,16 +185,29 @@ $ *git checkout topic*
 $ *git rebase master*
 --------
 
-
+////
 Beachten Sie die (leider wenig intuitive) Reihenfolge:
+////
 
+Please note the (unfortunately not very intuitive) order:
+
+////
 --------
 git rebase <worauf> <was>
 --------
+////
 
+--------
+git rebase <on which> <what>
+--------
 
-Bei einem Rebase kann es zu Konflikten kommen. Der Prozess hält dann
-mit folgender Fehlermeldung an:
+////
+Bei einem Rebase kann es zu Konflikten kommen.
+Der Prozess hält dann mit folgender Fehlermeldung an:
+////
+
+A rebase can lead to conflicts.
+The process then stops with the following error message:
 
 [subs="macros,quotes"]
 --------
@@ -156,334 +221,451 @@ The copy of the patch that failed is found in:
 
 When you have resolved this problem, run "git rebase --continue".
 If you prefer to skip this patch, run "git rebase --skip" instead.
-To check out the original branch and stop rebasing, run "git rebase
---abort".
+To check out the original branch and stop rebasing, run "git rebase --abort".
 --------
 
+////
+Sie gehen vor wie bei einem regulären Merge-Konflikt (siehe <<sec.merge-conflicts>>) – `git mergetool` ist hier sehr hilfreich.
+Fügen Sie dann einfach die geänderte Datei per `git add` hinzu und lassen Sie den Prozess per `git rebase --continue` weiterlaufen.{fn54}
+////
 
-Sie gehen vor wie bei einem regulären Merge-Konflikt (siehe
-<<sec.merge-conflicts>>) – `git mergetool` ist hier
-sehr hilfreich. Fügen Sie dann einfach die geänderte Datei per
-`git add` hinzu und lassen Sie den Prozess per `git
-  rebase --continue` weiterlaufen.{fn54}
+You proceed as with a regular merge conflict (see <<sec.merge-conflicts>>) - `git mergetool` is very helpful here.
+Then simply add the changed file via `git add` and let the process continue via `git rebase --continue`.{fn54}
 
-Alternativ lässt sich der problematische Commit auch überspringen, und
-zwar mit dem Kommando `git rebase --skip`. Der Commit ist
-dann aber verloren, sofern er nicht in einem anderen Branch irgendwo
-referenziert wird! Sie sollten diese Aktion also nur ausführen, wenn
-Sie sicher wissen, dass der Commit obsolet ist.
+////
+Alternativ lässt sich der problematische Commit auch überspringen, und zwar mit dem Kommando `git rebase --skip`.
+Der Commit ist dann aber verloren, sofern er nicht in einem anderen Branch irgendwo referenziert wird!
+Sie sollten diese Aktion also nur ausführen, wenn Sie sicher wissen, dass der Commit obsolet ist.
+////
 
-Wenn das alles nicht weiterhilft (Sie z.B. den Konflikt nicht an
-der Stelle lösen können oder gemerkt haben, dass Sie gerade den
-falschen Baum umbauen), ziehen Sie die Notbremse: `git rebase
-  --abort`.  Dies verwirft alle Änderungen am Repository (auch schon
-erfolgreich kopierte Commits), so dass der Zustand danach genau so
-ist, wie zu dem Zeitpunkt, als der Rebase-Prozess gestartet wurde. Das
-Kommando hilft auch, wenn Sie irgendwann vergessen haben, einen
-Rebase-Prozess zu Ende zu führen, und sich andere Kommandos
-beschweren, dass sie ihre Arbeit nicht verrichten können, weil gerade
-ein Rebase im Gang ist.
+Alternatively, the problematic commit can be skipped using the `git rebase --skip` command.
+The commit is then lost unless it is referenced in another branch somewhere else!
+So you should only perform this action if you are certain that the commit is obsolete.
 
+////
+Wenn das alles nicht weiterhilft (Sie z.B. den Konflikt nicht an der Stelle lösen können oder gemerkt haben, dass Sie gerade den falschen Baum umbauen), ziehen Sie die Notbremse: `git rebase --abort`.
+Dies verwirft alle Änderungen am Repository (auch schon erfolgreich kopierte Commits), so dass der Zustand danach genau so ist, wie zu dem Zeitpunkt, als der Rebase-Prozess gestartet wurde.
+Das Kommando hilft auch, wenn Sie irgendwann vergessen haben, einen Rebase-Prozess zu Ende zu führen, und sich andere Kommandos beschweren, dass sie ihre Arbeit nicht verrichten können, weil gerade ein Rebase im Gang ist.
+////
+
+If none of this helps (e.g. if you can't solve the conflict at that point, or if you realize that you are rebuilding the wrong tree), pull the emergency brake: `git rebase --abort`.
+This will discard all changes to the repository (including successfully copied commits), so that the state afterwards is exactly the same as it was when the rebase process was started.
+The command also helps if at some point you forget to finish a rebase process, and other commands complain that they can't do their job because a rebase is in progress.
 
 [[sec.rebase-sinnvoll]]
-=== Warum Rebase sinnvoll ist
+=== Why rebase makes sense
+//  Warum Rebase sinnvoll ist
 
-Rebase ist vor allem sinnvoll, um die Commit-Geschichte eines Projekts
-einfach und leicht verständlich zu halten. Beispielsweise arbeitet ein
-Entwickler an einem Feature, hat dann aber ein paar Wochen lang etwas
-anderes zu tun. Währenddessen ist die Entwicklung im Projekt aber
-schon weiter vorangeschritten, es gab ein neues Release etc.  Erst
-jetzt kommt der Entwickler dazu, ein Feature zu beenden. (Auch wenn
-Sie Patches per E-Mail verschicken wollen, hilft Rebase, Konflikte zu
-vermeiden, siehe dazu <<sec.patch-queue>>.)
+////
+Rebase ist vor allem sinnvoll, um die Commit-Geschichte eines Projekts einfach und leicht verständlich zu halten.
+Beispielsweise arbeitet ein Entwickler an einem Feature, hat dann aber ein paar Wochen lang etwas anderes zu tun.
+Währenddessen ist die Entwicklung im Projekt aber schon weiter vorangeschritten, es gab ein neues Release etc.
+Erst jetzt kommt der Entwickler dazu, ein Feature zu beenden.
+(Auch wenn Sie Patches per E-Mail verschicken wollen, hilft Rebase, Konflikte zu vermeiden, siehe dazu <<sec.patch-queue>>.)
+////
 
-Für die Versionsgeschichte ist es nun viel logischer, wenn sein
-Feature nicht über einen langen Zeitraum unfertig neben der
-eigentlichen Entwicklung "`mitgeschleppt`" wurde, sondern wenn
-die Entwicklung vom letzten stabilen Release abzweigt.
+Rebase is primarily useful for keeping the commit history of a project simple and easy to understand.
+For example, a developer might be working on a feature, but then have something else to do for a few weeks.
+Meanwhile, however, development on the project has progressed, there's been a new release, etc.
+Only now does the developer get to finish a feature.
+(Even if you want to send patches via email, rebase helps to avoid conflicts, see <<sec.patch-queue>>.)
 
-Für genau diese Änderung in der Geschichte ist Rebase gut: Der
-Entwickler kann nun einfach auf seinem Branch, auf dem er das Feature
-entwickelt hat, das Kommando `git rebase v1.4.2` eingeben, um
-seinen Feature-Branch neu auf dem Commit mit dem Release-Tag
-`v1.4.2` aufzubauen. So lässt sich wesentlich leichter
-ablesen, welche Unterschiede das Feature wirklich in die Software
-einbringt.
+////
+Für die Versionsgeschichte ist es nun viel logischer, wenn sein Feature nicht über einen langen Zeitraum unfertig neben der eigentlichen Entwicklung "`mitgeschleppt`" wurde, sondern wenn die Entwicklung vom letzten stabilen Release abzweigt.
+////
 
-Auch passiert es jedem Entwickler im Eifer des Gefechts, dass Commits
-im falschen Branch landen. Da findet sich zufällig ein Fehler, der
-schnell durch einen entsprechenden Commit behoben wird; aber dann muss
-direkt noch ein Test geschrieben werden, um diesen Fehler in Zukunft
-zu vermeiden (ein weiterer Commit), was wiederum in der Dokumentation
-entsprechend zu vermerken ist. Nachdem die eigentliche Arbeit getan
-ist, kann man diese Commits mit Rebase an eine andere Stelle im
-Commit-Graphen "`transplantieren`".
+For the version history it is now much more logical if his feature was not "`dragged along`" unfinished for a long period of time alongside the actual development, but if the development branches off from the last stable release.
 
-Rebase kann auch dann sinnvoll sein, wenn in einem Branch ein Feature
-benötigt wird, das erst kürzlich in die Software eingeflossen ist. Ein
-_Merge_ des `master`-Branches ist semantisch nicht
-sinnvoll, da dann diese und andere Änderungen untrennbar mit dem
-Feature-Branch verschmolzen werden. Stattdessen baut man den Branch
-per Rebase auf einen neuen Commit auf, in dem das benötigte Feature
-schon enthalten ist, und kann dieses dann in der weiteren Entwicklung
-nutzen.
+////
+Für genau diese Änderung in der Geschichte ist Rebase gut:
+Der Entwickler kann nun einfach auf seinem Branch, auf dem er das Feature entwickelt hat, das Kommando `git rebase v1.4.2` eingeben, um seinen Feature-Branch neu auf dem Commit mit dem Release-Tag `v1.4.2` aufzubauen.
+So lässt sich wesentlich leichter ablesen, welche Unterschiede das Feature wirklich in die Software einbringt.
+////
 
+Rebase is good for exactly this change in history:
+The developer can now simply enter the command `git rebase v1.4.2` on the branch where he developed the feature, to rebuild his feature branch on the commit with the release tag `v1.4.2`.
+This makes it much easier to see what differences the feature really brings to the software.
+
+////
+Auch passiert es jedem Entwickler im Eifer des Gefechts, dass Commits im falschen Branch landen.
+Da findet sich zufällig ein Fehler, der schnell durch einen entsprechenden Commit behoben wird; aber dann muss direkt noch ein Test geschrieben werden, um diesen Fehler in Zukunft zu vermeiden (ein weiterer Commit), was wiederum in der Dokumentation entsprechend zu vermerken ist.
+Nachdem die eigentliche Arbeit getan ist, kann man diese Commits mit Rebase an eine andere Stelle im Commit-Graphen "`transplantieren`".
+////
+
+It also happens to every developer in the heat of the moment that commits end up in the wrong branch.
+There is a bug that happens to be there, which is quickly fixed by a commit; but then a test must be written directly to avoid this bug in the future (another commit), and this must be noted in the documentation.
+After the actual work is done, you can use Rebase to "`transplant`" those commits to another location in the commit graph.
+
+////
+Rebase kann auch dann sinnvoll sein, wenn in einem Branch ein Feature benötigt wird, das erst kürzlich in die Software eingeflossen ist.
+Ein _Merge_ des `master`-Branches ist semantisch nicht sinnvoll, da dann diese und andere Änderungen untrennbar mit dem Feature-Branch verschmolzen werden.
+Stattdessen baut man den Branch per Rebase auf einen neuen Commit auf, in dem das benötigte Feature schon enthalten ist, und kann dieses dann in der weiteren Entwicklung nutzen.
+////
+
+Rebase can also be useful if a branch requires a feature that has only recently been incorporated into the software.
+A _merge_ of the `master` branch does not make sense semantically, because then these and other changes are inseparably merged with the feature branch.
+Instead, you rebase the branch on a new commit that already contains the required feature, and then use that in further development.
 
 [[sec.rebase-vs-merge]]
-=== Wann Rebase _nicht_ sinnvoll ist – Rebase vs. Merge
+=== When rebase is _not_ useful - rebase vs. merge
+//  Wann Rebase _nicht_ sinnvoll ist – Rebase vs. Merge
 
-Das Konzept von Rebase ist zunächst etwas schwierig zu verstehen. Aber
-sobald Sie verstanden haben, was damit möglich ist, stellt sich die
-Frage: Wozu braucht man überhaupt noch ein simples Merge, wenn man
-doch alles mit Rebase bearbeiten kann?
+////
+Das Konzept von Rebase ist zunächst etwas schwierig zu verstehen.
+Aber sobald Sie verstanden haben, was damit möglich ist, stellt sich die Frage:
+Wozu braucht man überhaupt noch ein simples Merge, wenn man doch alles mit Rebase bearbeiten kann?
+////
 
+The concept of rebase is initially a little difficult to understand.
+But once you have understood what is possible with it, the question arises:
+What is the point of a simple merge if you can edit everything with rebase?
 
+////
+Wenn Git-Rebase nicht oder kaum angewendet wird, entwickelt sich häufig eine Projektgeschichte, die relativ unüberschaubar wird, weil ständig und jeweils für wenige Commits Merges ausgeführt werden müssen.
+////
 
-Wenn Git-Rebase nicht oder kaum angewendet wird, entwickelt sich
-häufig eine Projektgeschichte, die relativ unüberschaubar wird, weil
-ständig und jeweils für wenige Commits Merges ausgeführt werden
-müssen.
+When git-rebase is not used, or hardly used at all, a project history often develops that becomes relatively unmanageable, because merges have to be performed constantly and for a few commits at a time.
 
-Wird Rebase dagegen zu viel angewendet, besteht die Gefahr, dass das
-gesamte Projekt sinnlos linearisiert wird: Das flexible Branching von
-Git wird zwar zur Entwicklung genutzt, die Branches werden aber dann
-reißverschlussartig per Rebase hintereinander(!) in den
-Veröffentlichungsbranch integriert. Das stellt uns vor allem vor zwei
-Probleme:
+////
+Wird Rebase dagegen zu viel angewendet, besteht die Gefahr, dass das gesamte Projekt sinnlos linearisiert wird:
+Das flexible Branching von Git wird zwar zur Entwicklung genutzt, die Branches werden aber dann reißverschlussartig per Rebase hintereinander(!) in den Veröffentlichungsbranch integriert.
+Das stellt uns vor allem vor zwei Probleme:
+////
 
+If, on the other hand, too much rebase is used, there is a danger that the entire project will be senselessly linearized:
+The flexible branching of Git is used for development, but the branches are then integrated into the publishing branch one after the other (!) like a zip fastener via rebase.
+This presents us with two main problems:
 
-* Logisch zusammengehörige Commits sind nicht mehr als solche
-  zu erkennen. Da alle Commits linear sind, vermischt sich die
-  Entwicklung mehrerer Features untrennbar.
+////
+* Logisch zusammengehörige Commits sind nicht mehr als solche zu erkennen.
+  Da alle Commits linear sind, vermischt sich die Entwicklung mehrerer Features untrennbar.
+////
 
-* Die Integration eines Branches kann nicht mehr ohne
-  weiteres rückgängig gemacht werden, denn diejenigen Commits zu
-  identifizieren, die einmal zu einem Feature-Branch gehörten, ist nur
-  manuell möglich.
+* Logically related commits are no longer recognizable as such.
+  Since all commits are linear, the development of multiple features is inextricably intertwined.
 
+////
+* Die Integration eines Branches kann nicht mehr ohne weiteres rückgängig gemacht werden, denn diejenigen Commits zu identifizieren, die einmal zu einem Feature-Branch gehörten, ist nur manuell möglich.
+////
 
-So verspielen Sie die Vorteile des flexiblen Branchings von Git. Die
-Schlussfolgerung ist, dass Rebase weder zu viel noch zu wenig
-angewendet werden sollte. Beides macht die Projektgeschichte (auf
-unterschiedliche Art und Weise) unübersichtlich.
+* The integration of a branch can no longer be easily undone, because identifying those commits that once belonged to a feature branch is only possible manually.
 
+////
+So verspielen Sie die Vorteile des flexiblen Branchings von Git.
+Die Schlussfolgerung ist, dass Rebase weder zu viel noch zu wenig angewendet werden sollte.
+Beides macht die Projektgeschichte (auf unterschiedliche Art und Weise) unübersichtlich.
+////
+
+This is how you can make the most of Git's flexible branching.
+The conclusion is that rebase should be used neither too much nor too little.
+Both make the project history (in different ways) confusing.
+
+////
 Generell fahren Sie mit den folgenden Faustregeln gut:
+////
 
+In general, you are doing well with the following rules of thumb:
 
-. Ein Feature wird, wenn es fertig wird, per _Merge_
-  integriert. Sinnvollerweise sollte vermieden werden, einen
-  _Fast-Forward-Merge_ zu erzeugen, damit der Merge-Commit als
-  Zeitpunkt der Integration erhalten bleibt.
+////
+. Ein Feature wird, wenn es fertig wird, per _Merge_ integriert.
+  Sinnvollerweise sollte vermieden werden, einen _Fast-Forward-Merge_ zu erzeugen, damit der Merge-Commit als Zeitpunkt der Integration erhalten bleibt.
+////
 
-. Während Sie entwickeln, sollten Sie häufig Rebase benutzen
-  (besonders interaktives Rebase, s.u.).
+. A feature is integrated by _merge_ when it is finished.
+  It is best to avoid creating a _fast forward merge_ so that the merge commit is preserved as the time of integration.
 
-. Logisch getrennte Einheiten sollten auf getrennten Branches
-  entwickelt werden – logisch zusammengehörige eventuell auf mehreren,
-  die dann per Rebase verschmolzen werden (wenn das sinnvoll ist).
-  Die Zusammenführung logisch getrennter Einheiten erfolgt dann per
-  Merge.
+////
+. Während Sie entwickeln, sollten Sie häufig Rebase benutzen (besonders interaktives Rebase, s.u.).
+////
 
+. While you are developing, you should use rebase frequently (especially interactive rebase, see below).
 
+////
+. Logisch getrennte Einheiten sollten auf getrennten Branches entwickelt werden – logisch zusammengehörige eventuell auf mehreren, die dann per Rebase verschmolzen werden (wenn das sinnvoll ist).
+  Die Zusammenführung logisch getrennter Einheiten erfolgt dann per Merge.
+////
+
+. Logically separate units should be developed on separate branches - logically related ones possibly on several, which are then merged by rebase (if that makes sense).
+  The merging of logically separate units is then done by merge.
 
 [[sec.rebase-warnung]]
-=== Ein Wort der Warnung
+=== A word of warning
+//  Ein Wort der Warnung
 
-Wie schon angesprochen, ändern sich bei einem Rebase zwangsläufig die
-SHA-1-Summen aller Commits, die "`umgebaut`" werden. Wenn diese
-Änderungen noch nicht veröffentlicht wurden, d.h. bei einem
-Entwickler im privaten Repository liegen, ist das auch nicht schlimm.
+////
+Wie schon angesprochen, ändern sich bei einem Rebase zwangsläufig die SHA-1-Summen aller Commits, die "`umgebaut`" werden.
+Wenn diese Änderungen noch nicht veröffentlicht wurden, d.h. bei einem Entwickler im privaten Repository liegen, ist das auch nicht schlimm.
+////
 
-Wenn aber ein Branch (z.B.{empty}{nbsp}`master`) veröffentlicht{empty}{fn55}
-und später per Rebase umgeschrieben wird, hat das unschöne Folgen
-für alle Beteiligten: Alle Branches, die auf `master` aufbauen,
-referenzieren nun die alte Kopie des mittlerweile umgeschriebenen
-`master`-Branches. Also muss jeder Branch wiederum per Rebase
-auf den neuen `master` aufgebaut werden (wodurch sich wiederum
-alle Commit-IDs ändern). Dieser Effekt setzt sich fort und kann (je
-nachdem, wann so ein Rebase passiert und wie viele Entwickler an dem
-Projekt beteiligt sind) sehr zeitaufwendig zu beheben sein (das trifft
-vor allem dann zu, wenn Git-Neulinge dabei sind).
+As mentioned earlier, a rebase inevitably changes the SHA-1 sums of all commits that are "`rebuilt`".
+If these changes have not yet been published, that is, if a developer has them in a private repository, that's not too bad either.
 
+////
+Wenn aber ein Branch (z.B.{empty}{nbsp}`master`) veröffentlicht{empty}{fn55} und später per Rebase umgeschrieben wird, hat das unschöne Folgen für alle Beteiligten:
+Alle Branches, die auf `master` aufbauen, referenzieren nun die alte Kopie des mittlerweile umgeschriebenen `master`-Branches.
+Also muss jeder Branch wiederum per Rebase auf den neuen `master` aufgebaut werden (wodurch sich wiederum alle Commit-IDs ändern).
+Dieser Effekt setzt sich fort und kann (je nachdem, wann so ein Rebase passiert und wie viele Entwickler an dem Projekt beteiligt sind) sehr zeitaufwendig zu beheben sein (das trifft vor allem dann zu, wenn Git-Neulinge dabei sind).
+////
+
+But if a branch (e.g. {empty}{nbsp}`master`) is published{empty}{fn55} and later rewritten via rebase, this has unpleasant consequences for all involved:
+All branches based on `master` will now reference the old copy of the `master` branch that has been rewritten.
+So each branch must be rebased to the new `master` (which in turn changes all commit IDs).
+This effect continues, and can be very time-consuming to fix (depending on when such a rebase happens, and how many developers are involved in the project), especially if you're new to git.
+
+////
 Daher sollten Sie immer an folgende Regel denken:
+////
+
+Therefore you should always remember the following rule:
 
 [WARNING]
 ==================
+////
 Bearbeiten Sie mit dem Rebase-Kommando nur  unveröffentlichte Commits!
+////
+
+Only edit unpublished commits with the rebase command!
 ==================
 
+////
+Ausnahmen bilden Konventionen wie persönliche Branches oder `pu`.
+Letzterer ist ein Kürzel für _Proposed Updates_ und ist in der Regel ein Branch, in dem neue, experimentelle Features auf Kompatibilität getestet werden.
+Auf diesen Branch baut sinnvollerweise niemand seine eigene Arbeit auf, daher kann er ohne Probleme und vorherige Ankündigung umgeschrieben werden.
+////
 
-Ausnahmen bilden Konventionen wie persönliche Branches oder
-`pu`. Letzterer ist ein Kürzel für _Proposed Updates_ und
-ist in der Regel ein Branch, in dem neue, experimentelle Features auf
-Kompatibilität getestet werden. Auf diesen Branch baut sinnvollerweise
-niemand seine eigene Arbeit auf, daher kann er ohne Probleme und
-vorherige Ankündigung umgeschrieben werden.
+Exceptions are conventions like personal branches or `pu`.
+The latter is an abbreviation for _Proposed Updates_ and is usually a branch where new, experimental features are tested for compatibility.
+No one builds their own work on this branch, so it can be rewritten without problems and prior notice.
 
-Eine weitere Möglichkeit bieten private Branches, also solche, die zum
-Beispiel mit `<user>/` starten. Trifft man die
-Vereinbarung, dass Entwickler auf diesen Branches eigene Entwicklung
-betreiben, aber ihre Features immer nur auf "`offiziellen`"
-Branches aufbauen, dann dürfen die Entwickler ihre Branches beliebig
-umschreiben.
+////
+Eine weitere Möglichkeit bieten private Branches, also solche, die zum Beispiel mit `<user>/` starten.
+Trifft man die Vereinbarung, dass Entwickler auf diesen Branches eigene Entwicklung betreiben, aber ihre Features immer nur auf "`offiziellen`" Branches aufbauen, dann dürfen die Entwickler ihre Branches beliebig umschreiben.
+////
+
+Another possibility is offered by private branches, i.e. those that start with `<user>/` for example.
+If you make an agreement that developers will do their own development on these branches, but always base their features on "`official`" branches, then the developers may rewrite their branches as they wish.
 
 [[sec.rebase-cp]]
-=== Code-Dopplungen vermeiden
+=== Avoid code duplication
+//  Code-Dopplungen vermeiden
 
-Wird über einen langen Zeitraum an einem Feature entwickelt, und Teile
-des Features fließen schon in ein Mainstream-Release (z.B. per
-`cherry-pick`), dann erkennt das Rebase-Kommando diese Commits
-und lässt sie beim Kopieren bzw. Neuaufbauen der Commits aus, da die
-Änderung schon in dem Branch enthalten ist.
+////
+Wird über einen langen Zeitraum an einem Feature entwickelt, und Teile des Features fließen schon in ein Mainstream-Release (z.B. per `cherry-pick`), dann erkennt das Rebase-Kommando diese Commits und lässt sie beim Kopieren bzw. Neuaufbauen der Commits aus, da die Änderung schon in dem Branch enthalten ist.
+////
 
-So besteht der neue Branch nach einem Rebase nur aus den Commits, die
-noch nicht in den Basis-Branch eingeflossen sind.  Auf diese Weise
-treten Commits nicht doppelt in der Versionsgeschichte eines Projekts
-auf. Wäre der Branch einfach nur per Merge integriert worden, so wären
-mitunter die gleichen Commits mit unterschiedlichen SHA-1-Summen an
-verschiedenen Stellen im Commit-Graphen vorhanden.
+If a feature is being developed over a long period of time, and parts of the feature are already flowing into a mainstream release (e.g. via `cherry-pick`), the rebase command will detect these commits and omit them when copying or rebuilding the commits, because the change is already contained in the branch.
+
+////
+So besteht der neue Branch nach einem Rebase nur aus den Commits, die noch nicht in den Basis-Branch eingeflossen sind.
+Auf diese Weise treten Commits nicht doppelt in der Versionsgeschichte eines Projekts auf.
+Wäre der Branch einfach nur per Merge integriert worden, so wären mitunter die gleichen Commits mit unterschiedlichen SHA-1-Summen an verschiedenen Stellen im Commit-Graphen vorhanden.
+////
+
+For example, after a rebase, the new branch consists only of the commits that have not yet been incorporated into the base branch.
+This way, commits do not appear twice in the version history of a project.
+If the branch had simply been merged, the same commits with different SHA-1 sums would sometimes be present in different places in the commit graph.
 
 [[sec.rebase-ps]]
-=== Patch-Stacks verwalten
+=== Manage patch stacks
+//  Patch-Stacks verwalten
 
-Es gibt Situationen, in denen es von einer Software eine
-Vanilla-Version ("`einfachste Version`") gibt und außerdem
-eine gewisse Anzahl von Patches, die darauf angewendet werden, bevor
-die Vanilla-Version ausgeliefert wird.  Zum Beispiel baut Ihre Firma
-eine Software, aber vor jeder Auslieferung an den Kunden müssen (je
-nach Kunde) einige Anpassungen vorgenommen werden. Oder Sie haben eine
-Open-Source-Software im Einsatz, diese aber ein wenig an Ihre
-Bedürfnisse angepasst – jedes Mal, wenn nun eine neue, offizielle
-Version der Software erscheint, müssen Sie Ihre Änderungen neu
-anwenden und die Software anschließend neu bauen.{fn56}
+////
+Es gibt Situationen, in denen es von einer Software eine Vanilla-Version ("`einfachste Version`") gibt und außerdem eine gewisse Anzahl von Patches, die darauf angewendet werden, bevor die Vanilla-Version ausgeliefert wird.
+Zum Beispiel baut Ihre Firma eine Software, aber vor jeder Auslieferung an den Kunden müssen (je nach Kunde) einige Anpassungen vorgenommen werden.
+Oder Sie haben eine Open-Source-Software im Einsatz, diese aber ein wenig an Ihre Bedürfnisse angepasst – jedes Mal, wenn nun eine neue, offizielle Version der Software erscheint, müssen Sie Ihre Änderungen neu anwenden und die Software anschließend neu bauen.{fn56}
+////
 
-Um Patch-Stacks zu verwalten, gibt es einige Programme, die auf Git
-aufbauen, Ihnen aber den Komfort bieten, nicht direkt mit dem
-Rebase-Kommando arbeiten zu müssen. Beispielsweise erlaubt
-_TopGit_{empty}{fn57}
-Ihnen, Abhängigkeiten zwischen Branches zu definieren – wenn sich
-dann in einem Branch etwas ändert und andere Branches
-hängen davon ab, baut TopGit diese auf Wunsch neu auf. Eine
-Alternative zu TopGit ist _Stacked Git_{empty}{fn58}.
+There are situations where there is a vanilla version ("`simplest version`") of a piece of software and also a certain number of patches applied to it before the vanilla version is shipped.
+For example, your company builds software, but before each delivery to the customer, some adjustments have to be made (depending on the customer).
+Or you have open source software in use, but have adapted it a bit to your needs - every time a new, official version of the software is released, you have to reapply your changes and then rebuild the software.{fn56}
+
+////
+Um Patch-Stacks zu verwalten, gibt es einige Programme, die auf Git aufbauen, Ihnen aber den Komfort bieten, nicht direkt mit dem Rebase-Kommando arbeiten zu müssen.
+Beispielsweise erlaubt _TopGit_{empty}{fn57} Ihnen, Abhängigkeiten zwischen Branches zu definieren – wenn sich dann in einem Branch etwas ändert und andere Branches hängen davon ab, baut TopGit diese auf Wunsch neu auf.
+Eine Alternative zu TopGit ist _Stacked Git_{empty}{fn58}.
+////
+
+To manage patch stacks, there are some programs that build on top of Git, but give you the convenience of not having to work directly with the rebase command.
+For example, _TopGit_{empty}{fn57} allows You can define dependencies between branches - if something changes in a branch and other branches depend on it, TopGit will rebuild them on demand.
+An alternative to TopGit is _Stacked Git_{empty}{fn58}.
 
 [[sec.rebase-onto]]
-=== Rebase einschränken mit --onto
+=== Restrict rebase with --onto
+//  Rebase einschränken mit --onto
 
-Sie mögen sich nun gewundert haben: `git rebase <referenz>`
-kopiert immer _alle_ Commits, die zwischen `<referenz>`
-und `HEAD` liegen. Was aber, wenn Sie nur einen Teil eines
-Branches umsetzen, quasi "`transplantieren`" möchten?
+////
+Sie mögen sich nun gewundert haben:
+`git rebase <referenz>` kopiert immer _alle_ Commits, die zwischen `<referenz>` und `HEAD` liegen.
+Was aber, wenn Sie nur einen Teil eines Branches umsetzen, quasi "`transplantieren`" möchten?
 Betrachten Sie folgende Situation:
+////
 
-.Vor dem `rebase --onto`
+Now, you may have wondered:
+`git rebase <reference>` always copies _all_ commits that are between `reference>` and `HEAD`.
+But what if you only want to implement part of a branch, to "`transplant`" it, so to speak?
+Consider the following situation:
+
+// .Vor dem `rebase --onto`
+.Before the `rebase --onto`
+
 image::rebase-onto-vorher.png[id="fig.rebase-onto-vorher-dia",scaledwidth="90%",width="90%"]
 
-Sie haben gerade auf dem Branch `topic` ein Feature entwickelt,
-als Ihnen ein Fehler aufgefallen ist; Sie haben einen Branch
-`bugfix` erstellt und noch einen Fehler gefunden. Rein
-semantisch hat aber Ihr Branch `bugfix` nichts  mit dem
-`topic`-Branch zu tun. Sinnvollerweise sollte er daher vom
-`master`-Branch abzweigen.
+////
+Sie haben gerade auf dem Branch `topic` ein Feature entwickelt, als Ihnen ein Fehler aufgefallen ist; Sie haben einen Branch `bugfix` erstellt und noch einen Fehler gefunden.
+Rein semantisch hat aber Ihr Branch `bugfix` nichts  mit dem `topic`-Branch zu tun. Sinnvollerweise sollte er daher vom `master`-Branch abzweigen.
+////
 
-Wenn Sie nun aber per `git rebase master` den Branch
-`bugfix` neu aufbauen, passiert Folgendes: Alle Knoten, die in
-`bugfix` enthalten sind, aber nicht im `master`, werden
-der Reihe nach auf den `master`-Branch kopiert – das sind also
-die Knoten D, E, F und G. Dabei gehören jedoch D und E gar nicht zum
-Bugfix.
+You were developing a feature on the branch `topic` when you noticed a bug; you created a branch `bugfix` and found another bug.
+Semantically speaking, your branch `bugfix` has nothing to do with the `topic` branch. Therefore, it makes sense to branch off from the `master` branch.
 
-Hier kommt nun die Option `--onto` ins Spiel: Sie erlaubt, einen
-Start- und Endpunkt für die Liste der zu kopierenden Commits
-anzugeben. Die allgemeine Syntax lautet:
+////
+Wenn Sie nun aber per `git rebase master` den Branch `bugfix` neu aufbauen, passiert Folgendes:
+Alle Knoten, die in `bugfix` enthalten sind, aber nicht im `master`, werden der Reihe nach auf den `master`-Branch kopiert – das sind also die Knoten D, E, F und G.
+Dabei gehören jedoch D und E gar nicht zum Bugfix.
+////
 
+But if you now rebuild the branch `bugfix` using `git rebase master`, the following happens:
+All nodes that are in `bugfix` but not in `master` are copied to the `master` branch in order - that is, nodes D, E, F, and G.
+However, D and E are not part of the bugfix at all.
+
+////
+Hier kommt nun die Option `--onto` ins Spiel:
+Sie erlaubt, einen Start- und Endpunkt für die Liste der zu kopierenden Commits anzugeben.
+Die allgemeine Syntax lautet:
+////
+
+This is where the `--onto` option comes into play:
+It allows you to specify a start and end point for the list of commits to be copied.
+The general syntax is
+
+////
 --------
 git rebase --onto <worauf> <start> <ziel>
 --------
+////
 
-In diesem Beispiel wollen wir nur die Commits F und G (oder auch: die
-Commits von `topic` bis `bugfix`) von oben auf
-`master` aufbauen. Daher lautet das Kommando:
+--------
+git rebase --onto <on which> <start> <end>
+--------
+
+////
+In diesem Beispiel wollen wir nur die Commits F und G (oder auch: die Commits von `topic` bis `bugfix`) von oben auf `master` aufbauen.
+Daher lautet das Kommando:
+////
+
+In this example, we only want to build the commits F and G (or also: the commits from `topic` to `bugfix`) from the top of `master`.
+Therefore the command is
 
 [subs="macros,quotes"]
 --------
 $ *git rebase --onto master topic bugfix*
 --------
 
-
+////
 Das Ergebnis sieht aus wie erwartet:
+////
 
-.Nach einem `rebase --onto`
+The result looks as expected:
+
+// .Nach einem `rebase --onto`
+.After the `rebase --onto`
 image::rebase-onto-nachher.png[id="fig.rebase-onto-nachher-dia",scaledwidth="90%",width="90%"]
 
 [[sec.rebase-onto-ci-amend]]
-=== Einen Commit verbessern
+=== Improving a commit
+//  Einen Commit verbessern
 
-Sie haben in <<sec.basics>> das Kommando `commit
-  --amend` kennengelernt, mit dem Sie einen Commit verbessern. Es
-bezieht sich aber immer nur auf den aktuellen (letzten) Commit. Mit
-`rebase --onto` können Sie auch Commits anpassen, die weiter
-in der Vergangenheit liegen.
+////
+Sie haben in <<sec.basics>> das Kommando `commit --amend` kennengelernt, mit dem Sie einen Commit verbessern.
+Es bezieht sich aber immer nur auf den aktuellen (letzten) Commit.
+Mit `rebase --onto` können Sie auch Commits anpassen, die weiter in der Vergangenheit liegen.
+////
 
-Suchen Sie zunächst den Commit heraus, den Sie editieren wollen, und
-erstellen Sie einen Branch darauf:
+You have learned about the `commit --amend` command in <<sec.basics>>, which you can use to improve a commit.
+However, it only refers to the current (last) commit.
+With `rebase --onto` you can also adjust commits that are further back in the past.
+
+////
+Suchen Sie zunächst den Commit heraus, den Sie editieren wollen, und erstellen Sie einen Branch darauf:
+////
+
+First, find the commit you want to edit and create a branch to it:
 
 [subs="macros,quotes"]
 --------
 $ *git checkout -b fix-master 21d8691*
 --------
 
+////
+Anschließend führen Sie Ihre Änderungen aus, fügen geänderte Dateien mit `git add` hinzu und korrigieren dann den Commit mit `git commit --amend --no-edit` (die Option `--no-edit` übernimmt Meta-Informationen wie die Beschreibung des alten Commits und bietet diese nicht erneut zum Editieren an).
+////
 
-Anschließend führen Sie Ihre Änderungen aus, fügen geänderte Dateien
-mit `git add` hinzu und korrigieren dann den Commit mit
-`git commit --amend --no-edit` (die Option `--no-edit`
-übernimmt Meta-Informationen wie die Beschreibung des
-alten Commits und bietet diese nicht erneut zum Editieren an).
+Then you make your changes, add changed files with `git add`, and then correct the commit with `git commit --amend --no-edit` (the `--no-edit` option takes meta-information like the description of the old commit and does not offer it again for editing).
 
-Nun spielen Sie alle Commits aus dem `master`-Branch von oben
-auf Ihren korrigierten Commit auf:
+////
+Nun spielen Sie alle Commits aus dem `master`-Branch von oben auf Ihren korrigierten Commit auf:
+////
+
+Now apply all the commits from the `master` branch from above to your corrected commit:
 
 [subs="macros,quotes"]
 --------
 $ *git rebase --onto fix-master 21d8691 master*
 --------
 
+////
+Sie kopieren so alle Commits von `21d8691` (exklusive!) bis `master` (inklusive!).
+Der fehlerhafte Commit `21d8691` wird nicht mehr referenziert und taucht daher nicht mehr auf.
+Der Branch `fix-master` ist nun obsolet und kann gelöscht werden.
+////
 
-Sie kopieren so alle Commits von `21d8691` (exklusive!) bis
-`master` (inklusive!). Der fehlerhafte Commit `21d8691`
-wird nicht mehr referenziert und taucht daher nicht mehr auf. Der
-Branch `fix-master` ist nun obsolet und kann gelöscht werden.
+This will copy all commits from `21d8691` (exclusive!) to `master` (inclusive!).
+The faulty commit `21d8691` is no longer referenced, and therefore no longer appears.
+The `fix-master` branch is now obsolete and can be deleted.
 
-Eine äquivalente Möglichkeit, einen Commit zu editieren, haben Sie
-mit der Aktion `edit` im interaktiven Rebase (siehe <<sec.rebase-i-edit>>).
+////
+Eine äquivalente Möglichkeit, einen Commit zu editieren, haben Sie mit der Aktion `edit` im interaktiven Rebase (siehe <<sec.rebase-i-edit>>).
+////
 
+An equivalent way to edit a commit is with the `edit` action in the interactive rebase (see <<sec.rebase-i-edit>>).
 
 [[sec.rebase-optionen]]
-=== Rebase feinjustieren
+=== Fine adjustment of rebase
+//  Rebase feinjustieren
 
-Es gibt Situationen, in denen Sie das Standardverhalten von
-`git rebase` anpassen müssen. Erstens ist dies der Fall, wenn
-Sie einen Branch mit Rebase bearbeiten, der Merges enthält. Rebase
-kann versuchen, diese nachzuahmen statt die Commits zu linearisieren.
-Zuständig ist die Option `-p` bzw.
-`--preserve-merges`.{fn59}
+////
+Es gibt Situationen, in denen Sie das Standardverhalten von `git rebase` anpassen müssen.
+Erstens ist dies der Fall, wenn Sie einen Branch mit Rebase bearbeiten, der Merges enthält.
+Rebase kann versuchen, diese nachzuahmen statt die Commits zu linearisieren.
+Zuständig ist die Option `-p` bzw. `--preserve-merges`.{fn59}
+////
 
-Mit der Option `-m` bzw. `--merge` können Sie
-`git rebase` anweisen, Merge-Strategien zu verwenden (siehe
-dafür auch  <<sec.merge-strategies>>). Wenn Sie diese Strategien
-anwenden, bedenken Sie, dass Rebase intern Commit für Commit per
-`cherry-pick` auf den neuen Branch aufspielt; daher sind die
-Rollen von `ours` und `theirs` vertauscht: `theirs`
-bezeichnet den Branch, den Sie auf eine neue Basis aufbauen!
+There are situations where you may need to adjust the default `git rebase` behavior.
+First, this is the case when you use `rebase` to edit a branch that contains merges.
+rebase may try to mimic these instead of linearizing the commits.
+The `-p' or `--preserve-merges` option is responsible for this. {fn59}
 
-Ein interessanter Anwendungsfall ist daher die Strategie-Option
-`theirs` für die Merge-Strategie `recursive`: Falls
-Konflikte auftreten, wird den Änderungen aus dem Commit, der kopiert
-wird, Vorrang gegeben. Ein solches Szenario ist also sinnvoll, wenn
-Sie wissen, dass es konfliktverursachende Änderungen gibt, sich aber
-sicher sind, dass die Änderungen des neu aufzubauenden Branches
-"`richtiger`" sind als die des Baumes, auf den Sie aufbauen.
-Wenn Sie `topic` neu auf `master`
-aufbauen, sähe ein solcher Aufruf so aus:
+////
+Mit der Option `-m` bzw. `--merge` können Sie `git rebase` anweisen, Merge-Strategien zu verwenden (siehe dafür auch <<sec.merge-strategies>>).
+Wenn Sie diese Strategien anwenden, bedenken Sie, dass Rebase intern Commit für Commit per `cherry-pick` auf den neuen Branch aufspielt; daher sind die Rollen von `ours` und `theirs` vertauscht:
+`theirs` bezeichnet den Branch, den Sie auf eine neue Basis aufbauen!
+////
+
+With the `-m` or `--merge` option, you can tell `git rebase` to use merge strategies (see also <<sec.merge-strategies>>).
+When using these strategies, keep in mind that rebase internally commits commit by commit to the new branch via `cherry-pick`; therefore the roles of `ours` and `theirs` are reversed:
+`theirs` refers to the branch you are building on a new base!
+
+////
+Ein interessanter Anwendungsfall ist daher die Strategie-Option `theirs` für die Merge-Strategie `recursive`:
+Falls Konflikte auftreten, wird den Änderungen aus dem Commit, der kopiert wird, Vorrang gegeben.
+Ein solches Szenario ist also sinnvoll, wenn Sie wissen, dass es konfliktverursachende Änderungen gibt, sich aber sicher sind, dass die Änderungen des neu aufzubauenden Branches "`richtiger`" sind als die des Baumes, auf den Sie aufbauen.
+Wenn Sie `topic` neu auf `master` aufbauen, sähe ein solcher Aufruf so aus:
+////
+
+An interesting use case is therefore the strategy option `theirs` for the merge strategy `recursive`:
+If conflicts occur, priority is given to changes from the commit being copied.
+So such a scenario is useful if you know that there are conflicting changes, but are certain that the changes from the branch you are building are `more correct` than those from the tree you are building on.
+If you rebuild `topic` to `master`, such a call would look like this:
 
 [subs="macros,quotes"]
 --------
@@ -491,54 +673,83 @@ $ *git checkout topic*
 $ *git rebase -m -Xtheirs master*
 --------
 
+////
+In den Fällen, in denen die `recursive`-Strategie (Default) den Änderungen aus Commits aus `topic` den Vorzug gibt, werden Sie einen entsprechenden Hinweis `Auto-merging <Commit-Beschreibung>` finden.
+////
 
+In cases where the `recursive` (default) strategy gives preference to changes from commits from `topic', you will find a corresponding note `Auto-merging <commit description>`.
 
-In den Fällen, in denen die `recursive`-Strategie (Default) den
-Änderungen aus Commits aus `topic` den Vorzug gibt, werden Sie
-einen entsprechenden Hinweis `Auto-merging
-  <Commit-Beschreibung>` finden.
+////
+Eine kleine, sehr nützliche Option, die von Rebase direkt an `git apply` weitergeleitet wird, ist `--whitespace=fix`.
+Sie veranlasst Git, automatisch Whitespace-Fehler (z.B. Trailing-Spaces) zu korrigieren.
+Falls Sie Merge-Konflikte aufgrund von Whitespace haben (zum Beispiel wegen geänderter Einrückung), können Sie auch die in <<sec.recursive-options>> vorgestellten Strategie-Optionen verwenden, um automatisch Lösungen erzeugen zu lassen (zum Beispiel durch Angabe von `-Xignore-space-change`).
+////
 
-Eine kleine, sehr nützliche Option, die von Rebase direkt an
-`git apply` weitergeleitet wird, ist
-`--whitespace=fix`. Sie veranlasst Git, automatisch
-Whitespace-Fehler (z.B. Trailing-Spaces) zu korrigieren.
-Falls Sie Merge-Konflikte aufgrund von Whitespace haben (zum Beispiel
-wegen geänderter Einrückung), können Sie auch die in <<sec.recursive-options>>
-vorgestellten Strategie-Optionen verwenden, um automatisch Lösungen
-erzeugen zu lassen (zum Beispiel durch Angabe von `-Xignore-space-change`).
-
+A small, very useful option that rebase passes directly to `git apply` is `--whitespace=fix`.
+It causes Git to automatically correct whitespace errors (such as trailing spaces).
+If you have merge conflicts due to whitespace (for example, due to changed indentation), you can also use the strategy options presented in <<sec.recursive-options>> to have solutions generated automatically (for example, by specifying `-Xignore-space-change`).
 
 [[sec.rebase-i]]
-== Die Geschichte umschreiben – Interaktives Rebase
+== Rewriting the story - interactive rebase
+// Die Geschichte umschreiben – Interaktives Rebase
 
-Rebase kennt einen interaktiven Modus; er ist zwar technisch gleich
-implementiert wie der normale Modus, allerdings ist der typische
-Anwendungsfall ein ganz anderer, denn der interaktive Rebase erlaubt
-es, die Geschichte umzuschreiben, d.h. Commits beliebig zu
-bearbeiten (und nicht nur zu verschieben).
+////
+Rebase kennt einen interaktiven Modus; er ist zwar technisch gleich implementiert wie der normale Modus, allerdings ist der typische Anwendungsfall ein ganz anderer, denn der interaktive Rebase erlaubt es, die Geschichte umzuschreiben, d.h. Commits beliebig zu bearbeiten (und nicht nur zu verschieben).
+////
 
+Rebase knows an interactive mode; it is technically implemented in the same way as the normal mode, but the typical use case is quite different, because the interactive rebase allows to rewrite the story, i.e. to edit commits at will (and not just move them).
+
+////
 Im interaktiven Rebase können Sie
+////
 
+In the interactive rebase you can
 
+////
 * die Reihenfolge von Commits verändern
+////
 
+* change the order of commits
+
+////
 * Commits löschen
+////
 
+* delete commits
+
+////
 * Commits miteinander verschmelzen
+////
 
+* merge commits
+
+////
 * einen Commit in mehrere aufteilen
+////
 
+* split a commit into several ones
+
+////
 * die Beschreibung von Commits anpassen
+////
 
-* Commits auf jede sonst erdenkliche Weise
-  bearbeiten
+* adjust the description of commits
 
+////
+* Commits auf jede sonst erdenkliche Weise bearbeiten
+////
 
-Sie aktivieren den Modus durch die Option `-i`
-bzw. `--interactive`. Prinzipiell läuft dann der
-Rebase-Prozess genau so wie vorher, allerdings erhalten Sie eine Liste
-von Commits, die Rebase umschreiben wird, bevor das Kommando damit
-anfängt. Das kann zum Beispiel so aussehen:
+* edit commits in any other way you can think of
+
+////
+Sie aktivieren den Modus durch die Option `-i` bzw. `--interactive`.
+Prinzipiell läuft dann der Rebase-Prozess genau so wie vorher, allerdings erhalten Sie eine Liste von Commits, die Rebase umschreiben wird, bevor das Kommando damit anfängt.
+Das kann zum Beispiel so aussehen:
+////
+
+You activate the mode with the option `i` or `interactive`.
+Basically, the rebase process will run exactly as before, but you will get a list of commits that rebase will rewrite before the command starts.
+This could look like this, for example:
 
 [subs="macros,quotes"]
 --------
@@ -550,80 +761,125 @@ anfängt. Das kann zum Beispiel so aussehen:
    --git-dir
 --------
 
-Unter dieser Auflistung finden Sie einen Hilfstext, der beschreibt,
-was Sie nun mit den aufgelisteten Commits tun können.  Im Wesentlichen
-gibt es pro Commit sechs mögliche Aktionen. Die Aktion schreiben Sie
-einfach statt der Standard-Aktion `pick` an den Anfang der
-Zeile, vor die SHA-1-Summe. Im Folgenden die Aktionen – Sie können
-diese auch jeweils durch ihren Anfangsbuchstaben abkürzen, also z.B.
-`s` für `squash`.
+////
+Unter dieser Auflistung finden Sie einen Hilfstext, der beschreibt, was Sie nun mit den aufgelisteten Commits tun können.
+Im Wesentlichen gibt es pro Commit sechs mögliche Aktionen.
+Die Aktion schreiben Sie einfach statt der Standard-Aktion `pick` an den Anfang der Zeile, vor die SHA-1-Summe.
+Im Folgenden die Aktionen – Sie können diese auch jeweils durch ihren Anfangsbuchstaben abkürzen, also z.B. `s` für `squash`.
+////
 
+Below this list is a help text that describes what you can do with the listed commits.
+Essentially, there are six possible actions for each commit.
+You simply write the action at the beginning of the line, before the SHA-1 sum, instead of the standard `pick` action.
+The following are the actions-you can also abbreviate each one by its initial letter, e.g., `s` for `squash`.
 
+////
+`pick`:: "`Commit verwenden`" (Default).
+Entspricht der Behandlung von Commits im nicht-interaktive Rebase.
+////
 
-`pick`:: "`Commit verwenden`" (Default).  Entspricht der Behandlung
-von Commits im nicht-interaktive Rebase.
+`pick`:: "`Use commit`" (default).
+Corresponds to the handling of commits in the non-interactive rebase.
 
-`-`:: Löschen Sie eine Zeile, dann wird der Commit nicht verwendet
-(geht verloren).
+////
+`-`:: Löschen Sie eine Zeile, dann wird der Commit nicht verwendet (geht verloren).
+////
 
+`-`:: If you delete a line, the commit is not used (will be lost).
+
+////
 `reword`:: Commit-Beschreibung anpassen.
+////
 
-`squash`:: Commit mit dem vorherigen verschmelzen; Editor wird
-geöffnet, um die Beschreibungen zusammenzuführen.
+`reword`:: Adjust the commit description.
 
+////
+`squash`:: Commit mit dem vorherigen verschmelzen; Editor wird geöffnet, um die Beschreibungen zusammenzuführen.
+////
+
+`squash`:: merge commit with the previous one; editor is opened to merge the descriptions
+
+////
 `fixup`:: Wie `squash`, wirft aber die Beschreibung des Commits weg.
+////
 
+`fixup`:: Like `squash`, but throws away the description of the commit.
+
+////
 `edit`:: Freies Editieren. Sie können beliebige Aktionen ausführen.
+////
 
+`edit`:: Free editing. You can perform arbitrary actions.
+
+////
 `exec`:: Der Rest der Zeile wird als Kommando auf der Shell ausgeführt.
-Falls das Kommando sich nicht erfolgreich (das heißt mit Rückgabewert 0)
-beendet, hält der Rebase an.
+Falls das Kommando sich nicht erfolgreich (das heißt mit Rückgabewert 0) beendet, hält der Rebase an.
+////
 
+`exec`:: The rest of the line is executed as a command on the shell.
+If the command does not end successfully (i.e. with a return value of 0), the rebase stops.
 
+////
+Die Aktion `pick` ist die simpelste – sie besagt einfach, dass Sie den Commit verwenden wollen, Rebase soll diesen Commit so, wie er ist, übernehmen.
+Das Gegenteil von `pick` ist das simple Löschen einer kompletten Zeile.
+Der Commit geht dann verloren (wie `git rebase --skip`).
+////
 
-Die Aktion `pick` ist die simpelste – sie besagt einfach, dass
-Sie den Commit verwenden wollen, Rebase soll diesen Commit so, wie er
-ist, übernehmen. Das Gegenteil von `pick` ist das simple
-Löschen einer kompletten Zeile. Der Commit geht dann verloren (wie
-`git rebase --skip`).
+The `pick` action is the simplest -- it simply says that you want to use the commit, rebase should take that commit as it is.
+The opposite of `pick` is simply deleting an entire line.
+The commit is then lost (like `git rebase --skip`).
 
-Wenn Sie die Reihenfolge der Zeilen tauschen, dann wird Git die
-Commits in der neu definierten Reihenfolge anwenden. Zu Anfang sind
-die Zeilen in der Reihenfolge, in der sie später angewendet werden --
-also genau anders herum als in der Baumansicht! Beachten Sie, dass
-Commits häufig aufeinander aufbauen; daher wird es bei der
-Vertauschung von Commits häufig zu Konflikten kommen, sofern die
-Commits auf den gleichen Dateien und an den gleichen Stellen
-Änderungen durchführen.
+////
+Wenn Sie die Reihenfolge der Zeilen tauschen, dann wird Git die Commits in der neu definierten Reihenfolge anwenden.
+Zu Anfang sind die Zeilen in der Reihenfolge, in der sie später angewendet werden -- also genau anders herum als in der Baumansicht!
+Beachten Sie, dass Commits häufig aufeinander aufbauen; daher wird es bei der Vertauschung von Commits häufig zu Konflikten kommen, sofern die Commits auf den gleichen Dateien und an den gleichen Stellen Änderungen durchführen.
+////
 
-Das Kommando `reword` ist praktisch, wenn Sie Tippfehler in
-einer Commit-Nachricht haben und diese korrigieren wollen (oder bisher
-keine ausführliche verfasst haben und dies nun nachholen wollen). Der
-Rebase-Prozess wird bei dem mit `reword` markierten Prozess
-angehalten, und Git startet einen Editor, in dem die Nachricht des
-Commits bereits angezeigt wird.  Sobald Sie den Editor beenden
-(Speichern nicht vergessen!), wird Git die neue Beschreibung
-einpflegen und den Rebase-Prozess weiterlaufen lassen.
+If you switch the order of the lines, Git will apply the commits in the newly defined order.
+In the beginning, the lines are in the order in which they will be applied later -- that is, the exact opposite of the order in the tree view!
+Note that commits often build on top of each other; therefore, swapping commits will often cause conflicts if the commits make changes on the same files and in the same places.
 
+////
+Das Kommando `reword` ist praktisch, wenn Sie Tippfehler in einer Commit-Nachricht haben und diese korrigieren wollen (oder bisher keine ausführliche verfasst haben und dies nun nachholen wollen).
+Der Rebase-Prozess wird bei dem mit `reword` markierten Prozess angehalten, und Git startet einen Editor, in dem die Nachricht des Commits bereits angezeigt wird.
+Sobald Sie den Editor beenden (Speichern nicht vergessen!), wird Git die neue Beschreibung einpflegen und den Rebase-Prozess weiterlaufen lassen.
+////
+
+The `reword` command is handy if you have typos in a commit message and want to correct them (or haven't written a detailed one yet and want to do so now).
+The rebase process is stopped at the process marked `reword`, and Git starts an editor that already displays the commit message.
+Once you exit the editor (don't forget to save!), Git will enter the new description and let the rebase process continue.
 
 [[sec.rebase-i-squash]]
-=== Kleine Fehler korrigieren: Bug Squashing
+=== Correct small errors: bug squashing
+//  Kleine Fehler korrigieren: Bug Squashing
 
-Die Kommandos `squash` bzw. `fixup` erlauben es, zwei
-oder mehr Commits miteinander zu verschmelzen.
+////
+Die Kommandos `squash` bzw. `fixup` erlauben es, zwei oder mehr Commits miteinander zu verschmelzen.
+////
 
-Niemand schreibt immer sofort fehlerfreien Code. Häufig gibt es einen
-großen Commit, in dem Sie ein neues Feature implementiert haben; kurz
-darauf finden sich kleine Fehler. Was tun? Eine ausführliche
-Beschreibung, warum Sie aus Unachtsamkeit vergessen haben, eine Zeile
-hinzuzufügen oder zu entfernen? Nicht wirklich sinnvoll, und vor
-allem störend für andere Entwickler, die später Ihren Code überprüfen
-wollen. Schöner wäre es doch, die Illusion zu wahren, dass der Commit
-gleich beim ersten Mal fehlerfrei war...
+The `squash` and `fixup` commands allow two or more commits to be merged together.
 
-Für jeden Fehler, den Sie finden, machen Sie einen kleinen Commit mit
-einer mehr oder weniger sinnvollen Beschreibung. Das könnte dann zum
-Beispiel so aussehen:
+////
+Niemand schreibt immer sofort fehlerfreien Code.
+Häufig gibt es einen großen Commit, in dem Sie ein neues Feature implementiert haben; kurz darauf finden sich kleine Fehler.
+Was tun? Eine ausführliche Beschreibung, warum Sie aus Unachtsamkeit vergessen haben, eine Zeile hinzuzufügen oder zu entfernen?
+Nicht wirklich sinnvoll, und vor allem störend für andere Entwickler, die später Ihren Code überprüfen wollen.
+Schöner wäre es doch, die Illusion zu wahren, dass der Commit gleich beim ersten Mal fehlerfrei war...
+////
+
+Nobody always writes error-free code immediately.
+Often there is a big commit in which you have implemented a new feature; shortly after that, small bugs are found.
+What to do? A detailed description of why you forgot to add or remove a line out of carelessness?
+Not really useful, and especially annoying for other developers who want to review your code later.
+It would be nice to maintain the illusion that the commit was bug-free the first time...
+
+////
+Für jeden Fehler, den Sie finden, machen Sie einen kleinen Commit mit einer mehr oder weniger sinnvollen Beschreibung.
+Das könnte dann zum Beispiel so aussehen:
+////
+
+For every bug you find, make a small commit with a more or less meaningful description.
+This could look like this, for example:
 
 [subs="macros,quotes"]
 --------
@@ -635,18 +891,23 @@ ae65efd implement feature 2
 cf30f4d implement feature 1
 --------
 
+////
+Wenn sich einige solche Commits angesammelt haben, starten Sie einen interaktiven Rebase-Prozess über die letzten Commits.
+Schätzen Sie dazu einfach ab, auf wie vielen Commits Sie arbeiten wollen, und bearbeiten Sie dann beispielsweise per `git rebase -i HEAD~5` die letzten fünf.
+////
 
-Wenn sich einige solche Commits angesammelt haben, starten Sie einen
-interaktiven Rebase-Prozess über die letzten Commits. Schätzen Sie
-dazu einfach ab, auf wie vielen Commits Sie arbeiten wollen, und
-bearbeiten Sie dann beispielsweise per `git rebase -i HEAD~5`
-die letzten fünf.
+When some such commits have accumulated, start an interactive rebase process over the last commits.
+Simply estimate how many commits you want to work on, and then edit the last five using `git rebase -i HEAD~5`, for example.
 
-Im Editor erscheinen die Commits nun in umgekehrter Reihenfolge im
-Vergleich zur Ausgabe von `git log`. Ordnen Sie nun die kleinen
-Bugfix-Commits so an, dass sie _unter_ dem Commit, den sie
-korrigieren, stehen. Markieren Sie dann die Korrektur-Commits mit
-`squash` (oder `s`), also z.B. so:
+////
+Im Editor erscheinen die Commits nun in umgekehrter Reihenfolge im Vergleich zur Ausgabe von `git log`.
+Ordnen Sie nun die kleinen Bugfix-Commits so an, dass sie _unter_ dem Commit, den sie korrigieren, stehen.
+Markieren Sie dann die Korrektur-Commits mit `squash` (oder `s`), also z.B. so:
+////
+
+In the editor the commits now appear in reverse order compared to the output of `git log`.
+Now arrange the small bugfix commits so that they are _below_ the commit you are fixing.
+Then mark the fix commits with `squash` (or `s`), like this:
 
 [subs="macros,quotes"]
 --------
@@ -657,18 +918,23 @@ pick ae65efd implement feature 2
 *s* 34c4453 fix feature 2
 --------
 
-Speichern Sie die Datei und beenden Sie den Editor; der Rebase-Prozess
-startet. Weil Sie `squash` ausgewählt haben, hält Rebase an,
-nachdem Commits verschmolzen wurden. Im Editor erscheinen die
-Commit-Nachrichten der verschmolzenen Commits, die Sie nun geeignet
-zusammenfassen. Verwenden Sie statt `squash` das Schlüsselwort
-`fixup` oder kurz `f`, wird die Commit-Nachricht der so
-markierten Commits weggeworfen – für diese Arbeitsweise also
-vermutlich praktischer.
+////
+Speichern Sie die Datei und beenden Sie den Editor; der Rebase-Prozess startet.
+Weil Sie `squash` ausgewählt haben, hält Rebase an, nachdem Commits verschmolzen wurden.
+Im Editor erscheinen die Commit-Nachrichten der verschmolzenen Commits, die Sie nun geeignet zusammenfassen.
+Verwenden Sie statt `squash` das Schlüsselwort `fixup` oder kurz `f`, wird die Commit-Nachricht der so markierten Commits weggeworfen – für diese Arbeitsweise also vermutlich praktischer.
+////
 
+Save the file and close the editor; the rebase process starts.
+Because you selected `squash`, rebase stops after commits are merged.
+The editor will display the commit messages of the merged commits, which you now summarize appropriately.
+If you use the keyword `fixup`, or `f` for short, instead of `squash`, the commit message of the commits marked in this way will be thrown away--probably more convenient for this way of working.
 
-
+////
 Nach dem Rebase sieht die Versionsgeschichte viel aufgeräumter aus:
+////
+
+After the rebase the version history looks much tidier:
 
 [subs="macros,quotes"]
 --------
@@ -679,111 +945,149 @@ $ *git log --oneline master..feature*
 
 [TIP]
 ========
-Oft kommt es vor, dass man eine kleine Änderung noch in den zuletzt
-getätigten Commit "`schleusen`" möchte. Hier bietet sich
-folgendes Alias an, das an die `fixup`-Aktion angelehnt ist:
+////
+Oft kommt es vor, dass man eine kleine Änderung noch in den zuletzt getätigten Commit "`schleusen`" möchte.
+Hier bietet sich folgendes Alias an, das an die `fixup`-Aktion angelehnt ist:
+////
+
+It often happens that you want to "`lock" a small change into the last commit you made.
+Here the following alias is useful, which is similar to the `fixup` action:
 
 [subs="macros,quotes"]
 --------
 $ *git config --global alias.fixup "commit --amend --no-edit"*
 --------
 
-Wie oben schon erwähnt, übernimmt die Option `--no-edit` eins zu
-eins die Meta-Informationen des alten Commits, insbesondere die
-Commit-Message.
+////
+Wie oben schon erwähnt, übernimmt die Option `--no-edit` eins zu eins die Meta-Informationen des alten Commits, insbesondere die Commit-Message.
+////
+
+As mentioned above, the `--no-edit` option inherits one-to-one the meta-information of the old commit, especially the commit message.
 ========
 
-Wenn Sie die Commit-Nachricht mit `fixup!` bzw.
-`squash!` beginnen, gefolgt vom Anfang der Beschreibung des
-Commits, den Sie korrigieren wollen, können Sie das Kommando
+////
+Wenn Sie die Commit-Nachricht mit `fixup!` bzw. `squash!` beginnen, gefolgt vom Anfang der Beschreibung des Commits, den Sie korrigieren wollen, können Sie das Kommando
+////
+
+If you start the commit message with `fixup!` or `squash!` followed by the beginning of the description of the commit you want to fix, you execute the command
 
 [subs="macros,quotes"]
 --------
 $ *git rebase -i --autosquash master*
 --------
 
+////
+aufrufen.
+Die wie oben mit `fixup!` bzw. `squash!` markierten Commits werden automatisch an die richtige Stelle verschoben und mit der Aktion `squash` bzw. `fixup` versehen.
+So können Sie den Editor direkt beenden, und die Commits werden verschmolzen.
+Falls Sie häufig mit dieser Option arbeiten, können Sie dieses Verhalten auch durch eine Konfigurationsoption zum Standard bei Rebase-Aufrufen machen:
+Setzen Sie dafür die Einstellung `rebase.autosquash` auf `true`.
+////
 
-aufrufen. Die wie oben mit `fixup!` bzw. `squash!`
-markierten Commits werden automatisch an die richtige Stelle
-verschoben und mit der Aktion `squash` bzw.  `fixup`
-versehen. So können Sie den Editor direkt beenden, und die Commits
-werden verschmolzen. Falls Sie häufig mit dieser Option arbeiten, können
-Sie dieses Verhalten auch durch eine Konfigurationsoption zum Standard
-bei Rebase-Aufrufen machen: Setzen Sie dafür die Einstellung
-`rebase.autosquash` auf `true`.
-
+The commits marked with `fixup!` or `squash!` as above are automatically moved to the correct position and given the action `squash` or `fixup`.
+This allows you to exit the editor directly, and the commits are merged.
+If you frequently work with this option, you can also make this behavior the default for rebase calls by setting a configuration option:
+To do this, set the `rebase.autosquash` setting to `true`.
 
 [[sec.rebase-i-edit]]
-=== Commits beliebig editieren
+=== Edit commits arbitrarily
+//  Commits beliebig editieren
 
-Wenn Sie einen Commit mit `edit` markieren, kann er beliebig
-editiert werden. Dabei geht Rebase wie in den anderen Fällen auch
-sequentiell die Commits durch. Bei den Commits, die mit `edit`
-markiert sind, hält Rebase an und `HEAD` wird auf den
-entsprechenden Commit gesetzt. Sie können dann den Commit ändern, als
-wäre er der aktuellste im Branch. Anschließend lassen Sie Rebase
-weiterlaufen:
+////
+Wenn Sie einen Commit mit `edit` markieren, kann er beliebig editiert werden.
+Dabei geht Rebase wie in den anderen Fällen auch sequentiell die Commits durch.
+Bei den Commits, die mit `edit` markiert sind, hält Rebase an und `HEAD` wird auf den entsprechenden Commit gesetzt.
+Sie können dann den Commit ändern, als wäre er der aktuellste im Branch.
+Anschließend lassen Sie Rebase weiterlaufen:
+////
+
+If you mark a commit with `edit`, it can be edited as you wish.
+rebase will go through the commits sequentially, as in the other cases.
+For the commits marked `edit`, rebase stops and `HEAD` is set to the corresponding commit.
+You can then modify the commit as if it were the most recent in the branch.
+Afterwards, you let rebase continue running:
 
 [subs="macros,quotes"]
 --------
 $ *vim ...*
-# Korrekturen vornehmen
+// # Korrekturen vornehmen
+# Making corrections
 $ *git add ...*
 $ *git commit --amend*
 $ *git rebase --continue*
 --------
 
-Im Wesentlichen erreichen Sie dabei dasselbe wie im Beispiel
-`git rebase --onto` in <<sec.rebase-onto-ci-amend>>
--- allerdings können Sie auch weit kompliziertere Aktionen ausführen.
-Einen häufigen Anwendungsfall beschreibt folgendes
-"`Rezept`".
+////
+Im Wesentlichen erreichen Sie dabei dasselbe wie im Beispiel `git rebase --onto` in <<sec.rebase-onto-ci-amend>> -- allerdings können Sie auch weit kompliziertere Aktionen ausführen.
+Einen häufigen Anwendungsfall beschreibt folgendes "`Rezept`".
+////
 
 [[sec.rebase-split-cmmits]]
-==== Commits aufteilen
+==== Split commits
+//   Commits aufteilen
 
-Jeder Programmierer kennt das: Diszipliniert und penibel jede Änderung
-einzuchecken, ist anstrengend und unterbricht häufig den Arbeitsfluss.
+////
+Jeder Programmierer kennt das:
+Diszipliniert und penibel jede Änderung einzuchecken, ist anstrengend und unterbricht häufig den Arbeitsfluss.
 Das führt in der Praxis zu Commits, die groß und unübersichtlich sind.
-Damit die Versionsgeschichte aber für andere Entwickler – und Sie
-selbst! – nachvollziehbar bleibt, sollten die Änderungen in so kleine
-logische Einheiten wie möglich aufgeteilt werden.
+Damit die Versionsgeschichte aber für andere Entwickler – und Sie selbst! – nachvollziehbar bleibt, sollten die Änderungen in so kleine logische Einheiten wie möglich aufgeteilt werden.
+////
 
+Every programmer knows this:
+Checking in every change in a disciplined and meticulous way is exhausting and often interrupts the workflow.
+In practice, this leads to commits that are large and confusing.
+But this way, the version history is available to other developers - and to yourself! - and yourself, the changes should be split into as small logical units as possible.
+
+////
 Im Übrigen ist es nicht nur für Entwickler hilfreich, so vorzugehen.
-Auch die automatisierte Fehlersuche mittels `git bisect`
-funktioniert besser und akkurater, je kleiner und sinnvoller die
-Commits sind (siehe <<sec.bisect>>).
+Auch die automatisierte Fehlersuche mittels `git bisect` funktioniert besser und akkurater, je kleiner und sinnvoller die Commits sind (siehe <<sec.bisect>>).
+////
 
-Mit ein wenig Erfahrung können Sie einen Commit sehr schnell
-aufteilen. Wenn Sie häufig große Commits produzieren, sollte Ihnen der
-folgende Arbeitsschritt zur Routine werden.
+By the way, it is not only helpful for developers to proceed this way.
+Also the automated debugging using `git bisect` works better and more accurate the smaller and more useful the commits are (see `<<sec.bisect>>).
 
-Zunächst starten Sie den Rebase-Prozess und markieren den Commit, den
-Sie aufteilen wollen, mit `edit`. Rebase hält dort an,
-`HEAD` zeigt auf diesen Commit.
+////
+Mit ein wenig Erfahrung können Sie einen Commit sehr schnell aufteilen.
+Wenn Sie häufig große Commits produzieren, sollte Ihnen der folgende Arbeitsschritt zur Routine werden.
+////
 
-Anschließend setzen Sie den `HEAD` einen Commit zurück, ohne
-allerdings die Änderungen von `HEAD` (der aufzuteilende Commit)
-wegzuwerfen. Das passiert durch das Kommando `reset` (siehe
-auch <<sec.reset>>; beachten Sie, dass, sofern Sie die
-Commit-Beschreibung noch brauchen, Sie diese vorher kopieren sollten):
+With a little experience, you can split a commit very quickly.
+If you frequently produce large commits, the following step should become routine.
+
+////
+Zunächst starten Sie den Rebase-Prozess und markieren den Commit, den Sie aufteilen wollen, mit `edit`.
+Rebase hält dort an, `HEAD` zeigt auf diesen Commit.
+////
+
+First you start the rebase process and mark the commit you want to split with `edit`.
+rebase stops there, `HEAD` points to that commit.
+
+////
+Anschließend setzen Sie den `HEAD` einen Commit zurück, ohne allerdings die Änderungen von `HEAD` (der aufzuteilende Commit) wegzuwerfen.
+Das passiert durch das Kommando `reset` (siehe auch <<sec.reset>>; beachten Sie, dass, sofern Sie die Commit-Beschreibung noch brauchen, Sie diese vorher kopieren sollten):
+////
+
+You then reset `HEAD` a commit, but without discarding the changes from `HEAD` (the commit to be split).
+This is done with the `reset` command (see also <<sec.reset>>; note that if you still need the commit description, you should copy it first):
 
 [subs="macros,quotes"]
 --------
 $ *git reset HEAD^*
 --------
 
+////
+Die Änderungen, die der aufzuteilende Commit verursacht, sind nun noch in den Dateien vorhanden; der Index und das Repository spiegeln aber den Stand des Vorgänger-Commits wider.
+Sie haben also die Änderungen des aufzuteilenden Commits in den _unstaged_-Zustand verschoben (das können Sie verifizieren, indem Sie `git diff` vor und nach dem `reset`-Aufruf betrachten).
+////
 
-Die Änderungen, die der aufzuteilende Commit verursacht, sind nun noch
-in den Dateien vorhanden; der Index und das Repository spiegeln aber
-den Stand des Vorgänger-Commits wider. Sie haben also die Änderungen
-des aufzuteilenden Commits in den _unstaged_-Zustand verschoben
-(das können Sie verifizieren, indem Sie `git diff` vor und nach
-dem `reset`-Aufruf betrachten).
+The changes caused by the commit being split are still present in the files, but the index and repository reflect the state of the previous commit.
+So you have moved the changes from the commit to be split to the _unstaged_ state (you can verify this by looking at `git diff` before and after the `reset` call).
 
-Nun können Sie einige Zeilen hinzufügen, einen Commit erstellen,
-weitere Zeilen hinzufügen und schließlich einen dritten Commit für
-die übrigen Zeilen erstellen:
+////
+Nun können Sie einige Zeilen hinzufügen, einen Commit erstellen, weitere Zeilen hinzufügen und schließlich einen dritten Commit für die übrigen Zeilen erstellen:
+////
+
+Now you can add some lines, create a commit, add more lines, and finally create a third commit for the remaining lines:
 
 [subs="macros,quotes"]
 --------
@@ -795,46 +1099,63 @@ $ *git add -u*
 $ *git commit -m "Dritter (und letzter) Teil";*
 --------
 
-Was passiert? Durch das Reset-Kommando haben Sie den `HEAD`
-einen Commit zurückgesetzt. Mit jedem Aufruf von `git commit`
-erstellen Sie einen neuen Commit, aufbauend auf dem jeweiligen
-`HEAD`. Statt des einen großen Commits (den Sie durch den
-`reset`-Aufruf weggeworfen haben) haben Sie nun drei kleinere
-Commits an dessen Stelle gesetzt.
+////
+Was passiert?
+Durch das Reset-Kommando haben Sie den `HEAD` einen Commit zurückgesetzt.
+Mit jedem Aufruf von `git commit` erstellen Sie einen neuen Commit, aufbauend auf dem jeweiligen `HEAD`.
+Statt des einen großen Commits (den Sie durch den `reset`-Aufruf weggeworfen haben) haben Sie nun drei kleinere Commits an dessen Stelle gesetzt.
+////
 
-Lassen Sie jetzt Rebase weiterlaufen (`git rebase
-  --continue`) und die übrigen Commits von oben auf `HEAD`
-(der jetzt der neueste Ihrer drei Commits ist) aufbauen.
+What happens?
+You have reset the `HEAD` by using the reset command.
+With each call to `git commit` you create a new commit, based on the respective `HEAD`.
+Instead of the one big commit (which you threw away with the `reset` call) you have now put three smaller commits in its place.
 
+////
+Lassen Sie jetzt Rebase weiterlaufen (`git rebase --continue`) und die übrigen Commits von oben auf `HEAD` (der jetzt der neueste Ihrer drei Commits ist) aufbauen.
+////
 
+Now let rebase continue (`git rebase --continue`) and build the remaining commits from the top of `HEAD` (which is now the latest of your three commits).
 
 [[sec.blame]]
-== Wer hat diese Änderungen gemacht? – git blame
+== Who made these changes? - git blame
+// Wer hat diese Änderungen gemacht? – git blame
 
-Wie andere Versionskontrollsysteme hat auch Git ein Kommando
-`blame` bzw. `annotate`, das alle Zeilen einer Datei mit
-Datum und Autor der letzten Änderung versieht.  So können Sie z.B.
-schnell herausfinden, wer der Verantwortliche für eine Zeile Code ist,
-die ein Problem verursacht, oder seit wann das Problem besteht.
+////
+Wie andere Versionskontrollsysteme hat auch Git ein Kommando `blame` bzw. `annotate`, das alle Zeilen einer Datei mit Datum und Autor der letzten Änderung versieht.
+So können Sie z.B. schnell herausfinden, wer der Verantwortliche für eine Zeile Code ist, die ein Problem verursacht, oder seit wann das Problem besteht.
+////
 
-Dabei ist das Kommando `annotate` lediglich für Umsteiger
-gedacht und hat die gleiche Funktionalität wie das Kommando
-`blame`, nur ein etwas anderes Ausgabeformat. Sie sollten also
-im Zweifel immer `blame` verwenden.
+Like other version control systems, Git has a `blame` or `annotate` command that puts the date and author of the last change on all lines in a file.
+This allows you to quickly find out, for example, who is responsible for a line of code that causes a problem, or since when the problem has existed.
 
-Nützliche Optionen sind `-M`, um Code-Verschiebungen, und
-`-C`, um Code-Kopien anzuzeigen. Anhand des Dateinamens in der
-Ausgabe können Sie dann erkennen, aus welcher Datei möglicherweise
-Code kopiert oder verschoben wurde.  Wird kein Dateiname angezeigt,
-konnte Git keine Code-Bewegungen oder -Kopien finden.  Wenn Sie diese
-Optionen verwenden, ist es meist sinnvoll, per `-s` die Angabe
-von Autor und Datum zu unterdrücken, damit die Anzeige noch ganz auf
-den Bildschirm passt.
+////
+Dabei ist das Kommando `annotate` lediglich für Umsteiger gedacht und hat die gleiche Funktionalität wie das Kommando `blame`, nur ein etwas anderes Ausgabeformat.
+Sie sollten also im Zweifel immer `blame` verwenden.
+////
 
-Aus der folgenden Ausgabe erkennt man z.B., dass die Funktion
-`end_url_with_slash` ursprünglich aus der Datei
-`http.c` stammte. Die Option `-L<m>,<n>` grenzt die
-Ausgabe auf die entsprechenden Zeilen ein.
+The command `annotate` is only intended for people who are changing to other formats and has the same functionality as the command `blame`, but a slightly different output format.
+So you should always use `blame` if in doubt.
+
+////
+Nützliche Optionen sind `-M`, um Code-Verschiebungen, und `-C`, um Code-Kopien anzuzeigen.
+Anhand des Dateinamens in der Ausgabe können Sie dann erkennen, aus welcher Datei möglicherweise Code kopiert oder verschoben wurde.
+Wird kein Dateiname angezeigt, konnte Git keine Code-Bewegungen oder -Kopien finden.
+Wenn Sie diese Optionen verwenden, ist es meist sinnvoll, per `-s` die Angabe von Autor und Datum zu unterdrücken, damit die Anzeige noch ganz auf den Bildschirm passt.
+////
+
+Useful options are `-M` to display code shifts, and `-C` to display code copies.
+You can then use the file name in the output to see from which file code may have been copied or moved.
+If no file name is displayed, Git couldn't find any code moves or copies.
+If you use these options, it's usually a good idea to suppress the author and date with `-s` so that the display still fits the screen.
+
+////
+Aus der folgenden Ausgabe erkennt man z.B., dass die Funktion `end_url_with_slash` ursprünglich aus der Datei `http.c` stammte.
+Die Option `-L<m>,<n>` grenzt die Ausgabe auf die entsprechenden Zeilen ein.
+////
+
+From the following output you can see, for example, that the function `end_url_with_slash` originally came from the file `http.c`.
+The option `-L<m>,<n>` limits the output to the corresponding lines.
 
 [subs="macros,quotes"]
 --------
@@ -857,122 +1178,184 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
 3793a309 url.c  135)
 --------
 
-
 [[sec.blame-gui]]
-=== Blame grafisch
+=== Blame graphically
+//  Blame grafisch
 
-Eine bequeme Alternative zu `git blame` auf der Konsole bietet
-das grafische Tool `git gui blame` (hierfür müssen Sie
-gegebenenfalls das Paket `git-gui` installieren).
+////
+Eine bequeme Alternative zu `git blame` auf der Konsole bietet das grafische Tool `git gui blame` (hierfür müssen Sie gegebenenfalls das Paket `git-gui` installieren).
+////
 
-.Ein Stück Code, das aus einer anderen Datei verschoben wurde
+A convenient alternative to `git blame` on the console is the graphical tool `git gui blame` (you may need to install the `git-gui` package for this).
+
+// .Ein Stück Code, das aus einer anderen Datei verschoben wurde
+.A piece of code, which was moved from another file
 image::git-gui-blame.png[id="fig.git-gui-blame",scaledwidth="100%",width="100%"]
 
-Wenn Sie eine Datei per `git gui blame <datei>` untersuchen,
-werden die unterschiedlichen Blöcke, die aus verschiedenen Commits
-stammen, mit Grautönen hinterlegt dargestellt.  Links sehen Sie die
-abgekürzte Commit-ID sowie die Initialen des Autors.
+////
+Wenn Sie eine Datei per `git gui blame <datei>` untersuchen, werden die unterschiedlichen Blöcke, die aus verschiedenen Commits stammen, mit Grautönen hinterlegt dargestellt.
+Links sehen Sie die abgekürzte Commit-ID sowie die Initialen des Autors.
+////
 
-Erst wenn Sie mit der Maus über einen solchen Block fahren, erscheint
-ein kleines Popup-Fenster mit Informationen zum Commit, der die Zeilen
-geändert hat, möglicherweise auch mit einer Mitteilung, aus welcher
-Datei und welchem Commit dieser Codeblock verschoben oder kopiert
-wurde.
+If you examine a file via `git gui blame <file>`, the different blocks that originate from different commits are displayed with a grey background.
+On the left you see the abbreviated commit ID and the initials of the author.
 
+////
+Erst wenn Sie mit der Maus über einen solchen Block fahren, erscheint ein kleines Popup-Fenster mit Informationen zum Commit, der die Zeilen geändert hat, möglicherweise auch mit einer Mitteilung, aus welcher Datei und welchem Commit dieser Codeblock verschoben oder kopiert wurde.
+////
 
-Bei der Code-Review interessiert man sich häufig dafür, wie eine Datei
-eigentlich vor einer bestimmten Änderung aussah. Dafür bietet das
-grafische Blame-Tool die folgende Möglichkeit, in der
-Versionsgeschichte zurückzugehen: Klicken Sie mit der rechten
-Maustaste auf die Commit-ID eines Code-Blocks und wählen Sie im
-Kontextmenü _Blame Parent Commit_ aus – nun wird der
-Vorgänger dieser Änderung angezeigt. Sie können auf diese Weise
-mehrere Schritte zurückgehen. Über den grünen Pfeil links oben können
-Sie wieder in die Zukunft springen.
+Only when you hover your mouse over such a block does a small popup window appear with information about the commit that changed the lines, possibly with a message stating from which file and which commit this block of code was moved or copied.
+
+////
+Bei der Code-Review interessiert man sich häufig dafür, wie eine Datei eigentlich vor einer bestimmten Änderung aussah.
+Dafür bietet das grafische Blame-Tool die folgende Möglichkeit, in der Versionsgeschichte zurückzugehen:
+Klicken Sie mit der rechten Maustaste auf die Commit-ID eines Code-Blocks und wählen Sie im Kontextmenü _Blame Parent Commit_ aus – nun wird der Vorgänger dieser Änderung angezeigt.
+Sie können auf diese Weise mehrere Schritte zurückgehen.
+Über den grünen Pfeil links oben können Sie wieder in die Zukunft springen.
+////
+
+In code review, people are often interested in how a file actually looked like before a certain change was made.
+For this purpose, the graphical blame tool offers the following possibility to go back in the version history:
+Right-click on the commit ID of a code block and select _Blame Parent Commit_ from the context menu - now the predecessor of this change is displayed.
+You can go back several steps this way.
+Use the green arrow in the upper left corner to jump back into the future again.
 
 [[sec.ignore]]
-== Dateien ignorieren
+== Ignore files
+// Dateien ignorieren
 
-In fast jedem Projekt fallen Dateien an, die Sie nicht versionieren
-wollen. Sei es der binäre Output des Compilers, die autogenerierte
-Dokumentation im HTML-Format oder die Backup-Dateien, die Ihr Editor
-erzeugt. Git bietet Ihnen verschiedene Ebenen, um Dateien zu
-ignorieren:
+////
+In fast jedem Projekt fallen Dateien an, die Sie nicht versionieren wollen.
+Sei es der binäre Output des Compilers, die autogenerierte Dokumentation im HTML-Format oder die Backup-Dateien, die Ihr Editor erzeugt.
+Git bietet Ihnen verschiedene Ebenen, um Dateien zu ignorieren:
+////
 
+In almost every project there are files that you do not want to version.
+Be it the binary output of the compiler, the autogenerated documentation in HTML format or the backup files generated by your editor.
+Git offers several levels of ignoring files:
+
+////
 * benutzerspezifische Einstellung
+////
 
+* user-specific setting
+
+////
 * repositoryspezifische Einstellung
+////
 
+* repository-specific setting
+
+////
 * repositoryspezifische Einstellung, die mit eingecheckt wird
+////
 
+* repository-specific setting, which will be checked in with
 
-Welche Option Sie wählen, hängt ganz von Ihrem Anwendungsfall ab. Die
-benutzerspezifischen Einstellungen sollten Dateien und Muster
-enthalten, die für den Benutzer relevant sind, beispielsweise
-Backup-Dateien, die Ihr Editor erzeugt. Solche Muster werden
-üblicherweise in einer Datei im
-`$HOME`-Verzeichnis abgelegt.  Mit der Option
-`core.excludesfile` geben Sie an, welche Datei dies sein soll,
-z.B. im Fall von `~/.gitignore`:
+////
+Welche Option Sie wählen, hängt ganz von Ihrem Anwendungsfall ab.
+Die benutzerspezifischen Einstellungen sollten Dateien und Muster enthalten, die für den Benutzer relevant sind, beispielsweise Backup-Dateien, die Ihr Editor erzeugt.
+Solche Muster werden üblicherweise in einer Datei im `$HOME`-Verzeichnis abgelegt.
+Mit der Option `core.excludesfile` geben Sie an, welche Datei dies sein soll, z.B. im Fall von `~/.gitignore`:
+////
+
+Which option you choose depends entirely on your application.
+The user-specific settings should contain files and patterns that are relevant to the user, for example backup files that your editor creates.
+Such patterns are usually stored in a file in the `$HOME` directory.
+With the option `core.excludesfile` you specify which file this should be, e.g. in the case of `~/.gitignore`:
 
 [subs="macros,quotes"]
 --------
 $ *git config --global core.excludesfile ~/.gitignore*
 --------
 
+////
+Bestimmte Dateien und Muster sind an ein Projekt gebunden und gelten für jeden Teilnehmer, z.B. Compiler-Output und autogenerierte HTML-Dokumentation.
+Diese Einstellung legen Sie in der Datei `.gitignore` ab, die Sie ganz normal einchecken und somit an alle Entwickler ausliefern.
+////
 
-Bestimmte Dateien und Muster sind an ein Projekt gebunden und gelten
-für jeden Teilnehmer, z.B. Compiler-Output und autogenerierte
-HTML-Dokumentation. Diese Einstellung legen Sie in der Datei
-`.gitignore` ab, die Sie ganz normal einchecken und somit an
-alle Entwickler ausliefern.
+Certain files and patterns are bound to a project and are valid for each participant, e.g. compiler output and autogenerated HTML documentation.
+You store these settings in the file `.gitignore`, which you check in as normal and thus deliver to all developers.
 
-Zuletzt lässt sich die Datei `.git/info/exclude` für
-repositoryspezifische Einstellungen nutzen, die nicht mit einem
-Klon ausgeliefert werden sollen, also Einstellungen, die gleichzeitig
-projekt- und benutzerspezifisch sind.
+////
+Zuletzt lässt sich die Datei `.git/info/exclude` für repositoryspezifische Einstellungen nutzen, die nicht mit einem Klon ausgeliefert werden sollen, also Einstellungen, die gleichzeitig projekt- und benutzerspezifisch sind.
+////
 
+Finally, the `.git/info/exclude` file can be used for repository-specific settings that should not be delivered with a clone, i.e. settings that are both project and user specific.
 
 [[sec.muster]]
-=== Syntax für Muster
+=== Syntax for pattern
+//  Syntax für Muster
 
+////
 Die Syntax für Muster ist der Shell-Syntax nachempfunden:
+////
 
-* Leere Zeilen haben keinen Effekt und können zum Gliedern
-  und Trennen verwendet werden.
+The syntax for patterns is based on the shell syntax:
 
-* Zeilen, die mit einem `#` anfangen, werden als
-  Kommentare gewertet und haben ebenfalls keinen Effekt.
+////
+* Leere Zeilen haben keinen Effekt und können zum Gliedern und Trennen verwendet werden.
+////
 
-* Ausdrücke, die mit `!` anfangen, werden als Negation
-  gewertet.
+* Blank lines have no effect and can be used for structuring and separating.
 
-* Ausdrücke, die mit einem `/` enden, werden als
-  Verzeichnis gewertet. Der Ausdruck `man/` erfasst das
-  Verzeichnis `man`, nicht aber die gleichnamige Datei oder den
-  Symlink.
+////
+* Zeilen, die mit einem `#` anfangen, werden als Kommentare gewertet und haben ebenfalls keinen Effekt.
+////
 
-* Ausdrücke, die kein `/` enthalten, werden als
-  Shell-Glob für das aktuelle und alle Unterverzeichnisse gewertet.
-  Der Ausdruck `*.zip` in der obersten `.gitignore` etwa
-  erfasst alle Zip-Dateien in der Verzeichnisstruktur des Projekts.
+* Lines starting with a `#` are considered comments and have no effect.
 
+////
+* Ausdrücke, die mit `!` anfangen, werden als Negation gewertet.
+////
+
+* Expressions beginning with `!` are evaluated as negation.
+
+////
+* Ausdrücke, die mit einem `/` enden, werden als Verzeichnis gewertet.
+  Der Ausdruck `man/` erfasst das Verzeichnis `man`, nicht aber die gleichnamige Datei oder den Symlink.
+////
+
+* Expressions ending with a `/` are evaluated as directory.
+  The expression `man/` covers the directory `man`, but not the file or symlink with the same name.
+
+////
+* Ausdrücke, die kein `/` enthalten, werden als Shell-Glob für das aktuelle und alle Unterverzeichnisse gewertet.
+  Der Ausdruck `*.zip` in der obersten `.gitignore` etwa erfasst alle Zip-Dateien in der Verzeichnisstruktur des Projekts.
+////
+
+* Expressions that do not contain a `/` will be evaluated as shell glob for the current and all subdirectories.
+  The expression `*.zip` in the topmost `.gitignore`, for example, covers all zip files in the project's directory structure.
+
+////
 * Der Ausdruck `**` umfasst Null oder mehr Dateien und Verzeichnisse.
-  Sowohl `t/data/set1/store.txt` als auch `t/README.txt` werden durch
-  das Muster `t/**/*.txt` erfasst.
+  Sowohl `t/data/set1/store.txt` als auch `t/README.txt` werden durch das Muster `t/**/*.txt` erfasst.
+////
 
-* Sonst wird das Muster als Shell-Glob gewertet, genauer als
-  Shell-Glob, das von der Funktion `fnmatch(3)` mit dem Flag
-  `FNM_PATHNAME` ausgewertet wird. Das heißt, das Muster
-  `doc/*html` erfasst `doc/index.html`, nicht aber
-  `doc/api/singleton.html`.
+* The expression `{asterisk}` covers zero or more files and directories.
+  Both `t/data/set1/store.txt` and `t/README.txt` are covered by the pattern `t/{asterisk}/*.txt`.
 
-* Ausdrücke, die mit einem `/` beginnen, sind an den
-  Pfad gebunden. Der Ausdruck `/*.sh` zum Beispiel erfasst
-  `upload.sh`, nicht aber `scripts/check-for-error.sh`.
+////
+* Sonst wird das Muster als Shell-Glob gewertet, genauer als Shell-Glob, das von der Funktion `fnmatch(3)` mit dem Flag `FNM_PATHNAME` ausgewertet wird.
+  Das heißt, das Muster `doc/*html` erfasst `doc/index.html`, nicht aber `doc/api/singleton.html`.
+////
 
+* Otherwise the pattern is evaluated as a shell globe, more precisely as a shell globe evaluated by the function `fnmatch(3)` with the flag `FNM_PATHNAME`.
+  This means that the pattern `doc/*html` captures `doc/index.html`, but not `doc/api/singleton.html`.
 
+////
+* Ausdrücke, die mit einem `/` beginnen, sind an den Pfad gebunden.
+  Der Ausdruck `/*.sh` zum Beispiel erfasst `upload.sh`, nicht aber `scripts/check-for-error.sh`.
+////
+
+* Expressions beginning with a `/` are bound to the path.
+  For example, the expression `/*.sh` includes `upload.sh` but not `scripts/check-for-error.sh`.
+
+////
 Ein Beispiel:{fn60}
+////
+
+An example:{fn60}
 
 [subs="macros,quotes"]
 --------
@@ -992,35 +1375,41 @@ pass:quotes[\*.*~]
 *.out
 --------
 
-
 [[sec.nachtraeglich-ignorieren]]
-=== Nachträglich ignorieren oder versionieren
+=== Ignore or version later
+//  Nachträglich ignorieren oder versionieren
 
-Dateien, die bereits versioniert sind, werden nicht automatisch
-ignoriert. Um eine solche Datei trotzdem zu ignorieren, weisen Sie Git
-explizit an, die Datei zu "`vergessen`":
+////
+Dateien, die bereits versioniert sind, werden nicht automatisch ignoriert.
+Um eine solche Datei trotzdem zu ignorieren, weisen Sie Git explizit an, die Datei zu "`vergessen`":
+////
+
+Files that are already versioned are not automatically ignored.
+To ignore such a file anyway, explicitly tell Git to "`forget`" the file:
 
 [subs="macros,quotes"]
 --------
 $ *git rm documentation.pdf*
 --------
 
+////
+Um die Datei mit dem nächsten Commit zu löschen, aber trotzdem im Working Tree vorzuhalten:
+////
 
-Um die Datei mit dem nächsten Commit zu löschen, aber trotzdem im
-Working Tree vorzuhalten:
+To delete the file with the next commit, but still keep it in the working tree:
 
 [subs="macros,quotes"]
 --------
 $ *git rm --cached documentation.pdf*
 --------
 
+////
+Dateien, die bereits ignoriert werden, erscheinen in der Ausgabe von `git status` nicht.
+Außerdem weigert sich `git add`, die Datei zu übernehmen; mit der Option `--force` bzw. `-f` zwingen Sie Git, die Datei doch zu beachten:
+////
 
-
-
-Dateien, die bereits ignoriert werden, erscheinen in der Ausgabe von
-`git status` nicht. Außerdem weigert sich `git add`, die
-Datei zu übernehmen; mit der Option `--force` bzw.
-`-f` zwingen Sie Git, die Datei doch zu beachten:
+Files that are already ignored will not appear in the output of `git status`.
+Also, `git add` refuses to accept the file; the `--force` and `-f` options force Git to consider the file after all:
 
 [subs="macros,quotes"]
 --------
@@ -1033,49 +1422,59 @@ $ *git add -f documentation.pdf*
 --------
 
 [[sec.git-clean]]
-=== Ignorierte und unbekannte Dateien löschen
+=== Delete ignored and unknown files
+//  Ignorierte und unbekannte Dateien löschen
 
-Das Kommando `git clean` löscht ignorierte sowie unbekannte
-(sog. _untracked_) Dateien. Da evtl. Dateien unwiederbringlich
-verlorengehen könnten, verfügt das Kommando über die Option
-`--dry-run` (bzw.  `-n`); sie gibt Auskunft, was
-gelöscht würde.  Als weitere Vorsichtsmaßnahme weigert sich das
-Kommando, irgendetwas zu löschen, außer Sie übergeben explizit die
-Option `--force` bzw.  `-f`.{fn61}
+////
+Das Kommando `git clean` löscht ignorierte sowie unbekannte (sog. _untracked_) Dateien.
+Da evtl. Dateien unwiederbringlich verlorengehen könnten, verfügt das Kommando über die Option `--dry-run` (bzw.  `-n`); sie gibt Auskunft, was gelöscht würde.
+Als weitere Vorsichtsmaßnahme weigert sich das Kommando, irgendetwas zu löschen, außer Sie übergeben explizit die Option `--force` bzw.  `-f`.{fn61}
+////
 
-Standardmäßig löscht `git clean` nur die unbekannten Dateien,
-mit `-X` entfernt es nur die ignorierten Dateien und mit
-`-x` sowohl unbekannte als auch ignorierte. Mit der Option
-`-d` werden zusätzlich Verzeichnisse gelöscht, die in Frage
-kommen. Um also unbekannte sowie ignorierte Dateien und Verzeichnisse
-zu löschen, geben Sie ein:
+The `git clean` command deletes ignored as well as unknown (so-called _untracked_) files.
+Since files may be irretrievably lost, the command has the `--dry-run` (or `-n`) option; it tells you what would be deleted.
+As a further precaution, the command refuses to delete anything unless you explicitly pass the `--force` or `-f`.{fn61} option
+
+////
+Standardmäßig löscht `git clean` nur die unbekannten Dateien, mit `-X` entfernt es nur die ignorierten Dateien und mit `-x` sowohl unbekannte als auch ignorierte.
+Mit der Option `-d` werden zusätzlich Verzeichnisse gelöscht, die in Frage kommen.
+Um also unbekannte sowie ignorierte Dateien und Verzeichnisse zu löschen, geben Sie ein:
+////
+
+By default, `git clean` only deletes the unknown files, with `-X` it only removes the ignored files, and with `-x` it removes both unknown and ignored files.
+With the option `-d` it additionally deletes directories that come into question.
+So to delete unknown as well as ignored files and directories, enter
 
 [subs="macros,quotes"]
 --------
 $ *git clean -dfx*
 --------
 
-
 [[sec.stash]]
-== Veränderungen auslagern – git stash
+== Outsource changes - git stash
+// Veränderungen auslagern – git stash
 
-Der Stash (Lager) ist ein Mechanismus, der dazu dient, noch nicht
-gespeicherte Veränderungen am Working Tree kurzfristig auszulagern.
-Ein klassischer Anwendungsfall: Ihr Chef bittet Sie, so schnell wie
-möglich einen kritischen Bug zu beheben, Sie haben aber gerade
-angefangen, ein neues Feature zu implementieren.  Mit dem Kommando
-`git stash` räumen Sie die unfertigen Zeilen vorübergehend
-"`aus dem Weg`", ohne einen Commit zu erzeugen, und können
-sich so mit einem sauberen Working Tree dem Fehler zuwenden. Außerdem
-bietet der Stash Abhilfe, wenn Sie den Branch nicht wechseln können,
-weil dadurch Veränderungen verlorengehen würden (siehe auch <<sec.branch-management>>).
+////
+Der Stash (Lager) ist ein Mechanismus, der dazu dient, noch nicht gespeicherte Veränderungen am Working Tree kurzfristig auszulagern.
+Ein klassischer Anwendungsfall: Ihr Chef bittet Sie, so schnell wie möglich einen kritischen Bug zu beheben, Sie haben aber gerade angefangen, ein neues Feature zu implementieren.
+Mit dem Kommando `git stash` räumen Sie die unfertigen Zeilen vorübergehend "`aus dem Weg`", ohne einen Commit zu erzeugen, und können sich so mit einem sauberen Working Tree dem Fehler zuwenden.
+Außerdem bietet der Stash Abhilfe, wenn Sie den Branch nicht wechseln können, weil dadurch Veränderungen verlorengehen würden (siehe auch <<sec.branch-management>>).
+////
 
+The stash is a mechanism used to temporarily store changes in the working tree that have not yet been saved.
+A classic use case: your boss asks you to fix a critical bug as soon as possible, but you have just started to implement a new feature.
+With the `git stash` command, you can temporarily `clean out` the unfinished lines without creating a commit, and thus address the bug with a clean working tree.
+The stash also provides a workaround if you cannot change the branch because this would result in losing changes (see also <<sec.branch-management>>).
 
 [[sec.stash-benutzung]]
-=== Grundlegende Benutzung
+=== Basic usage
+//  Grundlegende Benutzung
 
-Mit `git stash` speichern Sie den aktuellen Zustand von Working
-Tree und Index, sofern diese sich von `HEAD` unterscheiden:
+////
+Mit `git stash` speichern Sie den aktuellen Zustand von Working Tree und Index, sofern diese sich von `HEAD` unterscheiden:
+////
+
+With `git stash` you save the current state of working tree and index, if they differ from `HEAD`:
 
 [subs="macros,quotes"]
 --------
@@ -1085,16 +1484,21 @@ Saved working directory and index state WIP on master: b529e34 new spec
 HEAD is now at b529e34 new spec how the script should behave
 --------
 
+////
+Mit der Option `--keep-index` bleibt der Index intakt.
+Das heißt, alle Veränderungen die bereits im Index sind, bleiben im Working Tree und im Index vorhanden und werden zusätzlich im Stash gespeichert.
+////
 
-Mit der Option `--keep-index` bleibt der Index intakt. Das heißt, alle
-Veränderungen die bereits im Index sind, bleiben im Working Tree und im Index
-vorhanden und werden zusätzlich im Stash gespeichert.
+With the `--keep-index` option the index remains intact.
+This means that all changes that are already in the index remain in the working tree and in the index and are additionally stored in the stash.
 
-Die Veränderungen am Working Tree sowie dem Index werden ``beiseite
-  geschafft__, und Git erzeugt keinen Commit auf dem aktuellen
-Branch.  Um den gespeicherten Zustand wieder herzustellen, also um den
-gespeicherten Patch auf dem aktuellen Working Tree anzuwenden und
-gleichzeitig den Stash zu löschen, verwenden Sie:
+////
+Die Veränderungen am Working Tree sowie dem Index werden "beiseite geschafft", und Git erzeugt keinen Commit auf dem aktuellen Branch.
+Um den gespeicherten Zustand wieder herzustellen, also um den gespeicherten Patch auf dem aktuellen Working Tree anzuwenden und gleichzeitig den Stash zu löschen, verwenden Sie:
+////
+
+The changes to the working tree and index are "put aside", and Git does not create a commit on the current branch.
+To restore the saved state again, ``apply the saved patch to the current working tree and delete the stash at the same time, use
 
 [subs="macros,quotes"]
 --------
@@ -1103,15 +1507,19 @@ $ *git stash pop*
 Dropped refs/stash@{0} (d4cc94c37e92390e5fabf184a3b5b7ebd5c3943a)
 --------
 
+////
+Sie können zwischen dem Abspeichern und dem Wiederherstellen das Repository beliebig verändern, z.B. den Branch wechseln, Commits machen usw.
+Der Stash wird immer auf den aktuellen Working Tree angewendet.
+////
 
-Sie können zwischen dem Abspeichern und dem Wiederherstellen das
-Repository beliebig verändern, z.B. den Branch wechseln, Commits
-machen usw. Der Stash wird immer auf den aktuellen Working Tree
-angewendet.
+Between saving and restoring the repository you can change the repository as you like, e.g. change the branch, make commits, etc.
+The stash is always applied to the current working tree.
 
-Das Kommando `git stash pop` ist eine Abkürzung für die
-zwei Kommandos `git stash apply` (Stash anwenden) und
-`git stash drop` (Stash verwerfen):
+////
+Das Kommando `git stash pop` ist eine Abkürzung für die zwei Kommandos `git stash apply` (Stash anwenden) und `git stash drop` (Stash verwerfen):
+////
+
+The command `git stash pop` is an abbreviation for the two commands `git stash apply` and `git stash drop`:
 
 [subs="macros,quotes"]
 --------
@@ -1121,34 +1529,44 @@ $ *git stash drop*
 Dropped refs/stash@{0} (d4cc94c37e92390e5fabf184a3b5b7ebd5c3943a)
 --------
 
-Sowohl `pop` als auch `apply` pflegen die Veränderungen
-in den Working Tree ein, der Zustand des Index wird nicht wieder
-hergestellt. Mit der Option `--index` stellen Sie auch den
-abgespeicherten Zustand des Index wieder her.
+////
+Sowohl `pop` als auch `apply` pflegen die Veränderungen in den Working Tree ein, der Zustand des Index wird nicht wieder hergestellt.
+Mit der Option `--index` stellen Sie auch den abgespeicherten Zustand des Index wieder her.
+////
 
+Both `pop` and `apply` maintain the changes in the working tree, the index state is not restored again.
+The `--index` option also restores the stored state of the index.
 
 [TIP]
 ========
-Mit der Option `--patch` (bzw. kurz `-p`) starten
-Sie einen interaktiven Modus, d.h. Sie können wie mit `git
-add -p` und `git reset -p` einzelne Hunks auswählen, um sie
-dem Stash hinzuzufügen:
+////
+Mit der Option `--patch` (bzw. kurz `-p`) starten Sie einen interaktiven Modus, d.h. Sie können wie mit `git add -p` und `git reset -p` einzelne Hunks auswählen, um sie dem Stash hinzuzufügen:
+////
+
+The `--patch` (or short `-p`) option starts an interactive mode, i.e. you can select individual hunks to add to the stash just like with `git add -p` and `git reset -p`:
 
 [subs="macros,quotes"]
 --------
 $ *git stash -p*
 --------
 
-Die Konfigurationseinstellung `interactive.singlekey` (siehe
-<<sec.add-p>>) gilt auch hier.
+////
+Die Konfigurationseinstellung `interactive.singlekey` (siehe <<sec.add-p>>) gilt auch hier.
+////
+
+The configuration setting `interactive.singlekey` (see <<sec.add-p>>) also applies here.
 ========
 
 
 [[sec.stash-konflikte]]
-=== Konflikte lösen
+=== Solve conflicts
+//  Konflikte lösen
 
-Es kann zu Konflikten kommen, wenn Sie einen Stash auf einem anderen
-Commit anwenden als dem, auf dem er entstanden ist:
+////
+Es kann zu Konflikten kommen, wenn Sie einen Stash auf einem anderen Commit anwenden als dem, auf dem er entstanden ist:
+////
+
+Conflicts can occur if you apply a stash to a commit other than the one on which it was created:
 
 [subs="macros,quotes"]
 --------
@@ -1157,12 +1575,13 @@ Auto-merging hello.pl
 CONFLICT (content): Merge conflict in hello.pl
 --------
 
+////
+In dem Fall verwenden Sie die üblichen Rezepte zum Lösen des Konflikts, siehe <<sec.merge-conflicts>>.
+Wichtig ist aber, dass die Konflikt-Marker die Bezeichnungen `Updated Upstream` (die Version im aktuellen Working Tree) sowie `Stashed Changes` (Veränderungen im Stash) tragen:
+////
 
-In dem Fall verwenden Sie die üblichen Rezepte zum Lösen des
-Konflikts, siehe <<sec.merge-conflicts>>.  Wichtig ist aber, dass die
-Konflikt-Marker die Bezeichnungen `Updated Upstream` (die
-Version im aktuellen Working Tree) sowie `Stashed Changes`
-(Veränderungen im Stash) tragen:
+In this case, use the usual recipes to solve the conflict, see <<sec.merge-conflicts>>.
+It is important, however, that the conflict markers are labeled `Updated Upstream` (the version in the current working tree) and `Stashed Changes` (changes in the stash):
 
 --------
 <<<<<<< Updated upstream
@@ -1174,17 +1593,24 @@ Version im aktuellen Working Tree) sowie `Stashed Changes`
 
 [IMPORTANT]
 ============
-Sollten Sie versucht haben, einen Stash mit `git stash
-  pop` anzuwenden und es ist zu einem Konflikt gekommen, wird der Stash _nicht_ automatisch gelöscht.
+////
+Sollten Sie versucht haben, einen Stash mit `git stash pop` anzuwenden und es ist zu einem Konflikt gekommen, wird der Stash _nicht_ automatisch gelöscht.
 Sie müssen ihn (nach Auflösen des Konflikts) explizit mit `git stash drop` löschen.
+////
+
+If you have tried to apply a stash with `git stash pop` and a conflict has occurred, the stash will _not_ be deleted automatically.
+You must explicitly delete it (after resolving the conflict) with `git stash drop`.
 ============
 
 [[sec.stash-fail]]
-=== Wenn Sie den Stash nicht anwenden können...
+=== If you can not apply the stash...
+//  Wenn Sie den Stash nicht anwenden können...
 
-Der Stash wird per Default auf den aktuellen Working Tree
-angewendet, vorausgesetzt dieser ist sauber – wenn nicht, bricht Git
-ab:
+////
+Der Stash wird per Default auf den aktuellen Working Tree angewendet, vorausgesetzt dieser ist sauber – wenn nicht, bricht Git ab:
+////
+
+The stash is applied to the current working tree by default, provided it is clean - if not, Git aborts:
 
 [subs="macros,quotes"]
 --------
@@ -1192,11 +1618,13 @@ $ *git stash pop*
 Cannot apply to a dirty working tree, please stage your changes
 --------
 
+////
+Git schlägt zwar vor, dass Sie die Änderungen dem Index hinzufügen, wie Sie aber vorgehen sollten, hängt von Ihrem Ziel ab.
+Wenn Sie die Änderungen im Stash zusätzlich zu denen im Working Tree haben wollen, bietet sich Folgendes an:
+////
 
-Git schlägt zwar vor, dass Sie die Änderungen dem Index hinzufügen,
-wie Sie aber vorgehen sollten, hängt von Ihrem Ziel ab. Wenn Sie die
-Änderungen im Stash zusätzlich zu denen im Working Tree haben wollen,
-bietet sich Folgendes an:
+While Git suggests that you add the changes to the index, how you should proceed depends on your goal.
+If you want to have the changes in the stash in addition to those in the working tree, here's a good idea:
 
 [subs="macros,quotes"]
 --------
@@ -1205,15 +1633,19 @@ $ *git stash pop*
 $ *git reset HEAD*
 --------
 
+////
+Zur Erläuterung:
+Zuerst werden die noch nicht gespeicherten Veränderungen am Working Tree dem Index hinzugefügt; dann die Veränderungen aus dem Stash herausgeholt und auf den Working Tree angewendet, und zuletzt noch der Index zurückgesetzt.
+////
 
-Zur Erläuterung: Zuerst werden die noch nicht gespeicherten
-Veränderungen am Working Tree dem Index hinzugefügt; dann die
-Veränderungen aus dem Stash herausgeholt und auf den Working Tree
-angewendet, und zuletzt noch der Index zurückgesetzt.
+For explanation:
+First, the unsaved changes to the working tree are added to the index; then the changes are extracted from the stash and applied to the working tree, and finally the index is reset.
 
-Alternativ dazu können Sie auch einen zusätzlichen Stash erstellen,
-und die Veränderungen, die Sie haben wollen, auf einen sauberen
-Working Tree anwenden:
+////
+Alternativ dazu können Sie auch einen zusätzlichen Stash erstellen, und die Veränderungen, die Sie haben wollen, auf einen sauberen Working Tree anwenden:
+////
+
+Alternatively, you can create an additional stash and apply the changes you want to have to a clean working tree:
 
 [subs="macros,quotes"]
 --------
@@ -1222,33 +1654,51 @@ $ *git stash apply stash@{1}*
 $ *git stash drop stash@{1}*
 --------
 
-
+////
 Bei diesem Rezept verwenden Sie mehrere Stashes.
-Zuerst lagern Sie die Veränderungen am
-Working Tree in einen neuen Stash aus, dann holen Sie die
-Veränderungen, die Sie eigentlich haben wollen, aus dem vorherigen
-Stash und löschen diesen nach der Anwendung.
+Zuerst lagern Sie die Veränderungen am Working Tree in einen neuen Stash aus, dann holen Sie die Veränderungen, die Sie eigentlich haben wollen, aus dem vorherigen Stash und löschen diesen nach der Anwendung.
+////
+
+For this recipe you use several stashes.
+First you store the changes in the working tree into a new stash, then you get the changes you actually want from the previous stash and delete it after the application.
 
 [[sec.stash-message]]
-=== Nachricht anpassen
+=== Adjust message
+//  Nachricht anpassen
 
+////
 Standardmäßig setzt Git für einen Stash die folgende Nachricht:
+////
+
+By default, Git sets the following message for a stash
 
 --------
 WIP: on <branch>: <sha1> <commit-msg>
 --------
 
-`<branch>`::  der aktuelle Branch
+////
+`<branch>`:: der aktuelle Branch
+////
 
-`<sha1>`::  die Commit-ID des `HEAD`
+`<branch>`:: the current branch
 
-`<commit-msg>`::  die Commit-Nachricht des `HEAD`
+////
+`<sha1>`:: die Commit-ID des `HEAD`
+////
 
+`<sha1>`:: the commit ID of the `HEAD`
 
-Meist reicht dies aus, um einen Stash zu identifizieren. Wenn Sie
-vorhaben, Ihre Stashes länger vorzuhalten (möglich, aber nicht
-wirklich zu empfehlen), oder wenn Sie mehrere machen wollen, raten
-wir, diese mit einer besseren Anmerkung zu versehen:
+////
+`<commit-msg>`:: die Commit-Nachricht des `HEAD`
+////
+
+`<commit-msg>`:: the commit message of the `HEAD`
+
+////
+Meist reicht dies aus, um einen Stash zu identifizieren. Wenn Sie vorhaben, Ihre Stashes länger vorzuhalten (möglich, aber nicht wirklich zu empfehlen), oder wenn Sie mehrere machen wollen, raten wir, diese mit einer besseren Anmerkung zu versehen:
+////
+
+In most cases this is sufficient to identify a stash. If you plan to keep your stashes longer (possible, but not really recommended), or if you want to do more than one, we recommend that you add a better note to them:
 
 [subs="macros,quotes"]
 --------
@@ -1257,14 +1707,17 @@ Saved working directory and index state On master: unfertiges feature
 HEAD is now at b529e34 new spec how the script should behave
 --------
 
-
-
 [[sec.multi-stash]]
-=== Stashes einsehen
+=== View stashes
+//  Stashes einsehen
 
-Git verwaltet alle Stashes als Stack, d.h. aktuellere Zustände
-liegen oben auf und werden zuerst verarbeitet. Die Stashes sind mit
-einer Reflog-Syntax (siehe auch <<sec.reflog>>) benannt:
+////
+Git verwaltet alle Stashes als Stack, d.h. aktuellere Zustände liegen oben auf und werden zuerst verarbeitet.
+Die Stashes sind mit einer Reflog-Syntax (siehe auch <<sec.reflog>>) benannt:
+////
+
+Git manages all stashes as a stack, i.e. more recent states are on top and are processed first.
+The stashes are named with a reflog syntax (see also <<sec.reflog>>):
 
 --------
     stash@{0}
@@ -1273,18 +1726,27 @@ einer Reflog-Syntax (siehe auch <<sec.reflog>>) benannt:
     ...
 --------
 
-Erzeugen Sie einen neuen Stash, wird dieser als `stash@{0}`
-bezeichnet und die Nummer der anderen wird inkrementiert: Aus
-`stash@{0}` wird `stash@{1}`, aus `stash@{1}`
-wird `stash@{2}` usw.
+////
+Erzeugen Sie einen neuen Stash, wird dieser als `stash@{0}` bezeichnet und die Nummer der anderen wird inkrementiert:
+Aus `stash@{0}` wird `stash@{1}`, aus `stash@{1}` wird `stash@{2}` usw.
+////
 
-Geben Sie keinen expliziten Stash an, beziehen sich die Kommandos
-`apply`, `drop` und `show` auf den neuesten, also
-`stash@{0}`.
+If you create a new stash, it will be called `stash@{0}` and the number of the others will be incremented:
+`stash@{0}` becomes `stash@{1}`, `stash@{1}` becomes `stash@{2}` and so on.
 
+////
+Geben Sie keinen expliziten Stash an, beziehen sich die Kommandos `apply`, `drop` und `show` auf den neuesten, also `stash@{0}`.
+////
+
+If you do not specify an explicit stash, the commands `apply`, `drop` and `show` refer to the most recent, i.e. `stash@{0}`.
+
+////
 Um einzelne Stashes einzusehen, verwenden Sie `git stash show`.
-Standardmäßig druckt dieses Kommando eine Bilanz der hinzugefügten und
-entfernten Zeilen aus (wie `git diff --stat`):
+Standardmäßig druckt dieses Kommando eine Bilanz der hinzugefügten und entfernten Zeilen aus (wie `git diff --stat`):
+////
+
+To view individual stashes, use `git stash show`.
+By default, this command prints a balance of the added and removed lines (like `git diff --stat`):
 
 [subs="macros,quotes"]
 --------
@@ -1293,11 +1755,13 @@ git-stats.sh |    4 pass:quotes[++--]
  1 files changed, 2 insertions(+), 2 deletions(-)
 --------
 
-
 [TIP]
 ========
-Das Kommando `git stash show` akzeptiert zusätzlich
-allgemeine Diff-Optionen, die das Format beeinflussen, z.B.{empty}{nbsp}`-p`, um ein Patch im Diff-Format auszugeben:
+////
+Das Kommando `git stash show` akzeptiert zusätzlich allgemeine Diff-Optionen, die das Format beeinflussen, z.B.{empty}{nbsp}`-p`, um ein Patch im Diff-Format auszugeben:
+////
+
+The `git stash show` command also accepts general diff options that affect the format, e.g. {empty}{nbsp}`-p` to output a patch in diff format:
 
 [subs="macros,quotes"]
 --------
@@ -1316,8 +1780,11 @@ pass:quotes[\+++] b/git-stats.sh
 --------
 ========
 
-Das Kommando `git stash list` gibt eine Liste der derzeit
-angelegten Stashes aus:
+////
+Das Kommando `git stash list` gibt eine Liste der derzeit angelegten Stashes aus:
+////
+
+The `git stash list` command prints a list of currently created stashes:
 
 [subs="macros,quotes"]
 --------
@@ -1327,14 +1794,18 @@ stash@{1}: WIP on master: b1ee2cf start and end date in one place only
 --------
 
 [[sec.stash-delete]]
-=== Stashes löschen
+=== Delete stashes
+//  Stashes löschen
 
-Einzelne Stashes löschen Sie mit dem Kommando `git stash drop`,
-alle mit `git stash clear`.  Sollten Sie versehentlich einen
-Stash löschen, finden Sie diesen nicht über die üblichen
-Reflog-Mechanismen wieder! Jedoch gibt folgender Befehl die ehemaligen
-Stashes aus:{empty}{fn62}
+////
+Einzelne Stashes löschen Sie mit dem Kommando `git stash drop`, alle mit `git stash clear`.
+Sollten Sie versehentlich einen Stash löschen, finden Sie diesen nicht über die üblichen Reflog-Mechanismen wieder!
+Jedoch gibt folgender Befehl die ehemaligen Stashes aus:{empty}{fn62}
+////
 
+Individual stashes can be deleted with the command `git stash drop`, all with `git stash clear`.
+If you delete a stash by mistake, you won't find it again via the usual reflog mechanisms!
+However, the following command prints the former stashes:{empty}{fn62}
 
 [subs="macros,quotes"]
 --------
@@ -1342,33 +1813,44 @@ $ *git fsck --unreachable | grep commit | cut -d" "  -f3 | \*
   *xargs git log --merges --no-walk --grep=WIP*
 --------
 
-
 [TIP]
 ========
-Für den Notfall merken Sie sich, dass Sie den Befehl ganz am Ende
-der Man-Page von `git-stash(1)` finden.
+////
+Für den Notfall merken Sie sich, dass Sie den Befehl ganz am Ende der Man-Page von `git-stash(1)` finden.
+////
+
+In case of emergency, note that you will find the command at the very end of the `git-stash(1)` man page.
 ========
 
-Außerdem ist wichtig, dass die so gezeigten Einträge nur als
-unerreichbare Objekte in der Objektdatenbank vorhanden sind und somit
-auch den normalen Wartungsmechanismen unterliegen -- sie werden also
-nach einiger Zeit gelöscht und nicht dauerhaft vorgehalten.
+////
+Außerdem ist wichtig, dass die so gezeigten Einträge nur als unerreichbare Objekte in der Objektdatenbank vorhanden sind und somit auch den normalen Wartungsmechanismen unterliegen -- sie werden also nach einiger Zeit gelöscht und nicht dauerhaft vorgehalten.
+////
 
+It is also important that the entries shown in this way only exist as unreachable objects in the object database and are therefore subject to the normal maintenance mechanisms -- they are therefore deleted after some time and are not kept permanently.
 
 [[sec.stash-implementation]]
-=== Wie ist der Stash implementiert?
+=== How is the stash implemented?
+//  Wie ist der Stash implementiert?
 
-Git erzeugt für jeden Stash zwei Commit-Objekte, eines für die
-Veränderungen am Working Tree und eines für die Veränderungen am
-Index. Beide haben den aktuellen `HEAD` als Vorfahren, das
-Working-Tree-Objekt hat das Index-Objekt als Vorfahren. Dadurch wird
-ein Stash in Gitk als Dreieck angezeigt, was im ersten Moment etwas
-verwirrend ist:
+////
+Git erzeugt für jeden Stash zwei Commit-Objekte, eines für die Veränderungen am Working Tree und eines für die Veränderungen am Index.
+Beide haben den aktuellen `HEAD` als Vorfahren, das Working-Tree-Objekt hat das Index-Objekt als Vorfahren.
+Dadurch wird ein Stash in Gitk als Dreieck angezeigt, was im ersten Moment etwas verwirrend ist:
+////
 
-.Ein Stash in Gitk
+Git creates two commit objects for each stash, one for working tree changes and one for index changes.
+Both have the current `HEAD` as their ancestor, the working tree object has the index object as its ancestor.
+This makes a stash in Gitk appear as a triangle, which is a bit confusing at first:
+
+// .Ein Stash in Gitk
+.A stash in Gitk
 image::stash-screenshot.png[id="fig.gitk-stash",scaledwidth="90%",width="90%"]
 
+////
 Mit dem Alias `git tree` (siehe <<rev-list>>) sieht das so aus:
+////
+
+With the alias `git tree` (see <<rev-list>>) this looks like this:
 
 --------
 *   f1fda63 (refs/stash) WIP on master: e2c67eb Kommentar fehlte
@@ -1381,51 +1863,73 @@ Mit dem Alias `git tree` (siehe <<rev-list>>) sieht das so aus:
 * b0400b0 Erste Version
 --------
 
-Da die Stash-Objekte nicht durch einen Branch referenziert sind, wird
-das Working-Tree-Objekt mit einer besonderen Referenz,
-`refs/stash`, am Leben erhalten. Dies gilt aber nur für den
-neuesten Stash. Ältere Stashes werden nur im Reflog (siehe <<sec.reflog>>) referenziert und
-erscheinen deshalb auch nicht in Gitk. Im Gegensatz zu normalen
-Reflog-Einträgen verfallen gespeicherte Stashes jedoch nicht und
-werden deshalb auch nicht durch die normalen Wartungsmechanismen
-gelöscht.
+////
+Da die Stash-Objekte nicht durch einen Branch referenziert sind, wird das Working-Tree-Objekt mit einer besonderen Referenz, `refs/stash`, am Leben erhalten.
+Dies gilt aber nur für den neuesten Stash.
+Ältere Stashes werden nur im Reflog (siehe <<sec.reflog>>) referenziert und erscheinen deshalb auch nicht in Gitk.
+Im Gegensatz zu normalen Reflog-Einträgen verfallen gespeicherte Stashes jedoch nicht und werden deshalb auch nicht durch die normalen Wartungsmechanismen gelöscht.
+////
 
-
-
+Since the stash objects are not referenced by a branch, the working tree object is kept alive with a special reference, `refs/stash`.
+However, this only applies to the latest stash.
+Older stashes are only referenced in the Reflog (see ` <<sec.reflog>>) and therefore do not appear in Gitk.
+In contrast to normal reflog entries, stored stashes do not expire and are therefore not deleted by the normal maintenance mechanisms.
 
 [[sec.notes]]
-== Commits annotieren – git notes
+== Annotate commits - git notes
+// Commits annotieren – git notes
 
-In der Regel ist es nicht ohne Weiteres möglich, Commits, die einmal
-veröffentlicht wurden, noch einmal zu ändern oder zu erweitern.
-Manchmal wünscht man sich jedoch, man könnte Commits im Nachhinein
-noch Informationen "`anhängen`", ohne dass der Commit sich
-ändert. Das könnten Ticket-Nummern sein, Informationen darüber, ob die
-Software kompiliert, wer sie getestet hat usw.
+////
+In der Regel ist es nicht ohne Weiteres möglich, Commits, die einmal veröffentlicht wurden, noch einmal zu ändern oder zu erweitern.
+Manchmal wünscht man sich jedoch, man könnte Commits im Nachhinein noch Informationen "`anhängen`", ohne dass der Commit sich ändert.
+Das könnten Ticket-Nummern sein, Informationen darüber, ob die Software kompiliert, wer sie getestet hat usw.
+////
 
-Git bietet mit dem Kommando `git notes` eine Möglichkeit,
-nachträglich Notizen an einen Commit zu heften. Dabei sind die Notizen
-ein abgekoppelter "`Branch`" von Commits, referenziert durch
-`refs/notes/commits`, auf dem die Entwicklung der Notes
-gespeichert wird. Auf diesem Branch liegen die Notizen zu einem Commit
-in einer Datei vor, deren Dateiname der SHA-1-Summe des Commits
-entspricht, den sie beschreibt.
+In general, it is not easy to modify or extend commits once they have been published.
+Sometimes, however, you wish you could "`attach`" information to commits afterwards, without the commit changing.
+This could be ticket numbers, information about whether the software compiled, who tested it, and so on.
 
-Diese Interna können Sie aber außer Acht lassen -- in der Praxis
-können Sie die Notizen komplett mit `git notes` verwalten.
-Wichtig ist nur zu wissen: Pro Commit können Sie nur eine Notiz
-speichern.{fn63}
-Dafür können Sie die Notizen
-aber im Nachhinein editieren bzw. erweitern.
+////
+Git bietet mit dem Kommando `git notes` eine Möglichkeit, nachträglich Notizen an einen Commit zu heften.
+Dabei sind die Notizen ein abgekoppelter "`Branch`" von Commits, referenziert durch `refs/notes/commits`, auf dem die Entwicklung der Notes gespeichert wird.
+Auf diesem Branch liegen die Notizen zu einem Commit in einer Datei vor, deren Dateiname der SHA-1-Summe des Commits entspricht, den sie beschreibt.
+////
 
-Um eine neue Notiz hinzuzufügen:  `git notes
-  add <commit>`. Wenn Sie `<commit>` auslassen, wird
-`HEAD` verwendet. Analog zu `git commit` öffnet sich ein
-Editor, in dem Sie die Notiz verfassen. Alternativ können Sie diese
-direkt per `-m "<notiz>"` angeben.
+Git offers a way to attach notes to a commit using the `git notes` command.
+The notes are an uncoupled `branch` of commits, referenced by `refs/notes/commits`, on which the development of the notes is stored.
+On this branch, the notes for a commit are stored in a file whose filename corresponds to the SHA-1 sum of the commit it describes.
 
-Die Notiz wird dann per Default immer unter der Commit-Nachricht
-angezeigt:
+////
+Diese Interna können Sie aber außer Acht lassen -- in der Praxis können Sie die Notizen komplett mit `git notes` verwalten.
+Wichtig ist nur zu wissen:
+Pro Commit können Sie nur eine Notiz speichern.{fn63}
+Dafür können Sie die Notizen aber im Nachhinein editieren bzw. erweitern.
+////
+
+But you can disregard these internals -- in practice, you can manage the notes completely with `git notes`.
+The only important thing is to know:
+You can only save one note per commit {fn63}.
+But you can edit or extend the notes afterwards.
+
+////
+Um eine neue Notiz hinzuzufügen:
+`git notes add <commit>`.
+Wenn Sie `<commit>` auslassen, wird `HEAD` verwendet.
+Analog zu `git commit` öffnet sich ein Editor, in dem Sie die Notiz verfassen.
+Alternativ können Sie diese direkt per `-m "<notiz>"` angeben.
+////
+
+To add a new note:
+`git notes add <commit>`.
+If you omit `<commit>`, `HEAD` will be used.
+Similar to `git commit` an editor opens where you write the note.
+Alternatively, you can specify it directly with `-m "<note>"`.
+
+////
+Die Notiz wird dann per Default immer unter der Commit-Nachricht angezeigt:
+////
+
+By default, the note is always displayed below the commit message:
 
 [subs="macros,quotes"]
 --------
@@ -1440,19 +1944,25 @@ Notes:
     Dies verursacht Bug #2319 und wird mit v2.1.3-7-g6dfa88a korrigiert
 --------
 
+////
+Mit der Option `--no-notes` können Sie Kommandos wie `log` oder `show` explizit anweisen, Notizen nicht anzuzeigen.
+////
 
-Mit der Option `--no-notes` können Sie Kommandos wie
-`log` oder `show` explizit anweisen, Notizen nicht
-anzuzeigen.
+With the `--no-notes` option you can explicitly tell commands like `log` or `show` not to display notes.
 
-Das Kommando `git notes add` beendet sich mit einem Fehler,
-wenn zu dem angegebenen Commit schon eine Notiz vorliegt. Verwenden
-Sie dann stattdessen das Kommando `git notes append`, um
-weitere Zeilen an die Notiz anzuhängen, oder aber direkt `git
-  notes edit`, um die Notiz beliebig zu editieren.
+////
+Das Kommando `git notes add` beendet sich mit einem Fehler, wenn zu dem angegebenen Commit schon eine Notiz vorliegt.
+Verwenden Sie dann stattdessen das Kommando `git notes append`, um weitere Zeilen an die Notiz anzuhängen, oder aber direkt `git notes edit`, um die Notiz beliebig zu editieren.
+////
 
-Per Default werden die Notizen nicht hoch- oder runtergeladen, Sie
-müssen das explizit über die folgenden Kommandos tun:
+The command `git notes add` will end with an error if a note already exists for the given commit.
+Use the `git notes append` command instead to append more lines to the note, or directly `git notes edit` to edit the note as desired.
+
+////
+Per Default werden die Notizen nicht hoch- oder runtergeladen, Sie müssen das explizit über die folgenden Kommandos tun:
+////
+
+By default the notes are not uploaded or downloaded, you have to do this explicitly with the following commands:
 
 [subs="macros,quotes"]
 --------
@@ -1460,22 +1970,31 @@ $ *git push &lt;remote&gt; refs/notes/commits*
 $ *git fetch &lt;remote&gt; refs/notes/commits:refs/notes/commits*
 --------
 
+////
 Das Notizen-Konzept ist in Git nicht besonders weit entwickelt.
-Insbesondere macht es Probleme, wenn mehrere Entwickler parallel Notizen
-zu Commits erstellen und diese dann zusammengeführt werden müssen.
+Insbesondere macht es Probleme, wenn mehrere Entwickler parallel Notizen zu Commits erstellen und diese dann zusammengeführt werden müssen.
 Für weitere Informationen siehe die Man-Page `git-notes(1)`.
+////
+
+The notes concept is not very well developed in Git.
+In particular, it is problematic when multiple developers create commit notes in parallel, and then need to merge them.
+For more information, see the `git-notes(1)` man page.
 
 [TIP]
 =======================
-Wenn Sie Notizen verwenden wollen, bietet sich dies meist nur im
-Zusammenhang mit Ticket-, Bug-Tracking- oder
-Continuous-Integration-Systemen an: Diese könnten automatisiert Notizen
-erstellen und so möglicherweise hilfreiche Zusatzinformationen im
-Repository ablegen.
+////
+Wenn Sie Notizen verwenden wollen, bietet sich dies meist nur im Zusammenhang mit Ticket-, Bug-Tracking- oder Continuous-Integration-Systemen an:
+Diese könnten automatisiert Notizen erstellen und so möglicherweise hilfreiche Zusatzinformationen im Repository ablegen.
+////
 
-Um die Notizen bei jedem `git fetch` automatisch herunterzuladen, fügen
-Sie eine Refspec der folgenden Form in die Datei `.git/config`
-ein (siehe auch <<sec.git-fetch>>):
+If you want to use notes, this is usually only useful in connection with ticket, bug tracking or continuous integration systems:
+These could automatically create notes and thus possibly store helpful additional information in the repository.
+
+////
+Um die Notizen bei jedem `git fetch` automatisch herunterzuladen, fügen Sie eine Refspec der folgenden Form in die Datei `.git/config` ein (siehe auch <<sec.git-fetch>>):
+////
+
+To automatically download the notes at each `git fetch`, add a refspec of the following form to the file `git/config` (see also <<sec.git-fetch>>):
 
 ------------------
   fetch = +refs/notes/*:refs/notes/*
@@ -1483,26 +2002,42 @@ ein (siehe auch <<sec.git-fetch>>):
 =======================
 
 [[sec.multi-root]]
-== Mehrere Root-Commits
+== Multiple root commits
+// Mehrere Root-Commits
 
-Bei der Initialisierung eines Repositorys wird der erste Commit, der
-sogenannte _Root-Commit_, erstellt. Dieser Commit ist in der
-Regel der einzige im ganzen Repository, der keinen Vorgänger hat.
+////
+Bei der Initialisierung eines Repositorys wird der erste Commit, der sogenannte _Root-Commit_, erstellt.
+Dieser Commit ist in der Regel der einzige im ganzen Repository, der keinen Vorgänger hat.
+////
 
-Allerdings ist es auch möglich, mehrere Root-Commits in einem
-Repository zu haben. Das kann in den folgenden Fällen sinnvoll sein:
+When a repository is initialized, the first commit, called the _root commit_, is created.
+This commit is usually the only commit in the entire repository that has no predecessor.
 
-* Sie wollen zwei eigenständige Projekte miteinander
-  verbinden, die vorher in getrennten Repositories entwickelt wurden
-  (siehe dafür auch Subtree-Merges in <<sec.subtrees>>).
+////
+Allerdings ist es auch möglich, mehrere Root-Commits in einem Repository zu haben.
+Das kann in den folgenden Fällen sinnvoll sein:
+////
 
-* Sie wollen einen vollständig abgekoppelten Branch
-  verwalten, auf dem Sie eine Todo-Liste vorhalten, kompilierte
-  Binaries oder autogenerierte Dokumentation.
+However, it is also possible to have multiple root commits in one repository.
+This can be useful in the following cases:
 
+////
+* Sie wollen zwei eigenständige Projekte miteinander verbinden, die vorher in getrennten Repositories entwickelt wurden (siehe dafür auch Subtree-Merges in <<sec.subtrees>>).
+////
 
-Im Falle, dass Sie zwei Repositories zusammenführen wollen, reicht in
-der Regel dieses Kommando:
+* You want to merge two independent projects that were previously developed in separate repositories (see also subtree-merges in <<sec.subtrees>>).
+
+////
+* Sie wollen einen vollständig abgekoppelten Branch verwalten, auf dem Sie eine Todo-Liste vorhalten, kompilierte Binaries oder autogenerierte Dokumentation.
+////
+
+* ` You want to manage a fully decoupled branch where you keep a todo list, compiled binaries or autogenerated documentation.
+
+////
+Im Falle, dass Sie zwei Repositories zusammenführen wollen, reicht in der Regel dieses Kommando:
+////
+
+In case you want to merge two repositories, this command is usually sufficient:
 
 [subs="macros,quotes"]
 --------
@@ -1513,22 +2048,31 @@ warning: no common commits
  * [new branch]      master     -&gt; &lt;anderer-master&gt;
 --------
 
-
-Der Branch `master` des anderen Repositorys wird als
-`<anderer-master>` ins lokale Repository kopiert, inklusive
-aller Commits, bis Git eine Merge-Basis findet oder einen Root-Commit.
-Die Warnung "`no common commits`" deutet schon darauf hin,
-dass die beiden Versionsgeschichten keinen gemeinsamen Commit haben.
+////
+Der Branch `master` des anderen Repositorys wird als `<anderer-master>` ins lokale Repository kopiert, inklusive aller Commits, bis Git eine Merge-Basis findet oder einen Root-Commit.
+Die Warnung "`no common commits`" deutet schon darauf hin, dass die beiden Versionsgeschichten keinen gemeinsamen Commit haben.
 Das Repository hat nun zwei Root-Commits.
+////
 
-Beachten Sie, dass ein Merge zwischen zwei Branches, die keine
-gemeinsamen Commits haben, fehlschlagen wird, sobald eine Datei auf
-beiden Seiten existiert und nicht gleich ist. Abhilfe schaffen hier
-möglicherweise Subtree-Merges, siehe <<sec.subtrees>>.
+The `master` branch of the other repository is copied to the local repository as `<other-master>`, including all commits until Git finds a merge base or root commit.
+The warning "``no common commits`` already indicates that the two version histories do not have a common commit.
+The repository now has two root commits.
 
-Sie können aber auch, anstatt ein anderes Repository zu importieren,
-einen komplett abgekoppelten Branch neu erstellen, also einen zweiten
-Root-Commit. Dafür reichen die folgenden beiden Kommandos aus:
+////
+Beachten Sie, dass ein Merge zwischen zwei Branches, die keine gemeinsamen Commits haben, fehlschlagen wird, sobald eine Datei auf beiden Seiten existiert und nicht gleich ist.
+Abhilfe schaffen hier möglicherweise Subtree-Merges, siehe <<sec.subtrees>>.
+////
+
+Note that a merge between two branches that do not share commits will fail since a file exists on both sides and is not equal.
+This may be remedied by subtree-merges, see <<sec.subtrees>>.
+
+////
+Sie können aber auch, anstatt ein anderes Repository zu importieren, einen komplett abgekoppelten Branch neu erstellen, also einen zweiten Root-Commit.
+Dafür reichen die folgenden beiden Kommandos aus:
+////
+
+You can also, instead of importing another repository, create a completely detached branch, ``a second root commit.
+The following two commands are sufficient for this:
 
 [subs="macros,quotes"]
 --------
@@ -1536,67 +2080,89 @@ $ *git checkout --orphan &lt;newroot&gt;*
 $ *git rm --cached -rf .*
 --------
 
-Das erste setzt den `HEAD` auf den (noch nicht existierenden)
-Branch `<newroot>`. Das `rm`-Kommando löscht alle von Git
-verwalteten Dateien aus dem Index, lässt sie aber im Working Tree
-intakt. Sie haben nun also einen Index, der nichts enthält, und einen
-Branch, auf dem noch kein Commit existiert.
+////
+Das erste setzt den `HEAD` auf den (noch nicht existierenden) Branch `<newroot>`.
+Das `rm`-Kommando löscht alle von Git verwalteten Dateien aus dem Index, lässt sie aber im Working Tree intakt.
+Sie haben nun also einen Index, der nichts enthält, und einen Branch, auf dem noch kein Commit existiert.
+////
 
-Sie können jetzt mit dem Kommando `git add` Dateien zum neuen
-Root-Commit hinzufügen und ihn dann mit `git commit` erzeugen.
+The first one sets the `HEAD` to the (not yet existing) branch `<newroot>`.
+The `rm` command deletes all Git-managed files from the index, but leaves them intact in the working tree.
+So now you have an index that doesn't contain anything and a branch that doesn't have a commit yet.
 
+////
+Sie können jetzt mit dem Kommando `git add` Dateien zum neuen Root-Commit hinzufügen und ihn dann mit `git commit` erzeugen.
+////
+
+You can now use the `git add` command to add files to the new root commit and then create it with `git commit`.
 
 [[sec.bisect]]
-== Regressionen finden – git bisect
+== Find regressions - git bisect
+// Regressionen finden – git bisect
 
-Eine Regression bezeichnet in der Softwareentwicklung den Zeitpunkt,
-ab dem ein bestimmtes Feature eines Programms nicht mehr funktioniert.
-Das kann nach einem Update von Bibliotheken sein, nach der Einführung
-neuer Features, die Seiteneffekte verursachen etc.
+////
+Eine Regression bezeichnet in der Softwareentwicklung den Zeitpunkt, ab dem ein bestimmtes Feature eines Programms nicht mehr funktioniert.
+Das kann nach einem Update von Bibliotheken sein, nach der Einführung neuer Features, die Seiteneffekte verursachen etc.
+////
 
-Solche Regressionen zu finden, ist mitunter schwer. Wenn Sie eine
-umfangreiche Test-Suite einsetzen, dann sind Sie relativ gut davor
-geschützt, trivial erkennbare Regressionen einzubauen (z.B.  weil
-Sie vor jedem Commit ein `make test` laufen lassen).
+In software development, a regression refers to the point in time from which a certain feature of a program no longer functions.
+This can be after an update of libraries, after the introduction of new features that cause side effects etc.
 
-Wenn die Regression reproduzierbar ist (``Mit den Argumenten <x>
-stürzt das Programm ab__, ``die Konfigurationseinstellung <y>
-führt zu einem Speicherzugriffsfehler__), dann können Sie mit Git
-die Suche nach dem Commit, der diese Regression verursacht,
-automatisieren.
+////
+Solche Regressionen zu finden, ist mitunter schwer.
+Wenn Sie eine umfangreiche Test-Suite einsetzen, dann sind Sie relativ gut davor geschützt, trivial erkennbare Regressionen einzubauen (z.B.  weil Sie vor jedem Commit ein `make test` laufen lassen).
+////
 
-Git stellt dafür das Kommando `bisect` zur Verfügung, dessen
-Algorithmus nach dem Prinzip "`teile und herrsche`" (engl.
-_divide and conquer_) funktioniert: Zunächst definieren Sie einen
-Zeitpunkt (also einen Commit), zu dem die Regression noch nicht
-aufgetreten war (`good`), anschließend einen Zeitpunkt, zu dem
-sie auftritt (genannt `bad`, lassen Sie diesen weg, nimmt Git
-`HEAD` an).
+To find such regressions is sometimes difficult.
+If you are using an extensive test suite, you are relatively well protected from including trivially detectable regressions (e.g. by running a `make test` before each commit).
 
-Das `bisect`-Kommando geht von der idealisierten Annahme aus,
-dass die Regression durch _einen_ Commit eingeleitet wurde -- es
-gibt also einen Commit, _vor_ dem alles in Ordnung war, und
-_nach_ dem der Fehler auftritt.{fn64}
+////
+Wenn die Regression reproduzierbar ist ("Mit den Argumenten <x> stürzt das Programm ab", "die Konfigurationseinstellung <y> führt zu einem Speicherzugriffsfehler"), dann können Sie mit Git die Suche nach dem Commit, der diese Regression verursacht, automatisieren.
+////
 
+If the regression is reproducible ("with the arguments <x> the program crashes", "the configuration setting <y> causes a memory access error"), then you can use Git to automate the search for the commit that causes this regression.
 
-Nun wählt Git einen Commit aus der Mitte zwischen `good` und
-`bad` und checkt ihn aus. Sie müssen dann überprüfen, ob die
-Regression weiterhin vorhanden ist. Wenn ja, dann setzt Git `bad`
-auf diesen Commit, wenn nein, wird `good` auf diesen Commit
-gesetzt. Dadurch fällt circa die Hälfte der zu untersuchenden Commits
-weg. Git wiederholt den Schritt, bis nur noch ein Commit übrig bleibt.
+////
+Git stellt dafür das Kommando `bisect` zur Verfügung, dessen Algorithmus nach dem Prinzip "`teile und herrsche`" (engl. _divide and conquer_) funktioniert:
+Zunächst definieren Sie einen Zeitpunkt (also einen Commit), zu dem die Regression noch nicht aufgetreten war (`good`), anschließend einen Zeitpunkt, zu dem sie auftritt (genannt `bad`, lassen Sie diesen weg, nimmt Git `HEAD` an).
+Das `bisect`-Kommando geht von der idealisierten Annahme aus, dass die Regression durch _einen_ Commit eingeleitet wurde -- es gibt also einen Commit, _vor_ dem alles in Ordnung war, und _nach_ dem der Fehler auftritt.{fn64}
+////
 
-Die Anzahl der Schritte, die `bisect` benötigt, verhält sich
-also logarithmisch zur Anzahl der Commits, die Sie untersuchen: Für _n_
-Commits benötigen Sie ca. log~2~(_n_) Schritte. Bei 32 Commits sind
-das zwar maximal fünf Schritte, für 1024 Commits aber maximal  10
-Schritte, weil Sie ja im ersten Schritt schon 512 Commits eliminieren
-können.
+Git provides the command `bisect` for this purpose, whose algorithm is based on the "divide and conquer" principle (`divide and conquer_) works:
+First you define a point in time (i.e. a commit) when the regression had not yet occurred (called `good`), then a point in time when it occurs (called `bad`, leave it out, Git assumes `HEAD`).
+The `bisect` command is based on the idealized assumption that the regression was initiated by _a_ commit -- that is, there is a commit _before_ that everything was fine, and _after_ that the error occurs.{fn64}
+
+////
+Nun wählt Git einen Commit aus der Mitte zwischen `good` und `bad` und checkt ihn aus. Sie müssen dann überprüfen, ob die Regression weiterhin vorhanden ist.
+Wenn ja, dann setzt Git `bad` auf diesen Commit, wenn nein, wird `good` auf diesen Commit gesetzt.
+Dadurch fällt circa die Hälfte der zu untersuchenden Commits weg.
+Git wiederholt den Schritt, bis nur noch ein Commit übrig bleibt.
+////
+
+Now Git chooses a commit from the middle between `good` and `bad` and checks it out. You must then check whether the regression is still present.
+If yes, Git will set `bad` to this commit, if no, `good` will be set to this commit.
+This removes about half of the commits to examine.
+Git repeats the step until only one commit remains.
+
+////
+Die Anzahl der Schritte, die `bisect` benötigt, verhält sich also logarithmisch zur Anzahl der Commits, die Sie untersuchen:
+Für _n_ Commits benötigen Sie ca. log~2~(_n_) Schritte.
+Bei 32 Commits sind das zwar maximal fünf Schritte, für 1024 Commits aber maximal 10 Schritte, weil Sie ja im ersten Schritt schon 512 Commits eliminieren können.
+////
+
+So the number of steps `bisect` takes is logarithmic to the number of commits you examine:
+For _n_ commits, you need about log~2~(_n_) steps.
+For 32 commits, that's a maximum of five steps, but for 1024 commits, that's a maximum of 10 steps, because ``you can eliminate 512 commits in the first step.
 
 [[sec.bisect-usage]]
-=== Benutzung
+=== Usage
+//  Benutzung
 
+////
 Eine `bisect`-Sitzung starten Sie mit den folgenden Kommandos:
+////
+
+You start a `bisect` session with the following commands:
 
 [subs="macros,quotes"]
 --------
@@ -1605,44 +2171,61 @@ $ *git bisect bad &lt;funktioniert-nicht&gt;*
 $ *git bisect good &lt;funktioniert&gt;*
 --------
 
+////
+Sobald Sie die beiden Punkte definiert haben, checkt Git einen Commit in der Mitte aus, Sie befinden sich also ab jetzt im _Detached-Head_-Modus (siehe <<sec.detached-head>>).
+Nachdem Sie überprüft haben, ob die Regression noch immer vorhanden ist, können Sie ihn mit `git bisect good` bzw. `git bisect bad` markieren.
+Git checkt automatisch den nächsten Commit aus.
+////
 
-Sobald Sie die beiden Punkte definiert haben, checkt Git einen Commit
-in der Mitte aus, Sie befinden sich also ab jetzt im _Detached-Head_-Modus (siehe <<sec.detached-head>>). Nachdem Sie
-überprüft haben, ob die Regression noch immer vorhanden ist, können
-Sie ihn mit `git bisect good` bzw. `git bisect bad`
-markieren. Git checkt automatisch den nächsten Commit aus.
+Once you've defined the two points, Git checks out a commit in the middle, so you're now in _detached-head_ mode (see <<sec.detached-head>>).
+After you have checked whether the regression is still present, you can mark it with `git bisect good` or `git bisect bad`.
+Git will automatically check out the next commit.
 
-Möglicherweise können Sie den ausgecheckten Commit nicht testen,
-z.B. weil das Programm nicht fehlerfrei kompiliert. In diesem Fall
-können Sie per Git `git bisect skip` einen anderen Commit in
-der Nähe auswählen lassen und mit diesem wie gewohnt verfahren.  Die
-Fehlersuche können Sie jederzeit abbrechen per `git bisect
-  reset`.
+////
+Möglicherweise können Sie den ausgecheckten Commit nicht testen, z.B. weil das Programm nicht fehlerfrei kompiliert.
+In diesem Fall können Sie per Git `git bisect skip` einen anderen Commit in der Nähe auswählen lassen und mit diesem wie gewohnt verfahren.
+Die Fehlersuche können Sie jederzeit abbrechen per `git bisect reset`.
+////
 
-
+You may not be able to test the checked out commit, for example, because the program does not compile correctly.
+In this case, you can use git `git bisect skip` to have another commit nearby selected and proceed with it as usual.
+You can cancel the debugging at any time with `git bisect reset`.
 
 [[sec.bisect-run]]
-=== Automatisierung
+=== Automation
+//  Automatisierung
 
-Idealerweise können Sie automatisiert testen, ob der Fehler auftritt
--- mit einem Test, der erfolgreich laufen muss, wenn die Regression
-nicht auftritt.
+////
+Idealerweise können Sie automatisiert testen, ob der Fehler auftritt -- mit einem Test, der erfolgreich laufen muss, wenn die Regression nicht auftritt.
+////
 
-Sie können dann wie oben die Punkte `good` und `bad`
-definieren. Danach geben Sie `git bisect run
-  <pfad/zum/test>` ein.
+Ideally, you can test automatically whether the error occurs -- with a test that must run successfully if the regression does not occur.
 
-Anhand des Rückgabewerts entscheidet `bisect`, ob der
-überprüfte Commit `good` ist (wenn das Script sich erfolgreich,
-d.h. mit Rückgabewert 0 beendet) oder `bad` (Werte 1--127). Ein
-Spezialfall ist der Rückgabewert 125, der ein `git bisect skip`
-bewirkt. Wenn Sie also ein Programm haben, das kompiliert werden muss,
-sollten Sie als erstes ein Kommando wie `make || exit 125`
-einbauen, so dass der Commit übersprungen wird, wenn das Programm
-nicht richtig kompiliert.
+////
+Sie können dann wie oben die Punkte `good` und `bad` definieren.
+Danach geben Sie `git bisect run <pfad/zum/test>` ein.
+////
 
-Bisect kann dann ganz automatisch den problematischen Commit
-identifizieren. Das sieht z.B. so aus:
+You can then define the points `good` and `bad` as above.
+Afterwards you enter `git bisect run <path/to/test>`.
+
+////
+Anhand des Rückgabewerts entscheidet `bisect`, ob der überprüfte Commit `good` ist (wenn das Script sich erfolgreich, d.h. mit Rückgabewert 0 beendet) oder `bad` (Werte 1--127).
+Ein Spezialfall ist der Rückgabewert 125, der ein `git bisect skip` bewirkt.
+Wenn Sie also ein Programm haben, das kompiliert werden muss, sollten Sie als erstes ein Kommando wie `make || exit 125` einbauen, so dass der Commit übersprungen wird, wenn das Programm nicht richtig kompiliert.
+////
+
+Based on the return value, `bisect` decides whether the checked commit is `good` (if the script ends successfully, i.e. with return value 0) or `bad` (values 1--127).
+A special case is the return value 125, which causes a `git bisect skip`.
+So if you have a program that needs to be compiled, the first thing you should do is to add a command like `make || exit 125`, so that the commit is skipped if the program does not compile properly.
+
+////
+Bisect kann dann ganz automatisch den problematischen Commit identifizieren.
+Das sieht z.B. so aus:
+////
+
+Bisect can then automatically identify the problematic commit.
+This looks like this, for example:
 
 [subs="macros,quotes"]
 --------
@@ -1654,17 +2237,17 @@ Bisecting: 0 revisions left to test after this (roughly 0 steps) ...
 d29758fffc080d0d0a8ee9e5266fdf75fcb98076 is the first bad commit
 --------
 
-
 [TIP]
 ========
-Mit kleinen Commits und sinnvollen Beschreibungen können Sie sich
-durch das `bisect`-Kommando bei der Suche nach obskuren
-Fehlern viel Arbeit sparen.
+////
+Mit kleinen Commits und sinnvollen Beschreibungen können Sie sich durch das `bisect`-Kommando bei der Suche nach obskuren Fehlern viel Arbeit sparen.
+////
 
-Achten Sie daher besonders darauf, dass Sie keine Commits erzeugen,
-die die Software in einem "`kaputten`" Zustand lassen
-(kompiliert nicht etc.), was ein späterer Commit repariert.
+With small commits and meaningful descriptions you can save yourself a lot of work by using the `bisect` command when searching for obscure bugs.
+
+////
+Achten Sie daher besonders darauf, dass Sie keine Commits erzeugen, die die Software in einem "`kaputten`" Zustand lassen (kompiliert nicht etc.), was ein späterer Commit repariert.
+////
+
+So take special care not to create commits that leave the software in a ``broken`` state (does not compile, etc.), which a later commit will fix.
 ========
-
-
-
