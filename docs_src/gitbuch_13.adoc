@@ -8,132 +8,227 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_13]
 
 
-Git speichert die Objektdatenbank, die zugehörigen Referenzen usw. im
-sogenannten _Git-Directory_, oft auch als `$GIT_DIR`
-bezeichnet.  Standardmäßig ist dies `.git/`. Es existiert
-für jedes Git-Repository nur einmal, d.h. es werden keine
-zusätzlichen `.git/`-Verzeichnisse in Unterverzeichnissen
-angelegt.{fn154}
-Es enthält unter anderem
-folgende Einträge:
+////
+Git speichert die Objektdatenbank, die zugehörigen Referenzen usw. im sogenannten _Git-Directory_, oft auch als `$GIT_DIR` bezeichnet.
+Standardmäßig ist dies `.git/`.
+Es existiert für jedes Git-Repository nur einmal, d.h. es werden keine zusätzlichen `.git/`-Verzeichnisse in Unterverzeichnissen angelegt.[154]
+Es enthält unter anderem folgende Einträge:
+////
+
+Git stores the object database, the associated references, etc. in the so-called _Git directory_, often referred to as `$GIT_DIR`.
+By default, this is `.git/`.
+It exists only once for each Git repository, i.e. no additional `.git/` directories are created in subdirectories.{fn154}
+Among other things, it contains the following entries:
 
 
-`HEAD`:: Der `HEAD`, siehe <<sec.branch-refs>>. Neben `HEAD` liegen
-ggf. auch andere wichtige symbolische Referenzen auf oberster Ebene,
-z.B.{empty}{nbsp}`ORIG_HEAD` oder `FETCH_HEAD`.
+////
+`HEAD` ::
+Der `HEAD`, siehe Abschnitt 3.1.1, "HEAD und andere symbolische Referenzen".
+Neben `HEAD` liegen ggf. auch andere wichtige symbolische Referenzen auf oberster Ebene, z.B. `ORIG_HEAD` oder `FETCH_HEAD`.
 
-`config`:: Die Konfigurationsdatei des Repositorys, siehe
-<<chap.git-config>>.
+`config` ::
+Die Konfigurationsdatei des Repositorys, siehe Abschnitt 1.3, "Git konfigurieren".
 
-`hooks/`:: Enthält die für dieses Repository gesetzten Hooks, siehe
-<<sec.hooks>>.
+`hooks/` ::
+Enthält die für dieses Repository gesetzten Hooks, siehe Abschnitt 8.2, "Hooks".
 
-`index`:: Der Index bzw. Stage, siehe <<sec.index>>.
+`index` ::
+Der Index bzw. Stage, siehe Abschnitt 2.1.1, "Index".
 
-`info/`:: Zusätzliche Repository-Informationen, z.B. zu ignorierende
-Muster (siehe <<sec.ignore>>) und auch Grafts (siehe
-<<sec.fb-grafts>>). Sie können eigene Informationen dort ablegen, wenn
-andere Tools damit umgehen können (siehe z.B. der Abschnitt über
-Caching von CGit, <<sec.cgit-cache>>).
+`info/` ::
+Zusätzliche Repository-Informationen, z.B. zu ignorierende Muster (siehe Abschnitt 4.4, "Dateien ignorieren") und auch Grafts (siehe siehe Abschnitt 8.4.3, "Grafts: Nachträgliche Merges").
+Sie können eigene Informationen dort ablegen, wenn andere Tools damit umgehen können (siehe z.B. der Abschnitt über Caching von CGit, Abschnitt 7.5.4, "Caching ausnutzen").
+
+`logs/` ::
+Protokoll der Veränderungen an Referenzen; zugänglich über das Reflog, siehe Abschnitt 3.7, "Reflog".
+Enthält eine Logdatei für jede Referenz unter `refs/` sowie `HEAD`.
+
+`objects/` ::
+Die Objektdatenbank, siehe Abschnitt 2.2.3, "Die Objektdatenbank".
+Aus Performance-Gründen sind die Objekte in Unterverzeichnisse, die einem Zwei-Zeichen-Präfix ihrer SHA-1-Summe entsprechen, einsortiert (der Commit `0a7ba55...` liegt also unter `0a/7ba55...`).
+Im Unterverzeichnis `pack/` finden Sie die Packfiles und zugehörigen Indizes, die u.a. von der Garbage-Collection (s.u.) erstellt wird.
+Im Unterverzeichnis `info/` legt Git bei Bedarf eine Auflistung vorhandener Packfiles ab.
+
+`refs/` ::
+Alle Referenzen, unter anderem Branches in `refs/heads/`, siehe siehe Abschnitt 3.1.1, "HEAD und andere symbolische Referenzen", Tags in `refs/tags/`, siehe Abschnitt 3.1.3, "Tags – Wichtige Versionen markieren" sowie Remote-Tracking-Branches unter `refs/remotes/`, siehe Abschnitt 5.2.2, "Remote-Tracking-Branches".
+////
+
+[horizontal]
+`HEAD` ::
+The `HEAD`, see <<sec.branch-refs>>.
+Besides `HEAD`, other important symbolic references may be stored on the top level, e.g.{nbsp}``ORIG_HEAD`` or `FETCH_HEAD`.
+
+`config` ::
+The repository configuration file, see <<chap.git-config>>.
+
+`hooks/` ::
+Contains the hooks set for this repository, see <<sec.hooks>>.
+
+`index` ::
+The index or stage, see <<sec.index>>.
+
+`info/` ::
+Additional repository information, such as patterns to be ignored (see <<sec.ignore>>) and also grafts (see <<sec.fb-grafts>>).
+You can put your own information there if other tools can handle it (see e.g. the section on caching of CGit, <<sec.cgit-cache>>).
+
+`logs/` ::
+Log of changes to references; accessible via Reflog, see <<sec.reflog>>.
+Contains a log file for each reference under `refs/` and `HEAD`.
+
+`objects/` ::
+The object database, see <<sec.od>>.
+For performance reasons, the objects are sorted into subdirectories that correspond to a two-character prefix of their SHA-1 sum (the commit `0a7ba55...` is stored below `0a/7ba55...`).
+In the subdirectory `pack/` you will find the packfiles and associated indices, which are created by the garbage collection (see below).
+In the `info/` subdirectory, Git will store a list of existing pack files if required.
+
+`refs/` ::
+All references, including branches in `refs/heads/`, see <<sec.branch-refs>>, tags in `refs/tags/`, see <<sec.tags>>, and remote tracking branches under `refs/remotes/`, see <<sec.remote_tracking_branches>>.
 
 
-.Die wichtigsten Einträge in `.git`
+
+////
+Eine ausführliche technische Beschreibung finden Sie in der Man-Page `gitrepository-layout(5)`.
+////
+
+A detailed technical description can be found in the man page `gitrepository-layout(5)`.
+
+
+// @NOTE: image was moved down here by @tajmone!
+//    Originally it was between elements of the above list (after `info/`), but
+//    it looks like this was done just to fit the image nicely in the PDF output.
+
+// .Die wichtigsten Einträge in `.git`
+.The most important entries in `.git/`
 image::git-dir-crop.png[id="fig.git-dir-listing",scaledwidth="20%",width="20%"]
 
 
-`logs/`:: Protokoll der Veränderungen an Referenzen; zugänglich über
-das Reflog, siehe <<sec.reflog>>. Enthält eine Logdatei für jede
-Referenz unter `refs/` sowie `HEAD`.
 
-
-
-`objects/`:: Die Objektdatenbank, siehe <<sec.od>>.  Aus
-Performance-Gründen sind die Objekte in Unterverzeichnisse, die einem
-Zwei-Zeichen-Präfix ihrer SHA-1-Summe entsprechen, einsortiert (der
-Commit `0a7ba55...` liegt also unter `0a/7ba55...`). Im
-Unterverzeichnis `pack/` finden Sie die Packfiles und zugehörigen
-Indizes, die u.a. von der Garbage-Collection (s.u.) erstellt
-wird. Im Unterverzeichnis `info/` legt Git bei Bedarf eine Auflistung
-vorhandener Packfiles ab.
-
-`refs/`:: Alle Referenzen, unter anderem Branches in `refs/heads/`,
-siehe <<sec.branch-refs>>, Tags in `refs/tags/`, siehe <<sec.tags>>
-sowie Remote-Tracking-Branches unter `refs/remotes/`, siehe
-<<sec.remote_tracking_branches>>.
-
-
-Eine ausführliche technische Beschreibung finden Sie in der
-Man-Page `gitrepository-layout(5)`.
 
 [[sec.gc]]
-== Aufräumen
+== Cleaning up
+// Aufräumen
+
+////
+Wie beispielsweise schon in Abschnitt 3.1.2, "Branches verwalten", sind Commits, die nicht mehr referenziert werden (sei es durch Branches oder andere Commits), nicht mehr zu erreichen.
+In der Regel ist das der Fall, wenn Sie einen Commit löschen wollten (oder Commits mit Rebase umgebaut haben).
+Git löscht diese nicht sofort aus der Objektdatenbank, sondern belässt sie per Default zwei Wochen dort, auch wenn sie nicht mehr erreichbar sind.
+////
+
+As mentioned in <<sec.branch-management>>, for example, commits that are no longer referenced (whether by branches or other commits) are no longer accessible.
+This is usually the case if you wanted to delete a commit (or have rebuilt commits with Rebase).
+Git does not delete them from the object database immediately, but leaves them there for two weeks by default, even if they are no longer accessible.
 
 
+////
+Intern verwendet Git die Kommandos `prune`, `prune-packed`, `fsck`, `repack` u.a.
+Allerdings werden die  Tools mit entsprechenden Optionen automatisch von der _Garbage Collection_ ("`Müllabfuhr`") ausgeführt: `git gc`.
+Folgende Aufgaben erledigt das Tool:
+////
 
-Wie beispielsweise schon in <<sec.branch-management>> erwähnt, sind
-Commits, die nicht mehr referenziert werden (sei es durch Branches
-oder andere Commits), nicht mehr zu erreichen. In der Regel ist das der
-Fall, wenn Sie einen Commit löschen wollten (oder Commits mit Rebase
-umgebaut haben). Git löscht diese nicht sofort aus der
-Objektdatenbank, sondern belässt sie per Default zwei Wochen dort,
-auch wenn sie nicht mehr erreichbar sind.
-
-Intern verwendet Git die Kommandos `prune`,
-`prune-packed`, `fsck`, `repack`{empty}{nbsp}u.a.
-Allerdings werden die  Tools mit entsprechenden Optionen
-automatisch von der _Garbage Collection_ ("`Müllabfuhr`")
-ausgeführt: `git gc`. Folgende Aufgaben erledigt das Tool:
+Internally, Git uses the commands `prune`, `prune-packed`, `fsck`, `repack`, etc.
+However, the tools are automatically executed by the _garbage collection_ with appropriate options: `git gc`.
+The tool performs the following tasks:
 
 
+////
 * _Dangling_ und _Unreachable Objects_ löschen.
-  Diese entstehen bei diversen Operationen und können in der Regel
-  nach einiger Zeit gelöscht werden, um Platz zu sparen (Default:
-  nach zwei Wochen).
+Diese entstehen bei diversen Operationen und können in der Regel nach einiger Zeit gelöscht werden, um Platz zu sparen (Default: nach zwei Wochen).
+////
 
+* Delete _Dangling_ and _Unreachable Objects_.
+These occur during various operations and can usually be deleted after some time to save space (default: after two weeks).
+
+
+////
 * _Loose Objects_ neu packen. Git verwendet sog.
-  _Packfiles_, um mehrere Git-Objekte zusammenzuschnüren. (Dann
-  existiert nicht mehr eine Datei unterhalb von `.git/objects/`
-  pro Blob, Tree und Commit -- diese werden in einer großen,
-  _zlib_-komprimierten Datei zusammengefasst).
+_Packfiles_, um mehrere Git-Objekte zusammenzuschnüren.
+(Dann existiert nicht mehr eine Datei unterhalb von `.git/objects/` pro Blob, Tree und Commit -- diese werden in einer großen, _zlib_-komprimierten Datei zusammengefasst).
+////
 
-* Existierende Packfiles nach alten (unerreichbaren) Objekten
-  durchsuchen und die Packfiles entsprechend "`ausdünnen`".
-  Ggf. werden mehrere kleine Packfiles zu großen kombiniert.
-
-* Referenzen packen. Es entstehen sog. _Packed Refs_,
-  siehe auch <<sec.branches>>.
-
-* Alte Reflog-Einträge löschen. Das geschieht per Default
-  nach 90 Tagen.
-
-* Alte Konflikt-Resolutionen (siehe Rerere,
-  <<sec.rerere>>) werden entsorgt (15/60 Tage Haltezeit für
-  ungelöst/gelöst).
+* Re-pack _Loose Objects_.
+Git uses so-called _packfiles_ to pack several Git objects together.
+(Then there is no longer one file under `.git/objects/` per blob, tree and commit -- these are combined into one large, _zlib_-compressed file).
 
 
-Die Garbage Collection kennt drei Modi: automatisch, normal und
-aggressiv. Den automatischen Modus rufen Sie per `git gc
-  --auto` auf -- der Modus überprüft, ob es wirklich eklatante
-Mängel im Repository gibt. Was "`eklatant`" bedeutet, ist
-konfigurierbar. Über folgende Konfigurationseinstellungen können Sie
-(global oder per Repository) bestimmen, ab wann, d.h. ab welcher
-Anzahl "`kleiner`" Dateien der automatische Modus aufräumt,
-also diese in große Archive zusammenfasst.
+////
+* Existierende Packfiles nach alten (unerreichbaren) Objekten durchsuchen und die Packfiles entsprechend "`ausdünnen`".
+Ggf. werden mehrere kleine Packfiles zu großen kombiniert.
+////
+
+* Search existing packfiles for old (unreachable) objects and "`thin out`" the packfiles accordingly.
+If necessary, several small packfiles are combined to large ones.
 
 
-`gc.auto` (Default: 6700 Objekte):: Objekte zu einem Packfile
-zusammenfassen
+////
+* Referenzen packen.
+Es entstehen sog. _Packed Refs_, siehe auch Abschnitt 3.1, "Referenzen: Branches und Tags".
+////
 
-`gc.autopacklimit` (Default: 50 Packs):: Packs zu einem großen
-Packfile zusammenfassen
+* Packing references.
+This results in so-called _Packed Refs_, see also <<sec.branches>>.
 
 
-Der automatische Modus wird häufig aufgerufen, u.a. von
-`receive-pack` und `rebase` (interaktiv).  In den
-meisten Fällen tut der automatische Modus allerdings nichts, da die
-Defaults sehr konservativ sind. Wenn doch, sieht das so aus:
+////
+* Alte Reflog-Einträge löschen.
+Das geschieht per Default nach 90 Tagen.
+////
 
-[subs="macros,quotes"]
+* Delete old Reflog entries.
+By default this happens after 90 days.
+
+
+////
+* Alte Konflikt-Resolutionen (siehe Rerere, Abschnitt 3.4.2, "rerere: Reuse Recorded Resolution") werden entsorgt (15/60 Tage Haltezeit für ungelöst/gelöst).
+////
+
+* Old conflict resolutions (see Rerere, <<sec.rerere>>) are discarded (15/60 days hold time for unresolved/solved).
+
+
+
+////
+Die Garbage Collection kennt drei Modi: automatisch, normal und aggressiv.
+Den automatischen Modus rufen Sie per `git gc --auto` auf -- der Modus überprüft, ob es wirklich eklatante Mängel im Repository gibt.
+Was "`eklatant`" bedeutet, ist konfigurierbar.
+Über folgende Konfigurationseinstellungen können Sie (global oder per Repository) bestimmen, ab wann, d.h. ab welcher Anzahl "`kleiner`" Dateien der automatische Modus aufräumt, also diese in große Archive zusammenfasst.
+////
+
+The garbage collection has three modes: automatic, normal and aggressive.
+You call the automatic mode via `git gc --auto` -- the mode checks if there are really blatant flaws in the Git repository.
+What "`blatant`" means is configurable.
+The following configuration settings allow you to determine (globally or per repository) when, i.e. how many "`small`" files the automatic mode will clean up, i.e. how many files will be grouped into large archives.
+
+
+
+////
+`gc.auto` (Default: 6700 Objekte) ::
+Objekte zu einem Packfile zusammenfassen
+
+`gc.autopacklimit` (Default: 50 Packs) ::
+Packs zu einem großen Packfile zusammenfassen
+////
+
+`gc.auto` (Default: 6700 objects) ::
+Combine objects into a packfile.
+
+`gc.autopacklimit` (Default: 50 packs) ::
+Combine packs into one large pack file.
+
+// @AMBIGUOUS: it's not clean if "among others" refers to "automatic mode" or
+//    the commands (i.e. whether these two commands also call other functions,
+//    or whether there are other commands besides those two being mentioned).
+
+////
+Der automatische Modus wird häufig aufgerufen, u.a. von `receive-pack` und `rebase` (interaktiv).
+In den meisten Fällen tut der automatische Modus allerdings nichts, da die Defaults sehr konservativ sind.
+Wenn doch, sieht das so aus:
+////
+
+The automatic mode is often called, among others by `receive-pack` and `rebase` (interactive).
+In most cases the automatic mode does nothing, because the defaults are very conservative.
+If it does, it looks like this:
+
+
+[subs="quotes"]
 --------
 $ *git gc --auto*
 Auto packing the repository for optimum performance. You may also
@@ -141,15 +236,20 @@ run "git gc" manually. See "git help gc" for more information.
 ...
 --------
 
+
+
 [[sec.gc-performance]]
 == Performance
 
-Sie sollten entweder die Schwellen, ab denen die automatische Garbage
-Collection greift, deutlich herabsetzen, oder von Zeit zu Zeit
-`git gc` aufrufen. Dies hat einen offensichtlichen Vorteil,
-nämlich dass Plattenplatz gespart wird:
+////
+Sie sollten entweder die Schwellen, ab denen die automatische Garbage Collection greift, deutlich herabsetzen, oder von Zeit zu Zeit `git gc` aufrufen.
+Dies hat einen offensichtlichen Vorteil, nämlich dass Plattenplatz gespart wird:
+////
 
-[subs="macros,quotes"]
+You should either significantly lower the thresholds above which the automatic garbage collection takes effect, or call `git gc` from time to time.
+This has one obvious advantage, namely that disk space is saved:
+
+[subs="quotes"]
 --------
 $ *du -sh .git*
 20M     .git
@@ -163,10 +263,15 @@ $ *du -sh .git*
 6.3M    .git
 --------
 
-Einzelne Objekte unterhalb von `.git/objects/` wurden zu einem
-Packfile zusammengefasst:
 
-[subs="macros,quotes"]
+////
+Einzelne Objekte unterhalb von `.git/objects/` wurden zu einem Packfile zusammengefasst:
+////
+
+Individual objects under `.git/objects/` have been combined into a packfile:
+
+
+[subs="quotes"]
 --------
 $ *ls -lh .git/objects/pack/pack-a97624dd23&lt;...&gt;.pack*
 -r-------- 1 feh feh 4.6M Jun  1 10:20 .git/objects/pack/pack-a97624dd23&lt;...&gt;.pack
@@ -174,11 +279,17 @@ $ *file .git/objects/pack/pack-a97624dd23&lt;...&gt;.pack*
 .git/objects/pack/pack-a97624dd23&lt;...&gt;.pack: Git pack, version 2, 3726 objects
 --------
 
-Sie können sich per `git count-objects` ausgeben lassen, aus
-wie vielen Dateien die Objektdatenbank besteht. Hier nebeneinander vor
-und nach dem obigen Packvorgang:
 
-[subs="macros,quotes"]
+////
+Sie können sich per `git count-objects` ausgeben lassen, aus wie vielen Dateien die Objektdatenbank besteht.
+Hier nebeneinander vor und nach dem obigen Packvorgang:
+////
+
+You can use `git count-objects` to output how many files the object database consists of.
+Here side by side before and after the above packing process:
+
+
+[subs="quotes"]
 --------
 $ *git count-objects -v*
 count: 1905                             count: 58
@@ -190,56 +301,73 @@ prune-packable: 97                      prune-packable: 0
 garbage: 0                              garbage: 0
 --------
 
-Nun ist Plattenplatz billig, ein auf 30% komprimiertes Repository
-also kein großer Gewinn. Der Performance-Gewinn ist allerdings nicht
-zu verachten. In der Regel zieht ein Objekt (z.B. ein Commit)
-weitere Objekte nach sich (Blobs, Trees). Wenn Git also pro Objekt
-eine Datei öffnen muss (bei _n_ verwalteten Dateien also mindestens
-_n_ Blob-Objekte), dann sind dies _n_ Lese-Vorgänge auf dem
-Dateisystem.
 
-Packfiles haben zwei wesentliche Vorteile: Erstens legt Git zu jedem
-Packfile eine Indizierung an, die angibt, welches Objekt in welchem Offset
-der Datei zu finden ist. Zusätzlich hat die Packroutine noch eine
-gewisse Heuristik um die Objektplatzierung innerhalb der Datei zu optimieren
-(so dass bspw. ein Tree-Object und die davon referenzierten Blob-Objekte
-"`nah`" beieinander liegen).
-Dadurch kann Git einfach das Packfile in den Speicher mappen
-(Stichwort: "`sliding mmap`"). Die Operation ``suche
-Objekt X__ ist dann nichts weiter als eine Lookup-Operation im
-Pack-Index und ein entsprechendes Auslesen der Stelle im Packfile,
-d.h. im Speicher. Dies entlastet das Datei- und Betriebssystem
-erheblich.
+////
+Nun ist Plattenplatz billig, ein auf 30% komprimiertes Repository also kein großer Gewinn.
+Der Performance-Gewinn ist allerdings nicht zu verachten.
+In der Regel zieht ein Objekt (z.B. ein Commit) weitere Objekte nach sich (Blobs, Trees).
+Wenn Git also pro Objekt eine Datei öffnen muss (bei _n_ verwalteten Dateien also mindestens _n_ Blob-Objekte), dann sind dies _n_ Lese-Vorgänge auf dem Dateisystem.
+////
 
-Der zweite Vorteil der Packfiles liegt in der Delta-Kompression. So
-werden Objekte möglichst als _Deltas_ (_Veränderungen_)
-anderer Objekte gespeichert.{fn155}
-Das spart Speicherplatz, ermöglicht aber
-andererseits auch Kommandos wie `git blame`,
-"`kostengünstig`", also ohne großen Rechenaufwand, Kopien
-von Code-Stücken zwischen Dateien zu entdecken.
+Nowadays disk space is cheap, so a repository compressed to 30% is not a big gain.
+But the performance gain is not to be scoffed at.
+Usually one object (e.g. a commit) will result in further objects (blobs, trees).
+So if Git has to open one file per object (i.e. at least _n_ blob objects for _n_ managed files), this means _n_ read operations on the file system.
 
-Der aggressive Modus sollte nur in begründeten Ausnahmefällen
-eingesetzt werden.{fn156}
+
+////
+Packfiles haben zwei wesentliche Vorteile: Erstens legt Git zu jedem Packfile eine Indizierung an, die angibt, welches Objekt in welchem Offset der Datei zu finden ist.
+Zusätzlich hat die Packroutine noch eine gewisse Heuristik um die Objektplatzierung innerhalb der Datei zu optimieren (so dass bspw. ein Tree-Object und die davon referenzierten Blob-Objekte "`nah`" beieinander liegen).
+Dadurch kann Git einfach das Packfile in den Speicher mappen (Stichwort: "`sliding mmap`").
+Die Operation "`suche Objekt X`" ist dann nichts weiter als eine Lookup-Operation im Pack-Index und ein entsprechendes Auslesen der Stelle im Packfile, d.h. im Speicher.
+Dies entlastet das Datei- und Betriebssystem erheblich.
+////
+
+Packfiles have two major advantages: First, Git creates an index for each pack file, which indicates which object is found in which offset of the file.
+In addition, the packing routine has a certain heuristic to optimize object placement within the file (so that, for example, a tree object and the blob objects it references are stored "`close`" to each other).
+This allows Git to simply map the packfile into memory (keyword: "`sliding mmap`").
+The "`search object X`" operation is then nothing more than a lookup operation in the pack index and a corresponding readout of the location in the pack file, i.e. in memory.
+This relieves the file and operating system considerably.
+
+
+////
+Der zweite Vorteil der Packfiles liegt in der Delta-Kompression.
+So werden Objekte möglichst als _Deltas_ (_Veränderungen_) anderer Objekte gespeichert.[155]
+Das spart Speicherplatz, ermöglicht aber andererseits auch Kommandos wie `git blame`, "`kostengünstig`", also ohne großen Rechenaufwand, Kopien von Code-Stücken zwischen Dateien zu entdecken.
+////
+
+The second advantage of packfiles is the delta compression.
+This way, objects are stored as _deltas_ (changes) of other objects, if possible.{fn155}
+This saves memory space, but on the other hand also enables commands like `git blame` to detect copies of code pieces between files "`inexpensively`", i.e. without much computing effort.
+
+
+////
+Der aggressive Modus sollte nur in begründeten Ausnahmefällen eingesetzt werden.[156]
+////
+
+The aggressive mode should only be used in justified exceptional cases.{fn156}
+
 
 [TIP]
 ========
-Lassen Sie auf Ihren öffentlich zugänglichen Repositories auch
-regelmäßig, z.B. per Cron, ein `git gc` laufen. Commits werden über
-das Git-Protokoll immer als Packfiles übertragen, die _on demand_, das
-heißt zum Zeitpunkt des Abrufs, erzeugt werden.  Wenn das gesamte
-Repository schon als ein großes Packfile vorliegt, können Teile daraus
-schneller extrahiert werden, und ein kompletter Clone des Repositorys
-benötigt keine zusätzlichen Rechenoperationen (es muss kein riesiges
-Packfile gepackt werden).  Eine regelmäßige Garbage Collection kann
-also die Auslastung Ihres Servers senken, außerdem wird der
-Clone-Vorgang der Nutzer beschleunigt.
+////
+Lassen Sie auf Ihren öffentlich zugänglichen Repositories auch regelmäßig, z.B. per Cron, ein `git gc` laufen.
+Commits werden über das Git-Protokoll immer als Packfiles übertragen, die _on demand_, das heißt zum Zeitpunkt des Abrufs, erzeugt werden.
+Wenn das gesamte Repository schon als ein großes Packfile vorliegt, können Teile daraus schneller extrahiert werden, und ein kompletter Clone des Repositorys benötigt keine zusätzlichen Rechenoperationen (es muss kein riesiges Packfile gepackt werden).
+Eine regelmäßige Garbage Collection kann also die Auslastung Ihres Servers senken, außerdem wird der Clone-Vorgang der Nutzer beschleunigt.
+////
 
-Ist das Repository besonders groß, kann es bei einem `git clone` sehr
-lange dauern, bis der Server alle Objekte gezählt hat. Dies können Sie
-beschleunigen, indem Sie regelmäßig per Cron-Job `git repack -A -d -b`
-aufrufen: Git erstellt dann zusätzlich zu den Pack-Files eine
-Bitmap-Datei, die diesen Vorgang um ein bis zwei Größenordnungen
-beschleunigt.
+Run a `git gc` on your publicly accessible repositories on a regular basis, e.g. via cron.
+Commits are always transmitted via the git protocol as packfiles, which are generated _on demand_, i.e. at the time of retrieval.
+If the entire repository is already available as one large packfile, parts of it can be extracted more quickly, and a complete clone of the repository does not require any additional computational operations (no huge packfile has to be packed).
+A regular garbage collection can therefore reduce the load on your server, and the user cloning process is also accelerated.
+
+
+////
+Ist das Repository besonders groß, kann es bei einem `git clone` sehr lange dauern, bis der Server alle Objekte gezählt hat.
+Dies können Sie beschleunigen, indem Sie regelmäßig per Cron-Job `git repack -A -d -b` aufrufen: Git erstellt dann zusätzlich zu den Pack-Files eine Bitmap-Datei, die diesen Vorgang um ein bis zwei Größenordnungen beschleunigt.
+////
+
+If the repository is particularly large, it can take a long time for the server to count all objects in a `git clone`.
+You can speed this up by regularly calling `git repack -A -d -b` from the cron-job: Git will then create a bitmap file in addition to the pack files, speeding up this process by one or two orders of magnitude.
 ========
-
