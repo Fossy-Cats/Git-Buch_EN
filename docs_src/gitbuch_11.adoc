@@ -6,224 +6,325 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_11]
 
 
-Es gibt derzeit mehrere Hosting-Websites, die kostenfreies Git-Hosting
-für Open-Source-Projekte anbieten. Die mit Abstand bekannteste von
-allen ist
-_Github_.{fn138}
-Zwei andere bekannte reine Git-Hoster sind
-_Gitorious_{empty}{fn139}
-und
-_repo.or.cz_{empty}{fn140}.
-Aber auch bereits etablierte Hosting-Seiten wie
-_Sourceforge_{empty}{fn141}
-und
-_Berlios_{empty}{fn142}
-bieten mittlerweile Git-Hosting an.
+////
+Es gibt derzeit mehrere Hosting-Websites, die kostenfreies Git-Hosting für Open-Source-Projekte anbieten.
+Die mit Abstand bekannteste von allen ist _Github_.[138]
+Zwei andere bekannte reine Git-Hoster sind _Gitorious_[139] und _repo.or.cz_[140].
+Aber auch bereits etablierte Hosting-Seiten wie _Sourceforge_[141] und _Berlios_[142] bieten mittlerweile Git-Hosting an.
+////
 
-Github wurde 2008 von Chris Wanstrath,
-P.J. Hyett und Tom Preston-Werner
-gegründet. Die in Ruby on Rails entwickelte Plattform hat über
-drei Millionen Nutzer und hostet über zehn Millionen
-Repositories.
-Auch wenn man bedenkt, dass viele dieser Repositories sogenannte
-_Forks_ (Klone) anderer Repositories oder sogenannte _Gists_
-(Quellcode-Schnipsel) sind, ist das trotzdem eine beachtliche Anzahl.
-Viele namhafte Projekte
-verwenden heutzutage Github, um ihren Quelltext zu verwalten, unter
-anderem das Kommandozeilen-Tool
-_Curl_{empty}{fn143},
-das Web-Framework 'Ruby on
-  Rails'{empty}{fn144} und
-die JavaScript-Bibliothek
-_jQuery_{empty}{fn145}.
-
-Das kostenfreie Angebot umfasst unbegrenzte Git-Repositories -- mit
-der Einschränkung, dass diese öffentlich verfügbar sind
-(_Public Repositories_). Zusätzlich bietet Github
-kostenpflichtige Optionen für Einzelpersonen und Firmen, die es
-erlauben, zugriffsbeschränkte Repositories ('Private
-  Repositories') anzulegen und zu nutzen. Großen Unternehmen bietet
-Github eine Lösung namens _GitHub Enterprise_ an.
-
-Github bietet alle wesentlichen Features, die Sie von einer
-Projekt-Hosting-Plattform erwarten, darunter auch Projekt-Wiki und
-Issue-Tracker. Das besondere daran ist aber, dass das Wiki-System
-_Gollum_{empty}{fn146}
-als Backend keine Datenbank, sondern lediglich ein Git-Repository
-verwendet.  Als Markup bietet Github mehrere
-Syntax-Optionen{empty}{fn147}
-an, unter anderem _Markdown_, _Textile_, _Mediawiki_
-und _Asciidoc_.
-
-Der Issue-Tracker ist auf Git ausgelegt und listet auch über das
-Webinterface erstellte Pull-Requests. Zusätzlich wurde in den
-Issue-Tracker ein E-Mail-Backend eingearbeitet. Ihre Antworten auf die
-eingehenden E-Mails werden automatisch von Github verarbeitet und auch
-im Webinterface angezeigt. Was Github jedoch nicht anbietet, sind
-Mailinglisten -- dafür müssen Sie auf Alternativen ausweichen.
+There are currently several hosting sites that offer free git hosting for open source projects.
+By far the best known of all is _Github_.{fn138}
+Two other well-known pure git hosters are _Gitorious_{fn139} and _repo.or.cz_.{fn140}
+But also already established hosting sites like _Sourceforge_{fn141} and _Berlios_{fn142} now offer Git hosting.
 
 
-.Github-Seite von Gollum
+
+////
+Github wurde 2008 von Chris Wanstrath, P.J. Hyett und Tom Preston-Werner gegründet.
+Die in Ruby on Rails entwickelte Plattform hat über drei Millionen Nutzer und hostet über zehn Millionen Repositories.
+Auch wenn man bedenkt, dass viele dieser Repositories sogenannte _Forks_ (Klone) anderer Repositories oder sogenannte _Gists_ (Quellcode-Schnipsel) sind, ist das trotzdem eine beachtliche Anzahl.
+Viele namhafte Projekte verwenden heutzutage Github, um ihren Quelltext zu verwalten, unter anderem das Kommandozeilen-Tool _Curl_[143], das Web-Framework _Ruby on Rails_[144] und die JavaScript-Bibliothek _jQuery_[145].
+////
+
+Github was founded in 2008 by Chris Wanstrath, P.J. Hyett and Tom Preston-Werner.
+The platform developed in Ruby on Rails has over three million users and hosts over ten million repositories.
+Even if you consider that many of these repositories are so-called _Forks_ (clones) of other repositories or so-called _Gists_ (source code snippets), this is still a considerable number.
+Many well-known projects use Github nowadays to manage their source code, among others the command line tool _Curl_,{fn143} the web framework _Ruby on Rails_{fn144} and the JavaScript library _jQuery_.{fn145}
+
+
+////
+Das kostenfreie Angebot umfasst unbegrenzte Git-Repositories -- mit der Einschränkung, dass diese öffentlich verfügbar sind (_Public Repositories_).
+Zusätzlich bietet Github kostenpflichtige Optionen für Einzelpersonen und Firmen, die es erlauben, zugriffsbeschränkte Repositories ('Private Repositories') anzulegen und zu nutzen.
+Großen Unternehmen bietet Github eine Lösung namens _GitHub Enterprise_ an.
+////
+
+The free offer includes unlimited Git repositories -- with the restriction that these are publicly available (_public repositories_).
+In addition, Github offers paid options for individuals and companies to create and use restricted access repositories (private repositories).
+For large companies, Github offers a solution called _GitHub Enterprise_.
+
+
+////
+Github bietet alle wesentlichen Features, die Sie von einer Projekt-Hosting-Plattform erwarten, darunter auch Projekt-Wiki und Issue-Tracker.
+Das besondere daran ist aber, dass das Wiki-System _Gollum_[146] als Backend keine Datenbank, sondern lediglich ein Git-Repository verwendet.
+Als Markup bietet Github mehrere Syntax-Optionen[147] an, unter anderem _Markdown_, _Textile_, _Mediawiki_ und _Asciidoc_.
+////
+
+GitHub offers all the essential features you expect from a project hosting platform, including project wikis and issue trackers.
+But the special thing about it is that the wiki system _Gollum_{fn146} does not use a database as backend, but only a Git repository.
+As markup, Github offers several syntax options,{fn147} including _Markdown_, _Textile_, _Mediawiki_ and _AsciiDoc_.
+
+
+////
+Der Issue-Tracker ist auf Git ausgelegt und listet auch über das Webinterface erstellte Pull-Requests.
+Zusätzlich wurde in den Issue-Tracker ein E-Mail-Backend eingearbeitet.
+Ihre Antworten auf die eingehenden E-Mails werden automatisch von Github verarbeitet und auch im Webinterface angezeigt.
+Was Github jedoch nicht anbietet, sind Mailinglisten -- dafür müssen Sie auf Alternativen ausweichen.
+////
+
+The issue tracker is designed for Git and also lists pull requests created via the web interface.
+Additionally, an email backend has been integrated into the issue tracker.
+Your responses to the incoming emails are automatically processed by GitHub and also displayed in the web interface.
+But what GitHub does not offer are mailing lists -- for that you have to use alternatives.
+
+
+.GitHub page from Gollum
+// .Github-Seite von Gollum
 image::github-gollum.png[id="fig.github-gollum",scaledwidth="100%",width="100%"]
 
 
-In <<fig.github-gollum>> sehen Sie einen Ausschnitt der
-Projektseite von Gollum. Wichtig sind die Menüpunkte
-_Source_ (Quellcode-Übersicht), _Commits_, _Network_
-(Forks des Projekts mit Änderungen), _Pull-Requests_,
-_Issues_, _Wiki_ und _Graphs_ (statistische Graphen).
-Andere wichtige Bedienelemente sind der Button _Fork_ sowie
-_Downloads_ und auch die Anzeige der Klon-URL.
+////
+In Abbildung 11.1, "Github-Seite von Gollum" sehen Sie einen Ausschnitt der Projektseite von Gollum.
+Wichtig sind die Menüpunkte _Source_ (Quellcode-Übersicht), _Commits_, _Network_ (Forks des Projekts mit Änderungen), _Pull-Requests_, _Issues_, _Wiki_ und _Graphs_ (statistische Graphen).
+Andere wichtige Bedienelemente sind der Button _Fork_ sowie _Downloads_ und auch die Anzeige der Klon-URL.
+////
 
-Bei Github steht zunächst der Entwickler im Mittelpunkt: Repositories
-sind immer Usern zugeordnet. Das ist ein großer Unterschied zu
-etablierten Hosting-Plattformen, bei denen grundsätzlich die Projekte
-im Vordergrund stehen, und die Nutzer diesen untergeordnet sind. (Es
-ist aber auch in Github möglich, Projekt-Konten anzulegen, denen dann
-wiederum User zugeordnet werden -- beliebt bei privaten Repositories
-und größeren Projekten.)
+<<fig.github-gollum>> shows a section of the Gollum project page.
+Important are the menu items _Source_ (source code overview), _Commits_, _Network_ (forums of the project with changes), _Pull-Requests_, _Issues_, _Wiki_ and _Graphs_ (statistical graphs).
+Other important controls are the button _Fork_ as well as _Downloads_ and also the display of the clone URL.
 
+
+////
+Bei Github steht zunächst der Entwickler im Mittelpunkt: Repositories sind immer Usern zugeordnet.
+Das ist ein großer Unterschied zu etablierten Hosting-Plattformen, bei denen grundsätzlich die Projekte im Vordergrund stehen, und die Nutzer diesen untergeordnet sind.
+(Es ist aber auch in Github möglich, Projekt-Konten anzulegen, denen dann wiederum User zugeordnet werden -- beliebt bei privaten Repositories und größeren Projekten.)
+////
+
+With GitHub, the developer is the focus of attention: repositories are always assigned to users.
+This is a big difference to established hosting platforms, where projects are always the main focus and users are subordinate to them.
+(However, it is also possible to create project accounts in GitHub, to which users are then assigned in turn -- popular with private repositories and larger projects).
+
+
+////
 Github bietet viele Möglichkeiten, Veränderungen auszutauschen.
-Zwar ist es mit Github möglich, einen zentralisierten Ansatz (siehe
-<<fig.zentraler-workflow>>) zu verfolgen, indem Sie Anderen
-Zugriff auf Ihre eigenen Repositories ermöglichen -- die jedoch am
-meisten genutzte Form des Austausches ist eher ein
-Integration-Manager-Workflow (siehe
-<<fig.developer-public-workflow>>).
+Zwar ist es mit Github möglich, einen zentralisierten Ansatz siehe Abbildung 5.1, "Zentraler Workflow mit verteilter Versionsverwaltung") zu verfolgen, indem Sie Anderen Zugriff auf Ihre eigenen Repositories ermöglichen -- die jedoch am meisten genutzte Form des Austausches ist eher ein Integration-Manager-Workflow (siehe Abbildung 5.8, "Integration-Manager Workflow").
+////
 
-.Workflow bei Github
+GitHub offers many ways to share changes.
+While it is possible to take a centralized approach with GitHub (see <<fig.zentraler-workflow>>) by giving others access to your own repositories, the most common form of sharing is an Integration Manager workflow (see <<fig.developer-public-workflow>>).
+
+
+.Workflow at GitHub
+// .Workflow bei Github
 image::github-workflow.png[id="fig.github-workflow",scaledwidth="70%",width="70%"]
 
 
-. Ein potentieller Contributor
-_forkt_{empty}{fn148} ein Repository bei Github.
+////
+. Ein potentieller Contributor _forkt_[148] ein Repository bei Github.
 
-. Das öffentliche Repository wird wiederum geklont, Veränderungen
-werden eingepflegt.
+. Das öffentliche Repository wird wiederum geklont, Veränderungen werden eingepflegt.
 
 . Commits werden in das öffentliche Repository hochgeladen.
 
-. Dem Projekt-Autor wird ein Pull-Request geschickt. Diese können, wie
-bereits erwähnt, direkt im Web-Interface erstellt und verschickt
-werden.
+. Dem Projekt-Autor wird ein Pull-Request geschickt.
+Diese können, wie bereits erwähnt, direkt im Web-Interface erstellt und verschickt werden.
 
-. Der Autor lädt die Neuerungen aus dem öffentlichen Repository,
-überprüft, ob sie seinen Qualitätsansprüchen genügen und integriert
-sie ggf. per Merge oder Cherry-Pick lokal.
+. Der Autor lädt die Neuerungen aus dem öffentlichen Repository, überprüft, ob sie seinen Qualitätsansprüchen genügen und integriert sie ggf. per Merge oder Cherry-Pick lokal.
 
-. Die Veränderungen des Contributors werden in das öffentliche
-Repository des Autors hochgeladen und verschmelzen so mit der
-Software.
+. Die Veränderungen des Contributors werden in das öffentliche Repository des Autors hochgeladen und verschmelzen so mit der Software.
 
-. Der Contributor gleicht sein lokales Repository mit dem öffentlichen
-Repository des Autors ab.
+. Der Contributor gleicht sein lokales Repository mit dem öffentlichen Repository des Autors ab.
+////
 
-Das Github Webinterface bietet einiges an Web-2.0-Komfort. So können
-Sie z.B. statt der Schritte 5. und 6. mit einem
-einzigen Klick direkt über das Webinterface einen Merge vollziehen.
-Selbstverständlich wird vorher überprüft, ob der Merge konfliktfrei
-bewerkstelligt werden kann -- falls nicht, erscheint statt der Option
-zum Mergen eine Warnung.
+. A potential contributor _forks_{fn148} a repository at GitHub.
 
-Seit kurzem ist es auch möglich, die Schritte 1., 2.,
-3. und 4. vollständig im Webinterface durchzuführen.
-Dafür klicken Sie in einem fremden Repository auf den Button
-_Fork and edit this file_ -- das Repository wird automatisch für
-Ihr Benutzerkonto geforkt, und es tut sich ein web-basierter Editor
-auf, in dem Sie Ihre Veränderungen sowie eine Commit-Message
-eintragen.  Danach werden Sie automatisch auf die Pull-Request Seite
-weitergeleitet.
+. The public repository is then cloned and changes are made.
 
-Da Sie bei vielen Forks schnell den Überblick verlieren, stellt Github
-eine grafische Darstellung der Forks mit noch ausstehenden Änderungen
-bereit, den sogenannten _Network-Graph_:
+. Commits are uploaded to the public repository.
 
-.Der Github Network-Graph
+. A pull request is sent to the project author.
+As already mentioned, these can be created and sent directly in the web interface.
+
+. The author loads the changes from the public repository, checks whether they meet his quality standards and integrates them locally via merge or cherry pick if necessary.
+
+. The contributor's changes are uploaded to the author's public repository and thus merged with the software.
+
+. The contributor synchronizes his local repository with the author's public repository.
+
+
+
+////
+Das Github Webinterface bietet einiges an Web-2.0-Komfort.
+So können Sie z.B. statt der Schritte 5. und 6. mit einem einzigen Klick direkt über das Webinterface einen Merge vollziehen.
+Selbstverständlich wird vorher überprüft, ob der Merge konfliktfrei bewerkstelligt werden kann -- falls nicht, erscheint statt der Option zum Mergen eine Warnung.
+////
+
+The GitHub web interface offers a lot of Web 2.0 comfort.
+For example, instead of steps 5. and 6. you can merge directly via the web interface with a single click.
+Of course the system checks if the merge can be done without conflicts -- if not, a warning will appear instead of the merge option.
+
+
+////
+Seit kurzem ist es auch möglich, die Schritte 1., 2., 3. und 4. vollständig im Webinterface durchzuführen.
+Dafür klicken Sie in einem fremden Repository auf den Button _Fork and edit this file_ -- das Repository wird automatisch für Ihr Benutzerkonto geforkt, und es tut sich ein web-basierter Editor auf, in dem Sie Ihre Veränderungen sowie eine Commit-Message eintragen.
+Danach werden Sie automatisch auf die Pull-Request Seite weitergeleitet.
+////
+
+Since recently it is also possible to perform steps 1, 2, 3 and 4 completely in the web interface.
+To do this, click on the button _Fork and edit this file_ in a foreign repository -- the repository will be automatically forked for your user account, and a web-based editor will open, where you can enter your changes and a commit message.
+You will then be automatically redirected to the pull-request page.
+
+
+////
+Da Sie bei vielen Forks schnell den Überblick verlieren, stellt Github eine grafische Darstellung der Forks mit noch ausstehenden Änderungen bereit, den sogenannten _Network-Graph_:
+////
+
+Since you can quickly lose track of many forks, GitHub provides a graphical representation of the forks with pending changes, the so-called _network graph_:
+
+
+.The GitHub Network-Graph
 image::github-network.png[id="fig.github-network",scaledwidth="100%",width="100%"]
 
+
+////
 Github bietet Ihnen unter _Graphs_ noch weitere Visualisierungen.
-Unter _Languages_ wird angezeigt, welche Programmiersprachen das
-Projekt einsetzt. Die Grafik _Impact_ (engl. Auswirkung) zeigt,
-welcher Entwickler wann und wie viel geleistet hat.  _Punchcard_
-(Lochkarte) zeigt die Commit-Aktivität für Wochentage und Tageszeiten.
-_Traffic_ (Verkehr) schließlich listet die Anzahl der
-Projektseitenaufrufe während der letzten drei Monate auf.
+Unter _Languages_ wird angezeigt, welche Programmiersprachen das Projekt einsetzt.
+Die Grafik _Impact_ (engl. Auswirkung) zeigt, welcher Entwickler wann und wie viel geleistet hat.
+_Punchcard_ (Lochkarte) zeigt die Commit-Aktivität für Wochentage und Tageszeiten.
+_Traffic_ (Verkehr) schließlich listet die Anzahl der Projektseitenaufrufe während der letzten drei Monate auf.
+////
 
-Wie das Motto _Social Coding_ schon andeutet, hat Github mehrere
-Features, die Sie auch in sozialen Netzwerken finden. Zum Beispiel
-können Sie sowohl einzelnen Usern als auch Repositories folgen (engl.
-_follow_). Sie erhalten dann in Ihrem _Dashboard_
-(Armaturenbrett) über eine Art Github-Newsticker: Meldungen über neue und
-geschlossene Pull-Requests, neue Commits, die hochgeladen wurden,
-Forks usw. Die Newsfeeds der User und Repositories sind aber auch als
-RSS-Feed verfügbar, sollten Sie externe Newsreader vorziehen.
+Github offers even more visualizations under _Graphs_.
+Under _Languages_ you can see which programming languages the project uses.
+The _Impact_ graph shows which developer has done when and how much.
+_Punchcard_ shows the commit activity for weekdays and times of day.
+_Traffic_ finally lists the number of project page views during the last three months.
 
-Ein kleines, noch relativ unbekanntes Projekt kann daher über Github
-sehr schnell bekannt werden, wenn eine kritische Anzahl an
-"`Followern`" erreicht ist.
 
-// Das Dogma der Gründer war: "Mache es leicht mitzuarbeiten, und
-// die Leute werden mitarbeiten." Dieses Phänomen wird als
-// _Github-Effect_ bezeichnet.
+////
+Wie das Motto _Social Coding_ schon andeutet, hat Github mehrere Features, die Sie auch in sozialen Netzwerken finden.
+Zum Beispiel können Sie sowohl einzelnen Usern als auch Repositories folgen (engl. _follow_).
+Sie erhalten dann in Ihrem _Dashboard_ (Armaturenbrett) über eine Art Github-Newsticker: Meldungen über neue und geschlossene Pull-Requests, neue Commits, die hochgeladen wurden, Forks usw.
+Die Newsfeeds der User und Repositories sind aber auch als RSS-Feed verfügbar, sollten Sie externe Newsreader vorziehen.
+////
 
-Github bietet auch einen Pastebin-Dienst an, den _Gist_
-(Kernaussage).  Im Gegensatz jedoch zu anderen Pastebin-Diensten ist
-bei Github jeder Gist ein vollwertiges Git-Repository. Besonders für
-Code-Schnipsel ist dies eine interessante Neuerung.
 
+As the slogan _Social Coding_ suggests, GitHub has several features that you can also find in social networks.
+For example, you can follow both individual users and repositories.
+You will then receive a kind of GitHub news ticker in your _dashboard_: messages about new and closed pull requests, new commits that have been uploaded, forks, etc.
+The news feeds of the users and repositories are also available as RSS feeds, if you prefer external newsreaders.
+
+
+////
+Ein kleines, noch relativ unbekanntes Projekt kann daher über Github sehr schnell bekannt werden, wenn eine kritische Anzahl an "`Followern`" erreicht ist.
+////
+
+A small, still relatively unknown project can therefore become known very quickly via GitHub when a critical number of "`followers`" is reached.
+
+
+
+
+////
+Commented-out paragraph, by original authors:
+
+   Das Dogma der Gründer war:
+   "Mache es leicht mitzuarbeiten, und die Leute werden mitarbeiten."
+   Dieses Phänomen wird als _Github-Effect_ bezeichnet.
+
+   The dogma of the founders was:
+   "Make it easy to cooperate, and people will cooperate".
+   This phenomenon is called the _github-effect_.
+////
+
+
+
+
+////
+Github bietet auch einen Pastebin-Dienst an, den _Gist_ (Kernaussage).
+Im Gegensatz jedoch zu anderen Pastebin-Diensten ist bei Github jeder Gist ein vollwertiges Git-Repository.
+Besonders für Code-Schnipsel ist dies eine interessante Neuerung.
+////
+
+GitHub also offers a pastebin service, the _Gist_.
+However, unlike other Pastebin services, GiThub's gist is a full-fledged Git repository.
+Especially for code snippets this is an interesting innovation.
+
+
+////
 Auch bei der Anbindung an externe Dienste leistet Github ganze Arbeit.
-Es gibt 50 sogenannte _Service Hooks_, mit denen Sie Nachrichten
-bzgl. eines Repositorys an externe Dienste weiterleiten. Dabei sind
-unter anderem altbewährte Klassiker wie E-Mail und IRC, aber auch
-modernere Alternativen wie Twitter und Jabber.
+Es gibt 50 sogenannte _Service Hooks_, mit denen Sie Nachrichten bzgl. eines Repositorys an externe Dienste weiterleiten.
+Dabei sind unter anderem altbewährte Klassiker wie E-Mail und IRC, aber auch modernere Alternativen wie Twitter und Jabber.
+////
 
-Github bietet aber noch zusätzliche "`Gimmicks`", die sehr
-praktisch sind.  So werden aus Tags automatisch Quellcode-Archive zum
-Herunterladen.  Wie Sie in <<fig.github-downloads>>
-sehen, sowohl als `tar.gz` als auch als `.zip` Archiv.
+GitHub also does a good job when connecting to external services.
+There are 50 so-called _service hooks_ that you can use to forward messages concerning a repository to external services.
+Among them are old classics like e-mail and IRC, but also more modern alternatives like Twitter and Jabber.
 
-.Aus Tags erstellte Downloads
+
+////
+Github bietet aber noch zusätzliche "`Gimmicks`", die sehr praktisch sind.
+So werden aus Tags automatisch Quellcode-Archive zum Herunterladen.
+Wie Sie in Abbildung 11.4, "Aus Tags erstellte Downloads" sehen, sowohl als `tar.gz` als auch als `.zip` Archiv.
+////
+
+But GitHub also offers additional "`gimmicks`" that are very handy.
+So tags automatically become source code archives for download.
+As you can see in <<fig.github-downloads>>, both as `.tar.gz` and `.zip` archives.
+
+
+.Downloads created from tags
+// .Aus Tags erstellte Downloads
 image::github-download.png[id="fig.github-downloads",scaledwidth="65%",width="65%"]
 
 
 
-Für Entwickler, die oft mit Bildern arbeiten, bietet Github sogenannte
-_Image View Modes_.{fn149}
-Sie zeigen Unterschiede zwischen zwei Versionen einer Grafik an,
-ähnlich dem in <<sec.external-diff>> vorgestellten Script. Es gibt folgende
-Modi:
+////
+Für Entwickler, die oft mit Bildern arbeiten, bietet Github sogenannte _Image View Modes_.[149]
+Sie zeigen Unterschiede zwischen zwei Versionen einer Grafik an, ähnlich dem in Abschnitt 8.1.3, "Eigene Diff-Programme" vorgestellten Script.
+Es gibt folgende Modi:
+////
+
+For developers who often work with images, GitHub offers so-called _Image View Modes_.{fn149}
+They show differences between two versions of an image, similar to the script introduced in <<sec.external-diff>>.
+There are the following modes:
 
 
-_2-up_:: Die zwei verschiedenen Versionen werden nebeneinander
-dargestellt, siehe <<fig.github-2up>>.  Auch Größenunterschiede sind
-ersichtlich.
+////
+_2-up_ ::
+Die zwei verschiedenen Versionen werden nebeneinander dargestellt, siehe <<fig.github-2up>>.
+Auch Größenunterschiede sind ersichtlich.
+
+_Swipe_ ::
+Das Bild wird in der Mitte geteilt.
+Links sehen Sie die alte Version und rechts die neue.
+Schieben Sie den Regler hin und her, um die Änderungen zu beobachten.
+Siehe Abbildung 11.6, "Modus Swipe".
+
+_Onion Skin_ ::
+Auch hier kommt ein Regler zum Einsatz, diesmal wird jedoch die neue Version eingeblendet, es entsteht also ein fließender Übergang zwischen alt und neu.
+
+_Difference_ ::
+Zeigt nur die Pixel an, die verändert wurden.
+////
+
+_2-up_ ::
+The two different versions are displayed side by side, see <<fig.github-2up>>.
+Differences in size are also visible.
 +
-.Modus _2-up_
+.The _2-up_ image mode
 image::github-image-diff-2up.png[id="fig.github-2up",scaledwidth="90%",width="90%"]
 
-
-_Swipe_:: Das Bild wird in der Mitte geteilt. Links sehen Sie die alte
-Version und rechts die neue. Schieben Sie den Regler hin und her, um
-die Änderungen zu beobachten.  Siehe <<fig.github-swipe>>.
+_Swipe_ ::
+The image is split in the middle.
+On the left you see the old version and on the right the new one.
+Move the slider back and forth to see the changes.
+See <<fig.github-swipe>>.
 +
-.Modus _Swipe_
+.The _swipe_ image mode
 image::github-image-diff-swipe.png[id="fig.github-swipe",scaledwidth="90%",width="90%"]
 
-_Onion Skin_:: Auch hier kommt ein Regler zum Einsatz, diesmal wird
-jedoch die neue Version eingeblendet, es entsteht also ein fließender
-Übergang zwischen alt und neu.
+_Onion Skin_ ::
+A slider is also used here, but this time the new version is faded in, so there is a smooth transition between old and new.
 
-_Difference_:: Zeigt nur die Pixel an, die verändert wurden.
-
-
+_Difference_ ::
+Displays only the pixels that have been modified.
 
 
-Die Programmierer hinter Github feilen weiter am Webinterface und so
-kommen regelmäßig innovative Verbesserungen hinzu. Die Seite hat eine
-eigene
-Hilfe-Seite{empty}{fn150}, auf
-der Arbeitsschritte mit dem Webinterface detailliert mit Screenshots
-erklärt werden.
 
+////
+Die Programmierer hinter Github feilen weiter am Webinterface und so kommen regelmäßig innovative Verbesserungen hinzu.
+Die Seite hat eine eigene Hilfe-Seite[150], auf der Arbeitsschritte mit dem Webinterface detailliert mit Screenshots erklärt werden.
+////
 
-// vim:set tw=72 ft=asciidoc:
+The programmers behind GitHub continue to refine the web interface and so innovative improvements are added regularly.
+The site has its own help page,{fn150} where steps with the webinterface are explained in detail with screenshots.
