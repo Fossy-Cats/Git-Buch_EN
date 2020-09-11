@@ -16,6 +16,8 @@ Valentin Haenel; Julius Plenz
 // :appendix-refsig: App.
 
 
+include::gitbuch_custom-attributes.adoc[]
+
 :leveloffset: +1
 
 // "vorwort.txt"          ->  Preface

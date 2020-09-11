@@ -1,0 +1,14 @@
+// *****************************************************************************
+// *                                                                           *
+// *                      CUSTOM ATTRIBUTES DEFINITIONS                        *
+// *                                                                           *
+// *****************************************************************************
+// Used for substitutions...
+
+// HTML Characters Entities
+// ========================
+// These provide human readable substitution which are safe to use on all output
+// formats (named character references are unsafe with formats like PDF)
+:en-dash: &#x2013;
+
+// EOF //
