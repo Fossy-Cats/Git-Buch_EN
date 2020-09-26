@@ -122,11 +122,11 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [6. _Workflows_][Ch6]
     + [ ] Draft:
-        * [ ] DeepL translation.
-        * [ ] Reapply lost formatting.
+        * [x] DeepL translation.
+        * [x] Reapply lost formatting.
         * [ ] Restore and translate footnotes (88-91).
-        * [ ] Restore XRefs.
-        * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
+        * [x] Restore XRefs.
+        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
         * [ ] Translate anchors IDs.
         * [ ] Check all external links.
     + [ ] Polish:
