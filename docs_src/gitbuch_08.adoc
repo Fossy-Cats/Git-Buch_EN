@@ -2,52 +2,79 @@
 
 [[ch.automation]]
 = Git Automation
-// Git automatisieren
+// = Git automatisieren
 
 include::gitbuch_footnotes.adoc[tag=Chapter_8]
 
+////
+In diesem Kapitel stellen wir fortgeschrittene Techniken zum Automatisieren von Git vor.
+Im ersten Abschnitt über _Git-Attribute_ zeigen wir Ihnen, wie Sie Git anweisen, bestimmte Dateien gesondert zu behandeln, zum Beispiel um bei Grafiken ein externes Diff-Kommando aufzurufen.
+////
 
-In diesem Kapitel stellen wir fortgeschrittene Techniken zum
-Automatisieren von Git vor. Im ersten Abschnitt über
-_Git-Attribute_ zeigen wir Ihnen, wie Sie Git anweisen, bestimmte
-Dateien gesondert zu behandeln, zum Beispiel um bei Grafiken ein
-externes Diff-Kommando aufzurufen.
+In this chapter, we'll introduce advanced techniques for automating Git.
+In the first section about _Git attributes_, we'll show you how to tell Git to treat certain files separately, for example, to call an external diff command on graphics.
 
-Weiter geht es mit _Hooks_ -- kleine Scripte, die beim Aufruf
-verschiedener Git-Kommandos ausgeführt werden, beispielsweise um alle
-Entwickler per E-Mail zu benachrichtigen, wenn neue Commits im
-Repository eintreffen.
+////
+Weiter geht es mit _Hooks_ -- kleine Scripte, die beim Aufruf verschiedener Git-Kommandos ausgeführt werden, beispielsweise um alle Entwickler per E-Mail zu benachrichtigen, wenn neue Commits im Repository eintreffen.
+////
 
-Danach geben wir eine grundlegende Einführung ins Scripting mit
-Git und zeigen Ihnen nützliche _Plumbing-Kommandos_.
+We continue with _hooks_ -- small scripts that are executed when various git commands are called, for example to notify all developers via email when new commits arrive in the repository.
 
-Zum Abschluss stellen wir das mächtige `filter-branch`-Kommando
-vor, mit dem Sie die Projektgeschichte im großen Stil umschreiben,
-etwa um eine Datei mit einem Passwort aus _allen_ Commits zu
-entfernen.
+////
+Danach geben wir eine grundlegende Einführung ins Scripting mit Git und zeigen Ihnen nützliche _Plumbing-Kommandos_.
+////
+
+Then we'll give a basic introduction to scripting with Git and show you useful _plumbing commands_.
+
+////
+Zum Abschluss stellen wir das mächtige `filter-branch`-Kommando vor, mit dem Sie die Projektgeschichte im großen Stil umschreiben, etwa um eine Datei mit einem Passwort aus _allen_ Commits zu entfernen.
+////
+
+Finally, we will introduce the powerful `filter-branch` command, which you can use to rewrite the project history on a large scale, for example to remove a file with a password from _all_ commits.
 
 [[sec.attributes]]
-== Git-Attribute – Dateien gesondert behandeln
+== Git attributes - treat files separately
+// == Git-Attribute – Dateien gesondert behandeln
 
-Über _Git-Attribute_ können Sie einzelnen oder einer Gruppe von
-Dateien bestimmte Eigenschaften zuweisen, so dass Git sie besonders
-behandelt; Beispiele wären, für bestimmte Dateien das Zeilenende zu
-forcieren oder sie als binär zu markieren.
+////
+Über _Git-Attribute_ können Sie einzelnen oder einer Gruppe von Dateien bestimmte Eigenschaften zuweisen, so dass Git sie besonders behandelt; Beispiele wären, für bestimmte Dateien das Zeilenende zu forcieren oder sie als binär zu markieren.
+////
 
-Die Attribute schreiben Sie wahlweise in die Datei
-`.gitattributes` oder `.git/info/attributes`.
+_Git attributes_ allow you to assign specific properties to individual files or a group of files so that Git treats them with special care; examples would be forcing the end of lines or marking certain files as binary.
+
+////
+Die Attribute schreiben Sie wahlweise in die Datei `.gitattributes` oder `.git/info/attributes`.
 Letztere gilt für ein Repository und wird nicht von Git verwaltet.
-Eine Datei `.gitattributes` wird in der Regel eingecheckt, so
-dass alle Entwickler diese Attribute verwenden. Außerdem können Sie in
-Unterverzeichnissen weitere Attribut-Definitionen hinterlegen.
+Eine Datei `.gitattributes` wird in der Regel eingecheckt, so dass alle Entwickler diese Attribute verwenden.
+Außerdem können Sie in Unterverzeichnissen weitere Attribut-Definitionen hinterlegen.
+////
 
+You can write the attributes either in the file `.gitattributes` or `.git/info/attributes`.
+The latter is for a repository and is not managed by Git.
+A `.gitattributes` file is usually checked in, so all developers use these attributes.
+You can also store additional attribute definitions in subdirectories.
+
+////
 Eine Zeile in dieser Datei hat das Format:
+////
 
+One line in this file has the format:
+
+////
 --------
 <muster> <attrib1> <attrib2> ...
 --------
+////
 
+--------
+<pattern> <attrib1> <attrib2> ...
+--------
+
+////
 Ein Beispiel:
+////
+
+An example:
 
 --------
 *.eps   binary
@@ -55,64 +82,92 @@ Ein Beispiel:
 *.c     filter=indent
 --------
 
-In der Regel können Attribute gesetzt (z.B.{empty}{nbsp}`binary`),
-aufgehoben (`-text`) oder auf einen Wert gesetzt werden
-(`filter=indent`). Die Man-Page
-`gitattributes(5)` beschreibt detailliert, wie Git die
-Attribute interpretiert.
+////
+In der Regel können Attribute gesetzt (z.B.{empty}{nbsp}`binary`), aufgehoben (`-text`) oder auf einen Wert gesetzt werden (`filter=indent`).
+Die Man-Page `gitattributes(5)` beschreibt detailliert, wie Git die Attribute interpretiert.
+////
 
-Ein Projekt, das parallel auf Windows- und Unix-Rechnern entwickelt
-wird, leidet darunter, dass die Entwickler verschiedene Konventionen
-für Zeilenenden verwenden. Dies ist bedingt durch das Betriebssystem:
-Windows-Systeme verwenden einen Carriage Return, gefolgt von einem
-Line Feed (CRLF), während unixoide Systeme nur einen Line Feed (LF)
-verwenden.
+Usually attributes can be set (e.g.{empty}{nbsp}`binary`), canceled (`-text`) or set to a value (`filter=indent`).
+The man page `gitattributes(5)` describes in detail how Git interprets the attributes.
 
-Über geeignete Git-Attribute bestimmen Sie eine adäquate Policy -- in
-diesem Fall sind die Attribute `text` bzw.  `eol`
-zuständig.  Das Attribut `text` bewirkt, dass die Zeilenenden
-"`normalisiert`" werden. Egal, ob der Editor eines Entwicklers
-CRLF oder nur LF verwendet, Git wird im Blob nur die Version mit LF
-speichern. Setzen Sie das Attribut auf `auto`, wird Git
-diese Normalisierung nur ausführen, wenn die Datei auch wie Text
-aussieht.
+////
+Ein Projekt, das parallel auf Windows- und Unix-Rechnern entwickelt wird, leidet darunter, dass die Entwickler verschiedene Konventionen für Zeilenenden verwenden.
+Dies ist bedingt durch das Betriebssystem:
+Windows-Systeme verwenden einen Carriage Return, gefolgt von einem Line Feed (CRLF), während unixoide Systeme nur einen Line Feed (LF) verwenden.
+////
 
-Das Attribut `eol` hingegen bestimmt, was bei einem Checkout
-passiert. Unabhängig von der Einstellung `core.eol` des Nutzers
-können Sie so für einige Dateien z.B. CRLF vorgeben (weil das Format
-dies benötigt).
+A project that is developed in parallel on Windows and Unix machines suffers from the fact that the developers use different conventions for line endings.
+This is due to the operating system:
+Windows systems use a carriage return followed by a line feed (CRLF), while unixoid systems use only a line feed (LF).
+
+////
+Über geeignete Git-Attribute bestimmen Sie eine adäquate Policy -- in diesem Fall sind die Attribute `text` bzw. `eol` zuständig.
+Das Attribut `text` bewirkt, dass die Zeilenenden "normalisiert" werden.
+Egal, ob der Editor eines Entwicklers CRLF oder nur LF verwendet, Git wird im Blob nur die Version mit LF speichern.
+Setzen Sie das Attribut auf `auto`, wird Git diese Normalisierung nur ausführen, wenn die Datei auch wie Text aussieht.
+////
+
+By means of suitable git attributes you can determine an adequate policy -- in this case the attributes `text` or `eol` are responsible.
+The attribute `text` causes the line ends to be "normalized".
+Whether a developer's editor uses CRLF or just LF, Git will only store the version with LF in the blob.
+If you set the attribute to `auto`, Git will only perform this normalization if the file also looks like text.
+
+////
+Das Attribut `eol` hingegen bestimmt, was bei einem Checkout passiert.
+Unabhängig von der Einstellung `core.eol` des Nutzers können Sie so für einige Dateien z.B. CRLF vorgeben (weil das Format dies benötigt).
+////
+
+The `eol` attribute, on the other hand, determines what happens during a checkout.
+Regardless of the user's `core.eol` setting, you can specify e.g. CRLF for some files (because the format requires it).
 
 --------
 *.txt   text
 *.csv   eol=crlf
 --------
 
-Mit diesen Attributen werden `.txt`-Dateien intern immer mit LF
-gespeichert und bei Bedarf (plattform- bzw. nutzerabhängig) als CRLF
-ausgecheckt. CSV-Dateien hingegen werden auf allen Plattformen mit
-CRLF ausgecheckt. (Intern wird Git all diese Blobs mit einfachen
-LF-Endungen speichern.)
+////
+Mit diesen Attributen werden `.txt`-Dateien intern immer mit LF gespeichert und bei Bedarf (plattform- bzw. nutzerabhängig) als CRLF ausgecheckt.
+CSV-Dateien hingegen werden auf allen Plattformen mit CRLF ausgecheckt.
+(Intern wird Git all diese Blobs mit einfachen LF-Endungen speichern.)
+////
+
+With these attributes, `.txt` files are always saved internally with LF and checked out as CRLF if required (platform- or user-dependent).
+CSV files on the other hand are checked out with CRLF on all platforms.
+(Internally, Git will save all these blobs with simple LF extensions).
 
 [[sec.smudge-clean]]
-=== Filter: Smudge und Clean
+=== Filter: Smudge and Clean
+// === Filter: Smudge und Clean
 
-Git bietet über _Filter_ eine Möglichkeit, Dateien nach einem
-Checkout zu "`verschmutzen`" (_smudge_) und vor einem
-`git add` wieder zu "`säubern`" (_clean_).
+////
+Git bietet über _Filter_ eine Möglichkeit, Dateien nach einem Checkout zu "verschmutzen" (_smudge_) und vor einem `git add` wieder zu "säubern" (_clean_).
+////
 
-Die Filter erhalten keine Argumente, sondern nur den Inhalt des Blobs
-auf Standard-In. Die Ausgabe des Programms wird als neuer Blob
-verwendet.
+Git offers a _filter_ to "smudge" files after a checkout and to "clean" files again before a git add.
 
-Für einen Filter müssen Sie jeweils ein Smudge- und ein Clean-Kommando
-definieren. Fehlt eine der Definitionen oder ist der Filter
-`cat`, wird der Blob unverändert übernommen.
+////
+Die Filter erhalten keine Argumente, sondern nur den Inhalt des Blobs auf Standard-In.
+Die Ausgabe des Programms wird als neuer Blob verwendet.
+////
 
-Welcher Filter für welche Art von Dateien verwendet wird, definieren
-Sie über das Git-Attribut `filter`. Um beispielsweise C-Dateien
-vor einem Commit automatisch richtig einzurücken, können Sie folgende
-Filterdefinitionen verwenden (statt `<indent>` sind
-beliebige andere Namen möglich):
+The filters do not get any arguments, but only the content of the blob on standard in.
+The output of the program is used as new blob.
+
+////
+Für einen Filter müssen Sie jeweils ein Smudge- und ein Clean-Kommando definieren.
+Fehlt eine der Definitionen oder ist der Filter `cat`, wird der Blob unverändert übernommen.
+////
+
+For each filter you have to define a Smudge and a Clean command.
+If one of the definitions is missing or if the filter is `cat`, the blob is taken over unchanged.
+
+////
+Welcher Filter für welche Art von Dateien verwendet wird, definieren Sie über das Git-Attribut `filter`.
+Um beispielsweise C-Dateien vor einem Commit automatisch richtig einzurücken, können Sie folgende Filterdefinitionen verwenden (statt `<indent>` sind beliebige andere Namen möglich):
+////
+
+Which filter is used for which type of files is defined by the git attribute `filter`.
+For example, to automatically indent C files correctly before a commit, you can use the following filter definitions (instead of `<indent>`, any other name is possible):
 
 [subs="macros,quotes"]
 --------
@@ -121,19 +176,28 @@ $ *git config filter.&lt;indent&gt;.smudge cat*
 $ *echo &#39;&#42;.c filter=&lt;indent&gt;&#39; &gt; .git/info/attributes*
 --------
 
-Um eine C-Datei zu "`säubern`", ruft Git nun automatisch das
-Programm `indent` auf, das auf Standardsystemen installiert
-sein sollte.{fn106}
+////
+Um eine C-Datei zu "säubern", ruft Git nun automatisch das Programm `indent` auf, das auf Standardsystemen installiert sein sollte.{fn106}
+////
+
+To "clean up" a C file, Git now automatically calls the `indent` program that should be installed on standard systems.{fn106}
 
 [[sec.smudge-clean-keywords]]
-=== Keywords in Dateien
+=== Keywords in files
+// === Keywords in Dateien
 
-So lassen sich prinzipiell auch die bekannten Keyword-Expansionen
-realisieren, so dass z.B. `$Version$` zu `$Version:
-  v1.5.4-rc2$` wird.
+////
+So lassen sich prinzipiell auch die bekannten Keyword-Expansionen realisieren, so dass z.B. `$Version$` zu `$Version: v1.5.4-rc2$` wird.
+////
 
-Sie definieren die Filter in Ihrer Konfiguration und statten dann
-entsprechende Dateien mit diesem Git-Attribut aus. Das geht z.B. so:
+So in principle the well-known keyword expansions can be realized, so that e.g. `$Version$` becomes `$Version: v1.5.4-rc2$`.
+
+////
+Sie definieren die Filter in Ihrer Konfiguration und statten dann entsprechende Dateien mit diesem Git-Attribut aus. Das geht z.B. so:
+////
+
+You define the filters in your configuration and then equip corresponding files with this git attribute.
+This works like this, for example:
 
 [subs="macros,quotes"]
 --------
@@ -142,9 +206,11 @@ $ *git config filter.version.clean ~/bin/git-version.clean*
 $ *echo &#39;&#42; filter=version&#39; &gt; .git/info/attributes*
 --------
 
-Ein Filter, der das `$Version$`-Keyword ersetzt bzw. wieder
-aufräumt, könnte als Perl-Einzeiler realisiert werden; zunächst der
-Smudge-Filter:
+////
+Ein Filter, der das `$Version$`-Keyword ersetzt bzw. wieder aufräumt, könnte als Perl-Einzeiler realisiert werden; zunächst der Smudge-Filter:
+////
+
+A filter that replaces or cleans up the `$Version$` keyword could be implemented as a Perl one-liner; first the Smudge filter:
 
 //\label{code:smudge}
 
@@ -154,7 +220,11 @@ version=`git describe --tags`
 exec perl -pe _s/$Version(:\s[^$]+)?$/$Version: _"$version"_$/g_
 --------
 
+////
 Und der Clean-Filter:
+////
+
+And the Clean-Filter:
 
 //\label{code:clean}
 
@@ -163,92 +233,133 @@ Und der Clean-Filter:
 s/$Version: [^$]+$/$Version$/g
 --------
 
-Wichtig ist, dass mehrmalige Anwendung eines solchen Filters keine
-unkontrollierten Veränderungen in der Datei vornimmt. Ein doppelter
-Aufruf von Smudge sollte durch einen einfachen Aufruf von Clean wieder
-behoben werden können.
+////
+Wichtig ist, dass mehrmalige Anwendung eines solchen Filters keine unkontrollierten Veränderungen in der Datei vornimmt.
+Ein doppelter Aufruf von Smudge sollte durch einen einfachen Aufruf von Clean wieder behoben werden können.
+////
+
+It is important that repeated application of such a filter does not make uncontrolled changes in the file.
+A double call to Smudge should be fixed by a single call to Clean.
 
 [[sec.smudge-clean-dontuse]]
-==== Einschränkungen
+==== Restrictions
+// ==== Einschränkungen
 
-Das Konzept von Filtern in Git ist bewusst simpel gehalten und wird
-auch in künftigen Versionen nicht erweitert werden. Die Filter
-erhalten _keine_ Informationen über den Kontext, in dem sich Git
-gerade befindet: Passiert ein Checkout? Ein Merge? Ein Diff? Sie
-erhalten lediglich den Blob-Inhalt. Die Filter sollen also nur
-_kontextunabhängige_ Manipulationen durchführen.
+////
+Das Konzept von Filtern in Git ist bewusst simpel gehalten und wird auch in künftigen Versionen nicht erweitert werden.
+Die Filter erhalten _keine_ Informationen über den Kontext, in dem sich Git gerade befindet:
+Passiert ein Checkout?
+Ein Merge?
+Ein Diff?
+Sie erhalten lediglich den Blob-Inhalt.
+Die Filter sollen also nur _kontextunabhängige_ Manipulationen durchführen.
+////
 
-Zum Zeitpunkt, da Smudge aufgerufen wird, ist der `HEAD`
-möglicherweise noch nicht auf dem aktuellen Stand (der obige Filter
-würde bei einem `git checkout` eine falsche Versionsnummer in
-die Datei schreiben, da er _vor_ dem Versetzen des `HEAD`
-aufgerufen wird). Die Filter eignen sich also nur bedingt zur
-Keyword-Expansion.
+The concept of filters in Git is intentionally kept simple and will not be expanded in future versions.
+The filters receive _no_ information about the context in which Git is currently located:
+Is a checkout happening?
+A merge?
+A diff?
+They only get the blob content.
+So the filters should only perform _context-independent_ manipulations.
 
-Das mag zwar Nutzer, die sich an dieses Feature in anderen
-Versionskontrollsystemen gewöhnt haben, verärgern. Es gibt allerdings
-keine guten Argumente, _innerhalb_ eines Versionskontrollsystems
-eine solche Expansion durchzuführen. Die internen Mechanismen, die Git
-verwendet, um zu überprüfen, ob Dateien verändert wurden, werden
-lahmgelegt (da sie immer durch den Clean-Filter geschickt werden
-müssen).  Außerdem kann man aufgrund der Struktur von Git-Repositories
-einen Blob durch die Commits bzw. Trees hindurch
-"`verfolgen`", kann also bei Bedarf die Zugehörigkeit einer
-Datei zu einem Commit immer an ihrem Inhalt erkennen.
+////
+Zum Zeitpunkt, da Smudge aufgerufen wird, ist der `HEAD` möglicherweise noch nicht auf dem aktuellen Stand (der obige Filter würde bei einem `git checkout` eine falsche Versionsnummer in die Datei schreiben, da er _vor_ dem Versetzen des `HEAD` aufgerufen wird).
+Die Filter eignen sich also nur bedingt zur Keyword-Expansion.
+////
 
+At the time Smudge is called, the `HEAD` may not yet be up to date (the above filter would write an incorrect version number to the file during a `git checkout`, because it is called _before_ the `HEAD` is moved).
+So the filters are not very suitable for keyword expansion.
+
+////
+Das mag zwar Nutzer, die sich an dieses Feature in anderen Versionskontrollsystemen gewöhnt haben, verärgern.
+Es gibt allerdings keine guten Argumente, _innerhalb_ eines Versionskontrollsystems eine solche Expansion durchzuführen.
+Die internen Mechanismen, die Git verwendet, um zu überprüfen, ob Dateien verändert wurden, werden lahmgelegt (da sie immer durch den Clean-Filter geschickt werden müssen).
+Außerdem kann man aufgrund der Struktur von Git-Repositories einen Blob durch die Commits bzw. Trees hindurch "verfolgen", kann also bei Bedarf die Zugehörigkeit einer Datei zu einem Commit immer an ihrem Inhalt erkennen.
+////
+
+This may annoy users who have become accustomed to this feature in other version control systems.
+However, there are no good arguments for such an expansion _within_ a version control system.
+The internal mechanisms Git uses to check if files have been modified are paralyzed (since they always have to go through the clean filter).
+Also, because of the structure of Git repositories, you can "track" a blob through the commits or trees, so you can always tell if a file belongs to a commit by its contents if necessary.
+
+////
 Eine Keyword-Expansion ist also nur _außerhalb_ von Git sinnvoll.
-Dafür ist dann aber nicht Git zuständig, sondern ein entsprechendes
-`Makefile`-Target oder ein Script. So kann beispielsweise ein
-`make dist` alle Vorkommen von `VERSION` durch die
-Ausgabe von `git describe --tags` ersetzen. Git wird die
-Dateien als "`geändert`" anzeigen. Sobald die Dateien verteilt
-sind (z.B. als Tarball), kann mit `git reset --hard` wieder
-aufgeräumt werden.
+Dafür ist dann aber nicht Git zuständig, sondern ein entsprechendes `Makefile`-Target oder ein Script.
+So kann beispielsweise ein `make dist` alle Vorkommen von `VERSION` durch die Ausgabe von `git describe --tags` ersetzen.
+Git wird die Dateien als "geändert" anzeigen.
+Sobald die Dateien verteilt sind (z.B. als Tarball), kann mit `git reset --hard` wieder aufgeräumt werden.
+////
+
+So keyword expansion is only useful _outside_ of Git.
+This is not the responsibility of Git, but a `Makefile` target or script.
+For example, a `make dist` can replace all occurrences of `VERSION` with the output of `git describe --tags`.
+Git will display the files as "changed".
+Once the files are distributed (e.g. as a tarball), you can clean up with `git reset --hard`.
 
 //\label{sec:export-subst}
 
-Alternativ sorgt das Attribut `export-subst` dafür, dass eine
-Expansion der Form `$Format:<Pretty>$` durchgeführt wird.
-Dabei muss `<Pretty>` ein Format sein, das für `git log
-  --pretty=format:<Pretty>` gültig ist, also z.B.{empty}{nbsp}`%h` für die
-gekürzte Commit-Hash-Summe. Git expandiert diese Attribute nur, wenn
-die Datei per `git archive`
-(siehe <<sec.release-create>>) verpackt wird.
+////
+Alternativ sorgt das Attribut `export-subst` dafür, dass eine Expansion der Form `$Format:<Pretty>$` durchgeführt wird.
+Dabei muss `<Pretty>` ein Format sein, das für `git log --pretty=format:<Pretty>` gültig ist, also z.B.{empty}{nbsp}`%h` für die gekürzte Commit-Hash-Summe.
+Git expandiert diese Attribute nur, wenn die Datei per `git archive` (siehe <<sec.release-create>>) verpackt wird.
+////
 
-
+Alternatively, the `export-subst` attribute ensures that an expansion of the form `$Format:<Pretty>$` is performed.
+Where `<Pretty>` must be a format that is valid for `git log --pretty=format:<Pretty>`, e.g.{empty}{nbsp}`%h` for the shortened commit hash sum.
+Git will only expand these attributes if the file is packaged via `git archive` (see <<sec.release-create>>).
 
 [[sec.external-diff]]
-=== Eigene Diff-Programme
+=== Own diff programs
+// === Eigene Diff-Programme
 
-Der interne Diff-Mechanismus von Git eignet sich sehr gut für alle
-Arten von Plaintext. Er versagt aber bei Binärdateien -- Git gibt
-lediglich aus, ob sie sich unterscheiden oder nicht. Wenn Sie
-allerdings ein Projekt haben, in dem Sie Binärdaten verwalten müssen,
-wie z.B. PDF-, OpenOffice-Dokumente oder Bilder, dann ist es
-sinnvoll, ein spezielles Programm zu definieren, das sinnvolle Diffs
-dieser Dateien erstellt.
+////
+Der interne Diff-Mechanismus von Git eignet sich sehr gut für alle Arten von Plaintext.
+Er versagt aber bei Binärdateien -- Git gibt lediglich aus, ob sie sich unterscheiden oder nicht.
+Wenn Sie allerdings ein Projekt haben, in dem Sie Binärdaten verwalten müssen, wie z.B. PDF-, OpenOffice-Dokumente oder Bilder, dann ist es sinnvoll, ein spezielles Programm zu definieren, das sinnvolle Diffs dieser Dateien erstellt.
+////
 
-So gibt es beispielsweise `antiword` und `pdftotext`, um
-Word-Dokumente und PDFs nach Plaintext zu konvertieren. Für
-OpenOffice-Formate gibt es analoge Scripte. Bei Bildern können Sie
-Kommandos aus der ImageMagick-Suite verwenden (siehe auch das Beispiel
-weiter unten). Wenn Sie statistische Daten verwalten, können Sie die
-geänderten Datensets nebeneinander plotten. Je nach Beschaffenheit
-der Daten gibt es meist adäquate Möglichkeiten, Veränderungen zu
-visualisieren.
+Git's internal diff mechanism is very well suited for all types of plaintext.
+But it fails with binaries - Git just tells you whether they differ or not.
+However, if you have a project where you need to manage binary data, such as PDFs, OpenOffice documents, or images, it's a good idea to define a special program that creates meaningful diffs for these files.
 
-Solche Konvertierungsprozesse sind natürlich verlustbehaftet: Sie
-können diese Diff-Ausgabe nicht nutzen, um beispielsweise in einem
-Merge-Konflikt sinnvoll Änderungen in den Dateien vorzunehmen. Aber um
-einen schnellen Überblick zu erhalten, wer was geändert hat, reichen
-solche Techniken allemal aus.
+////
+So gibt es beispielsweise `antiword` und `pdftotext`, um Word-Dokumente und PDFs nach Plaintext zu konvertieren.
+Für OpenOffice-Formate gibt es analoge Scripte.
+Bei Bildern können Sie Kommandos aus der ImageMagick-Suite verwenden (siehe auch das Beispiel weiter unten).
+Wenn Sie statistische Daten verwalten, können Sie die geänderten Datensets nebeneinander plotten.
+Je nach Beschaffenheit der Daten gibt es meist adäquate Möglichkeiten, Veränderungen zu visualisieren.
+////
+
+For example, there are `antiword` and `pdftotext` to convert Word documents and PDFs to plaintext.
+There are analogous scripts for OpenOffice formats.
+For images you can use commands from the ImageMagick suite (see also the example below).
+If you manage statistical data, you can plot the changed recordsets side by side.
+Depending on the nature of the data, there are usually adequate ways to visualize changes.
+
+////
+Solche Konvertierungsprozesse sind natürlich verlustbehaftet:
+Sie können diese Diff-Ausgabe nicht nutzen, um beispielsweise in einem Merge-Konflikt sinnvoll Änderungen in den Dateien vorzunehmen.
+Aber um einen schnellen Überblick zu erhalten, wer was geändert hat, reichen solche Techniken allemal aus.
+////
+
+Such conversion processes are, of course, lossy:
+You cannot use this diff output, for example to make meaningful changes to the files in a merge conflict.
+But to get a quick overview of who changed what, such techniques are sufficient.
 
 [[sec.external-diff-parameters]]
-==== API für externe Diff-Programme
+==== API for external diff programs
+// ==== API für externe Diff-Programme
 
-Git bietet eine simple API für eigene Diff-Filter. Einem Diff-Filter
-werden immer die folgenden sieben Argumente übergeben:
+////
+Git bietet eine simple API für eigene Diff-Filter.
+Einem Diff-Filter werden immer die folgenden sieben Argumente übergeben:
+////
 
+Git provides a simple API for custom diff filters.
+A diff filter is always passed the following seven arguments:
+
+////
 . Pfad (Name der Datei im Git-Repository)
 . alte Version der Datei
 . alte SHA-1-ID des Blobs
@@ -256,77 +367,122 @@ werden immer die folgenden sieben Argumente übergeben:
 . neue Version der Datei
 . neue SHA-1-ID des Blobs
 . neue Unix-Rechte
+////
 
+. path (name of the file in the Git repository)
+. old version of the file
+. old SHA-1 ID of the blob
+. old Unix rights
+. new version of the file
+. new SHA-1 ID of the blob
+. new Unix rights
 
-Die Argumente 2 und 5 sind möglicherweise temporäre Dateien, die
-gelöscht werden, sobald sich das Diff-Programm wieder beendet; Sie
-müssen sich also nicht um das Aufräumen kümmern.
+////
+Die Argumente 2 und 5 sind möglicherweise temporäre Dateien, die gelöscht werden, sobald sich das Diff-Programm wieder beendet; Sie müssen sich also nicht um das Aufräumen kümmern.
+////
 
-Wenn eine der beiden Dateien nicht existiert (neu hinzugefügt oder
-gelöscht), dann wird `/dev/null` als Dateiname übergeben. Der
-entsprechende Blob ist dann `00000`..., auch in dem Fall,
-dass eine Datei noch nicht als festes Objekt in der
-Objektdatenbank liegt (also nur im Working Tree oder Index).  Diese
-Fälle muss das Diff-Kommando entsprechend behandeln können.
+The arguments 2 and 5 may be temporary files, which will be deleted as soon as the diff program quits again, so you don't have to care about cleaning up.
+
+////
+Wenn eine der beiden Dateien nicht existiert (neu hinzugefügt oder gelöscht), dann wird `/dev/null` als Dateiname übergeben.
+Der entsprechende Blob ist dann `00000`..., auch in dem Fall, dass eine Datei noch nicht als festes Objekt in der Objektdatenbank liegt (also nur im Working Tree oder Index).
+Diese Fälle muss das Diff-Kommando entsprechend behandeln können.
+////
+
+If one of the two files does not exist (newly added or deleted), then `/dev/null` is passed as file name.
+The corresponding blob is then `00000`..., even if a file does not yet exist as a fixed object in the object database (i.e. only in the working tree or index).
+The Diff command must be able to handle these cases accordingly.
 
 [[sec.diff-config]]
-==== Externe Diffs konfigurieren
+==== Configure External Diffs
+// ==== Externe Diffs konfigurieren
 
-Es gibt zwei Möglichkeiten, ein externes Diff-Programm aufzurufen. Die
-erste Methode ist temporär: Setzen Sie einfach vor dem Aufruf von
-`git diff` die Umgebungsvariable `GIT_EXTERNAL_DIFF`
-auf den Pfad zu Ihrem Programm:
+////
+Es gibt zwei Möglichkeiten, ein externes Diff-Programm aufzurufen.
+Die erste Methode ist temporär:
+Setzen Sie einfach vor dem Aufruf von `git diff` die Umgebungsvariable `GIT_EXTERNAL_DIFF` auf den Pfad zu Ihrem Programm:
+////
+
+There are two ways to call an external diff program.
+The first method is temporary:
+just set the environment variable `GIT_EXTERNAL_DIFF` to the path to your program before calling `git diff`:
 
 [subs="macros,quotes"]
 --------
 $ *GIT_EXTERNAL_DIFF=&lt;/pfad/zum/diff-kommando&gt; git diff HEAD^*
 --------
 
-Die andere Möglichkeit ist persistent, erfordert aber ein wenig
-Konfiguration. Zunächst definieren Sie ein eigenes Diff-Kommando
-`<name>`:
+////
+Die andere Möglichkeit ist persistent, erfordert aber ein wenig Konfiguration.
+Zunächst definieren Sie ein eigenes Diff-Kommando `<name>`:
+////
+
+The other option is persistent, but requires some configuration.
+First you define your own diff command `<name>`:
 
 [subs="macros,quotes"]
 --------
 $ *git config diff.&lt;name&gt;.command &lt;/pfad/zum/diff-kommando&gt;*
 --------
 
-Das Kommando muss mit den oben erwähnten sieben Argumenten umgehen
-können. Nun müssen Sie über das Git-Attribut `diff` definieren,
-welches Diff-Programm aufgerufen wird. Schreiben Sie dazu
-z.B. folgende Zeilen in die Datei `.gitattributes`:
+////
+Das Kommando muss mit den oben erwähnten sieben Argumenten umgehen können.
+Nun müssen Sie über das Git-Attribut `diff` definieren, welches Diff-Programm aufgerufen wird.
+Schreiben Sie dazu z.B. folgende Zeilen in die Datei `.gitattributes`:
+////
+
+The command needs to be able to handle the above mentioned seven arguments.
+Now you have to use the git-attribute `diff` to define, which diff-program is called.
+To do this, write e.g. the following lines in the `.gitattributes` file:
 
 --------
 *.jpg diff=imgdiff
 *.pdf diff=pdfdiff
 --------
 
-Wenn Sie die Datei einchecken, müssen andere Nutzer auch entsprechende
-Kommandos für `imgdiff` bzw. `pdfdiff` gesetzt haben,
-sonst sehen sie die reguläre Ausgabe. Wollen Sie diese Einstellung nur
-für ein Repository vorgeben, schreiben Sie diese Informationen nach
-`.git/info/attributes`.
+////
+Wenn Sie die Datei einchecken, müssen andere Nutzer auch entsprechende Kommandos für `imgdiff` bzw. `pdfdiff` gesetzt haben, sonst sehen sie die reguläre Ausgabe.
+Wollen Sie diese Einstellung nur für ein Repository vorgeben, schreiben Sie diese Informationen nach `.git/info/attributes`.
+////
+
+When you check the file in, other users must also have set corresponding commands for `imgdiff` or `pdfdiff`, otherwise they will see the regular output.
+If you want to set this for one repository only, write this information to `.git/info/attributes`.
 
 [[sec.diff-immages]]
-==== Bilder vergleichen
+==== Compare pictures
+// ==== Bilder vergleichen
 
-Ein häufiger Anwendungsfall sind Bilder: Was hat sich zwischen zwei
-Versionen eines Bildes geändert? Das zu visualisieren, ist nicht immer
-einfach. Das Tool `compare` aus der ImageMagick-Suite markiert
-für Bilder gleicher Größe die Stellen, die sich geändert haben.  Auch
-kann man die beiden Bilder hintereinander animieren und durch das
-"`Flackern`" erkennen, wo das Bild geändert wurde.
+////
+Ein häufiger Anwendungsfall sind Bilder:
+Was hat sich zwischen zwei Versionen eines Bildes geändert?
+Das zu visualisieren, ist nicht immer einfach.
+Das Tool `compare` aus der ImageMagick-Suite markiert für Bilder gleicher Größe die Stellen, die sich geändert haben.
+Auch kann man die beiden Bilder hintereinander animieren und durch das "Flackern" erkennen, wo das Bild geändert wurde.
+////
 
-Stattdessen wollen wir ein Programm, das die beiden Bilder
-gegenüberstellt. Zwischen den beiden Bildern wird eine Art
-"`Differenz`" dargestellt: Alle Bereiche, in denen Änderungen
-aufgetreten sind, werden aus dem _neuen_ Bild auf weißen
-Untergrund kopiert. Das Diff zeigt also, welche Bereiche hinzugekommen
-sind.
+A common use case are pictures:
+What has changed between two versions of an image?
+To visualize this is not always easy.
+The tool `compare` from the ImageMagick suite marks the places that have changed for images of the same size.
+You can also animate the two images one after the other and recognize by the "flickering" where the image has changed.
 
-Dafür speichern wir folgendes Script unter
-`$HOME/bin/imgdiff`:{fn107}
+////
+Stattdessen wollen wir ein Programm, das die beiden Bilder gegenüberstellt.
+Zwischen den beiden Bildern wird eine Art "Differenz" dargestellt:
+Alle Bereiche, in denen Änderungen aufgetreten sind, werden aus dem _neuen_ Bild auf weißen Untergrund kopiert.
+Das Diff zeigt also, welche Bereiche hinzugekommen sind.
+////
 
+Instead, we want a program that compares the two images.
+Between the two images a kind of "difference" is displayed:
+All areas where changes have occurred are copied from the _new_ image onto a white background.
+So the diff shows which areas have been added.
+
+////
+Dafür speichern wir folgendes Script unter `$HOME/bin/imgdiff`:{fn107}
+////
+
+Therefore we save the following script under `$HOME/bin/imgdiff`:{fn107}
 
 --------
 #!/bin/sh
@@ -346,9 +502,11 @@ exec convert "$OLD" "$NEW" -alpha off \
     -background white -flatten x:
 --------
 
-Zuletzt müssen wir noch das Diff-Kommando konfigurieren und dessen
-Verwendung durch einen Eintrag in der Datei
-`.git/info/attributes` sicherstellen.
+////
+Zuletzt müssen wir noch das Diff-Kommando konfigurieren und dessen Verwendung durch einen Eintrag in der Datei `.git/info/attributes` sicherstellen.
+////
+
+Finally, we need to configure the diff command and make sure it is used by an entry in the `.git/info/attributes` file.
 
 [subs="macros,quotes"]
 --------
@@ -356,8 +514,13 @@ $ *git config diff.imgdiff.command ~/bin/imgdiff*
 $ *echo &#34;&#42;.gif diff=imgdiff&#34; &gt; .git/info/attributes*
 --------
 
+////
 Als Beispiel verwenden wir die Ursprungsversionen des Tux.{fn108}
 Zunächst fügen wir den schwarzweißen Tux ein:
+////
+
+As an example we use the original versions of the Tux.{fn108}
+First we insert the black and white Tux:
 
 [subs="macros,quotes"]
 --------
@@ -366,7 +529,11 @@ $ *wget pass:quotes[http://www.isc.tamu.edu/~lewing/linux/sit3-bw-tran.1.gif] \*
 $ *git add tux.gif &amp;&amp; git commit -m &#34;tux hinzugefügt&#34;*
 --------
 
+////
 Im nächsten Commit wird er durch eine eingefärbte Version ersetzt:
+////
+
+It will be replaced by a colored version in the next commit:
 
 [subs="macros,quotes"]
 --------
@@ -375,100 +542,138 @@ $ wget pass:quotes[http://www.isc.tamu.edu/~lewing/linux/sit3-bw**o**-tran.1.gif
 $ *git diff*
 --------
 
-Die Ausgabe des Kommandos `git diff` ist ein Fenster mit
-folgendem Inhalt: Links die alte, rechts die neue Version, und
-in der Mitte eine Maske derjenigen Teile des neuen Bildes, die anders
-als das alte sind.
+////
+Die Ausgabe des Kommandos `git diff` ist ein Fenster mit folgendem Inhalt:
+Links die alte, rechts die neue Version, und in der Mitte eine Maske derjenigen Teile des neuen Bildes, die anders als das alte sind.
+////
 
+The output of the `git diff` command is a window with the following content:
+On the left the old version, on the right the new version, and in the middle a mask of those parts of the new image that are different from the old.
 
-
+////
 .Die Ausgabe von `git diff` mit dem eigenen Diff-Programm `imgdiff`
+////
+.The output of `git diff` with the custom diff program `imgdiff`
 image::tux-diff.png[id="fig.tux-diff",scaledwidth="90%",width="90%"]
 
-Das Beispiel mit dem Tux inkl. Anleitung finden Sie auch in einem Repository
-unter: https://github.com/gitbuch/tux-diff-demo.
+////
+Das Beispiel mit dem Tux inkl. Anleitung finden Sie auch in einem Repository unter:
+https://github.com/gitbuch/tux-diff-demo.
+////
 
-
+The example with the Tux incl. manual can also be found in a repository at:
+https://github.com/gitbuch/tux-diff-demo.
 
 [[sec.hooks]]
 == Hooks
 
-Hooks bieten einen Mechanismus, in wichtige Git-Kommandos
-"`einzuhaken`" und eigene Aktionen auszuführen. In der Regel
-sind Hooks daher kleine Shell-Scripte, um automatisierte Aufgaben zu
-erfüllen, wie z.B. E-Mails zu versenden, sobald neue Commits
-hochgeladen werden, oder vor einem Commit auf Whitespace-Fehler zu
-überprüfen und ggf. eine Warnung auszugeben.
+////
+Hooks bieten einen Mechanismus, in wichtige Git-Kommandos "einzuhaken" und eigene Aktionen auszuführen.
+In der Regel sind Hooks daher kleine Shell-Scripte, um automatisierte Aufgaben zu erfüllen, wie z.B. E-Mails zu versenden, sobald neue Commits hochgeladen werden, oder vor einem Commit auf Whitespace-Fehler zu überprüfen und ggf. eine Warnung auszugeben.
+////
 
-Damit Hooks von Git ausgeführt werden, müssen sie im Verzeichnis
-`hooks/` im Git-Verzeichnis liegen, also unter
-`.git/hooks/` bzw. unter `hooks/` auf
-oberster Ebene bei Bare Repositories. Zudem müssen sie ausführbar
-sein.
+Hooks provide a mechanism to "hook" into important Git commands and perform your own actions.
+Therefore, hooks are usually small shell scripts to perform automated tasks, such as sending emails as soon as new commits are uploaded, or checking for whitespace errors before a commit and issuing a warning if necessary.
 
-Git installiert bei einem `git init` automatisch Beispiel-Hooks, diese
-tragen aber die Endung `<hook>.sample` und werden daher ohne das Zutun des Nutzers
-(Umbenennung der Dateien) nicht ausgeführt.
+////
+Damit Hooks von Git ausgeführt werden, müssen sie im Verzeichnis `hooks/` im Git-Verzeichnis liegen, also unter `.git/hooks/` bzw. unter `hooks/` auf oberster Ebene bei Bare Repositories.
+Zudem müssen sie ausführbar sein.
+////
 
+For hooks to be executed by Git, they must be located in the `hooks/` directory in the Git directory, i.e. under `.git/hooks/` or under `hooks/` at the top level for bare repositories.
+They must also be executable.
+
+////
+Git installiert bei einem `git init` automatisch Beispiel-Hooks, diese tragen aber die Endung `<hook>.sample` und werden daher ohne das Zutun des Nutzers (Umbenennung der Dateien) nicht ausgeführt.
+////
+
+Git automatically installs sample hooks on a `git init`, but these have the extension `<hook>.sample` and are therefore not executed without user intervention (renaming of files).
+
+////
 Einen mitgelieferten Hook aktivieren Sie also z.B. so:
+////
+
+You can activate a supplied hook e.g. like this:
 
 [subs="macros,quotes"]
 --------
 $ *mv .git/hooks/commit-msg.sample .git/hooks/commit-msg*
 --------
 
-Hooks kommen in zwei Klassen: solche, die lokal ausgeführt werden
-(Commit-Nachrichten bzw. Patches überprüfen, Aktionen nach einem
-Merge oder Checkout ausführen etc.), und solche, die
-serverseitig ausgeführt werden, wenn Sie Änderungen per `git
-  push` veröffentlichen.{fn109}
+////
+Hooks kommen in zwei Klassen: solche, die lokal ausgeführt werden (Commit-Nachrichten bzw. Patches überprüfen, Aktionen nach einem Merge oder Checkout ausführen etc.), und solche, die serverseitig ausgeführt werden, wenn Sie Änderungen per `git push` veröffentlichen.{fn109}
+////
 
-Hooks, deren Name mit `pre-` beginnt, können häufig dazu
-benutzt werden, zu entscheiden, ob eine Aktion ausgeführt wird oder
-nicht. Beendet sich ein `pre`-Hook nicht erfolgreich (d.h.
-mit einem Exit-Status ungleich Null), wird die Aktion
-abgebrochen. Eine technische Dokumentation der Funktionsweise finden
-Sie in der Man-Page `githooks(5)`.
+Hooks come in two classes: those that are executed locally (checking commit messages or patches, performing actions after a merge or checkout, etc.), and those that are executed server-side when you publish changes via `git push`.{fn109}
+
+////
+Hooks, deren Name mit `pre-` beginnt, können häufig dazu benutzt werden, zu entscheiden, ob eine Aktion ausgeführt wird oder nicht.
+Beendet sich ein `pre`-Hook nicht erfolgreich (d.h. mit einem Exit-Status ungleich Null), wird die Aktion abgebrochen.
+Eine technische Dokumentation der Funktionsweise finden Sie in der Man-Page `githooks(5)`.
+////
+
+Hooks whose name begins with `pre-` can often be used to decide whether or not to perform an action.
+If a `pre`-hook does not end successfully (i.e. with a non-zero exit status), the action is aborted.
+Technical documentation on how this works can be found in the `githooks(5)` man page.
 
 [[sec.hooks-commit]]
 === Commits
 
+////
+`pre-commit`:: Wird aufgerufen, bevor die Commit-Nachricht abgefragt wird.
+Beendet sich der Hook mit einem Wert ungleich Null, wird der Commit-Vorgang abgebrochen.
+Der per Default installierte Hook überprüft, ob eine neu hinzugefügte Datei Nicht-ASCII-Zeichen im Dateinamen trägt, und ob in den geänderten Dateien Whitespace-Fehler vorhanden sind.
+Mit der Option `-n` bzw.  `--no-verify` überspringt `git commit` diesen Hook.
+////
 
-`pre-commit`:: Wird aufgerufen, bevor die Commit-Nachricht abgefragt
-wird. Beendet sich der Hook mit einem Wert ungleich Null, wird der
-Commit-Vorgang abgebrochen. Der per Default installierte Hook
-überprüft, ob eine neu hinzugefügte Datei Nicht-ASCII-Zeichen im
-Dateinamen trägt, und ob in den geänderten Dateien Whitespace-Fehler vorhanden
-sind. Mit der Option `-n` bzw.  `--no-verify` überspringt `git commit`
-diesen Hook.
+`pre-commit`:: Is called before the commit message is queried.
+If the hook terminates with a non-zero value, the commit process is aborted.
+The hook installed by default checks whether a newly added file has non-ASCII characters in the file name and whether there are whitespace errors in the modified files.
+With the `-n` or `--no-verify` option, `git commit` skips this hook.
 
-`prepare-commit-msg`:: Wird ausgeführt, direkt bevor die Nachricht in
-einem Editor angezeigt wird. Erhält bis zu drei Parameter, von denen
-der erste die Datei ist, in der die Commit-Nachricht gespeichert ist,
-so dass sie editiert werden kann. Der Hook kann z.B. automatisiert
-Zeilen hinzufügen. Ein Exit-Status ungleich Null bricht den
-Commit-Vorgang ab. Dieser Hook kann allerdings nicht übersprungen
-werden und sollte daher nicht die Funktionalität von `pre-commit`
-duplizieren oder ersetzen.
+////
+`prepare-commit-msg`:: Wird ausgeführt, direkt bevor die Nachricht in einem Editor angezeigt wird.
+Erhält bis zu drei Parameter, von denen der erste die Datei ist, in der die Commit-Nachricht gespeichert ist, so dass sie editiert werden kann.
+Der Hook kann z.B. automatisiert Zeilen hinzufügen.
+Ein Exit-Status ungleich Null bricht den Commit-Vorgang ab.
+Dieser Hook kann allerdings nicht übersprungen werden und sollte daher nicht die Funktionalität von `pre-commit` duplizieren oder ersetzen.
+////
 
-`commit-msg`:: Wird ausgeführt, nachdem die Commit-Nachricht
-eingegeben wurde. Das einzige Argument ist die Datei, in der die
-Nachricht gespeichert ist, so dass sie modifiziert werden kann
-(Normalisierung). Dieser Hook kann durch `-n` bzw. `--no-verify`
-übersprungen werden; beendet er sich nicht erfolgreich, bricht der
-Commit-Vorgang ab.
+`prepare-commit-msg`:: Will be executed right before the message is displayed in an editor.
+Gets up to three parameters, the first of which is the file where the commit message is stored so that it can be edited.
+For example, the hook can add lines automatically.
+A non-zero exit status cancels the commit process.
+However, this hook cannot be skipped and therefore should not duplicate or replace the functionality of `pre-commit`.
 
+////
+`commit-msg`:: Wird ausgeführt, nachdem die Commit-Nachricht eingegeben wurde.
+Das einzige Argument ist die Datei, in der die Nachricht gespeichert ist, so dass sie modifiziert werden kann (Normalisierung).
+Dieser Hook kann durch `-n` bzw. `--no-verify` übersprungen werden; beendet er sich nicht erfolgreich, bricht der Commit-Vorgang ab.
+////
+
+`commit-msg`:: Will be executed after the commit message is entered.
+The only argument is the file where the message is stored, so that it can be modified (normalization).
+This hook can be skipped by `-n` or `--no-verify`; if it does not terminate successfully, the commit process is aborted.
+
+////
 `post-commit`:: Wird aufgerufen, nachdem ein Commit erstellt wurde.
+////
 
+`post-commit`:: Called after a commit has been created.
 
-Diese Hooks agieren nur lokal und dienen dazu, bestimmte Richtlinien
-bezüglich der Commits bzw. der Commit-Nachrichten durchzusetzen.
-Besonders der `pre-commit`-Hook ist dabei hilfreich.  Zum
-Beispiel zeigen manche Editoren nicht adäquat an, wenn am Ende der
-Zeile Leerzeichen sind oder Leerzeilen Leerzeichen enthalten. Das ist
-wiederum störend, wenn andere Entwickler neben regulären Änderungen
-auch noch Whitespace aufräumen müssen. Hier hilft Git mit folgendem
-Kommando:
+////
+Diese Hooks agieren nur lokal und dienen dazu, bestimmte Richtlinien bezüglich der Commits bzw. der Commit-Nachrichten durchzusetzen.
+Besonders der `pre-commit`-Hook ist dabei hilfreich.
+Zum Beispiel zeigen manche Editoren nicht adäquat an, wenn am Ende der Zeile Leerzeichen sind oder Leerzeilen Leerzeichen enthalten.
+Das ist wiederum störend, wenn andere Entwickler neben regulären Änderungen auch noch Whitespace aufräumen müssen.
+Hier hilft Git mit folgendem Kommando:
+////
+
+These hooks act only locally and are used to enforce certain policies regarding commits or commit messages.
+The `pre-commit` hook is especially useful for this.
+For example, some editors do not adequately indicate when there are spaces at the end of the line, or spaces contain spaces.
+Again, this is annoying when other developers have to clean up whitespace in addition to regular changes.
+This is where Git helps with the following command:
 
 [subs="macros,quotes"]
 --------
@@ -477,16 +682,23 @@ hooks.tex:82: trailing whitespace.
 *+* auch noch Whitespace aufräumen müssen._
 --------
 
-Die Option `--check` lässt `git diff` überprüfen, ob
-solche Whitespace-Fehler vorliegen, und beendet sich nur erfolgreich,
-wenn die Änderungen fehlerfrei sind. Schreiben Sie dieses Kommando in
-Ihren `pre-commit`-Hook, werden Sie immer gewarnt, wenn Sie
-Whitespace-Fehler einchecken wollen. Sind Sie ganz sicher, können Sie
-den Hook einfach temporär per `git commit -n` aussetzen.
+////
+Die Option `--check` lässt `git diff` überprüfen, ob solche Whitespace-Fehler vorliegen, und beendet sich nur erfolgreich, wenn die Änderungen fehlerfrei sind.
+Schreiben Sie dieses Kommando in Ihren `pre-commit`-Hook, werden Sie immer gewarnt, wenn Sie Whitespace-Fehler einchecken wollen.
+Sind Sie ganz sicher, können Sie den Hook einfach temporär per `git commit -n` aussetzen.
+////
 
-Ganz analog können Sie auch für eine Scriptsprache Ihrer Wahl das
-"`Syntax überprüfen`"-Kommando in diesem Hook speichern. So
-zum Beispiel folgender Block für Perl-Scripte:
+The `--check` option lets `git diff` check for such whitespace errors and will only exit successfully if the changes are error-free.
+If you write this command in your `pre-commit` hook, you will always be warned if you want to check in whitespace errors.
+If you are quite sure, you can simply suspend the hook temporarily with `git commit -n`.
+
+////
+Ganz analog können Sie auch für eine Scriptsprache Ihrer Wahl das "Syntax überprüfen"-Kommando in diesem Hook speichern.
+So zum Beispiel folgender Block für Perl-Scripte:
+////
+
+Similarly, you can also store the "Check Syntax" command for a script language of your choice in this hook.
+For example, the following block for Perl scripts:
 
 --------
 git diff --diff-filter=MA --cached --name-only |
@@ -498,102 +710,134 @@ done
 true
 --------
 
-Die Namen aller im Index veränderten Dateien (Diff-Filter
-`modified` und `added`, siehe auch
-<<sec.scripting-find-changes>>) werden
-an eine Subshell weitergeleitet, die pro Datei überprüft, ob die erste
-Zeile ein Perl-Script ist. Wenn ja, wird die Datei mit `perl
-  -c` überprüft. Falls sich ein Syntaxfehler in der Datei befindet,
-gibt das Kommando eine entsprechende Fehlermeldung aus, und das
-`exit 1` beendet den Hook, so dass Git den Commit-Vorgang
-abbricht, noch bevor ein Editor geöffnet wird, um die Commit-Nachricht
-einzugeben.
+////
+Die Namen aller im Index veränderten Dateien (Diff-Filter `modified` und `added`, siehe auch <<sec.scripting-find-changes>>) werden an eine Subshell weitergeleitet, die pro Datei überprüft, ob die erste Zeile ein Perl-Script ist.
+Wenn ja, wird die Datei mit `perl -c` überprüft.
+Falls sich ein Syntaxfehler in der Datei befindet, gibt das Kommando eine entsprechende Fehlermeldung aus, und das `exit 1` beendet den Hook, so dass Git den Commit-Vorgang abbricht, noch bevor ein Editor geöffnet wird, um die Commit-Nachricht einzugeben.
+////
 
-Das schließende `true` wird z.B. benötigt, wenn eine
-Nicht-Perl-Datei editiert wurde: Dann schlägt das If-Konstrukt fehl,
-die Shell gibt den Rückgabewert des letzten Kommandos wieder, und
-obwohl es nichts zu bemängeln gibt, wird Git den Commit nicht
-ausführen. Durch die Zeile `true` war der Hook erfolgreich,
-wenn alle Durchläufe der `while`-Schleife erfolgreich waren.
+The names of all files modified in the index (diff filter `modified` and `added`, see also <<sec.scripting-find-changes>>) are passed to a subshell that checks per file whether the first line is a Perl script.
+If so, the file is checked with `perl -c`.
+If there is a syntax error in the file, the command will issue an appropriate error message, and `exit 1` will terminate the hook, so Git will abort the commit process before an editor is opened to enter the commit message.
 
-Der Hook kann natürlich vereinfacht werden, wenn man annimmt, dass
-alle Perl-Dateien als `<name>.pl` vorliegen. Dann reicht
-der folgende Code:
+////
+Das schließende `true` wird z.B. benötigt, wenn eine Nicht-Perl-Datei editiert wurde:
+Dann schlägt das If-Konstrukt fehl, die Shell gibt den Rückgabewert des letzten Kommandos wieder, und obwohl es nichts zu bemängeln gibt, wird Git den Commit nicht ausführen.
+Durch die Zeile `true` war der Hook erfolgreich, wenn alle Durchläufe der `while`-Schleife erfolgreich waren.
+////
+
+The closing `true` is needed e.g. if a non-perl file was edited:
+Then the if construct fails, the shell returns the return value of the last command, and although there is nothing to complain about, Git will not execute the commit.
+With the line `true` the hook was successful if all passes of the `while` loop were successful.
+
+////
+Der Hook kann natürlich vereinfacht werden, wenn man annimmt, dass alle Perl-Dateien als `<name>.pl` vorliegen.
+Dann reicht der folgende Code:
+////
+
+The hook can of course be simplified by assuming that all Perl files are present as `<name>.pl`.
+Then the following code is sufficient:
 
 --------
 git ls-files -z -- _*.pl_ | xargs -z -n 1 perl -c
 --------
 
-Weil Sie im Zweifel nur die von Git verwalteten Dateien überprüfen
-wollen, eignet sich hier ein `git ls-files` besser als ein
-simples `ls`, denn das würde auch nicht getrackte Dateien, die
-auf `.pl` enden, auflisten.
+////
+Weil Sie im Zweifel nur die von Git verwalteten Dateien überprüfen wollen, eignet sich hier ein `git ls-files` besser als ein simples `ls`, denn das würde auch nicht getrackte Dateien, die auf `.pl` enden, auflisten.
+////
 
-Neben der Überprüfung der Syntax können Sie natürlich auch Programme
-im Stil von Lint einsetzen, die den Quellcode auf
-"`unschöne`" oder nicht portable Konstrukte überprüfen.
+Since you might want to check only the files managed by Git, a `git ls-files` is better than a simple `ls`, because that would also list untracked files ending in `.pl`.
 
-Solche Hooks sind äußerst sinnvoll, um nicht versehentlich
-fehlerhaften Code einzuchecken. Sind Warnungen unangebracht, können
-Sie den Hook `pre-commit` ja immer über die Option `-n`
-beim Committen überspringen.
+////
+Neben der Überprüfung der Syntax können Sie natürlich auch Programme im Stil von Lint einsetzen, die den Quellcode auf "unschöne" oder nicht portable Konstrukte überprüfen.
+////
+
+Besides checking the syntax, you can of course also use Lint style programs that check the source code for "unsightly" or non portable constructs.
+
+////
+Solche Hooks sind äußerst sinnvoll, um nicht versehentlich fehlerhaften Code einzuchecken.
+Sind Warnungen unangebracht, können Sie den Hook `pre-commit` ja immer über die Option `-n` beim Committen überspringen.
+////
+
+Such hooks are extremely useful to avoid accidentally checking in faulty code.
+If warnings are inappropriate, you can always skip the hook `pre-commit` by using the `-n` option when committing.
 
 [[sec.hooks-server]]
-=== Serverseitig
+=== Server side
+// === Serverseitig
 
-Die folgenden Hooks werden auf Empfängerseite von `git
-  receive-pack` aufgerufen, nachdem der Nutzer im lokalen Repository
-`git push` eingegeben hat.
+////
+Die folgenden Hooks werden auf Empfängerseite von `git receive-pack` aufgerufen, nachdem der Nutzer im lokalen Repository `git push` eingegeben hat.
+////
 
-Für einen Push-Vorgang erstellt `git send-pack` auf der lokalen
-Seite _ein_ Packfile (siehe auch <<sec.od>>), das
-von `git receive-pack` auf der Empfängerseite entgegengenommen
-wird. Ein solches Packfile enthält die neuen Werte einer oder mehrerer
-Referenzen sowie die Commits, die das Empfänger-Repository benötigt,
-um die Versionsgeschichte komplett abzubilden. Welche Commits das
-sind, handeln die beiden Seiten vorher aus (ähnlich einer
-Merge-Basis).
+The following hooks are called on the receiver side of `git receive-pack` after the user enters `git push` in the local repository.
 
+////
+Für einen Push-Vorgang erstellt `git send-pack` auf der lokalen Seite _ein_ Packfile (siehe auch <<sec.od>>), das von `git receive-pack` auf der Empfängerseite entgegengenommen wird.
+Ein solches Packfile enthält die neuen Werte einer oder mehrerer Referenzen sowie die Commits, die das Empfänger-Repository benötigt, um die Versionsgeschichte komplett abzubilden.
+Welche Commits das sind, handeln die beiden Seiten vorher aus (ähnlich einer Merge-Basis).
+////
 
+For a push operation, `git send-pack` creates _one_ packfile on the local side (see also <<sec.od>>), which is received by `git receive-pack` on the recipient side.
+Such a packfile contains the new values of one or more references as well as the commits required by the recipient repository to completely map the version history.
+The two sides negotiate which commits these are in advance (similar to a merge base).
 
-`pre-receive`:: Der Hook wird einmal aufgerufen und erhält auf
-Standard-Input eine Liste der geänderten Referenzen (Format
-s.u.). Wenn der Hook sich nicht erfolgreich beendet, verweigert `git
-receive-pack` die Annahme (der gesamte Push-Vorgang schlägt fehl).
+////
+`pre-receive`:: Der Hook wird einmal aufgerufen und erhält auf Standard-Input eine Liste der geänderten Referenzen (Format s.u.).
+Wenn der Hook sich nicht erfolgreich beendet, verweigert `git receive-pack` die Annahme (der gesamte Push-Vorgang schlägt fehl).
+////
 
-`update`:: Wird einmal _pro geänderter Referenz_ aufgerufen und erhält
-drei Argumente: den alten Stand der Referenz, den vorgeschlagenen
-neuen sowie den Namen der Referenz. Beendet sich der Hook nicht
-erfolgreich, wird das Update der einzelnen Referenz verweigert (im
-Gegensatz zu `pre-receive`, wo nur einem ganzen Packfile zugestimmt
-werden kann oder nicht).
+`pre-receive`:: The hook is called once and receives a list of changed references on standard input (see below for format).
+If the hook does not complete successfully, `git receive-pack` refuses to accept it (the whole push operation fails).
 
-`post-receive`:: Analog zu `pre-receive`, aber wird erst aufgerufen,
-_nachdem_ die Referenzen geändert wurden (kann also keinen Einfluss
-mehr nehmen, ob das Packfile angenommen wird oder nicht).
+////
+`update`:: Wird einmal _pro geänderter Referenz_ aufgerufen und erhält drei Argumente: den alten Stand der Referenz, den vorgeschlagenen neuen sowie den Namen der Referenz.
+Beendet sich der Hook nicht erfolgreich, wird das Update der einzelnen Referenz verweigert (im Gegensatz zu `pre-receive`, wo nur einem ganzen Packfile zugestimmt werden kann oder nicht).
+////
 
+`update`:: Is called once _per changed reference_ and gets three arguments: the old state of the reference, the proposed new one and the name of the reference.
+If the hook does not end successfully, the update of the single reference is denied (in contrast to `pre-receive`, where only a whole packfile can be agreed or not).
 
-`post-update`:: Nachdem alle Referenzen geändert wurden, wird dieser
-Hook einmal ausgeführt und erhält die Namen aller geänderten
-Referenzen als Argumente. Der Hook bekommt aber nicht mitgeteilt, auf
-welchem Stand die Referenzen vorher waren bzw.  jetzt sind. (Dafür
-können Sie `post-receive` verwenden.) Ein typischer Anwendungsfall ist
-ein Aufruf von `git update-server-info`, der nötig ist, wenn Sie ein
-Repository per HTTP anbieten wollen.
+////
+`post-receive`:: Analog zu `pre-receive`, aber wird erst aufgerufen, _nachdem_ die Referenzen geändert wurden (kann also keinen Einfluss mehr nehmen, ob das Packfile angenommen wird oder nicht).
+////
+
+`post-receive`:: Similar to `pre-receive`, but is called only _after_ the references have been changed (so it has no influence on whether the packfile is accepted or not).
+
+////
+`post-update`:: Nachdem alle Referenzen geändert wurden, wird dieser Hook einmal ausgeführt und erhält die Namen aller geänderten Referenzen als Argumente.
+Der Hook bekommt aber nicht mitgeteilt, auf welchem Stand die Referenzen vorher waren bzw. jetzt sind.
+(Dafür können Sie `post-receive` verwenden.)
+Ein typischer Anwendungsfall ist ein Aufruf von `git update-server-info`, der nötig ist, wenn Sie ein Repository per HTTP anbieten wollen.
+////
+
+`post-update`:: After all references are changed, this hook is executed once and gets the names of all changed references as arguments.
+But the hook is not told, on which state the references were before or are now.
+(You can use `post-receive` for this.)
+A typical use case is a call to `git update-server-info`, which is necessary if you want to provide a repository via HTTP.
 
 
 [[sec.hooks-receive-format]]
-==== Das Format der receive-Hooks
+==== The format of the receive hooks
+// ==== Das Format der receive-Hooks
 
-Die Hooks `pre-receive` und `post-receive` erhalten
-eine äquivalente Eingabe auf Standard-Input. Das Format ist das
-folgende:
+////
+Die Hooks `pre-receive` und `post-receive` erhalten eine äquivalente Eingabe auf Standard-Input.
+Das Format ist das folgende:
+////
+
+The `pre-receive` and `post-receive` hooks get an equivalent input to standard input.
+The format is the following:
 
 --------
 <alte-sha1> <neue-sha1> <name-der-referenz>
 --------
 
+////
 Das kann zum Beispiel so aussehen:
+////
+
+This can look like this, for example:
 
 --------
 0000000...0000000 ca0e8cf...12b14dc refs/heads/newbranch
@@ -601,12 +845,21 @@ ca0e8cf...12b14dc 0000000...0000000 refs/heads/oldbranch
 6618257...93afb8d 62dec1c...ac5373b refs/heads/master
 --------
 
-Eine SHA-1-Summe aus lauter Nullen bedeutet ``nicht
-vorhanden__. Die erste Zeile beschreibt also eine Referenz, die
-vorher nicht vorhanden war, während die zweite Zeile das Löschen einer
-Referenz bedeutet. Die dritte Zeile stellt ein reguläres Update dar.
+////
+Eine SHA-1-Summe aus lauter Nullen bedeutet "nicht vorhanden".
+Die erste Zeile beschreibt also eine Referenz, die vorher nicht vorhanden war, während die zweite Zeile das Löschen einer Referenz bedeutet.
+Die dritte Zeile stellt ein reguläres Update dar.
+////
 
+A SHA-1 sum of all zeros means "not present".
+So the first line describes a reference that was not present before, while the second line means the deletion of a reference.
+The third line represents a regular update.
+
+////
 Sie können die Referenzen bequem mit folgender Schleife einlesen:
+////
+
+You can easily read the references with the following loop:
 
 --------
 while read old new ref; do
@@ -614,29 +867,37 @@ while read old new ref; do
 done
 --------
 
-In `old` und `new` sind dann die SHA-1-Summen
-gespeichert, während `ref` den Namen der Referenz enthält. Ein
-`git log $old..$new` würde alle neuen Commits auflisten. Die
-Standard-Ausgabe wird an `git send-pack` auf der Seite, auf der
-`git push` eingegeben wurde, weitergeleitet. Sie können also
-mögliche Fehlermeldungen oder Reports unmittelbar an den Nutzer
-weiterleiten.
+////
+In `old` und `new` sind dann die SHA-1-Summen gespeichert, während `ref` den Namen der Referenz enthält.
+Ein `git log $old..$new` würde alle neuen Commits auflisten.
+Die Standard-Ausgabe wird an `git send-pack` auf der Seite, auf der `git push` eingegeben wurde, weitergeleitet.
+Sie können also mögliche Fehlermeldungen oder Reports unmittelbar an den Nutzer weiterleiten.
+////
+
+In `old` and `new` then the SHA-1 sums are stored, while `ref` contains the name of the reference.
+A `git log $old..$new` would list all new commits.
+The default output is forwarded to `git send-pack` on the page where `git push` was entered.
+So you can forward any error messages or reports directly to the user.
 
 [[sec.hooks-email]]
-==== E-Mails verschicken
+==== Sending e-mails
+// ==== E-Mails verschicken
 
-Eine praktische Anwendung des `post-receive`-Hooks ist, E-Mails
-zu verschicken, sobald neue Commits im Repository vorliegen. Das
-können Sie natürlich selbst programmieren, allerdings gibt es schon
-ein fertiges Script, das mit Git geliefert wird. Im
-Quellverzeichnis von Git finden Sie es unter
-`contrib/hooks/post-receive-email`, manche Distributionen,
-z.B. Debian, installieren es auch zusammen mit Git nach
-`/usr/share/doc/git/contrib/hooks/post-receive-email`.
+////
+Eine praktische Anwendung des `post-receive`-Hooks ist, E-Mails zu verschicken, sobald neue Commits im Repository vorliegen.
+Das können Sie natürlich selbst programmieren, allerdings gibt es schon ein fertiges Script, das mit Git geliefert wird.
+Im Quellverzeichnis von Git finden Sie es unter `contrib/hooks/post-receive-email`, manche Distributionen, z.B. Debian, installieren es auch zusammen mit Git nach `/usr/share/doc/git/contrib/hooks/post-receive-email`.
+////
 
-Sobald Sie den Hook in das Unterverzeichnis `hooks/` Ihres Bare
-Repositorys kopiert und ausführbar gemacht haben, können Sie noch die
-Konfiguration entsprechend anpassen:
+A practical use of the `post-receive` hook is to send out emails as soon as new commits are available in the repository.
+You can program this yourself, of course, but there is a ready-made script that comes with Git.
+You can find it in the Git source directory under `contrib/hooks/post-receive-email`, and some distributions, such as Debian, also install it along with Git to `/usr/share/doc/git/contrib/hooks/post-receive-email`.
+
+////
+Sobald Sie den Hook in das Unterverzeichnis `hooks/` Ihres Bare Repositorys kopiert und ausführbar gemacht haben, können Sie noch die Konfiguration entsprechend anpassen:
+////
+
+Once you have copied the hook into the `hooks/` subdirectory of your bare repository and made it executable, you can adjust the configuration accordingly:
 
 [subs="macros,quotes"]
 --------
@@ -648,208 +909,294 @@ $ *less config*
   emailprefix = "[project] "
 --------
 
+////
+Damit wird für jeden Push-Vorgang pro Referenz eine Mail mit einer Zusammenfassung der neuen Commits verschickt.
+Die Mail geht an alle Empfänger, die in `hooks.mailinglist` definiert sind, und stammt von `hooks.envelopesender`.
+Der Subject-Zeile wird das `hooks.emailprefix` vorangestellt, so dass die E-Mail leichter wegsortiert werden kann.
+Weitere Optionen sind in den Kommentaren des Hooks dokumentiert.
+////
 
-Damit wird für jeden Push-Vorgang pro Referenz eine Mail mit einer
-Zusammenfassung der neuen Commits verschickt. Die Mail geht an alle
-Empfänger, die in `hooks.mailinglist` definiert sind, und
-stammt von `hooks.envelopesender`. Der
-Subject-Zeile wird das `hooks.emailprefix` vorangestellt, so
-dass die E-Mail leichter wegsortiert werden kann. Weitere Optionen
-sind in den Kommentaren des Hooks dokumentiert.
+This means that for each push operation per reference, a mail is sent with a summary of the new commits.
+The mail goes to all recipients defined in `hooks.mailinglist` and comes from `hooks.envelopesender`.
+The subject line is prefixed with the `hooks.emailprefix`, so that the mail can be sorted away more easily.
+More options are documented in the comments of the hooks.
 
 [[sec.hooks-update]]
-==== Der update-Hook
+==== The update hook
+// ==== Der update-Hook
 
+////
 Der `update`-Hook wird für jede Referenz einzeln aufgerufen.
-Er eignet sich daher besonders gut, eine Art
-"`Zugriffsregelung`" auf bestimmte Branches zu implementieren.
+Er eignet sich daher besonders gut, eine Art "Zugriffsregelung" auf bestimmte Branches zu implementieren.
+////
 
-Tatsächlich wird der `update`-Hook zum Beispiel von Gitolite
-(siehe <<sec.gitolite>>) genutzt, um zu entscheiden, ob ein
-Branch modifiziert werden darf oder nicht. Gitolite implementiert den
-Hook als Perl-Script, das überprüft, ob die entsprechende Berechtigung
-vorliegt, und sich entsprechend mit dem Rückgabewert Null oder nicht
-Null beendet.
+The `update` hook is called for each reference individually.
+It is therefore particularly well suited to implement a kind of "access control" to certain branches.
+
+////
+Tatsächlich wird der `update`-Hook zum Beispiel von Gitolite (siehe <<sec.gitolite>>) genutzt, um zu entscheiden, ob ein Branch modifiziert werden darf oder nicht.
+Gitolite implementiert den Hook als Perl-Script, das überprüft, ob die entsprechende Berechtigung vorliegt, und sich entsprechend mit dem Rückgabewert Null oder nicht Null beendet.
+////
+
+In fact, the `update` hook is used by Gitolite (see <<sec.gitolite>>) to decide whether a branch may be modified or not.
+Gitolite implements the hook as a Perl script that checks whether the appropriate permission is present and terminates with a zero or non-zero return value accordingly.
 
 [[sec.hooks-deploy]]
-==== Deployment über Hooks
+==== Deployment via hooks
+// ==== Deployment über Hooks
 
-Git versteht sich als Versionsverwaltungssystem und weiß nichts von
-Deployment-Prozessen. Über den Update-Hook können Sie allerdings –
-z.B. für Web-Applikationen – ein einfaches Deployment-Verfahren
-implementieren.
+////
+Git versteht sich als Versionsverwaltungssystem und weiß nichts von Deployment-Prozessen.
+Über den Update-Hook können Sie allerdings – z.B. für Web-Applikationen – ein einfaches Deployment-Verfahren implementieren.
+////
 
-Der folgende `update`-Hook wird, sofern der
-`master`-Branch geändert wurde, die Änderungen auf
-`/var/www/www.example.com` replizieren:
+Git is a version control system and knows nothing about deployment processes.
+However, you can use the update hook to implement a simple deployment procedure - e.g. for web applications.
+
+////
+Der folgende `update`-Hook wird, sofern der `master`-Branch geändert wurde, die Änderungen auf `/var/www/www.example.com` replizieren:
+////
+
+The following `update` hook will, if the `master` branch has changed, replicate the changes to `/var/www/www.example.com`:
 
 --------
 [ "$3" = "refs/heads/master" ] || exit 0
 env GIT_WORK_TREE=/var/www/www.example.com git checkout -f
 --------
 
-Sobald Sie also neue Commits per `git push` in den
-Master-Branch des Servers hochladen, wird dieser Hook die Web-Präsenz
-automatisch aktualisieren.
+////
+Sobald Sie also neue Commits per `git push` in den Master-Branch des Servers hochladen, wird dieser Hook die Web-Präsenz automatisch aktualisieren.
+////
+
+So as soon as you upload new commits via `git push` to the server's master branch, this hook will automatically update the web presence.
 
 [[sec.hooks-am]]
-=== Patches anwenden
+=== Apply patches
+// === Patches anwenden
 
-Die folgenden Hooks werden jeweils von `git am` aufgerufen, wenn
-ein oder mehrere Patches angewendet werden.
+////
+Die folgenden Hooks werden jeweils von `git am` aufgerufen, wenn ein oder mehrere Patches angewendet werden.
+////
+
+The following hooks are each called by `git am` when one or more patches are applied.
+
+////
+`applypatch-msg`:: Wird aufgerufen, bevor ein Patch angewendet wird.
+Der Hook erhält als einzigen Parameter die Datei, in der die Commit-Nachricht des Patches gespeichert ist.
+Der Hook kann die Nachricht bei Bedarf verändern.
+Ein Exit-Status ungleich Null veranlasst `git am`, den Patch nicht anzunehmen.
+////
+
+`applypatch-msg`:: Is called before a Patch is applied.
+The hook receives as its only parameter the file where the commit message of the patch is stored.
+The hook can change the message if necessary.
+A non-zero exit status causes `git am` not to accept the patch.
 
 
-`applypatch-msg`:: Wird aufgerufen, bevor ein Patch angewendet
-wird. Der Hook erhält als einzigen Parameter die Datei, in der die
-Commit-Nachricht des Patches gespeichert ist.  Der Hook kann die
-Nachricht bei Bedarf verändern. Ein Exit-Status ungleich Null
-veranlasst `git am`, den Patch nicht anzunehmen.
+////
+`pre-applypatch`:: Wird aufgerufen, nachdem ein Patch angewendet wurde, aber bevor die Änderung committet wird.
+Ein Exit-Status ungleich Null veranlasst `git am`, den Patch nicht anzunehmen.
+////
 
-`pre-applypatch`:: Wird aufgerufen, nachdem ein Patch angewendet
-wurde, aber bevor die Änderung committet wird.  Ein Exit-Status
-ungleich Null veranlasst `git am`, den Patch nicht anzunehmen.
+`pre-applypatch`:: Called after a patch has been applied, but before the change is committed.
+A non-zero exit status causes `git am` not to accept the patch.
 
-`post-applypatch`:: Wird aufgerufen, nachdem ein Patch eingepflegt
-wurde.
+////
+`post-applypatch`:: Wird aufgerufen, nachdem ein Patch eingepflegt wurde.
+////
 
+`post-applypatch`:: Is called after a patch has been applied.
 
-Die per Default installierten Hooks führen, sofern aktiviert, die
-entsprechenden Commit-Hooks `commit-msg` und
-`pre-commit` aus.
+////
+Die per Default installierten Hooks führen, sofern aktiviert, die entsprechenden Commit-Hooks `commit-msg` und `pre-commit` aus.
+////
+
+The hooks installed by default execute the corresponding commit hooks `commit-msg` and `pre-commit`, if enabled.
 
 [[sec.hooks-misc]]
-=== Sonstige Hooks
+=== Other Hooks
+// === Sonstige Hooks
 
+////
+`pre-rebase`:: Wird ausgeführt, bevor ein Rebase-Prozess beginnt.
+Erhält als Argumente die Referenzen, die auch dem Rebase-Kommando übergeben werden (also erhält der Hook z.B. bei dem Kommando `git rebase master topic` die Argumente `master` und `topic`).
+Anhand des Exit-Status entscheidet `git rebase`, ob der Rebase-Vorgang ausgeführt wird oder nicht.
+////
 
-
-`pre-rebase`:: Wird ausgeführt, bevor ein Rebase-Prozess
-beginnt. Erhält als Argumente die Referenzen, die auch dem
-Rebase-Kommando übergeben werden (also erhält der Hook z.B. bei dem
-Kommando `git rebase master topic` die Argumente `master` und
-`topic`). Anhand des Exit-Status entscheidet `git rebase`, ob der
-Rebase-Vorgang ausgeführt wird oder nicht.
+`pre-rebase`:: Is executed before a rebase process starts.
+Gets as arguments the references that are also passed to the rebase command (e.g. for the `git rebase master topic` command, the hook gets the arguments `master` and `topic`).
+Based on the exit status `git rebase` decides whether the rebase process is executed or not.
 
 // TODO(mw/jp): Können wir hier wieder sichtbare Leerzeichen haben?
-// Zumindest in meinem lokalen AsciiDoc macht das nur "normale"
-// Leerzeichen hin. (Ich will \textvisiblespace)
+// Zumindest in meinem lokalen AsciiDoc macht das nur "normale" Leerzeichen hin.
+// (Ich will \textvisiblespace)
 
-`pre-push`:: Wird ausgeführt, bevor ein Push-Vorgang startet. Erhält auf
-Standard-Input Zeilen der Form
-`<lokale-ref>`&#x2423;`<lokale-sha1>`&#x2423;`<remote-ref>`&#x2423;`<remote-sha1>`.
-Beendet sich der Hook nicht erfolgreich, so wird der Push-Vorgang
-abgebrochen.
+// TODO(mw/jp): Can we have visible spaces here again?
+// At least in my local AsciiDoc this only makes "normal" spaces.
+// (I want \textvisiblespace)
 
-`post-rewrite`:: Wird von Kommandos aufgerufen, die Commits
-umschreiben (momentan nur `git commit --amend` und `git rebase`).
-Erhält auf Standard-Input eine Liste im Format
-`<alte-sha1>`&#x2423;`<neue-sha1>`.
+////
+`pre-push`:: Wird ausgeführt, bevor ein Push-Vorgang startet.
+Erhält auf Standard-Input Zeilen der Form `<lokale-ref>`&#x2423;`<lokale-sha1>`&#x2423;`<remote-ref>`&#x2423;`<remote-sha1>`.
+Beendet sich der Hook nicht erfolgreich, so wird der Push-Vorgang abgebrochen.
+////
 
-`post-checkout`:: Wird nach einem Checkout aufgerufen. Die ersten
-beiden Parameter sind die alte und neue Referenz, auf die `HEAD`
-zeigt. Der dritte Parameter ist ein Flag, das anzeigt, ob ein Branch
-gewechselt wurde (`1`) oder einzelne Dateien ausgecheckt wurden (`0`).
+`pre-push`:: Is executed before a push operation starts.
+Receives on standard input lines of the form `<locale-ref>`&#x2423;`<locale-sha1>`&#x2423;`<remote-ref>`&#x2423;`<remote-sha1>`.
+If the hook does not terminate successfully, the push process is aborted.
 
-`post-merge`:: Wird ausgeführt, wenn ein Merge erfolgreich beendet
-wurde. Der Hook erhält als Argument eine `1`, wenn der Merge ein sog.
-Squash-Merge war, also ein Merge, der keinen Commit erstellt, sondern
-nur die Dateien im Working Tree bearbeitet hat.
+////
+`post-rewrite`:: Wird von Kommandos aufgerufen, die Commits umschreiben (momentan nur `git commit --amend` und `git rebase`).
+Erhält auf Standard-Input eine Liste im Format `<alte-sha1>`&#x2423;`<neue-sha1>`.
+////
 
-`pre-auto-gc`:: Wird aufgerufen, bevor `git gc --auto` ausgeführt
-wird.  Verhindert die Ausführung der automatischen Garbage-Collection,
-wenn der Rückgabewert ungleich Null ist.
+`post-rewrite`:: Is called by commands that rewrite commits (currently only `git commit --amend` and `git rebase`).
+Receives a list in the format `<old-sha1>`&#x2423;`<new-sha1>` on standard input.
 
+////
+`post-checkout`:: Wird nach einem Checkout aufgerufen.
+Die ersten beiden Parameter sind die alte und neue Referenz, auf die `HEAD` zeigt.
+Der dritte Parameter ist ein Flag, das anzeigt, ob ein Branch gewechselt wurde (`1`) oder einzelne Dateien ausgecheckt wurden (`0`).
+////
 
-Die `post-checkout`- und `post-commit`-Hooks können Sie
-gut verwenden, um Git "`echte`" Dateizugriffsrechte
-beizubringen. Ein Blob-Objekt spiegelt nämlich nicht genau den Inhalt
-einer Datei und ihrer Zugriffsrechte wider. Stattdessen kennt Git nur
-"`ausführbar`" oder "`nicht ausführbar`".{fn110}
+`post-checkout`:: Is called after a checkout.
+The first two parameters are the old and new reference to which `HEAD` points.
+The third parameter is a flag that indicates whether a branch has been changed (`1`) or individual files have been checked out (`0`).
 
-Das im Git-Quellverzeichnis unter
-`contrib/hooks/setgitperms.perl` abgelegte
-Script bietet eine vorgefertigte Lösung, die Sie in die o.g. Hooks
-integrieren können.  Das Script speichert die wirklichen
-Zugriffsrechte in einer Datei `.gitmeta` ab. Wenn Sie das
-Einlesen (Option `-r`) im `pre-commit`-Hook vornehmen
-und die Hooks `post-checkout` und `post-merge` mit dem
-Kommando zum Schreiben der Rechte ausstatten (Option `-w`),
-dann sollten die Zugriffsrechte Ihrer Dateien nun persistent sein. Für
-die genauen Kommandos siehe die Kommentare in der Datei.
+////
+`post-merge`:: Wird ausgeführt, wenn ein Merge erfolgreich beendet wurde.
+Der Hook erhält als Argument eine `1`, wenn der Merge ein sog. Squash-Merge war, also ein Merge, der keinen Commit erstellt, sondern nur die Dateien im Working Tree bearbeitet hat.
+////
 
-Die Zugriffsrechte sind natürlich nur zwischen Checkouts stabil --
-sofern Sie die Datei `.gitmeta` nicht einchecken und die
-Benutzung der Hooks forcieren, bekommen Klone dieses Repositorys
-natürlich nur die "`einfachen`" Zugriffsrechte.
+`post-merge`:: Will be executed if a merge was successfully completed.
+The hook gets a `1` as argument if the merge was a so called squash-merge, i.e. a merge that did not create a commit but only processed the files in the working tree.
 
+////
+`pre-auto-gc`:: Wird aufgerufen, bevor `git gc --auto` ausgeführt wird.
+Verhindert die Ausführung der automatischen Garbage-Collection, wenn der Rückgabewert ungleich Null ist.
+////
 
+`pre-auto-gc`:: Is called before `git gc --auto` is executed.
+Prevents execution of the automatic garbage collection if the return value is not zero.
 
+////
+Die `post-checkout`- und `post-commit`-Hooks können Sie gut verwenden, um Git "echte" Dateizugriffsrechte beizubringen.
+Ein Blob-Objekt spiegelt nämlich nicht genau den Inhalt einer Datei und ihrer Zugriffsrechte wider.
+Stattdessen kennt Git nur "ausführbar" oder "nicht ausführbar".{fn110}
+////
+
+You can use the `post-checkout` and `post-commit` hooks to teach Git "real" file permissions.
+This is because a blob object does not accurately reflect the contents of a file and its access rights.
+Instead, Git only knows "executable" or "non-executable".{fn110}
+
+////
+Das im Git-Quellverzeichnis unter `contrib/hooks/setgitperms.perl` abgelegte Script bietet eine vorgefertigte Lösung, die Sie in die o.g. Hooks integrieren können.
+Das Script speichert die wirklichen Zugriffsrechte in einer Datei `.gitmeta` ab.
+Wenn Sie das Einlesen (Option `-r`) im `pre-commit`-Hook vornehmen und die Hooks `post-checkout` und `post-merge` mit dem Kommando zum Schreiben der Rechte ausstatten (Option `-w`), dann sollten die Zugriffsrechte Ihrer Dateien nun persistent sein.
+Für die genauen Kommandos siehe die Kommentare in der Datei.
+////
+
+The script stored in the git source directory under `contrib/hooks/setgitperms.perl` provides a ready-made solution that you can integrate into the above hooks.
+The script stores the real access rights in a `.gitmeta` file.
+If you do the read-in (option `-r`) in the `pre-commit` hook and give the hooks `post-checkout` and `post-merge` the command to write permissions (option `-w`), the permissions of your files should now be persistent.
+See the comments in the file for the exact commands.
+
+////
+Die Zugriffsrechte sind natürlich nur zwischen Checkouts stabil -- sofern Sie die Datei `.gitmeta` nicht einchecken und die Benutzung der Hooks forcieren, bekommen Klone dieses Repositorys natürlich nur die "einfachen" Zugriffsrechte.
+////
+
+The access rights are of course only stable between checkouts - unless you check in the `.gitmeta` file and force the use of the hooks, clones of this repository will of course only get the "basic" access rights.
 
 [[sec.scripting]]
-== Eigene Git-Kommandos schreiben
+== Writing your own Git commands
+// == Eigene Git-Kommandos schreiben
 
-Git folgt mit seiner Einteilung in Subkommandos der Unix-Philosophie
-"`Ein Tool, ein Job`". Außerdem teilt es die Subkommandos in
-zwei Kategorien: _Porcelain_ und _Plumbing_.
+////
+Git folgt mit seiner Einteilung in Subkommandos der Unix-Philosophie "Ein Tool, ein Job".
+Außerdem teilt es die Subkommandos in zwei Kategorien: _Porcelain_ und _Plumbing_.
+////
 
-Porcelain bezeichnet das "`gute Porzellan`", das für den
-Endnutzer aus dem Schrank geholt wird: ein aufgeräumtes
-Nutzerinterface und menschenlesbare Ausgaben. Die Plumbing-Kommandos
-hingegen werden vor allem für die "`Klempnerarbeit`" in
-Scripten verwendet und haben eine maschinenlesbare Ausgabe (meist
-zeilenweise mit eindeutigen Trennzeichen).
+Git follows the Unix philosophy of "one tool, one job" with its division into subcommands.
+It also divides the subcommands into two categories: _Porcelain_ and _Plumbing_.
 
-Tatsächlich ist ein wesentlicher Teil der Porcelain-Kommandos als
-Shell-Script realisiert. Sie verwenden intern die diversen
-Plumbing-Kommandos, präsentieren aber nach außen hin ein
-verständliches Interface. Die Kommandos `rebase`, `am`,
-`bisect` und `stash` sind nur einige Beispiele.
+////
+Porcelain bezeichnet das "gute Porzellan", das für den Endnutzer aus dem Schrank geholt wird: ein aufgeräumtes Nutzerinterface und menschenlesbare Ausgaben.
+Die Plumbing-Kommandos hingegen werden vor allem für die "Klempnerarbeit" in Scripten verwendet und haben eine maschinenlesbare Ausgabe (meist zeilenweise mit eindeutigen Trennzeichen).
+////
 
-Es ist daher sinnvoll und einfach, selbst Shell-Scripte zu schreiben,
-um häufig auftretende Aufgaben in Ihrem Arbeitsablauf zu
-automatisieren. Das können zum Beispiel Scripte sein, die den
-Release-Prozess der Software steuern, automatische Changelogs
-erstellen oder andere auf das Projekt zugeschnittene Operationen.
+Porcelain refers to the "good porcelain" that is taken out of the cupboard for the end user: a tidy user interface and human-readable output.
+Plumbing commands, on the other hand, are mainly used for "plumbing work" in scripts and have a machine-readable output (usually line by line with unique separators).
 
-Ein eigenes Git-Kommando zu schreiben, ist denkbar einfach: Sie müssen
-lediglich eine ausführbare Datei in einem Verzeichnis Ihres
-`$PATH` ablegen (also z.B. in
-`~/bin`), dessen Name mit `git-`
-beginnt. Wenn Sie `git <kommando>` eingeben und
-`<kommando>` ist weder ein Alias noch ein bekanntes Kommando,
-dann versucht Git einfach, `git-<kommando>` auszuführen.
+////
+Tatsächlich ist ein wesentlicher Teil der Porcelain-Kommandos als Shell-Script realisiert.
+Sie verwenden intern die diversen Plumbing-Kommandos, präsentieren aber nach außen hin ein verständliches Interface.
+Die Kommandos `rebase`, `am`, `bisect` und `stash` sind nur einige Beispiele.
+////
 
+In fact, a substantial part of the Porcelain commands is implemented as shell script.
+They use the various plumbing commands internally, but present a comprehensible interface to the outside.
+The commands `rebase`, `am`, `bisect` and `stash` are just a few examples.
+
+////
+Es ist daher sinnvoll und einfach, selbst Shell-Scripte zu schreiben, um häufig auftretende Aufgaben in Ihrem Arbeitsablauf zu automatisieren.
+Das können zum Beispiel Scripte sein, die den Release-Prozess der Software steuern, automati
+sche Changelogs erstellen oder andere auf das Projekt zugeschnittene Operationen.
+////
+
+It is therefore useful and easy to write your own shell scripts to automate frequently occurring tasks in your workflow.
+These could be scripts that control the release process of the software, create automatic changelogs or other operations tailored to the project.
+
+////
+Ein eigenes Git-Kommando zu schreiben, ist denkbar einfach:
+Sie müssen lediglich eine ausführbare Datei in einem Verzeichnis Ihres `$PATH` ablegen (also z.B. in `~/bin`), dessen Name mit `git-` beginnt.
+Wenn Sie `git <kommando>` eingeben und `<kommando>` ist weder ein Alias noch ein bekanntes Kommando, dann versucht Git einfach, `git-<kommando>` auszuführen.
+////
+
+Writing your own git command is very easy:
+You just have to place an executable file in a directory of your `$PATH` (e.g. in `{tilde}/bin`) whose name starts with `git-`.
+If you type `git <command>` and `<command>` is neither an alias nor a known command, Git will simply try to run `git-<command>`.
+
+////
+[TIP]
+========
+Auch wenn Sie prinzipiell Scripte in einer beliebigen Sprache schreiben können, empfehlen wir Ihnen die Verwendung von Shell-Scripten:
+Nicht nur sind sie für Außenstehende leichter verständlich, vor allem aber sind die typischen Operationen, mit denen man Git-Kommandos kombiniert – Programme aufrufen, Ausgabeum- bzw. -weiterleitung – mit der Shell "intuitiv" machbar und bedürfen keiner umständlichen Konstrukte, wie z.B. in Perl mit `qx()` oder in Python mit `os.popen()`.
+
+Wenn Sie Shell-Scripte schreiben, achten Sie bitte auf POSIX-Kompatibilität!{fn111}
+Dazu gehört insbesondere, keine "Bashismen" wie `[[ ... ]]` zu verwenden (die POSIX-Entsprechung lautet `[ ... ]`).
+Wenn Ihr Script nicht auch problemlos mit der Dash{empty}{fn112} läuft, sollten Sie die verwendete Shell explizit in der Shebang-Zeile angeben, z.B. via `#!/bin/bash`.
+========
+////
 
 [TIP]
 ========
-Auch wenn Sie prinzipiell Scripte in einer beliebigen Sprache
-schreiben können, empfehlen wir Ihnen die Verwendung von
-Shell-Scripten: Nicht nur sind sie für Außenstehende leichter
-verständlich, vor allem aber sind die typischen Operationen, mit denen
-man Git-Kommandos kombiniert – Programme aufrufen, Ausgabeum- bzw.
--weiterleitung – mit der Shell "`intuitiv`" machbar und bedürfen
-keiner umständlichen Konstrukte, wie z.B. in Perl mit `qx()` oder in
-Python mit `os.popen()`.
+Even if you can write scripts in any language you like, we recommend using shell scripts:
+Not only are they easier to understand for outsiders, but above all, the typical operations used to combine Git commands - calling programs, redirecting output - are "intuitively" possible with the shell and do not require any complicated constructs, such as `qx()` in Perl or `os.popen()` in Python.
 
-Wenn Sie Shell-Scripte schreiben, achten Sie bitte auf
-POSIX-Kompatibilität!{fn111}
-Dazu gehört insbesondere, keine "`Bashismen`" wie `[[ ... ]]` zu
-verwenden (die POSIX-Entsprechung lautet `[ ... ]`). Wenn Ihr Script
-nicht auch problemlos mit der Dash{empty}{fn112}
-läuft, sollten Sie die verwendete Shell explizit in der
-Shebang-Zeile angeben, z.B. via `#!/bin/bash`.
+When writing shell scripts, please pay attention to POSIX compatibility!{fn111}
+This includes in particular not using "bashisms" like `[[ ... ]]` (the POSIX equivalent is `[ ... ]`).
+If your script does not run without problems with Dash{empty}{fn112}, you should explicitly specify the shell used in the shebang line, e.g. via `&#35;!/bin/bash`.
 ========
 
-Sämtliche im folgenden Abschnitt vorgestellten Scripte finden Sie auch
-online, in der Scriptsammlung für dieses Buch.{fn113}
+////
+Sämtliche im folgenden Abschnitt vorgestellten Scripte finden Sie auch online, in der Scriptsammlung für dieses Buch.{fn113}
+////
+
+All scripts presented in the following section can also be found online, in the script collection for this book.{fn113}
 
 [[sec.scripting-init]]
-=== Initialisierung
+=== Initialization
+// === Initialisierung
 
-Typischerweise wollen Sie sicherstellen, dass Ihr Script in einem
-Repository ausgeführt wird. Für notwendige Initialisierungsaufgaben
-bietet Git das `git-sh-setup` an. Dieses Shell-Script sollten
-Sie direkt nach der Shebang-Zeile per `.` einbinden (in
-interaktiven Shells bekannt als `source`):
+////
+Typischerweise wollen Sie sicherstellen, dass Ihr Script in einem Repository ausgeführt wird.
+Für notwendige Initialisierungsaufgaben bietet Git das `git-sh-setup` an.
+Dieses Shell-Script sollten Sie direkt nach der Shebang-Zeile per `.` einbinden (in interaktiven Shells bekannt als `source`):
+////
+
+Typically, you want to ensure that your script is executed in a repository.
+For necessary initialization tasks, Git offers the `git-sh-setup`.
+You should include this shell script directly after the shebang line using `.` (known as `source` in interactive shells):
 
 --------
 #!/bin/sh
@@ -857,47 +1204,75 @@ interaktiven Shells bekannt als `source`):
 . $(git --exec-path)/git-sh-setup
 --------
 
-Sofern Git kein Repository entdecken kann, bricht
-`git-sh-setup` ab. Außerdem bricht das Script ab, wenn es nicht
-auf oberster Ebene in einem Repository ausgeführt wird. Ihr Script
-kommt dadurch nicht zur Ausführung, und es wird eine entsprechende
-Fehlermeldung ausgegeben. Dieses Verhalten können Sie umgehen, indem
-Sie vor dem Aufruf die Variable `NONGIT_OK` bzw.
-`SUBDIRECTORY_OK` setzen.
+////
+Sofern Git kein Repository entdecken kann, bricht `git-sh-setup` ab.
+Außerdem bricht das Script ab, wenn es nicht auf oberster Ebene in einem Repository ausgeführt wird.
+Ihr Script kommt dadurch nicht zur Ausführung, und es wird eine entsprechende Fehlermeldung ausgegeben.
+Dieses Verhalten können Sie umgehen, indem Sie vor dem Aufruf die Variable `NONGIT_OK` bzw. `SUBDIRECTORY_OK` setzen.
+////
 
-Neben diesem Initialisierungsmechanismus stehen einige Funktionen
-bereit, die häufig auftretende Aufgaben erledigen.  Nachfolgend eine
-Übersicht über die wichtigsten:
+Unless Git can detect a repository, `git-sh-setup` will abort.
+Also, the script will abort if it is not running at the top level in a repository.
+Your script will not be executed and an error message will be displayed.
+You can work around this behavior by setting the `NONGIT_OK` or `SUBDIRECTORY_OK` variable before the call.
 
+////
+Neben diesem Initialisierungsmechanismus stehen einige Funktionen bereit, die häufig auftretende Aufgaben erledigen.
+Nachfolgend eine Übersicht über die wichtigsten:
+////
 
+Beside this initialization mechanism there are some functions available, which do frequently occurring tasks.
+Below is an overview of the most important ones:
+
+////
 `cd_to_toplevel`:: Wechselt auf die oberste Ebene des Git-Repositorys.
+////
 
+`cd_to_toplevel`:: Switches to the top level of the Git repository.
+
+////
 `say`:: Gibt die Argumente aus, es sei denn, `GIT_QUIET` ist gesetzt.
+////
 
-`git_editor`:: Öffnet den für Git eingestellten Editor auf den
-angegebenen Dateien. Es ist besser, diese Funktion zu verwenden als
-"`blind`"{empty}{nbsp}`$EDITOR`. Git verwendet dies auch als Fallback.
+`say`:: Outputs the arguments, unless `GIT_QUIET` is set.
 
+////
+`git_editor`:: Öffnet den für Git eingestellten Editor auf den angegebenen Dateien.
+Es ist besser, diese Funktion zu verwenden als "blind"{empty}{nbsp}`$EDITOR`.
+Git verwendet dies auch als Fallback.
+////
+
+`git_editor`:: Opens the editor set for Git on the specified files.
+It's better to use this function than "blind"{empty}{nbsp}`$EDITOR`.
+Git also uses this as a fallback.
+
+////
 `git_pager`:: Öffnet analog den für Git definierten Pager.
+////
 
-`require_work_tree`:: Die Funktion bricht mit einer Fehlermeldung ab,
-wenn es keinen Working Tree zum Repository gibt -- das ist bei Bare
-Repositories der Fall. Sie sollten diese Funktion also
-sicherheitshalber aufrufen, wenn Sie auf Dateien aus dem Working Tree
-zugreifen wollen.
+`git_pager`:: Opens the pager defined for Git.
 
+////
+`require_work_tree`:: Die Funktion bricht mit einer Fehlermeldung ab, wenn es keinen Working Tree zum Repository gibt -- das ist bei Bare Repositories der Fall.
+Sie sollten diese Funktion also sicherheitshalber aufrufen, wenn Sie auf Dateien aus dem Working Tree zugreifen wollen.
+////
 
+`require_work_tree`:: The function terminates with an error message if there is no working tree to the repository -- this is the case with bare repositories.
+So you should call this function for security reasons if you want to access files from the working tree.
 
 [[sec.scripting-pos]]
-=== Position im Repository
+=== Position in the repository
+// === Position im Repository
 
-In Scripten werden Sie häufig die Information benötigen, aus welchem
-Verzeichnis das Script aufgerufen wurde. Dafür bietet das Git-Kommando
-`rev-parse` einige Optionen. Das folgende Script, abgelegt
-unter `~/bin/git-whereami`, verdeutlicht, wie man
-sich innerhalb eines Repositorys "`zurechtfinden`" kann.
+////
+In Scripten werden Sie häufig die Information benötigen, aus welchem Verzeichnis das Script aufgerufen wurde.
+Dafür bietet das Git-Kommando `rev-parse` einige Optionen.
+Das folgende Script, abgelegt unter `~/bin/git-whereami`, verdeutlicht, wie man sich innerhalb eines Repositorys "zurechtfinden" kann.
+////
 
-
+In scripts you will often need the information from which directory the script was called.
+The Git command `rev-parse` offers some options for this.
+The following script, stored under `{tilde}/bin/git-whereami`, illustrates how to "find your way" within a repository.
 
 --------
 #!/bin/sh
@@ -914,10 +1289,13 @@ echo "gitdir    absolute    relative    prefix"
 echo "$gitdir   $absolute   $relative   $prefix"
 --------
 
-
-
+////
 Die Ausgabe sieht wie folgt aus:
+////
 
+The output looks like this:
+
+////
 [subs="macros,quotes"]
 --------
 $ *git whereami*
@@ -928,28 +1306,48 @@ $ *git whereami*
 gitdir          absolute    relative    prefix
 /tmp/repo/.git  /tmp/repo   ../../      ganz/tief/
 --------
+////
 
-Besonders wichtig ist das Präfix, das Sie per `--show-prefix`
-erhalten. Wenn Ihr Kommando Dateinamen entgegennimmt und Sie die
-Blobs, denen sie entsprechen, in der Objektdatenbank finden wollen,
-müssen Sie dieses Präfix vor den Dateinamen setzen. Wenn Sie sich
-im Verzeichnis `ganz/tief` befinden und dem Script den
-Dateinamen `README` übergeben, dann findet es den
-entsprechenden Blob im aktuellen Tree via `ganz/tief/README`.
+[subs="macros,quotes"]
+--------
+$ *git whereami*
+gitdir          absolute    relative    prefix
+.git            /tmp/repo
+$ *cd very/deep*
+$ *git whereami*
+gitdir          absolute    relative    prefix
+/tmp/repo/.git  /tmp/repo   ../../      very/deep/
+--------
+
+////
+Besonders wichtig ist das Präfix, das Sie per `--show-prefix` erhalten.
+Wenn Ihr Kommando Dateinamen entgegennimmt und Sie die Blobs, denen sie entsprechen, in der Objektdatenbank finden wollen, müssen Sie dieses Präfix vor den Dateinamen setzen.
+Wenn Sie sich im Verzeichnis `ganz/tief` befinden und dem Script den Dateinamen `README` übergeben, dann findet es den entsprechenden Blob im aktuellen Tree via `ganz/tief/README`.
+////
+
+Especially important is the prefix you get via `--show-prefix`.
+If your command accepts filenames and you want to find the blobs they correspond to in the object database, you must put this prefix in front of the filename.
+If you are in the `very/deep` directory and give the script the file name `README`, it will find the corresponding blob in the current tree via `very/deep/README`.
 
 [[sec.scripting-rev-list]]
-=== Referenzen auflisten: rev-list
+=== List references: rev-list
+// === Referenzen auflisten: rev-list
 
-Herzstück der Plumbing-Kommandos ist `git rev-list`
-(_revision list_). Seine Grundfunktion besteht darin, ein oder
-mehrere Referenzen auf die SHA-1-Summe(n) aufzulösen, denen sie
-entsprechen.
+////
+Herzstück der Plumbing-Kommandos ist `git rev-list` (_revision list_).
+Seine Grundfunktion besteht darin, ein oder mehrere Referenzen auf die SHA-1-Summe(n) aufzulösen, denen sie entsprechen.
+////
 
-Mit einem `git log <ref1>..<ref2>` zeigen Sie die
-Commit-Nachrichten von `<ref1>` (exklusive) bis
-`<ref2>` (inklusive) an. Das Kommando `git
-  rev-list` löst diese Referenz auf die einzelnen Commits auf, die
-davon betroffen sind, und gibt sie Zeile für Zeile aus:
+The core of the plumbing commands is `git rev-list` (_revision list_).
+Its basic function is to resolve one or more references to the SHA-1 sum(s) to which they correspond.
+
+////
+Mit einem `git log <ref1>..<ref2>` zeigen Sie die Commit-Nachrichten von `<ref1>` (exklusive) bis `<ref2>` (inklusive) an.
+Das Kommando `git rev-list` löst diese Referenz auf die einzelnen Commits auf, die davon betroffen sind, und gibt sie Zeile für Zeile aus:
+////
+
+With a `git log <ref1>..<ref2>` you display the commit messages from `<ref1>` (exclusive) to `<ref2>` (inclusive).
+The `git rev-list` command resolves this reference to the individual commits that are affected and prints it out line by line:
 
 [subs="macros,quotes"]
 --------
@@ -959,21 +1357,26 @@ bb8d8c12a4c9e769576f8ddeacb6eb4eedfa3751
 c7c331668f544ac53de01bc2d5f5024dda7af283
 --------
 
-Ein Script, das auf einem oder mehreren Commits operiert, kann also
-Angaben, wie andere Git-Kommandos sie auch verstehen, einfach an
-`rev-list` weiterleiten. Schon kann Ihr Script auch mit
-komplizierten Ausdrücken umgehen.
+////
+Ein Script, das auf einem oder mehreren Commits operiert, kann also Angaben, wie andere Git-Kommandos sie auch verstehen, einfach an `rev-list` weiterleiten.
+Schon kann Ihr Script auch mit komplizierten Ausdrücken umgehen.
+////
 
-Das Kommando können Sie beispielsweise nutzen, um zu überprüfen, ob
-ein Fast-Forward von einem Branch auf einen anderen möglich ist. Ein
-Fast-Forward von `<ref1>` auf `<ref2>` ist genau dann
-möglich, wenn Git im Commit-Graphen von `<ref2>` aus den Commit, den
-`<ref1>` markiert, erreichen kann. Oder anders ausgedrückt: Es
-gibt keinen von `<ref1>` erreichbaren Commit, der nicht
-auch von `<ref2>` erreichbar wäre.
+So a script that operates on one or more commits can simply pass information to `rev-list`, as other Git commands understand it.
+Your script can even handle complicated expressions.
 
+////
+Das Kommando können Sie beispielsweise nutzen, um zu überprüfen, ob ein Fast-Forward von einem Branch auf einen anderen möglich ist.
+Ein Fast-Forward von `<ref1>` auf `<ref2>` ist genau dann möglich, wenn Git im Commit-Graphen von `<ref2>` aus den Commit, den `<ref1>` markiert, erreichen kann.
+Oder anders ausgedrückt:
+Es gibt keinen von `<ref1>` erreichbaren Commit, der nicht auch von `<ref2>` erreichbar wäre.
+////
 
+You can use the command, for example, to check whether fast forward from one branch to another is possible.
+Fast forward from `<ref1>` to `<ref2>` is possible if Git can reach the commit marked by `<ref1>` in the commit graph of `<ref2>`.
+In other words, there is no commit reachable from `<ref1>` that can't also be reached from `<ref2>`.
 
+////
 --------
 #!/bin/sh
 
@@ -1002,13 +1405,48 @@ two_one=$(git rev-list $2..$1)
 
 echo "FF nicht möglich! $1 und $2 sind divergiert!" && exit 3
 --------
+////
 
-Die Aufrufe von `rev-parse` in der For-Schleife prüfen, dass es
-sich bei den Argumenten um Referenzen handelt, die Git auf einen
-Commit (oder ein anderes Objekt der Datenbank) auflösen kann --
-schlägt das fehl, bricht das Script mit einer Fehlermeldung ab.
+--------
+#!/bin/sh
 
+SUBDIRECTORY_OK=Yes
+. $(git --exec-path)/git-sh-setup
+
+[ $# -eq 2 ] || { echo "usage: $(basename $0) <ref1> <ref2>"; exit 1; }
+
+for i in $1 $2
+do
+    if ! git rev-parse --verify $i >| /dev/null 2>&1 ; then
+        echo "Ref:_$i_ does not exist!" && exit 1
+    fi
+done
+
+one_two=$(git rev-list $1..$2)
+two_one=$(git rev-list $2..$1)
+
+[ $(git rev-parse $1) = $(git rev-parse $2) ] \
+&& echo "$1 and $2 point to the same commit!" && exit 2
+
+[ -n "$one_two" ] && [ -z "$two_one" ] \
+&& echo "FF from $1 to $2 possible!" && exit 0
+[ -n "$two_one" ] && [ -z "$one_two" ] \
+&& echo "FF from $2 to $1 possible!" && exit 0
+
+echo "FF not possible! $1 and $2 are diverged!" && exit 3
+--------
+
+////
+Die Aufrufe von `rev-parse` in der For-Schleife prüfen, dass es sich bei den Argumenten um Referenzen handelt, die Git auf einen Commit (oder ein anderes Objekt der Datenbank) auflösen kann -- schlägt das fehl, bricht das Script mit einer Fehlermeldung ab.
+////
+
+The calls to `rev-parse` in the For loop check that the arguments are references that Git can resolve to a commit (or other database object) - if this fails, the script aborts with an error message.
+
+////
 Die Ausgabe des Scripts könnte so aussehen:
+////
+
+The output of the script could look like this:
 
 [subs="macros,quotes"]
 --------
@@ -1016,29 +1454,33 @@ $ *git check-ff topic master*
 FF von master nach topic möglich!
 --------
 
+////
+[TIP]
+========
+Für einfache Scripte, die nur eine begrenzte Zahl an Optionen und Argumenten erwarten, reicht eine simple Auswertung dieser, wie in dem obigen Script, völlig aus.
+Sofern Sie jedoch ein komplexeres Projekt planen, bietet sich der sog. _Getopt-Modus_ von `git rev-parse` an.
+Dieser erlaubt die Syntaxanalyse von Kommandozeilen-Optionen, bietet also eine ähnliche Funktionalität wie die C-Bibliothek `getopt`.
+Für Details siehe die Man-Page `git-rev-parse(1)`, Abschnitt "Parseopt".
+========
+////
 
 [TIP]
 ========
-Für einfache Scripte, die nur eine begrenzte Zahl an Optionen und
-Argumenten erwarten, reicht eine simple Auswertung dieser, wie in dem
-obigen Script, völlig aus. Sofern Sie jedoch ein komplexeres Projekt
-planen, bietet sich der sog.  _Getopt-Modus_ von `git rev-parse`
-an. Dieser erlaubt die Syntaxanalyse von Kommandozeilen-Optionen,
-bietet also eine ähnliche Funktionalität wie die C-Bibliothek
-`getopt`. Für Details siehe die Man-Page `git-rev-parse(1)`, Abschnitt
-"`Parseopt`".
+For simple scripts, which expect only a limited number of options and arguments, a simple evaluation of these, as in the above script, is completely sufficient.
+However, if you are planning a more complex project, the so-called `getopt mode` of `git rev-parse` is recommended.
+This mode allows syntax analysis of command line options and offers a similar functionality as the C-library `getopt`.
+For details see the `git-rev-parse(1)` man page, section "Parseopt".
 ========
 
-
-
 [[sec.scripting-find-changes]]
-=== Änderungen finden
+=== Find changes
+// === Änderungen finden
 
-`git diff` und `git log` weisen Sie durch
-die Option `--name-status` an, Informationen
-über die Dateien, die ein Commit geändert hat, anzuzeigen:
+////
+`git diff` und `git log` weisen Sie durch die Option `--name-status` an, Informationen über die Dateien, die ein Commit geändert hat, anzuzeigen:
+////
 
-
+`git diff` and `git log` tell you to display information about the files that a commit has changed, using the `--name-status` option:
 
 [subs="macros,quotes"]
 --------
@@ -1049,27 +1491,51 @@ M       git-pull.sh
 M       t/t5520-pull.sh
 --------
 
-Jedem Namen wird eines von fünf Flags{empty}{fn114}
-vorangestellt, die in der nachfolgenden Liste
-aufgeführt sind:
+////
+Jedem Namen wird eines von fünf Flags{empty}{fn114} vorangestellt, die in der nachfolgenden Liste aufgeführt sind:
+////
 
+Each name is preceded by one of five flags{empty}{fn114}, which are shown in the list below:
+
+////
 `A` (_added_):: Datei wurde hinzugefügt
+////
 
+`A` (_added_):: File was added
+
+////
 `D` (_deleted_):: Datei wurde gelöscht
+////
 
+`D` (_deleted_):: File was deleted
+
+////
 `M` (_modified_):: Datei wurde geändert
+////
 
+`M` (_modified_):: File was changed
+
+////
 `C` (_copied_):: Datei wurde kopiert
+////
 
+`C` (_copied_):: File was copied
+
+////
 `R` (_renamed_):: Datei wurde umbenannt
+////
 
+`R` (_renamed_):: File was renamed
 
-Den Flags `C` und `R` wird eine dreistellige Zahl
-nachgestellt, die den prozentualen Anteil angibt, der gleich geblieben
-ist. Wenn Sie eine Datei duplizieren, entspricht das also der
-Ausgabe `C100`. Eine Datei, die im gleichen Commit per
-`git mv` umbenannt und ein wenig abgeändert wird, könnte als
-`R094` auftauchen -- eine 94%-ige Umbenennung.
+////
+Den Flags `C` und `R` wird eine dreistellige Zahl nachgestellt, die den prozentualen Anteil angibt, der gleich geblieben ist.
+Wenn Sie eine Datei duplizieren, entspricht das also der Ausgabe `C100`.
+Eine Datei, die im gleichen Commit per `git mv` umbenannt und ein wenig abgeändert wird, könnte als `R094` auftauchen -- eine 94%-ige Umbenennung.
+////
+
+The flags `C` and `R` are followed by a three-digit number indicating the percentage that has remained the same.
+So if you duplicate a file, this corresponds to the output `C100`.
+A file that is renamed and slightly modified in the same commit via `git mv` might show up as `R094` - a 94% renaming.
 
 [subs="macros,quotes"]
 --------
@@ -1081,10 +1547,13 @@ M       builtin.h
 M       git.c
 --------
 
-Sie können anhand dieser Flags über sog. Diff-Filter nach Commits
-suchen, die eine bestimmte Datei geändert haben. Wollen Sie zum
-Beispiel herausfinden, wer eine Datei wann hinzugefügt hat, dann
-verwenden Sie das folgende Kommando:
+////
+Sie können anhand dieser Flags über sog. Diff-Filter nach Commits suchen, die eine bestimmte Datei geändert haben.
+Wollen Sie zum Beispiel herausfinden, wer eine Datei wann hinzugefügt hat, dann verwenden Sie das folgende Kommando:
+////
+
+You can use these flags to search for commits that have changed a specific file using diff filters.
+For example, if you want to find out who added a file when, use the following command:
 
 [subs="macros,quotes"]
 --------
@@ -1092,13 +1561,15 @@ $ *git log --pretty=format:&#39;added by %an %ar&#39; --diff-filter=A -- cache.h
 added by Linus Torvalds 6 years ago
 --------
 
-Sie können einem Diff-Filter mehrere Flags direkt hintereinander
-angeben. Die Frage ``Wer hat maßgeblich an dieser Datei
-gearbeitet?__ lässt sich häufig dadurch beantworten, wessen
-Commits diese Datei am meisten modifiziert haben. Das kann man zum
-Beispiel so herausfinden:
+////
+Sie können einem Diff-Filter mehrere Flags direkt hintereinander angeben.
+Die Frage "Wer hat maßgeblich an dieser Datei gearbeitet?" lässt sich häufig dadurch beantworten, wessen Commits diese Datei am meisten modifiziert haben.
+Das kann man zum Beispiel so herausfinden:
+////
 
-
+You can specify several flags to a diff filter directly after each other.
+The question "Who did most of the work on this file?" can often be answered by whose commits modified this file the most.
+This can be found out, for example, by doing the following:
 
 [subs="macros,quotes"]
 --------
@@ -1112,14 +1583,16 @@ $ *git log --pretty=format:%an --diff-filter=M -- cache.h | \*
 --------
 
 [[sec.od-explore]]
-=== Die Objektdatenbank und rev-parse
+=== The object database and rev-parse
+// === Die Objektdatenbank und rev-parse
 
-Das Git-Kommando `rev-parse` (_revision parse_) ist ein
-extrem flexibles Tool, dessen Aufgabe es unter anderem ist, Ausdrücke,
-die Commits oder andere Objekte der Objektdatenbank beschreiben, in
-deren komplette SHA-1-Summe zu übersetzen.  So verwandelt das Kommando
-beispielsweise abgekürzte SHA-1-Summen in die eindeutige
-40-Zeichen-Variante:
+////
+Das Git-Kommando `rev-parse` (_revision parse_) ist ein extrem flexibles Tool, dessen Aufgabe es unter anderem ist, Ausdrücke, die Commits oder andere Objekte der Objektdatenbank beschreiben, in deren komplette SHA-1-Summe zu übersetzen.
+So verwandelt das Kommando beispielsweise abgekürzte SHA-1-Summen in die eindeutige 40-Zeichen-Variante:
+////
+
+The Git command `rev-parse` (_revision parse_) is an extremely flexible tool whose task is, among other things, to translate expressions describing commits or other objects of the object database into their complete SHA-1 sum.
+For example, the command converts abbreviated SHA-1 sums into the unique 40-character variant:
 
 [subs="macros,quotes"]
 --------
@@ -1127,12 +1600,19 @@ $ *git rev-parse --verify be1ca37e5*
 be1ca37e540973bb1bc9b7cf5507f9f8d6bce415
 --------
 
-Die Option `--verify` wird übergeben, damit Git eine
-entsprechende Fehlermeldung ausgibt, wenn die übergebene Referenz
-keine gültige ist.
+////
+Die Option `--verify` wird übergeben, damit Git eine entsprechende Fehlermeldung ausgibt, wenn die übergebene Referenz keine gültige ist.
+////
 
-Das Kommando kann aber auch mit der Option `--short` eine
-SHA-1-Summe abkürzen. Standard sind sieben Zeichen:
+The `--verify` option is passed to make Git print an appropriate error message if the passed reference is not a valid one.
+
+////
+Das Kommando kann aber auch mit der Option `--short` eine SHA-1-Summe abkürzen.
+Standard sind sieben Zeichen:
+////
+
+However, the command can also abbreviate a SHA-1 sum with the `--short` option.
+The default is seven characters:
 
 [subs="macros,quotes"]
 --------
@@ -1140,47 +1620,65 @@ $ *git rev-parse --verify --short be1ca37e540973bb1bc9b7cf5507f9f8d6bce415*
 be1ca37
 --------
 
+////
 [TIP]
 ========
-Wenn Sie den _Namen_ des Branches herausfinden wollen, der gerade
-ausgecheckt ist (im Gegensatz zur Commit-ID), verwenden Sie `git
-rev-parse --symbolic-full-name HEAD`.
+Wenn Sie den _Namen_ des Branches herausfinden wollen, der gerade ausgecheckt ist (im Gegensatz zur Commit-ID), verwenden Sie `git rev-parse --symbolic-full-name HEAD`.
+========
+////
+
+[TIP]
+========
+If you want to find out the _name_ of the branch that is currently checked out (as opposed to the commit ID), use `git rev-parse --symbolic-full-name HEAD`.
 ========
 
-Doch `rev-parse` (und damit auch alle anderen Git-Kommandos,
-die Argumente als Referenzen entgegennehmen) unterstützt noch weitere
-Möglichkeiten, Objekte zu referenzieren.
+////
+Doch `rev-parse` (und damit auch alle anderen Git-Kommandos, die Argumente als Referenzen entgegennehmen) unterstützt noch weitere Möglichkeiten, Objekte zu referenzieren.
+////
 
+But `rev-parse` (and thus also all other git-commands, which accept arguments as references) supports even more possibilities to reference objects.
 
-
-`<sha1>^{<typ>}`::  Folgt der Referenz `<sha1>` und löst sie auf
-ein Objekt vom Typ `<typ>` auf. So können Sie zu einem Commit
-`<commit>` durch Angabe von `<commit>^{tree}` den entsprechenden
-Tree finden.  Wenn Sie keinen expliziten Typ angeben, wird die
-Referenz so lange aufgelöst, bis Git ein Objekt findet, das kein Tag
-ist (das ist besonders praktisch, wenn man die Entsprechung zu einem
-Tag finden will).
+////
+`<sha1>^{<typ>}`::  Folgt der Referenz `<sha1>` und löst sie auf ein Objekt vom Typ `<typ>` auf.
+So können Sie zu einem Commit `<commit>` durch Angabe von `<commit>^{tree}` den entsprechenden Tree finden.
+Wenn Sie keinen expliziten Typ angeben, wird die Referenz so lange aufgelöst, bis Git ein Objekt findet, das kein Tag ist (das ist besonders praktisch, wenn man die Entsprechung zu einem Tag finden will).
 +
-Viele Git-Kommandos arbeiten nicht auf einem Commit, sondern auf den
-Trees, die referenziert werden (z.B. das Kommando `git diff`, das ja
-Dateien, also Tree-Einträge, vergleicht). In der Man-Page werden diese
-Argumente _tree-ish_ ("`baumartig`") genannt. Git erwartet also
-beliebige Referenzen, die sich auf einen Tree auflösen lassen, mit dem
-das Kommando dann weiter arbeitet.
+////
 
-`<tree-ish>:<pfad>`:: Löst den Pfad `<pfad>` auf den entsprechend
-referenzierten Tree oder Blob auf (entspricht einem Verzeichnis
-bzw. einer Datei). Dabei wird das referenzierte Objekt aus
-`<tree-ish>` extrahiert, was also ein Tag, ein Commit oder ein Tree
-sein kann.
+`<sha1>{caret}{<type>}`:: Follows the reference `<sha1>` and resolves it to an object of type `<typ>`.
+This way you can find the corresponding tree for a commit `<commit>` by specifying `<commit>{caret}{tree}`.
+If you don't specify an explicit type, the reference is resolved until Git finds an object that isn't a tag (which is especially handy when you want to find the equivalent of a tag).
++
 
+////
+Viele Git-Kommandos arbeiten nicht auf einem Commit, sondern auf den Trees, die referenziert werden (z.B. das Kommando `git diff`, das ja Dateien, also Tree-Einträge, vergleicht).
+In der Man-Page werden diese Argumente _tree-ish_ ("baumartig") genannt.
+Git erwartet also beliebige Referenzen, die sich auf einen Tree auflösen lassen, mit dem das Kommando dann weiter arbeitet.
+////
 
-Das folgende Beispiel illustriert die Funktionsweise dieser speziellen
-Syntax: Das erste Kommando extrahiert die SHA-1-ID des Trees, der
-durch `HEAD` referenziert wird. Das zweite Kommando extrahiert
-die SHA-1-ID des Blobs, der der Datei `README` auf oberster
-Ebene des Git-Repositorys entspricht. Das dritte Kommando verifiziert
-anschließend, dass dies wirklich ein Blob ist.
+Many git commands do not work on a commit, but on the trees that are referenced (e.g. the `git diff` command, which compares files, i.e. tree entries).
+In the man page, these arguments are called _tree-ish_.
+Git expects arbitrary references, which can be resolved to a tree, with which the command then continues to work.
+
+////
+`<tree-ish>:<pfad>`:: Löst den Pfad `<pfad>` auf den entsprechend referenzierten Tree oder Blob auf (entspricht einem Verzeichnis bzw. einer Datei).
+Dabei wird das referenzierte Objekt aus `<tree-ish>` extrahiert, was also ein Tag, ein Commit oder ein Tree sein kann.
+////
+
+`<tree-ish>:<path>`:: Resolves the path `<path>` to the corresponding referenced tree or blob (corresponds to a directory or file).
+The referenced object is extracted from `<tree-ish>`, which can be a tag, a commit or a tree.
+
+////
+Das folgende Beispiel illustriert die Funktionsweise dieser speziellen Syntax:
+Das erste Kommando extrahiert die SHA-1-ID des Trees, der durch `HEAD` referenziert wird.
+Das zweite Kommando extrahiert die SHA-1-ID des Blobs, der der Datei `README` auf oberster Ebene des Git-Repositorys entspricht.
+Das dritte Kommando verifiziert anschließend, dass dies wirklich ein Blob ist.
+////
+
+The following example illustrates how this special syntax works:
+The first command extracts the SHA-1 ID of the tree referenced by `HEAD`.
+The second command extracts the SHA-1 ID of the blob corresponding to the `README` file at the top level of the git repository.
+The third command then verifies that this really is a blob.
 
 [subs="macros,quotes"]
 --------
@@ -1192,19 +1690,27 @@ $ *git cat-file -t 67cfeb2016b*
 blob
 --------
 
-Ein `git show 67cfeb2016b` würde nun den tatsächlichen Inhalt
-des Blobs anzeigen. Durch Umleitung mit `>` können Sie so den
-Blob als Datei auf das Dateisystem extrahieren.
+////
+Ein `git show 67cfeb2016b` würde nun den tatsächlichen Inhalt des Blobs anzeigen.
+Durch Umleitung mit `>` können Sie so den Blob als Datei auf das Dateisystem extrahieren.
+////
 
-Das folgende Script findet zunächst die Commit-ID des Commits, der
-zuletzt eine bestimmte Datei modifiziert (die Datei wird als erstes
-Argument, also `$1`, übergeben).  Dann extrahiert das Script
-die Datei (mit vorangestelltem Präfix, s.o.) aus dem
-_Vorgänger_ des Commits (`$ref^`), der die Datei
-zuletzt verändert hat, und speichert dies in einer temporären Datei.
+A `git show 67cfeb2016b` would now show the actual contents of the blob.
+By redirecting with `>` you can extract the blob as a file to the file system.
 
-Schließlich wird Vim im Diff-Modus auf der Datei aufgerufen und
-anschließend die Datei gelöscht.
+////
+Das folgende Script findet zunächst die Commit-ID des Commits, der zuletzt eine bestimmte Datei modifiziert (die Datei wird als erstes Argument, also `$1`, übergeben).
+Dann extrahiert das Script die Datei (mit vorangestelltem Präfix, s.o.) aus dem _Vorgänger_ des Commits (`$ref^`), der die Datei zuletzt verändert hat, und speichert dies in einer temporären Datei.
+////
+
+The following script first finds the commit ID of the commit that last modifies a particular file (the file is passed as the first argument, `$1`).
+Then the script extracts the file (with prefix, see above) from the _predecessor_ of the commit (`$ref{tilde}`) that last modified the file, and saves it in a temporary file.
+
+////
+Schließlich wird Vim im Diff-Modus auf der Datei aufgerufen und anschließend die Datei gelöscht.
+////
+
+Finally, Vim is called in diff mode on the file and then the file is deleted.
 
 //\label{code:diff-ro-prev}
 
@@ -1226,38 +1732,79 @@ vim -f -d $temp $1
 rm $temp
 --------
 
+////
 [TIP]
 ========
-Um besonders viele Referenzen per `rev-parse` aufzulösen, sollten Sie dies in _einem_ Programmaufruf tun: `rev-parse` gibt für jede Referenz dann eine Zeile aus. Bei Dutzenden oder sogar Hunderten von Referenzen ist der einmalige Aufruf ressourcenschonend und daher schneller.
+Um besonders viele Referenzen per `rev-parse` aufzulösen, sollten Sie dies in _einem_ Programmaufruf tun:
+`rev-parse` gibt für jede Referenz dann eine Zeile aus.
+Bei Dutzenden oder sogar Hunderten von Referenzen ist der einmalige Aufruf ressourcenschonend und daher schneller.
+========
+////
+
+[TIP]
+========
+To resolve a lot of references with `rev-parse`, you should do this in _one_ program call:
+`rev-parse` will print one line for each reference.
+With dozens or even hundreds of references, the single call is resource-saving and therefore faster.
 ========
 
 [[sec.for-each-ref]]
-=== Referenzen iterieren: for-each-ref
+=== Iterate references: for-each-ref
+// === Referenzen iterieren: for-each-ref
 
-Eine häufige Aufgabe ist es, Referenzen zu iterieren. Hier stellt Git
-das Allzweckkommando `for-each-ref` zur Verfügung.  Die
-gebräuchliche Syntax ist `git for-each-ref --format=<format>
-  <muster>`. Mit dem Muster können Sie die zu iterierenden Referenzen
-einschränken, z.B.{empty}{nbsp}`refs/heads` oder `refs/tags`. Mit
-dem Format-Ausdruck geben Sie an, welche Eigenschaften der Referenz
-ausgegeben werden soll. Er besteht aus verschiedenen Feldern
-`%(feldname)`, die in der Ausgabe zu entsprechenden Werten
-expandiert werden.
+////
+Eine häufige Aufgabe ist es, Referenzen zu iterieren.
+Hier stellt Git das Allzweckkommando `for-each-ref` zur Verfügung.
+Die gebräuchliche Syntax ist `git for-each-ref --format=<format> <muster>`.
+Mit dem Muster können Sie die zu iterierenden Referenzen einschränken, z.B.{empty}{nbsp}`refs/heads` oder `refs/tags`.
+Mit dem Format-Ausdruck geben Sie an, welche Eigenschaften der Referenz ausgegeben werden soll.
+Er besteht aus verschiedenen Feldern `%(feldname)`, die in der Ausgabe zu entsprechenden Werten expandiert werden.
+////
 
-`refname`:: Name der Referenz, z.B.{empty}{nbsp}`heads/master`.  Der Zusatz
-`:short` zeigt die Kurzform, also `master`.
+A common task is to iterate references.
+Here, Git provides the general-purpose command `for-each-ref`.
+The common syntax is `git for-each-ref --format=<format> <pattern>`.
+You can use the pattern to restrict the references to be iterated, e.g.{empty}{nbsp}`refs/heads` or `refs/tags`.
+With the format expression you specify which properties of the reference should be output.
+It consists of different fields `%(fieldname)`, which are expanded to corresponding values in the output.
 
+////
+`refname`:: Name der Referenz, z.B.{empty}{nbsp}`heads/master`.
+Der Zusatz `:short` zeigt die Kurzform, also `master`.
+////
+
+`refname`:: Name of the reference, e.g.{empty}{nbsp}`heads/master`.
+The addition `:short` shows the short form, i.e. `master`.
+
+////
 `objecttype`:: Art des Objekts (`blob`, `tree`, `commit` oder `tag`)
+////
 
-`objectsize`::  Objektgröße in Byte
+`objecttype`:: Type of object (`blob`, `tree`, `commit` or `tag`)
 
+////
+`objectsize`:: Objektgröße in Byte
+////
+
+`objectsize`:: Object size in byte
+
+////
 `objectname`:: Commit-ID bzw. SHA-1-Summe
+////
 
+`object name`:: Commit ID or SHA-1 sum
+
+////
 `upstream`:: Remote-Tracking-Branch des Upstream-Branches
+////
 
+`upstream`:: Remote Tracking Branch of the Upstream Branch
 
-Hier ein simples Beispiel, wie Sie alle SHA-1-Summen der
-Release-Candidates der Version `1.7.1` anzeigen:
+////
+Hier ein simples Beispiel, wie Sie alle SHA-1-Summen der Release-Candidates der Version `1.7.1` anzeigen:
+////
+
+Here is a simple example how to display all SHA-1 sums of the release candidates of version `1.7.1`:
 
 [subs="macros,quotes"]
 --------
@@ -1268,19 +1815,25 @@ d34cb027c31d8a80c5dbbf74272ecd07001952e6--tag--v1.7.1-rc1
 03c5bd5315930d8d88d0c6b521e998041a13bb26--tag--v1.7.1-rc2
 --------
 
-Beachten Sie, dass die Trennzeichen "``--``" so
-übernommen werden und somit zusätzliche Zeichen zur Formatierung
-möglich sind.
+////
+Beachten Sie, dass die Trennzeichen "--" so übernommen werden und somit zusätzliche Zeichen zur Formatierung möglich sind.
+////
 
-Je nach Objekt-Typ sind auch noch andere Feldnamen verfügbar, zum
-Beispiel bei einem Tag das Feld `tagger`, das den Tag-Autor,
-seine E-Mail und das Datum enthält. Gleichzeitig stehen auch die
-Felder `taggername`, `taggeremail` und
-`taggerdate` zur Verfügung, die jeweils nur den Namen, die
-E-Mail und das Datum enthalten.
+Note that the separators "--" are taken over in this way and thus additional characters for formatting are possible.
 
-Wenn Sie zum Beispiel für ein Projekt wissen wollen, wer jemals ein
-Tag erstellt hat:
+////
+Je nach Objekt-Typ sind auch noch andere Feldnamen verfügbar, zum Beispiel bei einem Tag das Feld `tagger`, das den Tag-Autor, seine E-Mail und das Datum enthält.
+Gleichzeitig stehen auch die Felder `taggername`, `taggeremail` und `taggerdate` zur Verfügung, die jeweils nur den Namen, die E-Mail und das Datum enthalten.
+////
+
+Depending on the object type, other field names are also available, for example, for a tag the `tagger` field, which contains the tag author, his e-mail and the date.
+At the same time the fields `taggername`, `taggeremail` and `taggerdate` are available, each containing only the name, the e-mail and the date.
+
+////
+Wenn Sie zum Beispiel für ein Projekt wissen wollen, wer jemals ein Tag erstellt hat:
+////
+
+For example, if you want to know for a project who ever created a tag:
 
 [subs="macros,quotes"]
 --------
@@ -1291,12 +1844,13 @@ Pat Thoyts
 Shawn O. Pearce
 --------
 
-Als weitere Schnittstelle werden verschiedene Optionen für
-Script-Sprachen angeboten, `--shell`, `--python`,
-`--perl` und `--tcl`. Dadurch werden die Felder
-entsprechend als _String-Literals_ in der jeweiligen Sprache
-formatiert, so dass sie per `eval` ausgewertet und in Variablen
-übersetzt werden können:
+////
+Als weitere Schnittstelle werden verschiedene Optionen für Script-Sprachen angeboten, `--shell`, `--python`, `--perl` und `--tcl`.
+Dadurch werden die Felder entsprechend als _String-Literals_ in der jeweiligen Sprache formatiert, so dass sie per `eval` ausgewertet und in Variablen übersetzt werden können:
+////
+
+As a further interface different options are offered for script languages, `--shell`, `--python`, `--perl` and `--tcl`.
+Thus the fields are formatted accordingly as _string literals_ in the respective language, so that they can be evaluated per `eval` and translated into variables:
 
 [subs="macros,quotes"]
 --------
@@ -1307,17 +1861,19 @@ ref=\_refs/tags/v1.7.1.3_
 ref=\_refs/tags/v1.7.1.4_
 --------
 
-Damit lässt sich folgendes Script schreiben, das eine Zusammenfassung
-aller Branches ausgibt, die einen Upstream-Branch haben --
-einschließlich SHA-1-Summe des aktuellsten Commits, dessen Autor und
-Tracking-Status. Die Ausgabe ist inhaltlich der von `git branch
-  -vv` sehr ähnlich, aber etwas lesbarer.  Das Feld
-`authorname` enthält analog zu `taggername` den Namen
-des Commit-Autors. Das Kernstück bildet die Anweisung `eval "$daten"`, die die zeilenweise Ausgabe von
-`for-each-ref` in die später verwendeten Variablen übersetzt.
+////
+Damit lässt sich folgendes Script schreiben, das eine Zusammenfassung aller Branches ausgibt, die einen Upstream-Branch haben -- einschließlich SHA-1-Summe des aktuellsten Commits, dessen Autor und Tracking-Status.
+Die Ausgabe ist inhaltlich der von `git branch -vv` sehr ähnlich, aber etwas lesbarer.
+Das Feld `authorname` enthält analog zu `taggername` den Namen des Commit-Autors.
+Das Kernstück bildet die Anweisung `eval "$daten"`, die die zeilenweise Ausgabe von `for-each-ref` in die später verwendeten Variablen übersetzt.
+////
 
+This can be used to write the following script, which prints a summary of all branches that have an upstream branch - including SHA-1 sum of the most recent commit, its author, and tracking status.
+The output is very similar to `git branch -vv`, but a bit more readable.
+The `authorname` field contains the name of the commit author, similar to `taggername`.
+The core is the `eval "$data"` statement, which translates the line-by-line output of `for-each-ref` into the variables used later.
 
-
+////
 --------
 #!/bin/sh
 SUBDIRECTORY_OK=Yes
@@ -1347,9 +1903,45 @@ do
     fi
 done
 --------
+////
 
+--------
+#!/bin/sh
+SUBDIRECTORY_OK=Yes
+. $(git --exec-path)/git-sh-setup
+
+git for-each-ref --shell --format=\
+"refname=%(refname:short) "\
+"author=%(authorname) "\
+"sha1=%(objectname) "\
+"upstream=%(upstream:short)" \
+refs/heads | while read daten
+do
+    eval "$daten"
+    if [ -n "$upstream" ] ; then
+        ahead=$(git rev-list $upstream..$refname | wc -l)
+        behind=$(git rev-list $refname..$upstream | wc -l)
+        echo $refname
+        echo --------------------
+        echo     "    Upstream:    "$upstream
+        echo     "    Last author: "$author
+        echo     "    Commit-ID    "$(git rev-parse --short $sha1)
+        echo -n  "    Status:      "
+        [ $ahead  -gt 0 ] && echo -n "ahead:"$ahead" "
+        [ $behind -gt 0 ] && echo -n "behind:"$behind" "
+        [ $behind -eq 0 ] && [ $ahead -eq 0 ] && echo -n "synchron!"
+        echo
+    fi
+done
+--------
+
+////
 Die Ausgabe sieht dann wie folgt aus:
+////
 
+The output will look like this:
+
+////
 [subs="macros,quotes"]
 --------
 $ *git tstatus*
@@ -1378,93 +1970,152 @@ pu
     Commit-ID      dba0393
     Status:        ahead:43 behind:126
 --------
+////
 
-Die weiteren Feldnamen sowie Beispiele finden Sie in der Man-Page
-`git-for-each-ref(1)`.
+[subs="macros,quotes"]
+--------
+$ *git tstatus*
+maint
+--------------------
+    Upstream:    origin/maint
+    Last author: João Britto
+    Commit-ID    4c007ae
+    Status:      synchron!
+master
+--------------------
+    Upstream:    origin/master
+    Last author: Junio C Hamano
+    Commit-ID    4e3aa87
+    Status:      synchron!
+next
+--------------------
+    Upstream:    origin/next
+    Last author: Junio C Hamano
+    Commit-ID    711ff78
+    Status:      behind:22
+pu
+--------------------
+    Upstream:    origin/pu
+    Last author: Junio C Hamano
+    Commit-ID    dba0393
+    Status:      ahead:43 behind:126
+--------
 
+////
+Die weiteren Feldnamen sowie Beispiele finden Sie in der Man-Page `git-for-each-ref(1)`.
+////
 
-
+The other field names as well as examples can be found in the `git-for-each-ref(1)` man page.
 
 [[sec.git-update-ref]]
-=== Referenzen umschreiben: git update-ref
+=== Rewrite references: git update-ref
+// === Referenzen umschreiben: git update-ref
 
-Wer `for-each-ref` einsetzt, will meist auch Referenzen
-bearbeiten -- daher ist das Kommando `update-ref` noch zu
-erwähnen. Damit können Sie Referenzen anlegen und sicher umsetzen
-oder löschen. Grundsätzlich funktioniert `git update-ref` mit
-zwei bzw. drei Argumenten:
+////
+Wer `for-each-ref` einsetzt, will meist auch Referenzen bearbeiten -- daher ist das Kommando `update-ref` noch zu erwähnen.
+Damit können Sie Referenzen anlegen und sicher umsetzen oder löschen.
+Grundsätzlich funktioniert `git update-ref` mit zwei bzw. drei Argumenten:
+////
+
+If you use `for-each-ref`, you usually want to edit references as well - therefore the `update-ref` command should be mentioned.
+With it you can create references and safely convert or delete them.
+Basically `git update-ref` works with two or three arguments:
 
 --------
 git update-ref <ref> <new-value> [<oldvalue>]
 --------
 
-Hier ein Beispiel, das den `master` auf `HEAD^`
-verschiebt, sofern dieser auf `HEAD` zeigt:
+////
+Hier ein Beispiel, das den `master` auf `HEAD^` verschiebt, sofern dieser auf `HEAD` zeigt:
+////
+
+Here is an example that moves the `master` to `HEAD{caret}` if it points to `HEAD`:
 
 [subs="macros,quotes"]
 --------
 $ *git update-ref refs/heads/master HEAD^ HEAD*
 --------
 
-Oder aber, um eine neue Referenz `topic` bei `ea0ccd3`
-anzulegen:
+////
+Oder aber, um eine neue Referenz `topic` bei `ea0ccd3` anzulegen:
+////
+
+Or to create a new reference `topic` at `ea0ccd3`:
 
 [subs="macros,quotes"]
 --------
 $ *git update-ref refs/heads/topic ea0ccd3*
 --------
 
+////
 Zum Löschen von Referenzen gibt es die Option `-d`:
+////
+
+To delete references there is the option `-d`:
 
 --------
 git update-ref -d <ref> [<oldvalue>]
 --------
 
+////
 Um beispielsweise die Referenz `topic` wieder zu löschen:
+////
+
+For example to delete the reference `topic` again:
 
 [subs="macros,quotes"]
 --------
 $ *git update-ref -d topic ea0ccd3*
 --------
 
-Natürlich könnten Sie die Referenzen auch mit Kommandos wie
-`echo <sha> > .git/refs/heads/<ref>`
-manipulieren, aber `update-ref` bringt diverse Sicherheiten und
-hilft so möglichen Schaden zu minimieren.  Der Zusatz
-`<oldvalue>` ist zwar optional, hilft aber
-ggf. Programmierfehler zu vermeiden.  Zudem kümmert sich das Kommando
-um Spezialfälle (Symlinks, deren Ziel innerhalb oder außerhalb des
-Repositorys liegt, Referenzen, die auf andere Referenzen zeigen usw.).
-Ein zusätzlicher Vorteil ist, dass `git update-ref` automatisch
-Einträge im Reflog macht, was die Fehlerbehebung deutlich vereinfacht.
+////
+Natürlich könnten Sie die Referenzen auch mit Kommandos wie `echo <sha> > .git/refs/heads/<ref>` manipulieren, aber `update-ref` bringt diverse Sicherheiten und hilft so möglichen Schaden zu minimieren.
+Der Zusatz `<oldvalue>` ist zwar optional, hilft aber ggf. Programmierfehler zu vermeiden.
+Zudem kümmert sich das Kommando um Spezialfälle (Symlinks, deren Ziel innerhalb oder außerhalb des Repositorys liegt, Referenzen, die auf andere Referenzen zeigen usw.).
+Ein zusätzlicher Vorteil ist, dass `git update-ref` automatisch Einträge im Reflog macht, was die Fehlerbehebung deutlich vereinfacht.
+////
 
-
+Of course, you could also manipulate the references with commands like `echo <sha> > .git/refs/heads/<ref>`, but `update-ref` brings various safeguards and helps to minimize possible damage.
+The addition `<oldvalue>` is optional, but helps to avoid programming errors.
+It also takes care of special cases (symlinks whose target is inside or outside the repository, references pointing to other references, etc.).
+An additional advantage is that `git update-ref` automatically makes entries in the reflog, which makes troubleshooting much easier.
 
 [[sec.git-erweiterte-aliase]]
-=== Erweiterte Aliase
+=== Extended Aliases
+// === Erweiterte Aliase
 
-
+////
 Sofern Sie nur einen Einzeiler haben, lohnt sich meist kein eigenes Script.
-Git-Aliase wurden für diesen Anwendungsfall entwickelt. Zum Beispiel
-ist es möglich, durch ein vorangestelltes Ausrufezeichen externe
-Programme aufzurufen, etwa um mit `git k` einfach `gitk --all` aufzurufen:
+Git-Aliase wurden für diesen Anwendungsfall entwickelt.
+Zum Beispiel ist es möglich, durch ein vorangestelltes Ausrufezeichen externe Programme aufzurufen, etwa um mit `git k` einfach `gitk --all` aufzurufen:
+////
+
+If you have only one one-liner, it is usually not worthwhile to create your own script.
+Git aliases were developed for this use case.
+For example, it is possible to call external programs by prefixing them with an exclamation mark, for example to simply call `gitk --all` with `git k`:
 
 [subs="macros,quotes"]
 --------
 $ *git config --global alias.k &#39;!gitk --all&#39;*
 --------
 
-Ein anderes Beispiel, das alle bereits gemergten Branches löscht
-und dafür eine Verkettung von Befehlen verwendet, ist:
+////
+Ein anderes Beispiel, das alle bereits gemergten Branches löscht und dafür eine Verkettung von Befehlen verwendet, ist:
+////
+
+Another example, which deletes all branches already merged and uses a concatenation of commands for this is:
 
 --------
 prune-local = !git branch --merged | grep -v ^* | xargs git branch -d
 --------
 
-Bei bestimmten Konstrukten kommt es vor, dass Sie die Argumente, die an
-das Alias übergeben werden, umstellen oder innerhalb einer Befehlskette
-verwenden wollen.  Hierfür eignet sich folgender Trick, bei dem eine
-Shell-Funktion in das Alias eingebaut ist:
+////
+Bei bestimmten Konstrukten kommt es vor, dass Sie die Argumente, die an das Alias übergeben werden, umstellen oder innerhalb einer Befehlskette verwenden wollen.
+Hierfür eignet sich folgender Trick, bei dem eine Shell-Funktion in das Alias eingebaut ist:
+////
+
+With certain constructs, you may want to rearrange the arguments passed to the alias or use them within a command chain.
+The following trick is suitable for this, where a shell function is built into the alias:
 
 [subs="macros,quotes"]
 --------
@@ -1473,13 +2124,17 @@ $ *git demo foo bar*
 bar foo
 --------
 
-Damit lassen sich auch komplexere Einzeiler elegant als Alias
-definieren.  Die folgende Konstruktion filtert für eine bestimmte Datei
-heraus, welche Autoren wie viele Commits getätigt haben, in denen die
-Datei verändert wurde.  Wenn Sie Patches an die Mailingliste des
-Git-Projekts schicken, wird darum gebeten, dass Sie die Mail per
-CC auch an die wichtigsten Autoren der von Ihnen veränderten
-Dateien schicken. Mit diesem Alias finden Sie heraus, wer das ist.
+////
+Damit lassen sich auch komplexere Einzeiler elegant als Alias definieren.
+Die folgende Konstruktion filtert für eine bestimmte Datei heraus, welche Autoren wie viele Commits getätigt haben, in denen die Datei verändert wurde.
+Wenn Sie Patches an die Mailingliste des Git-Projekts schicken, wird darum gebeten, dass Sie die Mail per CC auch an die wichtigsten Autoren der von Ihnen veränderten Dateien schicken.
+Mit diesem Alias finden Sie heraus, wer das ist.
+////
+
+This allows even more complex one-liners to be defined elegantly as aliases.
+The following construction filters out for a given file, which authors made how many commits in which the file was changed.
+If you send patches to the Git project's mailing list, you are asked to send the mail via CC to the main authors of the files you changed.
+Use this alias to find out who they are.
 
 --------
 who-signed = "!f(){ git log -- $1 | \
@@ -1488,16 +2143,19 @@ who-signed = "!f(){ git log -- $1 | \
     sed _s/Signed-off-by: / /_ | head ; } ; f "
 --------
 
-Hier gibt es einiges zu beachten: Ein Alias wird immer vom
-Toplevel-Verzeichnis des Repositorys ausgeführt, daher muss das
-Argument den Pfad innerhalb des Repositorys enthalten. Außerdem
-beruht das Alias darauf, dass alle beteiligten Personen den Commit mit
-einer `Signed-off-by`-Zeile abgesegnet haben, denn anhand
-dieser Zeilen wird die Statistik erstellt. Da das Alias über mehrere
-Zeilen verteilt ist, muss es mit Anführungszeichen umgeben werden,
-sonst kann Git das Alias nicht korrekt interpretieren. Der finale
-Aufruf von `head` beschränkt die Ausgabe auf die oberen zehn
-Autoren:
+////
+Hier gibt es einiges zu beachten:
+Ein Alias wird immer vom Toplevel-Verzeichnis des Repositorys ausgeführt, daher muss das Argument den Pfad innerhalb des Repositorys enthalten.
+Außerdem beruht das Alias darauf, dass alle beteiligten Personen den Commit mit einer `Signed-off-by`-Zeile abgesegnet haben, denn anhand dieser Zeilen wird die Statistik erstellt.
+Da das Alias über mehrere Zeilen verteilt ist, muss es mit Anführungszeichen umgeben werden, sonst kann Git das Alias nicht korrekt interpretieren.
+Der finale Aufruf von `head` beschränkt die Ausgabe auf die oberen zehn Autoren:
+////
+
+There are some things to consider here:
+An alias is always executed from the toplevel directory of the repository, so the argument must contain the path inside the repository.
+The alias is also based on the fact that all people involved have signed off on the commit with a `signed-off-by` line, because these lines are used to generate the statistics.
+Since the alias is spread over several lines, it must be enclosed in quotes, otherwise Git cannot interpret the alias correctly.
+The final call to `head` limits the output to the top ten authors:
 
 [subs="macros,quotes"]
 --------
@@ -1514,183 +2172,277 @@ $ *git who-signed Documentation/git-svn.txt*
       3      Adam Roben &lt;pass:quotes[aroben@apple.com]&gt;
 --------
 
-Weitere interessante Ideen und Anregungen finden sich im Git-Wiki auf
-der Seite zu Aliasen.{fn115}
+////
+Weitere interessante Ideen und Anregungen finden sich im Git-Wiki auf der Seite zu Aliasen.{fn115}
+////
 
+Further interesting ideas and suggestions can be found in the Git-Wiki on the page about aliases.{fn115}
 
 [[sec.filter-branch]]
-== Versionsgeschichte umschreiben
+== Rewrite version history
+// == Versionsgeschichte umschreiben
 
-Das bereits vorgestellte Kommando `git rebase` und dessen
-interaktiver Modus erlaubt es Entwicklern, Commits beliebig zu
-editieren. Code, der sich noch in der Entwicklung befindet, kann damit
-"`aufgeräumt`" werden, bevor er (z.B. per Merge) integriert
-und so fest mit der Software verschmolzen wird.
+////
+Das bereits vorgestellte Kommando `git rebase` und dessen interaktiver Modus erlaubt es Entwicklern, Commits beliebig zu editieren.
+Code, der sich noch in der Entwicklung befindet, kann damit "aufgeräumt" werden, bevor er (z.B. per Merge) integriert und so fest mit der Software verschmolzen wird.
+////
 
-Was aber, wenn nachträglich _alle_ Commits geändert werden
-sollen, oder zumindest ein großer Teil? Solche Anforderungen
-entstehen beispielsweise, wenn ein bis dahin privates Projekt
-veröffentlicht werden soll, aber sensitive Daten (Keys, Zertifikate,
-Passwörter) in den Commits stecken.
+The previously introduced `git rebase` command and its interactive mode allows developers to edit commits at will.
+Code that is still in development can be "cleaned up" before it is integrated (e.g. via merge) and thus permanently merged with the software.
 
-Git bietet hier das Kommando `filter-branch`, mit dem Sie diese
-Aufgabe automatisieren. Prinzipiell funktioniert das wie folgt: Sie
-geben eine Reihe von Referenzen an, die Git umschreiben soll.  Darüber
-hinaus definieren Sie Kommandos, die für die Modifikation der
-Commit-Nachricht, der Tree-Inhalte, der Commits etc.  zuständig sind.
-Git geht jeden Commit durch und wendet den entsprechenden Filter auf
-den entsprechenden Teil an. Die Filter werden per `eval` in der
-Shell ausgeführt, können also komplette Kommandos oder Namen von
-Scripten sein. Die nachfolgende Liste beschreibt die Filter, die Git
-anbietet:
+////
+Was aber, wenn nachträglich _alle_ Commits geändert werden sollen, oder zumindest ein großer Teil?
+Solche Anforderungen entstehen beispielsweise, wenn ein bis dahin privates Projekt veröffentlicht werden soll, aber sensitive Daten (Keys, Zertifikate, Passwörter) in den Commits stecken.
+////
 
+But what if _all_ commits are to be changed afterwards, or at least a large part of them?
+Such requirements arise, for example, when a previously private project is to be published, but sensitive data (keys, certificates, passwords) are included in the commits.
 
-`--env-filter`:: Kann dazu verwendet werden, die Umgebungsvariablen,
-unter denen der Commit umgeschrieben wird, anzupassen. Speziell die Variablen
-`GIT_{AUTHOR,COMMITTER}_{NAME,EMAIL,DATE}` lassen
-sich so bei Bedarf mit
-neuen Werten exportieren.
+////
+Git bietet hier das Kommando `filter-branch`, mit dem Sie diese Aufgabe automatisieren.
+Prinzipiell funktioniert das wie folgt:
+Sie geben eine Reihe von Referenzen an, die Git umschreiben soll.
+Darüber hinaus definieren Sie Kommandos, die für die Modifikation der Commit-Nachricht, der Tree-Inhalte, der Commits etc. zuständig sind.
+Git geht jeden Commit durch und wendet den entsprechenden Filter auf den entsprechenden Teil an.
+Die Filter werden per `eval` in der Shell ausgeführt, können also komplette Kommandos oder Namen von Scripten sein.
+Die nachfolgende Liste beschreibt die Filter, die Git anbietet:
+////
 
-`--tree-filter`:: Erzeugt für jeden umzuschreibenden Commit einen
-Checkout, wechselt in das Verzeichnis und führt den Filter
-aus. Anschließend werden neue Dateien automatisch hinzugefügt und alte
-gelöscht sowie alle Änderungen übernommen.
+Git offers the `filter-branch` command to automate this task.
+Basically, it works like this:
+You specify a set of references that Git should rewrite.
+You also define commands that are responsible for modifying the commit message, tree contents, commits, etc. Git goes through each commit and applies the appropriate filter to the appropriate part.
+The filters are executed per `eval` in the shell, so they can be complete commands or names of scripts.
+The following list describes the filters that Git offers:
 
-`--index-filter`:: Manipuliert den Index.  Verhält sich ähnlich wie
-der Tree-Filter, nur dass Git keinen Checkout erstellt, wodurch der
-Index-Filter schneller ist.
+////
+`--env-filter`:: Kann dazu verwendet werden, die Umgebungsvariablen, unter denen der Commit umgeschrieben wird, anzupassen.
+Speziell die Variablen `GIT_{AUTHOR,COMMITTER}_{NAME,EMAIL,DATE}` lassen sich so bei Bedarf mit neuen Werten exportieren.
+////
 
-`--msg-filter`:: Erhält die Commit-Nachricht auf Standard-In und gibt
-die neue Nachricht auf Standard-Out aus.
+`--env-filter`:: Can be used to adjust the environment variables under which the commit is rewritten.
+Especially the variables `GIT_{AUTHOR,COMMITTER}_{NAME,EMAIL,DATE}` can be exported with new values if needed.
 
-`--commit-filter`:: Wird statt `git commit-tree` aufgerufen und kann
-so prinzipiell aus einem Commit mehrere machen.  Für Details siehe die
-Man-Page.
+////
+`--tree-filter`:: Erzeugt für jeden umzuschreibenden Commit einen Checkout, wechselt in das Verzeichnis und führt den Filter aus.
+Anschließend werden neue Dateien automatisch hinzugefügt und alte gelöscht sowie alle Änderungen übernommen.
+////
 
-`--tag-name-filter`:: Wird für alle Tag-Namen aufgerufen, die auf
-einen Commit zeigen, der anderweitig umgeschrieben wurde.  Verwenden
-Sie `cat` als Filter, dann werden die Tags übernommen.
+`--tree filter`:: Creates a checkout for each commit to be rewritten, changes to the directory and executes the filter.
+Afterwards, new files are automatically added and old ones deleted and all changes are applied.
 
-`--subdirectory-filter`:: Nur die Commits anschauen, die das
-angegebene Verzeichnis modifizieren. Die umgeschriebene History wird
-nur dieses Verzeichnis enthalten, und zwar als oberstes Verzeichnis im
-Repository.
+////
+`--index-filter`:: Manipuliert den Index.
+Verhält sich ähnlich wie der Tree-Filter, nur dass Git keinen Checkout erstellt, wodurch der Index-Filter schneller ist.
+////
 
+`--index filter`:: Manipulates the index.
+Behaves similar to the tree filter, except that Git doesn't create a checkout, making the index filter faster.
 
-Die allgemeine Syntax des Kommandos ist: `git filter-branch
-  <filter> -- <referenzen>`. Dabei ist `<referenzen>` ein
-Argument für `rev-parse`, kann also ein oder mehrere
-Branch-Namen sein, eine Syntax der Form `<ref1>..<ref2>` oder
-einfach `--all` für alle Referenzen. Beachten Sie den
-Doppelstrich `--`, der die Argumente für
-`filter-branch` von denen für `rev-parse` abtrennt!
+////
+`--msg-filter`:: Erhält die Commit-Nachricht auf Standard-In und gibt die neue Nachricht auf Standard-Out aus.
+////
 
-Sobald sich einer der Filter bei einem Commit nicht mit dem
-Rückgabewert Null beendet, bricht der gesamte Umschreibevorgang ab.
-Achten Sie also darauf, mögliche Fehlermeldungen abzufangen oder durch
-Anhängen von `|| true` zu ignorieren.
+`--msg-filter`:: Receives the commit message on default-in and prints the new message on default-out.
 
-Die ursprünglichen Referenzen werden unter `original/`
-gespeichert; wenn Sie also den Branch `master` umschreiben,
-zeigt `original/refs/heads/master` noch auf den ursprünglichen,
-nicht umgeschriebenen Commit (und entsprechend dessen Vorgänger).
-Existiert diese Backup-Referenz bereits, weigert sich das
-`filter-branch`-Kommando, die Referenz umzuschreiben, es sei
-denn, Sie geben die Option `-f` für _force_ an.
+////
+`--commit-filter`:: Wird statt `git commit-tree` aufgerufen und kann so prinzipiell aus einem Commit mehrere machen.
+Für Details siehe die Man-Page.
+////
+
+`--commit-filter`:: Is called instead of `git commit-tree` and can thus in principle make several commits from one.
+See the man page for details.
+
+////
+`--tag-name-filter`:: Wird für alle Tag-Namen aufgerufen, die auf einen Commit zeigen, der anderweitig umgeschrieben wurde.
+Verwenden Sie `cat` als Filter, dann werden die Tags übernommen.
+////
+
+`--tag-name filter`:: Will be called for all tag names that point to a commit that has been rewritten elsewhere.
+If you use `cat` as filter, the tags will be applied.
+
+////
+`--subdirectory-filter`:: Nur die Commits anschauen, die das angegebene Verzeichnis modifizieren.
+Die umgeschriebene History wird nur dieses Verzeichnis enthalten, und zwar als oberstes Verzeichnis im Repository.
+////
+
+`--subdirectory-filter`:: Only view the commits that modify the specified directory.
+The rewritten history will contain only this directory, as the topmost directory in the repository.
+
+////
+Die allgemeine Syntax des Kommandos ist:
+`git filter-branch <filter> -- <referenzen>`.
+Dabei ist `<referenzen>` ein Argument für `rev-parse`, kann also ein oder mehrere Branch-Namen sein, eine Syntax der Form `<ref1>..<ref2>` oder einfach `--all` für alle Referenzen.
+Beachten Sie den Doppelstrich `--`, der die Argumente für `filter-branch` von denen für `rev-parse` abtrennt!
+////
+
+The general syntax of the command is:
+`git filter-branch <filter> - <references>`.
+Here `<references>` is an argument for `rev-parse`, so it can be one or more branch names, a syntax of the form `<ref1>..<ref2>` or simply `--all` for all references.
+Note the double bar `--`, which separates the arguments for `filter-branch` from those for `rev-parse`!
+
+////
+Sobald sich einer der Filter bei einem Commit nicht mit dem Rückgabewert Null beendet, bricht der gesamte Umschreibevorgang ab.
+Achten Sie also darauf, mögliche Fehlermeldungen abzufangen oder durch Anhängen von `|| true` zu ignorieren.
+////
+
+As soon as one of the filters does not end with the return value zero on a commit, the whole rewrite process will abort.
+So be careful to catch possible error messages or ignore them by appending `|| true`.
+
+////
+Die ursprünglichen Referenzen werden unter `original/` gespeichert; wenn Sie also den Branch `master` umschreiben, zeigt `original/refs/heads/master` noch auf den ursprünglichen, nicht umgeschriebenen Commit (und entsprechend dessen Vorgänger).
+Existiert diese Backup-Referenz bereits, weigert sich das `filter-branch`-Kommando, die Referenz umzuschreiben, es sei denn, Sie geben die Option `-f` für _force_ an.
+////
+
+The original references are stored under `original/`, so when you rewrite the `master` branch, `original/refs/heads/master` still points to the original, unrewritten commit (and its predecessor, accordingly).
+If this backup reference already exists, the `filter-branch` command will refuse to rewrite the reference unless you specify the `-f` option for _force_.
+
+////
+[TIP]
+========
+Sie sollten Ihre `filter-branch`-Experimente immer in einem frischen Klon machen.
+Die Chance, durch unglückliche Vertipper Schaden anzurichten, ist nicht unerheblich.
+Gefällt Ihnen das Resultat jedoch, können Sie das neue Repository kurzerhand zum Haupt-Repository machen, sowie das alte als Backup auslagern.
+========
+////
 
 [TIP]
 ========
-Sie sollten Ihre `filter-branch`-Experimente immer in einem
-  frischen Klon machen. Die Chance, durch unglückliche Vertipper
-  Schaden anzurichten, ist nicht unerheblich. Gefällt Ihnen das
-  Resultat jedoch, können Sie das neue Repository kurzerhand zum
-  Haupt-Repository machen, sowie das alte als Backup auslagern.
+You should always do your `filter-branch` experiments in a fresh clone.
+The chance of causing damage by unfortunate typos is not insignificant.
+However, if you like the result, you can easily make the new repository the master repository, and also outsource the old one as a backup.
 ========
 
-In den folgenden Beispielen geht es um einige typische Anwendungsfälle
-des `filter-branch`-Kommandos.
+////
+In den folgenden Beispielen geht es um einige typische Anwendungsfälle des `filter-branch`-Kommandos.
+////
+
+The following examples deal with some typical use cases of the `filter-branch` command.
 
 [[sec.fb-censor]]
-=== Sensitive Informationen nachträglich entfernen
+=== Remove sensitive information afterwards
+// === Sensitive Informationen nachträglich entfernen
 
-Idealerweise sind sensitive Daten wie Keys, Zertifikate oder
-Passwörter nicht Teil eines Repositorys. Auch große Binärdateien oder
-anderer Datenmüll blähen die Größe des Repositorys unnötig auf.
+////
+Idealerweise sind sensitive Daten wie Keys, Zertifikate oder Passwörter nicht Teil eines Repositorys.
+Auch große Binärdateien oder anderer Datenmüll blähen die Größe des Repositorys unnötig auf.
+////
 
-Open-Source-Software, deren Benutzung erlaubt, deren Weitergabe
-allerdings durch Lizenzbedingungen untersagt ist ('no
-  distribution'), darf natürlich auch nicht in einem Repository
-auftauchen, das Sie der Öffentlichkeit zugänglich machen.
+Ideally, sensitive data such as keys, certificates or passwords are not part of a repository.
+Even large binary files or other data junk unnecessarily inflate the size of the repository.
 
-In all diesen Fällen können Sie die Projektgeschichte umschreiben, so
-dass niemand herausfinden kann, dass die entsprechenden Daten je in
-der Versionsgeschichte des Projekts aufgetaucht sind.
+////
+Open-Source-Software, deren Benutzung erlaubt, deren Weitergabe allerdings durch Lizenzbedingungen untersagt ist ('no distribution'), darf natürlich auch nicht in einem Repository auftauchen, das Sie der Öffentlichkeit zugänglich machen.
+////
 
+Open source software, the use of which is permitted, but the distribution of which is prohibited by license terms ('no distribution'), may of course not appear in a repository that you make available to the public.
 
+////
+In all diesen Fällen können Sie die Projektgeschichte umschreiben, so dass niemand herausfinden kann, dass die entsprechenden Daten je in der Versionsgeschichte des Projekts aufgetaucht sind.
+////
 
+In all these cases you can rewrite the project history so that nobody can find out that the corresponding data ever appeared in the version history of the project.
+
+////
+[TIP]
+========
+Wenn Sie mit Git-Tags arbeiten, empfiehlt es sich bei diesen Operationen immer, auch noch das Argument `--tag-name-filter cat` zu übergeben, damit Tags, die auf umzuschreibende Commits zeigen, auch auf die neue Version zeigen.
+========
+////
 
 [TIP]
 ========
-Wenn Sie mit Git-Tags arbeiten, empfiehlt es sich bei diesen
-  Operationen immer, auch noch das Argument
-  `--tag-name-filter cat` zu übergeben, damit Tags, die auf
-  umzuschreibende Commits zeigen, auch auf die neue Version zeigen.
+If you are working with git tags, it is always a good idea to pass the `--tag-name-filter cat` argument as well, so that tags pointing to commits to be rewritten will also point to the new version.
 ========
 
-Um aus der gesamten Projektgeschichte nur einige Dateien bzw.
-Unterverzeichnisse zu löschen, behelfen Sie sich mit einem einfachen
-Index-Filter. Sie müssen lediglich Git anweisen, die
-entsprechenden Einträge aus dem Index zu entfernen:
+////
+Um aus der gesamten Projektgeschichte nur einige Dateien bzw. Unterverzeichnisse zu löschen, behelfen Sie sich mit einem einfachen Index-Filter.
+Sie müssen lediglich Git anweisen, die entsprechenden Einträge aus dem Index zu entfernen:
+////
 
+To delete only some files or subdirectories from the entire project history, use a simple index filter.
+All you have to do is tell Git to remove the corresponding entries from the index:
+
+////
 [subs="macros,quotes"]
 --------
 $ *git filter-branch --index-filter \*
   *&#39;git rm --cached --ignore-unmatch &lt;datei&gt;&#39; \*
   *--prune-empty -- --all*
 --------
+////
 
-Die Argumente `--cached` und `--ignore-unmatch`
-teilen `git rm` mit, nur den Indexeintrag zu entfernen und
-nicht mit einem Fehler abzubrechen, wenn der entsprechende Eintrag
-nicht existiert (z.B. weil die Datei erst bei einem bestimmten
-Commit hinzugefügt wurde). Wollen Sie Verzeichnisse löschen, müssen
-Sie zusätzlich `-r` angeben.
+[subs="macros,quotes"]
+--------
+$ *git filter-branch --index-filter \*
+  *&#39;git rm --cached --ignore-unmatch &lt;file&gt;&#39; \*
+  *--prune-empty -- --all*
+--------
 
-Das Argument `--prune-empty` sorgt dafür, dass Commits, die
-nach Anwendung des Filters den Tree _nicht_ verändern,
-ausgelassen werden. Wenn Sie also ein Zertifikat mit einem Commit
-hinzugefügt haben und dieser Commit durch Entfernen des Zertifikats
-somit zu einem "`leeren`" Commit wird, dann lässt Git ihn ganz
-aus.
+////
+Die Argumente `--cached` und `--ignore-unmatch` teilen `git rm` mit, nur den Indexeintrag zu entfernen und nicht mit einem Fehler abzubrechen, wenn der entsprechende Eintrag nicht existiert (z.B. weil die Datei erst bei einem bestimmten Commit hinzugefügt wurde).
+Wollen Sie Verzeichnisse löschen, müssen Sie zusätzlich `-r` angeben.
+////
 
-Analog zum obigen Kommando können Sie mit `git mv` auch Dateien
-oder Verzeichnisse verschieben. Sind die Operationen etwas komplexer,
-sollten Sie sich überlegen, einfach mehrere, einfache Filter zu
-entwerfen und sie nacheinander aufzurufen.
+The `--cached` and `--ignore-unmatch` arguments tell `git rm` to remove only the index entry, and not to abort with an error if the corresponding entry does not exist (e.g. because the file was not added until a particular commit). If you want to delete directories, you must also specify `-r`.
+
+////
+Das Argument `--prune-empty` sorgt dafür, dass Commits, die nach Anwendung des Filters den Tree _nicht_ verändern, ausgelassen werden.
+Wenn Sie also ein Zertifikat mit einem Commit hinzugefügt haben und dieser Commit durch Entfernen des Zertifikats somit zu einem "leeren" Commit wird, dann lässt Git ihn ganz aus.
+////
+
+The argument `--prune-empty` makes sure that commits which do _not_ change the tree after applying the filter are omitted.
+So if you have added a certificate with a commit, and this commit becomes an "empty" commit by removing the certificate, Git will omit it altogether.
+
+////
+Analog zum obigen Kommando können Sie mit `git mv` auch Dateien oder Verzeichnisse verschieben.
+Sind die Operationen etwas komplexer, sollten Sie sich überlegen, einfach mehrere, einfache Filter zu entwerfen und sie nacheinander aufzurufen.
+////
+
+Similar to the command above, you can also move files or directories with `git mv`.
+If the operations are a bit more complex, you should consider designing several simple filters and calling them one after the other.
+
+////
+[TIP]
+========
+Möglicherweise hatte eine Datei, die Sie löschen wollen, früher einen anderen Namen.
+Um das zu überprüfen, verwenden Sie das Kommando `git log --name-status --follow -- <datei>`, um eventuelle Umbenennungen aufzuspüren.
+========
+////
 
 [TIP]
 ========
-Möglicherweise hatte eine Datei, die Sie löschen wollen, früher einen
-  anderen Namen. Um das zu überprüfen, verwenden Sie das Kommando
-  `git log --name-status --follow -- <datei>`, um
-  eventuelle Umbenennungen aufzuspüren.
+It is possible that a file you want to delete had a different name in the past.
+To check this, use the command `git log --name-status --follow - <file>` to detect possible renames.
 ========
 
 [[sec.fb-censor-string]]
-==== Strings aus Dateien entfernen
+==== Remove strings from files
+// ==== Strings aus Dateien entfernen
 
-Falls Sie nicht ganze Dateien, sondern nur bestimmte Zeilen in allen
-Commits ändern wollen, reicht ein Filter auf Index-Ebene nicht aus.
+////
+Falls Sie nicht ganze Dateien, sondern nur bestimmte Zeilen in allen Commits ändern wollen, reicht ein Filter auf Index-Ebene nicht aus.
 Sie müssen einen Tree-Filter verwenden.
+////
 
-Git wird für jeden Commit den jeweiligen Tree auschecken, in das
-entsprechende Verzeichnis wechseln, und dann den Filter ausführen.
-Alle Änderungen, die Sie vornehmen, werden übernommen (ohne dass Sie
-`git add` etc. verwenden müssen).
+If you don't want to change whole files, but only certain lines in all commits, a filter at index level is not sufficient.
+You must use a tree filter.
 
-Um das Passwort `v3rYs3cr1T` aus allen Dateien und allen
-Commits zu tilgen, bedarf es folgenden Kommandos:
+////
+Git wird für jeden Commit den jeweiligen Tree auschecken, in das entsprechende Verzeichnis wechseln, und dann den Filter ausführen.
+Alle Änderungen, die Sie vornehmen, werden übernommen (ohne dass Sie `git add` etc. verwenden müssen).
+////
 
+For each commit, Git will check out the relevant tree, change to the appropriate directory, and then run the filter.
+Any changes you make will be applied (without you having to use `git add` etc.).
+
+////
+Um das Passwort `v3rYs3cr1T` aus allen Dateien und allen Commits zu tilgen, bedarf es folgenden Kommandos:
+////
+
+To erase the password `v3rYs3cr1T` from all files and commits, the following commands are required:
+
+////
 [subs="macros,quotes"]
 --------
 $ *git filter-branch --tree-filter &#39;git ls-files -z | \*
@@ -1699,46 +2451,76 @@ $ *git filter-branch --tree-filter &#39;git ls-files -z | \*
 Rewrite cbddbd3505086b79dc3b6bd92ac9f811c8a6f4d1 (142/142)
 Ref \_refs/heads/master_ was rewritten
 --------
+////
 
-Das Kommando führt eine _in-place_-Ersetzung mit `sed`
-durch, und zwar auf jeder Datei des Repositorys. Eventuelle
-Fehlermeldungen werden weder ausgegeben noch führen sie zu einem
-Abbruch des `filter-branch`-Aufrufs.
+[subs="macros,quotes"]
+--------
+$ *git filter-branch --tree-filter &#39;git ls-files -z | \*
+  *xargs -0 -n 1 sed -i &#34;s/v3rYs3cr1T/PASSWORD/g&#34; \*
+  *2&gt;/dev/null || true&#39; -- master*
+Rewrite cbddbd3505086b79dc3b6bd92ac9f811c8a6f4d1 (142/142)
+Ref \_refs/heads/master_ was rewritten
+--------
 
-Nachdem die Referenzen umgeschrieben wurden, können Sie via
-Pickaxe-Tool (`-G<ausdruck>`, siehe
-<<sec.git-log>>) überprüfen, ob wirklich kein Commit mehr den
-String `v3rYs3cr1T` einführt:
+////
+Das Kommando führt eine _in-place_-Ersetzung mit `sed` durch, und zwar auf jeder Datei des Repositorys.
+Eventuelle Fehlermeldungen werden weder ausgegeben noch führen sie zu einem Abbruch des `filter-branch`-Aufrufs.
+////
 
+The command performs an _in-place_ replacement with `sed` on every file in the repository.
+Any error messages are neither issued nor do they cause the `filter-branch` call to be aborted.
+
+////
+Nachdem die Referenzen umgeschrieben wurden, können Sie via Pickaxe-Tool (`-G<ausdruck>`, siehe <<sec.git-log>>) überprüfen, ob wirklich kein Commit mehr den String `v3rYs3cr1T` einführt:
+////
+
+After the references have been rewritten, you can use the pickaxe tool (`-G<expression>`, see <<sec.git-log>>) to verify that no commit really introduces the string `v3rYs3cr1T` anymore:
+
+////
 [subs="macros,quotes"]
 --------
 $ *git log -p -G&#34;v3rYs3cr1T&#34;*
 # sollte keine Ausgabe erzeugen
 --------
+////
 
+[subs="macros,quotes"]
+--------
+$ *git log -p -G&#34;v3rYs3cr1T&#34;*
+# should not produce any output
+--------
+
+////
+[TIP]
+========
+Tree-Filter müssen für jeden Commit den entsprechenden Tree auschecken.
+Das erzeugt bei vielen Commits und vielen Dateien einen erheblichen Overhead, so dass ein `filter-branch`-Aufruf sehr lange dauern kann.
+
+Durch Angabe von `-d <pfad>` können Sie das Kommando anweisen, den Tree nach `<pfad>` statt nach `.git-rewrite/` auszuchecken.
+Wenn Sie hier ein `tmpfs` verwenden (also insbesondere `/dev/shm` oder `/tmp`), dann werden die Dateien nur im Arbeitsspeicher gehalten, was den Aufruf des Kommandos um einige Größenordnungen beschleunigen kann.
+========
+////
 
 [TIP]
 ========
-Tree-Filter müssen für jeden Commit den entsprechenden Tree
-auschecken. Das erzeugt bei vielen Commits und vielen Dateien einen
-erheblichen Overhead, so dass ein `filter-branch`-Aufruf sehr
-lange dauern kann.
+Tree filters must check out the appropriate tree for each commit.
+This creates a considerable overhead for many commits and many files, so a `filter-branch` call can take a long time.
 
-Durch Angabe von `-d <pfad>` können Sie das Kommando
-anweisen, den Tree nach `<pfad>` statt nach
-`.git-rewrite/` auszuchecken. Wenn Sie hier ein
-`tmpfs` verwenden (also insbesondere `/dev/shm` oder
-`/tmp`), dann werden die Dateien nur im Arbeitsspeicher
-gehalten, was den Aufruf des Kommandos um einige Größenordnungen
-beschleunigen kann.
+By specifying `-d <path>` you can instruct the command to check out the tree to `<path>` instead of `.git-rewrite/`.
+If you use a `tmpfs` here (especially `/dev/shm` or `/tmp`), the files are only held in memory, which can speed up the command call by several orders of magnitude.
 ========
 
 [[sec.fb-developer]]
-==== Einen Entwickler umbenennen
+==== Rename a developer
+// ==== Einen Entwickler umbenennen
 
-Wollen Sie einen Entwickler umbenennen, können Sie dies tun, indem Sie
-in einem Environment-Filter ggf. die Variable
-`GIT_AUTHOR_NAME` ändern. Zum Beispiel so:
+////
+Wollen Sie einen Entwickler umbenennen, können Sie dies tun, indem Sie in einem Environment-Filter ggf. die Variable `GIT_AUTHOR_NAME` ändern.
+Zum Beispiel so:
+////
+
+If you want to rename a developer, you can do this by changing the variable `GIT_AUTHOR_NAME` in an environment filter, if necessary.
+For example like this:
 
 [subs="macros,quotes"]
 --------
@@ -1748,21 +2530,32 @@ $ *git filter-branch -f --env-filter \*
 --------
 
 [[sec.fb-subdir]]
-=== Unterverzeichnis extrahieren
+=== Extract subdirectory
+// === Unterverzeichnis extrahieren
 
-Der Subdirectory-Filter erlaubt es, die Commits so umzuschreiben, dass
-ein Unterverzeichnis des aktuellen Repositorys neues
-Toplevel-Verzeichnis wird. Alle anderen Verzeichnisse sowie das
-ehemalige Toplevel-Verzeichnis fallen weg. Commits, die nichts in dem
-neuen Unterverzeichnis geändert haben, fallen ebenfalls weg.
+////
+Der Subdirectory-Filter erlaubt es, die Commits so umzuschreiben, dass ein Unterverzeichnis des aktuellen Repositorys neues Toplevel-Verzeichnis wird.
+Alle anderen Verzeichnisse sowie das ehemalige Toplevel-Verzeichnis fallen weg.
+Commits, die nichts in dem neuen Unterverzeichnis geändert haben, fallen ebenfalls weg.
+////
 
-Auf diese Weise können Sie etwa die Versionsgeschichte einer
-Bibliothek aus einem größeren Projekt ausgliedern. Der Austausch
-zwischen dem ausgegliederten Projekt und dem Basisprojekt kann über
-Submodules oder Subtree-Merges funktionieren (siehe dazu  <<sec.subprojects>>).
+The Subdirectory filter allows you to rewrite the commits so that a subdirectory of the current repository becomes the new top-level directory.
+All other directories and the former top-level directory are dropped.
+Commits that have not changed anything in the new subdirectory are also dropped.
 
-Um das Verzeichnis `t/` (enthält die Test-Suite) aus dem
-Git-Quell-Repository abzuspalten, genügt folgendes Kommando:
+////
+Auf diese Weise können Sie etwa die Versionsgeschichte einer Bibliothek aus einem größeren Projekt ausgliedern.
+Der Austausch zwischen dem ausgegliederten Projekt und dem Basisprojekt kann über Submodules oder Subtree-Merges funktionieren (siehe dazu <<sec.subprojects>>).
+////
+
+In this way, you can, for example, extract the version history of a library from a larger project.
+The exchange between the outsourced project and the base project can work via submodules or subtree-merges (see <<sec.subprojects>>).
+
+////
+Um das Verzeichnis `t/` (enthält die Test-Suite) aus dem Git-Quell-Repository abzuspalten, genügt folgendes Kommando:
+////
+
+To split the directory `t/` (containing the test suite) from the git source repository, the following command is sufficient:
 
 [subs="macros,quotes"]
 --------
@@ -1771,45 +2564,71 @@ Rewrite 2071fb015bc673d2514142d7614b56a37b3faaf2 (5252/5252)
 Ref \_refs/heads/master_ was rewritten
 --------
 
+////
 Achtung: Dieses Kommando läuft einige Minuten lang.
+////
+
+Attention: This command runs for several minutes.
 
 [[sec.fb-grafts]]
-=== Grafts: Nachträgliche Merges
+=== Grafts: Subsequent Merges
+// === Grafts: Nachträgliche Merges
 
-Git stellt über sogenannte _Graft Points_ bzw. _Grafts_ (to
-graft: einpflanzen) eine Möglichkeit, Merges zu simulieren.  Solche
-Grafts werden zeilenweise in der Datei `.git/info/grafts`
-abgelegt und haben das folgende Format:
+////
+Git stellt über sogenannte _Graft Points_ bzw. _Grafts_ (to graft: einpflanzen) eine Möglichkeit, Merges zu simulieren.
+Solche Grafts werden zeilenweise in der Datei `.git/info/grafts` abgelegt und haben das folgende Format:
+////
+
+Git provides a way to simulate merges via so-called _Graft Points_ or _Grafts_ (to graft: plant).
+Such grafts are stored line by line in the file `.git/info/grafts` and have the following format:
 
 --------
 commit [parent1 [parent2 ...]]
 --------
 
-Neben den Informationen, die Git aus den Metadaten der Commits
-bezieht, können Sie also für beliebige Commits ein oder mehrere
-beliebige Vorgängercommits (Parents) angeben.{fn116}
+////
+Neben den Informationen, die Git aus den Metadaten der Commits bezieht, können Sie also für beliebige Commits ein oder mehrere beliebige Vorgängercommits (Parents) angeben.{fn116}
+////
 
-Achten Sie darauf, das Repository weiterhin als DAG zu betrachten und
-keine Kreise zu schließen: Definieren Sie nicht `HEAD` als den
-Vorgänger des Root-Commits!  Die Grafts-Datei ist _nicht_ Teil
-des Repositorys; ein `git clone` kopiert diese Informationen
-also nicht mit, sie helfen Git lediglich, eine Merge-Basis zu finden.
-Bei einem Aufruf von `filter-branch` werden diese
-Graft-Informationen allerdings fest in die Commits kodiert.
+In addition to the information that Git gets from the commit metadata, you can also specify one or more parents for any commits.{fn116}
 
-Das ist vor allem in zwei Fällen sinnvoll: Wenn Sie eine alte
-Versionsgeschichte aus einem Tool importieren, das nicht korrekt mit
-Merges umgehen kann (z.B. frühere Subversion-Versionen), oder wenn
-Sie zwei Versionsgeschichten aneinander "`ankleben`" wollen.
+////
+Achten Sie darauf, das Repository weiterhin als DAG zu betrachten und keine Kreise zu schließen:
+Definieren Sie nicht `HEAD` als den Vorgänger des Root-Commits!
+Die Grafts-Datei ist _nicht_ Teil des Repositorys; ein `git clone` kopiert diese Informationen also nicht mit, sie helfen Git lediglich, eine Merge-Basis zu finden.
+Bei einem Aufruf von `filter-branch` werden diese Graft-Informationen allerdings fest in die Commits kodiert.
+////
 
-Angenommen, die Entwicklung wurde auf Git umgestellt. Um die
-Konvertierung der alten Versionsgeschichte hat sich allerdings noch
-niemand gekümmert. Das neue Repository wurde also mit einem initialen
-Commit gestartet, der den damaligen Stand des Projekts widerspiegelte.
+Make sure to still consider the repository as a DAG and not close any circles:
+Do not define `HEAD` as the predecessor of the root commit!
+The grafts file is _not_ part of the repository, so a `git clone` does not copy this information, it just helps Git find a merge base.
+However, when `filter-branch` is called, this graft information is hard-coded into the commits.
 
-Mittlerweile haben Sie die alte Versionsgeschichte erfolgreich nach
-Git konvertiert und wollen sie nun _vor_ den initialen Commit
-(oder stattdessen) anfügen. Dafür gehen Sie so vor:
+////
+Das ist vor allem in zwei Fällen sinnvoll:
+Wenn Sie eine alte Versionsgeschichte aus einem Tool importieren, das nicht korrekt mit Merges umgehen kann (z.B. frühere Subversion-Versionen), oder wenn Sie zwei Versionsgeschichten aneinander "ankleben" wollen.
+////
+
+This is especially useful in two cases:
+If you import an old version history from a tool that cannot handle merges correctly (e.g. previous Subversion versions), or if you want to "glue" two version histories together.
+
+////
+Angenommen, die Entwicklung wurde auf Git umgestellt.
+Um die Konvertierung der alten Versionsgeschichte hat sich allerdings noch niemand gekümmert.
+Das neue Repository wurde also mit einem initialen Commit gestartet, der den damaligen Stand des Projekts widerspiegelte.
+////
+
+Let's assume the development was switched to Git.
+But nobody has taken care of converting the old version history.
+So the new repository was started with an initial commit that reflected the state of the project at that time.
+
+////
+Mittlerweile haben Sie die alte Versionsgeschichte erfolgreich nach Git konvertiert und wollen sie nun _vor_ den initialen Commit (oder stattdessen) anfügen.
+Dafür gehen Sie so vor:
+////
+
+Meanwhile, you've successfully converted the old version history to Git, and now you want to append it _before_ the initial commit (or instead).
+To do this, proceed as follows:
 
 [subs="macros,quotes"]
 --------
@@ -1818,10 +2637,13 @@ $ *git fetch &lt;altes-repository&gt; master:old-master*
 ... Konvertierte Commits importieren ...
 --------
 
-Sie haben nun ein Multi-Root-Repository. Anschließend müssen Sie den
-initialen Commit des neuen Repositorys finden (`$old_root`)
-und den neuesten Commit des alten, konvertierten Repositorys
-(`$old_tip`) als dessen _Vorgänger_ definieren:
+////
+Sie haben nun ein Multi-Root-Repository.
+Anschließend müssen Sie den initialen Commit des neuen Repositorys finden (`$old_root`) und den neuesten Commit des alten, konvertierten Repositorys (`$old_tip`) als dessen _Vorgänger_ definieren:
+////
+
+You now have a multi-root repository.
+You then need to find the initial commit of the new repository (`$old_root`) and define the latest commit of the old, converted repository (`$old_tip`) as its _predecessor_:
 
 [subs="macros,quotes"]
 --------
@@ -1830,11 +2652,15 @@ $ *old_tip=\`git rev-parse old-master`*
 $ *echo $old_root $old_tip &gt; .git/info/grafts*
 --------
 
-Schauen Sie sich das Resultat mit Gitk oder einem ähnlichen Programm
-an. Wenn Sie zufrieden sind, können Sie die Grafts _permanent_
-machen (dabei werden alle Commits ab `$old_tip`
-umgeschrieben). Dafür wird `git filter-branch` ohne Angabe von
-Filtern aufgerufen:
+////
+Schauen Sie sich das Resultat mit Gitk oder einem ähnlichen Programm an.
+Wenn Sie zufrieden sind, können Sie die Grafts _permanent_ machen (dabei werden alle Commits ab `$old_tip` umgeschrieben).
+Dafür wird `git filter-branch` ohne Angabe von Filtern aufgerufen:
+////
+
+Look at the result with Gitk or a similar program.
+If you are satisfied, you can make the grafts _permanent_ (all commits starting at `$old_tip` are rewritten).
+To do this, call `git filter-branch` without specifying any filters:
 
 [subs="macros,quotes"]
 --------
@@ -1844,60 +2670,89 @@ Ref \_refs/heads/master_ was rewritten
 $ *rm .git/info/grafts*
 --------
 
-Außerdem müssen Sie natürlich noch die verbleibenden Backup-Referenzen
-löschen (s.u.).
+////
+Außerdem müssen Sie natürlich noch die verbleibenden Backup-Referenzen löschen (s.u.).
+////
+
+Of course you also have to delete the remaining backup references (see below).
 
 [[sec.fb-clean]]
-=== Alte Commits löschen
+=== Delete old commits
+// === Alte Commits löschen
 
-Nachdem Sie eventuelle sensitive Daten aus allen Commits getilgt
-haben, müssen Sie noch dafür sorgen, dass diese alten Commits nicht
-wieder auftauchen. In dem Repository, das Sie umgeschrieben haben,
-erfolgt das in drei Schritten:
+////
+Nachdem Sie eventuelle sensitive Daten aus allen Commits getilgt haben, müssen Sie noch dafür sorgen, dass diese alten Commits nicht wieder auftauchen.
+In dem Repository, das Sie umgeschrieben haben, erfolgt das in drei Schritten:
+////
 
+After you have removed any sensitive data from all commits, you still need to make sure that these old commits do not reappear.
+In the repository you rewrote, this is done in three steps:
 
-. Die Backup-Referenzen unter `original/` löschen. Das erreichen Sie
-  mit folgendem Kommando:
+////
+. Die Backup-Referenzen unter `original/` löschen.
+. Das erreichen Sie mit folgendem Kommando:
 +
+////
+
+. Delete the backup references under `original/`.
+. You can do this with the following command:
++
+
 [subs="macros,quotes"]
 --------
 $ *git for-each-ref --format=&#39;%(refname)&#39; -- &#39;refs/original/&#39; | \*
   *xargs -n 1 git update-ref -d*
 --------
 +
-Sofern Sie alte Tags oder andere Branches noch nicht umgeschrieben
-oder gelöscht haben, müssen Sie dies natürlich vorher erledigen.
 
+////
+Sofern Sie alte Tags oder andere Branches noch nicht umgeschrieben oder gelöscht haben, müssen Sie dies natürlich vorher erledigen.
+////
+
+If you have not yet rewritten or deleted old tags or other branches, you must of course do this first.
+
+////
 . Das Reflog löschen:
 +
+////
+
+. Delete the Reflog:
++
+
 [subs="macros,quotes"]
 --------
 $ *git reflog expire --verbose --expire=now --all*
 --------
 
-. Die nun nicht mehr erreichbaren (_orphaned_) Commits löschen. Das
-lässt sich am besten über die `gc`-Option `--prune` regeln, mit der
-Sie einstellen, seit wann ein Commit nicht mehr erreichbar sein darf,
-damit er gelöscht wird: Ab sofort.
+////
+. Die nun nicht mehr erreichbaren (_orphaned_) Commits löschen.
+. Das lässt sich am besten über die `gc`-Option `--prune` regeln, mit der Sie einstellen, seit wann ein Commit nicht mehr erreichbar sein darf, damit er gelöscht wird:
+. Ab sofort.
 +
+////
+
+. Delete the (_orphaned_) commits that are no longer accessible.
+. The best way to do this is to use the `gc` option `--prune`, which sets the time since when a commit should be unreachable so that it is deleted:
+. Now.
++
+
 [subs="macros,quotes"]
 --------
 $ *git gc --prune=now*
 --------
 
+////
+Sofern andere Entwickler mit einer veralteten Version des Repositorys arbeiten, müssen sie nun "migrieren".
+Wesentlich ist, dass sie nicht durch ihre Entwicklungsbranches wieder alte Commits in das gesäuberte Repository hineinziehen.
+////
 
+If other developers are working with an outdated version of the repository, they must now "migrate".
+It is essential that they do not use their development branches to pull old commits back into the cleaned up repository.
 
-Sofern andere Entwickler mit einer veralteten Version des Repositorys
-arbeiten, müssen sie nun "`migrieren`".  Wesentlich ist, dass
-sie nicht durch ihre Entwicklungsbranches wieder alte Commits in das
-gesäuberte Repository hineinziehen.
+////
+Dafür sollten am besten das neue Repository frisch geklont, wichtige Branches aus dem alten Repository per `git fetch` übernommen und direkt per Rebase auf die neuen Commits aufgebaut werden.
+Die alten Commits können Sie dann dann per `git gc --prune=now` entsorgen.
+////
 
-Dafür sollten am besten das neue Repository frisch geklont, wichtige
-Branches aus dem alten Repository per `git fetch` übernommen
-und direkt per Rebase auf die neuen Commits aufgebaut werden. Die
-alten Commits können Sie dann dann per `git gc --prune=now`
-entsorgen.
-
-
-
-
+The best way to do this is to clone the new repository, fetch important branches from the old repository using `git fetch`, and rebase directly on the new commits.
+You can then dispose of the old commits using `git gc --prune=now`.
