@@ -333,7 +333,7 @@ Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbe
 Genau genommen checkt Git nicht "`blind`" den Branch `master` aus. Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.]]
 
 :fn67: pass:a,q[{wj}footnote:[ \
-Weitere Informationen zu dem Git-Protokoll finden Sie in xref:gitbuch_07.adoc#sec.protokolle[] (siehe auch xref:gitbuch_03.adoc#sec.branch-refs[]).]]
+Weitere Informationen zu dem Git-Protokoll finden Sie in xref:gitbuch_07.adoc#sec.git-protocol[] (siehe auch xref:gitbuch_03.adoc#sec.branch-refs[]).]]
 
 :fn68: pass:a,q[{wj}footnote:[ \
 Eine vollständige Auflistung der möglichen URLs finden Sie in der Man-Page `git-clone(1)` im Abschnitt "`Git URLs`".]]

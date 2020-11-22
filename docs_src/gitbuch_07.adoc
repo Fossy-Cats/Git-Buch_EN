@@ -7,92 +7,129 @@
 include::gitbuch_footnotes.adoc[tag=Chapter_7]
 
 
-Im Folgenden geht es um das Hosting von Git-Repositories und
-_Gitolite_, mit dem Sie Zugriffsrechte auf Repositories über
-SSH-Public-Keys flexibel verwalten. Außerdem werden Installation und
-Konfiguration der zwei Web-Interfaces _Gitweb_ und _CGit_
-erläutert, alternativ für Apache oder Lighttpd.
+////
+Im Folgenden geht es um das Hosting von Git-Repositories und _Gitolite_, mit dem Sie Zugriffsrechte auf Repositories über SSH-Public-Keys flexibel verwalten. Außerdem werden Installation und Konfiguration der zwei Web-Interfaces _Gitweb_ und _CGit_ erläutert, alternativ für Apache oder Lighttpd.
+////
+
+The following is about hosting Git repositories and _Gitolite_, which allows you to flexibly manage repository access rights via SSH public keys.
+It also explains how to install and configure the two web interfaces _Gitweb_ and _CGit_, alternatively for Apache or Lighttpd.
+
 
 [[sec.server]]
-== Einen Git-Server hosten
+== Hosting a Git Server
+// Einen Git-Server hosten
 
-Zunächst einige Grundlagen: Wie unterscheiden sich Repositories auf
-einem Server von denen eines normalen Nutzers? Und wie tauscht Git die
-Änderungen aus?
+////
+Zunächst einige Grundlagen: Wie unterscheiden sich Repositories auf einem Server von denen eines normalen Nutzers?
+Und wie tauscht Git die Änderungen aus?
+////
 
-[[sec.protokolle]]
-=== Das Git-Protokoll
+First some basics: How do repositories on a server differ from those of a normal user?
+And how does Git exchange the changes?
 
-Git ist auf dezentrale Verwaltung der Repositories ausgelegt; die
-kleinste Einheit, um Änderungen zwischen Repositories
-auszutauschen, sind Commits. Da sich aber zwischen zwei Versionen
-einer Software bisweilen tausende von Commits ansammeln und eine
-einzelne, commitweise Übertragung viel Overhead erzeugen würde,
-werden Commits vor der Übertragung zu sogenannten _Packfiles_
-zusammengefasst. Diese Packfiles sind ein simples, aber effektives
-Format.{fn92}
-Sie werden auch verwendet, um (ältere) Commits auf der Festplatte
-platzsparend zu lagern (`git gc` bzw. `git repack`,
-siehe <<sec.gc>>).
 
-Diese Packfiles werden in der Regel über das Git-Protokoll
-übertragen, das standardmäßig auf Port 9418/TCP läuft. Das
-Git-Protokoll ist vom Design her bewusst sehr einfach gehalten und
-bietet nur wenige Funktionen, die unmittelbar mit der Struktur von Git
-zu tun haben: Welche Daten gesendet oder empfangen werden sollen
-sowie eine Möglichkeit für Sender- und Empfängerseite, sich auf die
-kleinstmögliche Datenmenge zu einigen, die übertragen werden muss, um
-beide Seiten zu synchronisieren.
+[[sec.git-protocol]]
+=== The Git Protocol
+//  Das Git-Protokoll
 
-Das Git-Protokoll enthält daher _keine_ Möglichkeit der
-Authentifizierung. Stattdessen verwendet Git eine bereits vorhandene,
-sichere und einfache Authentifizierungsstruktur: SSH, die 'Secure
-  Shell'.
 
-Während das Git-Protokoll also unverschlüsselt und in Rohform für
-anonymen _Lesezugriff_ uneingeschränkt verwendet werden kann,
-funktioniert ein Schreiben bzw. Hochladen über das Git-Protokoll nur,
-wenn dies über SSH erfolgt.
+////
+Git ist auf dezentrale Verwaltung der Repositories ausgelegt; die kleinste Einheit, um Änderungen zwischen Repositories auszutauschen, sind Commits.
+Da sich aber zwischen zwei Versionen einer Software bisweilen tausende von Commits ansammeln und eine einzelne, commitweise Übertragung viel Overhead erzeugen würde, werden Commits vor der Übertragung zu sogenannten _Packfiles_ zusammengefasst.
+Diese Packfiles sind ein simples, aber effektives Format.[92]
+Sie werden auch verwendet, um (ältere) Commits auf der Festplatte platzsparend zu lagern (`git gc` bzw. `git repack`, siehe Abschnitt B.1, "Aufräumen").
+////
 
-Des Weiteren unterstützt Git auch den Transport über HTTP(S), FTP(S),
-sowie Rsync. Zwar gilt die Unterstützung für letzteres mittlerweile
-als _deprecated_, es sollte also nicht mehr benutzt werden; für
-HTTP(S) finden sich aber gewisse Anwendungsfälle: In besonders
-restriktiven Umgebungen mit sehr einschränkenden Firewall-Regeln
-kann man eventuell über HTTP(S) (also nur auf Port 80 bzw. 443) auf
-ein Repository lesend wie schreibend zugreifen. Plattformen wie GitHub
-(siehe <<ch.github>>) bieten HTTPS daher als Standard-Transportmethode
-an.
+Git is designed for decentralized repository management; the smallest unit for exchanging changes between repositories is commits.
+However, since there are sometimes thousands of commits between two versions of a piece of software, and a single commit-by-commit transfer would generate a lot of overhead, commits are grouped together into so-called _packfiles_ before being transferred.
+These packfiles are a simple but effective format.{fn92}
+They are also used to store (older) commits on the hard disk in a space-saving way (`git gc` or `git repack`, see <<sec.gc>>).
+
+
+
+////
+Diese Packfiles werden in der Regel über das Git-Protokoll übertragen, das standardmäßig auf Port 9418/TCP läuft.
+Das Git-Protokoll ist vom Design her bewusst sehr einfach gehalten und bietet nur wenige Funktionen, die unmittelbar mit der Struktur von Git zu tun haben: Welche Daten gesendet oder empfangen werden sollen sowie eine Möglichkeit für Sender- und Empfängerseite, sich auf die kleinstmögliche Datenmenge zu einigen, die übertragen werden muss, um beide Seiten zu synchronisieren.
+////
+
+These packfiles are usually transmitted via the Git protocol, which runs on port 9418/TCP by default.
+The Git protocol is deliberately kept very simple in design and offers only a few functions that are directly related to the structure of Git: What data to send or receive, and a way for the sender and receiver sides to agree on the smallest possible amount of data that needs to be transmitted to synchronize both sides.
+
+
+
+////
+Das Git-Protokoll enthält daher _keine_ Möglichkeit der Authentifizierung.
+Stattdessen verwendet Git eine bereits vorhandene, sichere und einfache Authentifizierungsstruktur: SSH, die 'Secure Shell'.
+////
+
+Therefore, the Git protocol does _not_ include any authentication option.
+Instead, Git uses an already existing, secure and simple authentication structure: SSH, the `'Secure Shell'`.
+
+
+
+////
+Während das Git-Protokoll also unverschlüsselt und in Rohform für anonymen _Lesezugriff_ uneingeschränkt verwendet werden kann, funktioniert ein Schreiben bzw. Hochladen über das Git-Protokoll nur, wenn dies über SSH erfolgt.
+////
+
+So while the Git protocol can be used unencrypted and in raw form for anonymous _read-only_ access, writing or uploading via Git protocol only works via SSH.
+
+
+
+////
+Des Weiteren unterstützt Git auch den Transport über HTTP(S), FTP(S), sowie Rsync.
+Zwar gilt die Unterstützung für letzteres mittlerweile als _deprecated_, es sollte also nicht mehr benutzt werden; für HTTP(S) finden sich aber gewisse Anwendungsfälle: In besonders restriktiven Umgebungen mit sehr einschränkenden Firewall-Regeln kann man eventuell über HTTP(S) (also nur auf Port 80 bzw. 443) auf ein Repository lesend wie schreibend zugreifen.
+Plattformen wie GitHub (siehe Kapitel 11, Github) bieten HTTPS daher als Standard-Transportmethode an.
+////
+
+Git also supports transport via HTTP(S), FTP(S), and Rsync.
+Although Rsync is now considered _deprecated_, and should not be used anymore, there are some use cases for HTTP(S): In particularly restrictive environments with very restrictive firewall rules, you may be able to access a repository via HTTP(S) (i.e. only on port 80 or 443) for both read and write operations.
+Platforms like GitHub (see <<ch.github>>) therefore offer HTTPS as default transport method.
+
+
+
 
 [[sec.git-pack-same-machine]]
-=== Repositories auf dem gleichen Rechner
+=== Repositories on the Same Computer
+//  Repositories auf dem gleichen Rechner
 
-Wollen Sie Änderungen an Repositories auf dem gleichen Rechner
-synchronisieren, muss dies nicht über Umwege erfolgen: Git
-kommuniziert direkt über Unix-Pipes mit der Gegenseite, handelt eine
-gemeinsame Basis aus und synchronisiert die Daten. (Dafür ist es
-natürlich nötig, dass der Nutzer, der das Git-Kommando aufruft,
-zumindest Leseberechtigung auf die Packfiles des anderen Repositorys
-hat.)
+Wollen Sie Änderungen an Repositories auf dem gleichen Rechner synchronisieren, muss dies nicht über Umwege erfolgen: Git kommuniziert direkt über Unix-Pipes mit der Gegenseite, handelt eine gemeinsame Basis aus und synchronisiert die Daten.
+(Dafür ist es natürlich nötig, dass der Nutzer, der das Git-Kommando aufruft, zumindest Leseberechtigung auf die Packfiles des anderen Repositorys hat.)
+
+If you want to synchronize changes to repositories on the same computer, this does not have to be done via detours: Git communicates directly with the other side via Unix pipes, negotiates a common basis and synchronizes the data.
+(Of course, this requires that the user invoking the Git command has at least read permission to the other repository's pack files).
+
+
 
 [[sec.bare-repos]]
-=== Bare Repositories – Repositories ohne Working Tree
+=== Bare Repositories: Repositories Without Working Tree
+//  Bare Repositories – Repositories ohne Working Tree
 
-Bisher haben Sie vermutlich größtenteils mit Git-Repositories
-gearbeitet, die Working Tree und Repository in einem waren: Die
-repositoryinternen Daten werden in einem Unterverzeichnis
-`.git` gespeichert, alle anderen Dateien gehören dem Working
-Tree an, d.h. Sie können sie editieren, während Git die Veränderung
-an diesen Dateien beobachtet und abspeichert (_Tracking_).
+////
+Bisher haben Sie vermutlich größtenteils mit Git-Repositories gearbeitet, die Working Tree und Repository in einem waren: Die repositoryinternen Daten werden in einem Unterverzeichnis `.git` gespeichert, alle anderen Dateien gehören dem Working Tree an, d.h. Sie können sie editieren, während Git die Veränderung an diesen Dateien beobachtet und abspeichert (_Tracking_).
+////
 
-Ein sogenanntes _Bare Repository_, also ein "`bloßes`"
-Repository, hat keinen zugeordneten Working Tree. Es enthält nur die
-Dateien und Verzeichnisse, die in einem "`regulären`"
-Repository unterhalb von `.git` gespeichert sind.
+So far, you've probably worked mostly with Git repositories, which were working tree and repository in one: The repository-internal data is stored in the `.git` subdirectory, all other files belong to the working tree, i.e. you can edit them while Git observes and stores the changes to these files (_tracking_).
 
-Ein solches Bare Repository erstellen Sie durch `git init
-  --bare`. Schauen Sie sich den Unterschied zwischen den beiden
-Möglichkeiten an:
+
+
+////
+Ein sogenanntes _Bare Repository_, also ein "`bloßes`"Repository, hat keinen zugeordneten Working Tree.
+Es enthält nur die Dateien und Verzeichnisse, die in einem "`regulären`"Repository unterhalb von `.git` gespeichert sind.
+////
+
+A so-called _bare repository_, i.e. a "`mere`" repository, has no assigned working tree.
+It contains only the files and directories that are stored in a "`regular`" repository under `.git`.
+
+
+
+////
+Ein solches Bare Repository erstellen Sie durch `git init --bare`.
+Schauen Sie sich den Unterschied zwischen den beiden Möglichkeiten an:
+////
+
+You create such a bare repository with `git init --bare`.
+Take a look at the difference between the two options:
+
 
 [subs="macros,quotes"]
 --------
@@ -109,9 +146,14 @@ $ *ls -AF*
 branches/  config  description  HEAD  hooks/  info/  objects/  refs/
 --------
 
-Um ein Backup eines Ihrer normalen Repositories anzulegen, können Sie
-(z.B. auf einem USB-Stick) ein neues Bare Repository erstellen und
-alle Ihre Referenzen (und damit alle Ihre Commits) hochladen:
+
+
+////
+Um ein Backup eines Ihrer normalen Repositories anzulegen, können Sie (z.B. auf einem USB-Stick) ein neues Bare Repository erstellen und alle Ihre Referenzen (und damit alle Ihre Commits) hochladen:
+////
+
+To create a backup of one of your normal repositories, you can create a new bare repository (e.g. on a USB stick) and upload all your references (and thus all your commits):
+
 
 [subs="macros,quotes"]
 --------
@@ -120,99 +162,147 @@ $ *git push --all /mnt/usb/repo-backup/*
 --------
 
 
+
 [[sec.permissions]]
-=== Zugriffsrechte eines Repositorys
+=== Repository Access Permissions
+//  Zugriffsrechte eines Repositorys
 
-Bei `git init` werden die Dateien in der Regel mit Lese-
-und Schreibberechtigung entsprechend der gesetzten `umask`
-angelegt. Für den Endanwender ist dies auch eine günstige Wahl.
-Wollen Sie aber ein Repository auf einem Server einrichten, dann
-können Sie mit der Option `--shared` angeben, wer (auf
-Dateisystemebene) auf das Repository zugreifen kann.
+////
+Bei `git init` werden die Dateien in der Regel mit Lese- und Schreibberechtigung entsprechend der gesetzten `umask` angelegt.
+Für den Endanwender ist dies auch eine günstige Wahl.
+Wollen Sie aber ein Repository auf einem Server einrichten, dann können Sie mit der Option `--shared` angeben, wer (auf Dateisystemebene) auf das Repository zugreifen kann.
+////
+
+With `git init` the files are usually created with read and write permission according to the `umask` setting.
+This is also a convenient choice for the end user.
+However, if you want to set up a repository on a server, you can use the `--shared` option to specify who (at the filesystem level) can access the repository.
 
 
-`umask`:: Default, wenn `--shared` nicht angegeben ist; verwendet die
-aktuell gesetzte `umask`.
 
-`group`:: Default, wenn nur `--shared` angegeben wird.  Vergibt
-Schreibrechte an alle Gruppenmitglieder.  Speziell werden auch
-Verzeichnisse auf den Modus `g+sx` gesetzt, erlauben es also allen
-Gruppenmitgliedern, neue Dateien zu erstellen (also Commits
-hochzuladen). Beachten Sie, dass, wenn die `umask` Leseberechtigung
-für alle Nutzer (`a+r`) vorgibt, diese weiterhin vergeben wird.
+////
+`umask`::
+Default, wenn `--shared` nicht angegeben ist; verwendet die aktuell gesetzte `umask`.
 
-`all`:: Das gleiche wie `group`, nur dass unabhängig von der `umask`
-Leseberechtigung für alle explizit vergeben wird.
+
+`group`::
+Default, wenn nur `--shared` angegeben wird.
+Vergibt Schreibrechte an alle Gruppenmitglieder.
+Speziell werden auch Verzeichnisse auf den Modus `g+sx` gesetzt, erlauben es also allen Gruppenmitgliedern, neue Dateien zu erstellen (also Commits hochzuladen).
+Beachten Sie, dass, wenn die `umask` Leseberechtigung für alle Nutzer (`a+r`) vorgibt, diese weiterhin vergeben wird.
+
+`all`::
+Das gleiche wie `group`, nur dass unabhängig von der `umask` Leseberechtigung für alle explizit vergeben wird.
 
 `0<nnn>`:: Setzt die `umask` explizit auf `<nnn>`.
+////
 
 
 
-Wenn Sie ein Repository mit `--shared` initialisieren, wird
-automatisch die Option `receive.denyNonFastForwards` gesetzt.
-Sie verhindert, dass Commits hochgeladen werden, die nicht per
-Fast-Forward integriert werden können (selbst, wenn der Nutzer dies
-explizit will via `git push -f`).
+[horizontal]
+`umask` ::
+Default, if `--shared` is not specified; uses the currently set `umask`.
+
+`group` ::
+Default, if only `--shared` is specified.
+Assigns write permissions to all group members.
+Especially directories are also set to `g+sx` mode, allowing all group members to create new files (i.e. upload commits).
+Note that if the `umask` sets read permission for all users (`a+r`), this permission will still be granted.
+
+`all` ::
+Same as `group`, except that read permissions are explicitly granted for all, regardless of the `umask`.
+
+`0<nnn>` ::
+Set the `umask` explicitly to `<nnn>`.
+
+
+
+////
+Wenn Sie ein Repository mit `--shared` initialisieren, wird automatisch die Option `receive.denyNonFastForwards` gesetzt.
+Sie verhindert, dass Commits hochgeladen werden, die nicht per Fast-Forward integriert werden können (selbst, wenn der Nutzer dies explizit will via `git push -f`).
+////
+
+When you initialize a repository with `--shared`, the `receive.denyNonFastForwards` option is automatically set.
+It prevents uploading commits that cannot be integrated via Fast-Forwards (even if the user explicitly wants to via `git push -f`).
+
 
 
 [[sec.git-shell]]
-=== Zugriff per SSH: Die Git-Shell
+=== Access via SSH: The Git Shell
+//  Zugriff per SSH: Die Git-Shell
 
-In der Regel kann der Schreib-Zugriff auf Git-Repositories, die auf
-einem anderen Rechner liegen, nur per SSH erfolgen. Allerdings ist es
-im Allgemeinen nicht wünschenswert, einem Nutzer, der Zugriffsrechte
-auf ein Repository erhalten soll, auch gleich Nutzerrechte auf dem
-ganzen System einzuräumen.
+////
+In der Regel kann der Schreib-Zugriff auf Git-Repositories, die auf einem anderen Rechner liegen, nur per SSH erfolgen.
+Allerdings ist es im Allgemeinen nicht wünschenswert, einem Nutzer, der Zugriffsrechte auf ein Repository erhalten soll, auch gleich Nutzerrechte auf dem ganzen System einzuräumen.
+////
 
-Dieses Problem umgeht Git mit dem mitgelieferten Programm
-`git-shell`. Es funktioniert wie eine Shell, erlaubt aber nur
-die Ausführung von vier Git-Kommandos, die für das Hoch- und
-Runterladen von Packfiles zuständig sind. Interaktive Benutzung oder
-Ausführung anderer Kommandos verweigert die Shell, sofern Sie nicht den
-"`Interaktiven Modus`" der Shell explizit aktivieren -- siehe dafür
-die Man-Page `git-shell(1)`.
+Usually, write access to Git repositories located on another computer can only be granted via SSH.
+However, it is generally undesirable to grant a user who will have access to a repository the same user rights to the whole system.
 
-Wenn Sie einen neuen Benutzer anlegen und ihm z.B. per
-`chsh <user>` die Git-Shell zuweisen, kann er sich nicht
-per SSH einloggen, aber auf alle Git-Repositories, auf denen er
-Schreibberechtigung hat, Commits hochladen.
+
+////
+Dieses Problem umgeht Git mit dem mitgelieferten Programm `git-shell`.
+Es funktioniert wie eine Shell, erlaubt aber nur die Ausführung von vier Git-Kommandos, die für das Hoch- und Runterladen von Packfiles zuständig sind.
+Interaktive Benutzung oder Ausführung anderer Kommandos verweigert die Shell, sofern Sie nicht den "`Interaktiven Modus`" der Shell explizit aktivieren -- siehe dafür die Man-Page `git-shell(1)`.
+////
+
+Git works around this problem with the included `git-shell` program.
+It works like a shell, but only allows you to run four Git commands that are responsible for uploading and downloading pack files.
+Interactive use or execution of other commands is denied by the shell unless you explicitly enable the "`Interactive Mode`" of the shell -- see the `git-shell(1)` man page for details.
+
+
+
+////
+Wenn Sie einen neuen Benutzer anlegen und ihm z.B. per `chsh <user>` die Git-Shell zuweisen, kann er sich nicht per SSH einloggen, aber auf alle Git-Repositories, auf denen er Schreibberechtigung hat, Commits hochladen.
+////
+
+If you create a new user and assign the git shell to him, e.g., using `chsh <user>`, he cannot log in via SSH, but he can upload commits to all git repositories to which he has write permission.
+
+
 
 
 [[sec.ssh-pubkey]]
-=== Zugriff per SSH: Öffentliche Schlüssel
+=== Access via SSH: Public Keys
+//  Zugriff per SSH: Öffentliche Schlüssel
 
-Es ist ein wesentlicher Vorteil, dass Git SSH als verschlüsselten und
-authentifizierten Transportkanal verwendet, denn die meisten Nutzer
-haben bereits ein Schlüsselpaar (öffentlich/privat), mit dem sie sich
-auf anderen Rechnern einloggen.
+////
+Es ist ein wesentlicher Vorteil, dass Git SSH als verschlüsselten und authentifizierten Transportkanal verwendet, denn die meisten Nutzer haben bereits ein Schlüsselpaar (öffentlich/privat), mit dem sie sich auf anderen Rechnern einloggen.
+////
 
-Anstatt also umständlich Passwörter für Accounts zu vergeben (und dann
-zu versenden), kann ein Systemadministrator den Zugriff auf
-Git-Repositories auf Nutzer limitieren, die sich gegen öffentliche
-SSH-Schlüssel authentifizieren. Das spart dem Nutzer Zeit (durch die
-möglicherweise wegfallende wiederholte Eingabe eines Passworts), aber
-auch dem Administrator, der sich nicht um Passwortänderungen kümmern
-muss (die durch Einsatz der Git-Shell nicht ohne weiteres möglich
-wären).
+It's a major advantage that Git uses SSH as an encrypted and authenticated transport channel, because most users already have a key pair (public/private) with which they log in on other computers.
+
+
+////
+Anstatt also umständlich Passwörter für Accounts zu vergeben (und dann zu versenden), kann ein Systemadministrator den Zugriff auf Git-Repositories auf Nutzer limitieren, die sich gegen öffentliche SSH-Schlüssel authentifizieren.
+Das spart dem Nutzer Zeit (durch die möglicherweise wegfallende wiederholte Eingabe eines Passworts), aber auch dem Administrator, der sich nicht um Passwortänderungen kümmern muss (die durch Einsatz der Git-Shell nicht ohne weiteres möglich wären).
+////
+
+So instead of tediously assigning (and then sending out) passwords to accounts, a system administrator can limit access to Git repositories to users who authenticate against SSH public keys.
+This saves time for the user (by eliminating the need to re-enter a password), but also saves the administrator from having to worry about password changes (which would not be easily possible using the Git shell).
+
+
+
 
 [[sec.two-users]]
-=== Beispiel: Zwei Nutzer wollen kollaborieren
+=== Example: Two Users Want to Collaborate
+//  Beispiel: Zwei Nutzer wollen kollaborieren
 
-Im Folgenden wollen wir beispielhaft die Kommandos entwickeln, mit
-denen Sie zwei Nutzer `max` und `moritz` auf Ihrem
-System einrichten und sie auf dem gleichen Repository arbeiten
-lassen.
+////
+Im Folgenden wollen wir beispielhaft die Kommandos entwickeln, mit denen Sie zwei Nutzer `max` und `moritz` auf Ihrem System einrichten und sie auf dem gleichen Repository arbeiten lassen.
+////
 
-Zunächst müssen wir ein Repository einrichten, auf das die beiden
-später zugreifen wollen. Unter der Annahme, dass vielleicht später
-weitere Repositories folgen sollen, erstellen wir eine Unix-Gruppe
-`git` (generell für Git-Nutzer) und ein Verzeichnis
-`/var/repositories` mit Leseberechtigung für Mitglieder der
-Gruppe `git`, außerdem eine Gruppe `git-beispiel` und
-ein entsprechendes Verzeichnis, schreibbar nur für Mitglieder von
-`git-beispiel`, in dem sich dann später das Repository
-befindet:
+In the following we will show you how to set up two users on your system, `max` and `moritz`, and let them work on the same repository.
 
+
+////
+Zunächst müssen wir ein Repository einrichten, auf das die beiden später zugreifen wollen.
+Unter der Annahme, dass vielleicht später weitere Repositories folgen sollen, erstellen wir eine Unix-Gruppe `git` (generell für Git-Nutzer) und ein Verzeichnis `/var/repositories` mit Leseberechtigung für Mitglieder der Gruppe `git`, außerdem eine Gruppe `git-beispiel` und ein entsprechendes Verzeichnis, schreibbar nur für Mitglieder von `git-beispiel`, in dem sich dann später das Repository befindet:
+////
+
+First, we have to set up a repository that the two users will want to access later.
+Assuming that other repositories might follow later, we will create a Unix group `git` (generally for Git users) and a directory `/var/repositories` with read permission for members of the `git` group, as well as a `git-example` group and its corresponding directory, writeable only for members of `git-example`, in which the repository will later be located:
+
+
+// @TRANSLATE GIT LOG?
 [subs="macros,quotes"]
 --------
 $ *groupadd git*
@@ -223,20 +313,32 @@ $ *chown root:git /var/repositories*
 $ *chown root:git-beispiel /var/repositories/git-beispiel*
 --------
 
-Wir erstellen auch gleich ein Repository in dem zuletzt angelegten
-Verzeichnis:
 
+////
+Wir erstellen auch gleich ein Repository in dem zuletzt angelegten Verzeichnis:
+////
+
+We also create a repository in the last created directory:
+
+
+// @TRANSLATE GIT LOG?
 [subs="macros,quotes"]
 --------
 $ *git init --bare --shared /var/repositories/git-beispiel*
 $ *chown -R nobody:git /var/repositories/git-beispiel*
 --------
 
-Als nächstes erstellen wir die beiden Nutzer. Beachten Sie, dass bei
-diesem Aufruf _kein_ Homeverzeichnis für die Nutzer unter
-`/home/` erstellt wird. Außerdem werden beide der Gruppe
-`git` und `git-beispiel` hinzugefügt:
 
+Als nächstes erstellen wir die beiden Nutzer.
+Beachten Sie, dass bei diesem Aufruf _kein_ Homeverzeichnis für die Nutzer unter `/home/` erstellt wird.
+Außerdem werden beide der Gruppe `git` und `git-beispiel` hinzugefügt:
+
+Next we create the two users.
+Note that this call will _not_ create a home directory for the users under `/home/`.
+Also, both are added to the `git` and `git-example` groups:
+
+
+// @TRANSLATE GIT LOG?
 [subs="macros,quotes"]
 --------
 $ *adduser --no-create-home --shell /usr/bin/git-shell max*
@@ -247,96 +349,180 @@ $ *adduser moritz git*
 $ *adduser moritz git-beispiel*
 --------
 
-Als nächstes müssen wir den Nutzern per `passwd` noch jeweils
-ein Passwort zuweisen, damit sie sich per SSH einloggen können.
-Anschließend können die neuen Nutzer nun gemeinsam an einem Projekt
-entwickeln. Das Remote fügen Sie wie folgt hinzu:
+
+////
+Als nächstes müssen wir den Nutzern per `passwd` noch jeweils ein Passwort zuweisen, damit sie sich per SSH einloggen können.
+Anschließend können die neuen Nutzer nun gemeinsam an einem Projekt entwickeln.
+Das Remote fügen Sie wie folgt hinzu:
+////
+
+
+Next, we have to assign a password to each user via `passwd` so that they can log in via SSH.
+Afterwards, the new users can now work together on a project.
+You add the remote as follows:
+
+
 
 [subs="macros,quotes"]
 --------
-$ *git remote add origin pass:quotes[max@server]:/var/repositories/git-example*
+$ *git remote add origin max@server:/var/repositories/git-example*
 --------
 
-Alle weiteren Nutzer, die an diesem Projekt mitarbeiten wollen, müssen
-der Gruppe `git-beispiel` angehören. Dieser Ansatz basiert also
-wesentlich auf der Nutzung von Unix-Gruppen und Unix-Nutzern.
-Allerdings will ein Server-Admin in der Regel nicht nur Git anbieten,
-sondern diverse Services. Und die Nutzerverwaltung vollständig über
-Unix-Gruppen zu regeln, ist eher unflexibel.
+
+////
+Alle weiteren Nutzer, die an diesem Projekt mitarbeiten wollen, müssen der Gruppe `git-beispiel` angehören.
+Dieser Ansatz basiert also wesentlich auf der Nutzung von Unix-Gruppen und Unix-Nutzern.
+Allerdings will ein Server-Admin in der Regel nicht nur Git anbieten, sondern diverse Services.
+Und die Nutzerverwaltung vollständig über Unix-Gruppen zu regeln, ist eher unflexibel.
+////
+
+All other users who want to contribute to this project must belong to the `git-example` group.
+So this approach is essentially based on the use of Unix groups and Unix users.
+However, a server admin usually wants to offer not only Git, but various services.
+And to control the user administration entirely via Unix groups is rather inflexible.
+
+
 
 [[sec.gitolite]]
-== Gitolite: Git einfach hosten
+== Gitolite: Simple Git Hosting
+// Gitolite: Git einfach hosten
 
-Die oben beschriebene Art und Weise, Nutzer zu verwalten, bringt einige
-wesentliche Nachteile. Namentlich:
+////
+Die oben beschriebene Art und Weise, Nutzer zu verwalten, bringt einige wesentliche Nachteile.
+Namentlich:
+////
 
-* Für jeden Nutzer muss ein vollwertiger Unix-Account angelegt
-  werden. Das bedeutet einen großen Mehraufwand für den Administrator
-  und öffnet möglicherweise auch Sicherheitslücken.
+The aforementioned described way of managing users has some major disadvantages.
+Namely:
+
+
+////
+* Für jeden Nutzer muss ein vollwertiger Unix-Account angelegt werden.
+  Das bedeutet einen großen Mehraufwand für den Administrator und öffnet möglicherweise auch Sicherheitslücken.
 
 * Für jedes Projekt muss eine eigene Unix-Gruppe erstellt werden.
 
-* Für jeden angelegten Nutzer müssen manuell (oder per Script) die
-  Zugriffsberechtigungen angepasst werden.
-
-Abhilfe schafft das Programm _Gitolite_.{fn93}
-
-Gitolite ist aus dem Projekt _Gitosis_ hervorgegangen, das
-mittlerweile als veraltet angesehen wird. Die Idee: Auf dem Server
-wird lediglich _ein_ Unix-Benutzer (z.B.{empty}{nbsp}`git`)
-angelegt. Intern verwaltet dann Gitolite eine Liste von Nutzern mit
-zugehörigen SSH-Schlüsseln. Diese Nutzer haben aber keinen
-"`wirklichen`" Nutzer-Account auf dem System.
-
-Nutzer loggen sich _ausschließlich_ mit ihrem öffentlichen
-SSH-Schüssel auf diesem Account `git` ein. Das bringt drei
-wesentliche Vorteile:
+* Für jeden angelegten Nutzer müssen manuell (oder per Script) die Zugriffsberechtigungen angepasst werden.
+////
 
 
+* A full Unix account must be created for each user.
+  This means a lot of additional work for the administrator and possibly also opens security holes.
+
+* For each project a separate Unix group must be created.
+
+* For each user created, the access permissions must be adjusted manually (or via a script).
+
+
+////
+Abhilfe schafft das Programm _Gitolite_.[93]
+////
+
+The program _Gitolite_ provides a remedy.{fn93}
+
+
+////
+Gitolite ist aus dem Projekt _Gitosis_ hervorgegangen, das mittlerweile als veraltet angesehen wird.
+Die Idee: Auf dem Server wird lediglich _ein_ Unix-Benutzer (z.B. `git`) angelegt.
+Intern verwaltet dann Gitolite eine Liste von Nutzern mit zugehörigen SSH-Schlüsseln.
+Diese Nutzer haben aber keinen "`wirklichen`" Nutzer-Account auf dem System.
+////
+
+Gitolite originated from the _Gitosis_ project, which is now considered obsolete.
+The idea: Only only Unix user (e.g. `git`) is created on the server.
+Internally, Gitolite then manages a list of users with associated SSH keys.
+But these users do not have a "`real`" user account on the system.
+
+
+// @TODO: Check sentence below, it could mean different things:
+//        Is it that they only log into the 'git' account,
+//        or that they log into that account only with SSH keys?
+
+////
+Nutzer loggen sich _ausschließlich_ mit ihrem öffentlichen SSH-Schüssel auf diesem Account `git` ein.
+Das bringt drei wesentliche Vorteile:
+////
+
+Users log _just_ into the `git` account with their public SSH keys.
+This has three major advantages:
+
+
+// @TODO: Last list-entry translation needs improving.
+
+////
 * Kein Passwort muss vergeben oder geändert werden.
 
-* Nutzer können mehrere SSH-Schlüssel hinterlegen (für
-  verschiedene Rechner, auf denen sie arbeiten).
+* Nutzer können mehrere SSH-Schlüssel hinterlegen (für verschiedene Rechner, auf denen sie arbeiten).
 
-* Anhand des SSH-Schlüssels, mit dem sich ein Nutzer einloggt, kann
-  Gitolite _eindeutig_{empty}{fn94}
-  den internen Nutzernamen
-  ableiten und somit auch die Berechtigungen auf den von Gitolite
-  verwalteten Repositories.
+* Anhand des SSH-Schlüssels, mit dem sich ein Nutzer einloggt, kann Gitolite _eindeutig_[94] den internen Nutzernamen ableiten und somit auch die Berechtigungen auf den von Gitolite verwalteten Repositories.
+////
 
 
-[[sec.gitolite-install]]
-=== Gitolite installieren
+* No password needs to be assigned or changed.
 
-Die Installation von Gitolite ist einfach. Sie müssen dafür nur Ihren
-Public-Key bereithalten, um sich als Administrator eintragen zu können.
-Root-Rechte benötigen Sie nicht, es
-sei denn, Sie müssen den Nutzer `git` erst erstellen.{fn95}
-Überspringen Sie also den nachfolgenden Schritt, wenn Sie bereits
-einen solchen Nutzer erstellt haben.
+* Users can store multiple SSH keys (for different computers they work on).
 
-Zunächst erstellen Sie einen Nutzer auf dem Rechner, der als
-Git-Server arbeiten soll (im Folgenden `<server>`). In der
-Regel wird dieser Nutzer `git` genannt, Sie können ihn aber auch
-anders nennen (z.B.{empty}{nbsp}`gitolite`). Als Homeverzeichnis können
-Sie `/home/git` angeben oder auch, wie hier im Beispiel, etwas
-wie `/var/git`:
+* Using the SSH key a user logs in with, Gitolite can _uniquely_{fn94} derive the internal username and thus the permissions on the repositories managed by Gitolite.
+
+
+
+[[sec.installing-gitolite]]
+=== Installing Gitolite
+//  Gitolite installieren
+
+////
+Die Installation von Gitolite ist einfach.
+Sie müssen dafür nur Ihren Public-Key bereithalten, um sich als Administrator eintragen zu können.
+Root-Rechte benötigen Sie nicht, es sei denn, Sie müssen den Nutzer `git` erst erstellen.[95]
+Überspringen Sie also den nachfolgenden Schritt, wenn Sie bereits einen solchen Nutzer erstellt haben.
+////
+
+The installation of Gitolite is simple.
+All you need to do is have your public key ready to register as an administrator.
+You don't need root privileges unless you need to create the `git` user first,{fn95} so skip the next step if you have already created such a user.
+
+
+
+////
+Zunächst erstellen Sie einen Nutzer auf dem Rechner, der als Git-Server arbeiten soll (im Folgenden `<server>`).
+In der Regel wird dieser Nutzer `git` genannt, Sie können ihn aber auch anders nennen (z.B. `gitolite`).
+Als Homeverzeichnis können Sie `/home/git` angeben oder auch, wie hier im Beispiel, etwas wie `/var/git`:
+////
+
+First, create a user on the computer that will act as the git server (henceforth `<server>`).
+Usually, this user is called `git`, but you may also call it something else (e.g. `gitolite`).
+You can specify `/home/git` as your home directory or, as in this example, something like `/var/git`:
+
+
 
 [subs="macros,quotes"]
 --------
 server# *adduser --home /var/git git*
 --------
 
-Werden Sie nun zum Nutzer `git`. Gitolite braucht die Verzeichnisse
-`.ssh/` und `bin/`, also müssen wir diese erstellen:
+
+////
+Werden Sie nun zum Nutzer `git`.
+Gitolite braucht die Verzeichnisse `.ssh/` und `bin/`, also müssen wir diese erstellen:
+////
+
+Now switch to the `git` user.
+Gitolite needs the `.ssh/` and `bin/` directories, so we need to create them:
+
 
 [subs="macros,quotes"]
 --------
-server$ *mkdir -m 0700 \~/.ssh ~/bin*
+server$ *mkdir -m 0700 ~/.ssh ~/bin*
 --------
 
-Klonen Sie nun das Gitolite-Repository, und installieren Sie einen
-Symlink nach `bin` (dies ist schon die ganze Installation):
+
+////
+Klone n Sie nun das Gitolite-Repository, und installieren Sie einen Symlink nach `bin` (dies ist schon die ganze Installation):
+////
+
+Now clone the Gitolite repository and install a symlink to `bin` (this is already the whole installation):
+
+
 
 [subs="macros,quotes"]
 --------
@@ -344,17 +530,26 @@ server$ *git clone git://github.com/sitaramc/gitolite*
 server$ *gitolite/install -ln*
 --------
 
-Sie können nun Gitolite konfigurieren und Ihren öffentlichen Schlüssel
-eintragen, mit dem Sie die Gitolite-Konfiguration verwalten wollen:
+
+////
+Sie können nun Gitolite konfigurieren und Ihren öffentlichen Schlüssel eintragen, mit dem Sie die Gitolite-Konfiguration verwalten wollen:
+////
+
+You can now configure Gitolite and enter your public key with which you want to manage the Gitolite configuration:
+
 
 [subs="macros,quotes"]
 --------
 server$ *bin/gitolite setup -pk &lt;ihr-key&gt;.pub*
 --------
 
-Überprüfen Sie auf dem Rechner, auf dem Sie normalerweise arbeiten (und
-wo Sie den entsprechenden privaten Schlüssel hinterlegt haben), ob
-Gitolite funktioniert:
+
+////
+Überprüfen Sie auf dem Rechner, auf dem Sie normalerweise arbeiten (und wo Sie den entsprechenden privaten Schlüssel hinterlegt haben), ob Gitolite funktioniert:
+////
+
+Check that Gitolite works on the computer where you normally work (and where you have stored the corresponding private key):
+
 
 [subs="macros,quotes"]
 --------
@@ -363,85 +558,153 @@ client$ *ssh -T git@&lt;server&gt;*
  R W    gitolite-admin
 --------
 
-Sie sollten erkennen, dass Sie mit Ihrem Key Lese- und
-Schreibberechtigung auf dem Repository `gitolite-admin` besitzen. Dieses
-klonen Sie nun auf Ihren Computer:
+
+////
+Sie sollten erkennen, dass Sie mit Ihrem Key Lese- und Schreibberechtigung auf dem Repository `gitolite-admin` besitzen.
+Dieses klonen Sie nun auf Ihren Computer:
+////
+
+
+You should verify that your key gives you read and write permission to the gitolite-admin repository.
+Now clone it onto your computer:
+
 
 [subs="macros,quotes"]
 --------
 client$ *git clone git@&lt;server&gt;:gitolite-admin*
 --------
 
-Das Repository enthält die gesamte Konfiguration für Gitolite. Sie
-checken Ihre Änderungen dort ein und laden Sie per `git push` hoch: Der
-Server aktualisiert automatisch die Einstellungen.
+
+////
+Das Repository enthält die gesamte Konfiguration für Gitolite.
+Sie checken Ihre Änderungen dort ein und laden Sie per `git push` hoch: Der Server aktualisiert automatisch die Einstellungen.
+////
+
+The repository contains the entire configuration for Gitolite.
+You check in your changes there and upload them via `git push`: the server automatically updates the settings.
+
+
 
 
 [[sec.gitolite-config]]
-=== Gitolite-Konfiguration
+=== Configuring Gitolite
+//  Gitolite-Konfiguration
 
-Im Gitolite-Admin-Verzeichnis befinden sich zwei Unterverzeichnisse,
-`conf` und `keydir`. Um Gitolite einen neuen Nutzer
-vorzustellen, müssen Sie dessen SSH-Schlüssel unter
-`keydir/<nutzer>.pub` ablegen. Hat der Nutzer mehrere
-Schlüssel, können Sie diese in einzelnen Dateien vom
-Format `<nutzer>@<beschreibung>.pub` ablegen:
+////
+Im Gitolite-Admin-Verzeichnis befinden sich zwei Unterverzeichnisse, `conf` und `keydir`.
+Um Gitolite einen neuen Nutzer vorzustellen, müssen Sie dessen SSH-Schlüssel unter `keydir/<nutzer>.pub` ablegen.
+Hat der Nutzer mehrere Schlüssel, können Sie diese in einzelnen Dateien vom Format `<nutzer>@<beschreibung>.pub` ablegen:
+////
+
+The Gitolite admin directory contains two subdirectories, `conf` and `keydir`.
+To introduce a new user to Gitolite, you need to put their SSH key under `keydir/<user>.pub`.
+If the user has multiple keys, you can store them in separate files of the format `<user>@<description>.pub`:
+
 
 [subs="macros,quotes"]
 --------
 client$ *cat &gt; keydir/feh@laptop1.pub*
 ssh-dss AAAAB3NzaC1kc3M ... dTw== pass:quotes[feh@mali]
-\^D
+^D
 client$ *cat &gt; keydir/pass:quotes[feh@laptop2.pub]*
 ssh-dss AAAAB3NzaC1kc3M ... 5LA== pass:quotes[feh@deepthought]
 ^D
 --------
 
-Vergessen Sie nicht, mit `git add keydir` und einem
-anschließenden `git commit` die neuen Schlüssel einzuchecken.
-Um diese der Gitolite-Installation bekannt zu machen, müssen Sie
-außerdem die Commits durch `git push` hochladen.
 
-Danach können Sie diesem Nutzernamen in der Konfigurationsdatei
-`conf/gitolite.conf` Berechtigungen zuweisen.
+////
+Vergessen Sie nicht, mit `git add keydir` und einem anschließenden `git commit` die neuen Schlüssel einzuchecken.
+Um diese der Gitolite-Installation bekannt zu machen, müssen Sie außerdem die Commits durch `git push` hochladen.
+////
 
-Über sogenannte _Makros_ können Sie sich viel administrativen
-Aufwand bzw. Tipparbeit sparen. Sie können Gruppen (von Nutzern oder
-Repositories) zusammenfassen, z.B.
+Don't forget to check in the new keys with `git add keydir` followed by `git commit`.
+To make them known to the gitolite installation, you also need to upload the commits using `git push`.
 
+
+////
+Danach können Sie diesem Nutzernamen in der Konfigurationsdatei `conf/gitolite.conf` Berechtigungen zuweisen.
+////
+
+Then you can assign permissions to this username in the `conf/gitolite.conf` configuration file.
+
+
+////
+Über sogenannte _Makros_ können Sie sich viel administrativen Aufwand bzw. Tipparbeit sparen.
+Sie können Gruppen (von Nutzern oder Repositories) zusammenfassen, z.B.
+////
+
+You can save yourself a lot of administrative work and typing by using _macros_.
+You can combine groups (of users or repositories), e.g.:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 @test_entwickler = max markus felix
 @test_repos      = test1 test2 test3
 --------
 
-Diese Makros werden auch rekursiv ausgewertet. Bei der Definition muss
-nicht klar sein, ob es sich um Nutzer oder Repositories handelt; die
-Makros werden erst zur Laufzeit ausgewertet. So können Sie Gruppen aus
-anderen Gruppen zusammensetzen:
 
+////
+Diese Makros werden auch rekursiv ausgewertet.
+Bei der Definition muss nicht klar sein, ob es sich um Nutzer oder Repositories handelt; die Makros werden erst zur Laufzeit ausgewertet.
+So können Sie Gruppen aus anderen Gruppen zusammensetzen:
+////
+
+These macros are also evaluated recursively.
+When defining them, it does not have to be clear whether they are users or repositories; the macros are only evaluated at runtime.
+This allows you to create groups from other groups:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 @proj = @developer @tester @admins
 --------
 
-Es gibt eine spezielle Gruppe `@all`, die, je nach Kontext,
-alle Nutzer oder alle Repositories enthält.
 
+////
+Es gibt eine spezielle Gruppe `@all`, die, je nach Kontext, alle Nutzer oder alle Repositories enthält.
+////
+
+There is a special group `@all` which, depending on the context, contains all users or all repositories.
+
+
+////
 Ein (oder mehrere) Repositories können Sie wie folgt konfigurieren:
+////
 
+You can configure one (or more) repositories as follows:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo @test_repos
     RW+ = @test_entwickler
 --------
 
-`R` und `W` stehen für Lese- bzw. Schreibzugriff. Das
-Plus bedeutet, dass auch ein forciertes Hochladen erlaubt ist
-(_non-fast-forward_, also auch das Löschen von Commits).
 
-Für ein Repository können natürlich mehrere solcher Zeilen eingetragen
-werden. In einem kleinen Projekt könnte es Maintainer, weitere
-Entwickler und Tester geben. Dann könnten die Zugriffsrechte wie folgt
-geregelt werden:
 
+////
+`R` und `W` stehen für Lese- bzw. Schreibzugriff.
+Das Plus bedeutet, dass auch ein forciertes Hochladen erlaubt ist (_non-fast-forward_, also auch das Löschen von Commits).
+////
+
+`R` and `W` stand for read or write access.
+The plus means that forced uploading is also allowed (_non-fast-forward_, i.e. also deleting commits).
+
+
+////
+Für ein Repository können natürlich mehrere solcher Zeilen eingetragen werden.
+In einem kleinen Projekt könnte es Maintainer, weitere Entwickler und Tester geben.
+Dann könnten die Zugriffsrechte wie folgt geregelt werden:
+////
+
+For a repository, of course, several such lines can be entered.
+In a small project there could be maintainers, other developers and testers.
+Then the access rights could be regulated as follows:
+
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 @maintainers = ... # Hauptentwickler/Chefs
 @developers  = ... # Weitere Entwickler
@@ -453,37 +716,63 @@ repo Projekt
     R   = @testers
 --------
 
-So haben die Tester nur Lesezugriff, während die Entwickler zwar neue
-Commits hochladen dürfen, aber nur, wenn diese per _fast-forward_
-integriert werden können. Die Hauptmaintainer dürfen
-"`alles`".
 
-Diese Zeilen werden sequentiell abgearbeitet. Trifft die Zeile für
-einen Nutzer zu, so autorisiert Gitolite den Nutzer und stattet ihn
-mit den entsprechenden Rechten aus. Sofern keine Zeile auf den Nutzer
-zutrifft, wird er zurückgewiesen und darf an dem Repository nichts
-verändern.
 
-Ein Nutzer kann alle seine Berechtigungen anzeigen lassen, indem er
-sich einfach per SSH auf dem Git-Server einloggt.
+////
+So haben die Tester nur Lesezugriff, während die Entwickler zwar neue Commits hochladen dürfen, aber nur, wenn diese per _fast-forward_ integriert werden können.
+Die Hauptmaintainer dürfen "`alles`".
+////
+
+Thus, the testers have read-only access, while the developers are allowed to upload new commits, but only if they can be integrated via _fast-forward_.
+The main maintainers are allowed "`everything`".
+
+
+////
+Diese Zeilen werden sequentiell abgearbeitet.
+Trifft die Zeile für einen Nutzer zu, so autorisiert Gitolite den Nutzer und stattet ihn mit den entsprechenden Rechten aus.
+Sofern keine Zeile auf den Nutzer zutrifft, wird er zurückgewiesen und darf an dem Repository nichts verändern.
+////
+
+These lines are processed sequentially.
+If the line applies to a user, Gitolite authorizes the user and grants him the appropriate rights.
+If no line matches the user, the user is rejected and is not allowed to change anything in the repository.
+
+
+////
+Ein Nutzer kann alle seine Berechtigungen anzeigen lassen, indem er sich einfach per SSH auf dem Git-Server einloggt.
 Direkt nach der Installation sieht dies für den Administrator dann so aus:
+////
+
+A user can view all his permissions by simply logging into the Git server via SSH.
+Immediately after installation, this is how it looks like to the administrator:
+
+
 
 [subs="macros,quotes"]
 --------
 $ *ssh -q git@&lt;server&gt;*
-hello feh, this is pass:quotes[git@mjanja] running gitolite3 v3.6.1-6-gdc8b590 on git 2.1.0
+hello feh, this is git@mjanja running gitolite3 v3.6.1-6-gdc8b590 on git 2.1.0
 
  R W     gitolite-admin
  R W     testing
 --------
 
+
+
+
 [[sec.gitweb-name]]
-=== Eigentümer und Beschreibung
+=== Ownership and Description
+//  Eigentümer und Beschreibung
 
-Sofern Sie später ein webbasiertes Tool installieren wollen, mit dem
-man die Git-Repositories durchstöbern kann, sollten Sie auch gleich
-einen Verantwortlichen  benennen und das Projekt beschreiben:
+////
+Sofern Sie später ein webbasiertes Tool installieren wollen, mit dem man die Git-Repositories durchstöbern kann, sollten Sie auch gleich einen Verantwortlichen  benennen und das Projekt beschreiben:
+////
 
+If you want to install a web-based tool to browse the Git repositories later, you should also name a person in charge and describe the project:
+
+
+// @TRANSLATE GITOLITE SETTINGS?
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo <repo-name>
   # Zugriffsrechte
@@ -491,30 +780,44 @@ repo <repo-name>
   config gitweb.description = "Ein Test-Repository"
 --------
 
-Damit dies funktioniert, müssen Sie allerdings erst aktivieren, dass
-Gitolite diese Config-Einstellungen setzen darf: Das
-geschieht auf dem Server, wo Gitolite installiert ist, in der Datei
-`.gitolite.rc`: Tragen Sie dort unter dem Schlüssel
-`GIT_CONFIG_KEYS` den Wert `gitweb\..*` ein.
+
+////
+Damit dies funktioniert, müssen Sie allerdings erst aktivieren, dass Gitolite diese Config-Einstellungen setzen darf: Das geschieht auf dem Server, wo Gitolite installiert ist, in der Datei `.gitolite.rc`: Tragen Sie dort unter dem Schlüssel `GIT_CONFIG_KEYS` den Wert `gitweb\..*` ein.
+////
+
+For this to work, you must first enable Gitolite to set these config settings: This is done on the server where Gitolite is installed, in the file `.gitolite.rc`: Enter the value `gitweb\..*` under the `GIT_CONFIG_KEYS` key.
 
 
 
-[[sec.zugriffdateiebene]]
-=== Zugriffsrechte auf Datei- oder Branch-Ebene
+[[sec.file-access]]
+=== Access Rights on File or Branch Level
+//  Zugriffsrechte auf Datei- oder Branch-Ebene
 
-Gerade in Firmenumgebungen müssen die Zugriffsrechte häufig noch
-feiner differenziert werden als ein bloßes "`hat Zugriff`" und
-"`darf nicht zugreifen`". Dafür bietet Gitolite
-Zugriffsbeschränkung auf Verzeichnis- und Datei- sowie Tag- und
-Branch-Ebene an.
+////
+Gerade in Firmenumgebungen müssen die Zugriffsrechte häufig noch feiner differenziert werden als ein bloßes "`hat Zugriff`" und "`darf nicht zugreifen`".
+Dafür bietet Gitolite Zugriffsbeschränkung auf Verzeichnis- und Datei- sowie Tag- und Branch-Ebene an.
+////
 
-Wir betrachten zunächst einen Fall, der häufig auftritt: Entwickler
-sollen auf Entwicklungs-Branches beliebig entwickeln können, aber nur
-eine kleine Gruppe von Maintainern soll "`wichtige`" Branches
-wie z.B.{empty}{nbsp}`master`, bearbeiten können.
+Especially in corporate environments, access rights often have to be differentiated even more finely than a mere "`has access`" and "`must not access`".
+For this purpose, Gitolite offers access restriction on directory- and file- as well as tag- and branch-level.
 
+
+////
+Wir betrachten zunächst einen Fall, der häufig auftritt: Entwickler sollen auf Entwicklungs-Branches beliebig entwickeln können, aber nur eine kleine Gruppe von Maintainern soll "`wichtige`" Branches wie z.B. `master`, bearbeiten können.
+////
+
+We will first look at a case that occurs frequently: developers should be able to develop on development branches at will, but only a small group of maintainers should be able to edit "`important`" branches such as `master`.
+
+
+////
 Das ließe sich in etwa so umsetzen:
+////
 
+This could be implemented in a similar way:
+
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 @maintainers = ...
 @developers  = ...
@@ -525,28 +828,37 @@ repo Projekt
     R           = @developers
 --------
 
-Hier wird ein "`Entwicklungs-Namespace`" geschaffen: Die
-Gruppe der Entwickler kann beliebig mit Branches unterhalb von
-`dev/` verfahren, also z.B.{empty}{nbsp}`dev/feature` erstellen
-oder auch wieder löschen. Den Branch `master` können die
-Entwickler allerdings nur lesen, nicht aber verändern -- das ist den
-Maintainern vorbehalten.
 
-Der Teil zwischen den _Flags_ (`RW+`) und dem
-Gleichzeichen ist ein sogenannter Perl-kompatibler regulärer Ausdruck
-(_Perl-Compatible Regular Expression_, kurz PCRE). Sofern er
-_nicht_ mit `refs/` beginnt, bezieht sich der Ausdruck auf
-alle Referenzen unterhalb von `refs/heads/`, also Branches. Im
-o.g. Beispiel können also beliebige Referenzen _unterhalb_ von
-`refs/heads/dev/` modifiziert werden -- nicht aber der Branch
-`dev` selbst oder `irgendwas-dev`!
+////
+Hier wird ein "`Entwicklungs-Namespace`" geschaffen: Die Gruppe der Entwickler kann beliebig mit Branches unterhalb von `dev/` verfahren, also z.B. `dev/feature` erstellen oder auch wieder löschen.
+Den Branch `master` können die Entwickler allerdings nur lesen, nicht aber verändern -- das ist den Maintainern vorbehalten.
+////
 
-Beginnt ein solcher Ausdruck aber explizit mit einem `refs/`,
-kann man beliebige Referenzen verwalten. Auf die folgende Weise
-richtet man ein, dass alle Maintainer _Release-Candidate_-Tags{empty}{fn96}
-erstellen dürfen, aber nur _ein_ Maintainer wirklich den
-Versionierungs-Tag (bzw. beliebige andere) erstellen darf:
+Here a "`development namespace`" is created: The group of developers can work with branches below `dev/`, e.g. create `dev/feature` or delete it.
+However, the developers can only read the `master` branch, not change it -- this is reserved for the maintainers.
 
+
+////
+Der Teil zwischen den _Flags_ (`RW+`) und dem Gleichzeichen ist ein sogenannter Perl-kompatibler regulärer Ausdruck (_Perl-Compatible Regular Expression_, kurz PCRE).
+Sofern er _nicht_ mit `refs/` beginnt, bezieht sich der Ausdruck auf alle Referenzen unterhalb von `refs/heads/`, also Branches.
+Im o.g. Beispiel können also beliebige Referenzen _unterhalb_ von `refs/heads/dev/` modifiziert werden -- nicht aber der Branch `dev` selbst oder `irgendwas-dev`!
+////
+
+The part between the _flags_ (`RW+`) and the equal sign is a so-called _Perl-Compatible Regular Expression_ (PCRE).
+If it does not start with `refs/`, the expression refers to all references below `refs/heads/`, i.e. branches.
+In the above example, any references below `refs/heads/dev/` can be modified -- but not the `dev` branch itself, nor `anything-dev`!
+
+
+////
+Beginnt ein solcher Ausdruck aber explizit mit einem `refs/`, kann man beliebige Referenzen verwalten.
+Auf die folgende Weise richtet man ein, dass alle Maintainer _Release-Candidate_-Tags[96] erstellen dürfen, aber nur _ein_ Maintainer wirklich den Versionierungs-Tag (bzw. beliebige andere) erstellen darf:
+////
+
+But if such an expression starts explicitly with `refs/`, you can manage any references.
+In the following way you can set up that all maintainers are allowed to create _Release Candidate_ tags,{fn96} but only _one_ maintainer is really allowed to create the versioning tag (or any other):
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo Projekt
     RW+ refs/tags/v.*-rc[0-9]+$     = @maintainers
@@ -555,9 +867,13 @@ repo Projekt
 
 
 
-Will einer der Maintainer trotzdem einen Tag wie z.B.{empty}{nbsp}`v1.0`
-hochladen, passiert Folgendes:
+////
+Will einer der Maintainer trotzdem einen Tag wie z.B. `v1.0` hochladen, passiert Folgendes:
+////
 
+If one of the maintainers still wants to upload a tag like `v1.0`, the following happens:
+
+// @HIGHLIGHY AS LOG?
 --------
 remote: W refs/tags/v1.0 <repository> <user> DENIED by fallthru
 remote: error: hook declined to update refs/tags/v1.0
@@ -566,44 +882,76 @@ To <user>:<repository>
 --------
 
 
-Wie oben schon angesprochen, werden hier die Regeln nacheinander
-angewendet. Da der Tag `v1.0` nicht auf den o.g. regulären
-Ausdruck zutrifft, kommt nur die untere Zeile in Frage, allerdings
-passt der Nutzername nicht. Keine Zeile bleibt übrig
-(`fallthru`), daher wird die Aktion nicht erlaubt.
+////
+Wie oben schon angesprochen, werden hier die Regeln nacheinander angewendet.
+Da der Tag `v1.0` nicht auf den o.g. regulären Ausdruck zutrifft, kommt nur die untere Zeile in Frage, allerdings passt der Nutzername nicht.
+Keine Zeile bleibt übrig (`fallthru`), daher wird die Aktion nicht erlaubt.
+////
 
-[[sec.personal-namespace]]
-=== Persönliche Namespaces
+As mentioned above, here the rules are applied one after the other.
+Since the tag `v1.0` does not match the regular expression above, only the bottom line comes into question, but the username does not match.
+No line is left (`fallthru`), so the action is not allowed.
 
-Etwas flexibler ist das Konzept persönlicher Namespaces. So erhält
-jeder Entwickler seine eigene Hierarchie von Branches, die er
-verwalten kann.
 
-Dafür gibt es ein spezielles Schlüsselwort, `USER`, das jeweils
-durch den gerade zugreifenden Nutzernamen ersetzt wird. Damit wird
-Folgendes möglich:
 
+[[sec.personal-namespaces]]
+=== Personal Namespaces
+//  Persönliche Namespaces
+
+////
+Etwas flexibler ist das Konzept persönlicher Namespaces.
+So erhält jeder Entwickler seine eigene Hierarchie von Branches, die er verwalten kann.
+////
+
+The concept of personal namespaces is somewhat more flexible.
+This gives each developer his own hierarchy of branches that he can manage.
+
+
+////
+Dafür gibt es ein spezielles Schlüsselwort, `USER`, das jeweils durch den gerade zugreifenden Nutzernamen ersetzt wird.
+Damit wird Folgendes möglich:
+////
+
+There is a special keyword for this, `USER`, which is replaced by the user name currently accessing the branch.
+This makes the following possible:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo Projekt
     RW+ p/USER/  = @developers
     R            = @developers @maintainers
 --------
 
-Nun können alle Developer unterhalb von `p/<user>/` beliebig
-ihre Branches verwalten. Die untere Direktive sorgt dafür, dass alle
-diese Branches auch lesen können. Nun kann `max`{empty}{nbsp}z.B.{empty}{nbsp}`p/max/bugfixes` erstellen, aber `moritz` kann nur
-lesend darauf zugreifen.
+
+
+Nun können alle Developer unterhalb von `p/<user>/` beliebig ihre Branches verwalten.
+Die untere Direktive sorgt dafür, dass alle diese Branches auch lesen können.
+Nun kann `max` z.B. `p/max/bugfixes` erstellen, aber `moritz` kann nur lesend darauf zugreifen.
+
+Now all developers under `p/<user>/` can manage their branches as they like.
+The lower directive makes sure that all developers can read these branches.
+Now `max` can e.g. create `p/max/bugfixes`, but `moritz` can only read them.
+
+
 
 
 [[sec.file-level-acl]]
-=== Zugriffsregelung auf Dateiebene
+=== File-Level Access Control
+//  Zugriffsregelung auf Dateiebene
 
-Gitolite erlaubt auch Zugriffsbeschränkungen auf Datei- und
-Verzeichnisebene. Zuständig dafür ist die virtuelle Referenz `VREF/NAME`.
-So können Sie beispielsweise dem Dokumentations-Team nur den
-(schreibenden{empty}{fn97})
-Zugriff auf `doc/` erlauben:
+////
+Gitolite erlaubt auch Zugriffsbeschränkungen auf Datei- und Verzeichnisebene.
+Zuständig dafür ist die virtuelle Referenz `VREF/NAME`.
+So können Sie beispielsweise dem Dokumentations-Team nur den (schreibenden[97]) Zugriff auf `doc/` erlauben:
+////
 
+Gitolite also allows file- and directory-level access restrictions.
+The virtual reference `VREF/NAME` is responsible for this.
+For example, you can allow the documentation team only (writing{fn97}) access to `doc/`:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 @doc = ...  # Dokumentations-Team
 
@@ -612,53 +960,76 @@ repo Projekt
     -  VREF/NAME/       = @doc
 --------
 
-Hierbei sind allerdings folgende Fallstricke zu beachten: Sobald das
-Schlüsselwort `VREF/NAME` einmal auftaucht, werden die
-dateibasierten Regeln für _alle_ Nutzer angewendet. Trifft keine von
-ihnen zu, so wird der Zugriff _zugelassen_ -- daher ist die zweite Regel
-wichtig, die den Zugriff für `@doc` verbietet, es sei denn, der Commit
-modifiziert nur Dateien unter `doc/` (siehe auch weiter unten
-<<sec.gl-deny>>).
 
-Die Zugriffskontrolle prüft auf Commit-Ebene, welche Dateien verändert
-werden; stecken in einem Commit Änderungen an einer Datei, die der
-Nutzer nicht editieren darf, wird der gesamte `push`-Vorgang
-abgebrochen. Insbesondere können keine Aktionen ausgeführt werden, die
-Commits anderer Entwickler involvieren, die Dateien außerhalb des
-erlaubten Bereiches modifizieren.
+////
+Hierbei sind allerdings folgende Fallstricke zu beachten: Sobald das Schlüsselwort `VREF/NAME` einmal auftaucht, werden die dateibasierten Regeln für _alle_ Nutzer angewendet.
+Trifft keine von ihnen zu, so wird der Zugriff _zugelassen_ -- daher ist die zweite Regel wichtig, die den Zugriff für `@doc` verbietet, es sei denn, der Commit modifiziert nur Dateien unter `doc/` (siehe auch weiter unten Abschnitt 7.2.7, "Aktionen explizit verbieten").
+////
 
-Konkret auf das o.g. Beispiel bezogen heißt das, dass die Mitglieder
-von `@doc` im Allgemeinen 'keine neuen Branches erstellen
-  können'. Einen neuen Branch zu erstellen hieße nämlich, ein neue
-Referenz auf einen initialen Commit zu erstellen und dann alle
-Commits vom obersten bis zur Wurzel per _fast-forward_ zu
-integrieren, also die gesamte Projekt-Historie. Darin befinden sich
-aber sicherlich Commits, die Dateien außerhalb von `doc/`
-verändern, und somit wird die Aktion verboten.
+However, the following pitfalls must be taken into account: Once the keyword `VREF/NAME` appears once, the file-based rules are applied to _all_ users.
+If none of them apply, access is allowed -- so the second rule is important, which prohibits access for `@doc` unless the commit only modifies files under `doc/` (see also <<sec.gl-deny>> below).
+
+
+////
+Die Zugriffskontrolle prüft auf Commit-Ebene, welche Dateien verändert werden; stecken in einem Commit Änderungen an einer Datei, die der Nutzer nicht editieren darf, wird der gesamte `push`-Vorgang abgebrochen.
+Insbesondere können keine Aktionen ausgeführt werden, die Commits anderer Entwickler involvieren, die Dateien außerhalb des erlaubten Bereiches modifizieren.
+////
+
+Access control checks at the commit level which files are modified; if a commit contains changes to a file that the user is not allowed to edit, the entire `push` process is aborted.
+In particular, no actions can be performed that involve commits from other developers that modify files outside the allowed range.
+
+
+////
+Konkret auf das o.g. Beispiel bezogen heißt das, dass die Mitglieder von `@doc` im Allgemeinen _keine neuen Branches erstellen können_.
+Einen neuen Branch zu erstellen hieße nämlich, ein neue Referenz auf einen initialen Commit zu erstellen und dann alle Commits vom obersten bis zur Wurzel per _fast-forward_ zu integrieren, also die gesamte Projekt-Historie.
+Darin befinden sich aber sicherlich Commits, die Dateien außerhalb von `doc/` verändern, und somit wird die Aktion verboten.
+////
+
+Specifically, in relation to the above example, this means that `@doc` members generally _cannot create new branches_.
+Creating a new branch would mean creating a new reference to an initial commit and then _fast-forwarding_ all commits from top to root, i.e., the entire project history.
+However, there are certainly commits in it that modify files outside of `doc/`, and so the action is prohibited.
+
 
 
 [[sec.gl-deny]]
-=== Aktionen explizit verbieten
+=== Explicitly Prohibiting Actions
+//  Aktionen explizit verbieten
 
-Bisher wurde ein Nutzer nur abgewiesen, wenn er durch alle Regeln
-durchgefallen war (`fallthru`), ihm also keine Rechte zugewiesen
-wurden.  Allerdings lässt sich durch das Flag `-` (statt
-`RW`) explizit der Zugriff einschränken. Auch hier werden die
-Regeln wieder von oben nach unten durchgegangen.
+////
+Bisher wurde ein Nutzer nur abgewiesen, wenn er durch alle Regeln durchgefallen war (`fallthru`), ihm also keine Rechte zugewiesen wurden.
+Allerdings lässt sich durch das Flag `-` (statt `RW`) explizit der Zugriff einschränken.
+Auch hier werden die Regeln wieder von oben nach unten durchgegangen.
+////
 
+Previously, a user was only rejected if he failed all rules (`fallthru`), i.e. if no rights were assigned to him.
+But the `-` flag (instead of `RW`) can be used to explicitly restrict access.
+Again, the rules are passed through from top to bottom.
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo Projekt
     -   VREF/NAME/Makefile   = @developers
 --------
 
-Diese Direktive verbietet Mitgliedern von `@developers`,
-Commits zu erstellen, die das `Makefile`
-verändern.{fn98}
 
-Nach Konvention sollten Sie niemals forcierte Updates in die Branches
-`master` oder `maint` hochladen (siehe auch <<sec.branches>>). Diese Policy können
-Sie nun mit Gitolite forcieren:
+////
+Diese Direktive verbietet Mitgliedern von `@developers`, Commits zu erstellen, die das `Makefile` verändern.[98]
+////
 
+This directive prohibits members of `@developers` from making commits that modify the `Makefile`.{fn98}
+
+
+////
+Nach Konvention sollten Sie niemals forcierte Updates in die Branches `master` oder `maint` hochladen (siehe auch Abschnitt 3.1, "Referenzen: Branches und Tags").
+Diese Policy können Sie nun mit Gitolite forcieren:
+////
+
+By convention, you should never upload forced updates to the `master` or `maint` branches (see also <<sec.branches>>).
+You can now force this policy with Gitolite:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo Projekt
     RW  master maint    = @developers
@@ -666,69 +1037,96 @@ repo Projekt
     RW+                 = @developers
 --------
 
-Wird ein Branch, der _nicht_{empty}{nbsp}`master` oder `maint`
-heißt, hochgeladen, so wird lediglich die dritte Regel angewendet und
-der beliebige Zugriff (inkl. nicht-_fast-forward_-Updates)
-erlaubt. Commits, die per _fast-forward_ auf `master` oder
-`maint` integriert werden können, werden durch die erste Regel
-erlaubt. Beachten Sie allerdings das fehlende Plus-Zeichen: Ein
-forciertes Update wird nicht durch die erste Regel abgedeckt, aber
-durch die zweite, die explizit alles verbietet (was nicht vorher schon
-erlaubt wurde).
+
+////
+Wird ein Branch, der _nicht_ `master` oder `maint` heißt, hochgeladen, so wird lediglich die dritte Regel angewendet und der beliebige Zugriff (inkl. nicht-_fast-forward_-Updates) erlaubt.
+Commits, die per _fast-forward_ auf `master` oder `maint` integriert werden können, werden durch die erste Regel erlaubt.
+Beachten Sie allerdings das fehlende Plus-Zeichen: Ein forciertes Update wird nicht durch die erste Regel abgedeckt, aber durch die zweite, die explizit alles verbietet (was nicht vorher schon erlaubt wurde).
+////
+
+If a branch that is _not_ called `master` or `maint` is uploaded, only the third rule is applied and arbitrary access (including non _fast-forward_ updates) is allowed.
+Commits that can be integrated to `master` or `maint` via _fast-forward_ are allowed by the first rule.
+Note the missing plus sign, though: A forced update is not covered by the first rule, but by the second one, which explicitly prohibits everything (that has not been allowed before).
 
 
 
 
-[[sec.enforce-policy]]
-=== Sollte man Policies forcieren?
+[[sec.enforcing-policies]]
+=== Should Policies Be Enforced?
+//  Sollte man Policies forcieren?
 
-Mit den hier vorgestellten Mitteln und weiteren, die Sie der
-Dokumentation{empty}{fn99}
-entnehmen können, sind Sie in der Lage, Policies sehr flexibel zu
-forcieren. Allerdings ist es möglicherweise nicht sinnvoll, alles bis
-ins kleinste Detail zu kontrollieren. Wie oben bereits angesprochen,
-ist besonders eine Kontrolle auf Dateinamen-Ebene problematisch. Wenn
-dann stundenlange Arbeit in einem Commit steckt, er aber nicht
-hochgeladen werden kann, weil eine dieser Restriktionen es verbietet,
-ist die Frustration groß (und diesen Commit zu korrigieren, ist auch
-nicht ganz trivial, siehe _Rebase_, <<sec.rebase>>).
+////
+Mit den hier vorgestellten Mitteln und weiteren, die Sie der Dokumentation[99] entnehmen können, sind Sie in der Lage, Policies sehr flexibel zu forcieren.
+Allerdings ist es möglicherweise nicht sinnvoll, alles bis ins kleinste Detail zu kontrollieren.
+Wie oben bereits angesprochen, ist besonders eine Kontrolle auf Dateinamen-Ebene problematisch.
+Wenn dann stundenlange Arbeit in einem Commit steckt, er aber nicht hochgeladen werden kann, weil eine dieser Restriktionen es verbietet, ist die Frustration groß (und diesen Commit zu korrigieren, ist auch nicht ganz trivial, siehe _Rebase_, Abschnitt 4.1, "Commits verschieben - Rebase").
+////
 
-Auf Branch-Ebene ist es sinnvoll, nur einer eingeschränkten Gruppe von
-Entwicklern Zugriff auf "`wichtige`" Branches zu geben (wie
-z.B.{empty}{nbsp}`master`). Allerdings geht natürlich eine strikte
-Kontrolle, wer was machen darf, erheblich zu Lasten der Flexibilität,
-und gerade diese Flexibilität macht das Branching in Git so praktisch.
+With the means presented here and others, which you can take from the documentation, {fn99} you are able to force policies very flexibly.
+However, it may not be useful to control everything down to the smallest detail.
+As mentioned above, especially a control on file name level is problematic.
+Then, if hours of work go into a commit, but it can't be uploaded because one of those restrictions prohibits it, the frustration is great (and fixing that commit is not trivial, either; see _rebase_, <<sec.rebase>>).
+
+
+////
+Auf Branch-Ebene ist es sinnvoll, nur einer eingeschränkten Gruppe von Entwicklern Zugriff auf "`wichtige`" Branches zu geben (wie z.B. `master`).
+Allerdings geht natürlich eine strikte Kontrolle, wer was machen darf, erheblich zu Lasten der Flexibilität, und gerade diese Flexibilität macht das Branching in Git so praktisch.
+////
+
+At the branch level, it makes sense to give only a limited group of developers access to "`important`" branches (such as `master`).
+Of course, strict control over who can do what comes at the expense of flexibility, and it's this flexibility that makes branching in Git so practical.
+
 
 
 
 [[sec.git-daemon]]
-== Git-Daemon: Anonymer, lesender Zugriff
+== Git Daemon: Anonymous Read-Only Access
+// Git-Daemon: Anonymer, lesender Zugriff
 
-Der Git-Daemon erlaubt unverschlüsselten, anonymen, lesenden Zugriff
-auf Git-Repositories über das Git-Protokoll. Er wird mit Git
-mitgeliefert und läuft in der Regel auf TCP-Port 9418 (und kann somit
-auch ohne Root-Rechte gestartet werden).
+////
+Der Git-Daemon erlaubt unverschlüsselten, anonymen, lesenden Zugriff auf Git-Repositories über das Git-Protokoll.
+Er wird mit Git mitgeliefert und läuft in der Regel auf TCP-Port 9418 (und kann somit auch ohne Root-Rechte gestartet werden).
+////
 
-* Die Übertragung findet unverschlüsselt statt. Die kryptografische
-  Integrität, die Git ständig überprüft, schließt es allerdings aus,
-  dass Angreifer den Datenstrom manipulieren und Schadcode
-  einschmuggeln können.{fn100}
-
-* Dieser Weg ist ideal, um schnell und einfach Quellcode
-  einer großen Menge von Leuten zugänglich zu machen. Es wird nur das
-  Minimum an nötigen Informationen heruntergeladen (es werden nur die
-  benötigten Commits ausgehandelt und dann gepackt übertragen).
+The Git daemon allows unencrypted, anonymous, read-only access to Git repositories via the Git protocol.
+It comes with Git and usually runs on TCP port 9418 (and can thus be started without root privileges).
 
 
-Um ein oder mehrere Repositories zu exportieren, reicht prinzipiell
-ein einfacher Aufruf von `git daemon <pfad>`, wobei
-`<pfad>` der Pfad ist, in dem Ihre Repositories liegen. Es
-können auch mehrere Pfade angegeben werden. Sofern Sie Gitolite schon
-wie oben aufgesetzt haben, ist `/var/git/repositories` ein
-sinnvoller Pfad.
 
-Zum Testen können Sie einen Git-Daemon auf einem einzigen Repository
-laufen lassen:
+////
+* Die Übertragung findet unverschlüsselt statt.
+  Die kryptografische Integrität, die Git ständig überprüft, schließt es allerdings aus, dass Angreifer den Datenstrom manipulieren und Schadcode einschmuggeln können.[100]
+
+* Dieser Weg ist ideal, um schnell und einfach Quellcode einer großen Menge von Leuten zugänglich zu machen.
+  Es wird nur das Minimum an nötigen Informationen heruntergeladen (es werden nur die benötigten Commits ausgehandelt und dann gepackt übertragen).
+////
+
+
+* The transmission is not encrypted.
+  However, the cryptographic integrity that Git constantly checks excludes the possibility of attackers manipulating the data stream and smuggling in malicious code.{fn100}
+
+* This way is ideal for making source code available to a large number of people quickly and easily.
+  Only the minimum of necessary information is downloaded (only the required commits are negotiated and then transferred packed).
+
+
+////
+Um ein oder mehrere Repositories zu exportieren, reicht prinzipiell ein einfacher Aufruf von `git daemon <pfad>`, wobei `<pfad>` der Pfad ist, in dem Ihre Repositories liegen.
+Es können auch mehrere Pfade angegeben werden.
+Sofern Sie Gitolite schon wie oben aufgesetzt haben, ist `/var/git/repositories` ein sinnvoller Pfad.
+////
+
+In order to export one or more repositories, simply execute `git daemon <path>`, where `<path>` is the path where your repositories are located.
+You can also specify multiple paths.
+If you have already set up Gitolite as above, `/var/git/repositories` is a useful path.
+
+
+////
+Zum Testen können Sie einen Git-Daemon auf einem einzigen Repository laufen lassen:
+////
+
+For testing, you can run a Git daemon on a single repository:
+
+
 
 [subs="macros,quotes"]
 --------
@@ -736,8 +1134,14 @@ $ *touch .git/git-daemon-export-ok*
 $ *git daemon --verbose /home/feh/testrepo*
 --------
 
-Dann klonen Sie (am besten in ein temporäres Verzeichnis) eben dieses
-Repository:
+
+
+////
+Dann klonen Sie (am besten in ein temporäres Verzeichnis) eben dieses Repository:
+////
+
+Then clone (preferably into a temporary directory) this very repository:
+
 
 [subs="macros,quotes"]
 --------
@@ -751,22 +1155,30 @@ remote: Total 130 (delta 54), reused 0 (delta 0)
 --------
 
 
-Der Git-Daemon exportiert ein Repository aber nur, wenn eine Datei
-`git-daemon-export-ok` im `.git`-Verzeichnis angelegt
-wird (wie oben geschehen; im Falle von _Bare Repositories_ muss
-dies natürlich im Verzeichnis selbst geschehen). Dies erfolgt aus
-Sicherheitsgründen: So können etwa unter
-`/var/git/repositories` viele (auch private) Repositories
-liegen, aber nur diejenigen, die wirklich ohne Zugriffskontrolle
-exportiert werden sollen, erhalten diese Datei.
+////
+Der Git-Daemon exportiert ein Repository aber nur, wenn eine Datei `git-daemon-export-ok` im `.git`-Verzeichnis angelegt wird (wie oben geschehen; im Falle von _Bare Repositories_ muss dies natürlich im Verzeichnis selbst geschehen).
+Dies erfolgt aus Sicherheitsgründen: So können etwa unter `/var/git/repositories` viele (auch private) Repositories liegen, aber nur diejenigen, die wirklich ohne Zugriffskontrolle exportiert werden sollen, erhalten diese Datei.
+////
 
-Der Daemon akzeptiert allerdings die Option `--export-all`,
-die diese Restriktion aufhebt und alle Repositories in allen
-Unterverzeichnissen exportiert.
+However, the Git daemon will only export a repository if a `git-daemon-export-ok` file is created in the `.git` directory (as done above; in the case of _bare repositories_, of course, this must be done in the directory itself).
+This is done for security reasons: For example, `/var/git/repositories` may contain many (even private) repositories, but only those that really need to be exported without access control will receive this file.
 
-Eine weitere wichtige Einstellung ist der _Base Path_, also der
-Pfad, in dem die eigentlichen Git-Repositories liegen. Startet man den
-Git-Daemon wie folgt:
+
+////
+Der Daemon akzeptiert allerdings die Option `--export-all`, die diese Restriktion aufhebt und alle Repositories in allen Unterverzeichnissen exportiert.
+////
+
+However, the daemon accepts the `--export-all` option, which removes this restriction and exports all repositories in all subdirectories.
+
+
+////
+Eine weitere wichtige Einstellung ist der _Base Path_, also der Pfad, in dem die eigentlichen Git-Repositories liegen.
+Startet man den Git-Daemon wie folgt:
+////
+
+Another important setting is the _Base Path_, which is the path where the actual Git repositories are located.
+Start the Git daemon as follows:
+
 
 [subs="macros,quotes"]
 --------
@@ -774,39 +1186,62 @@ $ *git daemon --base-path=/var/git/repositories /var/git/repositories*
 --------
 
 
-wird jeder Anfrage nach einem Git-Repository der _Base Path_
-vorangestellt. Nun können Nutzer ein Repository mit der Adresse
-`git://<server>/<projekt>.git` klonen, anstatt
-das umständliche
-`git://<server>/var/git/repositories/<projekt>.git` zu
-verwenden.
+
+wird jeder Anfrage nach einem Git-Repository der _Base Path_ vorangestellt.
+Nun können Nutzer ein Repository mit der Adresse `git://<server>/<projekt>.git` klonen, anstatt das umständliche `git://<server>/var/git/repositories/<projekt>.git` zu verwenden.
+
+every request for a git repository is preceded by the _base path_.
+Now users can clone a repository with the address `git://<server>/<project>.git` instead of using the cumbersome `git://<server>/var/git/repositories/<project>.git`.
+
 
 
 [[sec.git-daemon-inetd]]
-=== Git-Daemon und Inetd
+=== Git-Daemon and Inetd
+//  Git-Daemon und Inetd
 
-Im Regelfall soll der Git-Daemon eine große Anzahl von Repositories
-ständig ausliefern. Dafür läuft er ständig im Hintergrund oder wird
-für jede Anfrage neu gestartet. Letztere Aufgabe übernimmt
-typischerweise der aus OpenBSD stammende _Inetd_. Damit das
-funktioniert, muss lediglich folgende (eine!)  Zeile in die
-`/etc/inetd.conf` eingetragen werden:
+////
+Im Regelfall soll der Git-Daemon eine große Anzahl von Repositories ständig ausliefern.
+Dafür läuft er ständig im Hintergrund oder wird für jede Anfrage neu gestartet.
+Letztere Aufgabe übernimmt typischerweise der aus OpenBSD stammende _Inetd_.
+Damit das funktioniert, muss lediglich folgende (eine!)  Zeile in die `/etc/inetd.conf` eingetragen werden:
+////
 
-// TODO(mw/jp): Hier brauchen wir eigentlich so ein "Umbruch"-Symbol...
+As a rule, the Git daemon is supposed to constantly deliver a large number of repositories.
+To do this, it runs constantly in the background or is restarted for each request.
+The latter task is typically performed by _Inetd_ from OpenBSD.
+To make this work, you just need to add the following (one!) line to `/etc/inetd.conf`:
 
+
+// @TODO from original source:
+//       TODO(mw/jp): Hier brauchen wir eigentlich so ein "Umbruch"-Symbol...
+//            trnslt: Here we actually need one of these "upheaval" symbols...
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 git     stream  tcp     nowait  <user>   /usr/bin/git git daemon
   --inetd --base-path=/var/git/repositories /var/git/repositories
 --------
 
-Dabei muss `<user>` ein Nutzer sein, der auf die Repositories
-lesend zugreifen kann. Das kann `root` sein, weil der Inetd
-normalerweise mit Root-Rechten läuft, sollte aber sinnvollerweise
-`git` oder ein ähnlich unprivilegierter Account sein.
 
-Die Konfiguration für den `xinetd` ist analog, aber selbsterklärender. Sie wird z.B. unter
-`/etc/xinet.d/git-daemon` abgelegt:
 
+////
+Dabei muss `<user>` ein Nutzer sein, der auf die Repositories lesend zugreifen kann.
+Das kann `root` sein, weil der Inetd normalerweise mit Root-Rechten läuft, sollte aber sinnvollerweise `git` oder ein ähnlich unprivilegierter Account sein.
+////
+
+`<user>` must be a user who has read access to the repositories.
+This can be `root`, because the Inetd normally runs with root privileges, but should be `git` or a similarly unprivileged account.
+
+
+////
+Die Konfiguration für den `xinetd` ist analog, aber selbsterklärender.
+Sie wird z.B. unter `/etc/xinet.d/git-daemon` abgelegt:
+////
+
+The configuration for the `xinetd` is similar, but more self-explanatory.
+It is stored e.g. under `/etc/xinet.d/git-daemon`:
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 service git
 {
@@ -822,21 +1257,32 @@ service git
 }
 --------
 
-Vergessen Sie nicht, den jeweiligen Daemon per
-`/etc/init.d/[x]inetd restart` neu zu
-starten.{fn101}
+
+////
+Vergessen Sie nicht, den jeweiligen Daemon per `/etc/init.d/[x]inetd restart` neu zu starten.[101]
+////
+
+Do not forget to restart the respective daemon via `/etc/init.d/[x]inetd restart`.{fn101}
+
+
 
 
 [[sec.git-daemon-sv]]
-=== Der Debian-Weg: Git-Daemon sv
+=== The Debian Way: Git Daemon SV
+//  Der Debian-Weg: Git-Daemon sv
 
-Debian bietet ein Paket `git-daemon-run` an, das
-Konfigurationsdateien für `sv`{empty}{fn102}
-enthält. Das Paket erstellt im wesentlichen einen Nutzer
-`gitlog` sowie zwei ausführbare Shell-Scripte, `/etc/sv/git-daemon/run` und `/etc/sv/git-daemon/log/run`. Modifizieren Sie ersteres, damit
-der Git-Daemon auf dem Verzeichnis gestartet wird, in dem Ihre
-Repositories liegen:
+////
+Debian bietet ein Paket `git-daemon-run` an, das Konfigurationsdateien für `sv`[102] enthält.
+Das Paket erstellt im wesentlichen einen Nutzer `gitlog` sowie zwei ausführbare Shell-Scripte, `/etc/sv/git-daemon/run` und `/etc/sv/git-daemon/log/run`.
+Modifizieren Sie ersteres, damit der Git-Daemon auf dem Verzeichnis gestartet wird, in dem Ihre Repositories liegen:
+////
 
+Debian offers the `git-daemon-run` package which contains configuration files for `sv`.{fn102}
+The package essentially creates a `gitlog` user and two executable shell scripts, `/etc/sv/git-daemon/run` and `/etc/sv/git-daemon/log/run`.
+Modify the former to run the Git daemon in the directory where your repositories are located:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> BASH
 --------
 #!/bin/sh
 exec 2>&1
@@ -845,28 +1291,53 @@ exec git-daemon --verbose --listen=203.0.113.1 --user=git --group=git \
   --reuseaddr --base-path=/var/git/repositories /var/git/repositories
 --------
 
-Wenn Sie den Git-Daemon auf diese Weise (oder auf ähnliche Weise per
-SysV-Init) aus einem Shell-Script starten, wird das Skript mit
-Root-Rechten ausgeführt. Folgende Optionen sind daher sinnvoll:
+
+////
+Wenn Sie den Git-Daemon auf diese Weise (oder auf ähnliche Weise per SysV-Init) aus einem Shell-Script starten, wird das Skript mit Root-Rechten ausgeführt.
+Folgende Optionen sind daher sinnvoll:
+////
+
+If you start the Git daemon from a shell script this way (or similarly via SysV-Init), the script will be executed with root privileges.
+The following options are therefore useful:
 
 
-`--user=<user>`:: Nutzer, als der der Daemon läuft (z.B.{empty}{nbsp}`git`). Muss
-lesend auf die Repositories zugreifen können.
+////
+`--user=<user>`::
+Nutzer, als der der Daemon läuft (z.B. `git`).
+Muss lesend auf die Repositories zugreifen können.
 
-`--group=<group>`:: Gruppe, als die der Daemon läuft.  Sinnvollerweise
-die Nutzergruppe (`git`) oder `nobody`.
+`--group=<group>`::
+Gruppe, als die der Daemon läuft.
+Sinnvollerweise die Nutzergruppe (`git`) oder `nobody`.
 
-`--reuseaddr`:: Verhindert, dass der Neustart des Daemons schief
-läuft, weil noch offene Verbindungen auf ein Timeout warten.  Diese
-Option benutzt die Bind-Adresse trotz eventuell noch bestehender
-Verbindungen. Diese Option sollten Sie immer dann angeben, wenn eine
-Instanz kontinuierlich läuft.
+`--reuseaddr`::
+Verhindert, dass der Neustart des Daemons schief läuft, weil noch offene Verbindungen auf ein Timeout warten.
+Diese Option benutzt die Bind-Adresse trotz eventuell noch bestehender Verbindungen.
+Diese Option sollten Sie immer dann angeben, wenn eine Instanz kontinuierlich läuft.
+////
 
 
-Wenn Sie das SysV-Init verwenden, Dienste also in der Regel über
-Symlinks in `/etc/rc2.d/` zu Scripten in `/etc/init.d/`
-gestartet werden, müssen Sie für einen automatischen Start des
-Git-Daemon beim Booten des Systems außerdem folgende Symlinks anlegen:
+[horizontal]
+`--user=<user>` ::
+The user which the daemon runs as (e.g. `git`).
+Must have read access to the repositories.
+
+`-{wj}-{wj}group{wj}={wj}<group>` ::
+The group which the daemon runs as.
+It makes sense to use the user group (`git`) or `nobody`.
+
+`--reuseaddr` ::
+Prevents the daemon restart from going wrong because there are still open connections waiting for a timeout.
+This option uses the bind address even if there are still connections.
+You should always specify this option if an instance is running continuously.
+
+
+////
+Wenn Sie das SysV-Init verwenden, Dienste also in der Regel über Symlinks in `/etc/rc2.d/` zu Scripten in `/etc/init.d/` gestartet werden, müssen Sie für einen automatischen Start des Git-Daemon beim Booten des Systems außerdem folgende Symlinks anlegen:
+////
+
+If you are using SysV-Init, which means that services are usually started via symlinks in `/etc/rc2.d/` to scripts in `/etc/init.d/`, you will also need to create the following symlinks to automatically start the git daemon when the system boots
+
 
 // Julius' note to self: 89a57b1e01d296e30849b56726bc72a947514df5 in /etc
 [subs="macros,quotes"]
@@ -878,103 +1349,170 @@ Git-Daemon beim Booten des Systems außerdem folgende Symlinks anlegen:
 --------
 
 
-[[sec.git-daemon-productive]]
-=== Der Git-Daemon auf einem Produktivsystem
-
-Auf einem Produktivsystem, das mehr als nur ein Git-Server ist, trifft
-man möglicherweise auf folgende Situationen:
 
 
+
+[[sec.git-daemon-production]]
+=== The Git Daemon on Production Systems
+//  Der Git-Daemon auf einem Produktivsystem
+
+////
+Auf einem Produktivsystem, das mehr als nur ein Git-Server ist, trifft man möglicherweise auf folgende Situationen:
+////
+
+On a production system that is more than just a Git server, you may encounter the following situations:
+
+
+////
 * Es gibt mehrere Netzwerkkarten bzw. virtuelle Interfaces.
 
 * Der Service soll auf einem anderen Port laufen.
 
-* Verschiedene IPs sollen verschiedene Repositories
-  ausliefern.
+* Verschiedene IPs sollen verschiedene Repositories ausliefern.
+////
 
 
-Der Git-Daemon bietet Optionen, um auf solche Situationen zu
-reagieren. Sie sind nachfolgend zusammengefasst. Für
-detailliertere Erklärungen ist die Man-Page `git-daemon` zu
-konsultieren.
+* There are several network cards or virtual interfaces.
 
-`--max-connections=<n>`:: Per Default erlaubt der Git-Daemon nur 32
-gleichzeitige Verbindungen. Mit dieser Optionen können Sie die Anzahl
-erhöhen. Ein Wert von 0 lässt beliebig viele Verbindungen
-zu.{fn103}
+* The service should run on a different port.
 
-`--syslog`:: Verwendet den Syslog-Mechanismus statt Standard-Error, um
-Fehlermeldungen zu loggen.
-
-`--port=<n>`:: Verwendet einen anderen Port als 9418.
-
-`--listen=<host/ip>`:: Bestimmt, an welches Interface sich der
-Git-Daemon binden soll. Per Default ist der Daemon auf allen
-Interfaces erreichbar, bindet also auf `0.0.0.0`. Ein Einstellung von
-`127.0.0.1`{empty}{nbsp}z.B. erlaubt nur Verbindungen vom lokalen Rechner.
-
-`--interpolated-path=<template>`:: Soll ein Git-Daemon abhängig von
-der Interface-Adresse verschiedene Repositories anbieten, so wird dies
-über das `<template>` geregelt: `%IP` wird durch die IP-Adresse des
-Interfaces, über das die Verbindung eingeht, ersetzt, und `%D` durch
-den angegebenen Pfad. Mit einem Template von `/repos/%IP%D`
-erscheint bei einem `git clone git://localhost/testrepo` die folgende
-Nachricht in den Logfiles: `Interpolated dir
-_/repos/127.0.0.1/testrepo_` (weil die Verbindung über das
-Loopback-Interface zustande kommt). Für jedes Interface, auf dem der
-Git-Daemon läuft, muss in diesem Fall in `/repos/` ein
-Unterverzeichnis mit der entsprechenden IP-Adresse des Interfaces
-existieren, in dem sich exportierbare Repositories befinden.
+* Different IPs should deliver different repositories.
 
 
 
-[[sec.gitoliteexport]]
-=== Über Gitolite exportierbare Repositories festlegen
+////
+Der Git-Daemon bietet Optionen, um auf solche Situationen zu reagieren.
+Sie sind nachfolgend zusammengefasst.
+Für detailliertere Erklärungen ist die Man-Page `git-daemon` zu konsultieren.
+////
 
-Gitolite kennt einen speziellen Nutzernamen, `daemon`. Für alle
-Repositories, auf denen dieser Nutzer Leseberechtigung hat, wird
-automatisch die Datei `git-daemon-export-ok` angelegt. Sie
-können also über Gitolite direkt festlegen, welche Repositories
-exportiert werden sollen:
+The Git daemon provides options to respond to such situations.
+They are summarized below.
+For more detailed explanations, please consult the `git-daemon` man page.
 
+
+////
+`--max-connections=<n>`::
+Per Default erlaubt der Git-Daemon nur 32 gleichzeitige Verbindungen.
+Mit dieser Optionen können Sie die Anzahl erhöhen.
+Ein Wert von 0 lässt beliebig viele Verbindungen zu.[103]
+
+`--syslog`::
+Verwendet den Syslog-Mechanismus statt Standard-Error, um Fehlermeldungen zu loggen.
+
+`--port=<n>`::
+Verwendet einen anderen Port als 9418.
+
+`--listen=<host/ip>`::
+Bestimmt, an welches Interface sich der Git-Daemon binden soll.
+Per Default ist der Daemon auf allen Interfaces erreichbar, bindet also auf `0.0.0.0`.
+Ein Einstellung von `127.0.0.1` z.B. erlaubt nur Verbindungen vom lokalen Rechner.
+
+`--interpolated-path=<template>`::
+Soll ein Git-Daemon abhängig von der Interface-Adresse verschiedene Repositories anbieten, so wird dies über das `<template>` geregelt: `%IP` wird durch die IP-Adresse des Interfaces, über das die Verbindung eingeht, ersetzt, und `%D` durch den angegebenen Pfad.
+Mit einem Template von `/repos/%IP%D` erscheint bei einem `git clone git://localhost/testrepo` die folgende Nachricht in den Logfiles: `Interpolated dir '/repos/127.0.0.1/testrepo'` (weil die Verbindung über das Loopback-Interface zustande kommt).
+Für jedes Interface, auf dem der Git-Daemon läuft, muss in diesem Fall in `/repos/` ein Unterverzeichnis mit der entsprechenden IP-Adresse des Interfaces existieren, in dem sich exportierbare Repositories befinden.
+////
+
+
+`--max-connections=<n>` ::
+By default, the Git daemon only allows 32 simultaneous connections.
+With this option you can increase the number.
+A value of 0 allows any number of connections.{fn103}
+
+`--syslog` ::
+Uses the syslog mechanism instead of standard error to log error messages.
+
+`--port=<n>` ::
+Uses a port other than 9418.
+
+`--listen=<host/ip>` ::
+Determines which interface the Git daemon should bind to.
+By default the daemon is accessible on all interfaces, so it binds to `0.0.0.0`.
+A setting of `127.0.0.1`, for example, only allows connections from the local machine.
+
+`--interpolated-path=<template>` ::
+If a Git daemon shall offer different repositories depending on the interface-address, this is controlled by the `<template>`: `%IP` is replaced by the IP address of the interface, where the connection comes in, and `%D` by the given path.
+With a template of `/repos/%IP%D`, a `git clone git://localhost/testrepo` will display the following message in the log files: `interpolated dir '/repos/127.0.0.1/testrepo'` (because the connection is established via the loopback interface).
+For each interface on which the Git daemon runs, there must be a subdirectory in `/repos/` with the interface's corresponding IP address in which exportable repositories are located.
+
+
+
+
+[[sec.gitolite-export]]
+=== Specifying Exportable Repositories on Gitolite
+//  Über Gitolite exportierbare Repositories festlegen
+
+////
+Gitolite kennt einen speziellen Nutzernamen, `daemon`.
+Für alle Repositories, auf denen dieser Nutzer Leseberechtigung hat, wird automatisch die Datei `git-daemon-export-ok` angelegt.
+Sie können also über Gitolite direkt festlegen, welche Repositories exportiert werden sollen:
+////
+
+Gitolite knows a special username, `daemon`.
+For all repositories where this user has read permission, the file `git-daemon-export-ok` is automatically created.
+So you can use Gitolite to directly specify which repositories to export:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITOLITE SETTINGS
 --------
 repo Projekt
     R = daemon
 --------
 
-Beachten Sie allerdings, dass diese Einstellung wirkungslos ist, wenn
-Sie den Git-Daemon mit der Option `--export-all` starten.
-Auch können Sie nicht per `repo @all` allen Repositories diese
-Berechtigung vergeben.
+
+////
+Beachten Sie allerdings, dass diese Einstellung wirkungslos ist, wenn Sie den Git-Daemon mit der Option `--export-all` starten.
+Auch können Sie nicht per `repo @all` allen Repositories diese Berechtigung vergeben.
+////
+
+Note that this setting has no effect if you start the Git daemon with the `--export-all` option.
+Also, you cannot give this permission to all repositories via `repo @all`.
+
 
 
 
 [[sec.gitweb]]
-== Gitweb: Das integrierte Web-Frontend
+== Gitweb: The Integrated Web Frontend
+// Gitweb: Das integrierte Web-Frontend
 
-Git kommt mit einem integrierten, browserbasierten Frontend, genannt
-_Gitweb_. Über das Frontend lässt sich die gesamte
-Versionsgeschichte eines Projekts durchsuchen: Jeder Commit kann mit
-allen Details angezeigt werden, Unterschiede zwischen Commits, Dateien
-oder Branches ebenso wie alle Log-Nachrichten. Außerdem kann jeder
-Snapshot individuell als Tar-Archiv heruntergeladen werden (das ist
-besonders für Git-Neulinge praktisch).
+////
+Git kommt mit einem integrierten, browserbasierten Frontend, genannt _Gitweb_.
+Über das Frontend lässt sich die gesamte Versionsgeschichte eines Projekts durchsuchen: Jeder Commit kann mit allen Details angezeigt werden, Unterschiede zwischen Commits, Dateien oder Branches ebenso wie alle Log-Nachrichten.
+Außerdem kann jeder Snapshot individuell als Tar-Archiv heruntergeladen werden (das ist besonders für Git-Neulinge praktisch).
+////
 
-Um einen Überblick über die Funktionalität zu erhalten, können Sie mit
-dem Kommando `git instaweb` ohne weitere Konfiguration einen
-temporären Webserver mit Gitweb aufsetzen.
+Git comes with an integrated, browser-based frontend called _Gitweb_.
+The frontend allows you to search the entire version history of a project: Each commit can be viewed with full details, differences between commits, files or branches, as well as all log messages.
+In addition, each snapshot can be downloaded individually as a tar archive (this is especially handy for Git newbies).
 
-Git bringt keinen eigenen Webserver mit. Über die Option
-`--httpd=<webserver>` können Sie festlegen, welchen Webserver
-Git verwenden soll, um die Seite auszuliefern. Um Gitweb lediglich
-auszuprobieren, empfiehlt es sich, den Webserver `webrick` zu
-verwenden -- das ist ein kleiner Webserver, der automatisch mit der
-Scriptsprache Ruby ausgeliefert wird.
 
-Sobald Sie das nachfolgende Kommando ausführen, wird der Webserver
-gestartet und die Seite im Browser aufgerufen (welcher Browser
-verwendet wird, können Sie über die Option `--browser`
-festlegen).
+////
+Um einen Überblick über die Funktionalität zu erhalten, können Sie mit dem Kommando `git instaweb` ohne weitere Konfiguration einen temporären Webserver mit Gitweb aufsetzen.
+////
+
+To get an overview of the functionality, you can use the command `git instaweb` to set up a temporary web server with Gitweb without further configuration.
+
+
+////
+Git bringt keinen eigenen Webserver mit.
+Über die Option `--httpd=<webserver>` können Sie festlegen, welchen Webserver Git verwenden soll, um die Seite auszuliefern.
+Um Gitweb lediglich auszuprobieren, empfiehlt es sich, den Webserver `webrick` zu verwenden -- das ist ein kleiner Webserver, der automatisch mit der Scriptsprache Ruby ausgeliefert wird.
+////
+
+Git does not come with its own web server.
+You can use the `--httpd=<webserver>` option to specify which web server Git should use to deliver the page.
+If you just want to try out Gitweb, we recommend using the `webrick` web server -- this is a small web server that automatically ships with the Ruby scripting language.
+
+
+////
+Sobald Sie das nachfolgende Kommando ausführen, wird der Webserver gestartet und die Seite im Browser aufgerufen (welcher Browser verwendet wird, können Sie über die Option `--browser` festlegen).
+////
+
+As soon as you execute the following command, the web server will be started and the page will be displayed in the browser (which browser is used can be specified with the `--browser` option).
+
+
+
 
 [subs="macros,quotes"]
 --------
@@ -982,9 +1520,15 @@ $ *git instaweb --httpd=webrick*
 --------
 
 
-Beachten Sie, dass das Kommando auf der obersten Ebene eines
-Git-Verzeichnisses gestartet werden muss.
+////
+Beachten Sie, dass das Kommando auf der obersten Ebene eines Git-Verzeichnisses gestartet werden muss.
 Stoppen Sie den Webserver, wenn nötig, mit folgendem Befehl:
+////
+
+Note that the command must be started at the top level of a Git directory.
+If necessary, stop the web server with the following command:
+
+
 
 [subs="macros,quotes"]
 --------
@@ -992,61 +1536,111 @@ $ *git instaweb --stop*
 --------
 
 
-[[sec.gitweb-install]]
-=== Gitweb global installieren
-
-Viele Distributionen bringen Gitweb bereits als eigenes Paket oder
-direkt im Git-Paket mit. Unter Debian heißt das korrespondierende
-Paket `gitweb`. Wenn Sie nicht sicher sind, ob Gitweb auf Ihrem
-System verfügbar ist, sollten Sie das unter `/usr/share/gitweb` prüfen und ggf. nachinstallieren.
-
-Gitweb benötigt lediglich ein großes Perl-Script plus
-Konfigurationsdatei sowie optional ein Logo, CSS-Stylesheet und
-Favicon.  Die Konfigurationsdatei liegt üblicherweise unter `/etc/gitweb.conf`, kann aber auch beliebig anders benannt
-werden. Wichtig ist, dass bei jedem Aufruf des Perl-Scripts über die
-Umgebungsvariable `GITWEB_CONFIG` übergeben wird, wo sich
-diese Datei befindet.
-
-In der Regel sollten Sie schon eine solche Datei haben. In
-nachfolgender Liste sind die wichtigsten Konfigurationsmöglichkeiten
-dargestellt.
-
-Achtung: Die Datei muss in validem Perl geschrieben sein. Vergessen
-Sie also insbesondere nicht das abschließende Semikolon bei der
-Variablenzuweisung!
 
 
+[[sec.gitweb-installation]]
+=== Installing Gitweb Globally
+//  Gitweb global installieren
 
-`$projectroot`:: Verzeichnis, in dem Ihre Git-Repositories liegen.
+////
+Viele Distributionen bringen Gitweb bereits als eigenes Paket oder direkt im Git-Paket mit.
+Unter Debian heißt das korrespondierende Paket `gitweb`.
+Wenn Sie nicht sicher sind, ob Gitweb auf Ihrem System verfügbar ist, sollten Sie das unter `/usr/share/gitweb` prüfen und ggf. nachinstallieren.
+////
 
-
-`$export_ok`:: Dateiname, der bestimmt, ob ein Repository in Gitweb
-sichtbar sein soll. Sie sollten diese Variable auf
-`"git-daemon-export-ok"` setzen, damit nur diejenigen Repositories
-angezeigt werden, die auch durch den Git-Daemon ausgeliefert werden.
-
-`@git_base_url_list`:: Array von URLs, über die das Projekt geklont
-werden kann. Diese URLs erscheinen in der Projektübersicht und sind
-sehr hilfreich, um Leuten schnellen Zugriff auf den Quellcode zu
-geben, nachdem sie sich einen kurzen Überblick verschafft haben. Geben
-Sie am besten die URL an, unter der Ihr Git-Daemon erreichbar ist,
-also z.B.  `(_git://git.example.com_)`.
-
-`$projects_list`:: Zuordnung von Projekten und ihren Besitzern.
-Diese Projektliste kann automatisch von Gitolite erzeugt werden; siehe
-die Beispiel-Konfigurationsdatei weiter unten.
-
-`$home_text`:: Absoluter Pfad zu einer Datei, die z.B. einen firmen-
-oder projektspezifischen Textbaustein enthält. Dieser wird oberhalb
-der Auflistung der Repositories eingeblendet.
+Many distributions already include Gitweb as a separate package or directly in the Git package.
+Under Debian, the corresponding package is called `gitweb`.
+If you are not sure if Gitweb is available on your system, you should check under `/usr/share/gitweb` and install it if necessary.
 
 
+////
+Gitweb benötigt lediglich ein großes Perl-Script plus Konfigurationsdatei sowie optional ein Logo, CSS-Stylesheet und Favicon.
+Die Konfigurationsdatei liegt üblicherweise unter `/etc/gitweb.conf`, kann aber auch beliebig anders benannt werden.
+Wichtig ist, dass bei jedem Aufruf des Perl-Scripts über die Umgebungsvariable `GITWEB_CONFIG` übergeben wird, wo sich diese Datei befindet.
+////
+
+Gitweb only requires a large Perl script plus a configuration file and optionally a logo, CSS stylesheet, and favicon.
+The configuration file is usually located in `/etc/gitweb.conf`, but can also be named differently.
+It is important that each time the Perl script is called, the environment variable `GITWEB_CONFIG` is used to specify where this file is located.
 
 
-Sofern Sie Gitolite wie oben installiert haben und Ihre Repositories
-unter `/var/git/repositories` liegen, sollte folgende
-Konfiguration für Gitweb ausreichen:
+////
+In der Regel sollten Sie schon eine solche Datei haben.
+In nachfolgender Liste sind die wichtigsten Konfigurationsmöglichkeiten dargestellt.
+////
 
+Usually you should already have such a file.
+The following list shows the most important configuration options.
+
+
+////
+Achtung: Die Datei muss in validem Perl geschrieben sein.
+Vergessen Sie also insbesondere nicht das abschließende Semikolon bei der Variablenzuweisung!
+////
+
+Attention: The file must be written in valid Perl.
+In particular, do not forget the concluding semicolon when assigning variables!
+
+
+////
+`$projectroot`::
+Verzeichnis, in dem Ihre Git-Repositories liegen.
+
+
+`$export_ok`::
+Dateiname, der bestimmt, ob ein Repository in Gitweb sichtbar sein soll.
+Sie sollten diese Variable auf `"git-daemon-export-ok"` setzen, damit nur diejenigen Repositories angezeigt werden, die auch durch den Git-Daemon ausgeliefert werden.
+
+`@git_base_url_list`::
+Array von URLs, über die das Projekt geklont werden kann.
+Diese URLs erscheinen in der Projektübersicht und sind sehr hilfreich, um Leuten schnellen Zugriff auf den Quellcode zu geben, nachdem sie sich einen kurzen Überblick verschafft haben.
+Geben Sie am besten die URL an, unter der Ihr Git-Daemon erreichbar ist, also z.B.  `('git://git.example.com')`.
+
+`$projects_list`::
+Zuordnung von Projekten und ihren Besitzern.
+Diese Projektliste kann automatisch von Gitolite erzeugt werden; siehe die Beispiel-Konfigurationsdatei weiter unten.
+
+`$home_text`::
+Absoluter Pfad zu einer Datei, die z.B. einen firmen- oder projektspezifischen Textbaustein enthält.
+Dieser wird oberhalb der Auflistung der Repositories eingeblendet.
+////
+
+
+
+`$projectroot` ::
+The directory where your Git repositories are located.
+
+
+`$export_ok` ::
+File name that determines whether a repository should be visible in Gitweb.
+You should set this variable to `"git-daemon-export-ok"` so that only those repositories that are also delivered by the Git daemon are displayed.
+
+
+`@git_base_url_list` ::
+Array of URLs that can be used to clone the project.
+These URLs appear in the project overview and are very helpful to give people quick access to the source code after they have gotten a brief overview.
+It's best to specify the URL where your Git daemon can be reached, e.g. `('git://git.example.com')`.
+
+
+`$projects_list` ::
+Assignment of projects and their owners.
+This project list can be automatically generated by Gitolite; see the sample configuration file below.
+
+
+`$home_text` ::
+Absolute path to a file containing, for example, a company or project-specific text module.
+This is displayed above the list of repositories.
+
+
+
+////
+Sofern Sie Gitolite wie oben installiert haben und Ihre Repositories unter `/var/git/repositories` liegen, sollte folgende Konfiguration für Gitweb ausreichen:
+////
+
+If you installed Gitolite as mentioned above, and your repositories are located under `/var/git/repositories`, the following Gitweb configuration should be sufficient:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> GITWEB SETTINGS
 --------
 $projects_list = "/var/git/projects.list";
 $projectroot = "/var/git/repositories";
@@ -1057,18 +1651,25 @@ $export_ok = "git-daemon-export-ok";
 
 
 
+
 [[sec.gitweb-apache]]
-=== Gitweb und Apache
+=== Gitweb and Apache
+//  Gitweb und Apache
+
+////
+Ausgehend davon, dass Sie das CGI-Script unter `/usr/lib/cgi-bin` und die Bild- und CSS-Dateien unter `/usr/share/gitweb` installiert haben (wie es z.B. auch das Debian-Paket `gitweb` macht), konfigurieren Sie Apache wie folgt:
+////
+
+Assuming that you have installed the CGI script under `/usr/lib/cgi-bin` and the image and CSS files under `/usr/share/gitweb` (as the Debian `gitweb` package does), configure Apache as follows:
+
+////
+Erstellen Sie `/etc/apache2/sites-available/git.example.com` mit folgendem Inhalt:
+////
+
+Create `/etc/apache2/sites-available/git.example.com` with the following content:
 
 
-
-Ausgehend davon, dass Sie das CGI-Script unter `/usr/lib/cgi-bin` und die Bild- und CSS-Dateien unter `/usr/share/gitweb` installiert haben (wie es z.B. auch das
-Debian-Paket `gitweb` macht), konfigurieren Sie Apache wie
-folgt:
-
-Erstellen Sie `/etc/apache2/sites-available/git.example.com`
-mit folgendem Inhalt:
-
+// @TODO: SYNTAX HIGHLIGHTING -> APACHE SETTINGS
 --------
 <VirtualHost *:80>
   ServerName    git.example.com
@@ -1085,8 +1686,13 @@ mit folgendem Inhalt:
 </VirtualHost>
 --------
 
-Dann müssen Sie den virtuellen Host aktivieren und Apache die
-Konfiguration neu laden lassen:
+
+////
+Dann müssen Sie den virtuellen Host aktivieren und Apache die Konfiguration neu laden lassen:
+////
+
+Then you need to activate the virtual host and let Apache reload the configuration:
+
 
 [subs="macros,quotes"]
 --------
@@ -1096,22 +1702,32 @@ Konfiguration neu laden lassen:
 
 
 
-[[sec.gitweb-lighty]]
-=== Gitweb und Lighttpd
 
-Je nachdem, wie Sie virtuelle Hosts in Lighttpd realisieren, sieht die
-Konfiguration möglicherweise anders aus. Wichtig sind drei Dinge: Dass
-Sie Aliase für die global installierten Gitweb-Dateien machen, die
-Umgebungsvariable `GITWEB_CONFIG` setzen und dass CGI-Scripte
-ausgeführt werden. Dafür müssen Sie die Module `mod_alias`,
-`mod_setenv` und `mod_cgi` laden (sofern noch nicht
-geschehen).
+[[sec.gitweb-Lighttpd]]
+=== Gitweb and Lighttpd
+//  Gitweb und Lighttpd
 
-Die Konfiguration sieht dann wie folgt aus:{empty}{fn104}
+////
+Je nachdem, wie Sie virtuelle Hosts in Lighttpd realisieren, sieht die Konfiguration möglicherweise anders aus.
+Wichtig sind drei Dinge: Dass Sie Aliase für die global installierten Gitweb-Dateien machen, die Umgebungsvariable `GITWEB_CONFIG` setzen und dass CGI-Scripte ausgeführt werden.
+Dafür müssen Sie die Module `mod_alias`, `mod_setenv` und `mod_cgi` laden (sofern noch nicht geschehen).
+////
+
+Depending on how you implement virtual hosts in Lighttpd, the configuration might look different.
+Three things are important: That you make aliases for the globally installed Gitweb files, set the environment variable `GITWEB_CONFIG` and that CGI scripts are executed.
+To do this you need to load the modules `mod_alias`, `mod_setenv` and `mod_cgi` (if you haven't already done so).
+
+
+////
+Die Konfiguration sieht dann wie folgt aus:[104]
+////
+
+The configuration then looks like this:{fn104}
 
 
 // JP: http://redmine.lighttpd.net/issues/2284
 
+// @TODO: SYNTAX HIGHLIGHTING -> LIGHTTPD SETTINGS
 --------
 $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
     setenv.add-environment = ( "GITWEB_CONFIG" => "/etc/gitweb.conf" )
@@ -1130,71 +1746,107 @@ $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
 
 
 
-.Übersichtsseite von Gitweb
+// .Übersichtsseite von Gitweb
+.Gitweb's Summary page
 image::gitweb-overview.png[id="fig.gitweb-overview",scaledwidth="90%",width="90%"]
 
-.Darstellung eines Commits in Gitweb
+// .Darstellung eines Commits in Gitweb
+.Viewing a commit in Gitweb
 image::gitweb-commitdiff.png[id="fig.gitweb-commitdiff",scaledwidth="90%",width="90%"]
 
 
 
+
 [[sec.cgit]]
-== CGit – CGI for Git
+== CGit -- CGI for Git
 
-CGit ("`CGI für Git`") ist ein alternatives Webfrontend. Im
-Gegensatz zu Gitweb, das komplett in Perl geschrieben ist, ist CGit in
-C geschrieben und arbeitet, wo möglich, mit Caching. Dadurch ist es
-viel schneller als Gitweb.
+////
+CGit ("`CGI für Git`") ist ein alternatives Webfrontend.
+Im Gegensatz zu Gitweb, das komplett in Perl geschrieben ist, ist CGit in C geschrieben und arbeitet, wo möglich, mit Caching.
+Dadurch ist es viel schneller als Gitweb.
+////
 
+CGit ("`CGI for Git`") is an alternative web frontend.
+Unlike Gitweb, which is written entirely in Perl, CGit is written in C and uses caching where possible.
+This renders it much faster than Gitweb.
+
+
+////
 Um CGit zu installieren, müssen Sie zuerst die Sourcen herunterladen.
-Es wird die aktuelle Git-Version benötigt, um auf Routinen aus dem
-Git-Quellcode zurückzugreifen. Dafür muss das bereits konfigurierte
-Submodul initialisiert und der Code heruntergeladen werden:
+Es wird die aktuelle Git-Version benötigt, um auf Routinen aus dem Git-Quellcode zurückzugreifen.
+Dafür muss das bereits konfigurierte Submodul initialisiert und der Code heruntergeladen werden:
+////
+
+To install CGit, you need to download the sources first.
+You will need the latest version of Git to access routines from the Git source code.
+To do this, you need to initialize the already configured submodule and download the code:
 
 
+// @TRANSLATE GIT LOG?
 [subs="macros,quotes"]
 --------
 $ *git clone git://git.zx2c4.com/cgit*
 ...
 $ *cd cgit*
 $ *git submodule init*
-Submodule \_git_ (git://git.kernel.org/pub/scm/git/git.git) registered
-for path \_git_
+Submodule 'git' (git://git.kernel.org/pub/scm/git/git.git) registered
+for path 'git'
 $ *git submodule update*
 &lt;Git-Sourcen werden heruntergeladen.&gt;
 --------
 
-Per Default installiert CGit die CGI-Datei in einem etwas obskuren
-Verzeichnis `/var/www/htdocs/cgit`. Um etwas sinnvollere
-Alternativen zu wählen, legen Sie im CGit-Verzeichnis eine Datei
-`cgit.conf` an, die automatisch vom `Makefile`
-inkludiert wird:
 
+////
+Per Default installiert CGit die CGI-Datei in einem etwas obskuren Verzeichnis `/var/www/htdocs/cgit`.
+Um etwas sinnvollere Alternativen zu wählen, legen Sie im CGit-Verzeichnis eine Datei `cgit.conf` an, die automatisch vom `Makefile` inkludiert wird:
+////
+
+By default CGit installs the CGI file in a somewhat obscure directory `/var/www/htdocs/cgit`.
+To choose more sensible alternatives, create a file `cgit.conf` in the CGit directory, which is automatically included in the `Makefile`:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> CGIT SETTINGS
 --------
 CGIT_SCRIPT_PATH=/usr/lib/cgi-bin
 CGIT_DATA_PATH=/usr/share/cgit
 --------
 
-Nun lässt sich das Programm mit `make install` übersetzen und
-installieren. Allerdings empfiehlt es sich, `checkinstall`{empty}{fn105}
-zu verwenden, so dass Sie das Paket ggf. leicht wieder loswerden
-können.
 
-.Übersichtsseite von CGit
+////
+Nun lässt sich das Programm mit `make install` übersetzen und installieren.
+Allerdings empfiehlt es sich, `checkinstall`[105] zu verwenden, so dass Sie das Paket ggf. leicht wieder loswerden können.
+////
+
+Now the program can be compiled and installed via `make install`.
+However, it is recommended to use `checkinstall`{fn105} so that you can easily get rid of the package if necessary.
+
+// .Übersichtsseite von CGit
+.Overview page of CGit
 image::cgit-overview.png[id="fig.cgit-overview",scaledwidth="90%",width="90%"]
 
 
+
 [[sec.cgit-integration]]
-=== CGit und Apache und Lighttpd
+=== CGit, Apache and Lighttpd
+//  CGit und Apache und Lighttpd
 
-Die Einbindung in Apache und Lighttpd erfolgt ähnlich. Da CGit
-allerdings "`hübschere`" URLs verwendet (wie z.B. `http://git.example.com/dwm/tree/dwm.c` für die Datei
-`dwm.c` aus dem `dwm`-Repository), muss ein wenig
-Aufwand betrieben werden, um die URLs umzuschreiben.
+////
+Die Einbindung in Apache und Lighttpd erfolgt ähnlich.
+Da CGit allerdings "`hübschere`" URLs verwendet (wie z.B. `http://git.example.com/dwm/tree/dwm.c` für die Datei `dwm.c` aus dem `dwm`-Repository), muss ein wenig Aufwand betrieben werden, um die URLs umzuschreiben.
+////
 
-Die folgenden Konfigurationen lassen CGit auf `git.example.com`
-laufen:
+The integration in Apache and Lighttpd is similar.
+However, since CGit uses "`nicer`" URLs (like `http://git.example.com/dwm/tree/dwm.c` for the `dwm.c` file from the `dwm` repository), a little effort is required to rewrite the URLs.
 
+
+////
+Die folgenden Konfigurationen lassen CGit auf `git.example.com` laufen:
+////
+
+The following configurations run CGit on `git.example.com`:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> APACHE SETTINGS
 --------
 <VirtualHost *:80>
   ServerName git.example.com
@@ -1209,10 +1861,15 @@ laufen:
 --------
 
 
-Für Lighttpd muss man ein wenig tricksen. Sie dürfen nicht vergessen,
-`virtual-root=/` zu konfigurieren (s.u. -- diese Einstellung
-ist auch für Apache nicht schädlich).
+////
+Für Lighttpd muss man ein wenig tricksen.
+Sie dürfen nicht vergessen, `virtual-root=/` zu konfigurieren (s.u. -- diese Einstellung ist auch für Apache nicht schädlich).
+////
 
+For Lighttpd you have to resort to some tricks.
+You must not forget to configure `virtual-root=/` (see below -- this setting is not harmful for Apache either).
+
+// @TODO: SYNTAX HIGHLIGHTING -> LIGHTTPD SETTINGS
 --------
 $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
     alias.url = (
@@ -1230,82 +1887,148 @@ $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
 --------
 
 
+
 [[sec.cgit-config]]
-=== Konfiguration
+=== Configuration
+//  Konfiguration
 
+////
 Die Konfiguration wird über die Datei `/etc/cgitrc` geregelt.
-Eine Liste der unterstützten Optionen finden Sie in der Datei
-`cgitrc.5.txt` im Quellverzeichnis von CGit (leider bringt das
-Programm keine sonstige Dokumentation mit). Die wichtigsten sind
-nachfolgend aufgeführt:
+Eine Liste der unterstützten Optionen finden Sie in der Datei `cgitrc.5.txt` im Quellverzeichnis von CGit (leider bringt das Programm keine sonstige Dokumentation mit).
+Die wichtigsten sind nachfolgend aufgeführt:
+////
+
+The configuration is controlled by the file `/etc/cgitrc`.
+A list of supported options can be found in the file `cgitrc.5.txt` in the source directory of CGit (unfortunately the program does not include any other documentation).
+The most important ones are listed below:
 
 
-`clone-prefix`::  URL, unter der der Quellcode (bevorzugt per
-Git-Protokoll) heruntergeladen werden kann (analog zu
-`@git_base_url_list` von Gitweb).
-
-`enable-index-links`:: Wenn auf 1 gesetzt, erscheint in der Auflistung
-der Repositories eine weitere Spalte, mit direkten Links zu den Tabs
-"`summary`", "`log`" und "`tree`".
-
-`enable-gitweb-owner`:: Wenn auf 1 gesetzt, dann wird der Eigentümer
-aus der Konfiguration `gitweb.owner` des Git-Repositorys
-ausgelesen. Gitolite setzt diese Option automatisch, wenn Sie einen
-Namen festlegen, siehe <<sec.gitweb-name>>.
-
-`enable-log-filecount`:: Zeigt zu jedem Commit eine Spalte an, in der
-die Anzahl der geänderten Dateien stehen.
-
-`enable-log-linecount`:: Analog zu `-filecount`, zeigt eine Bilanz von
-hinzugekommenen/entfernten Zeilen an.
-
-`scan-path`:: Pfad, den CGit nach Git-Repositories durchsuchen
-soll. Achtung: Diese Option berücksichtigt _nicht_, ob das Repository
-durch die Datei `git-daemon-export-ok` freigegeben wurde (siehe auch
-`project-list`)! Beachten Sie außerdem, dass die auf diese Weise
-hinzugefügten Repositories nur die Einstellungen erben, die bis dahin
-getätigt wurden. Es empfiehlt sich daher, die `scan-path`-Zeile als
-letzte in der Datei aufzuführen.
-
-`project-list`:: Liste von Projektdateien, die im `scan-path`
-berücksichtigt werden sollen. Gitolite legt eine solche Datei für alle
-öffentliches Repositories an. Siehe die Beispielkonfiguration weiter
-unten.
-
-`remove-suffix`:: Wenn die Option auf 1 gesetzt wird: Das Suffix
-`.git` wird aus URLs bzw. aus dem Namen von Repositories entfernt.
-
-`root-title`:: Überschrift, die auf der Startseite neben dem Logo
-angezeigt wird.
-
-`root-desc`:: Schriftzug, der auf der Startseite unter der Überschrift
-angezeigt wird.
-
-`side-by-side-diffs`:: Wird die Option auf 1 gesetzt, werden bei der
-Diff-Ausgabe zwei Dateien nebeneinander angezeigt, anstatt das
-Unified-Diff-Format zu verwenden.
-
-`snapshots`:: Gibt an, welche Snapshot-Formate angeboten werden. Per
-Default werden keine angeboten. Möglich sind `tar`, `tar.gz`,
-`tar.bz2` und `zip`.  Geben Sie die gewünschten Formate durch
-Leerzeichen getrennt an.
-
-`virtual-root`:: Legt fest, welche URL CGit jedem Link voranstellen
-soll. Sofern Sie CGit auf "`oberster`" Ebene, also
-z.B.{empty}{nbsp}`http://git.example.com`, laufen lassen wollen, sollte diese
-Option den Wert `/` erhalten (dies ist vor allem notwendig, wenn Sie
-Lighttpd verwenden). Wollen Sie CGit stattdessen in einem
-Unterverzeichnis laufen lassen, sollten Sie diese Option entsprechend
-anpassen, z.B. auf `/git`.
+////
+`clone-prefix`::
+URL, unter der der Quellcode (bevorzugt per Git-Protokoll) heruntergeladen werden kann (analog zu `@git_base_url_list` von Gitweb).
 
 
+`enable-index-links`::
+Wenn auf 1 gesetzt, erscheint in der Auflistung der Repositories eine weitere Spalte, mit direkten Links zu den Tabs "`summary`", "`log`" und "`tree`".
+
+`enable-gitweb-owner`::
+Wenn auf 1 gesetzt, dann wird der Eigentümer aus der Konfiguration `gitweb.owner` des Git-Repositorys ausgelesen.
+Gitolite setzt diese Option automatisch, wenn Sie einen Namen festlegen, siehe Abschnitt 7.2.3, "Eigentümer und Beschreibung".
+
+`enable-log-filecount`::
+Zeigt zu jedem Commit eine Spalte an, in der die Anzahl der geänderten Dateien stehen.
+
+`enable-log-linecount`::
+Analog zu `-filecount`, zeigt eine Bilanz von hinzugekommenen/entfernten Zeilen an.
+
+`scan-path`::
+Pfad, den CGit nach Git-Repositories durchsuchen soll.
+Achtung: Diese Option berücksichtigt _nicht_, ob das Repository durch die Datei `git-daemon-export-ok` freigegeben wurde (siehe auch `project-list`)!
+Beachten Sie außerdem, dass die auf diese Weise hinzugefügten Repositories nur die Einstellungen erben, die bis dahin getätigt wurden.
+Es empfiehlt sich daher, die `scan-path`-Zeile als letzte in der Datei aufzuführen.
+
+`project-list`::
+Liste von Projektdateien, die im `scan-path` berücksichtigt werden sollen.
+Gitolite legt eine solche Datei für alle öffentliches Repositories an.
+Siehe die Beispielkonfiguration weiter unten.
+
+`remove-suffix`::
+Wenn die Option auf 1 gesetzt wird: Das Suffix `.git` wird aus URLs bzw. aus dem Namen von Repositories entfernt.
+
+`root-title`::
+Überschrift, die auf der Startseite neben dem Logo angezeigt wird.
+
+`root-desc`::
+Schriftzug, der auf der Startseite unter der Überschrift angezeigt wird.
+
+`side-by-side-diffs`::
+Wird die Option auf 1 gesetzt, werden bei der Diff-Ausgabe zwei Dateien nebeneinander angezeigt, anstatt das Unified-Diff-Format zu verwenden.
+
+`snapshots`::
+Gibt an, welche Snapshot-Formate angeboten werden.
+Per Default werden keine angeboten.
+Möglich sind `tar`, `tar.gz`, `tar.bz2` und `zip`.
+Geben Sie die gewünschten Formate durch Leerzeichen getrennt an.
+
+`virtual-root`::
+Legt fest, welche URL CGit jedem Link voranstellen soll.
+Sofern Sie CGit auf "`oberster`" Ebene, also z.B. `http://git.example.com`, laufen lassen wollen, sollte diese Option den Wert `/` erhalten (dies ist vor allem notwendig, wenn Sie Lighttpd verwenden).
+Wollen Sie CGit stattdessen in einem Unterverzeichnis laufen lassen, sollten Sie diese Option entsprechend anpassen, z.B. auf `/git`.
+////
 
 
-Mit folgender Konfiguration taucht jedes Repository, auf dem Sie in
-Gitolite dem Nutzer `gitweb` Zugriff erlaubt haben, in der
-Auflistung auf -- außerdem werden Beschreibung und Autor (sofern
-angegeben, siehe <<sec.gitweb-name>>) angezeigt:
+`clone-prefix` ::
+URL where the source code (preferably via Git protocol) can be downloaded (similar to `@git_base_url_list` from Gitweb).
 
+
+`enable-index-links` ::
+If set to 1, another column appears in the repository listing, with direct links to the tabs "`summary`", "`log`" and "`tree`".
+
+
+`enable-gitweb-owner` ::
+If set to 1, the owner is read from the Git repository's `gitweb.owner` configuration.
+Gitolite sets this option automatically when you specify a name, see <<sec.gitweb-name>>.
+
+
+`enable-log-filecount` ::
+Displays a column for each commit, showing the number of changed files.
+
+
+`enable-log-linecount` ::
+Analogous to `-filecount`, displays a summary of added/removed rows.
+
+
+`scan-path` ::
+Path that CGit should search for Git repositories.
+Attention: This option _doesn't_ take into account whether the repository has been released by the `git-daemon-export-ok` file (see also `project-list`)!
+Also note that the repositories added in this way will only inherit the settings that were made up to that point.
+It is therefore recommended to list the `scan-path` line last in the file.
+
+
+`project-list` ::
+List of project files to be included in the `scan-path`.
+Gitolite creates such a file for all public repositories.
+See the sample configuration below.
+
+
+`remove-suffix` ::
+If the option is set to 1: the `.git` suffix is removed from URLs or repository names.
+
+
+`root-title` ::
+Headline that is displayed on the home page, next to the logo.
+
+
+`root-desc` ::
+Lettering that is displayed on the home page, under the headline.
+
+
+`side-by-side-diffs` ::
+If the option is set to 1, diff output will display two files side by side instead of using the unified diff format.
+
+
+`snapshots` ::
+Specifies which snapshot formats are offered.
+By default, none are offered.
+Possible values are `tar`, `tar.gz`, `tar.bz2` and `zip`.
+Specify the desired formats separated by spaces.
+
+
+`virtual-root` ::
+Specifies which URL CGit should prefix to each link.
+If you set CGit to a "`higher`"" layer, e.g. `http://git.example.com`, this option should be set to `/` (this is especially necessary if you use Lighttpd).
+If you want to run CGit in a subdirectory instead, you should adjust this option accordingly, e.g. to `/git`.
+
+
+
+////
+Mit folgender Konfiguration taucht jedes Repository, auf dem Sie in Gitolite dem Nutzer `gitweb` Zugriff erlaubt haben, in der Auflistung auf -- außerdem werden Beschreibung und Autor (sofern angegeben, siehe Abschnitt 7.2.3, "Eigentümer und Beschreibung") angezeigt:
+////
+
+With the following configuration, any repository you have allowed Gitweb access to in Gitolite will appear in the listing -- and the description and author (if specified, see <<sec.gitweb-name>>) will also be displayed:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> CGIT SETTINGS
 --------
 virtual-root=/
 enable-gitweb-owner=1
@@ -1315,22 +2038,28 @@ scan-path=/var/git/repositories
 --------
 
 
-.Darstellung eines Commits in CGit
+// .Darstellung eines Commits in CGit
+.Viewing a commit in CGit
 image::cgit-commitdiff.png[id="fig.cgit-commitdiff",scaledwidth="90%",width="90%"]
 
 
+
+
 [[sec.cgit-special-config]]
-=== Einzelne Repositories speziell konfigurieren
+=== Special Configuration of Individual Repositories
+//  Einzelne Repositories speziell konfigurieren
 
 
-Durch die oben erläuterte Option `scan-path` ist es in
-Kombination mit Gitolite in der Regel nicht nötig, Repositories
-einzeln hinzuzufügen und zu konfigurieren. Wollen Sie dies aber tun
-bzw. sind Ihre Repositories nicht an einer zentralen Stelle gelagert,
-können Sie dies pro Repository wie folgt:
+////
+Durch die oben erläuterte Option `scan-path` ist es in Kombination mit Gitolite in der Regel nicht nötig, Repositories einzeln hinzuzufügen und zu konfigurieren.
+Wollen Sie dies aber tun bzw. sind Ihre Repositories nicht an einer zentralen Stelle gelagert, können Sie dies pro Repository wie folgt:
+////
+
+With the `scan-path` option explained above, in combination with Gitolite it is usually not necessary to add and configure repositories individually.
+However, if you want to do this, or if your repositories are not stored in a central location, you can do this per repository as follows:
 
 
-
+// @TODO: SYNTAX HIGHLIGHTING -> CGIT SETTINGS
 --------
 repo.url=foo
 repo.path=/pub/git/foo.git
@@ -1338,77 +2067,119 @@ repo.desc=the master foo repository
 repo.owner=fooman@example.com
 --------
 
-Für weitere repositoryspezifische Konfigurationen konsultieren Sie die
-Beispiel-Konfigurationsdatei bzw. in die Erläuterungen der Optionen
-in der Datei `cgitrc.5.txt` im Quellverzeichnis von CGit. Sie
-können diese händisch konfigurierten Repositories auch unter
-verschiedenen Sektionen gruppieren (Option
-`section`).
+
+////
+Für weitere repositoryspezifische Konfigurationen konsultieren Sie die Beispiel-Konfigurationsdatei bzw. in die Erläuterungen der Optionen in der Datei `cgitrc.5.txt` im Quellverzeichnis von CGit.
+Sie können diese händisch konfigurierten Repositories auch unter verschiedenen Sektionen gruppieren (Option `section`).
+////
+
+For more repository-specific configurations, consult the sample configuration file or the explanations of the options in the `cgitrc.5.txt` file in the source directory of CGit.
+You can also group these manually configured repositories under different sections (option `section`).
+
 
 
 [[sec.cgit-cache]]
-=== Caching ausnutzen
+=== Exploiting Caching
+//  Caching ausnutzen
 
-CGit ist im Vergleich zu Gitweb besonders schnell, weil es in C
-geschrieben ist und außerdem Caching unterstützt. Das ist vor allem
-dann notwendig, wenn Sie viele Repositories und/oder viele
-Seitenzugriffe in kurzer Zeit haben.
+////
+CGit ist im Vergleich zu Gitweb besonders schnell, weil es in C geschrieben ist und außerdem Caching unterstützt.
+Das ist vor allem dann notwendig, wenn Sie viele Repositories und/oder viele Seitenzugriffe in kurzer Zeit haben.
+////
 
-CGit verwendet einen simplen Hash-Mechanismus, um zu überprüfen, ob
-eine Anfrage schon im Cache vorhanden und nicht zu alt ist
-(konfigurierbar, siehe folgende Liste). Wenn ein
-solcher Cache-Eintrag vorhanden ist, wird dieser ausgeliefert, statt
-die gleiche Seite neu zu erzeugen (der HTTP-Header
-`Last-Modified` bleibt auf dem alten Stand, d.h. der Browser
-weiß, von wann die Seite ist).
-
-CGit speichert auch das Resultat von `scan-path` zwischen. So
-muss CGit für die Übersichtsseite nicht jedes Mal alle Repositories
-einzeln hinzufügen.
+CGit is especially fast compared to Gitweb because it is written in C and also supports caching.
+This is especially necessary if you have many repositories and/or many page views in a short time.
 
 
-`cache-root`:: Pfad, unter dem die Cache-Dateien gespeichert werden;
-der Default ist `/var/cache/cgit`.
+////
+CGit verwendet einen simplen Hash-Mechanismus, um zu überprüfen, ob eine Anfrage schon im Cache vorhanden und nicht zu alt ist (konfigurierbar, siehe folgende Liste).
+Wenn ein solcher Cache-Eintrag vorhanden ist, wird dieser ausgeliefert, statt die gleiche Seite neu zu erzeugen (der HTTP-Header `Last-Modified` bleibt auf dem alten Stand, d.h. der Browser weiß, von wann die Seite ist).
+////
 
-`cache-size`:: Anzahl der Einträge (d.h.  einzelne Seiten), die der
-Cache enthält. Der Default-Wert ist 0, also ist Caching
-ausgeschaltet. Ein Wert ab 500 sollte selbst für große Seiten reichen.
-
-`cache-<typ>-ttl`:: Zeit in Minuten, die ein Cache-Eintrag als
-"`aktuell`" gilt. Die Zeit können Sie für einzelne Seiten speziell
-konfigurieren. Mögliche Typen sind: `scanrc` für das Ergebnis von
-`scan-path`, `root` für die Auflistung der Repositories, `repo` für
-die "`Startseite`" eines Repositorys sowie `dynamic` bzw.  `static`
-für die "`dynamischen`" Seiten (wie z.B.  für Branch-Namen)
-bzw. statische Seiten (wie z.B. für einen Commit, der anhand seiner
-SHA-1-Summe identifiziert wird). Per Default sind diese Werte auf fünf
-Minuten gesetzt, bis auf `scanrc` (15).
+CGit uses a simple hash mechanism to check if a request is already in the cache and not too old (configurable, see list below).
+If such a cache entry is present, it will be delivered instead of re-creating the same page (the HTTP header `Last-Modified` stays the same, i.e. the browser knows when the page is from).
 
 
+////
+CGit speichert auch das Resultat von `scan-path` zwischen.
+So muss CGit für die Übersichtsseite nicht jedes Mal alle Repositories einzeln hinzufügen.
+////
 
-Ein weiterer wichtiger Faktor, der beeinflusst, wie schnell sich die
-Index-Seite aufbaut, ist die Verwendung von sogenannten
-_Agefiles_. Die Spalte _Idle_ ("`untätig`") wird
-normalerweise jedes Mal neu erzeugt, indem CGit die Branches jedes
-Repositorys durchgeht und das Alter notiert. Das ist allerdings nicht
-sehr schnell.
+CGit also caches the result of `scan-path`.
+This way CGit doesn't have to add all repositories one by one for the overview page each time.
 
-Praktischer ist es, pro Repository eine Datei zu verwenden, die
-angibt, wann der letzte Commit hochgeladen wurde. Das lässt sich am
-besten mit Hooks (siehe <<sec.hooks>>) erledigen. Verwenden
-Sie dieses Kommando im Hook `post-update`:
 
+////
+`cache-root`::
+Pfad, unter dem die Cache-Dateien gespeichert werden; der Default ist `/var/cache/cgit`.
+
+`cache-size`::
+Anzahl der Einträge (d.h.  einzelne Seiten), die der Cache enthält.
+Der Default-Wert ist 0, also ist Caching ausgeschaltet.
+Ein Wert ab 500 sollte selbst für große Seiten reichen.
+
+`cache-<typ>-ttl`::
+Zeit in Minuten, die ein Cache-Eintrag als "`aktuell`" gilt.
+Die Zeit können Sie für einzelne Seiten speziell konfigurieren.
+Mögliche Typen sind: `scanrc` für das Ergebnis von `scan-path`, `root` für die Auflistung der Repositories, `repo` für die "`Startseite`" eines Repositorys sowie `dynamic` bzw. `static` für die "`dynamischen`" Seiten (wie z.B.  für Branch-Namen) bzw. statische Seiten (wie z.B. für einen Commit, der anhand seiner SHA-1-Summe identifiziert wird).
+Per Default sind diese Werte auf fünf Minuten gesetzt, bis auf `scanrc` (15).
+////
+
+
+[horizontal]
+`cache-root` ::
+Path where the cache files are stored; defaults to `/var/cache/cgit`.
+
+
+`cache-size` ::
+Number of entries (i.e. individual pages) that the cache contains.
+The default value is 0, so caching is disabled.
+A value of 500 should be enough even for large pages.
+
+
+`cache{wj}-{wj}<type>{wj}-{wj}ttl` ::
+Time in minutes for a cache entry to be considered "`current`".
+You can configure the time specifically for individual pages.
+Possible `<type>` values are: `scanrc` for the result of `scan-path`, `root` for the repository listing, `repo` for the "`home`" page of a repository, and `dynamic` or `static` for the "`dynamic`" pages (such as for branch names) or static pages (such as for a commit identified by its SHA-1 sum).
+By default, these values are set to five minutes, except for `scanrc` (15).
+
+
+
+////
+Ein weiterer wichtiger Faktor, der beeinflusst, wie schnell sich die Index-Seite aufbaut, ist die Verwendung von sogenannten _Agefiles_.
+Die Spalte _Idle_ ("`untätig`") wird normalerweise jedes Mal neu erzeugt, indem CGit die Branches jedes Repositorys durchgeht und das Alter notiert.
+Das ist allerdings nicht sehr schnell.
+////
+
+Another important factor that influences how fast the index page builds up is the use of so-called _age files_.
+The _Idle_ column is usually recreated each time CGit goes through the branches of each repository and notes the age.
+This is not very fast though.
+
+
+////
+Praktischer ist es, pro Repository eine Datei zu verwenden, die angibt, wann der letzte Commit hochgeladen wurde.
+Das lässt sich am besten mit Hooks (siehe Abschnitt 8.2, "Hooks") erledigen.
+Verwenden Sie dieses Kommando im Hook `post-update`:
+////
+
+It's more practical to use one file per repository, indicating when the last commit was uploaded.
+This is best done with hooks (see <<sec.hooks>>).
+Use this command in the `post-update` hook:
+
+
+// @TODO: SYNTAX HIGHLIGHTING -> BASH
 --------
 mkdir -p info/web || exit 1
 git for-each-ref \
     --sort=-committerdate \
-    --format=_%(committerdate:iso8601)_ \
-    --count=1 _refs/heads/*_ \
+    --format='%(committerdate:iso8601)' \
+    --count=1 'refs/heads/*' \
     > info/web/last-modified
 --------
 
-Wenn Sie statt `info/web/last-modified` (relativ zu
-`$GIT_DIR`) einen anderen Pfad verwenden wollen, nutzen Sie
-für die Angabe den CGit-Konfigurationsschlüssel `agefile`.
 
+////
+Wenn Sie statt `info/web/last-modified` (relativ zu `$GIT_DIR`) einen anderen Pfad verwenden wollen, nutzen Sie für die Angabe den CGit-Konfigurationsschlüssel `agefile`.
+////
 
+If you want to use a different path instead of `info/web/last-modified` (relative to `$GIT_DIR`), use the CGit configuration key `agefile` for the specification.
