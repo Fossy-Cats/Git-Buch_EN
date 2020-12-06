@@ -820,7 +820,7 @@ Weitere nützliche Aliase finden Sie im weiteren Verlauf des Buches; wie Sie kom
 Vorab aber schon einige nützliche Abkürzungen:
 ////
 
-You will find more useful aliases later in the book; how to create more complex aliases is described in <<sec.git-erweiterte-aliase>>.
+You will find more useful aliases later in the book; how to create more complex aliases is described in <<sec.git-extended-aliases>>.
 But first, some useful abbreviations:
 
 

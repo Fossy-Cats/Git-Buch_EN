@@ -2080,7 +2080,7 @@ The addition `<oldvalue>` is optional, but helps to avoid programming errors.
 It also takes care of special cases (symlinks whose target is inside or outside the repository, references pointing to other references, etc.).
 An additional advantage is that `git update-ref` automatically makes entries in the reflog, which makes troubleshooting much easier.
 
-[[sec.git-erweiterte-aliase]]
+[[sec.git-extended-aliases]]
 === Extended Aliases
 // === Erweiterte Aliase
 

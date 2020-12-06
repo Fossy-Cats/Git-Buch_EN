@@ -765,40 +765,71 @@ Homepage of the program: https://www.asic-linux.com.mx/~izto/checkinstall/[^]]]
 // =============================================================================
 
 // tag::Chapter_8[]
+////
+Sie können das Programm `indent` aus dem GNU-Projekt von http://www.gnu.org/software/indent/ herunterladen.
+////
 :fn106: pass:a,q[{wj}footnote:[ \
-Sie können das Programm `indent` aus dem GNU-Projekt von http://www.gnu.org/software/indent/ herunterladen.]]
+You can download the program `indent` from the GNU project from https://www.gnu.org/software/indent/[^].]]
 
-:fn107: pass:a,q[{wj}footnote:[ \
+////
 Das Kommando `convert` ist Teil der ImageMagick-Suite. \
-Wenn Sie `-clone 1-2` durch `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche aus dem _alten_ Bild kopiert.]]
+Wenn Sie `-clone 1-2` durch `-clone 0,2` ersetzen, werden die unterschiedlichen Bereiche aus dem _alten_ Bild kopiert.
+////
+:fn107: pass:a,q[{wj}footnote:[ \
+The `convert` command is part of the ImageMagick suite. \
+If you replace `-clone 1-2` with `-clone 0.2`, the different areas are copied from the _old_ image.]]
 
+////
+Die Grafiken wurden zum Release von Kernel 2.0 von Larry Ewing erstellt und finden sich unter http://www.isc.tamu.edu/~lewing/linux/.
+////
 :fn108: {wj}footnote:[ \
-Die Grafiken wurden zum Release von Kernel 2.0 von Larry Ewing erstellt und finden sich unter http://www.isc.tamu.edu/~lewing/linux/.]
+The graphics were created for the release of Kernel 2.0 by Larry Ewing and can be found at https://www.isc.tamu.edu/~lewing/linux/[^].]
 
+////
+"`Serverseitig`" heißt hier nur, dass sie nicht im lokalen Repository ausgeführt werden, sondern auf der "`Gegenseite`".
+////
 :fn109: pass:a,q[{wj}footnote:[ \
-"`Serverseitig`" heißt hier nur, dass sie nicht im lokalen Repository ausgeführt werden, sondern auf der "`Gegenseite`".]]
+"`Server-side`" here only means that they are not executed in the local repository, but on the "`opposite side`".]]
 
-:fn110: pass:a,q[{wj}footnote:[ \
+////
 Würde Git die kompletten Zugriffsrechte aufnehmen, dann wäre eine Datei gleichen Inhalts bei zwei verschiedenen Entwicklern, die unterschiedliche `umask(2)`-Einstellungen verwenden, nicht der gleiche Blob. \
-Um das zu verhindern, verwendet Git ein vereinfachtes Rechtemanagement.]]
+Um das zu verhindern, verwendet Git ein vereinfachtes Rechtemanagement.
+////
+:fn110: pass:a,q[{wj}footnote:[ \
+If Git were to include full permissions, then a file with the same contents would not be the same blob for two different developers using different `umask(2)` settings. \
+To prevent this from happening, Git uses a simplified permission management system.]]
 
+////
+Sie können Ihre Shell-Scripte z.B. auf http://www.shellcheck.net/ automatisch überprüfen lassen.
+////
 :fn111: {wj}footnote:[ \
-Sie können Ihre Shell-Scripte z.B. auf http://www.shellcheck.net/ automatisch überprüfen lassen.]
+For example, you can have your shell scripts automatically checked at https://www.shellcheck.net/[^].]
 
+////
+Die _Debian Alquimist Shell_, ein Fork der _Alquimist Shell_, ist eine besonders kleine, schnelle Shell, die POSIX-kompatibel ist. \
+Sie stellt auf vielen modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell `/bin/sh`.
+////
 :fn112: pass:a,q[{wj}footnote:[ \
-Die 'Debian Alquimist Shell_, ein Fork der _Alquimist Shell_, ist eine besonders kleine, schnelle Shell, die POSIX-kompatibel ist. \
-Sie stellt auf vielen modernen Debian-Systemen sowie auf Ubuntu die Standard-Shell `/bin/sh`.]]
+The _Debian Alquimist Shell_, a fork of the _Alquimist Shell_, is a very small, fast shell which is POSIX compatible. \
+It provides the standard Shell `/bin/sh` on many modern Debian systems as well as on Ubuntu.]]
 
-:fn113: {wj}footnote:[https://github.com/gitbuch/buch-scripte]
+:fn113: {wj}footnote:[https://github.com/gitbuch/buch-scripte[^]]
 
+////
+Es gibt noch weitere Flags (`U`, `T` und `B`), die aber in der Praxis meist keine Rolle spielen.
+////
 :fn114: pass:a,q[{wj}footnote:[ \
-Es gibt noch weitere Flags (`U`, `T` und `B`), die aber in der Praxis meist keine Rolle spielen.]]
+There are other flags (`U`, `T` and `B`), but in practice they usually play no role.]]
 
-:fn115: {wj}footnote:[https://git.wiki.kernel.org/index.php/Aliases]
+:fn115: {wj}footnote:[https://git.wiki.kernel.org/index.php/Aliases[^]]
 
-:fn116: pass:a,q[{wj}footnote:[ \
+////
 Sie können prinzipiell auch _gar keinen_ Vorgänger angeben. \
-Dann wird der entsprechende Commit zu einem Root-Commit.]]
+Dann wird der entsprechende Commit zu einem Root-Commit.
+////
+:fn116: pass:a,q[{wj}footnote:[ \
+In principle, you _cannot_ specify a predecessor. \
+Then the corresponding commit becomes a root commit.]]
 // end::Chapter_8[]
 
 // =============================================================================
