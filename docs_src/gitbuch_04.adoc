@@ -252,7 +252,7 @@ If none of this helps (e.g. if you can't solve the conflict at that point, or if
 This will discard all changes to the repository (including successfully copied commits), so that the state afterwards is exactly the same as it was when the rebase process was started.
 The command also helps if at some point you forget to finish a rebase process, and other commands complain that they can't do their job because a rebase is in progress.
 
-[[sec.rebase-sinnvoll]]
+[[sec.rebase-sense]]
 === Why rebase makes sense
 //  Warum Rebase sinnvoll ist
 
@@ -388,7 +388,7 @@ In general, you are doing well with the following rules of thumb:
 . Logically separate units should be developed on separate branches - logically related ones possibly on several, which are then merged by rebase (if that makes sense).
   The merging of logically separate units is then done by merge.
 
-[[sec.rebase-warnung]]
+[[sec.rebase-warning]]
 === A word of warning
 //  Ein Wort der Warnung
 
@@ -629,7 +629,7 @@ Eine äquivalente Möglichkeit, einen Commit zu editieren, haben Sie mit der Akt
 
 An equivalent way to edit a commit is with the `edit` action in the interactive rebase (see <<sec.rebase-i-edit>>).
 
-[[sec.rebase-optionen]]
+[[sec.rebase-options]]
 === Fine adjustment of rebase
 //  Rebase feinjustieren
 
@@ -1283,7 +1283,7 @@ Zuletzt lässt sich die Datei `.git/info/exclude` für repositoryspezifische Ein
 
 Finally, the `.git/info/exclude` file can be used for repository-specific settings that should not be delivered with a clone, i.e. settings that are both project and user specific.
 
-[[sec.muster]]
+[[sec.pattern]]
 === Syntax for pattern
 //  Syntax für Muster
 
@@ -1375,7 +1375,7 @@ pass:quotes[\*.*~]
 *.out
 --------
 
-[[sec.nachtraeglich-ignorieren]]
+[[sec.retroactive-ignore]]
 === Ignore or version later
 //  Nachträglich ignorieren oder versionieren
 
@@ -1558,7 +1558,7 @@ The configuration setting `interactive.singlekey` (see <<sec.add-p>>) also appli
 ========
 
 
-[[sec.stash-konflikte]]
+[[sec.stash-conflicts]]
 === Solve conflicts
 //  Konflikte lösen
 

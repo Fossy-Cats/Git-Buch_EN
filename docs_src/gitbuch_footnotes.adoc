@@ -366,39 +366,77 @@ If you want to list all commits in the last two weeks, use `git log --since='two
 // =============================================================================
 
 // tag::Chapter_4[]
+////
+Wenn Sie Patch-Stacks mit Git verwalten, bei denen potentiell Konflikte auftreten können, sollten Sie sich in jedem Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz _rerere_. \
+_Rerere_ speichert Konfliktlösungen und korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert wurde, siehe auch Abschnitt 3.4.2, "rerere: Reuse Recorded Resolution".
+////
 :fn54: pass:a,q[{wj}footnote:[ \
-Wenn Sie Patch-Stacks mit Git verwalten, bei denen potentiell Konflikte auftreten können, sollten Sie sich in jedem Fall das Feature _Reuse Recorded Resolution_ ansehen, kurz _rerere_. _Rerere_ speichert Konfliktlösungen und korrigiert Konflikte automatisch, wenn schon eine Lösung gespeichert wurde, siehe auch xref:gitbuch_03.adoc#sec.rerere[].]]
+If you're managing patch stacks with Git that have potential conflicts, you should definitely take a look at the _Reuse Recorded Resolution_ feature, in short, _rerere_. \
+_Rerere_ saves conflict resolutions and automatically corrects conflicts if a resolution has already been saved, see also xref:gitbuch_03.adoc#sec.rerere[].]]
 
+////
+Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe Abschnitt 5.4, "Commits hochladen: git push".
+////
 :fn55: {wj}footnote:[ \
-Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe xref:gitbuch_05.adoc#sec.hochladen[].]
+For example, by uploading the branch to a publicly available repository, see xref:gitbuch_05.adoc#sec.hochladen[].]
 
+////
+Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. \
+Siehe auch Abschnitt 5.1, "Wie funktioniert verteilte Versionsverwaltung?".
+////
 :fn56: pass:a,q[{wj}footnote:[ \
-Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. Siehe auch xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
+In the latter case, for example, you simply do a `git remote update` (the new commits are loaded into the `origin/master` branch) and then build your own branch from scratch to `origin/master`. \
+See also xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
 
+////
+Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.
+////
 :fn57: {wj}footnote:[ \
-Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.]
+You can find the source code at https://repo.or.cz/w/topgit.git[^].]
 
+////
+Kurz `stg` oder StGit, erreichbar unter http://www.procode.org/stgit/
+////
 :fn58: pass:a,q[{wj}footnote:[ \
-Kurz `stg` oder StGit, erreichbar unter http://www.procode.org/stgit/]]
+Short `stg` or StGit, reachable under https://stacked-git.github.io[^].]]
 
+////
+Das funktioniert auch problemlos, sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der neuen Referenz sind (also nur Commits enthalten sind, von denen aus man die neue Basis erreichen kann).
+Sonst schlägt Rebase bei jedem Commit fehl, der schon in der Geschichte enthalten ist (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.
+////
 :fn59: pass:a,q[{wj}footnote:[ \
-Das funktioniert auch problemlos, sofern alle Abzweigungen und Zusammenführungen _oberhalb_ der neuen Referenz sind (also nur Commits enthalten sind, von denen aus man die neue Basis erreichen kann). Sonst schlägt Rebase bei jedem Commit fehl, der schon in der Geschichte enthalten ist (Fehlermeldung: "`nothing to commit`"); diese müssen dann stets mit einem `git rebase --continue` übersprungen werden.]]
+This also works fine as long as all branches and merges are _above_ the new reference (i.e. only commits are included from which you can reach the new base). \
+Otherwise, rebase will fail for every commit already in history (error message: "`nothing to commit`"); these must always be skipped with a `git rebase --continue`.]]
 
+////
+Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.
+////
 :fn60: pass:a,q[{wj}footnote:[ \
-Weitere Beispiele finden Sie auf der Man-Page zu `gitignore(5)` und unter http://help.github.com/git-ignore/.]]
+More examples can be found on the `gitignore(5)` man page and at https://docs.github.com/en/free-pro-team@latest/github/using-git/ignoring-files[^].]]
 
+////
+Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.
+////
 :fn61: pass:a,q[{wj}footnote:[ \
-Das Verhalten wird unterbunden, indem Sie die Einstellung `clean.requireForce` auf `false` setzen.]]
+This behavior can be prevented by setting the `clean.requireForce` setting to `false`.]]
 
+////
+Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl. Abschnitt 4.5.7, "Wie ist der Stash implementiert?".
+////
 :fn62: pass:a,q[{wj}footnote:[ \
-Das Kommando sucht zuerst alle Commit-Objekte heraus, die nicht mehr erreichbar sind, und schränkt die Liste dann auf diejenigen ein, die Merge-Commits sind und deren Commit-Message die Zeichenkette `WIP` enthält -- die Eigenschaften, die ein Commit-Objekt aufweist, das als Stash erstellt wurde, vgl. \
-xref:gitbuch_04.adoc#sec.stash-implementation[].]]
+The command first selects all commit objects that are no longer accessible, and then restricts the list to those that are merge commits and whose commit message contains the string `WIP` -- the properties that a commit object created as a stash has, see xref:gitbuch_04.adoc#sec.stash-implementation[].]]
 
+////
+Das stimmt nicht ganz; Sie können unter `refs/notes/commits` nur eine Notiz pro Commit speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.
+////
 :fn63: pass:a,q[{wj}footnote:[ \
-Das stimmt nicht ganz; Sie können unter `refs/notes/commits` nur eine Notiz pro Commit speichern, zusätzlich aber z.B. unter `refs/notes/bts` noch weitere Notizen, die sich auf das Bug-Tracking-System beziehen -- dort aber auch nur eine pro Commit.]]
+That's not quite true; you can only store one note per commit under `refs/notes/commits`, but you can store additional notes under e.g. `refs/notes/bts` that relate to the bug tracking system, and only one per commit there.]]
 
+////
+Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde möglicherweise durch einen ganz anderen Commit vorbereitet.
+////
 :fn64: {wj}footnote:[ \
-Dieser Commit muss natürlich nicht den Kern der Regression ausmachen, sie wurde möglicherweise durch einen ganz anderen Commit vorbereitet.]
+Of course, this commit need not be the core of the regression, it may have been prepared by a completely different commit.]
 // end::Chapter_4[]
 
 // =============================================================================
