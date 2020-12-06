@@ -646,59 +646,118 @@ However, `git archive` behaves differently depending on whether you specify a co
 // =============================================================================
 
 // tag::Chapter_7[]
+////
+Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`.
+Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`.
+Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.
+////
 :fn92: pass:a,q[{wj}footnote:[ \
-Eine genauere Beschreibung findet sich im Git-Quellrepository im Verzeichnis `Documentation/technical`. \
-Dort finden sich drei Dateien, die das Packfile-Format erklären, teilweise entstanden aus Erklärungen von Linus Torvalds im IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. Moderne Versionen von Git verwenden außerdem zusätzlich einen "`Bitmap Reachability Index`", der in `bitmap-format.txt` erklärt ist.]]
+A more detailed description can be found in the Git source repository in the `Documentation/technical` directory. \
+There you can find three files that explain the packfile format, partly based on explanations by Linus Torvalds on IRC: `pack-format.txt`, `pack-heuristics.txt`, `pack-protocol.txt`. \
+Modern versions of Git also use an additional "`Bitmap Reachability Index,`" which is explained in `bitmap-format.txt`.]]
 
+////
+Die hier beschriebene Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6.
+Seit Gitolite Version 1.5, das in der ersten Auflage dieses Buches beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
+////
 :fn93: {wj}footnote:[ \
-Die hier beschriebene Installation und Konfiguration bezieht sich auf Gitolite in Version 3.6. Seit Gitolite Version 1.5, das in der ersten Auflage dieses Buches beschrieben wurde, gab es einige inkompatible Änderungen, die Sie hier nachlesen können: http://gitolite.com/gitolite/migr.html]
+The installation and configuration described here refers to Gitolite version 3.6. \
+Since Gitolite version 1.5, which was described in the first edition of this book, there have been some incompatible changes, which you can read about here: https://gitolite.com/gitolite/migr.html[^]]
 
-:fn94: {wj}footnote:[ \
+////
 Ein Nutzer kann sich nur mit seinem privaten Schlüssel bei einem SSH-Server authentifizieren, wenn er eine mit seinem öffentlichen (und bei Gitolite hinterlegten) Schlüssel verschlüsselte Nachricht entschlüsseln kann. \
-Anhand des Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite also den internen Nutzernamen ableiten.]
+Anhand des Schlüssels, gegen den sich der Nutzer authentifiziert, kann Gitolite also den internen Nutzernamen ableiten.
+////
+:fn94: {wj}footnote:[ \
+A user can only authenticate to an SSH server with his private key if he can decrypt a message encrypted with his public (and Gitolite's) key. \
+Gitolite can derive the internal user name from the key the user authenticates against.]
 
-:fn95: {wj}footnote:[ \
+////
 Einige Distributionen stellen auch vorgefertigte Pakete von Gitolite zur Verfügung. \
 Von deren Einsatz ist allerdings eher abzuraten, weil sie meist veraltet sind und außerdem global und mit einer bestimmten Konfiguration installiert werden. \
-Wenn Sie dann einen anderen Nutzernamen als den von den Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen Mehraufwand betreiben, um Gitolite zum Laufen zu bringen.]
+Wenn Sie dann einen anderen Nutzernamen als den von den Entwicklern ausgesuchten wählen, müssen Sie einen erheblichen Mehraufwand betreiben, um Gitolite zum Laufen zu bringen.
+////
+:fn95: {wj}footnote:[ \
+Some distributions also provide ready-made packages of Gitolite. \
+However, it is not recommended to use them because they are usually outdated and are installed globally and with a certain configuration. \
+If you then choose a different username than the one chosen by the developers, you will have to spend a lot of extra effort to get Gitolite working.]
 
-:fn96: pass:a,q[{wj}footnote:[ \
+////
 Ein _Release Candidate_ einer Software ist eine Vorab-Version eines neuen Releases, das der Öffentlichkeit (und nicht nur einer kleinen Gruppe von Beta-Testern) zugänglich gemacht wird. \
 In das finale Release fließen dann nur noch Bugfixes ein. \
-Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2 (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird (`v1.0`).]]
+Auf Version 1.0 RC 1 (`v1.0-rc1`) folgt RC 2 (`v1.0-rc2`) usw., bis Version 1.0 herausgegeben wird (`v1.0`).
+////
+:fn96: pass:a,q[{wj}footnote:[ \
+A _release candidate_ of a software is a pre-release version of a new release that is made available to the public (and not only to a small group of beta testers). \
+Only bug fixes are then incorporated into the final release. \
+Version 1.0 RC 1 (`v1.0-rc1`) is followed by RC 2 (`v1.0-rc2`) etc. until version 1.0 is released (`v1.0`).]]
 
+////
+Den _lesenden_ Zugriff auf ein Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde das Konzept des Git-Objekt-Modells mit seiner kryptografisch garantierten Integrität ad absurdum führen.
+////
 :fn97: pass:a,q[{wj}footnote:[ \
-Den _lesenden_ Zugriff auf ein Unterverzeichnis kann Gitolite natürlich nicht verbieten; das würde das Konzept des Git-Objekt-Modells mit seiner kryptografisch garantierten Integrität ad absurdum führen.]]
+Of course, Gitolite cannot prohibit _read-only_ access to a subdirectory; this would make the concept of the Git object model with its cryptographically guaranteed integrity absurd.]]
 
+////
+Beachten Sie auch, dass es hier wieder zu Problemen bei der Erstellung von Branches kommen kann, s.o.
+////
 :fn98: {wj}footnote:[ \
-Beachten Sie auch, dass es hier wieder zu Problemen bei der Erstellung von Branches kommen kann, s.o.]
+Please also note that this may again cause problems when creating branches, see above.]
 
-:fn99: pass:a,q[{wj}footnote:[ \
+////
 Die Dokumentation findet sich unter http://gitolite.com/. \
-Der Autor hat außerdem das Buch "`Gitolite Essentials`"veröffentlicht (Packt Publishing, 2014).]]
+Der Autor hat außerdem das Buch "`Gitolite Essentials`"veröffentlicht (Packt Publishing, 2014).
+////
+:fn99: pass:a,q[{wj}footnote:[ \
+The documentation can be found at https://gitolite.com[^]. \
+The author has also published the book _Gitolite Essentials_ (Packt Publishing, 2014).]]
 
+////
+Streng genommen ist es dafür nötig, dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt. Besser noch überprüfen Sie ein von einem Entwickler signiertes Versions-Tag.
+////
 :fn100: pass:a,q[{wj}footnote:[ \
-Streng genommen ist es dafür nötig, dass der kopierte `HEAD` mit dem der Gegenseite übereinstimmt. Besser noch überprüfen Sie ein von einem Entwickler signiertes Versions-Tag.]]
+Strictly speaking, it is necessary for the copied `HEAD` to match that of the opposite side. \
+Better still, check a version tag signed by a developer.]]
 
+////
+In manchen Distributionen, wie z.B. Debian, heißt der Daemon `openbsd-inetd`.
+////
 :fn101: pass:a,q[{wj}footnote:[ \
-In manchen Distributionen, wie z.B. Debian, heißt der Daemon `openbsd-inetd`.]]
+In some distributions, such as Debian, the daemon is called `openbsd-inetd`.]]
 
-:fn102: pass:a,q[{wj}footnote:[ \
+////
 Das Programm `sv` ist Teil des Init-Frameworks _runit_ (http://smarden.org/runit/). \
-Es ersetzt die Funktionalität des SysV-Init, kann aber auch darin integriert werden.]]
+Es ersetzt die Funktionalität des SysV-Init, kann aber auch darin integriert werden.
+////
+:fn102: pass:a,q[{wj}footnote:[ \
+The program `sv` is part of the init framework _runit_ (http://smarden.org/runit/[^]). \
+It replaces the functionality of SysV-Init, but can also be integrated into it.]]
 
-:fn103: pass:a,q[{wj}footnote:[ \
+////
 Beachten Sie, dass eine Instanz des Git-Daemons nicht "`teuer`" ist. \
 Das Zusammenpacken der angeforderten Objekte ist es allerdings. \
-Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl Git-Verbindungen schafft.]]
+Nur weil Ihr Server also mehrere Dutzend HTTP-Abfragen pro Sekunde schafft, heißt das nicht, dass er auch dieselbe Anzahl Git-Verbindungen schafft.
+////
+:fn103: pass:a,q[{wj}footnote:[ \
+Note that an instance of the Git daemon is not "`expensive.`" \
+Packing the requested objects together is, however. \
+So just because your server can handle dozens of HTTP requests per second doesn't mean it can handle the same number of Git connections.]]
 
-:fn104: pass:a,q[{wj}footnote:[ \
+////
 Beachten Sie, dass die Reihenfolge in der `alias.url`-Direktive wichtig ist. \
-Wenn Sie die Zeile `{quot}/{quot} => ...` nach oben verschieben, startet Lighttpd nicht mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.]]
+Wenn Sie die Zeile `{quot}/{quot} => ...` nach oben verschieben, startet Lighttpd nicht mehr bzw. die Alias-Zuordnung wird nicht die gewünschte sein.
+////
+:fn104: pass:a,q[{wj}footnote:[ \
+Note that the order in the `alias.url` directive is important. \
+If you use the line `{quot}/{quot} => ...` to the top, Lighttpd will no longer start or the alias assignment will not be the desired one.]]
 
-:fn105: pass:a,q[{wj}footnote:[ \
+////
 Das Tool `checkinstall` baut automatisch Debian- oder RPM-Pakete, die alle Dateien enthalten, die durch `make install` installiert worden wären. \
-Homepage des Programmes: http://www.asic-linux.com.mx/~izto/checkinstall/]]
+Homepage des Programmes: http://www.asic-linux.com.mx/~izto/checkinstall/
+////
+:fn105: pass:a,q[{wj}footnote:[ \
+The tool `checkinstall` automatically builds Debian or RPM packages containing all files that would have been installed by `make install`. \
+Homepage of the program: https://www.asic-linux.com.mx/~izto/checkinstall/[^]]]
 // end::Chapter_7[]
 
 // =============================================================================
