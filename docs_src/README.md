@@ -171,14 +171,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [10. _Shell-Integration_][Ch10]
-    + [ ] Draft:
-        * [ ] DeepL translation.
-        * [ ] Reapply lost formatting.
-        * [ ] Restore and translate footnotes (134-137).
-        * [ ] Restore XRefs.
-        * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [ ] Translate anchors IDs.
-        * [ ] Check all external links.
+    + [x] Draft:
+        * [x] DeepL translation.
+        * [x] Reapply lost formatting.
+        * [x] Restore and translate footnotes (134-137).
+        * [x] Restore XRefs.
+        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
+        * [x] Translate anchors IDs.
+        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.

@@ -623,10 +623,10 @@ esc@creche ~/git-working/git (git)-[master]- $
 --------
 
 ////
-Da `vcs_info` mit sehr vielen Versionsverwaltungssystemen funktioniert, lohnt es sich, nur diejenigen zu aktivieren, die Sie tatsächlich verwenden:{fn136}
+Da `vcs_info` mit sehr vielen Versionsverwaltungssystemen funktioniert, lohnt es sich, nur diejenigen zu aktivieren, die Sie tatsächlich verwenden:[136]
 ////
 
-Since `vcs_info` works with a lot of version control systems, it's worth activating only those you actually use: [136]
+Since `vcs_info` works with a lot of version control systems, it's worth activating only those you actually use:{fn136}
 
 --------
 zstyle _:vcs_info:*_ enable git

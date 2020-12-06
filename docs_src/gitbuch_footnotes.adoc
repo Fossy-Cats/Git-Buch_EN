@@ -937,17 +937,27 @@ The script is available as part of our script collection at https://github.com/g
 // =============================================================================
 
 // tag::Chapter_10[]
+////
+Benutzen Sie `git-svn`, können Sie das Script anweisen, statt des Upstream-Branchs den SVN-Upstream (`remotes/git-svn`) für den Vergleich zu verwenden (sofern dieser vorhanden ist), indem Sie die Variable auf den Wert `auto` setzen.
+////
 :fn134: pass:a,q[{wj}footnote:[ \
-Benutzen Sie `git-svn`, können Sie das Script anweisen, statt des Upstream-Branchs den SVN-Upstream (`remotes/git-svn`) für den Vergleich zu verwenden (sofern dieser vorhanden ist), indem Sie die Variable auf den Wert `auto` setzen.]]
+If you use `git-svn`, you can tell the script to use the SVN upstream (`remotes/git-svn`) for comparison (if it exists) instead of the upstream branch by setting the variable to the value `auto`.]]
 
-:fn135: pass:a,q[{wj}footnote:[ \
+////
 Die Man-Page `zshcompsys(1)` beschreibt, wie Sie die Completion noch weiter anpassen. \
-Besonders die Optionen `group-name` und `menu-select` sind zu empfehlen.]]
+Besonders die Optionen `group-name` und `menu-select` sind zu empfehlen.
+////
+:fn135: pass:a,q[{wj}footnote:[ \
+The `zshcompsys(1)` man page describes how to further customize the completion. \
+Especially the options `group-name` and `menu-select` are recommended.]]
 
+////
+Eine Liste der verfügbaren Systeme erhalten Sie mit einem Aufruf der Funktion `vcs_info_printsys`.
+////
 :fn136: pass:a,q[{wj}footnote:[ \
-Eine Liste der verfügbaren Systeme erhalten Sie mit einem Aufruf der Funktion `vcs_info_printsys`.]]
+A list of available systems can be obtained by calling the `vcs_info_printsys` function.]]
 
-:fn137: {wj}footnote:[https://github.com/gitbuch/buch-scripte]
+:fn137: {wj}footnote:[https://github.com/gitbuch/buch-scripte[^]]
 // end::Chapter_10[]
 
 // =============================================================================
