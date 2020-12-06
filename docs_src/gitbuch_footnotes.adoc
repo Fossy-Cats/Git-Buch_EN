@@ -14,13 +14,13 @@ footnotes.
 // =============================================================================
 
 // tag::Preface[]
-:fn1: {wj}footnote:[https://git-scm.com]
-:fn2: {wj}footnote:[http://vger.kernel.org/vger-lists.html#git]
-:fn3: {wj}footnote:[https://git.wiki.kernel.org/index.php/Main_Page]
-:fn4: {wj}footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools]
-:fn5: {wj}footnote:[https://git.wiki.kernel.org/index.php/GitFaq]
-:fn6: {wj}footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse]
-:fn7: {wj}footnote:[https://stackoverflow.com]
+:fn1: {wj}footnote:[https://git-scm.com[^]]
+:fn2: {wj}footnote:[http://vger.kernel.org/vger-lists.html#git[^]]
+:fn3: {wj}footnote:[https://git.wiki.kernel.org/index.php/Main_Page[^]]
+:fn4: {wj}footnote:[https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools[^]]
+:fn5: {wj}footnote:[https://git.wiki.kernel.org/index.php/GitFaq[^]]
+:fn6: {wj}footnote:[https://git.wiki.kernel.org/index.php/GitSvnCrashCourse[^]]
+:fn7: {wj}footnote:[https://stackoverflow.com[^]]
 // end::Preface[]
 
 // =============================================================================
@@ -144,12 +144,12 @@ You can download the Git repository, which is examined in detail on the followin
 https://de.wikipedia.org/wiki/Secure_Hash_Algorithm, "`Schwächen`".
 ////
 :fn22: pass:a,q[{wj}footnote:[ \
-https://en.wikipedia.org/wiki/SHA-1, "`Attacks`".]]
+https://en.wikipedia.org/wiki/SHA-1[^], "`Attacks`".]]
 
 ////
 http://kerneltrap.org/mailarchive/git/2006/8/27/211001
 ////
-:fn23: {wj}footnote:[https://web.archive.org/web/20120701221412/http://kerneltrap.org/mailarchive/git/2006/8/27/211001]
+:fn23: {wj}footnote:[https://web.archive.org/web/20120701221412/http://kerneltrap.org/mailarchive/git/2006/8/27/211001[^]]
 
 ////
 Die technische Dokumentation bietet die Man-Page `gittutorial-2(7)`.
@@ -197,88 +197,168 @@ These two properties, _directional_ and _acyclic_, are the only necessary constr
 // =============================================================================
 
 // tag::Chapter_3[]
+////
+Das hindert Sie natürlich nicht, einen Branch auf einen Commit "`irgendwo in der Mitte`" zu setzen, was auch sinnvoll sein kann.
+////
 :fn29: pass:a,q[{wj}footnote:[ \
-Das hindert Sie natürlich nicht, einen Branch auf einen Commit "`irgendwo in der Mitte`" zu setzen, was auch sinnvoll sein kann.]]
+Of course, this does not prevent you from setting a branch to a commit "`somewhere in the middle,`" which can also be useful.]]
 
+////
+Aufgrund der Tatsache, dass bei einem Merge die Reihenfolge der direkten Vorfahren gespeichert wird, ist es wichtig, immer vom kleineren _in_ den größeren Branch zu mergen, also z.B.``topic`` nach `master`. \
+Wenn Sie dann mit `master^^` Commits im Master-Branch untersuchen wollen, landen Sie nicht auf einmal auf Commits aus dem Topic-Branch (siehe auch Abschnitt 3.3, "Branches zusammenführen: Merges").
+////
 :fn30: pass:q,a[{wj}footnote:[ \
-Aufgrund der Tatsache, dass bei einem Merge die Reihenfolge der direkten Vorfahren gespeichert wird, ist es wichtig, immer vom kleineren _in_ den größeren Branch zu mergen, also z.B.{empty}{nbsp}``topic`` nach `master`. \
-Wenn Sie dann mit `master^^` Commits im Master-Branch untersuchen wollen, landen Sie nicht auf einmal auf Commits aus dem Topic-Branch (siehe auch xref:gitbuch_03.adoc#sec.merge[]).]]
+Due to the fact that the order of the direct ancestors is stored during a merge, it is important to always merge from the smaller _to_ the larger branch, e.g. `topic` to `master`. \
+If you then want to use `master^^` to examine commits in the master branch, don't land on commits from the topic branch all at once (see also xref:gitbuch_03.adoc#sec.merge[]).]]
 
+////
+Wie Git eine Referenz auf Gültigkeit überprüft, können Sie bei Bedarf in der Man-Page `git-check-ref-format(1)` nachlesen.
+////
 :fn31: pass:a,q[{wj}footnote:[ \
-Wie Git eine Referenz auf Gültigkeit überprüft, können Sie bei Bedarf in der Man-Page `git-check-ref-format(1)` nachlesen.]]
+To find out how Git checks a reference for validity, see the `git-check-ref-format(1)` man page.]]
 
+////
+Wie lange sie dort verweilen, bestimmen Sie mit entsprechenden Einstellungen für die _Garbage Collection_ (Wartungsmechanismen), siehe Abschnitt B.1, "Aufräumen".
+////
 :fn32: pass:a,q[{wj}footnote:[ \
-Wie lange sie dort verweilen, bestimmen Sie mit entsprechenden Einstellungen für die _Garbage Collection_ (Wartungsmechanismen), siehe xref:gitbuch_13.adoc#sec.gc[].]]
+How long they stay there is determined by corresponding settings for the _garbage collection_ (maintenance mechanisms), see xref:gitbuch_13.adoc#sec.gc[].]]
 
+////
+Eine detaillierte Übersicht der Vor- und Nachteile der beiden Schemata sowie eine Beschreibung des Release-Prozesses usw.  finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).
+////
 :fn33: pass:a,q[{wj}footnote:[ \
-Eine detaillierte Übersicht der Vor- und Nachteile der beiden Schemata sowie eine Beschreibung des Release-Prozesses usw.  finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
+A detailed overview of the advantages and disadvantages of both schemes as well as a description of the release process etc. can be found in chapter 6 of the book _Open Source Projektmanagement_ by Michael Prokop (Open Source Press, Munich, 2010).]]
 
-:fn34: pass:a,q[{wj}footnote:[ \
+////
 Um einen solchen getaggten Blob in ein Repository aufzunehmen, bedienen Sie sich des folgenden Kommandos: \
 `git tag -am "<beschreibung>" <tag-name> $(git hash-object -w <datei>)`.]]
+////
+:fn34: pass:a,q[{wj}footnote:[ \
+To add such a tagged blob to a repository, use the following command: \
+`git tag -am "&lt;description&gt;" &lt;tag-name&gt; $(git hash-object -w &lt;file&gt;)`.]]
 
+////
+Es handelt sich hierbei um die Commits, die mit `git log v1.7.1..28ba96a` erfasst werden.
+////
 :fn35: pass:a,q[{wj}footnote:[ \
-Es handelt sich hierbei um die Commits, die mit `git log v1.7.1..28ba96a` erfasst werden.]]
+These are the commits captured with `git log v1.7.1..28ba96a`.]]
 
+////
+Um zu überprüfen, dass die Änderungen in Ihrem neuen Branch denen des alten entsprechen, verwenden Sie `git diff <reorder-feature> <feature>` -- wenn das Kommando keine Ausgabe erzeugt, dann enthalten die Branches identische Änderungen.
+////
 :fn36: pass:a,q[{wj}footnote:[ \
-Um zu überprüfen, dass die Änderungen in Ihrem neuen Branch denen des alten entsprechen, verwenden Sie `git diff <reorder-feature> <feature>` -- wenn das Kommando keine Ausgabe erzeugt, dann enthalten die Branches identische Änderungen.]]
+To verify that the changes in your new branch are the same as the old one, use `git diff &lt;reorder-feature&gt; &lt;feature&gt;` -- if the command does not produce output, the branches will contain identical changes.]]
 
+////
+Es ist nicht zwingend notwendig, dass eine Merge-Basis existiert; wenn Sie zum Beispiel mehrere Root-Commits in einem Repository verwalten (siehe auch Abschnitt 4.7, "Mehrere Root-Commits") und dann die darauf aufgebauten Branches mergen, gibt es -- sofern vorher noch kein Merge stattfand -- keine gemeinsame Basis. \
+In diesem Fall erzeugt eine Datei, die auf beiden Seiten in verschiedenen Versionen vorliegt, einen Konflikt.
+////
 :fn37: pass:a,q[{wj}footnote:[ \
-Es ist nicht zwingend notwendig, dass eine Merge-Basis existiert; wenn Sie zum Beispiel mehrere Root-Commits in einem Repository verwalten (siehe auch xref:gitbuch_04.adoc#sec.multi-root[]) und dann die darauf aufgebauten Branches mergen, gibt es -- sofern vorher noch kein Merge stattfand -- keine gemeinsame Basis. \
-In diesem Fall erzeugt eine Datei, die auf beiden Seiten in verschiedenen Versionen vorliegt, einen Konflikt.]]
+It is not absolutely necessary that a merge base exists; for example, if you manage multiple root commits in a repository (see xref:gitbuch_04.adoc#sec.multi-root[]) and then merge the branches built on top of them, there will be no common base if no merge has taken place before. \
+In this case, a file that exists in different versions on both sides creates a conflict.]]
 
+////
+Die nachfolgende Beschreibung erläutert die Vorgehensweise der `resolve`-Strategie. Sie unterscheidet sich nur wenig von der Standard-Strategie `recursive`, siehe auch die Detailbeschreibung dieser Strategie in Abschnitt 3.3.3, "Merge-Strategien".
+////
 :fn38: pass:a,q[{wj}footnote:[ \
-Die nachfolgende Beschreibung erläutert die Vorgehensweise der `resolve`-Strategie. Sie unterscheidet sich nur wenig von der Standard-Strategie `recursive`, siehe auch die Detailbeschreibung dieser Strategie in xref:gitbuch_03.adoc#sec.merge-strategies[].]]
+The following description explains the approach of the `resolve` strategy. \
+It differs only slightly from the standard `recursive` strategy, see also the detailed description of this strategy in xref:gitbuch_03.adoc#sec.merge-strategies[].]]
 
+////
+Die `recursive`-Strategie geht also nur dann wesentlich intelligenter als `resolve` vor, wenn die _Topologie_ der Commits (d.h. die Anordnung, wo abgezweigt und zusammengeführt wurde) wesentlich komplizierter ist als ein bloßes Abzweigen und anschließendes Zusammenführen.
+////
 :fn39: pass:a,q[{wj}footnote:[ \
-Die `recursive`-Strategie geht also nur dann wesentlich intelligenter als `resolve` vor, wenn die _Topologie_ der Commits (d.h. die Anordnung, wo abgezweigt und zusammengeführt wurde) wesentlich komplizierter ist als ein bloßes Abzweigen und anschließendes Zusammenführen.]]
+The `recursive` strategy is therefore only much more intelligent than `resolve` if the _topology_ of the commits (i.e., the order in which they branched and merged) is much more complicated than simply branching and then merging.]]
 
 :fn40: pass:a,q[{wj}footnote:[ \
 Die für den Merge relevanten Commits, die etwas an der Datei `output.c` geändert haben, kann Beatrice mit `git log --merge -p -- output.c` auflisten.]]
 
-:fn41: {wj}footnote:[http://kdiff3.sourceforge.net/]
+:fn41: {wj}footnote:[http://kdiff3.sourceforge.net[^]]
 
-:fn42: {wj}footnote:[http://meld.sourceforge.net/]
+:fn42: {wj}footnote:[https://meld.sourceforge.net[^]]
 
-:fn43: pass:a,q[{wj}footnote:[ \
+////
 In Vimdiff können Sie mit `Strg+W` und anschließender Bewegung mit den Pfeiltasten oder `h`, `j`, `k`, `l` das Fenster in die entsprechende Richtung wechseln. \
-Mit `dp` bzw.  `do` schieben Sie Änderungen auf die andere Seite oder übernehmen sie von dort (_diff put_ -- _diff obtain_).]]
+Mit `dp` bzw.  `do` schieben Sie Änderungen auf die andere Seite oder übernehmen sie von dort (_diff put_ -- _diff obtain_).
+////
+:fn43: pass:a,q[{wj}footnote:[ \
+In Vimdiff you can use kbd:[Ctrl+W] followed by movement with the arrow keys or kbd:[h], kbd:[j], kbd:[k], kbd:[l] to move the window in the appropriate direction. \
+With kbd:[d]kbd:[p] or kbd:[d]kbd:[o] you move changes to the other side or apply them from there (_diff put_ -- _diff obtain_).]]
 
-:fn44: pass:a,q[{wj}footnote:[ \
+////
 Die Meldung `Automatic merge failed` bedeutet lediglich, dass ein Konflikt auftrat, der _nicht_ durch einen 3-Wege-Merge gelöst werden konnte. \
-Da Rerere keine sinnvolle Lösung garantieren kann, wird die Lösung nur "`bereitgestellt`", nicht aber als ultimative Lösung des Konflikts angesehen.]]
+Da Rerere keine sinnvolle Lösung garantieren kann, wird die Lösung nur "`bereitgestellt`", nicht aber als ultimative Lösung des Konflikts angesehen.
+////
+:fn44: pass:a,q[{wj}footnote:[ \
+The message `Automatic merge failed` simply means that a conflict occurred that could _not_ be solved by a 3-way merge. \
+Since Rerere cannot guarantee a meaningful solution, the solution is only "`provided,`" but not considered the ultimate solution of the conflict.]]
 
-:fn45: {wj}footnote:[Weitere nützliche Tipps finden Sie in <<ch.workflows>>.]
+////
+Weitere nützliche Tipps finden Sie in Kapitel 6, Workflows.
+////
+:fn45: {wj}footnote:[More useful tips can be found in <<ch.workflows>>.]
 
-:fn46: pass:a,q[{wj}footnote:[ \
+////
 AsciiDoc ist eine simple, wiki-ähnliche Markup-Sprache: `http://www.methods.co.nz/asciidoc/`. \
-Die Git-Dokumentation liegt in diesem Format vor und wird in HTML-Seiten und Man-Pages konvertiert, und auch dieses Buch wurde in AsciiDoc geschrieben!]]
+Die Git-Dokumentation liegt in diesem Format vor und wird in HTML-Seiten und Man-Pages konvertiert, und auch dieses Buch wurde in AsciiDoc geschrieben!
+////
+:fn46: pass:a,q[{wj}footnote:[ \
+AsciiDoc is a simple, wiki-like markup language: https://asciidoc.org[^]. \
+The Git documentation is in this format and is converted to HTML pages and man pages, and this book was also written in AsciiDoc!]]
 
-:fn47: pass:a,q[{wj}footnote:[ \
+////
 Das Repository des Git-Projekts selbst verwaltet zum Beispiel die autogenerierte HTML-Dokumentation in einem Branch `html`, der von den Entwicklungsbranches vollständig abgekoppelt ist. \
 So kann es bei Merges zwischen den Code-Branches nicht zu Konflikten wegen unterschiedlich kompilierter HTML-Dokumentation kommen. \
-Wie Sie solche "`entkoppelten`" Branches erstellen, beschreiben wir in xref:gitbuch_04.adoc#sec.multi-root[].]]
+Wie Sie solche "`entkoppelten`" Branches erstellen, beschreiben wir in Abschnitt 4.7, "Mehrere Root-Commits".
+////
+:fn47: pass:a,q[{wj}footnote:[ \
+For example, the repository of the Git project itself manages the autogenerated HTML documentation in a branch `html`, which is completely separated from the development branches. \
+This way, merges between the code branches cannot lead to conflicts due to differently compiled HTML documentation. \
+How to create such "`decoupled`" branches is described in xref:gitbuch_04.adoc#sec.multi-root[].]]
 
-:fn48: pass:a,q[{wj}footnote:[ \
+////
 Das liegt daran, dass das Merge-Kommando nicht jeden Commit einzeln untersucht. \
-Stattdessen werden drei Trees verglichen, in denen _unter anderen_ diese Änderungen enthalten sind, siehe xref:gitbuch_03.adoc#sec.merge-detail[].]]
+Stattdessen werden drei Trees verglichen, in denen _unter anderen_ diese Änderungen enthalten sind, siehe Abschnitt 3.3.1, "Zwei Branches verschmelzen".
+////
+:fn48: pass:a,q[{wj}footnote:[ \
+This is because the merge command does not examine each commit individually. \
+Instead, it compares three trees that contain these changes _among others_, see xref:gitbuch_03.adoc#sec.merge-detail[].]]
 
-:fn49: pass:a,q[{wj}footnote:[ \
+////
 Das liegt daran, dass Rebase intern mit `cherry-pick` arbeitet, was wiederum erkennt, wenn die Änderungen, die durch den Commit eingebracht würden, schon vorhanden sind. \
-Eine ähnliche Funktionalität bietet auch `git cherry` bzw. `git patch-id`, das fast gleiche Patches erkennen kann.]]
+Eine ähnliche Funktionalität bietet auch `git cherry` bzw. `git patch-id`, das fast gleiche Patches erkennen kann.
+////
+:fn49: pass:a,q[{wj}footnote:[ \
+This is because rebase works internally with `cherry-pick`, which recognizes when the changes that would be introduced by the commit are already present. \
+A similar functionality is provided by `git cherry` or `git patch-id`, which can detect almost identical patches.]]
 
-:fn50: pass:a,q[{wj}footnote:[ \
+////
 Möglicherweise besitzt das Zeichen `^` in Ihrer Shell eine besondere Bedeutung (dies ist z.B.  in der Z-Shell oder rc-Shell der Fall). Dann müssen Sie das Zeichen maskieren, also das Argument in Anführungszeichen einfassen oder einen Backslash voranstellen. \
-In der Z-Shell existiert außerdem das Kommando `noglob`, das Sie `git` voranstellen, um die Sonderbedeutung von `^` aufzuheben.]]
+In der Z-Shell existiert außerdem das Kommando `noglob`, das Sie `git` voranstellen, um die Sonderbedeutung von `^` aufzuheben.
+////
+:fn50: pass:a,q[{wj}footnote:[ \
+Maybe the character `^` has a special meaning in your shell (this is for example the case in the Z-Shell or rc-Shell). \
+In this case you have to mask the character, i.e. enclose the argument in quotation marks or prefix it with a backslash. \
+In the Z-Shell, there is also the command `noglob`, which you use to precede `git` to remove the special meaning of `^`.]]
 
-:fn51: {wj}footnote:[Dies ist nicht nötigerweise ein Commit -- das können auch Tags oder Blobs sein.]
+////
+Dies ist nicht nötigerweise ein Commit -- das können auch Tags oder Blobs sein.
+////
+:fn51: {wj}footnote:[This is not necessarily a commit -- these can also be tags or blobs.]
 
-:fn52: pass:a,q[{wj}footnote:[ \
+////
 Ob die Commits nicht schon aufgrund ihres Alters herausgefallen sind, hängt natürlich davon ab, wie oft Sie eine _Garbage-Collection_ per `git gc` durchführen. \
-Siehe auch xref:gitbuch_13.adoc#sec.gc[].]]
+Siehe auch Abschnitt B.1, "Aufräumen".
+////
+:fn52: pass:a,q[{wj}footnote:[ \
+Whether or not the commits have fallen out because of their age depends, of course, on how often you perform a _garbage collection_ via `git gc`. \
+See also xref:gitbuch_13.adoc#sec.gc[].]]
 
+////
+Wollen Sie alle Commits der letzten zwei Wochen auflisten, verwenden Sie stattdessen `git log --since='two weeks ago'`.
+////
 :fn53: pass:a,q[{wj}footnote:[ \
-Wollen Sie alle Commits der letzten zwei Wochen auflisten, verwenden Sie stattdessen `git log --since='two weeks ago'`.]]
+If you want to list all commits in the last two weeks, use `git log --since='two weeks ago'` instead.]]
 // end::Chapter_3[]
 
 // =============================================================================
@@ -372,7 +452,7 @@ Wie Sie die Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in 
 
 :fn78: pass:a,q[{wj}footnote:[ \
 Die Zahl `n` ist die Gesamtzahl an Patches, die exportiert wurden, und `m` ist die Nummer des aktuellen Patches. \
-In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.{empty}{nbsp}``[PATCH 3/5\]``.]]
+In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.``[PATCH 3/5\]``.]]
 
 :fn79: {wj}footnote:[ \
 Sie sehen in <<fig.mail-thread>> eine etwas andere Reihenfolge der Patches als in den bisherigen Beispielen. \
