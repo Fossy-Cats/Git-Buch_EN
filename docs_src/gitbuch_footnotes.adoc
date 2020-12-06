@@ -838,58 +838,98 @@ Then the corresponding commit becomes a root commit.]]
 
 // tag::Chapter_9[]
 :fn117: {wj}footnote:[ \
-https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems]
+https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools#Interaction_with_other_Revision_Control_Systems[^]]
 
-:fn118: {wj}footnote:[http://rsvndump.sourceforge.net/]
+:fn118: {wj}footnote:[http://rsvndump.sourceforge.net/[^]]
 
+////
+Existieren mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so geben Sie diese durch mehreren Argumente `-t` bzw. `-b` an.
+////
 :fn119: pass:a,q[{wj}footnote:[ \
-Existieren mehrere Verzeichnisse, die Branches und/oder Tags enthalten, so geben Sie diese durch mehreren Argumente `-t` bzw. `-b` an.]]
+If there exist several directories, which contain branches and/or tags, you specify them by several arguments `-t` or `-b`.]]
 
+////
+Haben Sie bei der Konvertierung keinen Trunk per `-T` oder `--stdlayout` angegeben, wird ein einziger Branch namens `remotes/git-svn` generiert.
+////
 :fn120: pass:a,q[{wj}footnote:[ \
-Haben Sie bei der Konvertierung keinen Trunk per `-T` oder `--stdlayout` angegeben, wird ein einziger Branch namens `remotes/git-svn` generiert.]]
+If you did not specify a trunk per `-T` or `--stdlayout` during conversion, a single branch called `remote/git-svn` will be generated.]]
 
-:fn121: {wj}footnote:[ \
+////
 Das Script ist in der Scriptsammlung für dieses Buch enthalten. \
-Siehe: https://github.com/gitbuch/buch-scripte.]
+Siehe: https://github.com/gitbuch/buch-scripte.
+////
+:fn121: {wj}footnote:[ \
+The script is included in the script collection for this book. \
+See: https://github.com/gitbuch/buch-scripte[^].]
 
-:fn122: pass:a,q[{wj}footnote:[ \
+////
 Grundsätzlich können Sie diese Operationen auch direkt mit dem Kommando `mv` unterhalb von `.git/refs/` ausführen. \
 Die Plumbing-Kommandos machen es aber möglich, auch "`exotische`" Fälle wie "`Packed Refs`" bzw. \
 Referenzen, die Symlinks sind, korrekt zu behandeln. \
 Außerdem schreibt `git update-ref` entsprechende Einträge in das Reflog und gibt Fehlermeldungen aus, falls etwas schiefgeht. \
-Siehe hierzu auch xref:gitbuch_08.adoc#sec.scripting[].]]
+Siehe hierzu auch Abschnitt 8.3, "Eigene Git-Kommandos schreiben".
+////
+:fn122: pass:a,q[{wj}footnote:[ \
+Basically you can also perform these operations directly with the command `mv` below `.git/refs/`. \
+However, the plumbing commands make it possible to handle "`exotic`" cases like "`Packed Refs`" or references that are symlinks correctly. \
+In addition, `git update-ref` writes corresponding entries in the reflog and issues error messages if something goes wrong. \
+See also xref:gitbuch_08.adoc#sec.scripting[].]]
 
-:fn123: {wj}footnote:[Auch dieses Script finden Sie in der Scriptsammlung: https://github.com/gitbuch/buch-scripte.]
+////
+Auch dieses Script finden Sie in der Scriptsammlung: https://github.com/gitbuch/buch-scripte.
+////
+:fn123: {wj}footnote:[ \
+You can also find this script in the script collection: https://github.com/gitbuch/buch-scripte[^].]
 
-:fn124: {wj}footnote:[https://github.com/nothingmuch/git-svn-abandon]
+:fn124: {wj}footnote:[https://github.com/nothingmuch/git-svn-abandon[^]]
 
-// @NOTE: TARGET LINK NOW REDIRECTS TO ANOHTER URL (GitHub Gist)
-:fn125: {wj}footnote:[http://git.goodpoint.de/?p=git-move-tags-up.git;a=summary]
+:fn125: {wj}footnote:[https://gist.github.com/hartwork/fa275bedf8c2addeeb57[^]]
 
-:fn126: {wj}footnote:[http://gitorious.org/svn2git/svn2git]
+:fn126: {wj}footnote:[https://web.archive.org/web/20160118021532/http://gitorious.org/svn2git/svn2git[^]]
 
-// @FIXME: DEAD LINK IN FOOTONOTE 127
+////
+Im Git-via-Git Repository unter `contrib/svn-fe`
+////
 :fn127: pass:a,q[{wj}footnote:[ \
-Im Git-via-Git Repository unter `contrib/svn-fe`]]
+In the Git-via-Git repository under `contrib/svn-fe`]]
 
+////
+Vergleiche das Kommando: `svn copy trunk tags/v2.0`
+////
 :fn128: pass:a,q[{wj}footnote:[ \
-Vergleiche das Kommando: `svn copy trunk tags/v2.0`]]
+Compare the command: `svn copy trunk tags/v2.0`]]
 
+////
+Vergleiche das Subversion-Kommando: `svn merge -r 23:25 branches/feature trunk`
+////
 :fn129: pass:a,q[{wj}footnote:[ \
-Vergleiche das Subversion-Kommando: `svn merge -r 23:25 branches/feature trunk`]]
+Compare the Subversion command: `svn merge -r 23:25 branches/feature trunk`]]
 
+////
+Eine detaillierte technische Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.
+////
 :fn130: pass:a,q[{wj}footnote:[ \
-Eine detaillierte technische Dokumentation finden Sie in der Man-Page `git-fast-import(1)`.]]
+For detailed technical documentation, see the `git-fast-import(1)` man page.]]
 
+////
+Über die Option `--date-format` können Sie bei Bedarf andere Datumsformate zulassen.
+////
 :fn131: pass:a,q[{wj}footnote:[ \
-Über die Option `--date-format` können Sie bei Bedarf andere Datumsformate zulassen.]]
+You can use the `--date-format` option to allow other date formats if required.]]
 
-:fn132: {wj}footnote:[ \
+////
 Das führt zwar zu etwas mehr Rechenaufwand, vereinfacht aber die Struktur des Import-Programms wesentlich. \
-Unter dem Gesichtspunkt, dass Import-Software in der Regel nur selten ausgeführt wird und Zeit keine kritische Rolle spielt, ist dieser Ansatz also sinnvoll.]
+Unter dem Gesichtspunkt, dass Import-Software in der Regel nur selten ausgeführt wird und Zeit keine kritische Rolle spielt, ist dieser Ansatz also sinnvoll.
+////
+:fn132: {wj}footnote:[ \
+Although this leads to a little more computing effort, it simplifies the structure of the import program considerably. \
+From the point of view that import software is usually rarely executed and time does not play a critical role, this approach makes sense.]
 
+////
+Das Script ist als Teil unserer Scriptsammlung unter https://github.com/gitbuch/buch-scripte verfügbar.
+////
 :fn133: {wj}footnote:[ \
-Das Script ist als Teil unserer Scriptsammlung unter https://github.com/gitbuch/buch-scripte verfügbar.]
+The script is available as part of our script collection at https://github.com/gitbuch/buch-scripte[^].]
 // end::Chapter_9[]
 
 // =============================================================================

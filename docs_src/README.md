@@ -159,13 +159,13 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [9. _Interacting with Other Version Control Systems_][Ch9]
-    + [ ] Draft:
+    + [x] Draft:
         * [x] DeepL translation.
         * [x] Reapply lost formatting.
-        * [ ] Restore and translate footnotes (117-133).
+        * [x] Restore and translate footnotes (117-133).
         * [x] Restore XRefs.
         * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [ ] Translate anchors IDs.
+        * [x] Translate anchors IDs.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.

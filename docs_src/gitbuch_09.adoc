@@ -309,7 +309,7 @@ For others (`svn+ssh`), you must specify the username as part of the URL, for ex
 
 
 
-[[sec.git-svn-convert-befehl]]
+[[sec.git-svn-convert-command]]
 ==== Converting Standard Layouts
 //   Standardlayout konvertieren
 
@@ -383,7 +383,7 @@ How to "`link`" projects from different Git repositories is described in <<sec.s
 
 
 
-[[sec.git-svn-nachbearbeiten]]
+[[sec.git-svn-postprocessing]]
 ==== Postprocessing
 //   Nachbearbeitung
 
@@ -818,7 +818,7 @@ If you encounter problems during the conversion (e.g. if the conversion has been
 
 
 [[sec.git-svn-conduit]]
-=== Bidirektionale Kommunikation
+=== Bidirectional Communication
 //  Bidirektionale Kommunikation
 
 ////
