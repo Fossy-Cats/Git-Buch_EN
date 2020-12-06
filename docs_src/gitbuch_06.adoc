@@ -209,7 +209,7 @@ _Merge multiple changes from different sources_::
 Use the index to combine several changes, e.g. changes that complement each other but are in different branches or as patches.
 The commands `git apply`, `git cherry-pick --no-commit` and `git merge --squash` apply the corresponding changes only to the working tree or index without creating a commit.
 
-[[sec.branch-modell]]
+[[sec.branching-model]]
 == A Branching Model
 // == Ein Branching-Modell
 

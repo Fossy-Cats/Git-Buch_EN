@@ -612,19 +612,33 @@ Depending on the license, the use of a software may be allowed, but not the dist
 // =============================================================================
 
 // tag::Chapter_6[]
-:fn88: pass:a,q[{wj}footnote:[ \
+////
 Zu empfehlen ist u.a. das dritte Kapitel von _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010). \
-Auch das _Manifesto for Agile Software Development_ hält unter http://agilemanifesto.org/ aufschlussreiche Hinweise bereit.]]
+Auch das _Manifesto for Agile Software Development_ hält unter http://agilemanifesto.org/ aufschlussreiche Hinweise bereit.
+////
+:fn88: pass:a,q[{wj}footnote:[ \
+Among others, the third chapter of _Open Source Projektmanagement_ by Michael Prokop (Open Source Press, Munich, 2010) is recommended. \
+The Manifesto for Agile Software Development also provides informative information at http://agilemanifesto.org[^].]]
 
+////
+Eine Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die benötigte Funktionalität schon beinhaltet.
+////
 :fn89: {wj}footnote:[ \
-Eine Ausnahme besteht, wenn Sie eine neue Entwicklung in der Mainline in Ihrem Topic-Branch benötigen; in dem Fall können Sie allerdings auch überlegen, den Topic-Branch per Rebase neu aufzubauen, so dass er die benötigte Funktionalität schon beinhaltet.]
+An exception is if you need a new development in the mainline in your topic branch, but in that case you can consider rebuilding the topic branch via rebase so that it already contains the required functionality.]
 
+////
+Weitere Anregungen finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).
+////
 :fn90: pass:a,q[{wj}footnote:[ \
-Weitere Anregungen finden Sie im Kapitel 6 des Buches _Open Source Projektmanagement_ von Michael Prokop (Open Source Press, München, 2010).]]
+You can find further suggestions in chapter 6 of the book _Open Source Projektmanagement_ by Michael Prokop (Open Source Press, Munich, 2010).]]
 
-:fn91: pass:a,q[{wj}footnote:[ \
+////
 Jeder Commit referenziert genau einen Tree. \
-Allerdings verhält sich `git archive` verschieden, je nachdem, ob Sie einen Commit (der einen Tree referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des Commits gesetzt.]]
+Allerdings verhält sich `git archive` verschieden, je nachdem, ob Sie einen Commit (der einen Tree referenziert) oder einen Tree direkt angeben: Der Zeitpunkt der letzten Modifikation, der im Archiv aufgenommen wird, ist bei Trees die Systemzeit -- bei einem Commit allerdings wird der Zeitpunkt des Commits gesetzt.
+////
+:fn91: pass:a,q[{wj}footnote:[ \
+Each commit references exactly one tree. \
+However, `git archive` behaves differently depending on whether you specify a commit (which references a tree) or a tree directly: For trees, the time of the last modification included in the archive is the system time -- but for a commit, the time of the commit is set.]]
 // end::Chapter_6[]
 
 // =============================================================================
