@@ -19,7 +19,7 @@ Developers who want to change something download a current version to their comp
 
 
 
-[[sec.verteilte_systeme]]
+[[sec.distributed-systems]]
 == How Does Distributed Version Control Work?
 // Wie funktioniert verteilte Versionsverwaltung?
 
@@ -394,7 +394,7 @@ Git provides the `git config -e` command for this: it opens this file in your ed
 
 
 
-[[sec.remote_tracking_branches]]
+[[sec.remote-tracking-branches]]
 === Remote-Tracking-Branches
 
 ////
@@ -522,7 +522,7 @@ image::remote-tracking-gitk.png[id="fig.remote-tracking-gitk",scaledwidth="90%",
 
 
 
-[[sec.git_fetch]]
+[[sec.downloading-commits]]
 == Downloading Commits
 // Commits herunterladen
 
@@ -835,7 +835,7 @@ Um Ihre Arbeit zu veröffentlichen, also in ein Remote hochzuladen, brauchen Sie
 
 You can work in the local branch as usual.
 Note, however, that you only ever commit _locally_.
-To publish your work, i.e. upload it to a remote branch, you still need the `git push` command (<<sec.hochladen>>).
+To publish your work, i.e. upload it to a remote branch, you still need the `git push` command (<<sec.uploading-commits>>).
 
 
 
@@ -1252,7 +1252,7 @@ In this context, <<ch.workflows>> is also helpful, where it is described how to 
 
 
 
-[[sec.hochladen]]
+[[sec.uploading-commits]]
 == Uploading Commits: git push
 // Commits hochladen: git push
 
@@ -1420,7 +1420,7 @@ Siehe dafür den Abschnitt über _Pruning_ weiter oben (Abschnitt 5.3, "Commits 
 ////
 
 Note that in other clones, the remote tracking branch `origin/bugfix`, if present, does _not_ automatically disappear!
-See the section on _pruning_ above (<<sec.git_fetch>>).
+See the section on _pruning_ above (<<sec.downloading-commits>>).
 
 
 
@@ -1807,7 +1807,7 @@ For a detailed description of this service, see <<ch.github>>.
 
 
 
-[[sec.remotes-verwalten]]
+[[sec.managing-remotes]]
 == Managing Remotes
 // Remotes verwalten
 
@@ -2056,8 +2056,7 @@ Git outputs the SHA-1 sums of the tags and their contents.{fn75}
 
 
 
-// @TRANSLATE SECTION ID
-[[sec.tags-hochladen]]
+[[sec.uploading-tags]]
 === Uploading Tags
 //  Tags hochladen
 
@@ -2206,8 +2205,7 @@ Add patches from a mailbox to the current branch (__a__pply from __m__ailbox).
 
 
 
-// @TRANSLATE SECTION ID
-[[sec.patches-exportieren]]
+[[sec.exporting-patches]]
 === Exporting Patches
 //  Patches exportieren
 
@@ -2383,7 +2381,7 @@ Then use the `git format-patch` command with the `--reroll-count=<n>` option (or
 
 
 // @NOTE: "Sending Patches" or "Submitting Patches"??
-[[sec.patches-versenden]]
+[[sec.sending-patches]]
 === Sending Patches
 //  Patches versenden
 
@@ -2467,9 +2465,7 @@ Some MUAs are notorious for mutilating patches so that Git won't recognize them 
 
 
 
-// @TRANSLATE SECTION ID
-
-[[sec.patches-einpflegen]]
+[[sec.applying-patches]]
 === Applying Patches
 //  Patches einpflegen
 

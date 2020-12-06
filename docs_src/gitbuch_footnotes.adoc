@@ -378,7 +378,7 @@ _Rerere_ saves conflict resolutions and automatically corrects conflicts if a re
 Indem zum Beispiel der Branch in ein öffentlich verfügbares Repository hochgeladen wird, siehe Abschnitt 5.4, "Commits hochladen: git push".
 ////
 :fn55: {wj}footnote:[ \
-For example, by uploading the branch to a publicly available repository, see xref:gitbuch_05.adoc#sec.hochladen[].]
+For example, by uploading the branch to a publicly available repository, see xref:gitbuch_05.adoc#sec.uploading-commits[].]
 
 ////
 Im letzteren Fall machen Sie z.B. einfach ein `git remote update` (die neuen Commits werden in den Branch `origin/master` geladen) und bauen anschließend Ihren eigenen Branch von neuem auf `origin/master` auf. \
@@ -386,7 +386,7 @@ Siehe auch Abschnitt 5.1, "Wie funktioniert verteilte Versionsverwaltung?".
 ////
 :fn56: pass:a,q[{wj}footnote:[ \
 In the latter case, for example, you simply do a `git remote update` (the new commits are loaded into the `origin/master` branch) and then build your own branch from scratch to `origin/master`. \
-See also xref:gitbuch_05.adoc#sec.verteilte_systeme[].]]
+See also xref:gitbuch_05.adoc#sec.distributed-systems[].]]
 
 ////
 Den Quellcode finden Sie unter http://repo.or.cz/w/topgit.git.
@@ -444,85 +444,167 @@ Of course, this commit need not be the core of the regression, it may have been 
 // =============================================================================
 
 // tag::Chapter_5[]
+////
+Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet.
+Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in Kapitel 11, Github beschreiben, verwaltet.
+////
 :fn65: pass:a,q[{wj}footnote:[ \
-Wir haben den Spickzettel im Zusammenhang mit verschiedenen Git-Workshops erarbeitet. Er steht unter einer Creative-Commons-Lizenz und wird mit der Git-Hosting-Plattform Github, die wir in xref:gitbuch_11.adoc#ch.github[] beschreiben, verwaltet.]]
+We developed the cheat sheet in connection with various Git workshops. \
+It is licensed under a Creative Commons License and is managed with the Git hosting platform GitHub, which we describe in xref:gitbuch_11.adoc#ch.github[] beschreiben, verwaltet.]]
 
+////
+Genau genommen checkt Git nicht "`blind`" den Branch `master` aus.
+Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.
+////
 :fn66: pass:a,q[{wj}footnote:[ \
-Genau genommen checkt Git nicht "`blind`" den Branch `master` aus. Tatsächlich schaut Git nach, welchen Branch der `HEAD` der Gegenseite referenziert, und checkt diesen aus.]]
+Strictly speaking, Git does not "`blindly`" check out the `master` branch. \
+In fact, Git looks up which branch the `HEAD` of the other side references and checks it out.]]
 
+////
+Weitere Informationen zu dem Git-Protokoll finden Sie in Abschnitt 7.1.1, "Das Git-Protokoll" (siehe auch Abschnitt 3.1.1, "HEAD und andere symbolische Referenzen").
+////
 :fn67: pass:a,q[{wj}footnote:[ \
-Weitere Informationen zu dem Git-Protokoll finden Sie in xref:gitbuch_07.adoc#sec.git-protocol[] (siehe auch xref:gitbuch_03.adoc#sec.branch-refs[]).]]
+For more information on the Git protocol, see xref:gitbuch_07.adoc#sec.git-protocol[] (see also xref:gitbuch_03.adoc#sec.branch-refs[]).]]
 
+////
+Eine vollständige Auflistung der möglichen URLs finden Sie in der Man-Page `git-clone(1)` im Abschnitt "`Git URLs`".
+////
 :fn68: pass:a,q[{wj}footnote:[ \
-Eine vollständige Auflistung der möglichen URLs finden Sie in der Man-Page `git-clone(1)` im Abschnitt "`Git URLs`".]]
+For a complete list of possible URLs, see the `git-clone(1)` man page in the "`Git URLs`" section.]]
 
+////
+Der Stern (`*`) wird wie bei der Shell auch als _Wildcard_ interpretiert und zieht alle Dateien in einem Verzeichnis in Betracht.
+////
 :fn69: pass:a,q[{wj}footnote:[ \
-Der Stern (`*`) wird wie bei der Shell auch als _Wildcard_ interpretiert und zieht alle Dateien in einem Verzeichnis in Betracht.]]
+The asterisk (`*`) is also interpreted as a _wildcard_ like the Shell and considers all files in a directory.]]
 
-:fn70: {wj}footnote:[ \
+////
 Remote-Tracking-Branches sind nur dazu gedacht, die Branches in einem Remote zu verfolgen. \
-Das Auschecken eines Remote-Tracking-Branches führt zu einem Detached-Head-State samt entsprechender Warnung.]
+Das Auschecken eines Remote-Tracking-Branches führt zu einem Detached-Head-State samt entsprechender Warnung.
+////
+:fn70: {wj}footnote:[ \
+Remote tracking branches are only intended to track the branches in a remote. \
+Checking out a remote tracking branch will result in a detached head state and warning.]
 
-:fn71: pass:a,q[{wj}footnote:[ \
+////
 Das Mergen von `origin/master` nach `master` ist ein ganz normaler Merge-Vorgang. \
 Im obigen Beispiel wurden in der Zwischenzeit keine weiteren lokalen Commits getätigt und von daher auch keine Merge-Commits erstellt. \
-Der `master` wurde per Fast-Forward auf `origin/master` vorgerückt.]]
+Der `master` wurde per Fast-Forward auf `origin/master` vorgerückt.
+////
+:fn71: pass:a,q[{wj}footnote:[ \
+Merging from `origin/master` to `master` is a normal merging process. \
+In the example above, no further local commits have been made in the meantime and therefore no merge commits have been created. \
+The `master` has been fast-forwarded to `origin/master`.]]
 
-:fn72: pass:a,q[{wj}footnote:[ \
+////
 Das "`Forcieren`" findet aber nur lokal statt: Der Empfänger-Server kann trotz Angabe der Option `-f` das Hochladen unterbinden. \
-Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe xref:gitbuch_07.adoc#sec.gitolite-config[]).]]
+Dafür ist die Option `receive.denyNonFastForwards` zuständig, bzw. die Rechtezuweisung `RW` bei Gitolite (siehe Abschnitt 7.2.2, "Gitolite-Konfiguration").
+////
+:fn72: pass:a,q[{wj}footnote:[ \
+But the "`forcing`" only takes place locally: The recipient server can prevent the upload despite the specification of the option `-f`. \
+This is done with the `receive.denyNonFastForwards` option, or the `RW` rights assignment for Gitolite (see xref:gitbuch_07.adoc#sec.gitolite-config[]).]]
 
-:fn73: pass:a,q[{wj}footnote:[ \
+////
 Dies ist das Standard-Verhalten seit Version 2.0 (`push.default=simple`). \
-Frühere Git-Versionen verwendeten ohne weitere Konfiguration die Einstellung `push.default=matching`, die besonders für Anfänger fehlerträchtig sein kann.]]
+Frühere Git-Versionen verwendeten ohne weitere Konfiguration die Einstellung `push.default=matching`, die besonders für Anfänger fehlerträchtig sein kann.
+////
+:fn73: pass:a,q[{wj}footnote:[ \
+This is the default behavior since version 2.0 (`push.default=simple`). \
+Earlier Git versions used the `push.default=matching` setting without any further configuration, which can be buggy, especially for beginners.]]
 
+////
+Im Git-Jargon werden solche Remotes als _Anonymous_ bezeichnet.
+////
 :fn74: pass:a,q[{wj}footnote:[ \
-Im Git-Jargon werden solche Remotes als _Anonymous_ bezeichnet.]]
+In Git jargon such remotes are called _anonymous_.]]
 
+////
+Die Syntax `<tag>^{}` dereferenziert ein Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das das Tag zeigt.
+////
 :fn75: pass:a,q[{wj}footnote:[ \
-Die Syntax `<tag>^{}` dereferenziert ein Tag-Objekt, liefert also das Commit-, Tree- oder Blob-Objekt, auf das das Tag zeigt.]]
+The syntax `&lt;tag&gt;^{}` dereferences a tag object, so returns the commit, tree or blob object to which the tag points.]]
 
+////
+Zum Beispiel mit dem Alias `push = push --tags`.
+////
 :fn76: pass:a,q[{wj}footnote:[ \
-Zum Beispiel mit dem Alias `push = push --tags`.]]
+For example with the alias `push = push --tags`.]]
 
+////
+Wie Sie die Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in der Man-Page `git-format-patch(1)`.
+////
 :fn77: pass:a,q[{wj}footnote:[ \
-Wie Sie die Nummerierung, den Text und das Datei-Suffix anpassen, finden Sie in der Man-Page `git-format-patch(1)`.]]
+See the `git-format-patch(1)` man page for information on how to customize the numbering, text and file suffix.]]
 
-:fn78: pass:a,q[{wj}footnote:[ \
+////
 Die Zahl `n` ist die Gesamtzahl an Patches, die exportiert wurden, und `m` ist die Nummer des aktuellen Patches. \
-In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.``[PATCH 3/5\]``.]]
+In der Betreff-Zeile des dritten Patch von fünf steht dann z.B.``[PATCH 3/5\]``.
+////
+:fn78: pass:a,q[{wj}footnote:[ \
+The number `n` is the total number of patches exported and `m` is the number of the current patch. \
+For example, the subject line of the third patch of five would read `[PATCH 3/5\]`.]]
 
-:fn79: {wj}footnote:[ \
-Sie sehen in <<fig.mail-thread>> eine etwas andere Reihenfolge der Patches als in den bisherigen Beispielen. \
+////
+Sie sehen in Abbildung 5.10, "Patch-Serie als Mail-Thread" eine etwas andere Reihenfolge der Patches als in den bisherigen Beispielen. \
 Das liegt daran, dass die erste Version der Patch-Serie aus nur zwei Patches bestand, und das dritte erst nach dem Feedback von der Git-Mailingliste dazukam. \
 Die Serie wurde dann erweitert und per Rebase auf den Stand gebracht, wie sie in diesem Abschnitt abgebildet ist.]
+////
+:fn79: {wj}footnote:[ \
+You can see in <<fig.mail-thread>> a slightly different order of patches than in the previous examples. \
+This is because the first version of the patch series consisted of only two patches, and the third one was added after feedback from the Git mailing list. \
+The series was then expanded and rebased to the state as shown in this section.]
 
-:fn80: pass:a,q[{wj}footnote:[ \
+////
 Sofern auf Ihrem System kein _Mail Transfer Agent_ (MTA) installiert bzw. für den E-Mail-Versand konfiguriert ist, können Sie auch einen externen SMTP-Server verwenden. \
-Passen Sie dafür die in der Sektion "`Use GMail as the SMTP server`" der bereits erwähnten Man-Page beschriebenen Einstellungen an.]]
+Passen Sie dafür die in der Sektion "`Use GMail as the SMTP server`" der bereits erwähnten Man-Page beschriebenen Einstellungen an.
+////
+:fn80: pass:a,q[{wj}footnote:[ \
+If no _Mail Transfer Agent_ (MTA) is installed on your system or configured to send e-mail, you can also use an external SMTP server. \
+To do so, adjust the settings described in the section "`Use GMail as the SMTP server`" of the already mentioned man page.]]
 
-:fn81: {wj}footnote:[http://dpaste.com/]
+:fn81: {wj}footnote:[https://dpaste.com[^]]
 
-:fn82: {wj}footnote:[https://gist.github.com/]
+:fn82: {wj}footnote:[https://gist.github.com[^]]
 
+////
+Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".
+////
 :fn83: pass:a,q[{wj}footnote:[ \
-Nützliche Tipps und Tricks für diverse MUAs finden Sie in der Datei `Documentation/SubmittingPatches` im Git-via-Git-Repository im Abschnitt "`MUA specific hints`" sowie in der Man-Page von `git-format-patch(1)` in den Abschnitten "`MUA-specific Hints`" und "`Discussion`".]]
+Useful tips and tricks for various MUAs can be found in the `Documentation/SubmittingPatches` file in the Git-via-Git repository in the "`MUA specific hints`" section, and in the `git-format-patch(1)` man page in the "`MUA specific hints`" and "`Discussion`" sections.]]
 
+////
+Für das Git-Projekt finden Sie diese unter: `Documentation/SubmittingPatches` im Quellcode-Repository.
+////
 :fn84: pass:a,q[{wj}footnote:[ \
-Für das Git-Projekt finden Sie diese unter: `Documentation/SubmittingPatches` im Quellcode-Repository.]]
+For the Git project, you can find them at `Documentation/SubmittingPatches` in the source code repository.]]
 
+////
+Die `libgit.a` wird beim Kompilieren von Git erzeugt und versammelt alle Funktionen, die in Git "`öffentlich`" sind.
+Sie ist allerdings nicht _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt verwendet werden kann. \
+Diese Einschränkungen hat `libgit2` nicht.
+////
 :fn85: pass:a,q[{wj}footnote:[ \
-Die `libgit.a` wird beim Kompilieren von Git erzeugt und versammelt alle Funktionen, die in Git "`öffentlich`" sind. Sie ist allerdings nicht _reentrant_ oder Thread-sicher, so dass sie nur eingeschränkt verwendet werden kann. \
-Diese Einschränkungen hat `libgit2` nicht.]]
+The `libgit.a` is created when compiling Git and gathers all functions that are "`public`" in Git. \
+However, it is not _reentrant_ or thread-safe, so its use is limited. \
+`libgit2` does not have these restrictions.]]
 
-:fn86: pass:a,q[{wj}footnote:[ \
+////
 Das Kommando ist kein Standard-Kommando von Git, wird aber von einigen Linux-Distributionen (z.B. Debian, Archlinux) sowie im Windows-Git-Installer automatisch mit installiert. \
 Überprüfen Sie durch einen Aufruf von `git subtree`, ob das Kommando installiert ist. \
-Falls nicht, können Sie das Script unter `/usr/share/doc/git/contrib/subtree/` suchen, oder aus dem Quellcode von Git (unter `contrib/subtree`) kopieren.]]
+Falls nicht, können Sie das Script unter `/usr/share/doc/git/contrib/subtree/` suchen, oder aus dem Quellcode von Git (unter `contrib/subtree`) kopieren.
+////
+:fn86: pass:a,q[{wj}footnote:[ \
+The command is not a standard command of Git, but is installed automatically by some Linux distributions (e.g. Debian, Archlinux) and in the Windows Git installer. \
+Check by calling `git subtree` whether the command is installed. \
+If not, you can search for the script under `/usr/share/doc/git/contrib/subtree/`, or copy it from the source code of Git (under `contrib/subtree`).]]
 
-:fn87: pass:a,q[{wj}footnote:[ \
+////
 Achten Sie daher darauf, dass Sie mit dieser Technik nur Inhalte einbinden, die Sie auch weitergeben _dürfen_. \
-Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt, aber nicht die Weiterverbreitung (engl. _Distribution_).]]
+Je nach Lizenz ist die Benutzung einer Software möglicherweise erlaubt, aber nicht die Weiterverbreitung (engl. _Distribution_).
+////
+:fn87: pass:a,q[{wj}footnote:[ \
+Therefore, make sure that you only include content that you are _allowed_ to pass on using this technology. \
+Depending on the license, the use of a software may be allowed, but not the distribution.]]
 // end::Chapter_5[]
 
 // =============================================================================

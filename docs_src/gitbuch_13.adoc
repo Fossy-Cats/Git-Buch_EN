@@ -82,7 +82,7 @@ In the subdirectory `pack/` you will find the packfiles and associated indices, 
 In the `info/` subdirectory, Git will store a list of existing pack files if required.
 
 `refs/` ::
-All references, including branches in `refs/heads/`, see <<sec.branch-refs>>, tags in `refs/tags/`, see <<sec.tags>>, and remote tracking branches under `refs/remotes/`, see <<sec.remote_tracking_branches>>.
+All references, including branches in `refs/heads/`, see <<sec.branch-refs>>, tags in `refs/tags/`, see <<sec.tags>>, and remote tracking branches under `refs/remotes/`, see <<sec.remote-tracking-branches>>.
 
 
 
