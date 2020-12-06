@@ -997,31 +997,40 @@ Not to be misunderstood as a project fork, where a project splits due to interna
 // end::Chapter_11[]
 
 // =============================================================================
-//                       Chapter 12 (footnotes: 151-153)
+//                       Appendix A (footnotes: 151-153)
 // =============================================================================
 
 // tag::Chapter_12[]
-:fn151: {wj}footnote:[https://www.kernel.org/pub/software/scm/git/]
+:fn151: {wj}footnote:[https://www.kernel.org/pub/software/scm/git/[^]]
 
-:fn152: {wj}footnote:[https://code.google.com/p/git-osx-installer/]
+:fn152: {wj}footnote:[https://code.google.com/p/git-osx-installer/[^]]
 
-// @FIXME: LINK NOW REDIRECTS TO NEW URL (https://gitforwindows.org)
-:fn153: {wj}footnote:[https://msysgit.github.io/]
+:fn153: {wj}footnote:[https://gitforwindows.org[^]]
 // end::Chapter_12[]
 
 // =============================================================================
-//                       Chapter 13 (footnotes: 154-156)
+//                       Appendix B (footnotes: 154-156)
 // =============================================================================
 
 // tag::Chapter_13[]
+////
+Da ein Bare-Repository (siehe Abschnitt 7.1.3, "Bare Repositories - Repositories ohne Working Tree") keinen Working Tree besitzt, bilden die Inhalte, die normalerweise in `.git` liegen, die oberste Ebene in der Verzeichnisstruktur, und es gibt kein zusätzliches Verzeichnis `.git`.
+////
 :fn154: pass:a,q[{wj}footnote:[ \
-Da ein Bare-Repository (siehe xref:gitbuch_07.adoc#sec.bare-repos[]) keinen Working Tree besitzt, bilden die Inhalte, die normalerweise in `.git` liegen, die oberste Ebene in der Verzeichnisstruktur, und es gibt kein zusätzliches Verzeichnis `.git`.]]
+Since a bare repository (see xref:gitbuch_07.adoc#sec.bare-repos[]) does not have a working tree, the contents normally located in `.git` form the top level in the directory structure, and there is no additional `.git` directory.]]
 
-:fn155: {wj}footnote:[ \
+////
 Das ist nicht zu verwechseln mit Versionskontrollsystemen, die inkrementelle Versionen einer Datei speichern. \
-Innerhalb von Packfiles werden die Objekte unabhängig von ihrem semantischen Zusammenhang, d.h. speziell ihrer zeitlichen Abfolge, gepackt.]
+Innerhalb von Packfiles werden die Objekte unabhängig von ihrem semantischen Zusammenhang, d.h. speziell ihrer zeitlichen Abfolge, gepackt.
+////
+:fn155: {wj}footnote:[ \
+This is not to be confused with version control systems that store incremental versions of a file. \
+Within packfiles, objects are packed independently of their semantic context, i.e. especially their temporal sequence.]
 
+////
+Eine ausführliche Auseinandersetzung mit dem Thema finden Sie unter http://metalinguist.wordpress.com/2007/12/06/the-woes-of-git-gc-aggressive-and-how-git-deltas-work/
+////
 :fn156: {wj}footnote:[ \
-Eine ausführliche Auseinandersetzung mit dem Thema finden Sie unter http://metalinguist.wordpress.com/2007/12/06/the-woes-of-git-gc-aggressive-and-how-git-deltas-work/]
+A detailed discussion of the topic can be found at https://metalinguist.wordpress.com/2007/12/06/the-woes-of-git-gc-aggressive-and-how-git-deltas-work/[^]]
 // end::Chapter_13[]
 
