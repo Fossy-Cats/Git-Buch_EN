@@ -184,14 +184,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [11. _GitHub_][Ch11]
-    + [ ] Draft:
+    + [x] Draft:
         * [x] DeepL translation.
         * [x] Reapply lost formatting.
-        * [ ] Restore and translate footnotes (138-150).
+        * [x] Restore and translate footnotes (138-150).
         * [x] Restore XRefs.
         * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [ ] Translate anchors IDs.
-        * [ ] Check all external links.
+        * [x] Translate anchors IDs.
+        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.

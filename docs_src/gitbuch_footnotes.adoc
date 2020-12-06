@@ -965,33 +965,35 @@ A list of available systems can be obtained by calling the `vcs_info_printsys` f
 // =============================================================================
 
 // tag::Chapter_11[]
-:fn138: {wj}footnote:[https://github.com/]
+:fn138: {wj}footnote:[https://github.com[^]]
 
-:fn139: {wj}footnote:[http://gitorious.org/]
+:fn139: {wj}footnote:[https://web.archive.org/web/20150303192558/http://gitorious.org[^]]
 
-:fn140: {wj}footnote:[https://repo.or.cz/]
+:fn140: {wj}footnote:[https://repo.or.cz[^]]
 
-:fn141: {wj}footnote:[https://sourceforge.net/]
+:fn141: {wj}footnote:[https://sourceforge.net[^]]
 
-:fn142: {wj}footnote:[https://www.berlios.de/]
+:fn142: {wj}footnote:[https://www.berlios.de[^]]
 
-:fn143: {wj}footnote:[https://curl.haxx.se/]
+:fn143: {wj}footnote:[https://curl.se[^]]
 
-:fn144: {wj}footnote:[https://rubyonrails.org/]
+:fn144: {wj}footnote:[https://rubyonrails.org[^]]
 
-:fn145: {wj}footnote:[https://jquery.com/]
+:fn145: {wj}footnote:[https://jquery.com[^]]
 
-// @FIXME: OBSOLOTE LINK (ARCHIVED) USE NEW URL
-:fn146: {wj}footnote:[https://github.com/github/gollum]
+:fn146: {wj}footnote:[https://github.com/gollum/gollum[^]]
 
-:fn147: {wj}footnote:[https://github.com/github/markup]
+:fn147: {wj}footnote:[https://github.com/github/markup[^]]
 
+////
+Nicht als Projekt-Fork misszuverstehen, bei dem sich ein Projekt aufgrund interner Differenzen spaltet.
+////
 :fn148: {wj}footnote:[ \
-Nicht als Projekt-Fork misszuverstehen, bei dem sich ein Projekt aufgrund interner Differenzen spaltet.]
+Not to be misunderstood as a project fork, where a project splits due to internal differences.]
 
-:fn149: {wj}footnote:[https://github.com/blog/817-behold-image-view-modes]
+:fn149: {wj}footnote:[https://github.com/blog/817-behold-image-view-modes[^]]
 
-:fn150: {wj}footnote:[https://help.github.com/]
+:fn150: {wj}footnote:[https://help.github.com[^]]
 // end::Chapter_11[]
 
 // =============================================================================
