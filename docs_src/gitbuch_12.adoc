@@ -6,85 +6,123 @@
 
 include::gitbuch_footnotes.adoc[tag=Chapter_12]
 
+////
+Die Installation von Git ist einfach und geht schnell vonstatten, da für die meisten Systeme bereits vorkonfigurierte Pakete bereitgestellt werden.
+Der Vollständigkeit halber wollen wir aber die wichtigsten Handgriffe unter Linux, Mac OS X und Windows dokumentieren.
+////
 
-Die Installation von Git ist einfach und geht schnell vonstatten, da
-für die meisten Systeme bereits vorkonfigurierte Pakete bereitgestellt
-werden. Der Vollständigkeit halber wollen wir aber die wichtigsten
-Handgriffe unter Linux, Mac OS X und Windows dokumentieren.
+Installing Git is easy and fast, as it comes with pre-configured packages for most systems.
+For the sake of completeness, however, we'll document the most important steps under Linux, Mac OS X, and Windows.
 
 [[linux]]
 == Linux
 
-Aufgrund der Vielzahl der Linux-Distributionen wird hier nur die
-Installation auf Debian-, Fedora- sowie Gentoo-Systemen beschrieben.
-Für andere Distributionen schauen Sie ggf. in der Dokumentation bzw.
-in der Paketverwaltung nach; natürlich können Sie Git auch aus dem
-Quellcode übersetzen und installieren.
+////
+Aufgrund der Vielzahl der Linux-Distributionen wird hier nur die Installation auf Debian-, Fedora- sowie Gentoo-Systemen beschrieben.
+Für andere Distributionen schauen Sie ggf. in der Dokumentation bzw. in der Paketverwaltung nach; natürlich können Sie Git auch aus dem Quellcode übersetzen und installieren.
+////
+
+Due to the large number of Linux distributions only the installation on Debian, Fedora and Gentoo systems is described here.
+For other distributions, please refer to the documentation or the package management system, if necessary; of course, you can also compile and install Git from source code.
 
 [[sec.debian-ubuntu]]
 === Debian/Ubuntu
 
-Debian und Ubuntu stellen fertige Pakete zur Verfügung, die mit dem
-Debian-Paketmanagementsystem komfortabel und schnell zu installieren
-sind. Dabei wird die Git-Installation modularisiert, Sie können also
-bei Bedarf nur bestimmte Teile von Git installieren.
+////
+Debian und Ubuntu stellen fertige Pakete zur Verfügung, die mit dem Debian-Paketmanagementsystem komfortabel und schnell zu installieren sind.
+Dabei wird die Git-Installation modularisiert, Sie können also bei Bedarf nur bestimmte Teile von Git installieren.
+////
 
+Debian and Ubuntu provide ready-to-use packages that can be installed comfortably and quickly with the Debian package management system.
+The git installation is modularized, so you can install only certain parts of git if necessary.
 
+////
 `git`:: Hauptpaket, enthält Kernbefehle (vormals `git-core`)
 
 `git-email`:: Zusatz zum Verschicken von Patches per E-Mail
 
 `git-gui`:: Grafische Benutzerschnittstelle
 
-`git-svn`:: Subkommando `svn`, um mit Subversion-Repositories zu
-interagieren
+`git-svn`:: Subkommando `svn`, um mit Subversion-Repositories zu interagieren
 
 `git-cvs`:: Interaktion mit CVS
 
 `git-doc`:: Dokumentation (wird unter `/usr/share/doc` installiert)
 
 `gitk`:: Programm Gitk
+////
 
+`git`:: main package, contains core commands (formerly `git-core`)
 
-Darüber hinaus gibt es noch ein Meta-Paket `git-all`, das alle
-relevanten Pakete installiert. Auf einer regulären Workstation sollten
-Sie also Git wie folgt installieren:
+`git-email` :: Add-on for sending patches by e-mail
+
+`git-gui` :: Graphical user interface
+
+`git-svn`:: subcommand `svn` to interact with Subversion repositories
+
+`git-cvs` :: Interaction with CVS
+
+`git-doc`:: documentation (will be installed under `/usr/share/doc`)
+
+`gitk` :: Program Gitk
+
+////
+Darüber hinaus gibt es noch ein Meta-Paket `git-all`, das alle relevanten Pakete installiert.
+Auf einer regulären Workstation sollten Sie also Git wie folgt installieren:
+////
+
+There is also a meta-package `git-all` which installs all relevant packages.
+So on a regular workstation you should install Git as follows:
 
 [subs="macros,quotes"]
 --------
 $ *sudo aptitude install git-all*
 --------
 
-Unter Ubuntu können Sie analog das Paket `git-all` über die
-grafische Paketverwaltung _Synaptic_ installieren.
+////
+Unter Ubuntu können Sie analog das Paket `git-all` über die grafische Paketverwaltung _Synaptic_ installieren.
+////
+
+Under Ubuntu you can install the package `git-all` via the graphical package manager _Synaptic_.
 
 [[sec.fedora]]
 === Fedora
 
-Auf einem Fedora-System sollten Sie Git über den Paketmanager
-`yum` installieren:
+////
+Auf einem Fedora-System sollten Sie Git über den Paketmanager `yum` installieren:
+////
+
+On a Fedora system, you should install Git using the package manager `yum`:
 
 [subs="macros,quotes"]
 --------
 $ *sudo yum install git*
 --------
 
-Analog zur Aufteilung in kleinere Pakete wie bei Debian, sind gewisse
-Zusatzfunktionen für Git in separaten Paketen erhältlich. Um alle
-Kommandos zu installieren, sollten Sie das Paket `git-all`
-installieren.
+////
+Analog zur Aufteilung in kleinere Pakete wie bei Debian, sind gewisse Zusatzfunktionen für Git in separaten Paketen erhältlich.
+Um alle Kommandos zu installieren, sollten Sie das Paket `git-all` installieren.
+////
+
+Analogous to the division into smaller packages as in Debian, certain additional features for Git are available in separate packages.
+To install all commands, you should install the `git-all` package.
 
 [[sec.gentoo]]
 === Gentoo
 
-Gentoo stellt den Ebuild `dev-vcs/git` zur Verfügung. Das
-grafische Tool zum Erstellen von Commits (`git gui`) sowie der
-Zusatz zum Verschicken von E-Mails (`git send-email`) werden
-per Default installiert. Wenn Sie zusätzlich noch eine grafische
-Benutzerschnittstelle zum Betrachten und Bearbeiten der Geschichte
-(`gitk`) haben möchten, aktivieren Sie das _USE-Flag_{empty}{nbsp}`tk`. Sollten Sie vorhaben, die Subversion-Schnittstelle zu
-verwenden, aktivieren Sie das USE-Flag `subversion`. Zur
-Installation via Portage geben Sie folgenden Befehl ein:
+////
+Gentoo stellt den Ebuild `dev-vcs/git` zur Verfügung.
+Das grafische Tool zum Erstellen von Commits (`git gui`) sowie der Zusatz zum Verschicken von E-Mails (`git send-email`) werden per Default installiert.
+Wenn Sie zusätzlich noch eine grafische Benutzerschnittstelle zum Betrachten und Bearbeiten der Geschichte (`gitk`) haben möchten, aktivieren Sie das _USE-Flag_{empty}{nbsp}`tk`.
+Sollten Sie vorhaben, die Subversion-Schnittstelle zu verwenden, aktivieren Sie das USE-Flag `subversion`.
+Zur Installation via Portage geben Sie folgenden Befehl ein:
+////
+
+Gentoo provides the ebuild `dev-vcs/git`.
+The graphical tool for creating commits (`git gui`) and the add-on for sending emails (`git send-email`) are installed by default.
+If you want to have a graphical user interface for viewing and editing the history (`gitk`) in addition, enable the _USE flag_{empty}{nbsp}`tk`.
+If you plan to use the Subversion interface, enable the `subversion` USE flag.
+To install via Portage, type the following command:
 
 [subs="macros,quotes"]
 --------
@@ -92,20 +130,28 @@ $ *sudo emerge dev-vcs/git*
 --------
 
 [[sec.quellcode-installation]]
-=== Installation aus den Quellen
+=== Installation from the sources
+// === Installation aus den Quellen
 
-Wenn Ihre Distribution kein Paket für Git anbietet, dieses veraltet
-ist oder Sie keine Root-Rechte auf dem System haben, sollten Sie
-Git direkt aus den Quellen installieren.
+////
+Wenn Ihre Distribution kein Paket für Git anbietet, dieses veraltet ist oder Sie keine Root-Rechte auf dem System haben, sollten Sie Git direkt aus den Quellen installieren.
+////
 
-Git hängt von den fünf Bibliotheken `expat` (XML-Parser),
-`curl` (Datentransfer), `zlib` (Kompression), `pcre` (reguläre
-Ausdrücke) und `openssl` (Verschlüsselung/Hashing) ab. Deren Sourcen müssen
-Sie ggf. vorher kompilieren und die Bibliotheken entsprechend
-installieren, bevor Sie fortfahren.
+If your distribution doesn't provide a package for Git, it's outdated, or you don't have root privileges on the system, you should install Git directly from source.
 
-Laden Sie zuerst den Tarball der aktuellen Git Version herunter{empty}{fn151}
-und entpacken Sie ihn:
+////
+Git hängt von den fünf Bibliotheken `expat` (XML-Parser), `curl` (Datentransfer), `zlib` (Kompression), `pcre` (reguläre Ausdrücke) und `openssl` (Verschlüsselung/Hashing) ab.
+Deren Sourcen müssen Sie ggf. vorher kompilieren und die Bibliotheken entsprechend installieren, bevor Sie fortfahren.
+////
+
+Git depends on the five libraries `expat` (XML parser), `curl` (data transfer), `zlib` (compression), `pcre` (regular expressions) and `openssl` (encryption/hashing).
+You may need to compile their sources and install the libraries accordingly before proceeding.
+
+////
+Laden Sie zuerst den Tarball der aktuellen Git Version herunter{empty}{fn151} und entpacken Sie ihn:
+////
+
+First download the tarball of the current Git version{empty}{fn151} and unzip it:
 
 [subs="macros,quotes"]
 --------
@@ -113,9 +159,11 @@ $ *wget pass:quotes[https://www.kernel.org/pub/software/scm/git/git-2.1.0.tar.gz
 $ *tar xvf git-2.1.0.tar.gz*
 --------
 
-Wechseln Sie nun in das Verzeichnis `git-2.1.0/` und
-kompilieren Sie den Quellcode; anschließend führen Sie `make
-  install` aus:
+////
+Wechseln Sie nun in das Verzeichnis `git-2.1.0/` und kompilieren Sie den Quellcode; anschließend führen Sie `make install` aus:
+////
+
+Now change to the `git-2.1.0/` directory and compile the source code; then run `make install`:
 
 [subs="macros,quotes"]
 --------
@@ -124,21 +172,30 @@ $ *make -j8*
 $ *make install*
 --------
 
-Mit `make prefix=<praefix>` können Sie Git nach
-`<praefix>` installieren (Default: `$HOME`).
+////
+Mit `make prefix=<praefix>` können Sie Git nach `<praefix>` installieren (Default: `$HOME`).
+////
+
+With `make prefix=<prefix>` you can install Git to `<prefix>` (default: `$HOME`).
 
 [[sec.osx]]
 == Mac OS X
 
-Das Projekt _Git for OS X_ stellt ein Installationsprogramm im
-Diskimage-Format (DMG) zur Verfügung.{fn152}
+////
+Das Projekt _Git for OS X_ stellt ein Installationsprogramm im Diskimage-Format (DMG) zur Verfügung.{fn152}
 Sie können es also wie gewohnt installieren.
+////
+
+The _Git for OS X_ project provides an installation program in disk image format (DMG).{fn152}
+So you can install it as usual.
 
 [[sec.windows]]
 == Windows
 
-Das Projekt _Git for Windows_ stellt ein Installationsprogramm für
-Microsoft Windows zur Verfügung: _msysGit_. Sie können das
-Programm herunterladen{empty}{fn153}
-und wie gewohnt installieren.
+////
+Das Projekt _Git for Windows_ stellt ein Installationsprogramm für Microsoft Windows zur Verfügung: _msysGit_.
+Sie können das Programm herunterladen{empty}{fn153} und wie gewohnt installieren.
+////
 
+The project _Git for Windows_ provides an installation program for Microsoft Windows: _msysGit_.
+You can download the program{empty}{fn153} and install it as usual.
