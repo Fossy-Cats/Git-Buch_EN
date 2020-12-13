@@ -2,7 +2,7 @@
 
 This folder contains the AsciiDoc sources of the English translation of the _Git-Buch_.
 
-> __[STATUS]__ — Draft-translating each section via [DeepL] and applying formatting and structure.
+> __[STATUS]__ — Polishing the draft-translation (created via [DeepL]) and adapting images.
 
 -----
 
@@ -14,7 +14,10 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [Translation Status](#translation-status)
     - [Methodology Notes](#methodology-notes)
 - [Sources Adaptation](#sources-adaptation)
-    - [Upstream Correspondence](#upstream-correspondence)
+    - [Upstream Correspondences](#upstream-correspondences)
+- [Look-Up Tables](#look-up-tables)
+    - [Footnotes](#footnotes)
+    - [Figures](#figures)
 
 <!-- /MarkdownTOC -->
 
@@ -44,180 +47,145 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 # Translation Status
 
 - [ ]  [_Preface_][Preface]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (1-7).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [1. _Introduction and First Steps_][Ch1]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (8-11).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [2. _The Basics_][Ch2]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (12-28).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (1-8):
+        * [ ] Fig. 1: `index.png`
+        * [ ] Fig. 2: `objektmodell-programm-crop.png`
+        * [ ] Fig. 3: `sha.png`
+        * [ ] Fig. 4: `objekte.png`
+        * [ ] Fig. 5: `objekte-zusammenhang.png`
+        * [ ] Fig. 6: `struktur.png`
+        * [ ] Fig. 7: `graph.png`
+        * [ ] Fig. 8: `graph-mit-refs.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [3. _Practical Version Control_][Ch3]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (29-53).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (9-21):
+        * [ ] Fig. 9: `gitk-basic.png`
+        * [ ] Fig. 10: `commit.png`
+        * [ ] Fig. 11: `relative-refs.png`
+        * [ ] Fig. 12: `tags.png`
+        * [ ] Fig. 13: `tag-screenshot.png`
+        * [ ] Fig. 14: `describe-screenshot.png`
+        * [ ] Fig. 15: `merge-base-commit.png`
+        * [ ] Fig. 16: `ff-vorher.png`
+        * [ ] Fig. 17: `ff-nachher.png`
+        * [ ] Fig. 18: `ff-no-ff-vergleich.png`
+        * [ ] Fig. 19: `meld-example.png`
+        * [ ] Fig. 20: `revision-list-commit-graph-gitk.png`
+        * [ ] Fig. 21: `gitk.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [4. _Advanced Concepts_][Ch4]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (54-64).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (22-29):
+        * [ ] Fig. 22: `rebase-vorher.png`
+        * [ ] Fig. 23: `rebase-nachher.png`
+        * [ ] Fig. 24: `screenshot-rebase-vorher.png`
+        * [ ] Fig. 25: `screenshot-rebase-nachher.png`
+        * [ ] Fig. 26: `rebase-onto-vorher.png`
+        * [ ] Fig. 27: `rebase-onto-nachher.png`
+        * [ ] Fig. 28: `git-gui-blame.png`
+        * [ ] Fig. 29: `stash-screenshot.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [5. _Distributed Git_][Ch5]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (65-87).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (30-40):
+        * [ ] Fig. 30: `zentral.png`
+        * [ ] Fig. 31: `clone.png`
+        * [ ] Fig. 32: `remote-tracking-gitk.png`
+        * [ ] Fig. 33: `fetch.png`
+        * [ ] Fig. 34: `pull.png`
+        * [ ] Fig. 35: `pull_rebase.png`
+        * [ ] Fig. 36: `push.png`
+        * [ ] Fig. 37: `developer-public.png`
+        * [ ] Fig. 38: `gitk-screen-format-patch.png`
+        * [ ] Fig. 39: `mail-thread.png`
+        * [ ] Fig. 40: `patches-per-mail.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [6. _Workflows_][Ch6]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (88-91).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (41):
+        * [ ] Fig. 41: `branch-model.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [7. _Git Servers_][Ch7]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (92-105).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
+    + [ ] Adapt images (42-45):
+        * [ ] Fig. 42: `gitweb-overview.png`
+        * [ ] Fig. 43: `gitweb-commitdiff.png`
+        * [ ] Fig. 44: `cgit-overview.png`
+        * [ ] Fig. 45: `cgit-commitdiff.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [8. _Git Automation_][Ch8]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (106-116).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (46):
+        * [ ] Fig. 46: `tux-diff.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [9. _Interacting with Other Version Control Systems_][Ch9]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (117-133).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
+    + [ ] Adapt images (47-57):
+        * [ ] Fig. 47: `svn-stdlayout-crop.png`
+        * [ ] Fig. 48: `svn-nonstdlayout-crop.png`
+        * [ ] Fig. 49: `svn-branches-crop.png`
+        * [ ] Fig. 50: `git-branches-crop.png`
+        * [ ] Fig. 51: `git-convert-refs-before.png`
+        * [ ] Fig. 52: `git-convert-refs-after.png`
+        * [ ] Fig. 53: `git-svn-tag-fix-before.png`
+        * [ ] Fig. 54: `git-svn-tag-fix-after.png`
+        * [ ] Fig. 55: `git-svn-merge-demo.png`
+        * [ ] Fig. 56: `svn_rebase.png`
+        * [ ] Fig. 57: `svn_dcommit.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [10. _Shell-Integration_][Ch10]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (134-137).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [11. _GitHub_][Ch11]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (138-150).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (58-63):
+        * [ ] Fig. 58: `github-gollum.png`
+        * [ ] Fig. 59: `github-workflow.png`
+        * [ ] Fig. 60: `github-network.png`
+        * [ ] Fig. 61: `github-download.png`
+        * [ ] Fig. 62: `github-image-diff-2up.png`
+        * [ ] Fig. 63: `github-image-diff-swipe.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [App. A. _Installation_][AppA]
-    + [ ] Draft:
-        * [ ] DeepL translation.
-        * [ ] Reapply lost formatting.
-        * [x] Restore and translate footnotes (151-153).
-        * [ ] Restore XRefs.
-        * [ ] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [ ] Translate anchors IDs.
-        * [x] Check all external links.
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [App. B. _Repository Structure_][AppB]
-    + [x] Draft:
-        * [x] DeepL translation.
-        * [x] Reapply lost formatting.
-        * [x] Restore and translate footnotes (154-156).
-        * [x] Restore XRefs.
-        * [x] Keep original German text commented out (expand XRrefs and Footnotes).
-        * [x] Translate anchors IDs.
-        * [x] Check all external links.
+    + [ ] Adapt images (64):
+        * [ ] Fig. 64: `git-dir-crop.png`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -227,8 +195,8 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 
 The translation work for each book section is divided into two separate stages:
 
-- _Draft_
-- _Polishing_
+- [x] _Draft_
+- [ ] _Polishing_
 
 In the _draft_ stage the automated translation via [DeepL] is added to the document with minor adjustments, and the focus is on restoring all the lost formatting styles, footnotes and cross references, translating anchors' identifiers and validating all links:
 
@@ -251,7 +219,7 @@ All sources were renamed using a two-digits counter indicating their order of ap
 
 Some unbalanced block delimiters errors had to be fixed in the original sources for they were breaking the document.
 
-## Upstream Correspondence
+## Upstream Correspondences
 
 The following table shows the correspondence between the current sources and their original counterparts on the upstream repository.
 
@@ -273,6 +241,104 @@ The following table shows the correspondence between the current sources and the
 | [`gitbuch_12.adoc`][gb12]     | [`installation.txt`][installation.txt]       | [App. A. _Installation_][AppA]                             |
 | [`gitbuch_13.adoc`][gb13]     | [`gitdir.txt`][gitdir.txt]                   | [App. B. _Repository Structure_][AppB]                     |
 
+
+# Look-Up Tables
+
+A few tables to quickly look-up the book's footnotes, figures, and other useful info.
+
+## Footnotes
+
+There are 156 footnotes in the book.
+
+
+|                          chapter                           | footnotes |
+|------------------------------------------------------------|-----------|
+| [_Preface_][Preface]                                       | 1-7       |
+| [1. _Introduction and First Steps_][Ch1]                   | 8-11      |
+| [2. _The Basics_][Ch2]                                     | 12-28     |
+| [3. _Practical Version Control_][Ch3]                      | 29-53     |
+| [4. _Advanced Concepts_][Ch4]                              | 54-64     |
+| [5. _Distributed Git_][Ch5]                                | 65-87     |
+| [6. _Workflows_][Ch6]                                      | 88-91     |
+| [7. _Git Servers_][Ch7]                                    | 92-105    |
+| [8. _Git Automation_][Ch8]                                 | 106-116   |
+| [9. _Interacting with Other Version Control Systems_][Ch9] | 117-133   |
+| [10. _Shell-Integration_][Ch10]                            | 134-137   |
+| [11. _GitHub_][Ch11]                                       | 138-150   |
+| [App. A. _Installation_][AppA]                             | 151-153   |
+| [App. B. _Repository Structure_][AppB]                     | 154-156   |
+
+
+## Figures
+
+Image filenames are translated too, not just their text contents.
+
+|  figure |           original file name          |    chapter     |
+|---------|---------------------------------------|----------------|
+| Fig. 1  | `index.png`                           | [Ch. 2][Ch2]   |
+| Fig. 2  | `objektmodell-programm-crop.png`      | [Ch. 2][Ch2]   |
+| Fig. 3  | `sha.png`                             | [Ch. 2][Ch2]   |
+| Fig. 4  | `objekte.png`                         | [Ch. 2][Ch2]   |
+| Fig. 5  | `objekte-zusammenhang.png`            | [Ch. 2][Ch2]   |
+| Fig. 6  | `struktur.png`                        | [Ch. 2][Ch2]   |
+| Fig. 7  | `graph.png`                           | [Ch. 2][Ch2]   |
+| Fig. 8  | `graph-mit-refs.png`                  | [Ch. 2][Ch2]   |
+| Fig. 9  | `gitk-basic.png`                      | [Ch. 3][Ch3]   |
+| Fig. 10 | `commit.png`                          | [Ch. 3][Ch3]   |
+| Fig. 11 | `relative-refs.png`                   | [Ch. 3][Ch3]   |
+| Fig. 12 | `tags.png`                            | [Ch. 3][Ch3]   |
+| Fig. 13 | `tag-screenshot.png`                  | [Ch. 3][Ch3]   |
+| Fig. 14 | `describe-screenshot.png`             | [Ch. 3][Ch3]   |
+| Fig. 15 | `merge-base-commit.png`               | [Ch. 3][Ch3]   |
+| Fig. 16 | `ff-vorher.png`                       | [Ch. 3][Ch3]   |
+| Fig. 17 | `ff-nachher.png`                      | [Ch. 3][Ch3]   |
+| Fig. 18 | `ff-no-ff-vergleich.png`              | [Ch. 3][Ch3]   |
+| Fig. 19 | `meld-example.png`                    | [Ch. 3][Ch3]   |
+| Fig. 20 | `revision-list-commit-graph-gitk.png` | [Ch. 3][Ch3]   |
+| Fig. 21 | `gitk.png`                            | [Ch. 3][Ch3]   |
+| Fig. 22 | `rebase-vorher.png`                   | [Ch. 4][Ch4]   |
+| Fig. 23 | `rebase-nachher.png`                  | [Ch. 4][Ch4]   |
+| Fig. 24 | `screenshot-rebase-vorher.png`        | [Ch. 4][Ch4]   |
+| Fig. 25 | `screenshot-rebase-nachher.png`       | [Ch. 4][Ch4]   |
+| Fig. 26 | `rebase-onto-vorher.png`              | [Ch. 4][Ch4]   |
+| Fig. 27 | `rebase-onto-nachher.png`             | [Ch. 4][Ch4]   |
+| Fig. 28 | `git-gui-blame.png`                   | [Ch. 4][Ch4]   |
+| Fig. 29 | `stash-screenshot.png`                | [Ch. 4][Ch4]   |
+| Fig. 30 | `zentral.png`                         | [Ch. 5][Ch5]   |
+| Fig. 31 | `clone.png`                           | [Ch. 5][Ch5]   |
+| Fig. 32 | `remote-tracking-gitk.png`            | [Ch. 5][Ch5]   |
+| Fig. 33 | `fetch.png`                           | [Ch. 5][Ch5]   |
+| Fig. 34 | `pull.png`                            | [Ch. 5][Ch5]   |
+| Fig. 35 | `pull_rebase.png`                     | [Ch. 5][Ch5]   |
+| Fig. 36 | `push.png`                            | [Ch. 5][Ch5]   |
+| Fig. 37 | `developer-public.png`                | [Ch. 5][Ch5]   |
+| Fig. 38 | `gitk-screen-format-patch.png`        | [Ch. 5][Ch5]   |
+| Fig. 39 | `mail-thread.png`                     | [Ch. 5][Ch5]   |
+| Fig. 40 | `patches-per-mail.png`                | [Ch. 5][Ch5]   |
+| Fig. 41 | `branch-model.png`                    | [Ch. 6][Ch6]   |
+| Fig. 42 | `gitweb-overview.png`                 | [Ch. 7][Ch7]   |
+| Fig. 43 | `gitweb-commitdiff.png`               | [Ch. 7][Ch7]   |
+| Fig. 44 | `cgit-overview.png`                   | [Ch. 7][Ch7]   |
+| Fig. 45 | `cgit-commitdiff.png`                 | [Ch. 7][Ch7]   |
+| Fig. 46 | `tux-diff.png`                        | [Ch. 8][Ch8]   |
+| Fig. 47 | `svn-stdlayout-crop.png`              | [Ch. 9][Ch9]   |
+| Fig. 48 | `svn-nonstdlayout-crop.png`           | [Ch. 9][Ch9]   |
+| Fig. 49 | `svn-branches-crop.png`               | [Ch. 9][Ch9]   |
+| Fig. 50 | `git-branches-crop.png`               | [Ch. 9][Ch9]   |
+| Fig. 51 | `git-convert-refs-before.png`         | [Ch. 9][Ch9]   |
+| Fig. 52 | `git-convert-refs-after.png`          | [Ch. 9][Ch9]   |
+| Fig. 53 | `git-svn-tag-fix-before.png`          | [Ch. 9][Ch9]   |
+| Fig. 54 | `git-svn-tag-fix-after.png`           | [Ch. 9][Ch9]   |
+| Fig. 55 | `git-svn-merge-demo.png`              | [Ch. 9][Ch9]   |
+| Fig. 56 | `svn_rebase.png`                      | [Ch. 9][Ch9]   |
+| Fig. 57 | `svn_dcommit.png`                     | [Ch. 9][Ch9]   |
+| Fig. 58 | `github-gollum.png`                   | [Ch. 11][Ch11] |
+| Fig. 59 | `github-workflow.png`                 | [Ch. 11][Ch11] |
+| Fig. 60 | `github-network.png`                  | [Ch. 11][Ch11] |
+| Fig. 61 | `github-download.png`                 | [Ch. 11][Ch11] |
+| Fig. 62 | `github-image-diff-2up.png`           | [Ch. 11][Ch11] |
+| Fig. 63 | `github-image-diff-swipe.png`         | [Ch. 11][Ch11] |
+| Fig. 64 | `git-dir-crop.png`                    | [App. B][AppB] |
 
 
 
