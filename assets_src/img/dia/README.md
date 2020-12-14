@@ -9,11 +9,42 @@ Source files to generate the diagram images in SVG using [Dia].
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
 - [Folder Contents](#folder-contents)
+- [System Requirements](#system-requirements)
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
     - [Diagrams Renaming](#diagrams-renaming)
-- [System Requirements](#system-requirements)
+- [Diagrams Previews](#diagrams-previews)
+    - [`branch-model.svg`](#branch-modelsvg)
+    - [`central-workflow.svg`](#central-workflowsvg)
+    - [`clone.svg`](#clonesvg)
+    - [`commit-graph-with-refs.svg`](#commit-graph-with-refssvg)
+    - [`commit-graph.svg`](#commit-graphsvg)
+    - [`commit.svg`](#commitsvg)
+    - [`fetch.svg`](#fetchsvg)
+    - [`ff-after.svg`](#ff-aftersvg)
+    - [`ff-before.svg`](#ff-beforesvg)
+    - [`git-objects-hierarchy.svg`](#git-objects-hierarchysvg)
+    - [`git-objects.svg`](#git-objectssvg)
+    - [`github-workflow.svg`](#github-workflowsvg)
+    - [`index.svg`](#indexsvg)
+    - [`integration-manager-workflow.svg`](#integration-manager-workflowsvg)
+    - [`merge-after.svg`](#merge-aftersvg)
+    - [`merge-base-commit.svg`](#merge-base-commitsvg)
+    - [`patches-via-email.svg`](#patches-via-emailsvg)
+    - [`pull-rebase.svg`](#pull-rebasesvg)
+    - [`pull.svg`](#pullsvg)
+    - [`push.svg`](#pushsvg)
+    - [`rebase-after.svg`](#rebase-aftersvg)
+    - [`rebase-before.svg`](#rebase-beforesvg)
+    - [`rebase-onto-after.svg`](#rebase-onto-aftersvg)
+    - [`rebase-onto-before.svg`](#rebase-onto-beforesvg)
+    - [`relative-refs.svg`](#relative-refssvg)
+    - [`repository-content.svg`](#repository-contentsvg)
+    - [`sha.svg`](#shasvg)
+    - [`svn-dcommit.svg`](#svn-dcommitsvg)
+    - [`svn-rebase.svg`](#svn-rebasesvg)
+    - [`tags.svg`](#tagssvg)
 - [External Links](#external-links)
     - [Dia Diagram Editor](#dia-diagram-editor)
     - [SVG Images](#svg-images)
@@ -27,6 +58,12 @@ Source files to generate the diagram images in SVG using [Dia].
 # Folder Contents
 
 - `*.dia` — [Dia] source project files.
+
+
+# System Requirements
+
+In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor], a free and open source cross platform tool for editing diagrams.
+
 
 # TODO
 
@@ -172,9 +209,216 @@ Some DIA source project files (but not all) have been renamed according to the f
 | `zentral.dia`              | `central-workflow.dia`             |
 
 
-# System Requirements
+# Diagrams Previews
 
-In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor], a free and open source cross platform tool for editing diagrams.
+
+## `branch-model.svg`
+
+![`branch-model.svg`][branch-model.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `central-workflow.svg`
+
+![`central-workflow.svg`][central-workflow.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `clone.svg`
+
+![`clone.svg`][clone.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `commit-graph-with-refs.svg`
+
+![`commit-graph-with-refs.svg`][commit-graph-with-refs.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `commit-graph.svg`
+
+![`commit-graph.svg`][commit-graph.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `commit.svg`
+
+![`commit.svg`][commit.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `fetch.svg`
+
+![`fetch.svg`][fetch.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `ff-after.svg`
+
+![`ff-after.svg`][ff-after.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `ff-before.svg`
+
+![`ff-before.svg`][ff-before.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `git-objects-hierarchy.svg`
+
+![`git-objects-hierarchy.svg`][git-objects-hierarchy.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `git-objects.svg`
+
+![`git-objects.svg`][git-objects.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `github-workflow.svg`
+
+![`github-workflow.svg`][github-workflow.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `index.svg`
+
+![`index.svg`][index.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `integration-manager-workflow.svg`
+
+![`integration-manager-workflow.svg`][integration-manager-workflow.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `merge-after.svg`
+
+![`merge-after.svg`][merge-after.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `merge-base-commit.svg`
+
+![`merge-base-commit.svg`][merge-base-commit.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `patches-via-email.svg`
+
+![`patches-via-email.svg`][patches-via-email.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `pull-rebase.svg`
+
+![`pull-rebase.svg`][pull-rebase.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `pull.svg`
+
+![`pull.svg`][pull.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `push.svg`
+
+![`push.svg`][push.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `rebase-after.svg`
+
+![`rebase-after.svg`][rebase-after.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `rebase-before.svg`
+
+![`rebase-before.svg`][rebase-before.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `rebase-onto-after.svg`
+
+![`rebase-onto-after.svg`][rebase-onto-after.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `rebase-onto-before.svg`
+
+![`rebase-onto-before.svg`][rebase-onto-before.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `relative-refs.svg`
+
+![`relative-refs.svg`][relative-refs.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `repository-content.svg`
+
+![`repository-content.svg`][repository-content.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `sha.svg`
+
+![`sha.svg`][sha.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `svn-dcommit.svg`
+
+![`svn-dcommit.svg`][svn-dcommit.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `svn-rebase.svg`
+
+![`svn-rebase.svg`][svn-rebase.svg]
+
+
+-------------------------------------------------------------------------------
+
+## `tags.svg`
+
+![`tags.svg`][tags.svg]
+
 
 -------------------------------------------------------------------------------
 
