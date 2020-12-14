@@ -46,11 +46,11 @@ The following graphics illustrate how this works:
 
 // .Vor dem Rebase
 .Before the rebase
-image::rebase-vorher.png[id="fig.rebase-vorher-dia",scaledwidth="90%",width="90%"]
+image::rebase-before.svg[id="fig.rebase-vorher-dia",scaledwidth="90%",width="90%"]
 
 // .{empty}...und danach
 .{empty}...and after that
-image::rebase-nachher.png[id="fig.rebase-nachher-dia",scaledwidth="90%",width="90%"]
+image::rebase-after.svg[id="fig.rebase-nachher-dia",scaledwidth="90%",width="90%"]
 
 ////
 In der einfachsten Form lautet das Kommando `git rebase <referenz>` (im o.g. Diagramm: `git rebase master`).
@@ -508,7 +508,7 @@ Consider the following situation:
 // .Vor dem `rebase --onto`
 .Before the `rebase --onto`
 
-image::rebase-onto-vorher.png[id="fig.rebase-onto-vorher-dia",scaledwidth="90%",width="90%"]
+image::rebase-onto-before.svg[id="fig.rebase-onto-vorher-dia",scaledwidth="90%",width="90%"]
 
 ////
 Sie haben gerade auf dem Branch `topic` ein Feature entwickelt, als Ihnen ein Fehler aufgefallen ist; Sie haben einen Branch `bugfix` erstellt und noch einen Fehler gefunden.
@@ -569,7 +569,7 @@ The result looks as expected:
 
 // .Nach einem `rebase --onto`
 .After the `rebase --onto`
-image::rebase-onto-nachher.png[id="fig.rebase-onto-nachher-dia",scaledwidth="90%",width="90%"]
+image::rebase-onto-after.svg[id="fig.rebase-onto-nachher-dia",scaledwidth="90%",width="90%"]
 
 [[sec.rebase-onto-ci-amend]]
 === Improving a commit

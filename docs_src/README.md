@@ -12,6 +12,8 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 
 - [Folder Contents](#folder-contents)
 - [Translation Status](#translation-status)
+    - [Pending Tasks Overview](#pending-tasks-overview)
+    - [Chapters WIP Status](#chapters-wip-status)
     - [Methodology Notes](#methodology-notes)
 - [Sources Adaptation](#sources-adaptation)
     - [Upstream Correspondences](#upstream-correspondences)
@@ -46,6 +48,20 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 
 # Translation Status
 
+## Pending Tasks Overview
+
+- [ ] The draft text needs to be revised.
+- [ ] Book figures:
+    + [ ] Image diagrams need:
+        * [ ] Their text translated.
+        * [ ] Their background colors tweaked to improve accessibility to the color blind.
+    + [ ] All images need:
+        * [ ] Outer padding.
+        * [ ] Proper alignment.
+        * [ ] Their size fixed according to context.
+
+## Chapters WIP Status
+
 - [ ]  [_Preface_][Preface]
     + [ ] Polish:
         * [ ] Manually revise translation.
@@ -58,14 +74,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [2. _The Basics_][Ch2]
     + [ ] Adapt images (1-8):
-        * [ ] Fig. 1: `index.png`
+        * [ ] Fig. 1: `index.svg`
         * [ ] Fig. 2: `objektmodell-programm-crop.png`
-        * [ ] Fig. 3: `sha.png`
-        * [ ] Fig. 4: `objekte.png`
-        * [ ] Fig. 5: `objekte-zusammenhang.png`
-        * [ ] Fig. 6: `struktur.png`
-        * [ ] Fig. 7: `graph.png`
-        * [ ] Fig. 8: `graph-mit-refs.png`
+        * [ ] Fig. 3: `sha.svg`
+        * [ ] Fig. 4: `git-objects.svg`
+        * [ ] Fig. 5: `git-objects-hierarchy.svg`
+        * [ ] Fig. 6: `repository-content.svg`
+        * [ ] Fig. 7: `commit-graph.svg`
+        * [ ] Fig. 8: `commit-graph-with-refs.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -73,14 +89,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [ ]  [3. _Practical Version Control_][Ch3]
     + [ ] Adapt images (9-21):
         * [ ] Fig. 9: `gitk-basic.png`
-        * [ ] Fig. 10: `commit.png`
-        * [ ] Fig. 11: `relative-refs.png`
-        * [ ] Fig. 12: `tags.png`
+        * [ ] Fig. 10: `commit.svg`
+        * [ ] Fig. 11: `relative-refs.svg`
+        * [ ] Fig. 12: `tags.svg`
         * [ ] Fig. 13: `tag-screenshot.png`
         * [ ] Fig. 14: `describe-screenshot.png`
-        * [ ] Fig. 15: `merge-base-commit.png`
-        * [ ] Fig. 16: `ff-vorher.png`
-        * [ ] Fig. 17: `ff-nachher.png`
+        * [ ] Fig. 15: `merge-base-commit.svg`
+        * [ ] Fig. 16: `ff-before.svg`
+        * [ ] Fig. 17: `ff-after.svg`
         * [ ] Fig. 18: `ff-no-ff-vergleich.png`
         * [ ] Fig. 19: `meld-example.png`
         * [ ] Fig. 20: `revision-list-commit-graph-gitk.png`
@@ -91,12 +107,12 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [4. _Advanced Concepts_][Ch4]
     + [ ] Adapt images (22-29):
-        * [ ] Fig. 22: `rebase-vorher.png`
-        * [ ] Fig. 23: `rebase-nachher.png`
+        * [ ] Fig. 22: `rebase-before.svg`
+        * [ ] Fig. 23: `rebase-after.svg`
         * [ ] Fig. 24: `screenshot-rebase-vorher.png`
         * [ ] Fig. 25: `screenshot-rebase-nachher.png`
-        * [ ] Fig. 26: `rebase-onto-vorher.png`
-        * [ ] Fig. 27: `rebase-onto-nachher.png`
+        * [ ] Fig. 26: `rebase-onto-before.svg`
+        * [ ] Fig. 27: `rebase-onto-after.svg`
         * [ ] Fig. 28: `git-gui-blame.png`
         * [ ] Fig. 29: `stash-screenshot.png`
     + [ ] Polish:
@@ -105,24 +121,24 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [5. _Distributed Git_][Ch5]
     + [ ] Adapt images (30-40):
-        * [ ] Fig. 30: `zentral.png`
-        * [ ] Fig. 31: `clone.png`
+        * [ ] Fig. 30: `central-workflow.svg`
+        * [ ] Fig. 31: `clone.svg`
         * [ ] Fig. 32: `remote-tracking-gitk.png`
-        * [ ] Fig. 33: `fetch.png`
-        * [ ] Fig. 34: `pull.png`
-        * [ ] Fig. 35: `pull_rebase.png`
-        * [ ] Fig. 36: `push.png`
-        * [ ] Fig. 37: `developer-public.png`
+        * [ ] Fig. 33: `fetch.svg`
+        * [ ] Fig. 34: `pull.svg`
+        * [ ] Fig. 35: `pull-rebase.svg`
+        * [ ] Fig. 36: `push.svg`
+        * [ ] Fig. 37: `integration-manager-workflow.svg`
         * [ ] Fig. 38: `gitk-screen-format-patch.png`
         * [ ] Fig. 39: `mail-thread.png`
-        * [ ] Fig. 40: `patches-per-mail.png`
+        * [ ] Fig. 40: `patches-via-email.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [6. _Workflows_][Ch6]
     + [ ] Adapt images (41):
-        * [ ] Fig. 41: `branch-model.png`
+        * [ ] Fig. 41: `branch-model.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -155,8 +171,8 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Fig. 53: `git-svn-tag-fix-before.png`
         * [ ] Fig. 54: `git-svn-tag-fix-after.png`
         * [ ] Fig. 55: `git-svn-merge-demo.png`
-        * [ ] Fig. 56: `svn_rebase.png`
-        * [ ] Fig. 57: `svn_dcommit.png`
+        * [ ] Fig. 56: `svn-rebase.svg`
+        * [ ] Fig. 57: `svn-dcommit.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -169,7 +185,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [ ]  [11. _GitHub_][Ch11]
     + [ ] Adapt images (58-63):
         * [ ] Fig. 58: `github-gollum.png`
-        * [ ] Fig. 59: `github-workflow.png`
+        * [ ] Fig. 59: `github-workflow.svg`
         * [ ] Fig. 60: `github-network.png`
         * [ ] Fig. 61: `github-download.png`
         * [ ] Fig. 62: `github-image-diff-2up.png`
@@ -271,52 +287,52 @@ There are 156 footnotes in the book.
 
 ## Figures
 
-Image filenames are translated too, not just their text contents.
+> __NOTE__ — Image filenames are translated too, not just their text contents.
 
 
-|  figure |           original file name          |  image type |    chapter     |
+|  figure |               image file              |  image type |    chapter     |
 |---------|---------------------------------------|-------------|----------------|
-| Fig. 1  | `index.png`                           | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 1  | `index.svg`                           | DIA diagram | [Ch. 2][Ch2]   |
 | Fig. 2  | `objektmodell-programm-crop.png`      | dir listing | [Ch. 2][Ch2]   |
-| Fig. 3  | `sha.png`                             | DIA diagram | [Ch. 2][Ch2]   |
-| Fig. 4  | `objekte.png`                         | DIA diagram | [Ch. 2][Ch2]   |
-| Fig. 5  | `objekte-zusammenhang.png`            | DIA diagram | [Ch. 2][Ch2]   |
-| Fig. 6  | `struktur.png`                        | DIA diagram | [Ch. 2][Ch2]   |
-| Fig. 7  | `graph.png`                           | DIA diagram | [Ch. 2][Ch2]   |
-| Fig. 8  | `graph-mit-refs.png`                  | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 3  | `sha.svg`                             | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 4  | `git-objects.svg`                     | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 5  | `git-objects-hierarchy.svg`           | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 6  | `repository-content.svg`              | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 7  | `commit-graph.svg`                    | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 8  | `commit-graph-with-refs.svg`          | DIA diagram | [Ch. 2][Ch2]   |
 | Fig. 9  | `gitk-basic.png`                      | screenshot  | [Ch. 3][Ch3]   |
-| Fig. 10 | `commit.png`                          | DIA diagram | [Ch. 3][Ch3]   |
-| Fig. 11 | `relative-refs.png`                   | DIA diagram | [Ch. 3][Ch3]   |
-| Fig. 12 | `tags.png`                            | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 10 | `commit.svg`                          | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 11 | `relative-refs.svg`                   | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 12 | `tags.svg`                            | DIA diagram | [Ch. 3][Ch3]   |
 | Fig. 13 | `tag-screenshot.png`                  | screenshot  | [Ch. 3][Ch3]   |
 | Fig. 14 | `describe-screenshot.png`             | screenshot  | [Ch. 3][Ch3]   |
-| Fig. 15 | `merge-base-commit.png`               | DIA diagram | [Ch. 3][Ch3]   |
-| Fig. 16 | `ff-vorher.png`                       | DIA diagram | [Ch. 3][Ch3]   |
-| Fig. 17 | `ff-nachher.png`                      | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 15 | `merge-base-commit.svg`               | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 16 | `ff-before.svg`                       | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 17 | `ff-after.svg`                        | DIA diagram | [Ch. 3][Ch3]   |
 | Fig. 18 | `ff-no-ff-vergleich.png`              | screenshot  | [Ch. 3][Ch3]   |
 | Fig. 19 | `meld-example.png`                    | screenshot  | [Ch. 3][Ch3]   |
 | Fig. 20 | `revision-list-commit-graph-gitk.png` | screenshot  | [Ch. 3][Ch3]   |
 | Fig. 21 | `gitk.png`                            | screenshot  | [Ch. 3][Ch3]   |
-| Fig. 22 | `rebase-vorher.png`                   | DIA diagram | [Ch. 4][Ch4]   |
-| Fig. 23 | `rebase-nachher.png`                  | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 22 | `rebase-before.svg`                   | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 23 | `rebase-after.svg`                    | DIA diagram | [Ch. 4][Ch4]   |
 | Fig. 24 | `screenshot-rebase-vorher.png`        | screenshot  | [Ch. 4][Ch4]   |
 | Fig. 25 | `screenshot-rebase-nachher.png`       | screenshot  | [Ch. 4][Ch4]   |
-| Fig. 26 | `rebase-onto-vorher.png`              | DIA diagram | [Ch. 4][Ch4]   |
-| Fig. 27 | `rebase-onto-nachher.png`             | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 26 | `rebase-onto-before.svg`              | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 27 | `rebase-onto-after.svg`               | DIA diagram | [Ch. 4][Ch4]   |
 | Fig. 28 | `git-gui-blame.png`                   | screenshot  | [Ch. 4][Ch4]   |
 | Fig. 29 | `stash-screenshot.png`                | screenshot  | [Ch. 4][Ch4]   |
-| Fig. 30 | `zentral.png`                         | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 31 | `clone.png`                           | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 30 | `central-workflow.svg`                | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 31 | `clone.svg`                           | DIA diagram | [Ch. 5][Ch5]   |
 | Fig. 32 | `remote-tracking-gitk.png`            | screenshot  | [Ch. 5][Ch5]   |
-| Fig. 33 | `fetch.png`                           | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 34 | `pull.png`                            | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 35 | `pull_rebase.png`                     | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 36 | `push.png`                            | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 37 | `developer-public.png`                | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 33 | `fetch.svg`                           | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 34 | `pull.svg`                            | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 35 | `pull-rebase.svg`                     | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 36 | `push.svg`                            | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 37 | `integration-manager-workflow.svg`    | DIA diagram | [Ch. 5][Ch5]   |
 | Fig. 38 | `gitk-screen-format-patch.png`        | screenshot  | [Ch. 5][Ch5]   |
 | Fig. 39 | `mail-thread.png`                     | screenshot  | [Ch. 5][Ch5]   |
-| Fig. 40 | `patches-per-mail.png`                | DIA diagram | [Ch. 5][Ch5]   |
-| Fig. 41 | `branch-model.png`                    | DIA diagram | [Ch. 6][Ch6]   |
+| Fig. 40 | `patches-via-email.svg`               | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 41 | `branch-model.svg`                    | DIA diagram | [Ch. 6][Ch6]   |
 | Fig. 42 | `gitweb-overview.png`                 | screenshot  | [Ch. 7][Ch7]   |
 | Fig. 43 | `gitweb-commitdiff.png`               | screenshot  | [Ch. 7][Ch7]   |
 | Fig. 44 | `cgit-overview.png`                   | screenshot  | [Ch. 7][Ch7]   |
@@ -331,10 +347,10 @@ Image filenames are translated too, not just their text contents.
 | Fig. 53 | `git-svn-tag-fix-before.png`          | screenshot  | [Ch. 9][Ch9]   |
 | Fig. 54 | `git-svn-tag-fix-after.png`           | screenshot  | [Ch. 9][Ch9]   |
 | Fig. 55 | `git-svn-merge-demo.png`              | screenshot  | [Ch. 9][Ch9]   |
-| Fig. 56 | `svn_rebase.png`                      | DIA diagram | [Ch. 9][Ch9]   |
-| Fig. 57 | `svn_dcommit.png`                     | DIA diagram | [Ch. 9][Ch9]   |
+| Fig. 56 | `svn-rebase.svg`                      | DIA diagram | [Ch. 9][Ch9]   |
+| Fig. 57 | `svn-dcommit.svg`                     | DIA diagram | [Ch. 9][Ch9]   |
 | Fig. 58 | `github-gollum.png`                   | screenshot  | [Ch. 11][Ch11] |
-| Fig. 59 | `github-workflow.png`                 | DIA diagram | [Ch. 11][Ch11] |
+| Fig. 59 | `github-workflow.svg`                 | DIA diagram | [Ch. 11][Ch11] |
 | Fig. 60 | `github-network.png`                  | screenshot  | [Ch. 11][Ch11] |
 | Fig. 61 | `github-download.png`                 | screenshot  | [Ch. 11][Ch11] |
 | Fig. 62 | `github-image-diff-2up.png`           | screenshot  | [Ch. 11][Ch11] |

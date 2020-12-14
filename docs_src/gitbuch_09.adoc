@@ -1244,7 +1244,7 @@ The commit `D'` can now be uploaded.
 [[fig.git-svn-rebase,{figure-caption} {counter:fignum}]]
 .`git svn rebase` integrates the newly added Subversion revision as commit `C` -- before `D`, which becomes `D'`.
 // .`git svn rebase` integriert die neu hinzugekommene Subversion-Revision als Commit  `C` – vor `D`, was dadurch zu `D'` wird.
-image::svn_rebase.png[scaledwidth="90%",width="90%"]
+image::svn-rebase.svg[scaledwidth="90%",width="90%"]
 
 
 
@@ -1268,7 +1268,7 @@ This, of course, changes the SHA-1 sum of the commit, as shown in <<fig.git-svn-
 [[fig.git-svn-dcommit,{figure-caption} {counter:fignum}]]
 .After a `git svn dcommit`, the commit `D'` has a new SHA-1 ID and becomes `D''` because its commit description has been changed to store meta information.
 // .Nach einem `git svn dcommit` hat der Commit `D'` eine neue SHA-1-ID und wird zu  `D''`, weil seine Commit-Beschreibung verändert wurde, um Metainformationen abzuspeichern.
-image::svn_dcommit.png[scaledwidth="90%",width="90%"]
+image::svn-dcommit.svg[scaledwidth="90%",width="90%"]
 
 
 

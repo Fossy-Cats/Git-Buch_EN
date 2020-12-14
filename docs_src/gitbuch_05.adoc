@@ -67,7 +67,7 @@ However, there are two noteworthy alternatives in the Git environment that we wi
 
 // .Zentraler Workflow mit verteilter Versionsverwaltung
 .Central workflow with distributed version management
-image::zentral.png[id="fig.zentraler-workflow",scaledwidth="70%",width="70%"]
+image::central-workflow.svg[id="fig.zentraler-workflow",scaledwidth="70%",width="70%"]
 
 
 ////
@@ -415,7 +415,7 @@ When you clone a repository, Git initializes a remote tracking branch for each r
 
 // .Erzeugte Remote-Tracking-Branches
 .Generated Remote Tracking Branches
-image::clone.png[id="fig.clone",scaledwidth="100%",width="100%"]
+image::clone.svg[id="fig.clone",scaledwidth="100%",width="100%"]
 
 
 ////
@@ -600,7 +600,7 @@ To do this, Git downloads the missing commit C and then sets the remote tracking
 
 // .Remote-Tracking-Branches werden aktualisiert
 .Remote Tracking Branches are updated
-image::fetch.png[id="fig.fetch",scaledwidth="90%",width="90%"]
+image::fetch.svg[id="fig.fetch",scaledwidth="90%",width="90%"]
 
 
 
@@ -921,7 +921,7 @@ In addition, the `merge` call contained in the `pull` has integrated the `master
 
 // .Was bei einem Pull passiert
 .What happens with a pull
-image::pull.png[id="fig.pull",scaledwidth="90%",width="90%"]
+image::pull.svg[id="fig.pull",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -946,7 +946,7 @@ In <<fig.pull_rebase>> you can see what happens if you perform a rebase instead 
 
 // .Was bei einem Pull mit Rebase passiert
 .What happens during a pull with rebase
-image::pull_rebase.png[id="fig.pull_rebase",scaledwidth="90%",width="90%"]
+image::pull-rebase.svg[id="fig.pull_rebase",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -1325,7 +1325,7 @@ In addition, the remote tracking branch `origin/master` is advanced so that it r
 
 // .Referenzen und Commits hochladen
 .Upload references and commits
-image::push.png[id="fig.push",scaledwidth="100%",width="100%"]
+image::push.svg[id="fig.push",scaledwidth="100%",width="100%"]
 
 
 ////
@@ -1770,7 +1770,7 @@ Although it is theoretically possible to give interested parties direct access t
 // @TRANSLATE IMAGE TEXT
 
 .Integration Manager Workflow
-image::developer-public.png[id="fig.developer-public-workflow",scaledwidth="70%",width="70%"]
+image::integration-manager-workflow.svg[id="fig.developer-public-workflow",scaledwidth="70%",width="70%"]
 
 
 ////
@@ -2618,7 +2618,7 @@ The Benevolent Dictator uploads the changes to the _blessed_ repository, which i
 
 // @TRANSLATE IMAGE TEXT
 .Workflow: _Dictator and Lieutenants_
-image::patches-per-mail.png[id="fig.dictator",scaledwidth="90%",width="90%"]
+image::patches-via-email.svg[id="fig.dictator",scaledwidth="90%",width="90%"]
 
 
 ////

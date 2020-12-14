@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="18cm" height="3cm" viewBox="-1 -1 350 52" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #be8cdd" x="0" y="0" width="100.405" height="48" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x="0" y="0" width="100.405" height="48" rx="6" ry="6"/>
+  </g>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="4" y="8">
+    <tspan x="4" y="8">#! /usr/bin/env python</tspan>
+    <tspan x="4" y="16.2973"></tspan>
+    <tspan x="4" y="24.5947">""" Hello World! """</tspan>
+    <tspan x="4" y="32.892"></tspan>
+    <tspan x="4" y="41.1893">print 'Hello World!'</tspan>
+    <tspan x="4" y="49.4867"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="188" y="56">
+    <tspan x="188" y="56"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="168" y="52">
+    <tspan x="168" y="52"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="164" y="32">
+    <tspan x="164" y="32"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="244" y="44">
+    <tspan x="244" y="44"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #f1bc5a" x="176" y="16" width="172" height="16" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x="176" y="16" width="172" height="16" rx="6" ry="6"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="116" y="20">
+    <tspan x="116" y="20">SHA-1</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="180" y="26.65">
+    <tspan x="180" y="26.65">52ea6d6f53b2990f5d6167553f43c98dc8788e81</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="100.405" y1="24" x2="171.5" y2="24"/>
+    <polygon style="fill: #000000" points="171.5,26 175.5,24 171.5,22 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="171.5,26 175.5,24 171.5,22 "/>
+  </g>
+</svg>

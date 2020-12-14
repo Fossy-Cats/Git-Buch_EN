@@ -12,6 +12,7 @@ Source files to generate the diagram images in SVG using [Dia].
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
+    - [Diagrams Renaming](#diagrams-renaming)
 - [System Requirements](#system-requirements)
 - [External Links](#external-links)
     - [Dia Diagram Editor](#dia-diagram-editor)
@@ -30,59 +31,85 @@ Source files to generate the diagram images in SVG using [Dia].
 # TODO
 
 - [ ] Edit source diagrams:
-    + [ ] Translate DIA sources filesname to English.
+    + [x] Translate DIA sources filesname to English.
     + [ ] Translate diagrams text to English.
     + [ ] Tweak colors to increase accessibility for the color blind.
+    + [ ] Add invisible background to create image padding.
 - [ ] Update book images:
     + [ ] Add conversion script:
-        * [ ] Convert to SVG instead of PNG.
+        * [x] Convert to SVG instead of PNG.
         * [ ] Optimize generated SVG images.
-        * [ ] Deploy to destination images folder.
-    + [ ] Delete original PNGs in destination folder with our renamed and edited SVGs.
-    + [ ] Update all `image::` URIs in AsciiDoc sources.
+        * [x] Deploy to destination images folder.
+    + [x] Delete original PNG diagrams in destination folder.
+    + [x] Update all diagrams `image::` URIs in AsciiDoc sources.
 
 # Diagrams List and Preview Links
 
-The following table provides preview links to the generated PNG files in the [`../../../docs_src/images/`][doc imgs] destination folder (i.e. the images used in the original upstream project).
+The following table provides preview links to the generated SVG files in the [`../../../docs_src/images/`][doc imgs] destination folder.
 
-|         DIA source         |                       PNG output                       |
-|----------------------------|--------------------------------------------------------|
-| `branch-model.dia`         | [`branch-model.png`][branch-model.png]                 |
-| `clone.dia`                | [`clone.png`][clone.png]                               |
-| `commit.dia`               | [`commit.png`][commit.png]                             |
-| `developer-public.dia`     | [`developer-public.png`][developer-public.png]         |
-| `fetch.dia`                | [`fetch.png`][fetch.png]                               |
-| `ff-nachher.dia`           | [`ff-nachher.png`][ff-nachher.png]                     |
-| `ff-vorher.dia`            | [`ff-vorher.png`][ff-vorher.png]                       |
-| `github-workflow.dia`      | [`github-workflow.png`][github-workflow.png]           |
-| `graph.dia`                | [`graph.png`][graph.png]                               |
-| `graph-mit-refs.dia`       | [`graph-mit-refs.png`][graph-mit-refs.png]             |
-| `index.dia`                | [`index.png`][index.png]                               |
-| `merge-base-commit.dia`    | [`merge-base-commit.png`][merge-base-commit.png]       |
-| `merge-nachher.dia`        | [`merge-nachher.png`][merge-nachher.png]               |
-| `objekte.dia`              | [`objekte.png`][objekte.png]                           |
-| `objekte-zusammenhang.dia` | [`objekte-zusammenhang.png`][objekte-zusammenhang.png] |
-| `patches-per-mail.dia`     | [`patches-per-mail.png`][patches-per-mail.png]         |
-| `pull.dia`                 | [`pull.png`][pull.png]                                 |
-| `pull_rebase.dia`          | [`pull_rebase.png`][pull_rebase.png]                   |
-| `push.dia`                 | [`push.png`][push.png]                                 |
-| `rebase-nachher.dia`       | [`rebase-nachher.png`][rebase-nachher.png]             |
-| `rebase-onto-nachher.dia`  | [`rebase-onto-nachher.png`][rebase-onto-nachher.png]   |
-| `rebase-onto-vorher.dia`   | [`rebase-onto-vorher.png`][rebase-onto-vorher.png]     |
-| `rebase-vorher.dia`        | [`rebase-vorher.png`][rebase-vorher.png]               |
-| `relative-refs.dia`        | [`relative-refs.png`][relative-refs.png]               |
-| `sha.dia`                  | [`sha.png`][sha.png]                                   |
-| `struktur.dia`             | [`struktur.png`][struktur.png]                         |
-| `svn_dcommit.dia`          | [`svn_dcommit.png`][svn_dcommit.png]                   |
-| `svn_rebase.dia`           | [`svn_rebase.png`][svn_rebase.png]                     |
-| `tags.dia`                 | [`tags.png`][tags.png]                                 |
-| `zentral.dia`              | [`zentral.png`][zentral.png]                           |
+|             DIA source             |                               SVG output                               |
+|------------------------------------|------------------------------------------------------------------------|
+| `branch-model.dia`                 | [`branch-model.svg`][branch-model.svg]                                 |
+| `central-workflow.dia`             | [`central-workflow.svg`][central-workflow.svg]                         |
+| `clone.dia`                        | [`clone.svg`][clone.svg]                                               |
+| `commit-graph-with-refs.dia`       | [`commit-graph-with-refs.svg`][commit-graph-with-refs.svg]             |
+| `commit-graph.dia`                 | [`commit-graph.svg`][commit-graph.svg]                                 |
+| `commit.dia`                       | [`commit.svg`][commit.svg]                                             |
+| `fetch.dia`                        | [`fetch.svg`][fetch.svg]                                               |
+| `ff-after.dia`                     | [`ff-after.svg`][ff-after.svg]                                         |
+| `ff-before.dia`                    | [`ff-before.svg`][ff-before.svg]                                       |
+| `git-objects-hierarchy.dia`        | [`git-objects-hierarchy.svg`][git-objects-hierarchy.svg]               |
+| `git-objects.dia`                  | [`git-objects.svg`][git-objects.svg]                                   |
+| `github-workflow.dia`              | [`github-workflow.svg`][github-workflow.svg]                           |
+| `index.dia`                        | [`index.svg`][index.svg]                                               |
+| `integration-manager-workflow.dia` | [`integration-manager-workflow.svg`][integration-manager-workflow.svg] |
+| `merge-after.dia`                  | [`merge-after.svg`][merge-after.svg]                                   |
+| `merge-base-commit.dia`            | [`merge-base-commit.svg`][merge-base-commit.svg]                       |
+| `patches-via-email.dia`            | [`patches-via-email.svg`][patches-via-email.svg]                       |
+| `pull-rebase.dia`                  | [`pull-rebase.svg`][pull-rebase.svg]                                   |
+| `pull.dia`                         | [`pull.svg`][pull.svg]                                                 |
+| `push.dia`                         | [`push.svg`][push.svg]                                                 |
+| `rebase-after.dia`                 | [`rebase-after.svg`][rebase-after.svg]                                 |
+| `rebase-before.dia`                | [`rebase-before.svg`][rebase-before.svg]                               |
+| `rebase-onto-after.dia`            | [`rebase-onto-after.svg`][rebase-onto-after.svg]                       |
+| `rebase-onto-before.dia`           | [`rebase-onto-before.svg`][rebase-onto-before.svg]                     |
+| `relative-refs.dia`                | [`relative-refs.svg`][relative-refs.svg]                               |
+| `repository-content.dia`           | [`repository-content.svg`][repository-content.svg]                     |
+| `sha.dia`                          | [`sha.svg`][sha.svg]                                                   |
+| `svn-dcommit.dia`                  | [`svn-dcommit.svg`][svn-dcommit.svg]                                   |
+| `svn-rebase.dia`                   | [`svn-rebase.svg`][svn-rebase.svg]                                     |
+| `tags.dia`                         | [`tags.svg`][tags.svg]                                                 |
 
-> __NOTE__ — The [`merge-nachher.png`][merge-nachher.png] image doesn't seem to be used by the book, for there are no references to it in the AsciiDoc sources.
+> __NOTE__ — The `merge-after.dia`/[`merge-after.svg`][merge-after.svg] image doesn't seem to be used by the book, for there are no references to it in the AsciiDoc sources.
 
 # Diagrams Info
 
 The DIA sources in this folder were taken from the [`bilder_quelldaten/diagramme/`][diagramme/] folder of the __[Git-Buch]__ upstream repository.
+
+## Diagrams Renaming
+
+Some DIA source project files (but not all) have been renamed according to the following table — affecting the generated filenames too.
+
+|          original          |             renamed to             |
+|----------------------------|------------------------------------|
+| `developer-public.dia`     | `integration-manager-workflow.dia` |
+| `ff-nachher.dia`           | `ff-after.dia`                     |
+| `ff-vorher.dia`            | `ff-before.dia`                    |
+| `graph.dia`                | `commit-graph.dia`                 |
+| `graph-mit-refs.dia`       | `commit-graph-with-refs.dia`       |
+| `merge-nachher.dia`        | `merge-after.dia`                  |
+| `objekte.dia`              | `git-objects.dia`                  |
+| `objekte-zusammenhang.dia` | `git-objects-hierarchy.dia`        |
+| `patches-per-mail.dia`     | `patches-via-email.dia`            |
+| `pull_rebase.dia`          | `pull-rebase.dia`                  |
+| `rebase-nachher.dia`       | `rebase-after.dia`                 |
+| `rebase-onto-nachher.dia`  | `rebase-onto-after.dia`            |
+| `rebase-onto-vorher.dia`   | `rebase-onto-before.dia`           |
+| `rebase-vorher.dia`        | `rebase-before.dia`                |
+| `svn_dcommit.dia`          | `svn-dcommit.dia`                  |
+| `svn_rebase.dia`           | `svn-rebase.dia`                   |
+| `struktur.dia`             | `repository-content.dia`           |
+| `zentral.dia`              | `central-workflow.dia`             |
 
 
 # System Requirements
@@ -142,35 +169,35 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 <!-- PNG previews -->
 
-[branch-model.png]: ../../../docs_src/images/branch-model.png "Preview PNG output"
-[clone.png]: ../../../docs_src/images/clone.png "Preview PNG output"
-[commit.png]: ../../../docs_src/images/commit.png "Preview PNG output"
-[developer-public.png]: ../../../docs_src/images/developer-public.png "Preview PNG output"
-[fetch.png]: ../../../docs_src/images/fetch.png "Preview PNG output"
-[ff-nachher.png]: ../../../docs_src/images/ff-nachher.png "Preview PNG output"
-[ff-vorher.png]: ../../../docs_src/images/ff-vorher.png "Preview PNG output"
-[github-workflow.png]: ../../../docs_src/images/github-workflow.png "Preview PNG output"
-[graph.png]: ../../../docs_src/images/graph.png "Preview PNG output"
-[graph-mit-refs.png]: ../../../docs_src/images/graph-mit-refs.png "Preview PNG output"
-[index.png]: ../../../docs_src/images/index.png "Preview PNG output"
-[merge-base-commit.png]: ../../../docs_src/images/merge-base-commit.png "Preview PNG output"
-[merge-nachher.png]: ../../../docs_src/images/merge-nachher.png "Preview PNG output"
-[objekte.png]: ../../../docs_src/images/objekte.png "Preview PNG output"
-[objekte-zusammenhang.png]: ../../../docs_src/images/objekte-zusammenhang.png "Preview PNG output"
-[patches-per-mail.png]: ../../../docs_src/images/patches-per-mail.png "Preview PNG output"
-[pull.png]: ../../../docs_src/images/pull.png "Preview PNG output"
-[pull_rebase.png]: ../../../docs_src/images/pull_rebase.png "Preview PNG output"
-[push.png]: ../../../docs_src/images/push.png "Preview PNG output"
-[rebase-nachher.png]: ../../../docs_src/images/rebase-nachher.png "Preview PNG output"
-[rebase-onto-nachher.png]: ../../../docs_src/images/rebase-onto-nachher.png "Preview PNG output"
-[rebase-onto-vorher.png]: ../../../docs_src/images/rebase-onto-vorher.png "Preview PNG output"
-[rebase-vorher.png]: ../../../docs_src/images/rebase-vorher.png "Preview PNG output"
-[relative-refs.png]: ../../../docs_src/images/relative-refs.png "Preview PNG output"
-[sha.png]: ../../../docs_src/images/sha.png "Preview PNG output"
-[struktur.png]: ../../../docs_src/images/struktur.png "Preview PNG output"
-[svn_dcommit.png]: ../../../docs_src/images/svn_dcommit.png "Preview PNG output"
-[svn_rebase.png]: ../../../docs_src/images/svn_rebase.png "Preview PNG output"
-[tags.png]: ../../../docs_src/images/tags.png "Preview PNG output"
-[zentral.png]: ../../../docs_src/images/zentral.png "Preview PNG output"
+[branch-model.svg]: ../../../docs_src/images/branch-model.svg "Preview SVG output"
+[central-workflow.svg]: ../../../docs_src/images/central-workflow.svg "Preview SVG output"
+[clone.svg]: ../../../docs_src/images/clone.svg "Preview SVG output"
+[commit-graph-with-refs.svg]: ../../../docs_src/images/commit-graph-with-refs.svg "Preview SVG output"
+[commit-graph.svg]: ../../../docs_src/images/commit-graph.svg "Preview SVG output"
+[commit.svg]: ../../../docs_src/images/commit.svg "Preview SVG output"
+[fetch.svg]: ../../../docs_src/images/fetch.svg "Preview SVG output"
+[ff-after.svg]: ../../../docs_src/images/ff-after.svg "Preview SVG output"
+[ff-before.svg]: ../../../docs_src/images/ff-before.svg "Preview SVG output"
+[git-objects-hierarchy.svg]: ../../../docs_src/images/git-objects-hierarchy.svg "Preview SVG output"
+[git-objects.svg]: ../../../docs_src/images/git-objects.svg "Preview SVG output"
+[github-workflow.svg]: ../../../docs_src/images/github-workflow.svg "Preview SVG output"
+[index.svg]: ../../../docs_src/images/index.svg "Preview SVG output"
+[integration-manager-workflow.svg]: ../../../docs_src/images/integration-manager-workflow.svg "Preview SVG output"
+[merge-after.svg]: ../../../docs_src/images/merge-after.svg "Preview SVG output"
+[merge-base-commit.svg]: ../../../docs_src/images/merge-base-commit.svg "Preview SVG output"
+[patches-via-email.svg]: ../../../docs_src/images/patches-via-email.svg "Preview SVG output"
+[pull-rebase.svg]: ../../../docs_src/images/pull-rebase.svg "Preview SVG output"
+[pull.svg]: ../../../docs_src/images/pull.svg "Preview SVG output"
+[push.svg]: ../../../docs_src/images/push.svg "Preview SVG output"
+[rebase-after.svg]: ../../../docs_src/images/rebase-after.svg "Preview SVG output"
+[rebase-before.svg]: ../../../docs_src/images/rebase-before.svg "Preview SVG output"
+[rebase-onto-after.svg]: ../../../docs_src/images/rebase-onto-after.svg "Preview SVG output"
+[rebase-onto-before.svg]: ../../../docs_src/images/rebase-onto-before.svg "Preview SVG output"
+[relative-refs.svg]: ../../../docs_src/images/relative-refs.svg "Preview SVG output"
+[repository-content.svg]: ../../../docs_src/images/repository-content.svg "Preview SVG output"
+[sha.svg]: ../../../docs_src/images/sha.svg "Preview SVG output"
+[svn-dcommit.svg]: ../../../docs_src/images/svn-dcommit.svg "Preview SVG output"
+[svn-rebase.svg]: ../../../docs_src/images/svn-rebase.svg "Preview SVG output"
+[tags.svg]: ../../../docs_src/images/tags.svg "Preview SVG output"
 
 <!-- EOF -->

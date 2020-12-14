@@ -78,7 +78,7 @@ The Git commands `add` and `reset` act (in their basic form) on the index, makin
 
 // .Kommandos `add`, `reset` und `commit`
 .Commands `add`, `reset` and `commit`
-image::index.png[id="fig.index",scaledwidth="90%",width="90%"]
+image::index.svg[id="fig.index",scaledwidth="90%",width="90%"]
 
 
 
@@ -1468,7 +1468,7 @@ This property is called _collision safety_.
 
 
 .SHA-1 Algorithm
-image::sha.png[id="fig.sha",scaledwidth="90%",width="90%"]
+image::sha.svg[id="fig.sha",scaledwidth="90%",width="90%"]
 
 
 
@@ -1560,7 +1560,7 @@ The files in the subdirectories are referenced separately in the respective tree
 
 .Git Objects
 // .Git-Objekte
-image::objekte.png[id="fig.objekte",scaledwidth="90%",width="90%"]
+image::git-objects.svg[id="fig.objekte",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -1662,7 +1662,7 @@ This relationship is illustrated by the arrows pointing from one commit to the n
 
 // .Hierarchische Beziehung der Git-Objekte
 .Hierarchical Relationship of Git Objects
-image::objekte-zusammenhang.png[id="fig.objekte-zusammenhang",scaledwidth="65%",width="65%"]
+image::git-objects-hierarchy.svg[id="fig.objekte-zusammenhang",scaledwidth="65%",width="65%"]
 
 
 ////
@@ -1841,7 +1841,7 @@ However, the references to the unchanged files remain the same.
 
 // .Inhalt des Repositorys
 .Repository Content
-image::struktur.png[id="fig.struktur",scaledwidth="80%",width="80%"]
+image::repository-content.svg[id="fig.struktur",scaledwidth="80%",width="80%"]
 
 
 ////
@@ -1947,7 +1947,7 @@ Commit G is a single commit that has not yet been integrated into the main devel
 
 // .Ein Commit-Graph
 .A Commit Graph
-image::graph.png[id="fig.graph",scaledwidth="45%",width="45%"]
+image::commit-graph.svg[id="fig.graph",scaledwidth="45%",width="45%"]
 
 
 ////
@@ -2022,5 +2022,5 @@ And the `v0.1` and `v0.2` tags.
 
 // .Ein beispielhafter Commit-Graph mit Branches und Tags
 .Example of a Commit Graph with Branches and Tags
-image::graph-mit-refs.png[id="fig.graph-mit-refs",scaledwidth="75%",width="75%"]
+image::commit-graph-with-refs.svg[id="fig.graph-mit-refs",scaledwidth="75%",width="75%"]
 

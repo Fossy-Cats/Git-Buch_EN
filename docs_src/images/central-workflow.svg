@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="28cm" height="15cm" viewBox="58 78 543 283" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #e9a963" x="260" y="80" width="140" height="60" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="260" y="80" width="140" height="60" rx="6" ry="6"/>
+  </g>
+  <text font-size="19.2" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="330" y="103.125">
+    <tspan x="330" y="103.125">Zentrales</tspan>
+    <tspan x="330" y="127.125">Repository</tspan>
+  </text>
+  <g>
+    <rect style="fill: #a6b1ed" x="60" y="294.7" width="140.7" height="65.3" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="60" y="294.7" width="140.7" height="65.3" rx="6" ry="6"/>
+  </g>
+  <g>
+    <rect style="fill: #a6b1ed" x="260" y="294.7" width="140" height="65.3" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="260" y="294.7" width="140" height="65.3" rx="6" ry="6"/>
+  </g>
+  <g>
+    <rect style="fill: #a6b1ed" x="460" y="294.7" width="140" height="65.3" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="460" y="294.7" width="140" height="65.3" rx="6" ry="6"/>
+  </g>
+  <text font-size="19.2" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="130.35" y="320.475">
+    <tspan x="130.35" y="320.475">Entwickler</tspan>
+    <tspan x="130.35" y="344.475">Repository</tspan>
+  </text>
+  <text font-size="19.2" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="530" y="320.475">
+    <tspan x="530" y="320.475">Entwickler</tspan>
+    <tspan x="530" y="344.475">Repository</tspan>
+  </text>
+  <text font-size="19.2" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="330" y="320.475">
+    <tspan x="330" y="320.475">Entwickler</tspan>
+    <tspan x="330" y="344.475">Repository</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 4; stroke-linejoin: round; stroke: #000000" x1="137.085" y1="286.681" x2="255.023" y2="146.262"/>
+    <polygon style="fill: #000000" points="133.226,291.275 135.308,282.577 137.085,286.681 141.434,287.722 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="133.226,291.275 135.308,282.577 137.085,286.681 141.434,287.722 "/>
+    <polygon style="fill: #000000" points="258.882,141.667 256.8,150.366 255.023,146.262 250.674,145.22 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="258.882,141.667 256.8,150.366 255.023,146.262 250.674,145.22 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x1="330" y1="284.228" x2="330" y2="150.472"/>
+    <polygon style="fill: #000000" points="330,290.228 326,282.228 330,284.228 334,282.228 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="330,290.228 326,282.228 330,284.228 334,282.228 "/>
+    <polygon style="fill: #000000" points="330,144.472 334,152.472 330,150.472 326,152.472 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="330,144.472 334,152.472 330,150.472 326,152.472 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x1="523.254" y1="286.69" x2="404.988" y2="146.253"/>
+    <polygon style="fill: #000000" points="527.119,291.279 518.906,287.737 523.254,286.69 525.026,282.583 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="527.119,291.279 518.906,287.737 523.254,286.69 525.026,282.583 "/>
+    <polygon style="fill: #000000" points="401.123,141.663 409.336,145.206 404.988,146.253 403.216,150.359 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="401.123,141.663 409.336,145.206 404.988,146.253 403.216,150.359 "/>
+  </g>
+</svg>

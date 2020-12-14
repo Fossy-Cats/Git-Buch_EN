@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="18cm" height="7cm" viewBox="-2 -2 343 123" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #8086ac" x="0" y="0" width="100" height="120" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="0" y="0" width="100" height="120" rx="6" ry="6"/>
+  </g>
+  <g>
+    <rect style="fill: #699768" x="120" y="0" width="100" height="120" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="120" y="0" width="100" height="120" rx="6" ry="6"/>
+  </g>
+  <g>
+    <rect style="fill: #c5919b" x="240" y="0" width="100" height="119.827" rx="6" ry="6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="240" y="0" width="100" height="119.827" rx="6" ry="6"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="4" y="20">
+    <tspan x="4" y="20">blob</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="124" y="20">
+    <tspan x="124" y="20">tree</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="244" y="20">
+    <tspan x="244" y="20">commit</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="60" y1="28" x2="60" y2="0"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="120" y1="28" x2="220" y2="28"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="0" y1="28" x2="100" y2="28"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="240" y1="28" x2="340" y2="28"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="176" y1="28" x2="176" y2="0"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="300" y1="28" x2="300" y2="0"/>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="28" y="16">
+    <tspan x="28" y="16"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="70" y="20">
+    <tspan x="70" y="20"> 67</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="188" y="20">
+    <tspan x="188" y="20"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="50" y="60">
+    <tspan x="50" y="60"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="50" y="60">
+    <tspan x="50" y="60"></tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="4" y="68">
+    <tspan x="4" y="68">#! /usr/bin/env python</tspan>
+    <tspan x="4" y="76.2973"></tspan>
+    <tspan x="4" y="84.5947">""" Hello World! """</tspan>
+    <tspan x="4" y="92.892"></tspan>
+    <tspan x="4" y="101.189">print 'Hello World!'</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="0" y1="48" x2="100" y2="48"/>
+  <text font-size="12.2372" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="4" y="44">
+    <tspan x="4" y="44">52ea6d6...</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="120" y1="48" x2="220" y2="48"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x1="240" y1="48" x2="340" y2="48"/>
+  <text font-size="12.2372" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="124" y="44">
+    <tspan x="124" y="44">a26b00a...</tspan>
+  </text>
+  <text font-size="12.2372" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="244" y="44">
+    <tspan x="244" y="44">e2c67eb...</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="120" y1="60" x2="220" y2="60"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="120" y1="72" x2="220" y2="72"/>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="124" y="80">
+    <tspan x="124" y="80">tree</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="120" y1="84" x2="220" y2="84"/>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="124" y="56">
+    <tspan x="124" y="56">blob</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="120" y1="96" x2="220" y2="96"/>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="124" y="68">
+    <tspan x="124" y="68">blob</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="120" y1="108" x2="220" y2="108"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="144" y1="120" x2="144" y2="48"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="180" y1="120" x2="180" y2="48"/>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="170" y="60">
+    <tspan x="170" y="60"></tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="148" y="56">
+    <tspan x="148" y="56">6cf9be8.</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="148" y="68">
+    <tspan x="148" y="68">52ea6d6.</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="148" y="80">
+    <tspan x="148" y="80">c37fd6f.</tspan>
+  </text>
+  <text font-size="7.2" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="172" y="56">
+    <tspan x="172" y="56"></tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="184" y="68">
+    <tspan x="184" y="68">hello.py</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="184" y="80">
+    <tspan x="184" y="80">test</tspan>
+  </text>
+  <text font-size="7.2" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="172" y="92">
+    <tspan x="172" y="92"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="172" y="56">
+    <tspan x="172" y="56"></tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="184" y="56">
+    <tspan x="184" y="56">README</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="240" y1="60" x2="340" y2="60"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="240" y1="72" x2="340" y2="72"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="240" y1="84" x2="340" y2="84"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="240" y1="96" x2="340" y2="96"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke-linejoin: round; stroke: #000000" x1="280" y1="96" x2="280" y2="48"/>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244" y="56">
+    <tspan x="244" y="56">tree</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244" y="68">
+    <tspan x="244" y="68">parent</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244" y="80">
+    <tspan x="244" y="80">commiter</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244" y="92">
+    <tspan x="244" y="92">author</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244" y="108">
+    <tspan x="244" y="108">Kommentar fehlte</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="284" y="56">
+    <tspan x="284" y="56">a26b00a...</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="284" y="68">
+    <tspan x="284" y="68">8e2f5f9...</tspan>
+    <tspan x="284" y="76.2973"></tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="284" y="80">
+    <tspan x="284" y="80">Valentin</tspan>
+  </text>
+  <text font-size="6.63787" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="284" y="92">
+    <tspan x="284" y="92">Valentin</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="310" y="20">
+    <tspan x="310" y="20">245</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="190" y="20">
+    <tspan x="190" y="20">101</tspan>
+  </text>
+</svg>

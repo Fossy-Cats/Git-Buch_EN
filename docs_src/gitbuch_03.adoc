@@ -137,7 +137,7 @@ Branches move up when you make commits on a branch, so they remain at the top of
 
 // .Der Branch referenziert immer den aktuellsten Commit
 .A branch always references the most recent commit
-image::commit.png[id="fig.commit",scaledwidth="80%",width="80%"]
+image::commit.svg[id="fig.commit",scaledwidth="80%",width="80%"]
 
 
 ////
@@ -254,7 +254,7 @@ Note that `^` may have a special meaning in your shell and you may need to prote
 
 // .Relative-Referenzen, `^` und `~<n>`
 .Relative References, `^` and `~<n>`
-image::relative-refs.png[id="fig.relative-refs",scaledwidth="65%",width="65%"]
+image::relative-refs.svg[id="fig.relative-refs",scaledwidth="65%",width="65%"]
 
 
 ////
@@ -720,7 +720,7 @@ The difference is that for each annotated tag, Git creates a special Git object 
 
 // .Das Tag-Objekt
 .The Tag Object
-image::tags.png[id="fig.tag-object",scaledwidth="90%",width="90%"]
+image::tags.svg[id="fig.tag-object",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -1765,7 +1765,7 @@ Now, if you want to merge two commits (D and F to M), then the trees referenced 
 
 // .Merge-Basis und Merge-Commit
 .Merge base and merge commit
-image::merge-base-commit.png[id="fig.merge-base-commit",scaledwidth="70%",width="70%"]
+image::merge-base-commit.svg[id="fig.merge-base-commit",scaledwidth="70%",width="70%"]
 
 
 
@@ -1890,7 +1890,7 @@ A fast forward merge occurs when a branch, for example `topic`, is the child of 
 
 // .Vor dem _Fast-Forward_-Merge
 .Before the _fast forward_ merge
-image::ff-vorher.png[id="fig.merge-ff-before",scaledwidth="90%",width="90%"]
+image::ff-before.svg[id="fig.merge-ff-before",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -1902,7 +1902,7 @@ A simple `git merge topic` in Branch `master` now causes `master` to simply be m
 
 // .Nach dem _Fast-Forward_-Merge – es wurde kein Merge-Commit erzeugt
 .After the _fast forward_ merge -- no merge commit was created
-image::ff-nachher.png[id="fig.merge-ff-after",scaledwidth="90%",width="90%"]
+image::ff-after.svg[id="fig.merge-ff-after",scaledwidth="90%",width="90%"]
 
 
 ////

@@ -257,7 +257,7 @@ The following diagram is a schematic representation of the ten-point workflow, w
 .Branch-Modell gemäß `gitworkflows (7)`
 ////
 .Branch model according to `gitworkflows (7)`
-image::branch-model.png[id="fig.branch-model",scaledwidth="90%",width="90%"]
+image::branch-model.svg[id="fig.branch-model",scaledwidth="90%",width="90%"]
 
 ////
 . Neue Topic-Branches entstehen von wohldefinierten Punkten, z.B. getaggten Releases, auf dem `master`.
