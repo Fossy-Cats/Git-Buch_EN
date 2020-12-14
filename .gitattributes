@@ -34,5 +34,18 @@ LICENSE      text
 *.sh    text eol=lf
 *.ps1   text eol=crlf
 
+## Image & Graphics Files
+#########################
+*.png    binary
+*.svg    binary
+
+
+## Third Party Tools File Formats
+#################################
+# Dia Diagram Editor: http://dia-installer.de/
+*.dia    binary
+# ColorImpact 4 palettes: http://www.tigercolor.com
+*.cifc   binary
+
 
 # EOF #

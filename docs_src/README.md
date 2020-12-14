@@ -273,72 +273,73 @@ There are 156 footnotes in the book.
 
 Image filenames are translated too, not just their text contents.
 
-|  figure |           original file name          |    chapter     |
-|---------|---------------------------------------|----------------|
-| Fig. 1  | `index.png`                           | [Ch. 2][Ch2]   |
-| Fig. 2  | `objektmodell-programm-crop.png`      | [Ch. 2][Ch2]   |
-| Fig. 3  | `sha.png`                             | [Ch. 2][Ch2]   |
-| Fig. 4  | `objekte.png`                         | [Ch. 2][Ch2]   |
-| Fig. 5  | `objekte-zusammenhang.png`            | [Ch. 2][Ch2]   |
-| Fig. 6  | `struktur.png`                        | [Ch. 2][Ch2]   |
-| Fig. 7  | `graph.png`                           | [Ch. 2][Ch2]   |
-| Fig. 8  | `graph-mit-refs.png`                  | [Ch. 2][Ch2]   |
-| Fig. 9  | `gitk-basic.png`                      | [Ch. 3][Ch3]   |
-| Fig. 10 | `commit.png`                          | [Ch. 3][Ch3]   |
-| Fig. 11 | `relative-refs.png`                   | [Ch. 3][Ch3]   |
-| Fig. 12 | `tags.png`                            | [Ch. 3][Ch3]   |
-| Fig. 13 | `tag-screenshot.png`                  | [Ch. 3][Ch3]   |
-| Fig. 14 | `describe-screenshot.png`             | [Ch. 3][Ch3]   |
-| Fig. 15 | `merge-base-commit.png`               | [Ch. 3][Ch3]   |
-| Fig. 16 | `ff-vorher.png`                       | [Ch. 3][Ch3]   |
-| Fig. 17 | `ff-nachher.png`                      | [Ch. 3][Ch3]   |
-| Fig. 18 | `ff-no-ff-vergleich.png`              | [Ch. 3][Ch3]   |
-| Fig. 19 | `meld-example.png`                    | [Ch. 3][Ch3]   |
-| Fig. 20 | `revision-list-commit-graph-gitk.png` | [Ch. 3][Ch3]   |
-| Fig. 21 | `gitk.png`                            | [Ch. 3][Ch3]   |
-| Fig. 22 | `rebase-vorher.png`                   | [Ch. 4][Ch4]   |
-| Fig. 23 | `rebase-nachher.png`                  | [Ch. 4][Ch4]   |
-| Fig. 24 | `screenshot-rebase-vorher.png`        | [Ch. 4][Ch4]   |
-| Fig. 25 | `screenshot-rebase-nachher.png`       | [Ch. 4][Ch4]   |
-| Fig. 26 | `rebase-onto-vorher.png`              | [Ch. 4][Ch4]   |
-| Fig. 27 | `rebase-onto-nachher.png`             | [Ch. 4][Ch4]   |
-| Fig. 28 | `git-gui-blame.png`                   | [Ch. 4][Ch4]   |
-| Fig. 29 | `stash-screenshot.png`                | [Ch. 4][Ch4]   |
-| Fig. 30 | `zentral.png`                         | [Ch. 5][Ch5]   |
-| Fig. 31 | `clone.png`                           | [Ch. 5][Ch5]   |
-| Fig. 32 | `remote-tracking-gitk.png`            | [Ch. 5][Ch5]   |
-| Fig. 33 | `fetch.png`                           | [Ch. 5][Ch5]   |
-| Fig. 34 | `pull.png`                            | [Ch. 5][Ch5]   |
-| Fig. 35 | `pull_rebase.png`                     | [Ch. 5][Ch5]   |
-| Fig. 36 | `push.png`                            | [Ch. 5][Ch5]   |
-| Fig. 37 | `developer-public.png`                | [Ch. 5][Ch5]   |
-| Fig. 38 | `gitk-screen-format-patch.png`        | [Ch. 5][Ch5]   |
-| Fig. 39 | `mail-thread.png`                     | [Ch. 5][Ch5]   |
-| Fig. 40 | `patches-per-mail.png`                | [Ch. 5][Ch5]   |
-| Fig. 41 | `branch-model.png`                    | [Ch. 6][Ch6]   |
-| Fig. 42 | `gitweb-overview.png`                 | [Ch. 7][Ch7]   |
-| Fig. 43 | `gitweb-commitdiff.png`               | [Ch. 7][Ch7]   |
-| Fig. 44 | `cgit-overview.png`                   | [Ch. 7][Ch7]   |
-| Fig. 45 | `cgit-commitdiff.png`                 | [Ch. 7][Ch7]   |
-| Fig. 46 | `tux-diff.png`                        | [Ch. 8][Ch8]   |
-| Fig. 47 | `svn-stdlayout-crop.png`              | [Ch. 9][Ch9]   |
-| Fig. 48 | `svn-nonstdlayout-crop.png`           | [Ch. 9][Ch9]   |
-| Fig. 49 | `svn-branches-crop.png`               | [Ch. 9][Ch9]   |
-| Fig. 50 | `git-branches-crop.png`               | [Ch. 9][Ch9]   |
-| Fig. 51 | `git-convert-refs-before.png`         | [Ch. 9][Ch9]   |
-| Fig. 52 | `git-convert-refs-after.png`          | [Ch. 9][Ch9]   |
-| Fig. 53 | `git-svn-tag-fix-before.png`          | [Ch. 9][Ch9]   |
-| Fig. 54 | `git-svn-tag-fix-after.png`           | [Ch. 9][Ch9]   |
-| Fig. 55 | `git-svn-merge-demo.png`              | [Ch. 9][Ch9]   |
-| Fig. 56 | `svn_rebase.png`                      | [Ch. 9][Ch9]   |
-| Fig. 57 | `svn_dcommit.png`                     | [Ch. 9][Ch9]   |
-| Fig. 58 | `github-gollum.png`                   | [Ch. 11][Ch11] |
-| Fig. 59 | `github-workflow.png`                 | [Ch. 11][Ch11] |
-| Fig. 60 | `github-network.png`                  | [Ch. 11][Ch11] |
-| Fig. 61 | `github-download.png`                 | [Ch. 11][Ch11] |
-| Fig. 62 | `github-image-diff-2up.png`           | [Ch. 11][Ch11] |
-| Fig. 63 | `github-image-diff-swipe.png`         | [Ch. 11][Ch11] |
-| Fig. 64 | `git-dir-crop.png`                    | [App. B][AppB] |
+
+|  figure |           original file name          |  image type |    chapter     |
+|---------|---------------------------------------|-------------|----------------|
+| Fig. 1  | `index.png`                           | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 2  | `objektmodell-programm-crop.png`      | dir listing | [Ch. 2][Ch2]   |
+| Fig. 3  | `sha.png`                             | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 4  | `objekte.png`                         | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 5  | `objekte-zusammenhang.png`            | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 6  | `struktur.png`                        | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 7  | `graph.png`                           | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 8  | `graph-mit-refs.png`                  | DIA diagram | [Ch. 2][Ch2]   |
+| Fig. 9  | `gitk-basic.png`                      | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 10 | `commit.png`                          | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 11 | `relative-refs.png`                   | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 12 | `tags.png`                            | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 13 | `tag-screenshot.png`                  | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 14 | `describe-screenshot.png`             | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 15 | `merge-base-commit.png`               | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 16 | `ff-vorher.png`                       | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 17 | `ff-nachher.png`                      | DIA diagram | [Ch. 3][Ch3]   |
+| Fig. 18 | `ff-no-ff-vergleich.png`              | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 19 | `meld-example.png`                    | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 20 | `revision-list-commit-graph-gitk.png` | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 21 | `gitk.png`                            | screenshot  | [Ch. 3][Ch3]   |
+| Fig. 22 | `rebase-vorher.png`                   | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 23 | `rebase-nachher.png`                  | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 24 | `screenshot-rebase-vorher.png`        | screenshot  | [Ch. 4][Ch4]   |
+| Fig. 25 | `screenshot-rebase-nachher.png`       | screenshot  | [Ch. 4][Ch4]   |
+| Fig. 26 | `rebase-onto-vorher.png`              | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 27 | `rebase-onto-nachher.png`             | DIA diagram | [Ch. 4][Ch4]   |
+| Fig. 28 | `git-gui-blame.png`                   | screenshot  | [Ch. 4][Ch4]   |
+| Fig. 29 | `stash-screenshot.png`                | screenshot  | [Ch. 4][Ch4]   |
+| Fig. 30 | `zentral.png`                         | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 31 | `clone.png`                           | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 32 | `remote-tracking-gitk.png`            | screenshot  | [Ch. 5][Ch5]   |
+| Fig. 33 | `fetch.png`                           | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 34 | `pull.png`                            | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 35 | `pull_rebase.png`                     | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 36 | `push.png`                            | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 37 | `developer-public.png`                | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 38 | `gitk-screen-format-patch.png`        | screenshot  | [Ch. 5][Ch5]   |
+| Fig. 39 | `mail-thread.png`                     | screenshot  | [Ch. 5][Ch5]   |
+| Fig. 40 | `patches-per-mail.png`                | DIA diagram | [Ch. 5][Ch5]   |
+| Fig. 41 | `branch-model.png`                    | DIA diagram | [Ch. 6][Ch6]   |
+| Fig. 42 | `gitweb-overview.png`                 | screenshot  | [Ch. 7][Ch7]   |
+| Fig. 43 | `gitweb-commitdiff.png`               | screenshot  | [Ch. 7][Ch7]   |
+| Fig. 44 | `cgit-overview.png`                   | screenshot  | [Ch. 7][Ch7]   |
+| Fig. 45 | `cgit-commitdiff.png`                 | screenshot  | [Ch. 7][Ch7]   |
+| Fig. 46 | `tux-diff.png`                        | screenshot  | [Ch. 8][Ch8]   |
+| Fig. 47 | `svn-stdlayout-crop.png`              | dir listing | [Ch. 9][Ch9]   |
+| Fig. 48 | `svn-nonstdlayout-crop.png`           | dir listing | [Ch. 9][Ch9]   |
+| Fig. 49 | `svn-branches-crop.png`               | dir listing | [Ch. 9][Ch9]   |
+| Fig. 50 | `git-branches-crop.png`               | dir listing | [Ch. 9][Ch9]   |
+| Fig. 51 | `git-convert-refs-before.png`         | screenshot  | [Ch. 9][Ch9]   |
+| Fig. 52 | `git-convert-refs-after.png`          | screenshot  | [Ch. 9][Ch9]   |
+| Fig. 53 | `git-svn-tag-fix-before.png`          | screenshot  | [Ch. 9][Ch9]   |
+| Fig. 54 | `git-svn-tag-fix-after.png`           | screenshot  | [Ch. 9][Ch9]   |
+| Fig. 55 | `git-svn-merge-demo.png`              | screenshot  | [Ch. 9][Ch9]   |
+| Fig. 56 | `svn_rebase.png`                      | DIA diagram | [Ch. 9][Ch9]   |
+| Fig. 57 | `svn_dcommit.png`                     | DIA diagram | [Ch. 9][Ch9]   |
+| Fig. 58 | `github-gollum.png`                   | screenshot  | [Ch. 11][Ch11] |
+| Fig. 59 | `github-workflow.png`                 | DIA diagram | [Ch. 11][Ch11] |
+| Fig. 60 | `github-network.png`                  | screenshot  | [Ch. 11][Ch11] |
+| Fig. 61 | `github-download.png`                 | screenshot  | [Ch. 11][Ch11] |
+| Fig. 62 | `github-image-diff-2up.png`           | screenshot  | [Ch. 11][Ch11] |
+| Fig. 63 | `github-image-diff-swipe.png`         | screenshot  | [Ch. 11][Ch11] |
+| Fig. 64 | `git-dir-crop.png`                    | dir listing | [App. B][AppB] |
 
 
 

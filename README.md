@@ -39,6 +39,7 @@ The current development branch is [`alpha-dev`][alpha-dev].
 
 ## Contents
 
+- [`/assets_src/`][assets_src] — Assets source files.
 - [`/docs_src/`][docs_src] — AsciiDoc sources.
 - [`README_DE.md`][README_DE] — Upstream README file, German original.
 - [`README_EN.md`][README_EN] — Upstream README file, English translation.
@@ -156,6 +157,7 @@ Open Source Press:
 <!-- repo folders -->
 
 [docs_src]: ./docs_src/ "Navigate to AsciiDoc sources folder"
+[assets_src]: ./assets_src/ "Navigate to assets sources folder"
 
 <!-- repo branches -->
 

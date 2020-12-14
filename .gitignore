@@ -11,6 +11,11 @@ ___*.*
 *.lnk
 *.url
 
+## Third Party Tools Temporary Files
+####################################
+# Dia Diagram Editor: http://dia-installer.de/
+*.dia~
+
 ############################
 ## COMMON IGNORE PATTERNS ##
 ############################
