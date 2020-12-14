@@ -32,9 +32,69 @@ Source files to generate the diagram images in SVG using [Dia].
 
 - [ ] Edit source diagrams:
     + [x] Translate DIA sources filesname to English.
-    + [ ] Translate diagrams text to English.
+    + [ ] Translate diagrams text to English:
+        * `branch-model.dia` — _no need to!_
+        * [ ] `central-workflow.dia`
+        * `clone.dia` — _no need to!_
+        * `commit-graph-with-refs.dia` — _no need to!_
+        * `commit-graph.dia` — _no need to!_
+        * `commit.dia` — _no need to!_
+        * `fetch.dia` — _no need to!_
+        * `ff-after.dia` — _no need to!_
+        * `ff-before.dia` — _no need to!_
+        * [ ] `git-objects-hierarchy.dia`
+        * [ ] `git-objects.dia` — commits message: _should we?_
+        * [ ] `github-workflow.dia`
+        * `index.dia` — _no need to!_
+        * [ ] `integration-manager-workflow.dia`
+        * `merge-after.dia` — _no need to!_
+        * `merge-base-commit.dia` — _no need to!_
+        * [ ] `patches-via-email.dia`
+        * `pull-rebase.dia` — _no need to!_
+        * `pull.dia` — _no need to!_
+        * `push.dia` — _no need to!_
+        * `rebase-after.dia` — _no need to!_
+        * `rebase-before.dia` — _no need to!_
+        * `rebase-onto-after.dia` — _no need to!_
+        * `rebase-onto-before.dia` — _no need to!_
+        * `relative-refs.dia` — _no need to!_
+        * [ ] `repository-content.dia` — commits messages: _should we?_
+        * `sha.dia` — _no need to!_
+        * `svn-dcommit.dia` — _no need to!_
+        * `svn-rebase.dia` — _no need to!_
+        * [ ] `tags.dia` — only if we translate related Git logs!
     + [ ] Tweak colors to increase accessibility for the color blind.
-    + [ ] Add invisible background to create image padding.
+    + [ ] Add invisible background to create image padding:
+        * [ ] `branch-model.dia`
+        * [ ] `central-workflow.dia`
+        * [ ] `clone.dia`
+        * [ ] `commit-graph-with-refs.dia`
+        * [ ] `commit-graph.dia`
+        * [ ] `commit.dia`
+        * [ ] `fetch.dia`
+        * [ ] `ff-after.dia`
+        * [ ] `ff-before.dia`
+        * [ ] `git-objects-hierarchy.dia`
+        * [ ] `git-objects.dia`
+        * [ ] `github-workflow.dia`
+        * [ ] `index.dia`
+        * [ ] `integration-manager-workflow.dia`
+        * [ ] `merge-after.dia`
+        * [ ] `merge-base-commit.dia`
+        * [ ] `patches-via-email.dia`
+        * [ ] `pull-rebase.dia`
+        * [ ] `pull.dia`
+        * [ ] `push.dia`
+        * [ ] `rebase-after.dia`
+        * [ ] `rebase-before.dia`
+        * [ ] `rebase-onto-after.dia`
+        * [ ] `rebase-onto-before.dia`
+        * [ ] `relative-refs.dia`
+        * [ ] `repository-content.dia`
+        * [ ] `sha.dia`
+        * [ ] `svn-dcommit.dia`
+        * [ ] `svn-rebase.dia`
+        * [ ] `tags.dia`
 - [ ] Update book images:
     + [ ] Add conversion script:
         * [x] Convert to SVG instead of PNG.
