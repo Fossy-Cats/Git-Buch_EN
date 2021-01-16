@@ -1401,9 +1401,8 @@ Im Folgenden dient uns als Beispiel wieder ein "`Hello World!`"-Programm, diesma
 In the following, we will again use a "`Hello World!`" program as an example, this time in the Python programming language.{fn21}
 
 
-// @TODO: TRANSLATE IMAGE ID
 ."`Hello World!`" Program in Python
-image::objektmodell-programm-crop.png[id="fig.objektmodell-program-crop",scaledwidth="25%",width="25%"]
+image::objektmodell-programm-crop.png[id="fig.object-model-program",scaledwidth="25%",width="25%"]
 
 
 ////
@@ -1451,7 +1450,7 @@ Die Funktionsweise stellt Abbildung 2.3, "SHA-1-Algorithmus" dar, wo wir die Pr�
 SHA-1 is a secure hash algorithm that calculates a checksum of digital information: the SHA-1 sum.
 The algorithm was introduced in 1995 by the American _National Institute of Standards and Technology_ (NIST) and the _National Security Agency_ (NSA).
 SHA-1 was developed for cryptographic purposes and is used for checking the integrity of messages and as a basis for digital signatures.
-<<fig.sha>> shows how it works, where we calculate the checksum of `hello.py`.
+<<fig.sha-1>> shows how it works, where we calculate the checksum of `hello.py`.
 
 
 ////
@@ -1468,7 +1467,7 @@ This property is called _collision safety_.
 
 
 .SHA-1 Algorithm
-image::sha.svg[id="fig.sha",scaledwidth="90%",width="90%"]
+image::sha.svg[id="fig.sha-1",scaledwidth="90%",width="90%"]
 
 
 
@@ -1550,7 +1549,7 @@ Der Tree enthält Referenzen auf je einen Blob für jede Datei in dem Projekt, a
 Die Dateien in den Unterverzeichnissen werden separat in den jeweiligen Trees referenziert, die diese Unterverzeichnisse abbilden.
 ////
 
-<<fig.objekte>> shows three objects from the example project -- a blob, a tree, and a commit.{fn25}
+<<fig.git-objects>> shows three objects from the example project -- a blob, a tree, and a commit.{fn25}
 The representation of each object includes the object type, the size in bytes, the SHA-1 sum, and the contents.
 The blob contains the content of the file `hello.py` (but not the file name).
 The tree contains references to one blob for each file in the project, i.e. one for `hello.py` and one for `README`, plus one tree per subdirectory, i.e. in this case only one for `test`.
@@ -1560,7 +1559,7 @@ The files in the subdirectories are referenced separately in the respective tree
 
 .Git Objects
 // .Git-Objekte
-image::git-objects.svg[id="fig.objekte",scaledwidth="90%",width="90%"]
+image::git-objects.svg[id="fig.git-objects",scaledwidth="90%",width="90%"]
 
 
 ////
@@ -1638,7 +1637,7 @@ Sogenannte _Top-Level Trees_ haben keinen Verzeichnisnamen: Sie referenzieren di
 Ein Commit referenziert immer einen Top-Level Tree, daher gibt es davon auch vier Stück.
 ////
 
-You will first see the four commits that make up the Git repository, including the `e2c67eb` commit shown in <<fig.objekte>>.
+You will first see the four commits that make up the Git repository, including the `e2c67eb` commit shown in <<fig.git-objects>>.
 This is followed by trees and blobs, each with file or directory correspondence.
 So-called _top-level trees_ have no directory name: They refer to the top level of a project.
 A commit always references a top-level tree, so there are four of them.
@@ -1651,18 +1650,17 @@ So enthält jeder Commit, wie schon beschrieben, eine Referenz zu seinem direkte
 Dieser Zusammenhang wird durch die Pfeile, die von einem Commit zum nächsten zeigen, illustriert.
 ////
 
-The hierarchical relationship of the objects listed above is shown in <<fig.objekte-zusammenhang>>.
+The hierarchical relationship of the objects listed above is shown in <<fig.git-objects-hierarchy>>.
 On the left-hand side, you can see the four commits that are already in the repository, and on the right-hand side, the referenced contents of the most recent commit (C4).
 As described above, each commit contains a reference to its direct predecessor (the resulting graph of commits is discussed below).
 This relationship is illustrated by the arrows pointing from one commit to the next.
 
 
 // @TRANSLATE IMAGE TEXT
-// @TODO: TRANSLATE IMAGE ID
 
 // .Hierarchische Beziehung der Git-Objekte
 .Hierarchical Relationship of Git Objects
-image::git-objects-hierarchy.svg[id="fig.objekte-zusammenhang",scaledwidth="65%",width="65%"]
+image::git-objects-hierarchy.svg[id="fig.git-objects-hierarchy",scaledwidth="65%",width="65%"]
 
 
 ////
@@ -1723,7 +1721,7 @@ Wie Sie sehen, werden alle Informationen aus Abbildung 2.4, "Git-Objekte" ausgeg
 Das Kommando liefert zudem die Diff-Ausgabe zum vorherigen Commit  -- diese ist aber strenggenommen nicht Teil des Commits und wird daher hier ausgelassen.
 ////
 
-As you can see, all the information in <<fig.objekte>> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
+As you can see, all the information in <<fig.git-objects>> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
 The command also provides the diff output for the previous commit -- but this is not part of the commit, strictly speaking, and is therefore omitted here.
 
 
@@ -1754,7 +1752,7 @@ Dessen Inhalte können wir uns wieder mit `ls-tree` ansehen, da wir ja nun die S
 Wie erwartet sehen Sie, dass der `test`-Tree ganz genau einen Blob referenziert, und zwar den Blob für die Datei `test.sh`.
 ////
 
-As in <<fig.objekte>> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: _subtree_) for the `test` directory.
+As in <<fig.git-objects>> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: _subtree_) for the `test` directory.
 We can look at its contents again with `ls-tree`, since we now know the SHA-1 sum of the tree.
 As expected, you can see that the `test` tree references exactly one blob, the blob for the file `test.sh`.
 
@@ -1819,7 +1817,7 @@ Die vier Commits, aus denen das Beispiel-Repository besteht, sind in  Abbildung 
 Die Leserichtung geht hier von unten nach oben: zuunterst steht C1, der nur die Datei `hello.py` enthält.
 ////
 
-The four commits that make up the sample repository are shown again in <<fig.struktur>>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
+The four commits that make up the sample repository are shown again in <<fig.repository-content>>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
 The reading direction here is from bottom to top: at the bottom is C1, which contains only the file `hello.py`.
 
 
@@ -1837,11 +1835,10 @@ However, the references to the unchanged files remain the same.
 
 
 // @TRANSLATE IMAGE TEXT
-// @TODO: TRANSLATE IMAGE ID
 
 // .Inhalt des Repositorys
 .Repository Content
-image::repository-content.svg[id="fig.struktur",scaledwidth="80%",width="80%"]
+image::repository-content.svg[id="fig.repository-content",scaledwidth="80%",width="80%"]
 
 
 ////
@@ -1937,7 +1934,7 @@ Commit G ist ein einzelner Commit, der noch nicht in den Hauptentwicklungszweig 
 
 // @TODO: ADD MISSING EMPHASIS (in original: "(_Branches_)")
 
-An example graph is shown in <<fig.graph>>.
+An example graph is shown in <<fig.commit-graph>>.
 It consists of several commits, which are colored to make it easier to distinguish between their affiliations to different development branches.
 First, the commits A, B, C, and D were made.
 They form the main development branch.
@@ -1947,7 +1944,7 @@ Commit G is a single commit that has not yet been integrated into the main devel
 
 // .Ein Commit-Graph
 .A Commit Graph
-image::commit-graph.svg[id="fig.graph",scaledwidth="45%",width="45%"]
+image::commit-graph.svg[id="fig.commit-graph",scaledwidth="45%",width="45%"]
 
 
 ////
@@ -2015,12 +2012,12 @@ Abbildung 2.8, "Ein beispielhafter Commit-Graph mit Branches und Tags" zeigt den
 Sowie den Tags  `v0.1` und `v0.2`.
 ////
 
-<<fig.graph-mit-refs>> shows the same commit graph with the `master`, `HEAD`, `feature`, and `bugfix` branches.
+<<fig.commit-graph-with-refs>> shows the same commit graph with the `master`, `HEAD`, `feature`, and `bugfix` branches.
 And the `v0.1` and `v0.2` tags.
 
 // @TODO: TRANSLATE IMAGE ID
 
 // .Ein beispielhafter Commit-Graph mit Branches und Tags
 .Example of a Commit Graph with Branches and Tags
-image::commit-graph-with-refs.svg[id="fig.graph-mit-refs",scaledwidth="75%",width="75%"]
+image::commit-graph-with-refs.svg[id="fig.commit-graph-with-refs",scaledwidth="75%",width="75%"]
 

@@ -51,7 +51,7 @@ Eine Darstellung finden Sie in Abbildung 5.1, "Zentraler Workflow mit verteilter
 One approach is to provide a single "`master repository`" that all developers use to synchronize their local repositories.
 The developers connect to this repository from time to time, uploading their own commits (_push_) and downloading those of their colleagues (_fetch_ or _pull_).
 This very centralized approach is often used in practice.
-For an illustration, see <<fig.zentraler-workflow>>.
+For an illustration, see <<fig.central-workflow>>.
 
 
 ////
@@ -63,11 +63,10 @@ However, there are two noteworthy alternatives in the Git environment that we wi
 
 
 // @TRANSLATE IMAGE TEXT
-// @TODO: TRANSLATE IMAGE ID
 
 // .Zentraler Workflow mit verteilter Versionsverwaltung
 .Central workflow with distributed version management
-image::central-workflow.svg[id="fig.zentraler-workflow",scaledwidth="70%",width="70%"]
+image::central-workflow.svg[id="fig.central-workflow",scaledwidth="70%",width="70%"]
 
 
 ////
@@ -941,12 +940,12 @@ $ *git pull --rebase  origin master*
 In Abbildung 5.6, "Was bei einem Pull mit Rebase passiert" sehen Sie, was passiert, wenn Sie statt des Standard-Merge einen Rebase ausführen.
 ////
 
-In <<fig.pull_rebase>> you can see what happens if you perform a rebase instead of the default merge.
+In <<fig.pull-rebase>> you can see what happens if you perform a rebase instead of the default merge.
 
 
 // .Was bei einem Pull mit Rebase passiert
 .What happens during a pull with rebase
-image::pull-rebase.svg[id="fig.pull_rebase",scaledwidth="90%",width="90%"]
+image::pull-rebase.svg[id="fig.pull-rebase",scaledwidth="90%",width="90%"]
 
 
 ////

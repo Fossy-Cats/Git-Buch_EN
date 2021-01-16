@@ -101,7 +101,7 @@ Zwar ist es mit Github möglich, einen zentralisierten Ansatz siehe Abbildung 5.
 ////
 
 GitHub offers many ways to share changes.
-While it is possible to take a centralized approach with GitHub (see <<fig.zentraler-workflow>>) by giving others access to your own repositories, the most common form of sharing is an Integration Manager workflow (see <<fig.developer-public-workflow>>).
+While it is possible to take a centralized approach with GitHub (see <<fig.central-workflow>>) by giving others access to your own repositories, the most common form of sharing is an Integration Manager workflow (see <<fig.developer-public-workflow>>).
 
 
 .Workflow at GitHub

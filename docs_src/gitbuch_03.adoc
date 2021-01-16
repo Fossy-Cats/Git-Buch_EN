@@ -713,7 +713,7 @@ Annotated tags are tagged with metadata, such as author, description, or GPG sig
 Lightweight tags, on the other hand, "`simply`" point to a specific Git object.
 For both types of tags, Git creates references under `.git/refs/tags/` or `.git/packed-refs`.
 The difference is that for each annotated tag, Git creates a special Git object -- a _tag object_ -- in the Object Database to store the metadata and SHA-1 sum of the selected object, while a Lightweight tag points directly to the selected object.
-<<fig.tag-object>> shows the contents of a tag object; compare also the other git objects, <<fig.objekte>>.
+<<fig.tag-object>> shows the contents of a tag object; compare also the other git objects, <<fig.git-objects>>.
 
 
 // @TRANSLATE IMAGE TEXT?

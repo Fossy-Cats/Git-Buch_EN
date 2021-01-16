@@ -2904,7 +2904,7 @@ Understanding this model is very important, and it helps to abstract from typica
 <div class="paragraph">
 <p>In the following, we will again use a &#8220;Hello World!&#8221; program as an example, this time in the Python programming language.&#8288;<sup class="footnote">[<a id="_footnoteref_21" class="footnote" href="#_footnotedef_21" title="View footnote.">21</a>]</sup></p>
 </div>
-<div id="fig.objektmodell-program-crop" class="imageblock">
+<div id="fig.object-model-program" class="imageblock">
 <div class="content">
 <img src="images/objektmodell-programm-crop.png" alt="objektmodell programm crop" width="25%">
 </div>
@@ -2933,7 +2933,7 @@ b0400b0 Erste Version</pre>
 <p>SHA-1 is a secure hash algorithm that calculates a checksum of digital information: the SHA-1 sum.
 The algorithm was introduced in 1995 by the American <em>National Institute of Standards and Technology</em> (NIST) and the <em>National Security Agency</em> (NSA).
 SHA-1 was developed for cryptographic purposes and is used for checking the integrity of messages and as a basis for digital signatures.
-<a href="#fig.sha">Figure 3, &#8220;SHA-1 Algorithm&#8221;</a> shows how it works, where we calculate the checksum of <code>hello.py</code>.</p>
+<a href="#fig.sha-1">Figure 3, &#8220;SHA-1 Algorithm&#8221;</a> shows how it works, where we calculate the checksum of <code>hello.py</code>.</p>
 </div>
 <div class="paragraph">
 <p>The algorithm is a mathematical one-way function that maps a bit sequence of maximum length 2<sup>64</sup>-1 bits (about 2 exbibytes) to a checksum of length 160 bits (20 bytes).
@@ -2941,7 +2941,7 @@ The checksum is usually represented as a hexadecimal character string of length 
 The algorithm results in 2<sup>160</sup> (approx. 1.5 · 10<sup>49</sup>) different combinations for this length of checksum, and therefore it is very, very unlikely that two bit sequences have the same checksum.
 This property is called <em>collision safety</em>.</p>
 </div>
-<div id="fig.sha" class="imageblock">
+<div id="fig.sha-1" class="imageblock">
 <div class="content">
 <img src="images/sha.svg" alt="sha" width="90%">
 </div>
@@ -3014,13 +3014,13 @@ There are four types:&#8288;<sup class="footnote">[<a id="_footnoteref_24" class
 </tbody>
 </table>
 <div class="paragraph">
-<p><a href="#fig.objekte">Figure 4, &#8220;Git Objects&#8221;</a> shows three objects from the example project&#8201;&#8212;&#8201;a blob, a tree, and a commit.&#8288;<sup class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnotedef_25" title="View footnote.">25</a>]</sup>
+<p><a href="#fig.git-objects">Figure 4, &#8220;Git Objects&#8221;</a> shows three objects from the example project&#8201;&#8212;&#8201;a blob, a tree, and a commit.&#8288;<sup class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnotedef_25" title="View footnote.">25</a>]</sup>
 The representation of each object includes the object type, the size in bytes, the SHA-1 sum, and the contents.
 The blob contains the content of the file <code>hello.py</code> (but not the file name).
 The tree contains references to one blob for each file in the project, i.e. one for <code>hello.py</code> and one for <code>README</code>, plus one tree per subdirectory, i.e. in this case only one for <code>test</code>.
 The files in the subdirectories are referenced separately in the respective trees that map these subdirectories.</p>
 </div>
-<div id="fig.objekte" class="imageblock">
+<div id="fig.git-objects" class="imageblock">
 <div class="content">
 <img src="images/git-objects.svg" alt="git objects" width="90%">
 </div>
@@ -3067,18 +3067,18 @@ a347f5e &xrarr; <strong>tree</strong></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You will first see the four commits that make up the Git repository, including the <code>e2c67eb</code> commit shown in <a href="#fig.objekte">Figure 4, &#8220;Git Objects&#8221;</a>.
+<p>You will first see the four commits that make up the Git repository, including the <code>e2c67eb</code> commit shown in <a href="#fig.git-objects">Figure 4, &#8220;Git Objects&#8221;</a>.
 This is followed by trees and blobs, each with file or directory correspondence.
 So-called <em>top-level trees</em> have no directory name: They refer to the top level of a project.
 A commit always references a top-level tree, so there are four of them.</p>
 </div>
 <div class="paragraph">
-<p>The hierarchical relationship of the objects listed above is shown in <a href="#fig.objekte-zusammenhang">Figure 5, &#8220;Hierarchical Relationship of Git Objects&#8221;</a>.
+<p>The hierarchical relationship of the objects listed above is shown in <a href="#fig.git-objects-hierarchy">Figure 5, &#8220;Hierarchical Relationship of Git Objects&#8221;</a>.
 On the left-hand side, you can see the four commits that are already in the repository, and on the right-hand side, the referenced contents of the most recent commit (C4).
 As described above, each commit contains a reference to its direct predecessor (the resulting graph of commits is discussed below).
 This relationship is illustrated by the arrows pointing from one commit to the next.</p>
 </div>
-<div id="fig.objekte-zusammenhang" class="imageblock">
+<div id="fig.git-objects-hierarchy" class="imageblock">
 <div class="content">
 <img src="images/git-objects-hierarchy.svg" alt="git objects hierarchy" width="65%">
 </div>
@@ -3116,7 +3116,7 @@ We&#8217;ll use the <code>git show</code> command with the <code>--format=raw</c
 </div>
 </div>
 <div class="paragraph">
-<p>As you can see, all the information in <a href="#fig.objekte">Figure 4, &#8220;Git Objects&#8221;</a> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
+<p>As you can see, all the information in <a href="#fig.git-objects">Figure 4, &#8220;Git Objects&#8221;</a> is output: the SHA-1 sums of the commit, tree, and direct ancestor, plus the author and committer (including the date as a Unix timestamp), and the commit description.
 The command also provides the diff output for the previous commit&#8201;&#8212;&#8201;but this is not part of the commit, strictly speaking, and is therefore omitted here.</p>
 </div>
 <div class="paragraph">
@@ -3133,7 +3133,7 @@ With <code>--abbrev=7</code> we shorten the output SHA-1 sums to seven character
 </div>
 </div>
 <div class="paragraph">
-<p>As in <a href="#fig.objekte">Figure 4, &#8220;Git Objects&#8221;</a> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: <em>subtree</em>) for the <code>test</code> directory.
+<p>As in <a href="#fig.git-objects">Figure 4, &#8220;Git Objects&#8221;</a> the tree referenced by the commit contains one blob for each of the two files, and one tree (also: <em>subtree</em>) for the <code>test</code> directory.
 We can look at its contents again with <code>ls-tree</code>, since we now know the SHA-1 sum of the tree.
 As expected, you can see that the <code>test</code> tree references exactly one blob, the blob for the file <code>test.sh</code>.</p>
 </div>
@@ -3171,7 +3171,7 @@ The <code>hash-object</code> command therefore does not calculate the checksum o
 <div class="sect3">
 <h4 id="sec.deduplication"><a class="anchor" href="#sec.deduplication"></a>2.2.5. Deduplication</h4>
 <div class="paragraph">
-<p>The four commits that make up the sample repository are shown again in <a href="#fig.struktur">Figure 6, &#8220;Repository Content&#8221;</a>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
+<p>The four commits that make up the sample repository are shown again in <a href="#fig.repository-content">Figure 6, &#8220;Repository Content&#8221;</a>, but in a different way: The dashed bordered tree and blob objects indicate unchanged objects, all others were added or changed in the corresponding commit.
 The reading direction here is from bottom to top: at the bottom is C1, which contains only the file <code>hello.py</code>.</p>
 </div>
 <div class="paragraph">
@@ -3180,7 +3180,7 @@ Normally, only a few files change during a commit.
 New blob objects (and therefore new tree objects) are now created for the new files or those to which changes have been made.
 However, the references to the unchanged files remain the same.</p>
 </div>
-<div id="fig.struktur" class="imageblock">
+<div id="fig.repository-content" class="imageblock">
 <div class="content">
 <img src="images/repository-content.svg" alt="repository content" width="80%">
 </div>
@@ -3235,14 +3235,14 @@ Understanding Git at this level is the first and only real hurdle to mastering G
 The commits form the nodes of this graph&#8201;&#8212;&#8201;the references to ancestors form the edges.</p>
 </div>
 <div class="paragraph">
-<p>An example graph is shown in <a href="#fig.graph">Figure 7, &#8220;A Commit Graph&#8221;</a>.
+<p>An example graph is shown in <a href="#fig.commit-graph">Figure 7, &#8220;A Commit Graph&#8221;</a>.
 It consists of several commits, which are colored to make it easier to distinguish between their affiliations to different development branches.
 First, the commits A, B, C, and D were made.
 They form the main development branch.
 Commits E and F contain feature development, which was transferred to the main development branch with commit H.
 Commit G is a single commit that has not yet been integrated into the main development branch.</p>
 </div>
-<div id="fig.graph" class="imageblock">
+<div id="fig.commit-graph" class="imageblock">
 <div class="content">
 <img src="images/commit-graph.svg" alt="commit graph" width="45%">
 </div>
@@ -3276,10 +3276,10 @@ Branches have a &#8220;moving&#8221; character, meaning that they move up as new
 Tags, on the other hand, are static in nature, and mark important points in the commit graph, such as releases.</p>
 </div>
 <div class="paragraph">
-<p><a href="#fig.graph-mit-refs">Figure 8, &#8220;Example of a Commit Graph with Branches and Tags&#8221;</a> shows the same commit graph with the <code>master</code>, <code>HEAD</code>, <code>feature</code>, and <code>bugfix</code> branches.
+<p><a href="#fig.commit-graph-with-refs">Figure 8, &#8220;Example of a Commit Graph with Branches and Tags&#8221;</a> shows the same commit graph with the <code>master</code>, <code>HEAD</code>, <code>feature</code>, and <code>bugfix</code> branches.
 And the <code>v0.1</code> and <code>v0.2</code> tags.</p>
 </div>
-<div id="fig.graph-mit-refs" class="imageblock">
+<div id="fig.commit-graph-with-refs" class="imageblock">
 <div class="content">
 <img src="images/commit-graph-with-refs.svg" alt="commit graph with refs" width="75%">
 </div>
@@ -3715,7 +3715,7 @@ Annotated tags are tagged with metadata, such as author, description, or GPG sig
 Lightweight tags, on the other hand, &#8220;simply&#8221; point to a specific Git object.
 For both types of tags, Git creates references under <code>.git/refs/tags/</code> or <code>.git/packed-refs</code>.
 The difference is that for each annotated tag, Git creates a special Git object&#8201;&#8212;&#8201;a <em>tag object</em>&#8201;&#8212;&#8201;in the Object Database to store the metadata and SHA-1 sum of the selected object, while a Lightweight tag points directly to the selected object.
-<a href="#fig.tag-object">Figure 12, &#8220;The Tag Object&#8221;</a> shows the contents of a tag object; compare also the other git objects, <a href="#fig.objekte">Figure 4, &#8220;Git Objects&#8221;</a>.</p>
+<a href="#fig.tag-object">Figure 12, &#8220;The Tag Object&#8221;</a> shows the contents of a tag object; compare also the other git objects, <a href="#fig.git-objects">Figure 4, &#8220;Git Objects&#8221;</a>.</p>
 </div>
 <div id="fig.tag-object" class="imageblock">
 <div class="content">
@@ -5556,13 +5556,13 @@ This command is very powerful and important, but sometimes a bit more demanding 
 What it means is that a group of commits is moved around within the commit graph, building commit after commit based on another node.
 The following graphics illustrate how this works:</p>
 </div>
-<div id="fig.rebase-vorher-dia" class="imageblock">
+<div id="fig.rebase-before" class="imageblock">
 <div class="content">
 <img src="images/rebase-before.svg" alt="rebase before" width="90%">
 </div>
 <div class="title">Figure 22. Before the rebase</div>
 </div>
-<div id="fig.rebase-nachher-dia" class="imageblock">
+<div id="fig.rebase-after" class="imageblock">
 <div class="content">
 <img src="images/rebase-after.svg" alt="rebase after" width="90%">
 </div>
@@ -5615,7 +5615,7 @@ In that case, the commits will be preserved even after a rebase (but then in dup
 The <code>sqlite-support</code> branch branches off from the &#8220;fixed a bug&#8230;&#8203;&#8221; commit.
 But the <code>master</code> branch has already moved on, and a new 1.4.2 release has been made.</p>
 </div>
-<div id="fig.screenshot-rebase-vorher" class="imageblock">
+<div id="fig.screenshot-rebase-before" class="imageblock">
 <div class="content">
 <img src="images/screenshot-rebase-vorher.png" alt="screenshot rebase vorher" width="90%">
 </div>
@@ -5638,7 +5638,7 @@ Applying: modify Makefile to support sqlite</pre>
 <p>Rebase applies the three changes introduced by commits from the <code>sqlite-support</code> branch to the <code>master</code> branch.
 After that, the repository looks like this in Gitk:</p>
 </div>
-<div id="fig.screenshot-rebase-nachher" class="imageblock">
+<div id="fig.screenshot-rebase-after" class="imageblock">
 <div class="content">
 <img src="images/screenshot-rebase-nachher.png" alt="screenshot rebase nachher" width="90%">
 </div>
@@ -5869,7 +5869,7 @@ An alternative to TopGit is <em>Stacked Git</em>&#8288;<sup class="footnote">[<a
 But what if you only want to implement part of a branch, to &#8220;transplant&#8221; it, so to speak?
 Consider the following situation:</p>
 </div>
-<div id="fig.rebase-onto-vorher-dia" class="imageblock">
+<div id="fig.rebase-onto-before" class="imageblock">
 <div class="content">
 <img src="images/rebase-onto-before.svg" alt="rebase onto before" width="90%">
 </div>
@@ -5906,7 +5906,7 @@ Therefore the command is</p>
 <div class="paragraph">
 <p>The result looks as expected:</p>
 </div>
-<div id="fig.rebase-onto-nachher-dia" class="imageblock">
+<div id="fig.rebase-onto-after" class="imageblock">
 <div class="content">
 <img src="images/rebase-onto-after.svg" alt="rebase onto after" width="90%">
 </div>
@@ -7175,12 +7175,12 @@ Unfortunately, this is not always guaranteed, maybe the server is down or you ar
 <p>One approach is to provide a single &#8220;master repository&#8221; that all developers use to synchronize their local repositories.
 The developers connect to this repository from time to time, uploading their own commits (<em>push</em>) and downloading those of their colleagues (<em>fetch</em> or <em>pull</em>).
 This very centralized approach is often used in practice.
-For an illustration, see <a href="#fig.zentraler-workflow">Figure 30, &#8220;Central workflow with distributed version management&#8221;</a>.</p>
+For an illustration, see <a href="#fig.central-workflow">Figure 30, &#8220;Central workflow with distributed version management&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>However, there are two noteworthy alternatives in the Git environment that we will introduce in this chapter: the <em>Integration Manager</em> workflow, which uses multiple public repositories (<a href="#sec.multi-remote">Section 5.6, &#8220;Distributed Workflow with Multiple Remotes&#8221;</a>), and patch exchange by e-mail (<a href="#sec.patch-queue">Section 5.9, &#8220;Patches via E-mail&#8221;</a>).</p>
 </div>
-<div id="fig.zentraler-workflow" class="imageblock">
+<div id="fig.central-workflow" class="imageblock">
 <div class="content">
 <img src="images/central-workflow.svg" alt="central workflow" width="70%">
 </div>
@@ -7744,9 +7744,9 @@ In addition, the <code>merge</code> call contained in the <code>pull</code> has 
 </div>
 </div>
 <div class="paragraph">
-<p>In <a href="#fig.pull_rebase">Figure 35, &#8220;What happens during a pull with rebase&#8221;</a> you can see what happens if you perform a rebase instead of the default merge.</p>
+<p>In <a href="#fig.pull-rebase">Figure 35, &#8220;What happens during a pull with rebase&#8221;</a> you can see what happens if you perform a rebase instead of the default merge.</p>
 </div>
-<div id="fig.pull_rebase" class="imageblock">
+<div id="fig.pull-rebase" class="imageblock">
 <div class="content">
 <img src="images/pull-rebase.svg" alt="pull rebase" width="90%">
 </div>
@@ -15091,7 +15091,7 @@ This is a big difference to established hosting platforms, where projects are al
 </div>
 <div class="paragraph">
 <p>GitHub offers many ways to share changes.
-While it is possible to take a centralized approach with GitHub (see <a href="#fig.zentraler-workflow">Figure 30, &#8220;Central workflow with distributed version management&#8221;</a>) by giving others access to your own repositories, the most common form of sharing is an Integration Manager workflow (see <a href="#fig.developer-public-workflow">Figure 37, &#8220;Integration Manager Workflow&#8221;</a>).</p>
+While it is possible to take a centralized approach with GitHub (see <a href="#fig.central-workflow">Figure 30, &#8220;Central workflow with distributed version management&#8221;</a>) by giving others access to your own repositories, the most common form of sharing is an Integration Manager workflow (see <a href="#fig.developer-public-workflow">Figure 37, &#8220;Integration Manager Workflow&#8221;</a>).</p>
 </div>
 <div id="fig.github-workflow" class="imageblock">
 <div class="content">
