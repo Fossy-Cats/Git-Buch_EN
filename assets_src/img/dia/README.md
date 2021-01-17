@@ -92,16 +92,17 @@ In order to edit the diagram's sourcefile, or to run the scripts in this folder,
     + [ ] `ff-before.dia` » §3.3.2. » [Fig.16]:
         * [ ] Add invisible background for padding.
     + [ ] `git-objects-hierarchy.dia` » §2.2.3. » [Fig.5]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [x] Add invisible background for padding.
+        * [x] Translate text to English.
         * [ ] Tweak dark colors.
     + [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
         * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
         * [ ] Tweak dark colors.
     + [ ] `github-workflow.dia` » §11. » [Fig.59]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [x] Add invisible background for padding.
+        * [x] Translate text to English.
+        * [x] Re-build diagram using Flow Chart elements.
         * [ ] Tweak dark colors.
     + [ ] `index.dia` » §2.1.1. » [Fig.1]:
         * [ ] Add invisible background for padding.
