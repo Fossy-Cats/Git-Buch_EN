@@ -14,6 +14,9 @@ Source files to generate the diagram images in SVG using [Dia].
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
     - [Diagrams Renaming](#diagrams-renaming)
+    - [Diagrams Hacks](#diagrams-hacks)
+        - [Leading Non-Breaking Spaces to Preserve Alignments](#leading-non-breaking-spaces-to-preserve-alignments)
+        - [Invisible Boxes to Preserve Padding](#invisible-boxes-to-preserve-padding)
 - [Diagrams Previews](#diagrams-previews)
     - [`branch-model.svg`](#branch-modelsvg)
     - [`central-workflow.svg`](#central-workflowsvg)
@@ -70,9 +73,10 @@ In order to edit the diagram's sourcefile, or to run the scripts in this folder,
 - [ ] Edit source diagrams:
     + [ ] `branch-model.dia` » §6.2. » [Fig.41]:
         * [ ] Add invisible background for padding.
-    + [ ] `central-workflow.dia` » §5.1. » [Fig.30]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+    + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
+        * [x] Add invisible background for padding.
+        * [x] Translate text to English.
+        * [x] Re-build diagram using Flow Chart elements.
     + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
         * [ ] Add invisible background for padding.
     + [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
@@ -220,6 +224,25 @@ Some DIA source project files (but not all) have been renamed according to the f
 | `struktur.dia`             | `repository-content.dia`           |
 | `zentral.dia`              | `central-workflow.dia`             |
 
+
+## Diagrams Hacks
+
+In order to make out the most from DIA, and produce good SVG image, I had to resort to the following hacks...
+
+### Leading Non-Breaking Spaces to Preserve Alignments
+
+When a boxed DIA element contains center-aligned wrapped text, the line-feed character breaks the alignment in the final SVG image (i.e. it's somehow counted or represented as a space in the wrapping line).
+
+To fix alignments, I've added a trailing [non-breaking space] character (U+00A0) on each wrapping line, to balance for the EOL character.
+A normal space wouldn't work, for it would ignored, so it has to be a non-breaking space.
+
+> __TIP!__ —  DIA's text dialogs don't accept Windows Alt-codes, so in order to insert the NBSP character you'll have to first create one in a text-editor (Alt code: 0160), copy it it in the clipboard and then paste it in DIA's text-editing dialog.
+
+### Invisible Boxes to Preserve Padding
+
+Since AsciiDoc doesn't currently support images padding functionality, in order to ensure that the generated SVG images have some even padding around them, I've added an invisible box in the bottom layer (i.e. no background drawn, and border line size 0).
+
+The invisible box of each image has been carefully drawn to achieve the desired padding.
 
 # Diagrams Previews
 
@@ -521,6 +544,7 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [Wikipedia » Flowchart]: https://en.wikipedia.org/wiki/Flowchart "See Wikipedia page on 'Flowchart'"
 
 [CSS Font Stack]: https://www.cssfontstack.com/ "Visit website"
+[non-breaking space]: https://en.wikipedia.org/wiki/Non-breaking_space "See Wikipedia page on non-breaking space"
 
 <!-- Dia -->
 
