@@ -68,79 +68,79 @@ In order to edit the diagram's sourcefile, or to run the scripts in this folder,
 
 - [x] Translate DIA sources filename to English.
 - [ ] Edit source diagrams:
-    + [ ] `branch-model.dia`:
+    + [ ] `branch-model.dia` » §6.2. » [Fig.41]:
         * [ ] Add invisible background for padding.
-    + [ ] `central-workflow.dia`:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
-    + [ ] `clone.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `commit-graph-with-refs.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `commit-graph.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `commit.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `fetch.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `ff-after.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `ff-before.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `git-objects-hierarchy.dia`:
+    + [ ] `central-workflow.dia` » §5.1. » [Fig.30]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
-        * [ ] Tweak dark colors.
-    + [ ] `git-objects.dia`:
+    + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
+        * [ ] Add invisible background for padding.
+    + [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
+        * [ ] Add invisible background for padding.
+    + [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
+        * [ ] Add invisible background for padding.
+    + [ ] `commit.dia` » §3.1. » [Fig.10]:
+        * [ ] Add invisible background for padding.
+    + [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
+        * [ ] Add invisible background for padding.
+    + [ ] `ff-after.dia` » §3.3.2. » [Fig.17]:
+        * [ ] Add invisible background for padding.
+    + [ ] `ff-before.dia` » §3.3.2. » [Fig.16]:
+        * [ ] Add invisible background for padding.
+    + [ ] `git-objects-hierarchy.dia` » §2.2.3. » [Fig.5]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
         * [ ] Tweak dark colors.
-    + [ ] `github-workflow.dia`:
+    + [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
         * [ ] Tweak dark colors.
-    + [ ] `index.dia`:
-        * [ ] Add invisible background for padding.
-        * [ ] Tweak dark colors.
-    + [ ] `integration-manager-workflow.dia`:
+    + [ ] `github-workflow.dia` » §11. » [Fig.59]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
         * [ ] Tweak dark colors.
-    + [ ] `merge-after.dia`:
+    + [ ] `index.dia` » §2.1.1. » [Fig.1]:
         * [ ] Add invisible background for padding.
-    + [ ] `merge-base-commit.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `patches-via-email.dia`:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
-    + [ ] `pull-rebase.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `pull.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `push.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-after.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-before.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-onto-after.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-onto-before.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `relative-refs.dia`:
-        * [ ] Add invisible background for padding.
-    + [ ] `repository-content.dia`:
+        * [ ] Tweak dark colors.
+    + [ ] `integration-manager-workflow.dia` » §5.6. » [Fig.37]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
         * [ ] Tweak dark colors.
-    + [ ] `sha.dia`:
+    + [ ] `merge-after.dia` (_unused!_):
+        * [ ] Add invisible background for padding.
+    + [ ] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
+        * [ ] Add invisible background for padding.
+    + [ ] `patches-via-email.dia` » §5.10. » [Fig.40]:
+        * [ ] Add invisible background for padding.
+        * [ ] Translate text to English.
+    + [ ] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
+        * [ ] Add invisible background for padding.
+    + [ ] `pull.dia` » §5.3.2. » [Fig.34]:
+        * [ ] Add invisible background for padding.
+    + [ ] `push.dia` » §5.4. » [Fig.36]:
+        * [ ] Add invisible background for padding.
+    + [ ] `rebase-after.dia` » §4.1. » [Fig.23]:
+        * [ ] Add invisible background for padding.
+    + [ ] `rebase-before.dia` » §4.1. » [Fig.22]:
+        * [ ] Add invisible background for padding.
+    + [ ] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
+        * [ ] Add invisible background for padding.
+    + [ ] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
+        * [ ] Add invisible background for padding.
+    + [ ] `relative-refs.dia` » §3.1.1. » [Fig.11]:
+        * [ ] Add invisible background for padding.
+    + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
+        * [ ] Add invisible background for padding.
+        * [ ] Translate text to English.
+        * [ ] Tweak dark colors.
+    + [ ] `sha.dia` » §2.2.1. » [Fig.3]:
         * [ ] Add invisible background for padding.
         * [ ] Tweak dark colors.
-    + [ ] `svn-dcommit.dia`:
+    + [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
         * [ ] Add invisible background for padding.
-    + [ ] `svn-rebase.dia`:
+    + [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
         * [ ] Add invisible background for padding.
-    + [ ] `tags.dia`:
+    + [ ] `tags.dia` » §3.1.3. » [Fig.12]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
         * [ ] Tweak colors: add BG color to tag shape?
@@ -226,12 +226,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `branch-model.svg`
 
+- §6.2. » [Fig.41]
+
 ![`branch-model.svg`][branch-model.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `central-workflow.svg`
+
+- §5.1. » [Fig.30]
 
 ![`central-workflow.svg`][central-workflow.svg]
 
@@ -240,12 +244,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `clone.svg`
 
+- §5.2.2. » [Fig.31]
+
 ![`clone.svg`][clone.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `commit-graph-with-refs.svg`
+
+- §2.2.6.1. » [Fig.8]
 
 ![`commit-graph-with-refs.svg`][commit-graph-with-refs.svg]
 
@@ -254,12 +262,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `commit-graph.svg`
 
+- §2.2.6. » [Fig.7]
+
 ![`commit-graph.svg`][commit-graph.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `commit.svg`
+
+- §3.1. » [Fig.10]
 
 ![`commit.svg`][commit.svg]
 
@@ -268,12 +280,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `fetch.svg`
 
+- §5.3.1. » [Fig.33]
+
 ![`fetch.svg`][fetch.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `ff-after.svg`
+
+- §3.3.2. » [Fig.17]
 
 ![`ff-after.svg`][ff-after.svg]
 
@@ -282,12 +298,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `ff-before.svg`
 
+- §3.3.2. » [Fig.16]
+
 ![`ff-before.svg`][ff-before.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `git-objects-hierarchy.svg`
+
+- §2.2.3. » [Fig.5]
 
 ![`git-objects-hierarchy.svg`][git-objects-hierarchy.svg]
 
@@ -296,12 +316,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `git-objects.svg`
 
+- §2.2.2. » [Fig.4]
+
 ![`git-objects.svg`][git-objects.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `github-workflow.svg`
+
+- §11. » [Fig.59]
 
 ![`github-workflow.svg`][github-workflow.svg]
 
@@ -310,12 +334,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `index.svg`
 
+- §2.1.1. » [Fig.1]
+
 ![`index.svg`][index.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `integration-manager-workflow.svg`
+
+- §5.6. » [Fig.37]
 
 ![`integration-manager-workflow.svg`][integration-manager-workflow.svg]
 
@@ -324,12 +352,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `merge-after.svg`
 
+> _Not used in the book!_
+
 ![`merge-after.svg`][merge-after.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `merge-base-commit.svg`
+
+- §3.3.1 » [Fig.15]
 
 ![`merge-base-commit.svg`][merge-base-commit.svg]
 
@@ -338,12 +370,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `patches-via-email.svg`
 
+- §5.10. » [Fig.40]
+
 ![`patches-via-email.svg`][patches-via-email.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `pull-rebase.svg`
+
+- §5.3.2. » [Fig.35]
 
 ![`pull-rebase.svg`][pull-rebase.svg]
 
@@ -352,12 +388,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `pull.svg`
 
+- §5.3.2. » [Fig.34]
+
 ![`pull.svg`][pull.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `push.svg`
+
+- §5.4. » [Fig.36]
 
 ![`push.svg`][push.svg]
 
@@ -366,12 +406,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `rebase-after.svg`
 
+- §4.1. » [Fig.23]
+
 ![`rebase-after.svg`][rebase-after.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `rebase-before.svg`
+
+- §4.1. » [Fig.22]
 
 ![`rebase-before.svg`][rebase-before.svg]
 
@@ -380,12 +424,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `rebase-onto-after.svg`
 
+- §4.1.7. » [Fig.27]
+
 ![`rebase-onto-after.svg`][rebase-onto-after.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `rebase-onto-before.svg`
+
+- §4.1.7. » [Fig.26]
 
 ![`rebase-onto-before.svg`][rebase-onto-before.svg]
 
@@ -394,12 +442,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `relative-refs.svg`
 
+- §3.1.1. » [Fig.11]
+
 ![`relative-refs.svg`][relative-refs.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `repository-content.svg`
+
+- §2.2.5. » [Fig.6]
 
 ![`repository-content.svg`][repository-content.svg]
 
@@ -408,12 +460,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `sha.svg`
 
+- §2.2.1. » [Fig.3]
+
 ![`sha.svg`][sha.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `svn-dcommit.svg`
+
+- §9.1.2.3. » [Fig.57]
 
 ![`svn-dcommit.svg`][svn-dcommit.svg]
 
@@ -422,12 +478,16 @@ Some DIA source project files (but not all) have been renamed according to the f
 
 ## `svn-rebase.svg`
 
+- §9.1.2.3.  » [Fig.56]
+
 ![`svn-rebase.svg`][svn-rebase.svg]
 
 
 -------------------------------------------------------------------------------
 
 ## `tags.svg`
+
+- §3.1.3. » [Fig.12]
 
 ![`tags.svg`][tags.svg]
 
@@ -515,5 +575,41 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [svn-dcommit.svg]: ../../../docs_src/images/svn-dcommit.svg "Preview SVG output"
 [svn-rebase.svg]: ../../../docs_src/images/svn-rebase.svg "Preview SVG output"
 [tags.svg]: ../../../docs_src/images/tags.svg "Preview SVG output"
+
+<!-- Figs previews -->
+
+[Fig.1]: ../../../docs_src/Git-Buch_EN.html#fig.index
+[Fig.3]: ../../../docs_src/Git-Buch_EN.html#fig.sha-1
+[Fig.4]: ../../../docs_src/Git-Buch_EN.html#fig.git-objects
+[Fig.5]: ../../../docs_src/Git-Buch_EN.html#fig.git-objects-hierarchy
+[Fig.6]: ../../../docs_src/Git-Buch_EN.html#fig.repository-content
+[Fig.7]: ../../../docs_src/Git-Buch_EN.html#fig.commit-graph
+[Fig.8]: ../../../docs_src/Git-Buch_EN.html#fig.commit-graph-with-refs
+[Fig.10]: ../../../docs_src/Git-Buch_EN.html#fig.commit
+[Fig.11]: ../../../docs_src/Git-Buch_EN.html#fig.relative-refs
+[Fig.12]: ../../../docs_src/Git-Buch_EN.html#fig.tag-object
+[Fig.15]: ../../../docs_src/Git-Buch_EN.html#fig.merge-base-commit
+[Fig.16]: ../../../docs_src/Git-Buch_EN.html#fig.merge-ff-before
+[Fig.17]: ../../../docs_src/Git-Buch_EN.html#fig.merge-ff-after
+[Fig.22]: ../../../docs_src/Git-Buch_EN.html#fig.rebase-before
+[Fig.23]: ../../../docs_src/Git-Buch_EN.html#fig.rebase-after
+[Fig.26]: ../../../docs_src/Git-Buch_EN.html#fig.rebase-onto-before
+[Fig.27]: ../../../docs_src/Git-Buch_EN.html#fig.rebase-onto-after
+[Fig.30]: ../../../docs_src/Git-Buch_EN.html#fig.central-workflow
+[Fig.31]: ../../../docs_src/Git-Buch_EN.html#fig.clone
+[Fig.33]: ../../../docs_src/Git-Buch_EN.html#fig.fetch
+[Fig.34]: ../../../docs_src/Git-Buch_EN.html#fig.pull
+[Fig.35]: ../../../docs_src/Git-Buch_EN.html#fig.pull-rebase
+[Fig.36]: ../../../docs_src/Git-Buch_EN.html#fig.push
+[Fig.37]: ../../../docs_src/Git-Buch_EN.html#fig.developer-public-workflow
+[Fig.40]: ../../../docs_src/Git-Buch_EN.html#fig.dictator
+[Fig.41]: ../../../docs_src/Git-Buch_EN.html#fig.branch-model
+[Fig.56]: ../../../docs_src/Git-Buch_EN.html#fig.git-svn-rebase
+[Fig.57]: ../../../docs_src/Git-Buch_EN.html#fig.git-svn-dcommit
+[Fig.59]: ../../../docs_src/Git-Buch_EN.html#fig.github-workflow
+
+<!--
+[Fig.]: ../../../docs_src/Git-Buch_EN.html#XXXXXXXXX
+-->
 
 <!-- EOF -->
