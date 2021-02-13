@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# "assets_src/img/dia/build.sh"                            | v0.0.1 | 2020/12/14
+# "assets_src/img/dia/build.sh"                            | v0.0.2 | 2021/02/13
 # ==============================================================================
 # Converts all DIA diagrams in this folder to same-named SVG images into the
 # book's images folder:
@@ -21,7 +21,7 @@ echo -e "Building SVG Diagrams from Dia Sources"
 echo -e "======================================"
 
 for f in *.dia ; do
-	dia -n -t svg -O $destDir $f
+	dia -n -t cairo-svg -O $destDir $f
 done
 
 echo -e "/// Finished ///"

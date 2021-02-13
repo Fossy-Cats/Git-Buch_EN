@@ -11,12 +11,15 @@ Source files to generate the diagram images in SVG using [Dia].
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
 - [Folder Contents](#folder-contents)
-- [System Requirements](#system-requirements)
+- [System Requirements and Set-Up](#system-requirements-and-set-up)
+    - [Obtaining Dia 0.97.3](#obtaining-dia-0973)
+    - [Creating a Stand-alone Dia Version for Windows](#creating-a-stand-alone-dia-version-for-windows)
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
     - [Diagrams Renaming](#diagrams-renaming)
-    - [Diagrams Hacks](#diagrams-hacks)
+    - [Diagrams Tricks and Hacks](#diagrams-tricks-and-hacks)
+        - [Cairo SVG](#cairo-svg)
         - [Invisible Boxes to Preserve Padding](#invisible-boxes-to-preserve-padding)
 - [Diagrams Previews](#diagrams-previews)
     - [`branch-model.svg`](#branch-modelsvg)
@@ -64,9 +67,38 @@ Source files to generate the diagram images in SVG using [Dia].
 - `*.dia` — [Dia] source project files.
 
 
-# System Requirements
+# System Requirements and Set-Up
 
-In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor], a free and open source cross platform tool for editing diagrams.
+In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor] version `0.97.3` (or above).
+
+> **IMPORTANT!** — Dia versions below `0.97.3` won't work as expected, because the diagrams and build system rely on some new Cairo-SVG features which were not available with previous versions (see [Issue #12]).
+
+You'll also need to add to the system PATH the full path to Dia's executable (i.e. the `bin/` subfolder of Dia's installation) so that it will be visible the `build.sh` script used here.
+
+Dia is a free and open source cross platform tool for editing diagrams.
+
+
+## Obtaining Dia 0.97.3
+
+- https://wiki.gnome.org/Apps/Dia — official website for Linux editions.
+- http://dia-installer.de — official website for Windows and Mac.
+
+At the time of this writing, the latest official Dia release is version `0.97.2` (2011-12-18).
+
+Dia version `0.97.3` (2014-09-05) is not mentioned in either of Dia's websites, but the Linux edition is available on Dia's Git repository at GNOME:
+
+- https://gitlab.gnome.org/GNOME/dia
+
+The Windows installer is available at SourceForge, marked as a preview release (`0.97-pre3`):
+
+- https://sourceforge.net/projects/dia-installer/files/dia-win32-installer/0.97-pre3/
+
+## Creating a Stand-alone Dia Version for Windows
+
+If you prefer a stand-alone version, you can unpack the `dia-setup-0.97-pre3.exe` installer from SourceForge using 7-Zip to extract its contents, delete the `$PLUGINSDIR` folder and the place the rest of the extracted contents in a `Dia` folder which you can place anywhere you wish.
+
+Don't forget to add to your system PATH environment variable the full path to the `bin/` subfolder of you're stand-alone Dia version.
+
 
 # TODO
 
@@ -227,9 +259,19 @@ Some DIA source project files (but not all) have been renamed according to the f
 | `zentral.dia`              | `central-workflow.dia`             |
 
 
-## Diagrams Hacks
+## Diagrams Tricks and Hacks
 
-In order to make out the most from DIA, and produce good SVG image, I had to resort to the following hacks...
+In order to make out the most from DIA, and produce good SVG image, we've resorted to some hackish workarounds.
+
+### Cairo SVG
+
+When converting to SVG we use the Cairo SVG format (`-t cairo-svg`), a natively supported (but undocumented) alternative to Dia's default SVG format.
+
+The Cairo SVG turned out to be more reliable than Dia's default SVG converter, for the latter was causing alignment-offset problems when text wrapped across multiple lines (a rather visible problem when dealing with centered-text in mono-spaced fonts).
+
+Furthermore, SVG images generated via Cairo are not font dependent, for all text gets converted to SVG shapes, whereas the default SVG format relies on the specified font being present in the end-users' machine — lacking which it will fallback on some default system font replacement that would make the diagrams look ugly and break the intended proportions.
+
+Font-dependency limits the choice of typefaces to those few  safe fonts which are knows to be available on all OSs and devices (Times New Roman, Arial, Courier New, etc.), hence we decided to switch to the Cairo SVG format even though it required us to adopt Dia version `0.97.3`, which is still not available on Dia's websites, and available only as pre-release for Windows.
 
 ### Invisible Boxes to Preserve Padding
 
@@ -537,13 +579,12 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [Wikipedia » Flowchart]: https://en.wikipedia.org/wiki/Flowchart "See Wikipedia page on 'Flowchart'"
 
 [CSS Font Stack]: https://www.cssfontstack.com/ "Visit website"
-[non-breaking space]: https://en.wikipedia.org/wiki/Non-breaking_space "See Wikipedia page on non-breaking space"
 
 <!-- Dia -->
 
 [Dia]: http://dia-installer.de/ "Visit Dia's website"
 [Dia Diagram Editor]: http://dia-installer.de/ "Visit Dia's website"
-[dia badge]: https://img.shields.io/badge/Dia-0.97.2-brightgreen
+[dia badge]: https://img.shields.io/badge/Dia-0.97.3-brightgreen
 
 <!-- articles -->
 
@@ -629,5 +670,9 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 <!--
 [Fig.]: ../../../docs_src/Git-Buch_EN.html#XXXXXXXXX
 -->
+
+<!-- Issues -->
+
+[Issue #12]: https://github.com/tajmone/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
 
 <!-- EOF -->
