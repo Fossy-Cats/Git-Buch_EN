@@ -51,7 +51,7 @@
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 220,84 A 6,6 0 0 0 226,90"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 354,90 A 6,6 0 0 0 360,84"/>
     <text font-size="19.1911" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="290" y="47.0111">
-      <tspan x="290" y="47.0111"> Central</tspan>
+      <tspan x="290" y="47.0111">Central</tspan>
       <tspan x="290" y="71">Repository</tspan>
     </text>
   </g>
@@ -83,7 +83,7 @@
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 420,294 A 6,6 0 0 0 426,300"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 554,300 A 6,6 0 0 0 560,294"/>
     <text font-size="19.1911" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="490" y="257.011">
-      <tspan x="490" y="257.011"> Developer</tspan>
+      <tspan x="490" y="257.011">Developer</tspan>
       <tspan x="490" y="281">Repository</tspan>
     </text>
   </g>
@@ -106,7 +106,7 @@
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 220,294 A 6,6 0 0 0 226,300"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 354,300 A 6,6 0 0 0 360,294"/>
     <text font-size="19.1911" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="290" y="257.011">
-      <tspan x="290" y="257.011"> Developer</tspan>
+      <tspan x="290" y="257.011">Developer</tspan>
       <tspan x="290" y="281">Repository</tspan>
     </text>
   </g>
@@ -126,7 +126,7 @@
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 20,294 A 6,6 0 0 0 26,300"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 154,300 A 6,6 0 0 0 160,294"/>
     <text font-size="19.1911" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="90" y="257.011">
-      <tspan x="90" y="257.011"> Developer</tspan>
+      <tspan x="90" y="257.011">Developer</tspan>
       <tspan x="90" y="281">Repository</tspan>
     </text>
   </g>
