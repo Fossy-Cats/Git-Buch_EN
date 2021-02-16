@@ -108,8 +108,8 @@ Don't forget to add to your system PATH environment variable the full path to th
         * [ ] Add invisible background for padding.
     + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
         * [x] Add invisible background for padding.
-        * [x] Translate text to English.
         * [x] Re-build diagram using Flow Chart elements.
+        * [x] Translate text to English.
     + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
         * [ ] Add invisible background for padding.
     + [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
@@ -134,15 +134,16 @@ Don't forget to add to your system PATH environment variable the full path to th
         * [ ] Tweak dark colors.
     + [ ] `github-workflow.dia` » §11. » [Fig.59]:
         * [x] Add invisible background for padding.
-        * [x] Translate text to English.
         * [x] Re-build diagram using Flow Chart elements.
+        * [x] Translate text to English.
         * [ ] Tweak dark colors.
     + [ ] `index.dia` » §2.1.1. » [Fig.1]:
         * [ ] Add invisible background for padding.
         * [ ] Tweak dark colors.
     + [ ] `integration-manager-workflow.dia` » §5.6. » [Fig.37]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Translate text to English.
         * [ ] Tweak dark colors.
     + [ ] `merge-after.dia` (_unused!_):
         * [ ] Add invisible background for padding.
