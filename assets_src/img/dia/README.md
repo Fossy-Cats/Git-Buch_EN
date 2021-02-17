@@ -170,7 +170,7 @@ Don't forget to add to your system PATH environment variable the full path to th
         * [ ] Add invisible background for padding.
     + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
         * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
         * [ ] Tweak dark colors.
     + [ ] `sha.dia` » §2.2.1. » [Fig.3]:
         * [ ] Add invisible background for padding.
@@ -181,8 +181,11 @@ Don't forget to add to your system PATH environment variable the full path to th
         * [ ] Add invisible background for padding.
     + [ ] `tags.dia` » §3.1.3. » [Fig.12]:
         * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
+        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
         * [ ] Tweak colors: add BG color to tag shape?
+- [ ] Since the Cairo SVG format seems to include SVG size information, we need to ensure that images are proportional and have correct size ([Issue #13]):
+    + [ ] If in the HTML doc, it might is enough to enforce a custom width, no need to edit them (check).
+    + [ ] Check if other output formats might benefit from defining specific image sizes in the source Dia project.
 - [ ] Update book images:
     + [ ] Add conversion script:
         * [x] Convert to SVG instead of PNG.
@@ -675,5 +678,6 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 <!-- Issues -->
 
 [Issue #12]: https://github.com/tajmone/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
+[Issue #13]: https://github.com/tajmone/Git-Buch_EN/issues/13 "Diagrams: Cairo SVG Enforcing Document Sizes? #13"
 
 <!-- EOF -->
