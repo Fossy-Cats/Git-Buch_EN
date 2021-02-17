@@ -21,16 +21,18 @@ Source files to generate the diagram images in SVG using [Dia].
     - [Diagrams Tricks and Hacks](#diagrams-tricks-and-hacks)
         - [Cairo SVG](#cairo-svg)
         - [Invisible Boxes to Preserve Padding](#invisible-boxes-to-preserve-padding)
+        - [Related Diagrams With Same-Width](#related-diagrams-with-same-width)
 - [Diagrams Previews](#diagrams-previews)
     - [`branch-model.svg`](#branch-modelsvg)
     - [`central-workflow.svg`](#central-workflowsvg)
     - [`clone.svg`](#clonesvg)
-    - [`commit-graph-with-refs.svg`](#commit-graph-with-refssvg)
+    - [Images Group: Commit Graphs](#images-group-commit-graphs)
     - [`commit-graph.svg`](#commit-graphsvg)
+    - [`commit-graph-with-refs.svg`](#commit-graph-with-refssvg)
     - [`commit.svg`](#commitsvg)
-    - [`fetch.svg`](#fetchsvg)
-    - [`ff-after.svg`](#ff-aftersvg)
-    - [`ff-before.svg`](#ff-beforesvg)
+    - [Images Group: ff](#images-group-ff)
+        - [`ff-before.svg`](#ff-beforesvg)
+        - [`ff-after.svg`](#ff-aftersvg)
     - [`git-objects-hierarchy.svg`](#git-objects-hierarchysvg)
     - [`git-objects.svg`](#git-objectssvg)
     - [`github-workflow.svg`](#github-workflowsvg)
@@ -39,18 +41,22 @@ Source files to generate the diagram images in SVG using [Dia].
     - [`merge-after.svg`](#merge-aftersvg)
     - [`merge-base-commit.svg`](#merge-base-commitsvg)
     - [`patches-via-email.svg`](#patches-via-emailsvg)
-    - [`pull-rebase.svg`](#pull-rebasesvg)
-    - [`pull.svg`](#pullsvg)
-    - [`push.svg`](#pushsvg)
-    - [`rebase-after.svg`](#rebase-aftersvg)
-    - [`rebase-before.svg`](#rebase-beforesvg)
-    - [`rebase-onto-after.svg`](#rebase-onto-aftersvg)
-    - [`rebase-onto-before.svg`](#rebase-onto-beforesvg)
+    - [Images Group: Fetch, Push and Pull](#images-group-fetch-push-and-pull)
+        - [`fetch.svg`](#fetchsvg)
+        - [`pull.svg`](#pullsvg)
+        - [`pull-rebase.svg`](#pull-rebasesvg)
+        - [`push.svg`](#pushsvg)
+    - [Images Group: Rebase](#images-group-rebase)
+        - [`rebase-before.svg`](#rebase-beforesvg)
+        - [`rebase-after.svg`](#rebase-aftersvg)
+        - [`rebase-onto-before.svg`](#rebase-onto-beforesvg)
+        - [`rebase-onto-after.svg`](#rebase-onto-aftersvg)
     - [`relative-refs.svg`](#relative-refssvg)
     - [`repository-content.svg`](#repository-contentsvg)
     - [`sha.svg`](#shasvg)
-    - [`svn-dcommit.svg`](#svn-dcommitsvg)
-    - [`svn-rebase.svg`](#svn-rebasesvg)
+    - [Images Group: SVN](#images-group-svn)
+        - [`svn-dcommit.svg`](#svn-dcommitsvg)
+        - [`svn-rebase.svg`](#svn-rebasesvg)
     - [`tags.svg`](#tagssvg)
 - [External Links](#external-links)
     - [Dia Diagram Editor](#dia-diagram-editor)
@@ -112,18 +118,30 @@ Don't forget to add to your system PATH environment variable the full path to th
         * [x] Translate text to English.
     + [x] `clone.dia` » §5.2.2. » [Fig.31]:
         * [x] Add invisible background for padding.
-    + [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
-        * [ ] Add invisible background for padding.
-    + [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
-        * [ ] Add invisible background for padding.
+    + [ ] Grouped images:
+        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
+            - [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
+                + [ ] Add invisible background with same width for padding.
     + [ ] `commit.dia` » §3.1. » [Fig.10]:
         * [ ] Add invisible background for padding.
-    + [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
-        * [ ] Add invisible background for padding.
-    + [ ] `ff-after.dia` » §3.3.2. » [Fig.17]:
-        * [ ] Add invisible background for padding.
-    + [ ] `ff-before.dia` » §3.3.2. » [Fig.16]:
-        * [ ] Add invisible background for padding.
+    + [ ] Grouped images:
+        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
+            - [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `pull.dia` » §5.3.2. » [Fig.34]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `push.dia` » §5.4. » [Fig.36]:
+                + [ ] Add invisible background with same width for padding.
+    + [ ] Grouped images:
+        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
+            - [ ] `ff-after.dia` » §3.3.2. » [Fig.17]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `ff-before.dia` » §3.3.2. » [Fig.16]:
+                + [ ] Add invisible background with same width for padding.
     + [ ] `git-objects-hierarchy.dia` » §2.2.3. » [Fig.5]:
         * [x] Add invisible background for padding.
         * [x] Translate text to English.
@@ -152,19 +170,15 @@ Don't forget to add to your system PATH environment variable the full path to th
     + [ ] `patches-via-email.dia` » §5.10. » [Fig.40]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
-    + [ ] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
-        * [ ] Add invisible background for padding.
-    + [ ] `pull.dia` » §5.3.2. » [Fig.34]:
-        * [ ] Add invisible background for padding.
-    + [ ] `push.dia` » §5.4. » [Fig.36]:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-after.dia` » §4.1. » [Fig.23]:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-before.dia` » §4.1. » [Fig.22]:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
-        * [ ] Add invisible background for padding.
-    + [ ] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
+    + [ ] Grouped images:
+        * [ ] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
+            - [ ] `rebase-after.dia` » §4.1. » [Fig.23]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `rebase-before.dia` » §4.1. » [Fig.22]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
         * [ ] Add invisible background for padding.
     + [ ] `relative-refs.dia` » §3.1.1. » [Fig.11]:
         * [ ] Add invisible background for padding.
@@ -175,10 +189,12 @@ Don't forget to add to your system PATH environment variable the full path to th
     + [ ] `sha.dia` » §2.2.1. » [Fig.3]:
         * [ ] Add invisible background for padding.
         * [ ] Tweak dark colors.
-    + [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
-        * [ ] Add invisible background for padding.
-    + [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
-        * [ ] Add invisible background for padding.
+    + [ ] Grouped images:
+        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
+            - [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
+                + [ ] Add invisible background with same width for padding.
+            - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
+                + [ ] Add invisible background with same width for padding.
     + [ ] `tags.dia` » §3.1.3. » [Fig.12]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
@@ -283,6 +299,14 @@ Since AsciiDoc doesn't currently support images padding functionality, in order 
 
 The invisible box of each image has been carefully drawn to achieve the desired padding.
 
+### Related Diagrams With Same-Width
+
+Some diagrams are part of a a series of images relating to a specific topic, often depicting the status of a Git object at different snapshots evolving in time.
+In order to preserve consistent proportions between these images, we add a same-width invisible background box (i.e. the one fitting the largest image of the group) to ensure that they will all scale proportionally when using percentages in the AsciiDoc source.
+
+Similar images are gathered according to their group of belonging in the previews section below.
+
+
 # Diagrams Previews
 
 
@@ -313,20 +337,22 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 -------------------------------------------------------------------------------
 
-## `commit-graph-with-refs.svg`
+## Images Group: Commit Graphs
 
-- §2.2.6.1. » [Fig.8]
-
-![`commit-graph-with-refs.svg`][commit-graph-with-refs.svg]
-
-
--------------------------------------------------------------------------------
+The following two images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of diagrams on the same topic:
 
 ## `commit-graph.svg`
 
 - §2.2.6. » [Fig.7]
 
 ![`commit-graph.svg`][commit-graph.svg]
+
+
+## `commit-graph-with-refs.svg`
+
+- §2.2.6.1. » [Fig.8]
+
+![`commit-graph-with-refs.svg`][commit-graph-with-refs.svg]
 
 
 -------------------------------------------------------------------------------
@@ -337,32 +363,24 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 ![`commit.svg`][commit.svg]
 
-
 -------------------------------------------------------------------------------
 
-## `fetch.svg`
+## Images Group: ff
 
-- §5.3.1. » [Fig.33]
+The following two images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of diagrams on the same topic:
 
-![`fetch.svg`][fetch.svg]
-
-
--------------------------------------------------------------------------------
-
-## `ff-after.svg`
-
-- §3.3.2. » [Fig.17]
-
-![`ff-after.svg`][ff-after.svg]
-
-
--------------------------------------------------------------------------------
-
-## `ff-before.svg`
+### `ff-before.svg`
 
 - §3.3.2. » [Fig.16]
 
 ![`ff-before.svg`][ff-before.svg]
+
+
+### `ff-after.svg`
+
+- §3.3.2. » [Fig.17]
+
+![`ff-after.svg`][ff-after.svg]
 
 
 -------------------------------------------------------------------------------
@@ -418,6 +436,7 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 ![`merge-after.svg`][merge-after.svg]
 
+> **NOTE** — Since this image was omitted from the final book, we don't need to treat as part of a a group with `merge-base-commit.svg` (i.e. no need to enforce same-width BG Boxes).
 
 -------------------------------------------------------------------------------
 
@@ -439,25 +458,32 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 -------------------------------------------------------------------------------
 
-## `pull-rebase.svg`
+## Images Group: Fetch, Push and Pull
 
-- §5.3.2. » [Fig.35]
+The following images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of similar diagrams on related topics:
 
-![`pull-rebase.svg`][pull-rebase.svg]
+### `fetch.svg`
+
+- §5.3.1. » [Fig.33]
+
+![`fetch.svg`][fetch.svg]
 
 
--------------------------------------------------------------------------------
-
-## `pull.svg`
+### `pull.svg`
 
 - §5.3.2. » [Fig.34]
 
 ![`pull.svg`][pull.svg]
 
 
--------------------------------------------------------------------------------
+### `pull-rebase.svg`
 
-## `push.svg`
+- §5.3.2. » [Fig.35]
+
+![`pull-rebase.svg`][pull-rebase.svg]
+
+
+### `push.svg`
 
 - §5.4. » [Fig.36]
 
@@ -466,38 +492,36 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 -------------------------------------------------------------------------------
 
-## `rebase-after.svg`
+## Images Group: Rebase
 
-- §4.1. » [Fig.23]
+The following four images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of diagrams on the same topic:
 
-![`rebase-after.svg`][rebase-after.svg]
-
-
--------------------------------------------------------------------------------
-
-## `rebase-before.svg`
+### `rebase-before.svg`
 
 - §4.1. » [Fig.22]
 
 ![`rebase-before.svg`][rebase-before.svg]
 
 
--------------------------------------------------------------------------------
+### `rebase-after.svg`
 
-## `rebase-onto-after.svg`
+- §4.1. » [Fig.23]
 
-- §4.1.7. » [Fig.27]
-
-![`rebase-onto-after.svg`][rebase-onto-after.svg]
+![`rebase-after.svg`][rebase-after.svg]
 
 
--------------------------------------------------------------------------------
-
-## `rebase-onto-before.svg`
+### `rebase-onto-before.svg`
 
 - §4.1.7. » [Fig.26]
 
 ![`rebase-onto-before.svg`][rebase-onto-before.svg]
+
+
+### `rebase-onto-after.svg`
+
+- §4.1.7. » [Fig.27]
+
+![`rebase-onto-after.svg`][rebase-onto-after.svg]
 
 
 -------------------------------------------------------------------------------
@@ -529,7 +553,13 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 -------------------------------------------------------------------------------
 
-## `svn-dcommit.svg`
+## Images Group: SVN
+
+The following two images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of diagrams on the same topic:
+
+-------------------------------------------------------------------------------
+
+### `svn-dcommit.svg`
 
 - §9.1.2.3. » [Fig.57]
 
@@ -538,7 +568,7 @@ The invisible box of each image has been carefully drawn to achieve the desired 
 
 -------------------------------------------------------------------------------
 
-## `svn-rebase.svg`
+### `svn-rebase.svg`
 
 - §9.1.2.3.  » [Fig.56]
 
