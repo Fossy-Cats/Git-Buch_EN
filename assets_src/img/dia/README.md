@@ -104,14 +104,14 @@ Don't forget to add to your system PATH environment variable the full path to th
 
 - [x] Translate DIA sources filename to English.
 - [ ] Edit source diagrams:
-    + [ ] `branch-model.dia` » §6.2. » [Fig.41]:
-        * [ ] Add invisible background for padding.
+    + [x] `branch-model.dia` » §6.2. » [Fig.41]:
+        * [x] Add invisible background for padding.
     + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-    + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
-        * [ ] Add invisible background for padding.
+    + [x] `clone.dia` » §5.2.2. » [Fig.31]:
+        * [x] Add invisible background for padding.
     + [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
         * [ ] Add invisible background for padding.
     + [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
