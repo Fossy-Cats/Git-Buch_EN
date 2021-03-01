@@ -72,6 +72,7 @@ Source files to generate the diagram images in SVG using [Dia].
 # Folder Contents
 
 - [`build.sh`][build.sh] — converts all `*.dia` projects to `*.svg` images into [`../../../docs_src/images/`][doc imgs].
+- [`get-dia.bat`][get-dia.bat] — Dia download and unpack script for Windows 10.
 - `*.dia` — [Dia] source project files.
 
 
@@ -125,6 +126,13 @@ Anyhow, what's important here is to ensure that the Dia version used doesn't dra
 
 
 ### Dia 0.97.1-1 for Windows
+
+> **WIN 10 DOWNLOADER** — If you're using Windows 10, you can simply run the following batch script which will download the correct version of Dia and unpack here, into the `./Dia/` subfolder:
+>
+> - [`get-dia.bat`][get-dia.bat]
+>
+> The [`build.sh`][build.sh] script will autodetect its presence and use its `dia.exe` binary, instead of relying on the system PATH.
+> This will prevent conflicts with other versions of Dia that might be present on your system.
 
 The recommended version for Windows is Dia `0.97.1-1` (2010-02-07), available from SourceForge:
 
@@ -677,6 +685,7 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 <!-- project files -->
 
 [build.sh]: ./build.sh "View source script"
+[get-dia.bat]: ./get-dia.bat "View source script"
 
 <!-- PNG previews -->
 
