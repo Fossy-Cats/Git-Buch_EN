@@ -12,9 +12,8 @@ Source files to generate the diagram images in SVG using [Dia].
 
 - [Folder Contents](#folder-contents)
 - [System Requirements and Set-Up](#system-requirements-and-set-up)
-    - [Obtaining Dia 0.97.1](#obtaining-dia-0971)
-        - [Dia 0.97.1-1 for Windows](#dia-0971-1-for-windows)
-    - [Creating a Stand-alone Dia Version for Windows](#creating-a-stand-alone-dia-version-for-windows)
+    - [Obtaining Dia 0.97](#obtaining-dia-097)
+        - [Dia 0.97 for Windows](#dia-097-for-windows)
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
@@ -79,14 +78,14 @@ Source files to generate the diagram images in SVG using [Dia].
 
 # System Requirements and Set-Up
 
-In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor] version `0.97.1`.
+In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor] version `0.97`.
 
 Dia is a free and open source cross platform tool for editing diagrams.
 
-> **IMPORTANT!** — Dia versions above `0.97.1` won't work as expected, because the diagrams rely on specific Cairo-SVG features which have changed in later Dia versions (see [Issue #12]).
+> **IMPORTANT!** — Dia versions above `0.97` won't work as expected, because the diagrams rely on specific Cairo-SVG features which have changed in later Dia versions (see [Issue #12]).
 > The problem has to do with zero-width borders, which should not be drawn in the final SVG generated using Cairo-SVG (which is an undocumented native export format).
 >
-> Tests under Windows revealed that Dia versions `>=0.97.2` draw these zero-width borders, whereas Dia `0.97.1-1` correctly ignores them.
+> Tests under Windows revealed that Dia versions `>=0.97.1` draw these zero-width borders, whereas Dia `0.97` correctly ignores them.
 > The problem might be related to the Cairo library version employed, not with Dia itself, and it might affect the Windows edition only.
 >
 > If you're working under Linux or macOS, just check that the final SVG images built using `build.sh` don't contain a thin black border around them — ideally, rebuilding the diagrams shouldn't result in any changed SVGs files in the repository.
@@ -94,7 +93,7 @@ Dia is a free and open source cross platform tool for editing diagrams.
 Depending on your OS and Dia's setup, you might also need to add to the system PATH the full path to Dia's executable (i.e. the `bin/` subfolder of Dia's installation) so that it will be visible the `build.sh` script used here.
 
 
-## Obtaining Dia 0.97.1
+## Obtaining Dia 0.97
 
 The Dia project is currently a bit messy.
 At the time of this writing, the latest official Dia release according to the official websites is version `0.97.2` (2011-12-18), but Dia version `0.97.3` (2014-09-05) for Linux is already available from the GNOME Git repository, although it's not mentioned in either of Dia's websites:
@@ -114,18 +113,18 @@ Adding to the confusion, there are two distinct official Dia websites:
 
 Older versions of Dia can be downloaded from SourceForge, either as source code or as precompiled binaries for Linux, Mac and Windows:
 
-- [SourceForge » Dia 0.97.1]
+- [SourceForge » Dia 0.97]
 
 Linux users might build Dia from source via Git, from the GNOME repository:
 
 - https://gitlab.gnome.org/GNOME/dia/
 
-Dia version `0.97.1` might not be available for all OSs, some precompiled binaries will be for `0.97.1-1`, `0.97.1-2`, etc., but as long as it's in the `0.97.1-x` range it should be fine.
+Dia version `0.97` might not be available for all OSs, some precompiled binaries will be for `0.97-1`, `0.97-2`, etc., but as long as it's in the `0.97-x` range it should be fine.
 
 Anyhow, what's important here is to ensure that the Dia version used doesn't draw the zero-width borders around the diagrams when exporting to Cairo-SVG.
 
 
-### Dia 0.97.1-1 for Windows
+### Dia 0.97 for Windows
 
 > **WIN 10 DOWNLOADER** — If you're using Windows 10, you can simply run the following batch script which will download the correct version of Dia and unpack here, into the `./Dia/` subfolder:
 >
@@ -134,19 +133,12 @@ Anyhow, what's important here is to ensure that the Dia version used doesn't dra
 > The [`build.sh`][build.sh] script will autodetect its presence and use its `dia.exe` binary, instead of relying on the system PATH.
 > This will prevent conflicts with other versions of Dia that might be present on your system.
 
-The recommended version for Windows is Dia `0.97.1-1` (2010-02-07), available from SourceForge:
+The recommended version for Windows is Dia `0.97` (2009-05-14), available from SourceForge:
 
-- [SourceForge » Dia 0.97.1]:
-    + [`dia_0.97.1-1_win32.zip`][dia_0.97.1-1_win32.zip]
+- [SourceForge » Dia 0.97]:
+    + [`dia_0.97_win32.zip`][dia_0.97_win32.zip]
 
 That's the exact Dia version used to build the diagrams by the project maintainer.
-
-
-## Creating a Stand-alone Dia Version for Windows
-
-If you prefer a stand-alone version, you can unpack the `dia-setup-0.97-pre3.exe` installer from SourceForge using 7-Zip to extract its contents, delete the `$PLUGINSDIR` folder and the place the rest of the extracted contents in a `Dia` folder which you can place anywhere you wish.
-
-Don't forget to add to your system PATH environment variable the full path to the `bin/` subfolder of you're stand-alone Dia version.
 
 
 # TODO
@@ -334,7 +326,7 @@ The Cairo SVG turned out to be more reliable than Dia's default SVG converter, f
 
 Furthermore, SVG images generated via Cairo are not font dependent, for all text gets converted to SVG shapes, whereas the default SVG format relies on the specified font being present in the end-users' machine — lacking which it will fallback on some default system font replacement that would make the diagrams look ugly and break the intended proportions.
 
-Font-dependency limits the choice of typefaces to those few  safe fonts which are knows to be available on all OSs and devices (Times New Roman, Arial, Courier New, etc.), hence we decided to switch to the Cairo SVG format even though it required us to adopt Dia version `0.97.1-1`, which is still not available on Dia's websites, and available only as pre-release for Windows.
+Font-dependency limits the choice of typefaces to those few  safe fonts which are knows to be available on all OSs and devices (Times New Roman, Arial, Courier New, etc.), hence we decided to switch to the Cairo SVG format even though it required us to adopt Dia version `0.97-1`, which is still not available on Dia's websites, and available only as pre-release for Windows.
 
 ### Invisible Boxes to Preserve Padding
 
@@ -661,10 +653,10 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 [Dia]: http://dia-installer.de/ "Visit Dia's website"
 [Dia Diagram Editor]: http://dia-installer.de/ "Visit Dia's website"
-[dia badge]: https://img.shields.io/badge/Dia-0.97.1-brightgreen
+[dia badge]: https://img.shields.io/badge/Dia-0.97-brightgreen
 
-[dia_0.97.1-1_win32.zip]: https://sourceforge.net/projects/dia-installer/files/dia/0.97.1/dia_0.97.1-1_win32.zip/download "Download 'dia_0.97.1-1_win32.zip' from SourceForge"
-[SourceForge » Dia 0.97.1]: https://sourceforge.net/projects/dia-installer/files/dia/0.97.1/ "Dia 0.97.1 files at SourceForge"
+[dia_0.97_win32.zip]: https://sourceforge.net/projects/dia-installer/files/dia/0%2C97/dia_0.97_win32.zip/download "Download 'dia_0.97_win32.zip' from SourceForge"
+[SourceForge » Dia 0.97]: https://sourceforge.net/projects/dia-installer/files/dia/0%2C97/ "Dia 0.97 files at SourceForge"
 
 <!-- articles -->
 

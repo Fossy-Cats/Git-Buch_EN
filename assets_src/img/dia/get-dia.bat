@@ -1,5 +1,5 @@
 @ECHO OFF && ECHO.
-:: "get-dia.bat" v1.0.0 (2021/03/01) by Tristano Ajmone
+:: "get-dia.bat" v2.0.0 (2021/03/02) by Tristano Ajmone
 ECHO *********************************************************************************
 ECHO *                                                                               *
 ECHO *                    Automatic Dia Downloader for Windows                       *
@@ -9,10 +9,10 @@ ECHO This script will download the correct version of Dia and unpack it to the "
 ECHO folder inside the current directory.
 :: -----------------------------------------------------------------------------
 SETLOCAL ENABLEDELAYEDEXPANSION
-SET DiaVer=0.97.1-1
-SET DiaSFDir=0.97.1
-SET DiaZip=dia_!DiaVer!_win32.zip
-SET DiaZipURL=https://sourceforge.net/projects/dia-installer/files/dia/!DiaSFDir!/!DiaZip!/download
+SET DiaVer=0.97
+SET DiaZip=dia_0.97_win32.zip
+SET DiaZipURL=https://sourceforge.net/projects/dia-installer/files/dia/0,97/!DiaZip!/download
+SET DiaDir=Dia\
 :: -----------------------------------------------------------------------------
 :: Check if OS is Windows 10:
 VER | FIND "Version 10" > NUL
@@ -41,11 +41,11 @@ CALL curl !DiaZipURL! -OJLf || (
 :: -----------------------------------------------------------------------------
 :unpackDia
 CALL :header1 "2. Unpack Dia Zip Archive via PowerShell"
-IF EXIST Dia\ (
-	ECHO Deleting old "Dia\" folder...
-	RD /S /Q Dia\
+IF EXIST !DiaDir! (
+	ECHO Deleting old "!DiaDir!" folder...
+	RD /S /Q !DiaDir!
 )
-ECHO Invoking PowerShell to unpack "!DiaZip!"...
+ECHO Invoking PowerShell to unpack "!DiaZip!" to "!DiaDir!"...
 CALL powershell -command "Expand-Archive !DiaZip! .\\" || (
 	CALL :error "An error occurred while unpacking Dia."
 	GOTO :abort
