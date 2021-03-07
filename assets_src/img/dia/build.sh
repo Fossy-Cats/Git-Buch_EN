@@ -46,7 +46,7 @@ echo -e "Building SVG Diagrams from Dia Sources"
 echo -e "======================================"
 
 for f in *.dia ; do
-	dia -n -t cairo-svg -O $destDir $f
+	$DiaBin -n -t cairo-svg -O $destDir $f
 done
 
 echo -e "/// Finished ///"
