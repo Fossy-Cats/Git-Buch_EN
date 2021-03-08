@@ -38,7 +38,6 @@ Source files to generate the diagram images in SVG using [Dia].
     - [`github-workflow.svg`](#github-workflowsvg)
     - [`index.svg`](#indexsvg)
     - [`integration-manager-workflow.svg`](#integration-manager-workflowsvg)
-    - [`merge-after.svg`](#merge-aftersvg)
     - [`merge-base-commit.svg`](#merge-base-commitsvg)
     - [`patches-via-email.svg`](#patches-via-emailsvg)
     - [Images Group: Fetch, Push and Pull](#images-group-fetch-push-and-pull)
@@ -198,8 +197,6 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
         * [ ] Tweak dark colors.
-    + [ ] `merge-after.dia` (_unused!_):
-        * [ ] Add invisible background for padding.
     + [ ] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
         * [ ] Add invisible background for padding.
     + [ ] `patches-via-email.dia` » §5.10. » [Fig.40]:
@@ -265,7 +262,6 @@ The following table provides preview links to the generated SVG files in the [`.
 | `github-workflow.dia`              | [`github-workflow.svg`][github-workflow.svg]                           |
 | `index.dia`                        | [`index.svg`][index.svg]                                               |
 | `integration-manager-workflow.dia` | [`integration-manager-workflow.svg`][integration-manager-workflow.svg] |
-| `merge-after.dia`                  | [`merge-after.svg`][merge-after.svg]                                   |
 | `merge-base-commit.dia`            | [`merge-base-commit.svg`][merge-base-commit.svg]                       |
 | `patches-via-email.dia`            | [`patches-via-email.svg`][patches-via-email.svg]                       |
 | `pull-rebase.dia`                  | [`pull-rebase.svg`][pull-rebase.svg]                                   |
@@ -282,7 +278,6 @@ The following table provides preview links to the generated SVG files in the [`.
 | `svn-rebase.dia`                   | [`svn-rebase.svg`][svn-rebase.svg]                                     |
 | `tags.dia`                         | [`tags.svg`][tags.svg]                                                 |
 
-> __NOTE__ — The `merge-after.dia`/[`merge-after.svg`][merge-after.svg] image doesn't seem to be used by the book, for there are no references to it in the AsciiDoc sources.
 
 # Diagrams Info
 
@@ -299,7 +294,7 @@ Some DIA source project files (but not all) have been renamed according to the f
 | `ff-vorher.dia`            | `ff-before.dia`                    |
 | `graph.dia`                | `commit-graph.dia`                 |
 | `graph-mit-refs.dia`       | `commit-graph-with-refs.dia`       |
-| `merge-nachher.dia`        | `merge-after.dia`                  |
+| `merge-nachher.dia`        | _deleted_ (unused in original)     |
 | `objekte.dia`              | `git-objects.dia`                  |
 | `objekte-zusammenhang.dia` | `git-objects-hierarchy.dia`        |
 | `patches-per-mail.dia`     | `patches-via-email.dia`            |
@@ -462,16 +457,6 @@ The following two images must have a same-width invisible background box to enfo
 
 ![`integration-manager-workflow.svg`][integration-manager-workflow.svg]
 
-
--------------------------------------------------------------------------------
-
-## `merge-after.svg`
-
-> _Not used in the book!_
-
-![`merge-after.svg`][merge-after.svg]
-
-> **NOTE** — Since this image was omitted from the final book, we don't need to treat as part of a a group with `merge-base-commit.svg` (i.e. no need to enforce same-width BG Boxes).
 
 -------------------------------------------------------------------------------
 
@@ -695,7 +680,6 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [github-workflow.svg]: ../../../docs_src/images/github-workflow.svg "Preview SVG output"
 [index.svg]: ../../../docs_src/images/index.svg "Preview SVG output"
 [integration-manager-workflow.svg]: ../../../docs_src/images/integration-manager-workflow.svg "Preview SVG output"
-[merge-after.svg]: ../../../docs_src/images/merge-after.svg "Preview SVG output"
 [merge-base-commit.svg]: ../../../docs_src/images/merge-base-commit.svg "Preview SVG output"
 [patches-via-email.svg]: ../../../docs_src/images/patches-via-email.svg "Preview SVG output"
 [pull-rebase.svg]: ../../../docs_src/images/pull-rebase.svg "Preview SVG output"
