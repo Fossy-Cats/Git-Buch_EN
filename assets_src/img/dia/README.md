@@ -144,93 +144,150 @@ That's the exact Dia version used to build the diagrams by the project maintaine
 
 - [x] Translate DIA sources filename to English.
 - [ ] Edit source diagrams:
-    + [x] `branch-model.dia` » §6.2. » [Fig.41]:
+    + [ ] `branch-model.dia` » §6.2. » [Fig.41]:
         * [x] Add invisible background for padding.
-    + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
+    + [ ] `central-workflow.dia` » §5.1. » [Fig.30]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-    + [x] `clone.dia` » §5.2.2. » [Fig.31]:
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
+    + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
         * [x] Add invisible background for padding.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
     + [ ] `commit.dia` » §3.1. » [Fig.10]:
         * [ ] Add invisible background for padding.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `pull.dia` » §5.3.2. » [Fig.34]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `push.dia` » §5.4. » [Fig.36]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `ff-after.dia` » §3.3.2. » [Fig.17]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `ff-before.dia` » §3.3.2. » [Fig.16]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
     + [ ] `git-objects-hierarchy.dia` » §2.2.3. » [Fig.5]:
         * [x] Add invisible background for padding.
         * [x] Translate text to English.
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `github-workflow.dia` » §11. » [Fig.59]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `index.dia` » §2.1.1. » [Fig.1]:
         * [ ] Add invisible background for padding.
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `integration-manager-workflow.dia` » §5.6. » [Fig.37]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
         * [ ] Add invisible background for padding.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
     + [ ] `patches-via-email.dia` » §5.10. » [Fig.40]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
             - [ ] `rebase-after.dia` » §4.1. » [Fig.23]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `rebase-before.dia` » §4.1. » [Fig.22]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
-        * [ ] Add invisible background for padding.
+                + [ ] Add invisible background for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
     + [ ] `relative-refs.dia` » §3.1.1. » [Fig.11]:
         * [ ] Add invisible background for padding.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette.
     + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] `sha.dia` » §2.2.1. » [Fig.3]:
         * [ ] Add invisible background for padding.
-        * [ ] Tweak dark colors.
+        * [ ] Use custom fonts.
+        * [ ] Use custom color palette:
+            - [ ] Current BG colors are too dark.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
             - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
     + [ ] `tags.dia` » §3.1.3. » [Fig.12]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Tweak colors: add BG color to tag shape?
+        * [ ] Use custom fonts.
+        * [ ] Add BG color to tag shape? (no colors used currently)
 - [ ] Since the Cairo SVG format seems to include SVG size information, we need to ensure that images are proportional and have correct size ([Issue #13]):
     + [ ] If in the HTML doc, it might is enough to enforce a custom width, no need to edit them (check).
     + [ ] Check if other output formats might benefit from defining specific image sizes in the source Dia project.
