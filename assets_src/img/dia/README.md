@@ -17,6 +17,7 @@ Source files to generate the diagram images in SVG using [Dia].
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
+    - [Color Palette](#color-palette)
     - [Diagrams Renaming](#diagrams-renaming)
     - [Diagrams Tricks and Hacks](#diagrams-tricks-and-hacks)
         - [Cairo SVG](#cairo-svg)
@@ -339,6 +340,32 @@ The following table provides preview links to the generated SVG files in the [`.
 # Diagrams Info
 
 The DIA sources in this folder were taken from the [`bilder_quelldaten/diagramme/`][diagramme/] folder of the __[Git-Buch]__ upstream repository.
+
+## Color Palette
+
+- `diagrams-palette.cifc` — [ColorImpact 4] palette project.
+- [`diagrams-palette.html`][diagrams-palette.html] — Palette color spec.
+- [`diagrams-palette.png`][diagrams-palette.png] — Palette swatches.
+
+The color palette for the diagrams' background colors was redesigned.
+The original palette contained too many similar (but no identical) colors, so we've reduced the palette entries by adopting a consistent color scheme, free of similar colors redundancy:
+
+![diagrams' palette swatches][diagrams-palette.png]
+
+Each base color (top row) has a lighter tint counterpart (bottom row).
+Most diagrams use only base colors; lighter colors are mostly used in diagrams representing before/after transitions, to mark previous states.
+
+There's a methodology behind color usage in the original diagrams, which has been preserved in our changes.
+A close examination of the diagrams is sufficient to grasp the colors-usage criteria.
+
+> **NOTE** — Some of the above colors are not actually used in any diagrams, but we've kept them in the palette for the sake of color scheme completeness and consistency, and in case they might be needed in the future.
+
+Furthermore, the original palette featured some dark colors that didn't meet the [WCAG 2] guidelines on contrast and color requirements (see [Issue #15]), so the entire color scheme was redesigned from scratch, using color harmonies that produced colors similar to the originals, but not as dark, and ensured that they all pass the color contrast accessibility tests via the [WebAIM Contrast Checker]:
+
+| contrast ratios  | [19:1]    | [14.93:1] | [10.82:1] | [10.75:1] | [14.4:1]  | [12.91:1] | [15.6:1]  |
+| :--------------- | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
+| **base colors**  | `#FDF6B2` | `#FDD1B2` | `#E9A4DE` | `#A1BBE5` | `#A9E5A1` | `#BACFCF` | `#DEDEDE` |
+
 
 ## Diagrams Renaming
 
@@ -691,6 +718,22 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 [CSS Font Stack]: https://www.cssfontstack.com/ "Visit website"
 
+<!-- colors -->
+
+[ColorImpact 4]: https://www.tigercolor.com/ColorImpact.htm "Visit ColorImpact 4 homepage at Tiger Color"
+[WCAG 2]: https://en.wikipedia.org/wiki/Web_Content_Accessibility_Guidelines "Wikipedia » Web Content Accessibility Guidelines"
+[WebAIM Contrast Checker]: https://webaim.org/resources/contrastchecker/ "WebAIM Contrast Checker on-line tool"
+
+<!-- WebAIM Contrast Ratios -->
+
+[19:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=FDF6B2
+[14.93:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=FDD1B2
+[10.82:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=E9A4DE
+[10.75:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=A1BBE5
+[14.4:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=A9E5A1
+[12.91:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=BACFCF
+[15.6:1]: https://webaim.org/resources/contrastchecker/?fcolor=000000&bcolor=DEDEDE
+
 <!-- Dia -->
 
 [Dia]: http://dia-installer.de/ "Visit Dia's website"
@@ -719,6 +762,8 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 <!-- project files -->
 
 [build.sh]: ./build.sh "View source script"
+[diagrams-palette.html]: ./diagrams-palette.html "View diagrams palette color spec (HTML)"
+[diagrams-palette.png]: ./diagrams-palette.png "View diagrams palette swatches"
 [get-dia.bat]: ./get-dia.bat "View source script"
 
 <!-- PNG previews -->
@@ -785,13 +830,10 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [Fig.57]: ../../../docs_src/Git-Buch_EN.html#fig.git-svn-dcommit
 [Fig.59]: ../../../docs_src/Git-Buch_EN.html#fig.github-workflow
 
-<!--
-[Fig.]: ../../../docs_src/Git-Buch_EN.html#XXXXXXXXX
--->
-
 <!-- Issues -->
 
 [Issue #12]: https://github.com/tajmone/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
 [Issue #13]: https://github.com/tajmone/Git-Buch_EN/issues/13 "Diagrams: Cairo SVG Enforcing Document Sizes? #13"
+[Issue #15]: https://github.com/tajmone/Git-Buch_EN/issues/15 "Diagrams Colors Accessibility Problems #15"
 
 <!-- EOF -->
