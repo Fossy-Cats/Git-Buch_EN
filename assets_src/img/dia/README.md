@@ -18,6 +18,7 @@ Source files to generate the diagram images in SVG using [Dia].
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
     - [Color Palette](#color-palette)
+    - [Diagrams Fonts](#diagrams-fonts)
     - [Diagrams Renaming](#diagrams-renaming)
     - [Diagrams Tricks and Hacks](#diagrams-tricks-and-hacks)
         - [Cairo SVG](#cairo-svg)
@@ -342,6 +343,7 @@ The following table provides preview links to the generated SVG files in the [`.
 
 The DIA sources in this folder were taken from the [`bilder_quelldaten/diagramme/`][diagramme/] folder of the __[Git-Buch]__ upstream repository.
 
+
 ## Color Palette
 
 - `diagrams-palette.cifc` — [ColorImpact 4] palette project.
@@ -366,6 +368,26 @@ Furthermore, the original palette featured some dark colors that didn't meet the
 | contrast ratios  | [19:1]    | [14.93:1] | [10.82:1] | [10.75:1] | [14.4:1]  | [12.91:1] | [15.6:1]  |
 | :--------------- | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
 | **base colors**  | `#FDF6B2` | `#FDD1B2` | `#E9A4DE` | `#A1BBE5` | `#A9E5A1` | `#BACFCF` | `#DEDEDE` |
+
+
+## Diagrams Fonts
+
+The original diagrams relied on using "monospace" font, which is a generic fallback definition which might lead to different OSs picking different default fonts (although "Courier New" would be usually the default choice, unless the user has specified another font). Similarly, the few diagrams which rely on sanserif fonts were using the "sans" font, which is likely to produce different results on different OSs.
+
+Also, we're using the Cairo-SVG output format (natively supported by Dia, but undocumented) which will convert all text to SVG shapes, freeing the final SVG diagrams from any fonts-dependencies.
+
+We've therefore chosen to use the following fonts for the diagrams:
+
+|  category  |        name       | version  |     author     |         license         |
+|------------|-------------------|----------|----------------|-------------------------|
+| monospace  | **[Inconsolata]** | `v3.001` | Raph Levien    | [SIL Open Font License] |
+| sans serif | **[Open Sans]**   | `v1.10`  | Steve Matteson | [Apache 2.0]            |
+
+If you need to rebuild some diagrams, ensure that you've installed the fonts from the Google Fonts links provided above, for some OSs (e.g. Windows) ship with same-named fonts by different authors, which might produce slightly different results.
+
+Under Windows OS, you can safely install those fonts even though already present in the system (as natively shipped fonts), because they will be installed in the User fonts directory, taking precedence over the system wide version, without replacing them.
+
+Also, some of the above fonts are (or will eventually be) available also in the _[variable fonts]_ format; don't use it, use instead the standard format where each font variation comes as an individual file, which is the format we've been using to ensure support across all platforms (and Dia).
 
 
 ## Diagrams Renaming
@@ -717,7 +739,18 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 [Wikipedia » Flowchart]: https://en.wikipedia.org/wiki/Flowchart "See Wikipedia page on 'Flowchart'"
 
+<!-- fonts -->
+
+[Inconsolata]: https://fonts.google.com/specimen/Inconsolata?preview.text_type=custom#standard-styles "Inconsolata page at Google Fonts"
+[Open Sans]: https://fonts.google.com/specimen/Open+Sans?preview.text=1234567890%20ABCDEFGHIJKL%20abcdefghijk&preview.text_type=custom#standard-styles "Open Sans page at Google Fonts"
+
+[variable fonts]: https://web.dev/variable-fonts/ "Learn more about variable fonts"
 [CSS Font Stack]: https://www.cssfontstack.com/ "Visit website"
+
+<!-- licenses -->
+
+[Apache 2.0]: https://www.apache.org/licenses/LICENSE-2.0 "View the full text of the Apache 2.0 License"
+[SIL Open Font License]: https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL "View the full text of the SIL Open Font License"
 
 <!-- colors -->
 
