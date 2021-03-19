@@ -145,16 +145,17 @@ That's the exact Dia version used to build the diagrams by the project maintaine
 
 - [x] Translate DIA sources filename to English.
 - [ ] Edit source diagrams:
-    + [ ] `branch-model.dia` » §6.2. » [Fig.41]:
+    + [x] `branch-model.dia` » §6.2. » [Fig.41]:
         * [x] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
-    + [ ] `central-workflow.dia` » §5.1. » [Fig.30]:
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
+    + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
         * [x] Add invisible background for padding.
         * [ ] Use custom fonts.

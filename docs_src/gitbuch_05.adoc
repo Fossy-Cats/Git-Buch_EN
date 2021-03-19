@@ -66,7 +66,7 @@ However, there are two noteworthy alternatives in the Git environment that we wi
 
 // .Zentraler Workflow mit verteilter Versionsverwaltung
 .Central workflow with distributed version management
-image::central-workflow.svg[id="fig.central-workflow",scaledwidth="70%",width="70%"]
+image::central-workflow.svg[id="fig.central-workflow",scaledwidth="70%",width="70%",align="center"]
 
 
 ////
