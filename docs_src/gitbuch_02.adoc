@@ -1944,7 +1944,7 @@ Commit G is a single commit that has not yet been integrated into the main devel
 
 // .Ein Commit-Graph
 .A Commit Graph
-image::commit-graph.svg[id="fig.commit-graph",scaledwidth="45%",width="45%"]
+image::commit-graph.svg[id="fig.commit-graph",scaledwidth="70%",width="70%",align="center"]
 
 
 ////
@@ -2019,5 +2019,5 @@ And the `v0.1` and `v0.2` tags.
 
 // .Ein beispielhafter Commit-Graph mit Branches und Tags
 .Example of a Commit Graph with Branches and Tags
-image::commit-graph-with-refs.svg[id="fig.commit-graph-with-refs",scaledwidth="75%",width="75%"]
+image::commit-graph-with-refs.svg[id="fig.commit-graph-with-refs",scaledwidth="70%",width="70%",align="center"]
 

@@ -162,16 +162,18 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Use custom fonts.
         * [x] Use custom color palette.
-    + [ ] Grouped images:
-        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
-            - [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
-            - [ ] `commit-graph.dia` » §2.2.6. » [Fig.7]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+    + [x] Grouped images:
+        * [x] Enforce same BG-Box width to preserve their aspect ratio:
+            - [x] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
+            - [x] `commit-graph.dia` » §2.2.6. » [Fig.7]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
     + [ ] `commit.dia` » §3.1. » [Fig.10]:
         * [ ] Add invisible background for padding.
         * [ ] Use custom fonts.
