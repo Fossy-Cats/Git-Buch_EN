@@ -78,7 +78,7 @@ The Git commands `add` and `reset` act (in their basic form) on the index, makin
 
 // .Kommandos `add`, `reset` und `commit`
 .Commands `add`, `reset` and `commit`
-image::index.svg[id="fig.index",scaledwidth="90%",width="90%"]
+image::index.svg[id="fig.index",scaledwidth="90%",width="90%",align="center"]
 
 
 

@@ -236,11 +236,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Use custom fonts.
         * [x] Use custom color palette:
             - [x] Current BG colors are too dark.
-    + [ ] `index.dia` » §2.1.1. » [Fig.1]:
-        * [ ] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette:
-            - [ ] Current BG colors are too dark.
+    + [x] `index.dia` » §2.1.1. » [Fig.1]:
+        * [x] Add invisible background for padding.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette:
+            - [x] Current BG colors are too dark.
     + [ ] `integration-manager-workflow.dia` » §5.6. » [Fig.37]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
