@@ -279,10 +279,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [x] Re-build diagram using Flow Chart elements.
                 + [x] Use custom fonts.
                 + [x] Use custom color palette.
-    + [ ] `relative-refs.dia` » §3.1.1. » [Fig.11]:
-        * [ ] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+    + [x] `relative-refs.dia` » §3.1.1. » [Fig.11]:
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
         * [ ] Add invisible background for padding.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!

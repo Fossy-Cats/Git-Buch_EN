@@ -254,7 +254,7 @@ Note that `^` may have a special meaning in your shell and you may need to prote
 
 // .Relative-Referenzen, `^` und `~<n>`
 .Relative References, `^` and `~<n>`
-image::relative-refs.svg[id="fig.relative-refs",scaledwidth="65%",width="65%"]
+image::relative-refs.svg[id="fig.relative-refs",scaledwidth="60%",width="60%",align="center"]
 
 
 ////
