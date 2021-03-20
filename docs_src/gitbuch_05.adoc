@@ -2617,7 +2617,7 @@ The Benevolent Dictator uploads the changes to the _blessed_ repository, which i
 
 // @TRANSLATE IMAGE TEXT
 .Workflow: _Dictator and Lieutenants_
-image::patches-via-email.svg[id="fig.dictator",scaledwidth="90%",width="90%"]
+image::patches-via-email.svg[id="fig.dictator",scaledwidth="90%",width="90%",align="center"]
 
 
 ////

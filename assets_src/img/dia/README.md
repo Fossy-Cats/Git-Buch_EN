@@ -252,11 +252,12 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [ ] Add invisible background for padding.
         * [ ] Use custom fonts.
         * [ ] Use custom color palette.
-    + [ ] `patches-via-email.dia` » §5.10. » [Fig.40]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+    + [x] `patches-via-email.dia` » §5.10. » [Fig.40]:
+        * [x] Translate text to English.
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [x] Grouped images:
         * [x] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
             - [x] `rebase-before.dia` » §4.1. » [Fig.22]:
