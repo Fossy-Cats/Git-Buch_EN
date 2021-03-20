@@ -248,10 +248,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Use custom fonts.
         * [x] Use custom color palette:
             - [x] Current BG colors are too dark.
-    + [ ] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
-        * [ ] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+    + [x] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [x] `patches-via-email.dia` » §5.10. » [Fig.40]:
         * [x] Translate text to English.
         * [x] Add invisible background for padding.

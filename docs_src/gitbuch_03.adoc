@@ -1766,7 +1766,7 @@ Now, if you want to merge two commits (D and F to M), then the trees referenced 
 
 // .Merge-Basis und Merge-Commit
 .Merge base and merge commit
-image::merge-base-commit.svg[id="fig.merge-base-commit",scaledwidth="70%",width="70%"]
+image::merge-base-commit.svg[id="fig.merge-base-commit",scaledwidth="80%",width="80%",align="center"]
 
 
 
