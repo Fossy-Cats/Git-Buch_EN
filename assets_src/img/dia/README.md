@@ -157,10 +157,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Translate text to English.
         * [x] Use custom fonts.
         * [x] Use custom color palette.
-    + [ ] `clone.dia` » §5.2.2. » [Fig.31]:
+    + [x] `clone.dia` » §5.2.2. » [Fig.31]:
         * [x] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:

@@ -414,7 +414,7 @@ When you clone a repository, Git initializes a remote tracking branch for each r
 
 // .Erzeugte Remote-Tracking-Branches
 .Generated Remote Tracking Branches
-image::clone.svg[id="fig.clone",scaledwidth="100%",width="100%"]
+image::clone.svg[id="fig.clone",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
