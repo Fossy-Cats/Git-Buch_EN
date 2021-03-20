@@ -249,24 +249,28 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [ ] Translate text to English.
         * [ ] Use custom fonts.
         * [ ] Use custom color palette.
-    + [ ] Grouped images:
-        * [ ] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
-            - [ ] `rebase-after.dia` » §4.1. » [Fig.23]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
-            - [ ] `rebase-before.dia` » §4.1. » [Fig.22]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
-            - [ ] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
-            - [ ] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
-                + [ ] Add invisible background for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+    + [x] Grouped images:
+        * [x] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
+            - [x] `rebase-before.dia` » §4.1. » [Fig.22]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
+            - [x] `rebase-after.dia` » §4.1. » [Fig.23]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
+            - [x] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
+                + [x] Add invisible background for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
+            - [x] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
     + [ ] `relative-refs.dia` » §3.1.1. » [Fig.11]:
         * [ ] Add invisible background for padding.
         * [ ] Use custom fonts.
