@@ -1769,7 +1769,7 @@ Although it is theoretically possible to give interested parties direct access t
 // @TRANSLATE IMAGE TEXT
 
 .Integration Manager Workflow
-image::integration-manager-workflow.svg[id="fig.developer-public-workflow",scaledwidth="70%",width="70%"]
+image::integration-manager-workflow.svg[id="fig.developer-public-workflow",scaledwidth="70%",width="70%",align="center"]
 
 
 ////
