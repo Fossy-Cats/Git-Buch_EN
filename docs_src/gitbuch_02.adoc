@@ -1467,7 +1467,7 @@ This property is called _collision safety_.
 
 
 .SHA-1 Algorithm
-image::sha.svg[id="fig.sha-1",scaledwidth="90%",width="90%"]
+image::sha.svg[id="fig.sha-1",scaledwidth="90%",width="90%",align="center"]
 
 
 
