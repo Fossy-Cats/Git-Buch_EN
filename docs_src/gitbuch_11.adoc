@@ -106,7 +106,7 @@ While it is possible to take a centralized approach with GitHub (see <<fig.centr
 
 .Workflow at GitHub
 // .Workflow bei Github
-image::github-workflow.svg[id="fig.github-workflow",scaledwidth="70%",width="70%"]
+image::github-workflow.svg[id="fig.github-workflow",scaledwidth="70%",width="70%",align="center"]
 
 
 ////

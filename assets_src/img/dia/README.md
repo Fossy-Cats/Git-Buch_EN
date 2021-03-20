@@ -229,13 +229,13 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [x] Add invisible background for padding.
                 + [x] Use custom fonts.
                 + [x] Add BG color to tag shape? (no colors used currently)
-    + [ ] `github-workflow.dia` » §11. » [Fig.59]:
+    + [x] `github-workflow.dia` » §11. » [Fig.59]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Translate text to English.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette:
-            - [ ] Current BG colors are too dark.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette:
+            - [x] Current BG colors are too dark.
     + [ ] `index.dia` » §2.1.1. » [Fig.1]:
         * [ ] Add invisible background for padding.
         * [ ] Use custom fonts.
