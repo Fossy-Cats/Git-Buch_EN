@@ -718,9 +718,10 @@ The difference is that for each annotated tag, Git creates a special Git object 
 
 // @TRANSLATE IMAGE TEXT?
 
+// @IMPORTANT! This diagram should have same scaledwidth as Fig. 4!
 // .Das Tag-Objekt
 .The Tag Object
-image::tags.svg[id="fig.tag-object",scaledwidth="90%",width="90%"]
+image::tags.svg[id="fig.tag-object",scaledwidth="90%",width="90%",align="center"]
 
 
 ////

@@ -36,7 +36,9 @@ Source files to generate the diagram images in SVG using [Dia].
         - [`ff-before.svg`](#ff-beforesvg)
         - [`ff-after.svg`](#ff-aftersvg)
     - [`git-objects-hierarchy.svg`](#git-objects-hierarchysvg)
-    - [`git-objects.svg`](#git-objectssvg)
+    - [Images Group: Git Objects](#images-group-git-objects)
+        - [`git-objects.svg`](#git-objectssvg)
+        - [`tags.svg`](#tagssvg)
     - [`github-workflow.svg`](#github-workflowsvg)
     - [`index.svg`](#indexsvg)
     - [`integration-manager-workflow.svg`](#integration-manager-workflowsvg)
@@ -58,7 +60,6 @@ Source files to generate the diagram images in SVG using [Dia].
     - [Images Group: SVN](#images-group-svn)
         - [`svn-dcommit.svg`](#svn-dcommitsvg)
         - [`svn-rebase.svg`](#svn-rebasesvg)
-    - [`tags.svg`](#tagssvg)
 - [External Links](#external-links)
     - [Dia Diagram Editor](#dia-diagram-editor)
     - [SVG Images](#svg-images)
@@ -215,12 +216,19 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [ ] Use custom fonts.
         * [ ] Use custom color palette:
             - [ ] Current BG colors are too dark.
-    + [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette:
-            - [ ] Current BG colors are too dark.
+    + [ ] Grouped images:
+        * [x] Enforce same BG-Box width to preserve their aspect ratio:
+            - [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
+                + [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
+                + [x] Add invisible background for padding.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette:
+                    * [x] Current BG colors are too dark.
+            - [ ] `tags.dia` » §3.1.3. » [Fig.12]:
+                + [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
+                + [x] Add invisible background for padding.
+                + [x] Use custom fonts.
+                + [x] Add BG color to tag shape? (no colors used currently)
     + [ ] `github-workflow.dia` » §11. » [Fig.59]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.
@@ -296,11 +304,6 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [ ] Add invisible background with same width for padding.
                 + [ ] Use custom fonts.
                 + [ ] Use custom color palette.
-    + [ ] `tags.dia` » §3.1.3. » [Fig.12]:
-        * [ ] Add invisible background for padding.
-        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Use custom fonts.
-        * [ ] Add BG color to tag shape? (no colors used currently)
 - [ ] Since the Cairo SVG format seems to include SVG size information, we need to ensure that images are proportional and have correct size ([Issue #13]):
     + [ ] If in the HTML doc, it might is enough to enforce a custom width, no need to edit them (check).
     + [ ] Check if other output formats might benefit from defining specific image sizes in the source Dia project.
@@ -541,11 +544,21 @@ The following two images must have a same-width invisible background box to enfo
 
 -------------------------------------------------------------------------------
 
-## `git-objects.svg`
+## Images Group: Git Objects
+
+The following two images must have a same-width invisible background box to enforce consistent proportions, because they are similar diagrams on the same topic, even though they occur far apart.
+
+### `git-objects.svg`
 
 - §2.2.2. » [Fig.4]
 
 ![`git-objects.svg`][git-objects.svg]
+
+### `tags.svg`
+
+- §3.1.3. » [Fig.12]
+
+![`tags.svg`][tags.svg]
 
 
 -------------------------------------------------------------------------------
@@ -711,14 +724,6 @@ The following two images must have a same-width invisible background box to enfo
 
 ![`svn-rebase.svg`][svn-rebase.svg]
 
-
--------------------------------------------------------------------------------
-
-## `tags.svg`
-
-- §3.1.3. » [Fig.12]
-
-![`tags.svg`][tags.svg]
 
 
 -------------------------------------------------------------------------------

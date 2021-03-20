@@ -1557,9 +1557,10 @@ The files in the subdirectories are referenced separately in the respective tree
 
 // @TRANSLATE IMAGE TEXT
 
+// @IMPORTANT! This diagram should have same scaledwidth as Fig. 12!
 .Git Objects
 // .Git-Objekte
-image::git-objects.svg[id="fig.git-objects",scaledwidth="90%",width="90%"]
+image::git-objects.svg[id="fig.git-objects",scaledwidth="90%",width="90%",align="center"]
 
 
 ////
