@@ -137,7 +137,7 @@ Branches move up when you make commits on a branch, so they remain at the top of
 
 // .Der Branch referenziert immer den aktuellsten Commit
 .A branch always references the most recent commit
-image::commit.svg[id="fig.commit",scaledwidth="80%",width="80%"]
+image::commit.svg[id="fig.commit",scaledwidth="60%",width="60%",align="center"]
 
 
 ////

@@ -174,10 +174,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [x] Re-build diagram using Flow Chart elements.
                 + [x] Use custom fonts.
                 + [x] Use custom color palette.
-    + [ ] `commit.dia` » §3.1. » [Fig.10]:
-        * [ ] Add invisible background for padding.
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette.
+    + [x] `commit.dia` » §3.1. » [Fig.10]:
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
