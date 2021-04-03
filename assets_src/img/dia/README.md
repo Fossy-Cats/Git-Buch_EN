@@ -178,11 +178,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Use custom color palette.
     + [ ] Grouped images:
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
-            - [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Re-build diagram using Flow Chart elements.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+            - [x] `fetch.dia` » §5.3.1. » [Fig.33]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
             - [x] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
                 + [x] Add invisible background with same width for padding.
                 + [x] Re-build diagram using Flow Chart elements.
