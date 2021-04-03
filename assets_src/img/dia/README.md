@@ -203,11 +203,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [ ] Re-build diagram using Flow Chart elements.
                 + [ ] Use custom fonts.
                 + [ ] Use custom color palette.
-            - [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Re-build diagram using Flow Chart elements.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+            - [x] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
     + [x] Grouped images:
         * [x] Enforce same BG-Box width to preserve their aspect ratio:
             - [x] `ff-after.dia` » §3.3.2. » [Fig.17]:
