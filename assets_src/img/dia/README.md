@@ -176,8 +176,8 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Re-build diagram using Flow Chart elements.
         * [x] Use custom fonts.
         * [x] Use custom color palette.
-    + [ ] Grouped images:
-        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
+    + [x] Grouped images:
+        * [x] Enforce same BG-Box width to preserve their aspect ratio:
             - [x] `fetch.dia` » §5.3.1. » [Fig.33]:
                 + [x] Add invisible background with same width for padding.
                 + [x] Re-build diagram using Flow Chart elements.
@@ -198,11 +198,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [x] Re-build diagram using Flow Chart elements.
                 + [x] Use custom fonts.
                 + [x] Use custom color palette.
-            - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Re-build diagram using Flow Chart elements.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+            - [x] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
             - [x] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
                 + [x] Add invisible background with same width for padding.
                 + [x] Re-build diagram using Flow Chart elements.
