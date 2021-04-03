@@ -193,11 +193,11 @@ That's the exact Dia version used to build the diagrams by the project maintaine
                 + [x] Re-build diagram using Flow Chart elements.
                 + [x] Use custom fonts.
                 + [x] Use custom color palette.
-            - [ ] `push.dia` » §5.4. » [Fig.36]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Re-build diagram using Flow Chart elements.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+            - [x] `push.dia` » §5.4. » [Fig.36]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
             - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
                 + [ ] Add invisible background with same width for padding.
                 + [ ] Re-build diagram using Flow Chart elements.
