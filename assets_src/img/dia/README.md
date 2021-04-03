@@ -44,11 +44,10 @@ Source files to generate the diagram images in SVG using [Dia].
     - [`integration-manager-workflow.svg`](#integration-manager-workflowsvg)
     - [`merge-base-commit.svg`](#merge-base-commitsvg)
     - [`patches-via-email.svg`](#patches-via-emailsvg)
-    - [Images Group: Fetch, Push and Pull](#images-group-fetch-push-and-pull)
-        - [`fetch.svg`](#fetchsvg)
-        - [`pull.svg`](#pullsvg)
-        - [`pull-rebase.svg`](#pull-rebasesvg)
+    - [Images Group: Git & SVN Operations](#images-group-git-svn-operations)
+        - [Git: Fetch, Push and Pull](#git-fetch-push-and-pull)
         - [`push.svg`](#pushsvg)
+        - [SVN: Commit and Rebase](#svn-commit-and-rebase)
     - [Images Group: Rebase](#images-group-rebase)
         - [`rebase-before.svg`](#rebase-beforesvg)
         - [`rebase-after.svg`](#rebase-aftersvg)
@@ -57,9 +56,6 @@ Source files to generate the diagram images in SVG using [Dia].
     - [`relative-refs.svg`](#relative-refssvg)
     - [`repository-content.svg`](#repository-contentsvg)
     - [`sha.svg`](#shasvg)
-    - [Images Group: SVN](#images-group-svn)
-        - [`svn-dcommit.svg`](#svn-dcommitsvg)
-        - [`svn-rebase.svg`](#svn-rebasesvg)
 - [External Links](#external-links)
     - [Dia Diagram Editor](#dia-diagram-editor)
     - [SVG Images](#svg-images)
@@ -184,18 +180,32 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [ ] Enforce same BG-Box width to preserve their aspect ratio:
             - [ ] `fetch.dia` » §5.3.1. » [Fig.33]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Re-build diagram using Flow Chart elements.
                 + [ ] Use custom fonts.
                 + [ ] Use custom color palette.
             - [ ] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Re-build diagram using Flow Chart elements.
                 + [ ] Use custom fonts.
                 + [ ] Use custom color palette.
-            - [ ] `pull.dia` » §5.3.2. » [Fig.34]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
+            - [x] `pull.dia` » §5.3.2. » [Fig.34]:
+                + [x] Add invisible background with same width for padding.
+                + [x] Re-build diagram using Flow Chart elements.
+                + [x] Use custom fonts.
+                + [x] Use custom color palette.
             - [ ] `push.dia` » §5.4. » [Fig.36]:
                 + [ ] Add invisible background with same width for padding.
+                + [ ] Re-build diagram using Flow Chart elements.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
+            - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
+                + [ ] Add invisible background with same width for padding.
+                + [ ] Re-build diagram using Flow Chart elements.
+                + [ ] Use custom fonts.
+                + [ ] Use custom color palette.
+            - [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
+                + [ ] Add invisible background with same width for padding.
+                + [ ] Re-build diagram using Flow Chart elements.
                 + [ ] Use custom fonts.
                 + [ ] Use custom color palette.
     + [x] Grouped images:
@@ -298,16 +308,6 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Use custom fonts.
         * [x] Use custom color palette:
             - [x] Current BG colors are too dark.
-    + [ ] Grouped images:
-        * [ ] Enforce same BG-Box width to preserve their aspect ratio:
-            - [ ] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
-            - [ ] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
-                + [ ] Add invisible background with same width for padding.
-                + [ ] Use custom fonts.
-                + [ ] Use custom color palette.
 - [ ] Since the Cairo SVG format seems to include SVG size information, we need to ensure that images are proportional and have correct size ([Issue #13]):
     + [ ] If in the HTML doc, it might is enough to enforce a custom width, no need to edit them (check).
     + [ ] Check if other output formats might benefit from defining specific image sizes in the source Dia project.
@@ -612,25 +612,27 @@ The following two images must have a same-width invisible background box to enfo
 
 -------------------------------------------------------------------------------
 
-## Images Group: Fetch, Push and Pull
+## Images Group: Git & SVN Operations
 
-The following images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of similar diagrams on related topics:
+The following images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of similar diagrams on related topics, for both Git and SVN operations.
 
-### `fetch.svg`
+### Git: Fetch, Push and Pull
+
+#### `fetch.svg`
 
 - §5.3.1. » [Fig.33]
 
 ![`fetch.svg`][fetch.svg]
 
 
-### `pull.svg`
+#### `pull.svg`
 
 - §5.3.2. » [Fig.34]
 
 ![`pull.svg`][pull.svg]
 
 
-### `pull-rebase.svg`
+#### `pull-rebase.svg`
 
 - §5.3.2. » [Fig.35]
 
@@ -642,6 +644,22 @@ The following images must have a same-width invisible background box to enforce 
 - §5.4. » [Fig.36]
 
 ![`push.svg`][push.svg]
+
+### SVN: Commit and Rebase
+
+
+#### `svn-rebase.svg`
+
+- §9.1.2.3.  » [Fig.56]
+
+![`svn-rebase.svg`][svn-rebase.svg]
+
+
+#### `svn-dcommit.svg`
+
+- §9.1.2.3. » [Fig.57]
+
+![`svn-dcommit.svg`][svn-dcommit.svg]
 
 
 -------------------------------------------------------------------------------
@@ -703,30 +721,6 @@ The following four images must have a same-width invisible background box to enf
 - §2.2.1. » [Fig.3]
 
 ![`sha.svg`][sha.svg]
-
-
--------------------------------------------------------------------------------
-
-## Images Group: SVN
-
-The following two images must have a same-width invisible background box to enforce consistent proportions, because they belong to a series of diagrams on the same topic:
-
--------------------------------------------------------------------------------
-
-### `svn-dcommit.svg`
-
-- §9.1.2.3. » [Fig.57]
-
-![`svn-dcommit.svg`][svn-dcommit.svg]
-
-
--------------------------------------------------------------------------------
-
-### `svn-rebase.svg`
-
-- §9.1.2.3.  » [Fig.56]
-
-![`svn-rebase.svg`][svn-rebase.svg]
 
 
 

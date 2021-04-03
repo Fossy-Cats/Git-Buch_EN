@@ -7535,9 +7535,9 @@ The remote tracking branch <code>origin/master</code> in the clone points to com
 By calling <code>git fetch origin</code>, Git updates the remote tracking branch in the clone to reflect the current status of the <code>master</code> (pointing to commit C) in the remote.
 To do this, Git downloads the missing commit C and then sets the remote tracking branch on it.</p>
 </div>
-<div id="fig.fetch" class="imageblock">
+<div id="fig.fetch" class="imageblock text-center">
 <div class="content">
-<img src="images/fetch.svg" alt="fetch" width="90%">
+<img src="images/fetch.svg" alt="fetch" width="100%">
 </div>
 <div class="title">Figure 33. Remote Tracking Branches are updated</div>
 </div>
@@ -7729,9 +7729,9 @@ Commit C has been added to the local repository.
 The <code>fetch</code> call contained in the <code>pull</code> has updated the remote tracking branch, i.e. it points to the same commit as the <code>master</code> in <code>origin</code> and thus reflects the state there.
 In addition, the <code>merge</code> call contained in the <code>pull</code> has integrated the <code>master</code> from <code>origin</code> into the local <code>master</code>, as you can see from the merge commit M and the current position of the local <code>master</code>.</p>
 </div>
-<div id="fig.pull" class="imageblock">
+<div id="fig.pull" class="imageblock text-center">
 <div class="content">
-<img src="images/pull.svg" alt="pull" width="90%">
+<img src="images/pull.svg" alt="pull" width="100%">
 </div>
 <div class="title">Figure 34. What happens with a pull</div>
 </div>
@@ -7746,9 +7746,9 @@ In addition, the <code>merge</code> call contained in the <code>pull</code> has 
 <div class="paragraph">
 <p>In <a href="#fig.pull-rebase">Figure 35, &#8220;What happens during a pull with rebase&#8221;</a> you can see what happens if you perform a rebase instead of the default merge.</p>
 </div>
-<div id="fig.pull-rebase" class="imageblock">
+<div id="fig.pull-rebase" class="imageblock text-center">
 <div class="content">
-<img src="images/pull-rebase.svg" alt="pull rebase" width="90%">
+<img src="images/pull-rebase.svg" alt="pull rebase" width="100%">
 </div>
 <div class="title">Figure 35. What happens during a pull with rebase</div>
 </div>
@@ -8000,7 +8000,7 @@ Git uploads the missing commits D and M to the remote <code>origin</code>.
 At the same time, the remote branch master is advanced to the commit M, so that it matches the local branch <code>master</code>.
 In addition, the remote tracking branch <code>origin/master</code> is advanced so that it reflects the current status in the remote.</p>
 </div>
-<div id="fig.push" class="imageblock">
+<div id="fig.push" class="imageblock text-center">
 <div class="content">
 <img src="images/push.svg" alt="push" width="100%">
 </div>
@@ -13914,9 +13914,9 @@ Then the <code>remote/origin/trunk</code> tracking branch is &#8220;advanced&#82
 Finally, the current branch (in this case <code>master</code>) is rebuilt using <code>git rebase</code>.
 The commit <code>D'</code> can now be uploaded.</p>
 </div>
-<div id="fig.git-svn-rebase" class="imageblock">
+<div id="fig.git-svn-rebase" class="imageblock text-center">
 <div class="content">
-<img src="images/svn-rebase.svg" alt="svn rebase" width="90%">
+<img src="images/svn-rebase.svg" alt="svn rebase" width="100%">
 </div>
 <div class="title">Figure 56. <code>git svn rebase</code> integrates the newly added Subversion revision as commit <code>C</code>&#8201;&#8212;&#8201;before <code>D</code>, which becomes <code>D'</code>.</div>
 </div>
@@ -13925,9 +13925,9 @@ The commit <code>D'</code> can now be uploaded.</p>
 As part of the operation, the revision is again committed to the local Git repository as a Git commit, but this time with Subversion metadata in the commit message.
 This, of course, changes the SHA-1 sum of the commit, as shown in <a href="#fig.git-svn-dcommit">Figure 57</a> by the different commits <code>D'</code> and <code>D''</code>.</p>
 </div>
-<div id="fig.git-svn-dcommit" class="imageblock">
+<div id="fig.git-svn-dcommit" class="imageblock text-center">
 <div class="content">
-<img src="images/svn-dcommit.svg" alt="svn dcommit" width="90%">
+<img src="images/svn-dcommit.svg" alt="svn dcommit" width="100%">
 </div>
 <div class="title">Figure 57. After a <code>git svn dcommit</code>, the commit <code>D'</code> has a new SHA-1 ID and becomes <code>D''</code> because its commit description has been changed to store meta information.</div>
 </div>

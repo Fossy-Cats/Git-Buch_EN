@@ -599,7 +599,7 @@ To do this, Git downloads the missing commit C and then sets the remote tracking
 
 // .Remote-Tracking-Branches werden aktualisiert
 .Remote Tracking Branches are updated
-image::fetch.svg[id="fig.fetch",scaledwidth="90%",width="90%"]
+image::fetch.svg[id="fig.fetch",scaledwidth="100%",width="100%",align="center"]
 
 
 
@@ -920,7 +920,7 @@ In addition, the `merge` call contained in the `pull` has integrated the `master
 
 // .Was bei einem Pull passiert
 .What happens with a pull
-image::pull.svg[id="fig.pull",scaledwidth="90%",width="90%"]
+image::pull.svg[id="fig.pull",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
@@ -945,7 +945,7 @@ In <<fig.pull-rebase>> you can see what happens if you perform a rebase instead 
 
 // .Was bei einem Pull mit Rebase passiert
 .What happens during a pull with rebase
-image::pull-rebase.svg[id="fig.pull-rebase",scaledwidth="90%",width="90%"]
+image::pull-rebase.svg[id="fig.pull-rebase",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
@@ -1324,7 +1324,7 @@ In addition, the remote tracking branch `origin/master` is advanced so that it r
 
 // .Referenzen und Commits hochladen
 .Upload references and commits
-image::push.svg[id="fig.push",scaledwidth="100%",width="100%"]
+image::push.svg[id="fig.push",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
