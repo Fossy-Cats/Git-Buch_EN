@@ -297,11 +297,12 @@ That's the exact Dia version used to build the diagrams by the project maintaine
         * [x] Use custom fonts.
         * [x] Use custom color palette.
     + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
-        * [ ] Add invisible background for padding.
+        * [x] Add invisible background for padding.
+        * [x] Re-build diagram using Flow Chart elements.
         * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [ ] Use custom fonts.
-        * [ ] Use custom color palette:
-            - [ ] Current BG colors are too dark.
+        * [x] Use custom fonts.
+        * [x] Use custom color palette:
+            - [x] Current BG colors are too dark.
     + [x] `sha.dia` » §2.2.1. » [Fig.3]:
         * [x] Add invisible background for padding.
         * [x] Re-build diagram using Flow Chart elements.

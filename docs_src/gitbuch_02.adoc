@@ -1839,7 +1839,7 @@ However, the references to the unchanged files remain the same.
 
 // .Inhalt des Repositorys
 .Repository Content
-image::repository-content.svg[id="fig.repository-content",scaledwidth="80%",width="80%"]
+image::repository-content.svg[id="fig.repository-content",scaledwidth="80%",width="80%",align="center"]
 
 
 ////
