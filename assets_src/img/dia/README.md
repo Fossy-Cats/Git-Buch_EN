@@ -12,8 +12,9 @@ Source files to generate the diagram images in SVG using [Dia].
 
 - [Folder Contents](#folder-contents)
 - [System Requirements and Set-Up](#system-requirements-and-set-up)
-    - [Obtaining Dia 0.97](#obtaining-dia-097)
-        - [Dia 0.97 for Windows](#dia-097-for-windows)
+    - [Dia Diagram Editor](#dia-diagram-editor)
+        - [Obtaining Dia 0.97](#obtaining-dia-097)
+    - [SVGO](#svgo)
 - [TODO](#todo)
 - [Diagrams List and Preview Links](#diagrams-list-and-preview-links)
 - [Diagrams Info](#diagrams-info)
@@ -57,7 +58,7 @@ Source files to generate the diagram images in SVG using [Dia].
     - [`repository-content.svg`](#repository-contentsvg)
     - [`sha.svg`](#shasvg)
 - [External Links](#external-links)
-    - [Dia Diagram Editor](#dia-diagram-editor)
+    - [Dia Diagram Editor](#dia-diagram-editor-1)
     - [SVG Images](#svg-images)
     - [Web Safe Fonts](#web-safe-fonts)
 
@@ -76,6 +77,14 @@ Source files to generate the diagram images in SVG using [Dia].
 
 # System Requirements and Set-Up
 
+To run [`build.sh`][build.sh] you'll need the following dependencies:
+
+- [Dia] — Diagram Editor
+- [SVGO] — SVG Optimizer ([Node.js])
+
+
+## Dia Diagram Editor
+
 In order to edit the diagram's sourcefile, or to run the scripts in this folder, you'll need to install [Dia Diagram Editor] version `0.97`.
 
 Dia is a free and open source cross platform tool for editing diagrams.
@@ -91,7 +100,7 @@ Dia is a free and open source cross platform tool for editing diagrams.
 Depending on your OS and Dia's setup, you might also need to add to the system PATH the full path to Dia's executable (i.e. the `bin/` subfolder of Dia's installation) so that it will be visible the `build.sh` script used here.
 
 
-## Obtaining Dia 0.97
+### Obtaining Dia 0.97
 
 The Dia project is currently a bit messy.
 At the time of this writing, the latest official Dia release according to the official websites is version `0.97.2` (2011-12-18), but Dia version `0.97.3` (2014-09-05) for Linux is already available from the GNOME Git repository, although it's not mentioned in either of Dia's websites:
@@ -122,7 +131,7 @@ Dia version `0.97` might not be available for all OSs, some precompiled binaries
 Anyhow, what's important here is to ensure that the Dia version used doesn't draw the zero-width borders around the diagrams when exporting to Cairo-SVG.
 
 
-### Dia 0.97 for Windows
+#### Dia 0.97 for Windows
 
 > **WIN 10 DOWNLOADER** — If you're using Windows 10, you can simply run the following batch script which will download the correct version of Dia and unpack here, into the `./Dia/` subfolder:
 >
@@ -139,186 +148,24 @@ The recommended version for Windows is Dia `0.97` (2009-05-14), available from S
 That's the exact Dia version used to build the diagrams by the project maintainer.
 
 
+## SVGO
+
+- https://www.npmjs.com/package/svgo
+
+In order to install SVGO you'll need to install [Node.js] on your system.
+
+Windows users can install [Node.js] via the [Node JS Chocolatey package] using the [Chocolatey GUI], which simplifies keeping Node always up to date.
+
+
 # TODO
 
 - [x] Translate DIA sources filename to English.
 - [ ] Edit source diagrams:
-    + [x] `branch-model.dia` » §6.2. » [Fig.41]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] `central-workflow.dia` » §5.1. » [Fig.30]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Translate text to English.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] `clone.dia` » §5.2.2. » [Fig.31]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] Grouped images:
-        * [x] Enforce same BG-Box width to preserve their aspect ratio:
-            - [x] `commit-graph-with-refs.dia` » §2.2.6.1. » [Fig.8]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `commit-graph.dia` » §2.2.6. » [Fig.7]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-    + [x] `commit.dia` » §3.1. » [Fig.10]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] Grouped images:
-        * [x] Enforce same BG-Box width to preserve their aspect ratio:
-            - [x] `fetch.dia` » §5.3.1. » [Fig.33]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `pull-rebase.dia` » §5.3.2. » [Fig.35]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `pull.dia` » §5.3.2. » [Fig.34]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `push.dia` » §5.4. » [Fig.36]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `svn-rebase.dia` » §9.1.2.3.  » [Fig.56]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `svn-dcommit.dia` » §9.1.2.3. » [Fig.57]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-    + [x] Grouped images:
-        * [x] Enforce same BG-Box width to preserve their aspect ratio:
-            - [x] `ff-after.dia` » §3.3.2. » [Fig.17]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `ff-before.dia` » §3.3.2. » [Fig.16]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-    + [x] `git-objects-hierarchy.dia` » §2.2.3. » [Fig.5]:
-        * [x] Add invisible background for padding.
-        * [x] Translate text to English.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-    + [ ] Grouped images:
-        * [x] Enforce same BG-Box width to preserve their aspect ratio:
-            - [ ] `git-objects.dia` » §2.2.2. » [Fig.4]:
-                + [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-                + [x] Add invisible background for padding.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette:
-                    * [x] Current BG colors are too dark.
-            - [ ] `tags.dia` » §3.1.3. » [Fig.12]:
-                + [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-                + [x] Add invisible background for padding.
-                + [x] Use custom fonts.
-                + [x] Add BG color to tag shape? (no colors used currently)
-    + [x] `github-workflow.dia` » §11. » [Fig.59]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Translate text to English.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-    + [x] `index.dia` » §2.1.1. » [Fig.1]:
-        * [x] Add invisible background for padding.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-    + [x] `integration-manager-workflow.dia` » §5.6. » [Fig.37]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Translate text to English.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-    + [x] `merge-base-commit.dia` » §3.3.1 » [Fig.15]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] `patches-via-email.dia` » §5.10. » [Fig.40]:
-        * [x] Translate text to English.
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [x] Grouped images:
-        * [x] Enforce same BG-Box width to preserve their aspect ratio, and align diagram contents to the left to preserve relative positions:
-            - [x] `rebase-before.dia` » §4.1. » [Fig.22]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `rebase-after.dia` » §4.1. » [Fig.23]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `rebase-onto-before.dia` » §4.1.7. » [Fig.26]:
-                + [x] Add invisible background for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-            - [x] `rebase-onto-after.dia` » §4.1.7. » [Fig.27]:
-                + [x] Add invisible background with same width for padding.
-                + [x] Re-build diagram using Flow Chart elements.
-                + [x] Use custom fonts.
-                + [x] Use custom color palette.
-    + [x] `relative-refs.dia` » §3.1.1. » [Fig.11]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette.
-    + [ ] `repository-content.dia` » §2.2.5. » [Fig.6]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [ ] Translate text to English? This depends on whether we'll be translating commit messages in the book's Git logs!
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-    + [x] `sha.dia` » §2.2.1. » [Fig.3]:
-        * [x] Add invisible background for padding.
-        * [x] Re-build diagram using Flow Chart elements.
-        * [x] Use custom fonts.
-        * [x] Use custom color palette:
-            - [x] Current BG colors are too dark.
-- [ ] Since the Cairo SVG format seems to include SVG size information, we need to ensure that images are proportional and have correct size ([Issue #13]):
-    + [ ] If in the HTML doc, it might is enough to enforce a custom width, no need to edit them (check).
-    + [ ] Check if other output formats might benefit from defining specific image sizes in the source Dia project.
-- [ ] Update book images:
-    + [ ] Add conversion script:
-        * [x] Convert to SVG instead of PNG.
-        * [ ] Optimize generated SVG images.
-        * [x] Deploy to destination images folder.
-    + [x] Delete original PNG diagrams in destination folder.
-    + [x] Update all diagrams `image::` URIs in AsciiDoc sources.
+    + [ ] Translate text to English? ([Issue #1])
+        * [ ] `git-objects.dia` » §2.2.2. » [Fig.4]
+        * [ ] `repository-content.dia` » §2.2.5. » [Fig.6]
+        * [ ] `tags.dia` » §3.1.3. » [Fig.12]
+- [ ] Optimize generated SVG images.
 
 # Diagrams List and Preview Links
 
@@ -753,6 +600,13 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 [Wikipedia » Flowchart]: https://en.wikipedia.org/wiki/Flowchart "See Wikipedia page on 'Flowchart'"
 
+[SVGO]: https://www.npmjs.com/package/svgo "SVGO homepage at NPM"
+[Node.js]: https://nodejs.org/ "Visit Node.js website"
+[Node JS Chocolatey package]: https://community.chocolatey.org/packages/nodejs "Node.js package at Chocolatey"
+
+[Chocolatey GUI]: https://community.chocolatey.org/packages/ChocolateyGUI "Chocolatey GUI package at Chocolatey"
+[Chocolatey]: https://chocolatey.org "Visit Chocolatey website"
+
 <!-- fonts -->
 
 [Inconsolata]: https://fonts.google.com/specimen/Inconsolata?preview.text_type=custom#standard-styles "Inconsolata page at Google Fonts"
@@ -880,6 +734,7 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 <!-- Issues -->
 
+[Issue #1]: https://github.com/tajmone/Git-Buch_EN/issues/1 "TTranslating Commits, Files and Folders Names #1"
 [Issue #12]: https://github.com/tajmone/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
 [Issue #13]: https://github.com/tajmone/Git-Buch_EN/issues/13 "Diagrams: Cairo SVG Enforcing Document Sizes? #13"
 [Issue #15]: https://github.com/tajmone/Git-Buch_EN/issues/15 "Diagrams Colors Accessibility Problems #15"
