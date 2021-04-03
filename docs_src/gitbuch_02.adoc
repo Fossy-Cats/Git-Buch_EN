@@ -1661,7 +1661,7 @@ This relationship is illustrated by the arrows pointing from one commit to the n
 
 // .Hierarchische Beziehung der Git-Objekte
 .Hierarchical Relationship of Git Objects
-image::git-objects-hierarchy.svg[id="fig.git-objects-hierarchy",scaledwidth="65%",width="65%"]
+image::git-objects-hierarchy.svg[id="fig.git-objects-hierarchy",scaledwidth="65%",width="65%",align="center"]
 
 
 ////
