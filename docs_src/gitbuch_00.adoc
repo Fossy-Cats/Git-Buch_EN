@@ -46,7 +46,7 @@ Verantwortlich dafür sind über 1000 Einzelpersonen.
 ////
 
 Simply switching to another system was not an option: The alternatives had a centralized architecture and did not scale well enough.
-The kernel project's requirements for a version control system are hugely demanding: Between a revision jump (e.g. 2.6.35 to 2.6.36) there are over 500,000 changed lines in almost 1000 files.
+The requirements of the kernel project on a version control system are, however, also huge: Between a little version jump (e.g. 2.6.35 to 2.6.36) there are over 500,000 changed lines in almost 1000 files.
 Responsible for this are over 1000 individuals.
 
 
@@ -56,8 +56,8 @@ Welche also waren die _Design Goals_ des neuen Programms?
 Zwei Eigenschaften kristallisierten sich rasch als Design-Ziele heraus: Schnelligkeit bzw. Performance und überprüfbare Integrität der verwalteten Daten.
 ////
 
-So what were the design goals of the new program?
-Two characteristics quickly emerged as design goals: speed or performance and verifiable integrity of the managed data.
+So what were the _Design Goals_ of the new program?
+Two characteristics crystallized quickly as design goals: speed or performance and verifiable integrity of the managed data.
 
 
 
@@ -87,7 +87,7 @@ Auch in der 2.0er-Version sind noch (wie zu Beginn der Entwicklung) einige Subko
 
 The basic concepts have remained the same up to current versions: First and foremost, the object model and index, key features that distinguish Git from other VCS.
 The Unix philosophy of "`one tool, one job`" is also consistently applied here; the subcommands of Git are each independent, executable programs or scripts.
-Even in the 2.0 version, some subcommands are still implemented with shell scripts (e.g. `git pull`).
+Even in the 2.0 version there are still (as at the beginning of the development) some subcommands with shell scripts implemented (e.g. `git pull`).
 
 
 
@@ -223,7 +223,8 @@ Then <<ch.workflows>> provides an overview of strategies for coordinating develo
 
 
 ////
-Wir empfehlen Ihnen, zumindest die ersten fünf Kapitel hintereinander zu lesen. Sie beschreiben alle wichtigen Konzepte und Techniken, um Git auch in großen Projekten sicher einzusetzen.
+Wir empfehlen Ihnen, zumindest die ersten fünf Kapitel hintereinander zu lesen.
+Sie beschreiben alle wichtigen Konzepte und Techniken, um Git auch in großen Projekten sicher einzusetzen.
 Die nachfolgenden Kapitel können Sie, je nach Interesse und Bedarf, in beliebiger Reihenfolge lesen.
 ////
 
@@ -317,9 +318,8 @@ Außerdem finden Sie für originale, also englische Fehlermeldungen online schne
 // @NOTE: No need to keep references to the German translation!
 //        (skip the "Although German translations..." part)
 
-Unless otherwise noted, we refer to Git version 2.0, and the examples all run with English local settings.
-Although German translations have been available for the output texts of most Git commands since 2012, these sound very stilted and are often confusing due to the choice of words.
-In addition, you can find quick help online for original, i.e. English error messages.
+Unless otherwise noted, we refer to Git version 2.0.
+The examples all run with English local settings.
 
 
 
@@ -331,8 +331,7 @@ Die meisten Git-spezifischen Termini verwenden wir im Original mit von der Über
 // @NOTE: No need to keep references to the German translation!
 //        (readapt text to cover English relevant aspects only)
 
-Newly introduced terms are written in _italics_, partly with German equivalents in brackets behind them.
-We use most Git-specific terms in the original with articles derived from the translation, e.g. the "`branch`" instead of the "`branch`".
+Newly introduced terms are written in _italics_.
 
 
 
@@ -350,7 +349,7 @@ In englischsprachiger Dokumentation heißt dieses Repository auch _Git-via-Git_ 
 
 The installation of Git is described in detail in <<app.installation>>.
 Some examples use the Git source repository, the repository where Git is actively developed.
-In English documentation, this repository is also called _Git-via-Git_ or _git.git_.
+This repository is also called _Git-via-Git_ or _git.git_.
 
 
 
@@ -488,11 +487,13 @@ First of all, we'd like to thank all the developers and maintainers of the Git p
 
 
 ////
-Vielen Dank an Sebastian Pipping und Frank Terbeck für Anmerkungen und Tipps. Besonders danken wir Holger Weiß für seine Durchsicht des Manuskripts und hilfreiche Ideen.
+Vielen Dank an Sebastian Pipping und Frank Terbeck für Anmerkungen und Tipps.
+Besonders danken wir Holger Weiß für seine Durchsicht des Manuskripts und hilfreiche Ideen.
 Wir danken dem gesamten Open-Source-Press-Team für die gute und effiziente Zusammenarbeit.
 ////
 
-Many thanks to Sebastian Pipping and Frank Terbeck for comments and tips. Special thanks to Holger Weiß for his review of the manuscript and helpful ideas.
+Many thanks to Sebastian Pipping and Frank Terbeck for comments and tips.
+Special thanks to Holger Weiß for his review of the manuscript and helpful ideas.
 We thank the entire Open Source Press Team for the good and efficient cooperation.
 
 
