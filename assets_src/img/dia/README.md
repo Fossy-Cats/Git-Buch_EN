@@ -243,16 +243,37 @@ Also, we're using the Cairo-SVG output format (natively supported by Dia, but un
 
 We've therefore chosen to use the following fonts for the diagrams:
 
-|  category  |        name       | version  |     author     |         license         |
-|------------|-------------------|----------|----------------|-------------------------|
-| monospace  | **[Inconsolata]** | `v3.001` | Raph Levien    | [SIL Open Font License] |
-| sans serif | **[Open Sans]**   | `v1.10`  | Steve Matteson | [Apache 2.0]            |
+|  category  |        name       | version  |     author     |           repo           |                     license                      |
+|------------|-------------------|----------|----------------|--------------------------|--------------------------------------------------|
+| monospace  | **[Inconsolata]** | `v3.001` | Raph Levien    | [GitHub][Inconsolata GH] | [SIL Open Font License 1.1][Inconsolata License] |
+| sans serif | **[Open Sans]**   | `v1.10`  | Steve Matteson | [GitHub][Open Sans GH]   | [SIL Open Font License 1.1][Open Sans License]   |
 
-If you need to rebuild some diagrams, ensure that you've installed the fonts from the Google Fonts links provided above, for some OSs (e.g. Windows) ship with same-named fonts by different authors, which might produce slightly different results.
+You can also download the required TTF fonts files, individually, directly from the fonts repositories on GitHub:
+
+- [Inconsolata TTF]:
+    + [`Inconsolata-Regular.ttf`][Inconsolata-Regular.ttf]
+- [Open Sans TTF]:
+    + [`OpenSans-Regular.ttf`][OpenSans-Regular.ttf]
+    + [`OpenSans-Bold.ttf`][OpenSans-Bold.ttf]
+    + [`OpenSans-Italic.ttf`][OpenSans-Italic.ttf]
+
+The above linked TTF fonts are the minimum required font styles.
+Whether you wish to install the full set of font styles variants and combinations is up to you.
+
+
+> **NOTE 1** — The San Serif font is indicated as being licensed under [Apache 2.0] on [Google Fonts][Open Sans], but in its [GitHub repository][Open Sans GH] it's released under the [SIL Open Font License 1.1][Open Sans License], so we take for good the latter.
+
+<!-- sep -->
+
+> **NOTE 2** — Unfortunately, the [Open Sans GitHub repository][Open Sans GH] doesn't provide version tag nor releases, so it's hard to find/provide direct links to specific versions of the font files.
+
+If you need to rebuild some diagrams, ensure that you've installed the fonts from the Google Fonts or GitHub links provided above because some OSs (e.g. Windows) ship with same-named fonts by different authors, which might produce slightly different results.
+Ideally, you should install the same exact versions indicated above, to ensure identical results; but it makes more sense to simply install the latest version of the fonts and simply update all diagrams, if these result in differing SVGs.
 
 Under Windows OS, you can safely install those fonts even though already present in the system (as natively shipped fonts), because they will be installed in the User fonts directory, taking precedence over the system wide version, without replacing them.
 
-Also, some of the above fonts are (or will eventually be) available also in the _[variable fonts]_ format; don't use it, use instead the standard format where each font variation comes as an individual file, which is the format we've been using to ensure support across all platforms (and Dia).
+Beware that some of the above fonts are (or will eventually be) available also in the _[variable fonts]_ format — don't use it!
+Use instead the standard format where each font variation comes as an individual file, which is the format we've been using to ensure support across all platforms (and Dia, since this project requires an old Dia version which doesn't support variable fonts).
 
 
 ## Diagrams Renaming
@@ -610,7 +631,21 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 <!-- fonts -->
 
 [Inconsolata]: https://fonts.google.com/specimen/Inconsolata?preview.text_type=custom#standard-styles "Inconsolata page at Google Fonts"
+[Inconsolata GH]: https://github.com/googlefonts/Inconsolata "Inconsolata source repository at GitHub"
+[Inconsolata License]: https://github.com/googlefonts/Inconsolata/blob/main/OFL.txt "View full text of the Inconsolata SIL Open Font License"
+
+[Inconsolata TTF]: https://github.com/googlefonts/Inconsolata/tree/main/fonts/ttf "Inconsolata TTF files directory at GitHub"
+[Inconsolata-Regular.ttf]: https://github.com/googlefonts/Inconsolata/blob/main/fonts/ttf/Inconsolata-Regular.ttf
+
+
 [Open Sans]: https://fonts.google.com/specimen/Open+Sans?preview.text=1234567890%20ABCDEFGHIJKL%20abcdefghijk&preview.text_type=custom#standard-styles "Open Sans page at Google Fonts"
+[Open Sans GH]: https://github.com/googlefonts/opensans "Open Sans source repository at GitHub"
+[Open Sans License]: https://github.com/googlefonts/opensans/blob/main/OFL.txt
+
+[Open Sans TTF]: https://github.com/googlefonts/opensans/tree/main/fonts/ttf "Open Sans TTF files directory at GitHub"
+[OpenSans-Regular.ttf]: https://github.com/googlefonts/opensans/blob/main/fonts/ttf/OpenSans-Regular.ttf
+[OpenSans-Bold.ttf]: https://github.com/googlefonts/opensans/blob/main/fonts/ttf/OpenSans-Bold.ttf
+[OpenSans-Italic.ttf]: https://github.com/googlefonts/opensans/blob/main/fonts/ttf/OpenSans-Italic.ttf
 
 [variable fonts]: https://web.dev/variable-fonts/ "Learn more about variable fonts"
 [CSS Font Stack]: https://www.cssfontstack.com/ "Visit website"
