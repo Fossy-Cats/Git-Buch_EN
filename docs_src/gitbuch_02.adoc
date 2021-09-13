@@ -1402,7 +1402,7 @@ In the following, we will again use a "`Hello World!`" program as an example, th
 
 
 ."`Hello World!`" Program in Python
-image::objektmodell-programm-crop.png[id="fig.object-model-program",scaledwidth="25%",width="25%"]
+image::objektmodell-programm-crop.png[id="fig.object-model-program",scaledwidth="25%",width="25%",align="center"]
 
 
 ////

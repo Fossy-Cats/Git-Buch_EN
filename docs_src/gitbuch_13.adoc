@@ -99,7 +99,7 @@ A detailed technical description can be found in the man page `gitrepository-lay
 
 // .Die wichtigsten Einträge in `.git`
 .The most important entries in `.git/`
-image::git-dir-crop.png[id="fig.git-dir-listing",scaledwidth="20%",width="20%"]
+image::git-dir-crop.png[id="fig.git-dir-listing",scaledwidth="17%",width="17%",align="center"]
 
 
 

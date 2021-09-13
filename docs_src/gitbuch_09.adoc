@@ -249,7 +249,7 @@ If the project follows the Subversion standard layout (<<fig.svn-stdlayout>>), u
 
 .Standard Subversion layout
 // .Standardlayout Subversion
-image::svn-stdlayout-crop.png[id="fig.svn-stdlayout",scaledwidth="20%",width="20%"]
+image::svn-stdlayout-crop.png[id="fig.svn-stdlayout",scaledwidth="17%",width="17%",align="center"]
 
 
 
@@ -339,7 +339,7 @@ If the repository is not laid out according to the Subversion standard layout, a
 
 
 .Non-Standard Layout
-image::svn-nonstdlayout-crop.png[id="fig.svn-nonstdlayout",scaledwidth="20%",width="20%"]
+image::svn-nonstdlayout-crop.png[id="fig.svn-nonstdlayout",scaledwidth="20%",width="20%",align="center"]
 
 
 ////
@@ -449,7 +449,7 @@ Assume that the Subversion repository has the following Subversion branches and 
 
 .Example Subversion branches and tags
 // .Beispiel Subversion-Branches und -Tags
-image::svn-branches-crop.png[id="fig.svn-branches",scaledwidth="20%",width="20%"]
+image::svn-branches-crop.png[id="fig.svn-branches",scaledwidth="20%",width="20%",align="center"]
 
 
 ////
@@ -462,7 +462,7 @@ In this case `git svn` creates the following git branches:
 
 .Converted Git Branches
 // .Konvertierte Git-Branches
-image::git-branches-crop.png[id="fig.git-converted-branches",scaledwidth="35%",width="35%"]
+image::git-branches-crop.png[id="fig.git-converted-branches",scaledwidth="35%",width="35%",align="center"]
 
 
 
@@ -581,13 +581,13 @@ The script `git-convert-refs` finally translates `remotes/svn/trunk` -> `trunk`,
 // @TRANSLATE IMAGE TEXT? (screenshot)
 .Converted branches and tags before translation
 // .Konvertierte Branches und Tags vor der Übersetzung
-image::git-convert-refs-before.png[id="fig.git-convert-refs-before",scaledwidth="90%",width="90%"]
+image::git-convert-refs-before.png[id="fig.git-convert-refs-before",scaledwidth="60%",width="60%",align="center"]
 
 
 // @TRANSLATE IMAGE TEXT? (screenshot)
 .Converted branches and tags after translation
 // .Konvertierte Branches und Tags nach der Übersetzung
-image::git-convert-refs-after.png[id="fig.git-convert-refs-after",scaledwidth="90%",width="90%"]
+image::git-convert-refs-after.png[id="fig.git-convert-refs-after",scaledwidth="60%",width="60%",align="center"]
 
 
 ////
@@ -660,7 +660,7 @@ The `v2.0` tag, on the other hand, was modified again after it was created from 
 
 .Converted Git tags on branches
 // .Konvertierte Git-Tags auf Abzweigungen
-image::git-svn-tag-fix-before.png[id="fig.git-svn-tag-fix-before",scaledwidth="90%",width="90%"]
+image::git-svn-tag-fix-before.png[id="fig.git-svn-tag-fix-before",scaledwidth="50%",width="50%",align="center"]
 
 
 ////
@@ -675,7 +675,7 @@ However, tag `v2.0` remains in place (because the trees are different due to sub
 
 .Tag `v1.0` was rewritten
 // .Tag `v1.0` wurde umgeschrieben
-image::git-svn-tag-fix-after.png[id="fig.git-svn-tag-fix-after",scaledwidth="90%",width="90%"]
+image::git-svn-tag-fix-after.png[id="fig.git-svn-tag-fix-after",scaledwidth="50%",width="50%",align="center"]
 
 
 
@@ -783,7 +783,7 @@ The result converted with `git-svn` is shown below.
 
 .Converted Subversion repository
 // .Konvertiertes Subversion-Repository
-image::git-svn-merge-demo.png[id="fig.git-svn-merge-demo",scaledwidth="90%",width="90%"]
+image::git-svn-merge-demo.png[id="fig.git-svn-merge-demo",scaledwidth="60%",width="60%",align="center"]
 
 
 ////

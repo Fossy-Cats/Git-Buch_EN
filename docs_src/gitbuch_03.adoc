@@ -55,7 +55,7 @@ For more information, see <<sec.gitk>>.
 
 // .Das Beispiel-Repository aus Kapitel 2, Grundlagen in Gitk. Zur Illustration wurde der zweite Commit mit  dem Tag `v0.1` versehen.
 .The sample repository from <<ch.basics>>. For illustration purposes, the second commit has been tagged `v0.1`.
-image::gitk-basic.png[id="fig.gitk-basic",scaledwidth="90%",width="90%"]
+image::gitk-basic.png[id="fig.gitk-basic",scaledwidth="90%",width="90%",align="center"]
 
 
 ////
@@ -811,7 +811,7 @@ deutlich von den grünen, rechteckigen Branches unterscheiden:
 Gitk presents tags as yellow, arrow-like boxes that are clearly distinguishable from the green, rectangular branches:
 
 .Tags in Gitk
-image::tag-screenshot.png[id="fig.tag-gitk",scaledwidth="90%",width="90%"]
+image::tag-screenshot.png[id="fig.tag-gitk",scaledwidth="90%",width="90%",align="center"]
 
 
 
@@ -1086,7 +1086,7 @@ Here's an example from the git project: we describe a commit with the SHA-1 pref
 
 // .Der zu beschreibende Commit in Grau hervorgehoben
 .The commit to be described highlighted in gray
-image::describe-screenshot.png[id="fig.describe",scaledwidth="90%",width="90%"]
+image::describe-screenshot.png[id="fig.describe",scaledwidth="90%",width="90%",align="center"]
 
 
 [subs="quotes"]
@@ -1979,7 +1979,7 @@ Consider the following two excerpts from the version history of a project:
 
 // .Integration eines Features mit und ohne Fast-Forward
 .Integration of a feature with and without fast forward
-image::ff-no-ff-vergleich.png[id="fig.ff-vergleich",scaledwidth="80%",width="80%"]
+image::ff-no-ff-vergleich.png[id="fig.ff-vergleich",scaledwidth="80%",width="80%",align="center"]
 
 
 
@@ -2634,7 +2634,7 @@ The latter visualizes particularly well how a file has changed between commits.
 
 // .Der Beispiel-Merge-Konflikt, im Merge-Tool "`Meld`" visualisiert
 .The example merge conflict, visualized in the merge tool "`Meld`"
-image::meld-example.png[id="fig.meld",scaledwidth="100%",width="100%"]
+image::meld-example.png[id="fig.meld",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
@@ -3082,7 +3082,7 @@ Since the listing of multiple commits is hard to keep track of, we examine a sma
 
 // .Der Graph der Commits, wie er in `gitk` dargestellt wird
 .The graph of commits as displayed in `gitk`
-image::revision-list-commit-graph-gitk.png[id="fig.rev-list-graph",scaledwidth="90%",width="90%"]
+image::revision-list-commit-graph-gitk.png[id="fig.rev-list-graph",scaledwidth="50%",width="50%",align="center"]
 
 
 ////
@@ -3397,7 +3397,7 @@ The only thing that might be easier to do with Gitk than from the command line i
 
 // .Komplizierte Topologie in Gitk
 .Complex topology in Gitk
-image::gitk.png[id="fig.gitk",scaledwidth="90%",width="90%"]
+image::gitk.png[id="fig.gitk",scaledwidth="90%",width="90%",align="center"]
 
 
 ////

@@ -1748,11 +1748,11 @@ $HTTP["host"] =~ "^git\.example\.com(:\d+)?$" {
 
 // .Übersichtsseite von Gitweb
 .Gitweb's Summary page
-image::gitweb-overview.png[id="fig.gitweb-overview",scaledwidth="90%",width="90%"]
+image::gitweb-overview.png[id="fig.gitweb-overview",scaledwidth="100%",width="100%",align="center"]
 
 // .Darstellung eines Commits in Gitweb
 .Viewing a commit in Gitweb
-image::gitweb-commitdiff.png[id="fig.gitweb-commitdiff",scaledwidth="90%",width="90%"]
+image::gitweb-commitdiff.png[id="fig.gitweb-commitdiff",scaledwidth="100%",width="100%",align="center"]
 
 
 
@@ -1822,7 +1822,7 @@ However, it is recommended to use `checkinstall`{fn105} so that you can easily g
 
 // .Übersichtsseite von CGit
 .Overview page of CGit
-image::cgit-overview.png[id="fig.cgit-overview",scaledwidth="90%",width="90%"]
+image::cgit-overview.png[id="fig.cgit-overview",scaledwidth="100%",width="100%",align="center"]
 
 
 
@@ -2040,7 +2040,7 @@ scan-path=/var/git/repositories
 
 // .Darstellung eines Commits in CGit
 .Viewing a commit in CGit
-image::cgit-commitdiff.png[id="fig.cgit-commitdiff",scaledwidth="90%",width="90%"]
+image::cgit-commitdiff.png[id="fig.cgit-commitdiff",scaledwidth="100%",width="100%",align="center"]
 
 
 

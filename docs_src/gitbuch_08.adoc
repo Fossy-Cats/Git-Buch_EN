@@ -554,7 +554,7 @@ On the left the old version, on the right the new version, and in the middle a m
 .Die Ausgabe von `git diff` mit dem eigenen Diff-Programm `imgdiff`
 ////
 .The output of `git diff` with the custom diff program `imgdiff`
-image::tux-diff.png[id="fig.tux-diff",scaledwidth="90%",width="90%"]
+image::tux-diff.png[id="fig.tux-diff",scaledwidth="70%",width="70%",align="center"]
 
 ////
 Das Beispiel mit dem Tux inkl. Anleitung finden Sie auch in einem Repository unter:

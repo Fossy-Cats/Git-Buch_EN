@@ -124,7 +124,7 @@ But the `master` branch has already moved on, and a new 1.4.2 release has been m
 
 // .Vor dem Rebase
 .Before the rebase
-image::screenshot-rebase-vorher.png[id="fig.screenshot-rebase-before",scaledwidth="90%",width="90%"]
+image::screenshot-rebase-vorher.png[id="fig.screenshot-rebase-before",scaledwidth="90%",width="90%",align="center"]
 
 ////
 Nun wird `sqlite-support` ausgecheckt und neu auf `master` aufgebaut:
@@ -152,7 +152,7 @@ After that, the repository looks like this in Gitk:
 
 // .Nach Rebase
 .After rebase
-image::screenshot-rebase-nachher.png[id="fig.screenshot-rebase-after",scaledwidth="90%",width="90%"]
+image::screenshot-rebase-nachher.png[id="fig.screenshot-rebase-after",scaledwidth="90%",width="90%",align="center"]
 
 [[sec.rebase-extended]]
 === Extended syntax and conflicts
@@ -1190,7 +1190,7 @@ A convenient alternative to `git blame` on the console is the graphical tool `gi
 
 // .Ein Stück Code, das aus einer anderen Datei verschoben wurde
 .A piece of code, which was moved from another file
-image::git-gui-blame.png[id="fig.git-gui-blame",scaledwidth="100%",width="100%"]
+image::git-gui-blame.png[id="fig.git-gui-blame",scaledwidth="100%",width="100%",align="center"]
 
 ////
 Wenn Sie eine Datei per `git gui blame <datei>` untersuchen, werden die unterschiedlichen Blöcke, die aus verschiedenen Commits stammen, mit Grautönen hinterlegt dargestellt.
@@ -1844,7 +1844,7 @@ This makes a stash in Gitk appear as a triangle, which is a bit confusing at fir
 
 // .Ein Stash in Gitk
 .A stash in Gitk
-image::stash-screenshot.png[id="fig.gitk-stash",scaledwidth="90%",width="90%"]
+image::stash-screenshot.png[id="fig.gitk-stash",scaledwidth="50%",width="50%",align="center"]
 
 ////
 Mit dem Alias `git tree` (siehe <<rev-list>>) sieht das so aus:

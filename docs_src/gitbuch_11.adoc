@@ -70,7 +70,7 @@ But what GitHub does not offer are mailing lists -- for that you have to use alt
 
 .GitHub page from Gollum
 // .Github-Seite von Gollum
-image::github-gollum.png[id="fig.github-gollum",scaledwidth="100%",width="100%"]
+image::github-gollum.png[id="fig.github-gollum",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
@@ -173,7 +173,7 @@ Since you can quickly lose track of many forks, GitHub provides a graphical repr
 
 
 .The GitHub Network-Graph
-image::github-network.png[id="fig.github-network",scaledwidth="100%",width="100%"]
+image::github-network.png[id="fig.github-network",scaledwidth="100%",width="100%",align="center"]
 
 
 ////
@@ -264,7 +264,7 @@ As you can see in <<fig.github-downloads>>, both as `.tar.gz` and `.zip` archive
 
 .Downloads created from tags
 // .Aus Tags erstellte Downloads
-image::github-download.png[id="fig.github-downloads",scaledwidth="65%",width="65%"]
+image::github-download.png[id="fig.github-downloads",scaledwidth="50%",width="50%",align="center"]
 
 
 
@@ -302,7 +302,7 @@ The two different versions are displayed side by side, see <<fig.github-2up>>.
 Differences in size are also visible.
 +
 .The _2-up_ image mode
-image::github-image-diff-2up.png[id="fig.github-2up",scaledwidth="90%",width="90%"]
+image::github-image-diff-2up.png[id="fig.github-2up",scaledwidth="90%",width="90%",align="center"]
 
 _Swipe_ ::
 The image is split in the middle.
@@ -311,7 +311,7 @@ Move the slider back and forth to see the changes.
 See <<fig.github-swipe>>.
 +
 .The _swipe_ image mode
-image::github-image-diff-swipe.png[id="fig.github-swipe",scaledwidth="90%",width="90%"]
+image::github-image-diff-swipe.png[id="fig.github-swipe",scaledwidth="90%",width="90%",align="center"]
 
 _Onion Skin_ ::
 A slider is also used here, but this time the new version is faded in, so there is a smooth transition between old and new.

@@ -2902,7 +2902,7 @@ Understanding this model is very important, and it helps to abstract from typica
 <div class="paragraph">
 <p>In the following, we will again use a &#8220;Hello World!&#8221; program as an example, this time in the Python programming language.&#8288;<sup class="footnote">[<a id="_footnoteref_21" class="footnote" href="#_footnotedef_21" title="View footnote.">21</a>]</sup></p>
 </div>
-<div id="fig.object-model-program" class="imageblock">
+<div id="fig.object-model-program" class="imageblock text-center">
 <div class="content">
 <img src="images/objektmodell-programm-crop.png" alt="objektmodell programm crop" width="25%">
 </div>
@@ -3310,7 +3310,7 @@ Each commit represents one line.
 Branches are displayed as green labels, tags as yellow pointers.
 For more information, see <a href="#sec.gitk">Section 3.6.2, &#8220;Gitk&#8221;</a>.</p>
 </div>
-<div id="fig.gitk-basic" class="imageblock">
+<div id="fig.gitk-basic" class="imageblock text-center">
 <div class="content">
 <img src="images/gitk-basic.png" alt="gitk basic" width="90%">
 </div>
@@ -3772,7 +3772,7 @@ Date:   Sat Jan 8 20:30:58 2011 +0100</pre>
 <div class="paragraph">
 <p>Gitk presents tags as yellow, arrow-like boxes that are clearly distinguishable from the green, rectangular branches:</p>
 </div>
-<div id="fig.tag-gitk" class="imageblock">
+<div id="fig.tag-gitk" class="imageblock text-center">
 <div class="content">
 <img src="images/tag-screenshot.png" alt="tag screenshot" width="90%">
 </div>
@@ -3939,7 +3939,7 @@ gpg:               imported: 1</pre>
 The <code>git describe</code> command gives a description consisting of the most recent tag and its relative position in the commit graph.
 Here&#8217;s an example from the git project: we describe a commit with the SHA-1 prefix <code>28ba96a</code>, which is located in the commit graph seven commits after version <code>1.7.1</code>:</p>
 </div>
-<div id="fig.describe" class="imageblock">
+<div id="fig.describe" class="imageblock text-center">
 <div class="content">
 <img src="images/describe-screenshot.png" alt="describe screenshot" width="90%">
 </div>
@@ -4489,7 +4489,7 @@ The results are the same in both cases: Changes from one branch are integrated i
 <p>However, when you create a Merge-Commit, the <em>integration</em> of a feature becomes clear.
 Consider the following two excerpts from the version history of a project:</p>
 </div>
-<div id="fig.ff-vergleich" class="imageblock">
+<div id="fig.ff-vergleich" class="imageblock text-center">
 <div class="content">
 <img src="images/ff-no-ff-vergleich.png" alt="ff no ff vergleich" width="80%">
 </div>
@@ -4936,7 +4936,7 @@ The program looks at the three stages of a file, visualizes them accordingly and
 There are also external tools such as <em>KDiff3</em>&#8288;<sup class="footnote">[<a id="_footnoteref_41" class="footnote" href="#_footnotedef_41" title="View footnote.">41</a>]</sup> and <em>Meld</em>.&#8288;<sup class="footnote">[<a id="_footnoteref_42" class="footnote" href="#_footnotedef_42" title="View footnote.">42</a>]</sup>
 The latter visualizes particularly well how a file has changed between commits.</p>
 </div>
-<div id="fig.meld" class="imageblock">
+<div id="fig.meld" class="imageblock text-center">
 <div class="content">
 <img src="images/meld-example.png" alt="meld example" width="100%">
 </div>
@@ -5195,9 +5195,9 @@ Clicking on the individual commits displays the meta-information as well as the 
 <div class="paragraph">
 <p>Since the listing of multiple commits is hard to keep track of, we examine a small sample repository with several branches merged together:</p>
 </div>
-<div id="fig.rev-list-graph" class="imageblock">
+<div id="fig.rev-list-graph" class="imageblock text-center">
 <div class="content">
-<img src="images/revision-list-commit-graph-gitk.png" alt="revision list commit graph gitk" width="90%">
+<img src="images/revision-list-commit-graph-gitk.png" alt="revision list commit graph gitk" width="50%">
 </div>
 <div class="title">Figure 20. The graph of commits as displayed in <code>gitk</code></div>
 </div>
@@ -5390,7 +5390,7 @@ Tags are shown as yellow arrows.</p>
 Right-clicking on commits opens a menu in which you can perform actions on the selected commit.
 The only thing that might be easier to do with Gitk than from the command line is <em>cherry picking</em>, i.e. transferring individual commits to another branch (see also <a href="#sec.cherry-pick">Section 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).</p>
 </div>
-<div id="fig.gitk" class="imageblock">
+<div id="fig.gitk" class="imageblock text-center">
 <div class="content">
 <img src="images/gitk.png" alt="gitk" width="90%">
 </div>
@@ -5613,7 +5613,7 @@ In that case, the commits will be preserved even after a rebase (but then in dup
 The <code>sqlite-support</code> branch branches off from the &#8220;fixed a bug&#8230;&#8203;&#8221; commit.
 But the <code>master</code> branch has already moved on, and a new 1.4.2 release has been made.</p>
 </div>
-<div id="fig.screenshot-rebase-before" class="imageblock">
+<div id="fig.screenshot-rebase-before" class="imageblock text-center">
 <div class="content">
 <img src="images/screenshot-rebase-vorher.png" alt="screenshot rebase vorher" width="90%">
 </div>
@@ -5636,7 +5636,7 @@ Applying: modify Makefile to support sqlite</pre>
 <p>Rebase applies the three changes introduced by commits from the <code>sqlite-support</code> branch to the <code>master</code> branch.
 After that, the repository looks like this in Gitk:</p>
 </div>
-<div id="fig.screenshot-rebase-after" class="imageblock">
+<div id="fig.screenshot-rebase-after" class="imageblock text-center">
 <div class="content">
 <img src="images/screenshot-rebase-nachher.png" alt="screenshot rebase nachher" width="90%">
 </div>
@@ -6346,7 +6346,7 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
 <div class="paragraph">
 <p>A convenient alternative to <code>git blame</code> on the console is the graphical tool <code>git gui blame</code> (you may need to install the <code>git-gui</code> package for this).</p>
 </div>
-<div id="fig.git-gui-blame" class="imageblock">
+<div id="fig.git-gui-blame" class="imageblock text-center">
 <div class="content">
 <img src="images/git-gui-blame.png" alt="git gui blame" width="100%">
 </div>
@@ -6871,9 +6871,9 @@ However, the following command prints the former stashes:&#8288;<sup class="foot
 Both have the current <code>HEAD</code> as their ancestor, the working tree object has the index object as its ancestor.
 This makes a stash in Gitk appear as a triangle, which is a bit confusing at first:</p>
 </div>
-<div id="fig.gitk-stash" class="imageblock">
+<div id="fig.gitk-stash" class="imageblock text-center">
 <div class="content">
-<img src="images/stash-screenshot.png" alt="stash screenshot" width="90%">
+<img src="images/stash-screenshot.png" alt="stash screenshot" width="50%">
 </div>
 <div class="title">Figure 29. A stash in Gitk</div>
 </div>
@@ -7486,7 +7486,7 @@ If you have enabled color output, the different branches will also be color-code
 However, since they are special references that are also linked to a remote repository, they end up under <code>.git/refs/remotes/&lt;remote-name&gt;</code> (see <a href="#sec.branch-refs">Section 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>).
 In Gitk, the remote tracking branches are displayed with the prefix <code>remotes/&lt;remote-name&gt;/</code>, which is also colored dark yellow (<a href="#fig.remote-tracking-gitk">Figure 32, &#8220;Branch <code>next</code> and the corresponding remote tracking branch in Gitk&#8221;</a>).</p>
 </div>
-<div id="fig.remote-tracking-gitk" class="imageblock">
+<div id="fig.remote-tracking-gitk" class="imageblock text-center">
 <div class="content">
 <img src="images/remote-tracking-gitk.png" alt="remote tracking gitk" width="90%">
 </div>
@@ -8589,9 +8589,9 @@ The file names consist of a sequential numbering and the commit message, and end
 As an argument, the command expects either a single commit or a range such as <code>A..B</code>.
 If you specify a single commit, Git will evaluate this as the selection from the commit to the <code>HEAD</code>.</p>
 </div>
-<div id="fig.gitk-screen-format-patch" class="imageblock">
+<div id="fig.gitk-screen-format-patch" class="imageblock text-center">
 <div class="content">
-<img src="images/gitk-screen-format-patch.png" alt="gitk screen format patch" width="90%">
+<img src="images/gitk-screen-format-patch.png" alt="gitk screen format patch" width="70%">
 </div>
 <div class="title">Figure 38. Formatting three commits to 'master' as patches</div>
 </div>
@@ -8738,7 +8738,7 @@ Who should the emails appear to be from? [Valentin Haenel
 <p>The command <code>git send-email</code> sets the fields <code>Message-Id</code> and <code>In-Reply-To</code>.
 This makes all e-mails after the first one look like replies to them and thus most mail programs will display them as a continuous <em>thread</em>:&#8288;<sup class="footnote">[<a id="_footnoteref_79" class="footnote" href="#_footnotedef_79" title="View footnote.">79</a>]</sup></p>
 </div>
-<div id="fig.mail-thread" class="imageblock">
+<div id="fig.mail-thread" class="imageblock text-center">
 <div class="content">
 <img src="images/mail-thread.png" alt="mail thread" width="100%">
 </div>
@@ -10834,15 +10834,15 @@ To do this you need to load the modules <code>mod_alias</code>, <code>mod_setenv
 }</pre>
 </div>
 </div>
-<div id="fig.gitweb-overview" class="imageblock">
+<div id="fig.gitweb-overview" class="imageblock text-center">
 <div class="content">
-<img src="images/gitweb-overview.png" alt="gitweb overview" width="90%">
+<img src="images/gitweb-overview.png" alt="gitweb overview" width="100%">
 </div>
 <div class="title">Figure 42. Gitweb&#8217;s Summary page</div>
 </div>
-<div id="fig.gitweb-commitdiff" class="imageblock">
+<div id="fig.gitweb-commitdiff" class="imageblock text-center">
 <div class="content">
-<img src="images/gitweb-commitdiff.png" alt="gitweb commitdiff" width="90%">
+<img src="images/gitweb-commitdiff.png" alt="gitweb commitdiff" width="100%">
 </div>
 <div class="title">Figure 43. Viewing a commit in Gitweb</div>
 </div>
@@ -10886,9 +10886,9 @@ CGIT_DATA_PATH=/usr/share/cgit</pre>
 <p>Now the program can be compiled and installed via <code>make install</code>.
 However, it is recommended to use <code>checkinstall</code>&#8288;<sup class="footnote">[<a id="_footnoteref_105" class="footnote" href="#_footnotedef_105" title="View footnote.">105</a>]</sup> so that you can easily get rid of the package if necessary.</p>
 </div>
-<div id="fig.cgit-overview" class="imageblock">
+<div id="fig.cgit-overview" class="imageblock text-center">
 <div class="content">
-<img src="images/cgit-overview.png" alt="cgit overview" width="90%">
+<img src="images/cgit-overview.png" alt="cgit overview" width="100%">
 </div>
 <div class="title">Figure 44. Overview page of CGit</div>
 </div>
@@ -11023,9 +11023,9 @@ project-list=/var/git/projects.list
 scan-path=/var/git/repositories</pre>
 </div>
 </div>
-<div id="fig.cgit-commitdiff" class="imageblock">
+<div id="fig.cgit-commitdiff" class="imageblock text-center">
 <div class="content">
-<img src="images/cgit-commitdiff.png" alt="cgit commitdiff" width="90%">
+<img src="images/cgit-commitdiff.png" alt="cgit commitdiff" width="100%">
 </div>
 <div class="title">Figure 45. Viewing a commit in CGit</div>
 </div>
@@ -11467,9 +11467,9 @@ $ <strong>git diff</strong></pre>
 <p>The output of the <code>git diff</code> command is a window with the following content:
 On the left the old version, on the right the new version, and in the middle a mask of those parts of the new image that are different from the old.</p>
 </div>
-<div id="fig.tux-diff" class="imageblock">
+<div id="fig.tux-diff" class="imageblock text-center">
 <div class="content">
-<img src="images/tux-diff.png" alt="tux diff" width="90%">
+<img src="images/tux-diff.png" alt="tux diff" width="70%">
 </div>
 <div class="title">Figure 46. The output of <code>git diff</code> with the custom diff program <code>imgdiff</code></div>
 </div>
@@ -13201,9 +13201,9 @@ The following questions will help:</p>
 <div class="paragraph">
 <p>If the project follows the Subversion standard layout (<a href="#fig.svn-stdlayout">Figure 47, &#8220;Standard Subversion layout&#8221;</a>), use the argument <code>--stdlayout</code> or <code>-s</code> for short.</p>
 </div>
-<div id="fig.svn-stdlayout" class="imageblock">
+<div id="fig.svn-stdlayout" class="imageblock text-center">
 <div class="content">
-<img src="images/svn-stdlayout-crop.png" alt="svn stdlayout crop" width="20%">
+<img src="images/svn-stdlayout-crop.png" alt="svn stdlayout crop" width="17%">
 </div>
 <div class="title">Figure 47. Standard Subversion layout</div>
 </div>
@@ -13268,7 +13268,7 @@ For others (<code>svn+ssh</code>), you must specify the username as part of the 
 <div class="paragraph">
 <p>If the repository is not laid out according to the Subversion standard layout, adjust the call to <code>git svn</code> accordingly: Instead of <code>--stdlayout</code>, explicitly specify the trunk with <code>--trunk</code> or <code>-T</code>, the branches with <code>--branches</code> or <code>-b</code>, and the tags with <code>--tags</code> or <code>-t</code>&#8201;&#8212;&#8201;if, for example, several projects are managed in one Subversion repository (<a href="#fig.svn-nonstdlayout">Figure 48, &#8220;Non-Standard Layout&#8221;</a>).</p>
 </div>
-<div id="fig.svn-nonstdlayout" class="imageblock">
+<div id="fig.svn-nonstdlayout" class="imageblock text-center">
 <div class="content">
 <img src="images/svn-nonstdlayout-crop.png" alt="svn nonstdlayout crop" width="20%">
 </div>
@@ -13340,7 +13340,7 @@ However, if you only want to convert the repository, these branches are of no us
 <div class="paragraph">
 <p>Assume that the Subversion repository has the following Subversion branches and tags:</p>
 </div>
-<div id="fig.svn-branches" class="imageblock">
+<div id="fig.svn-branches" class="imageblock text-center">
 <div class="content">
 <img src="images/svn-branches-crop.png" alt="svn branches crop" width="20%">
 </div>
@@ -13349,7 +13349,7 @@ However, if you only want to convert the repository, these branches are of no us
 <div class="paragraph">
 <p>In this case <code>git svn</code> creates the following git branches:</p>
 </div>
-<div id="fig.git-converted-branches" class="imageblock">
+<div id="fig.git-converted-branches" class="imageblock text-center">
 <div class="content">
 <img src="images/git-branches-crop.png" alt="git branches crop" width="35%">
 </div>
@@ -13426,15 +13426,15 @@ In the Subversion repository there is a trunk, a branch feature and the <code>v1
 <code>git-svn</code> creates three branches under <code>remotes/svn</code> during the conversion process, as described above.
 The script <code>git-convert-refs</code> finally translates <code>remotes/svn/trunk</code> &#8594; <code>trunk</code>, <code>remotes/svn/feature</code> &#8594; <code>feature</code> and <code>remotes/svn/tags/v1.0</code> becomes a lightweight tag.</p>
 </div>
-<div id="fig.git-convert-refs-before" class="imageblock">
+<div id="fig.git-convert-refs-before" class="imageblock text-center">
 <div class="content">
-<img src="images/git-convert-refs-before.png" alt="git convert refs before" width="90%">
+<img src="images/git-convert-refs-before.png" alt="git convert refs before" width="60%">
 </div>
 <div class="title">Figure 51. Converted branches and tags before translation</div>
 </div>
-<div id="fig.git-convert-refs-after" class="imageblock">
+<div id="fig.git-convert-refs-after" class="imageblock text-center">
 <div class="content">
-<img src="images/git-convert-refs-after.png" alt="git convert refs after" width="90%">
+<img src="images/git-convert-refs-after.png" alt="git convert refs after" width="60%">
 </div>
 <div class="title">Figure 52. Converted branches and tags after translation</div>
 </div>
@@ -13484,9 +13484,9 @@ In <a href="#fig.git-svn-tag-fix-before">Figure 53, &#8220;Converted Git tags on
 The <code>v1.0</code> tag was created from commit <code>C1</code> and does not contain any subsequent changes.
 The <code>v2.0</code> tag, on the other hand, was modified again after it was created from Commit <code>C2</code>.</p>
 </div>
-<div id="fig.git-svn-tag-fix-before" class="imageblock">
+<div id="fig.git-svn-tag-fix-before" class="imageblock text-center">
 <div class="content">
-<img src="images/git-svn-tag-fix-before.png" alt="git svn tag fix before" width="90%">
+<img src="images/git-svn-tag-fix-before.png" alt="git svn tag fix before" width="50%">
 </div>
 <div class="title">Figure 53. Converted Git tags on branches</div>
 </div>
@@ -13494,9 +13494,9 @@ The <code>v2.0</code> tag, on the other hand, was modified again after it was cr
 <p>In <a href="#fig.git-svn-tag-fix-after">Figure 54, &#8220;Tag <code>v1.0</code> was rewritten&#8221;</a> you can see how tag <code>v1.0</code> was moved from the above script to the ancestor (because the trees are the same).
 However, tag <code>v2.0</code> remains in place (because the trees are different due to subsequent changes).</p>
 </div>
-<div id="fig.git-svn-tag-fix-after" class="imageblock">
+<div id="fig.git-svn-tag-fix-after" class="imageblock text-center">
 <div class="content">
-<img src="images/git-svn-tag-fix-after.png" alt="git svn tag fix after" width="90%">
+<img src="images/git-svn-tag-fix-after.png" alt="git svn tag fix after" width="50%">
 </div>
 <div class="title">Figure 54. Tag <code>v1.0</code> was rewritten</div>
 </div>
@@ -13567,9 +13567,9 @@ However, if only individual revisions have been merged (via <code>svn merge -c &
 <p>For the following example, we have created a Subversion repository with a branch feature that is merged twice: once as a Subversion merge, which is considered a Git merge commit, and once as a Subversion merge, which is translated as cherry-pick.
 The result converted with <code>git-svn</code> is shown below.</p>
 </div>
-<div id="fig.git-svn-merge-demo" class="imageblock">
+<div id="fig.git-svn-merge-demo" class="imageblock text-center">
 <div class="content">
-<img src="images/git-svn-merge-demo.png" alt="git svn merge demo" width="90%">
+<img src="images/git-svn-merge-demo.png" alt="git svn merge demo" width="60%">
 </div>
 <div class="title">Figure 55. Converted Subversion repository</div>
 </div>
@@ -15071,7 +15071,7 @@ Additionally, an email backend has been integrated into the issue tracker.
 Your responses to the incoming emails are automatically processed by GitHub and also displayed in the web interface.
 But what GitHub does not offer are mailing lists&#8201;&#8212;&#8201;for that you have to use alternatives.</p>
 </div>
-<div id="fig.github-gollum" class="imageblock">
+<div id="fig.github-gollum" class="imageblock text-center">
 <div class="content">
 <img src="images/github-gollum.png" alt="github gollum" width="100%">
 </div>
@@ -15136,7 +15136,7 @@ You will then be automatically redirected to the pull-request page.</p>
 <div class="paragraph">
 <p>Since you can quickly lose track of many forks, GitHub provides a graphical representation of the forks with pending changes, the so-called <em>network graph</em>:</p>
 </div>
-<div id="fig.github-network" class="imageblock">
+<div id="fig.github-network" class="imageblock text-center">
 <div class="content">
 <img src="images/github-network.png" alt="github network" width="100%">
 </div>
@@ -15173,9 +15173,9 @@ Among them are old classics like e-mail and IRC, but also more modern alternativ
 So tags automatically become source code archives for download.
 As you can see in <a href="#fig.github-downloads">Figure 61, &#8220;Downloads created from tags&#8221;</a>, both as <code>.tar.gz</code> and <code>.zip</code> archives.</p>
 </div>
-<div id="fig.github-downloads" class="imageblock">
+<div id="fig.github-downloads" class="imageblock text-center">
 <div class="content">
-<img src="images/github-download.png" alt="github download" width="65%">
+<img src="images/github-download.png" alt="github download" width="50%">
 </div>
 <div class="title">Figure 61. Downloads created from tags</div>
 </div>
@@ -15190,7 +15190,7 @@ There are the following modes:</p>
 <dd>
 <p>The two different versions are displayed side by side, see <a href="#fig.github-2up">Figure 62, &#8220;The <em>2-up</em> image mode&#8221;</a>.
 Differences in size are also visible.</p>
-<div id="fig.github-2up" class="imageblock">
+<div id="fig.github-2up" class="imageblock text-center">
 <div class="content">
 <img src="images/github-image-diff-2up.png" alt="github image diff 2up" width="90%">
 </div>
@@ -15203,7 +15203,7 @@ Differences in size are also visible.</p>
 On the left you see the old version and on the right the new one.
 Move the slider back and forth to see the changes.
 See <a href="#fig.github-swipe">Figure 63, &#8220;The <em>swipe</em> image mode&#8221;</a>.</p>
-<div id="fig.github-swipe" class="imageblock">
+<div id="fig.github-swipe" class="imageblock text-center">
 <div class="content">
 <img src="images/github-image-diff-swipe.png" alt="github image diff swipe" width="90%">
 </div>
@@ -15455,9 +15455,9 @@ In the <code>info/</code> subdirectory, Git will store a list of existing pack f
 <div class="paragraph">
 <p>A detailed technical description can be found in the man page <code>gitrepository-layout(5)</code>.</p>
 </div>
-<div id="fig.git-dir-listing" class="imageblock">
+<div id="fig.git-dir-listing" class="imageblock text-center">
 <div class="content">
-<img src="images/git-dir-crop.png" alt="git dir crop" width="20%">
+<img src="images/git-dir-crop.png" alt="git dir crop" width="17%">
 </div>
 <div class="title">Figure 64. The most important entries in <code>.git/</code></div>
 </div>
