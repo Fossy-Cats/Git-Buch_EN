@@ -1187,7 +1187,7 @@ If you have experience with another version control system, you will be familiar
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><em>Version Control System</em> (VCS) </dt>
+<dt class="hdlist1"><em>Version Control System</em> (VCS)</dt>
 <dd>
 <p>A system for managing and versioning software or other digital information.
 Prominent examples are Git, Subversion, CVS, Mercurial (hg), Darcs and Bazaar.
@@ -1227,7 +1227,8 @@ It&#8217;s often called the <em>Working Directory</em>.</p>
 <dd>
 <p>Changes to the working tree, such as modified or new files, are stored in the repository as commits.
 A commit contains both these changes and metadata, such as the author of the changes, the date and time, and a commit message that describes the changes.
-A commit always references the status of <em>all</em> managed files at a particular point in time. The various Git commands are used to create, manipulate, view, or change the relationships between commits.</p>
+A commit always references the status of <em>all</em> managed files at a particular point in time.
+The various Git commands are used to create, manipulate, view, or change the relationships between commits.</p>
 </dd>
 </dl>
 </div>
@@ -1235,7 +1236,7 @@ A commit always references the status of <em>all</em> managed files at a particu
 <dl>
 <dt class="hdlist1"><code>HEAD</code></dt>
 <dd>
-<p>A symbolic reference to the latest commit in the current branch.
+<p>A symbolic reference to the newest commit in the current branch.
 This reference determines which files you find in the working tree for editing.
 It is therefore the &#8220;head&#8221; or tip of a development branch (not to be confused with <code>HEAD</code> in systems like CVS or SVN).</p>
 </dd>
@@ -1267,7 +1268,7 @@ For a detailed description of the object model, see <a href="#sec.object-model">
 <dd>
 <p>The index is an intermediate level between the working tree and the repository, where you prepare a commit.
 The index therefore <em>indexes</em> which changes to which files you want to package as commits.
-This concept is unique to Git, and is often difficult for beginners and people who are new to Git.
+This concept is unique to Git and often causes difficulties for beginners and people switching to Git.
 We discuss the index in detail in <a href="#sec.index">Section 2.1.1, &#8220;Index&#8221;</a>.</p>
 </dd>
 </dl>
@@ -1305,7 +1306,7 @@ The <code>master</code> is technically no different from other branches.</p>
 <dl>
 <dt class="hdlist1"><em>Tag</em></dt>
 <dd>
-<p>Tags are symbolic names for SHA-1 values that are difficult to remember.
+<p>Tags are symbolic names for hard-to-remember SHA-1 sums.
 You can use tags to mark important commits, such as releases.
 A tag can simply be an identifier, such as <code>v1.6.2</code>, or it can contain additional metadata such as author, description, and GPG signature.</p>
 </dd>
@@ -1323,8 +1324,8 @@ We create a repository and develop a one-liner, a &#8220;Hello, World!&#8221; pr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git config --global user.name "Max Mustermann"</strong>
-$ <strong>git config --global user.email "max.mustermann@example.com"</strong></pre>
+<pre>$ <strong>git config --global user.name "John Doe"</strong>
+$ <strong>git config --global user.email "john.doe@example.com"</strong></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1335,7 +1336,7 @@ The following call is therefore <em>incorrect</em>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git config --global user.name = "Max Mustermann"</strong></pre>
+<pre>$ <strong>git config --global user.name = "John Doe"</strong></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1352,8 +1353,8 @@ The repository will be created <em>locally</em>, so it will only be on the file 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git init beispiel</strong>
-Initialized empty Git repository in /home/esc/beispiel/.git/</pre>
+<pre>$ <strong>git init example</strong>
+Initialized empty Git repository in /home/esc/example/.git/</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1365,7 +1366,7 @@ We change to the directory and look at the current state with <code>git status</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>cd beispiel</strong>
+<pre>$ <strong>cd example</strong>
 $ <strong>git status</strong>
 On branch master
 
@@ -1466,17 +1467,13 @@ For further explanation of this concept, see <a href="#sec.index">Section 2.1.1,
 <p>With <code>git status</code>, under <code>Changes to be committed</code>, you can always see which files are in the Index, i.e., will be included in the next commit.</p>
 </div>
 <div class="paragraph">
-<p>Alles ist bereit für den ersten Commit mit dem Kommando <code>git commit</code>.
-Außerdem übergeben wir auf der Kommandozeile die Option <code>-m</code> mit einer Commit-Nachricht (<em>Commit Message</em>), in der wir den Commit beschreiben:</p>
-</div>
-<div class="paragraph">
 <p>Everything is ready for the first commit with the <code>git commit</code> command.
 We also pass the <code>-m</code> option on the command line with a commit message describing the commit:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git commit -m "Erste Version"</strong>
-[master (root-commit) 07cc103] Erste Version
+<pre>$ <strong>git commit -m "First version"</strong>
+[master (root-commit) 07cc103] First version
  1 file changed, 1 insertion(+)
  create mode 100644 hello.pl</pre>
 </div>
@@ -1515,7 +1512,7 @@ commit 07cc103feb393a93616842921a7bec285178fd56
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
-    Erste Version
+    First version
 
 diff --git a/hello.pl b/hello.pl
 new file mode 100644
@@ -1545,15 +1542,12 @@ $ <strong>git show 07cc103feb393a93616842921a7bec285178fd56</strong></pre>
 <div class="paragraph">
 <p>If you want to view more than one commit, <code>git log</code> is recommended.
 More commits are needed to demonstrate the command in a meaningful way; otherwise, the output would be very similar to <code>git show</code>, since the sample repository currently contains only a single commit.
-So let&#8217;s add the following comment line to the &#8220;Hello World!&#8221; program_</p>
+So let&#8217;s add the following comment line to the &#8220;Hello World!&#8221; program:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># Hello World! in Perl</pre>
+<pre class="highlight"><code class="language-perl" data-lang="perl"># Hello World! in Perl</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Schauen wir uns der Übung halber noch einmal mit <code>git status</code> den aktuellen Zustand an:</p>
 </div>
 <div class="paragraph">
 <p>For the sake of the exercise, let&#8217;s take another look at the current status with <code>git status</code>:</p>
@@ -1573,7 +1567,7 @@ no changes added to commit (use "git add" and/or "git commit -a")</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then, as described in the output of the command, use <code>git add</code> to add the changes to the Index.
+<p>After that, as already described in the output of the command, use <code>git add</code> to add the changes to the index.
 As mentioned earlier, <code>git add</code> is used both to add new files and to add changes to files already managed.</p>
 </div>
 <div class="listingblock">
@@ -1586,8 +1580,8 @@ As mentioned earlier, <code>git add</code> is used both to add new files and to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git commit -m "Kommentar-Zeile"</strong>
-[master 8788e46] Kommentar-Zeile
+<pre>$ <strong>git commit -m "Comment line"</strong>
+[master 8788e46] Comment line
  1 file changed, 1 insertion(+)</pre>
 </div>
 </div>
@@ -1601,13 +1595,13 @@ commit 8788e46167aec2f6be92c94c905df3b430f6ecd6
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Fri May 27 12:52:58 2011 +0200
 
-    Kommentar-Zeile
+    Comment line
 
 commit 07cc103feb393a93616842921a7bec285178fd56
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
-    Erste Version</pre>
+    First version</pre>
 </div>
 </div>
 </div>
@@ -1617,12 +1611,12 @@ Date:   Tue Nov 16 00:40:54 2010 +0100
 <div class="paragraph">
 <p>Like most text-based programs, Git offers a wealth of configuration options.
 So now&#8217;s the time to do some basic configuration.
-These include color settings, which are turned on by default in newer versions, to make it easier to capture the output of Git commands, and small aliases (abbreviations) for frequently used commands.</p>
+These include color settings, which are turned on by default in newer versions, to make it easier to capture the output of Git commands, and small aliases (abbreviations) for frequently needed commands.</p>
 </div>
 <div class="paragraph">
 <p>You configure Git with the <code>git config</code> command.
 The configuration is saved in a format similar to an INI file.
-If you do not specify any other parameters, the configuration only applies to the current Git repository (<code>.git/config</code>).
+Without specifying further parameters, the configuration applies only to the current repository (<code>.git/config</code>).
 With the <code>--global</code> option, it is stored in the <code>.gitconfig</code> file in the user&#8217;s home directory, and is then valid for all repositories.&#8288;<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnotedef_9" title="View footnote.">9</a>]</sup></p>
 </div>
 <div class="paragraph">
@@ -1630,14 +1624,9 @@ With the <code>--global</code> option, it is stored in the <code>.gitconfig</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git config --global user.name "Max Mustermann"</strong>
-$ <strong>git config --global user.email "max.mustermann@example.com"</strong></pre>
+<pre>$ <strong>git config --global user.name "John Doe"</strong>
+$ <strong>git config --global user.email "john.doe@example.com"</strong></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Beachten Sie, dass Sie Leerzeichen im Wert der Einstellung schützen müssen (durch Anführungszeichen oder Backslashes).
-Außerdem folgt der Wert direkt auf den Namen der Option&#8201;&#8212;&#8201;ein Gleichheitszeichen ist auch hier nicht nötig.
-Das Ergebnis des Kommandos findet sich anschließend in der Datei <code>~/.gitconfig</code>:</p>
 </div>
 <div class="paragraph">
 <p>Note that you must protect spaces in the setting value (using quotation marks or backslashes).
@@ -1648,8 +1637,8 @@ The result of the command can be found in the file <code>~/.gitconfig</code>:</p
 <div class="content">
 <pre>$ <strong>less ~/.gitconfig</strong>
 [user]
-    name = Max Mustermann
-    email = max.mustermann@example.com</pre>
+    name = John Doe
+    email = john.doe@example.com</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1662,7 +1651,7 @@ If you want to specify an e-mail address other than your globally defined one fo
 </div>
 </div>
 <div class="paragraph">
-<p>When Git queries an option, it will first use the setting in the current Git repository, if it exists, otherwise it will use the setting from the global <code>.gitconfig</code>; if it doesn&#8217;t, it will revert to the default value.&#8288;<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup>
+<p>When querying an option, Git will first use the setting in the current repository if it exists, otherwise the one from the global <code>.gitconfig</code>; if this does not exist either, it will fall back to the default value.&#8288;<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup>
 The latter is available for all options in the man page <code>git-config</code>.
 You can get a list of all the settings you have set using <code>git config -l</code>.</p>
 </div>
@@ -1690,12 +1679,12 @@ This is especially useful for deleting a setting&#8201;&#8212;&#8201;although <c
 <div class="sect3">
 <h4 id="sec.git-alias"><a class="anchor" href="#sec.git-alias"></a>1.3.1. Git Aliases</h4>
 <div class="paragraph">
-<p>Git uses <em>aliases</em> to allow you to abbreviate individual commands and even entire command sequences.
+<p>Git offers you the possibility to abbreviate single commands and even whole command sequences via <em>Aliases</em>.
 The syntax is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ <strong>git config alias.&lt;alias-name&gt; &lt;entsprechung&gt;</strong></pre>
+<pre>$ <strong>git config alias.&lt;alias-name&gt; &lt;command&gt;</strong></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1738,11 +1727,11 @@ But first, some useful abbreviations:</p>
 <h4 id="chap.color-defaults"><a class="anchor" href="#chap.color-defaults"></a>1.3.2. Adjusting Colours</h4>
 <div class="paragraph">
 <p>Very helpful is the <code>color.ui</code> option, which checks whether Git should color the output of various commands.
-Deleted files and lines will appear red, new files and lines green, commit IDs yellow, and so on.
+Thus, deleted files and lines appear red, new files and lines appear green, commit IDs appear yellow, etc.
 In newer Git versions (1.8.4 and later) this setting is already set automatically, so you don&#8217;t need to do anything.</p>
 </div>
 <div class="paragraph">
-<p>The <code>color.ui</code> option should be set to <code>auto</code>&#8201;&#8212;&#8201;if Git is output to a terminal, colours are used.
+<p>The <code>color.ui</code> option should be set to <code>auto</code>&#8201;&#8212;&#8201;if the output from Git is to a terminal, colors are used.
 If the command is written to a file instead, or the output is piped to another program, Git will not output color sequences, as this could interfere with automatic processing.</p>
 </div>
 <div class="listingblock">
@@ -1805,11 +1794,6 @@ The file is automatically converted to get line feeds only, but is checked out w
 For this, the <code>core.safecrlf</code> option provides a mechanism to warn the user (value <code>warn</code>) or even disallow the commit (value <code>true</code>).</p>
 </div>
 <div class="paragraph">
-<p>Eine sichere Einstellung, die auch mit älteren Git-Versionen unter Windows-Systemen funktioniert, ist <code>core.autocrlf</code> auf <code>input</code> zu setzen: Dadurch wird automatisch beim <em>Einlesen</em> der Dateien vom Dateisystem CRLF durch LF ersetzt.
-Ihr
-Editor muss dann entsprechend mit LF-Enden umgehen können.</p>
-</div>
-<div class="paragraph">
 <p>A safe setting, which also works with older Git versions on Windows systems, is to set <code>core.autocrlf</code> to <code>input</code>: This will automatically replace CRLF with LF when <em>reading</em> files from the filesystem.
 Your editor must then be able to handle LF line endings accordingly.</p>
 </div>
@@ -1850,10 +1834,6 @@ In addition, you can use <code>git config pager.diff false</code> to ensure that
 </div>
 <div class="sect3">
 <h4 id="chap.conf-env"><a class="anchor" href="#chap.conf-env"></a>1.3.6. Configuration via Environment Variables</h4>
-<div class="paragraph">
-<p>Einige Optionen lassen sich auch durch Umgebungsvariablen überschreiben.
-Auf diese Weise können in einem Shell-Script oder in einem Alias Optionen lediglich für ein einzelnes Kommando gesetzt werden.</p>
-</div>
 <div class="paragraph">
 <p>Some options can also be overridden by environment variables.
 In this way, options can be set in a shell script or alias for a single command only.</p>
@@ -1907,10 +1887,6 @@ The value <code>cat</code> switches the pager off.</p>
 <div class="content">
 <pre>$ <strong>GIT_DIR="~/proj/example/.git" git log</strong></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Alternativ können Sie über die Option <code>-c</code>&#160; <em>vor dem Subkommando</em> eine Einstellung nur für diesen Aufruf überschreiben.
-So könnten Sie zum Beispiel Git anweisen, für den kommenden Aufruf die Option <code>core.trustctime</code> zu deaktivieren:</p>
 </div>
 <div class="paragraph">
 <p>Alternatively, you can use the <code>-c</code> option <em>before the subcommand</em> to overwrite a setting for this call only.
