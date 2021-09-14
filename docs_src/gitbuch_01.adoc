@@ -58,7 +58,7 @@ In einem verteilten System wie Git gibt es viele gleichwertige Instanzen des Rep
 Der Austausch von Veränderungen ist flexibler und erfolgt nicht zwingend über einen zentralen Server.
 ////
 
-_Version Control System_ (VCS) ::
+_Version Control System_ (VCS)::
 A system for managing and versioning software or other digital information.
 Prominent examples are Git, Subversion, CVS, Mercurial (hg), Darcs and Bazaar.
 Synonyms are _Software Configuration Management_ (SCM) and _Revision Control System_.
@@ -105,7 +105,8 @@ Die verschiedenen Git-Kommandos dienen dazu, Commits zu erstellen, zu manipulier
 _Commit_::
 Changes to the working tree, such as modified or new files, are stored in the repository as commits.
 A commit contains both these changes and metadata, such as the author of the changes, the date and time, and a commit message that describes the changes.
-A commit always references the status of _all_ managed files at a particular point in time. The various Git commands are used to create, manipulate, view, or change the relationships between commits.
+A commit always references the status of _all_ managed files at a particular point in time.
+The various Git commands are used to create, manipulate, view, or change the relationships between commits.
 
 
 ////
@@ -116,7 +117,7 @@ Es handelt sich also um den "`Kopf`" bzw. die Spitze eines Entwicklungsstrangs (
 ////
 
 `HEAD`::
-A symbolic reference to the latest commit in the current branch.
+A symbolic reference to the newest commit in the current branch.
 This reference determines which files you find in the working tree for editing.
 It is therefore the "`head`" or tip of a development branch (not to be confused with `HEAD` in systems like CVS or SVN).
 
@@ -158,7 +159,7 @@ Wir widmen uns dem Index ausführlich in Abschnitt 2.1.1, "Index".
 _Index_::
 The index is an intermediate level between the working tree and the repository, where you prepare a commit.
 The index therefore _indexes_ which changes to which files you want to package as commits.
-This concept is unique to Git, and is often difficult for beginners and people who are new to Git.
+This concept is unique to Git and often causes difficulties for beginners and people switching to Git.
 We discuss the index in detail in <<sec.index>>.
 
 
@@ -207,7 +208,7 @@ Ein Tag kann einfach nur ein Bezeichner, wie z.B. `v1.6.2`, sein, oder zusätzli
 ////
 
 _Tag_::
-Tags are symbolic names for SHA-1 values that are difficult to remember.
+Tags are symbolic names for hard-to-remember SHA-1 sums.
 You can use tags to mark important commits, such as releases.
 A tag can simply be an identifier, such as `v1.6.2`, or it can contain additional metadata such as author, description, and GPG signature.
 
@@ -236,8 +237,8 @@ In order for Git to assign a commit to an author, you need to enter your name an
 
 [subs="quotes"]
 --------
-$ *git config --global user.name "Max Mustermann"*
-$ *git config --global user.email "max.mustermann@example.com"*
+$ *git config --global user.name "John Doe"*
+$ *git config --global user.email "john.doe@example.com"*
 --------
 
 
@@ -256,7 +257,7 @@ The following call is therefore _incorrect_:
 
 [subs="quotes"]
 --------
-$ *git config --global user.name = "Max Mustermann"*
+$ *git config --global user.name = "John Doe"*
 --------
 
 ////
@@ -285,12 +286,10 @@ Es empfiehlt sich generell, den Umgang mit Git zunächst lokal zu üben und erst
 
 It's generally recommended that you practice using Git locally first, and only later dive into the decentralized features and functions of Git.
 
-// @FIXME: GIT LOGS: translate the directory 'beispiel/' to 'example/' in paths!
-
 [subs="quotes"]
 --------
-$ *git init beispiel*
-Initialized empty Git repository in /home/esc/beispiel/.git/
+$ *git init example*
+Initialized empty Git repository in /home/esc/example/.git/
 --------
 
 
@@ -311,7 +310,7 @@ We change to the directory and look at the current state with `git status`:
 
 [subs="quotes"]
 --------
-$ *cd beispiel*
+$ *cd example*
 $ *git status*
 On branch master
 
@@ -322,12 +321,6 @@ nothing to commit (create/copy files and use "git add" to track)
 
 Git weist uns darauf hin, dass wir vor dem ersten Commit stehen (`Initial commit`), hat aber nichts gefunden, was in diesen Commit einfließen könnte (`nothing to commit`).
 Dafür liefert es einen Hinweis, welche Schritte sich als nächste anbieten (das tun übrigens die meisten Git-Kommandos): "`Erstellen oder kopieren Sie Dateien, und verwenden Sie `git add`, um diese mit Git zu verwalten.`"
-
-// @NOTE: Should the last Git message be reproduced literally (as in the log) or
-//        should we keep the paraphrased version? In the original, it was just
-//        the German translation of the log text, but in this case it might also
-//        provide an easier to follow interpretation of the literal log (i.e.
-//        "manage" instead of "track").
 
 Git tells us that we're about to commit (`Initial commit`), but hasn't found anything to commit (`nothing to commit`).
 Instead, it gives a hint as to what the next steps should be (most Git commands do that, by the way): "`Create or copy files, and use `git add` to manage them with Git.`"
@@ -461,19 +454,18 @@ Bei  `git status` sehen Sie unter `Changes to be committed` immer, welche Dateie
 With `git status`, under `Changes to be committed`, you can always see which files are in the Index, i.e., will be included in the next commit.
 
 
-
+////
 Alles ist bereit für den ersten Commit mit dem Kommando `git commit`.
 Außerdem übergeben wir auf der Kommandozeile die Option `-m` mit einer Commit-Nachricht (_Commit Message_), in der wir den Commit beschreiben:
+////
 
 Everything is ready for the first commit with the `git commit` command.
 We also pass the `-m` option on the command line with a commit message describing the commit:
 
-// @TODO: GIT LOG: Translate "Erste Version"?
-
 [subs="quotes"]
 --------
-$ *git commit -m "Erste Version"*
-[master (root-commit) 07cc103] Erste Version
+$ *git commit -m "First version"*
+[master (root-commit) 07cc103] First version
  1 file changed, 1 insertion(+)
  create mode 100644 hello.pl
 --------
@@ -537,7 +529,7 @@ commit 07cc103feb393a93616842921a7bec285178fd56
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
-    Erste Version
+    First version
 
 diff --git a/hello.pl b/hello.pl
 new file mode 100644
@@ -581,16 +573,17 @@ Fügen wir also folgende Kommentarzeile dem "`Hello World!`"-Programm hinzu:
 
 If you want to view more than one commit, `git log` is recommended.
 More commits are needed to demonstrate the command in a meaningful way; otherwise, the output would be very similar to `git show`, since the sample repository currently contains only a single commit.
-So let's add the following comment line to the "`Hello World!`" program_
+So let's add the following comment line to the "`Hello World!`" program:
 
 
-// @TODO: PERL SYNTAX HIGHLIGHTING
-
+[source,perl]
 --------
 # Hello World! in Perl
 --------
 
+////
 Schauen wir uns der Übung halber noch einmal mit `git status` den aktuellen Zustand an:
+////
 
 For the sake of the exercise, let's take another look at the current status with `git status`:
 
@@ -614,7 +607,7 @@ Benutzen Sie danach, wie in der Ausgabe des Kommandos schon beschrieben, `git ad
 Wie bereits erwähnt, wird `git add` sowohl zum Hinzufügen neuer Dateien wie auch zum Hinzufügen von Veränderungen an Dateien, die bereits verwaltet werden, verwendet.
 ////
 
-Then, as described in the output of the command, use `git add` to add the changes to the Index.
+After that, as already described in the output of the command, use `git add` to add the changes to the index.
 As mentioned earlier, `git add` is used both to add new files and to add changes to files already managed.
 
 [subs="quotes"]
@@ -630,8 +623,8 @@ Then create a commit:
 
 [subs="quotes"]
 --------
-$ *git commit -m "Kommentar-Zeile"*
-[master 8788e46] Kommentar-Zeile
+$ *git commit -m "Comment line"*
+[master 8788e46] Comment line
  1 file changed, 1 insertion(+)
 --------
 
@@ -641,8 +634,6 @@ Nun zeigt Ihnen `git log` die beiden Commits:
 
 Now `git log` shows you the two commits:
 
-// @TODO: GIT LOG: Translate "Erste Version"?
-
 [subs="quotes"]
 --------
 $ *git log*
@@ -650,13 +641,13 @@ commit 8788e46167aec2f6be92c94c905df3b430f6ecd6
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Fri May 27 12:52:58 2011 +0200
 
-    Kommentar-Zeile
+    Comment line
 
 commit 07cc103feb393a93616842921a7bec285178fd56
 Author: Valentin Haenel &lt;valentin.haenel@gmx.de&gt;
 Date:   Tue Nov 16 00:40:54 2010 +0100
 
-    Erste Version
+    First version
 --------
 
 
@@ -672,7 +663,7 @@ Dazu gehören Farbeinstellungen, die in neueren Versionen standardmäßig bereit
 
 Like most text-based programs, Git offers a wealth of configuration options.
 So now's the time to do some basic configuration.
-These include color settings, which are turned on by default in newer versions, to make it easier to capture the output of Git commands, and small aliases (abbreviations) for frequently used commands.
+These include color settings, which are turned on by default in newer versions, to make it easier to capture the output of Git commands, and small aliases (abbreviations) for frequently needed commands.
 
 
 ////
@@ -684,7 +675,7 @@ Mit der Option `--global` wird sie in der Datei `.gitconfig` im Home-Verzeichnis
 
 You configure Git with the `git config` command.
 The configuration is saved in a format similar to an INI file.
-If you do not specify any other parameters, the configuration only applies to the current Git repository (`.git/config`).
+Without specifying further parameters, the configuration applies only to the current repository (`.git/config`).
 With the `--global` option, it is stored in the `.gitconfig` file in the user's home directory, and is then valid for all repositories.{fn9}
 
 
@@ -697,13 +688,15 @@ Important settings that you should always configure are the user name and e-mail
 
 [subs="quotes"]
 --------
-$ *git config --global user.name "Max Mustermann"*
-$ *git config --global user.email "max.mustermann@example.com"*
+$ *git config --global user.name "John Doe"*
+$ *git config --global user.email "john.doe@example.com"*
 --------
 
+////
 Beachten Sie, dass Sie Leerzeichen im Wert der Einstellung schützen müssen (durch Anführungszeichen oder Backslashes).
 Außerdem folgt der Wert direkt auf den Namen der Option -- ein Gleichheitszeichen ist auch hier nicht nötig.
 Das Ergebnis des Kommandos findet sich anschließend in der Datei `~/.gitconfig`:
+////
 
 Note that you must protect spaces in the setting value (using quotation marks or backslashes).
 Also, the value follows the name of the option directly -- an equal sign is not necessary here either.
@@ -714,8 +707,8 @@ The result of the command can be found in the file `~/.gitconfig`:
 --------
 $ *less ~/.gitconfig*
 [user]
-    name = Max Mustermann
-    email = max.mustermann@example.com
+    name = John Doe
+    email = john.doe@example.com
 --------
 
 ////
@@ -738,7 +731,7 @@ Letzteren erhält man für alle Optionen in der Man-Page `git-config`.
 Eine Liste aller gesetzten Einstellungen fragen Sie per `git config -l` ab.
 ////
 
-When Git queries an option, it will first use the setting in the current Git repository, if it exists, otherwise it will use the setting from the global `.gitconfig`; if it doesn't, it will revert to the default value.{fn10}
+When querying an option, Git will first use the setting in the current repository if it exists, otherwise the one from the global `.gitconfig`; if this does not exist either, it will fall back to the default value.{fn10}
 The latter is available for all options in the man page `git-config`.
 You can get a list of all the settings you have set using `git config -l`.
 
@@ -777,16 +770,12 @@ Git bietet Ihnen über _Aliase_ die Möglichkeit, einzelne Kommandos und sogar g
 Die Syntax lautet:
 ////
 
-Git uses _aliases_ to allow you to abbreviate individual commands and even entire command sequences.
+Git offers you the possibility to abbreviate single commands and even whole command sequences via _Aliases_.
 The syntax is:
-
-// @TODO: GIT SYNTAX: Translate "<entsprechung>".
-//        NOTE: the 'git alias' man page provides the following syntax:
-//          git-alias <alias-name> <command>
 
 [subs="quotes"]
 --------
-$ *git config alias.&lt;alias-name&gt; &lt;entsprechung&gt;*
+$ *git config alias.&lt;alias-name&gt; &lt;command&gt;*
 --------
 
 ////
@@ -848,7 +837,7 @@ In neueren Git-Versionen (ab 1.8.4) ist diese Einstellung bereits automatisch ge
 ////
 
 Very helpful is the `color.ui` option, which checks whether Git should color the output of various commands.
-Deleted files and lines will appear red, new files and lines green, commit IDs yellow, and so on.
+Thus, deleted files and lines appear red, new files and lines appear green, commit IDs appear yellow, etc.
 In newer Git versions (1.8.4 and later) this setting is already set automatically, so you don't need to do anything.
 
 
@@ -857,7 +846,7 @@ Die Option `color.ui` sollte auf `auto` gesetzt sein -- erfolgt die Ausgabe von 
 Schreibt das Kommando stattdessen in eine Datei oder wird die Ausgabe an ein anderes Programm gepipet, so gibt Git keine Farbsequenzen aus, da das die automatische Weiterverarbeitung behindern könnte.
 ////
 
-The `color.ui` option should be set to `auto` -- if Git is output to a terminal, colours are used.
+The `color.ui` option should be set to `auto` -- if the output from Git is to a terminal, colors are used.
 If the command is written to a file instead, or the output is piped to another program, Git will not output color sequences, as this could interfere with automatic processing.
 
 
@@ -948,10 +937,10 @@ Dafür bietet die Option `core.safecrlf` einen Mechanismus, den Nutzer zu warnen
 Git can convert between the two types when you check out the file, but it's important not to mix the two.
 For this, the `core.safecrlf` option provides a mechanism to warn the user (value `warn`) or even disallow the commit (value `true`).
 
-
+////
 Eine sichere Einstellung, die auch mit älteren Git-Versionen unter Windows-Systemen funktioniert, ist `core.autocrlf` auf `input` zu setzen: Dadurch wird automatisch beim _Einlesen_ der Dateien vom Dateisystem CRLF durch LF ersetzt.
-Ihr
-Editor muss dann entsprechend mit LF-Enden umgehen können.
+Ihr Editor muss dann entsprechend mit LF-Enden umgehen können.
+////
 
 A safe setting, which also works with older Git versions on Windows systems, is to set `core.autocrlf` to `input`: This will automatically replace CRLF with LF when _reading_ files from the filesystem.
 Your editor must then be able to handle LF line endings accordingly.
@@ -1010,8 +999,10 @@ In addition, you can use `git config pager.diff false` to ensure that the output
 ===  Configuration via Environment Variables
 //  Konfiguration über Umgebungsvariablen
 
+////
 Einige Optionen lassen sich auch durch Umgebungsvariablen überschreiben.
 Auf diese Weise können in einem Shell-Script oder in einem Alias Optionen lediglich für ein einzelnes Kommando gesetzt werden.
+////
 
 Some options can also be overridden by environment variables.
 In this way, options can be set in a shell script or alias for a single command only.
@@ -1073,15 +1064,15 @@ Die letztgenannte Variable ist beispielsweise praktisch, wenn Sie innerhalb eine
 
 The latter variable is useful, for example, if you want to access the version history of another repository within a project without changing directory:
 
-// @CHECK: Shouldn't "git log" be in an independent line, in the following log?
-
 [subs="quotes"]
 --------
 $ *GIT_DIR="~/proj/example/.git" git log*
 --------
 
+////
 Alternativ können Sie über die Option `-c`{empty}{nbsp} _vor dem Subkommando_ eine Einstellung nur für diesen Aufruf überschreiben.
 So könnten Sie zum Beispiel Git anweisen, für den kommenden Aufruf die Option `core.trustctime` zu deaktivieren:
+////
 
 Alternatively, you can use the `-c` option _before the subcommand_ to overwrite a setting for this call only.
 For example, you could tell Git to disable the `core.trustctime` option for the upcoming call:
