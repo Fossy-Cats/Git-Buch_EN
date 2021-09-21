@@ -165,7 +165,7 @@ Windows users can install [Node.js] via the [Node JS Chocolatey package] using t
         * [ ] `git-objects.dia` » §2.2.2. » [Fig.4]
         * [ ] `repository-content.dia` » §2.2.5. » [Fig.6]
         * [ ] `tags.dia` » §3.1.3. » [Fig.12]
-- [ ] Optimize generated SVG images.
+- [x] Optimize generated SVG images via [SVGO].
 
 # Diagrams List and Preview Links
 

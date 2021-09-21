@@ -446,7 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Valentin Haenel</span><br>
 <span id="author2" class="author">Julius Plenz</span><br>
 <span id="revnumber">version 3.0</span>
-<br><span id="revremark">WIP Translation</span>
+<br><span id="revremark">Beta</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -633,25 +633,25 @@ Git also makes it much easier for newcomers to get started.</p>
 <div class="sect2">
 <h3 id="sec.structure"><a class="anchor" href="#sec.structure"></a>How to read the book?</h3>
 <div class="paragraph">
-<p><a href="#ch.intro">Chapter 1, <em>Introduction and First Steps</em></a> gives a brief overview: How do you initialize a git repository and manage files in it?
+<p><a href="#ch.intro">Ch. 1, <em>Introduction and First Steps</em></a> gives a brief overview: How do you initialize a git repository and manage files in it?
 It also covers the most important configuration settings.</p>
 </div>
 <div class="paragraph">
-<p><a href="#ch.basics">Chapter 2, <em>The Basics</em></a> covers two key concepts of Git: the index and the object model.
+<p><a href="#ch.basics">Ch. 2, <em>The Basics</em></a> covers two key concepts of Git: the index and the object model.
 Along with other important commands that are introduced there, understanding these two concepts is essential to the safe use of Git.</p>
 </div>
 <div class="paragraph">
-<p><a href="#ch.praxis">Chapter 3, <em>Practical Version Control</em></a> discusses practical aspects of version control.
+<p><a href="#ch.praxis">Ch. 3, <em>Practical Version Control</em></a> discusses practical aspects of version control.
 In particular, it covers the branches and merges that are so central to Git.
 It also discusses how to resolve merge conflicts in detail.</p>
 </div>
 <div class="paragraph">
-<p><a href="#ch.advanced">Chapter 4, <em>Advanced Concepts</em></a> discusses advanced concepts, with a special focus on the Rebase command, an essential tool for any git professional.
+<p><a href="#ch.advanced">Ch. 4, <em>Advanced Concepts</em></a> discusses advanced concepts, with a special focus on the Rebase command, an essential tool for any git professional.
 Other important commands follow, including Blame, Stash, and Bisect.</p>
 </div>
 <div class="paragraph">
-<p>Only <a href="#ch.distributed-git">Chapter 5, <em>Distributed Git</em></a> looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
-Then <a href="#ch.workflows">Chapter 6, <em>Workflows</em></a> provides an overview of strategies for coordinating development work in a project.</p>
+<p>Only <a href="#ch.distributed-git">Ch. 5, <em>Distributed Git</em></a> looks at the distributed aspects of Git: how to share changes between repositories, how developers can collaborate.
+Then <a href="#ch.workflows">Ch. 6, <em>Workflows</em></a> provides an overview of strategies for coordinating development work in a project.</p>
 </div>
 <div class="paragraph">
 <p>We recommend that you read at least the first five chapters in a row.
@@ -659,13 +659,13 @@ They describe all the important concepts and techniques for using Git safely in 
 You can read the following chapters in any order, depending on your interests and needs.</p>
 </div>
 <div class="paragraph">
-<p><a href="#ch.server">Chapter 7, <em>Git Servers</em></a> covers installation and maintenance of Git services: two web-based repository browsers and access management for hosted repositories using Gitolite.</p>
+<p><a href="#ch.server">Ch. 7, <em>Git Servers</em></a> covers installation and maintenance of Git services: two web-based repository browsers and access management for hosted repositories using Gitolite.</p>
 </div>
 <div class="paragraph">
-<p><a href="#ch.automation">Chapter 8, <em>Git Automation</em></a> summarizes various aspects of automation: How to write hooks and custom Git commands, and how to rewrite the complete version history if necessary.</p>
+<p><a href="#ch.automation">Ch. 8, <em>Git Automation</em></a> summarizes various aspects of automation: How to write hooks and custom Git commands, and how to rewrite the complete version history if necessary.</p>
 </div>
 <div class="paragraph">
-<p>Finally, <a href="#sec.git-svn-cvs">Chapter 9, <em>Interacting with Other Version Control Systems</em></a> discusses migration from other systems to Git.
+<p>Finally, <a href="#sec.git-svn-cvs">Ch. 9, <em>Interacting with Other Version Control Systems</em></a> discusses migration from other systems to Git.
 The focus here is on converting existing Subversion repositories, and on the ability to talk to Subversion from within Git.</p>
 </div>
 <div class="paragraph">
@@ -688,7 +688,7 @@ Even though some editors and IDEs now offer quite a good Git integration, and ev
 </div>
 </div>
 <div class="paragraph">
-<p>To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see <a href="#ch.shell-integration">Chapter 10, <em>Shell integration</em></a>).</p>
+<p>To find your way around the shell faster and better, we strongly recommend adding git functionality to the shell, such as displaying the branch in the prompt (see <a href="#ch.shell-integration">Ch. 10, <em>Shell integration</em></a>).</p>
 </div>
 <div class="paragraph">
 <p>Unless otherwise noted, we refer to Git version 2.0.
@@ -701,7 +701,7 @@ The examples all run with English local settings.</p>
 <div class="sect2">
 <h3 id="sec.install-git-repo"><a class="anchor" href="#sec.install-git-repo"></a>Installation and &#8220;The Git-Repository&#8221;</h3>
 <div class="paragraph">
-<p>The installation of Git is described in detail in <a href="#app.installation">Appendix A, <em>Installation</em></a>.
+<p>The installation of Git is described in detail in <a href="#app.installation">App. A, <em>Installation</em></a>.
 Some examples use the Git source repository, the repository where Git is actively developed.
 This repository is also called <em>Git-via-Git</em> or <em>git.git</em>.</p>
 </div>
@@ -891,7 +891,7 @@ It is, so to speak, a <em>content-dependent</em> version number, such as <code>f
 <dd>
 <p>A git repository can be modeled as a graph of commits, manipulated by git commands.
 This modeling makes it very easy to describe how Git works in detail.
-For a detailed description of the object model, see <a href="#sec.object-model">Section 2.2, &#8220;The Object Model&#8221;</a>.</p>
+For a detailed description of the object model, see <a href="#sec.object-model">Sec. 2.2, &#8220;The Object Model&#8221;</a>.</p>
 </dd>
 </dl>
 </div>
@@ -902,7 +902,7 @@ For a detailed description of the object model, see <a href="#sec.object-model">
 <p>The index is an intermediate level between the working tree and the repository, where you prepare a commit.
 The index therefore <em>indexes</em> which changes to which files you want to package as commits.
 This concept is unique to Git and often causes difficulties for beginners and people switching to Git.
-We discuss the index in detail in <a href="#sec.index">Section 2.1.1, &#8220;Index&#8221;</a>.</p>
+We discuss the index in detail in <a href="#sec.index">Sec. 2.1.1, &#8220;Index&#8221;</a>.</p>
 </dd>
 </dl>
 </div>
@@ -1094,7 +1094,7 @@ However, this commit is not yet complete&#8201;&#8212;&#8201;we&#8217;ve only pr
 </div>
 <div class="paragraph">
 <p>To be precise, we&#8217;ve added the file to the <em>Index</em>, an intermediate stage where you collect changes that will be included in the next commit.
-For further explanation of this concept, see <a href="#sec.index">Section 2.1.1, &#8220;Index&#8221;</a>.</p>
+For further explanation of this concept, see <a href="#sec.index">Sec. 2.1.1, &#8220;Index&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>With <code>git status</code>, under <code>Changes to be committed</code>, you can always see which files are in the Index, i.e., will be included in the next commit.</p>
@@ -1340,7 +1340,7 @@ On branch master
 </div>
 </div>
 <div class="paragraph">
-<p>You will find more useful aliases later in the book; how to create more complex aliases is described in <a href="#sec.git-extended-aliases">Section 8.3.8, &#8220;Extended Aliases&#8221;</a>.
+<p>You will find more useful aliases later in the book; how to create more complex aliases is described in <a href="#sec.git-extended-aliases">Sec. 8.3.8, &#8220;Extended Aliases&#8221;</a>.
 But first, some useful abbreviations:</p>
 </div>
 <div class="listingblock">
@@ -1431,7 +1431,7 @@ For this, the <code>core.safecrlf</code> option provides a mechanism to warn the
 Your editor must then be able to handle LF line endings accordingly.</p>
 </div>
 <div class="paragraph">
-<p>You can also specify these settings explicitly per file or subdirectory, so that the format is the same across all platforms (see <a href="#sec.attributes">Section 8.1, &#8220;Git attributes - treat files separately&#8221;</a>).</p>
+<p>You can also specify these settings explicitly per file or subdirectory, so that the format is the same across all platforms (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git attributes - treat files separately&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -1881,7 +1881,7 @@ M   hello.pl</pre>
 <div class="paragraph">
 <p>The <code>git reset</code> command is in a sense the counterpart of <code>git add</code>: Instead of transferring differences from the working tree to the index, <code>reset</code> transfers differences from the repository to the index.
 Committing changes <em>to</em> the working tree is potentially destructive, as your changes may be lost.
-Therefore, this is only possible with the <code>--hard</code> option, which we discuss in <a href="#sec.reset">Section 3.2.3, &#8220;Reset and the Index&#8221;</a>.</p>
+Therefore, this is only possible with the <code>--hard</code> option, which we discuss in <a href="#sec.reset">Sec. 3.2.3, &#8220;Reset and the Index&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>If you frequently use <code>git add -p</code>, it is only a matter of time before you accidentally select a hunk you didn&#8217;t want.
@@ -1951,7 +1951,7 @@ The following configuration setting will save you this extra keystroke.</p>
 <div class="paragraph">
 <p>A word of warning: A <code>git add -p</code> may tempt you to check in versions of a file that are not executable or syntactically correct (e.g. because you forgot an essential line).
 So don&#8217;t rely on your commit being correct just because <code>make</code>&#8201;&#8212;&#8201;which works on working tree files! -- runs successfully.
-Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <a href="#sec.bisect">Section 4.8, &#8220;Find regressions - git bisect&#8221;</a>).</p>
+Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <a href="#sec.bisect">Sec. 4.8, &#8220;Find regressions - git bisect&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -1981,7 +1981,7 @@ Let&#8217;s turn to the <code>git commit</code> command, which you use to &#8220
 </div>
 <div class="paragraph">
 <p>In fact, the name of the author <em>does not</em> have to be the name of the committer (who commits).
-Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).
+Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).
 The committer information is usually of secondary importance, though&#8201;&#8212;&#8201;most programs only show the author and the date the commit was made.</p>
 </div>
 <div class="paragraph">
@@ -2015,7 +2015,7 @@ Note that the SHA-1 sum of the commit will change in any case.</p>
 </div>
 <div class="paragraph">
 <p>The <code>git commit --amend</code> call only changes the current commit on a branch.
-<a href="#sec.rebase-onto-ci-amend">Section 4.1.9, &#8220;Improving a commit&#8221;</a> describes how to improve past commits.</p>
+<a href="#sec.rebase-onto-ci-amend">Sec. 4.1.9, &#8220;Improving a commit&#8221;</a> describes how to improve past commits.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2106,7 +2106,7 @@ You may find that you&#8217;ve forgotten one important detail as you write it.</
 <p>You can also argue about a timeline: The time it takes you to write a good commit message is a minute or two.
 But how much less time will the bug-finding process take if each commit is well documented?
 How much time will you save others (and yourself) if you provide a good description of a diff, which may be hard to understand?
-Also, the blame tool, which annotates each line of a file with the commit that last changed it, will become an indispensable tool for detailed commit descriptions (see <a href="#sec.blame">Section 4.3, &#8220;Who made these changes? - git blame&#8221;</a>).</p>
+Also, the blame tool, which annotates each line of a file with the commit that last changed it, will become an indispensable tool for detailed commit descriptions (see <a href="#sec.blame">Sec. 4.3, &#8220;Who made these changes? - git blame&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>If you are not used to writing detailed commit messages, start today.
@@ -2166,7 +2166,7 @@ Then check via <code>git status</code> whether the file is marked as &#8220;rena
 <td class="content">
 <div class="paragraph">
 <p>Internally, it doesn&#8217;t matter to Git whether you move a file regularly via <code>mv</code>, then run <code>git add &lt;new-name&gt;</code> and <code>git rm &lt;old-name&gt;</code>.
-In any case, only the reference to a blob object is changed (see<a href="#sec.object-model">Section 2.2, &#8220;The Object Model&#8221;</a>).</p>
+In any case, only the reference to a blob object is changed (see<a href="#sec.object-model">Sec. 2.2, &#8220;The Object Model&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>However, Git comes with a so-called <em>Rename Detection</em>: If a blob is the same and is only referenced by a different file name, Git interprets this as a rename.
@@ -2256,7 +2256,7 @@ For example, the last four commits are shown with:</p>
 <div class="paragraph">
 <p>The <code>&lt;commit&gt;</code> argument is a legal name for a single commit, such as the commit ID or SHA-1 sum.
 However, if you do not specify anything, Git automatically uses <code>HEAD</code>.
-Apart from single commits, the command also understands so-called <em>commit ranges</em> (series of commits), see <a href="#sec.commit-ranges-intro">Section 2.1.7, &#8220;Commit-Ranges&#8221;</a>.</p>
+Apart from single commits, the command also understands so-called <em>commit ranges</em> (series of commits), see <a href="#sec.commit-ranges-intro">Sec. 2.1.7, &#8220;Commit-Ranges&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>-p</code> (<code>--patch</code>) option appends the full patch in Unified-Diff format below the description.
@@ -2641,7 +2641,7 @@ The commit object also contains a reference to its direct ancestors, along with 
 <p>Many Git commands expect a tree as an argument.
 However, because a commit, for example, references a tree, this is called a <em>tree-ish</em> argument.
 This refers to any object that can last be resolved to a tree.
-This category also includes tags (see <a href="#sec.tags">Section 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>).
+This category also includes tags (see <a href="#sec.tags">Sec. 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>).
 Similarly, <em>commit-ish</em> is an argument that can be resolved to a commit.</p>
 </div>
 <div class="paragraph">
@@ -2703,7 +2703,7 @@ Because of this hierarchical structure and the relationship of the individual ob
 <p>In a short digression we will go into how to examine the object database of Git.
 To do this, Git provides so-called <em>plumbing</em> commands, a group of low-level tools for Git, as opposed to the <em>porcelain</em> commands you usually work with.
 These commands are therefore not important for Git beginners, but are simply intended to give you a different approach to the concept of the object database.
-For more information, see <a href="#sec.scripting">Section 8.3, &#8220;Writing your own Git commands&#8221;</a>.</p>
+For more information, see <a href="#sec.scripting">Sec. 8.3, &#8220;Writing your own Git commands&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s first look at the current commit.
@@ -2805,7 +2805,7 @@ Git essentially has to manage the blob, plus a commit and a tree with 1000 blob 
 A <em>checkout</em> of this repository, on the other hand, consumes about 1&#160;GB of space on the filesystem because Git resolves deduplication.&#8288;<sup class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnotedef_27" title="View footnote.">27</a>]</sup></p>
 </div>
 <div class="paragraph">
-<p>The <code>git checkout</code> and <code>git reset</code> commands restore a previous state (see also <a href="#sec.undo">Section 3.2, &#8220;Restoring Versions&#8221;</a>): You specify the reference of the corresponding commit, and Git searches for it in the object database.
+<p>The <code>git checkout</code> and <code>git reset</code> commands restore a previous state (see also <a href="#sec.undo">Sec. 3.2, &#8220;Restoring Versions&#8221;</a>): You specify the reference of the corresponding commit, and Git searches for it in the object database.
 The reference is then used to find the tree object of this commit from the object database.
 Finally, Git uses the references contained in the tree object to find all other tree and blob objects in the object database and replicates them as directories and files on the file system.
 This allows you to restore exactly the project state that was saved with the commit at the time.</p>
@@ -2917,13 +2917,13 @@ With <code>gitk --all</code> you show all branches.
 The tool visualizes the commit graph explained in the previous section.
 Each commit represents one line.
 Branches are displayed as green labels, tags as yellow pointers.
-For more information, see <a href="#sec.gitk">Section 3.6.2, &#8220;Gitk&#8221;</a>.</p>
+For more information, see <a href="#sec.gitk">Sec. 3.6.2, &#8220;Gitk&#8221;</a>.</p>
 </div>
 <div id="fig.gitk-basic" class="imageblock text-center">
 <div class="content">
 <img src="data:image/png;base64,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" alt="gitk basic" width="90%">
 </div>
-<div class="title">Figure 9. The sample repository from <a href="#ch.basics">Chapter 2, <em>The Basics</em></a>. For illustration purposes, the second commit has been tagged <code>v0.1</code>.</div>
+<div class="title">Figure 9. The sample repository from <a href="#ch.basics">Ch. 2, <em>The Basics</em></a>. For illustration purposes, the second commit has been tagged <code>v0.1</code>.</div>
 </div>
 <div class="paragraph">
 <p>Because branches in Git are &#8220;cheap&#8221; and merges are easy, you can afford to use branches excessively.
@@ -2980,8 +2980,8 @@ Branches move up when you make commits on a branch, so they remain at the top of
 <div class="title">Figure 10. A branch always references the most recent commit</div>
 </div>
 <div class="paragraph">
-<p>Branches in other developers' repositories (e.g. the master branch of the official repository), so-called remote tracking branches, are stored under <code>.git/refs/remotes/</code> (see <a href="#sec.remote-tracking-branches">Section 5.2.2, &#8220;Remote-Tracking-Branches&#8221;</a>).
-Tags, static references, which are mostly used for versioning, are stored under <code>.git/refs/tags/</code> (see <a href="#sec.tags">Section 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>).</p>
+<p>Branches in other developers' repositories (e.g. the master branch of the official repository), so-called remote tracking branches, are stored under <code>.git/refs/remotes/</code> (see <a href="#sec.remote-tracking-branches">Sec. 5.2.2, &#8220;Remote-Tracking-Branches&#8221;</a>).
+Tags, static references, which are mostly used for versioning, are stored under <code>.git/refs/tags/</code> (see <a href="#sec.tags">Sec. 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>).</p>
 </div>
 <div class="sect3">
 <h4 id="sec.branch-refs"><a class="anchor" href="#sec.branch-refs"></a>3.1.1. HEAD and Other Symbolic References</h4>
@@ -3001,7 +3001,7 @@ ref: refs/heads/master</pre>
 </div>
 <div class="paragraph">
 <p><code>HEAD</code> can also point directly to a commit if you type <code>git checkout &lt;commit-id&gt;</code>.
-However, you are then in so-called <em>detached-head</em> mode, in which commits may get lost, see also <a href="#sec.detached-head">Section 3.2.1, &#8220;Detached HEAD&#8221;</a>.</p>
+However, you are then in so-called <em>detached-head</em> mode, in which commits may get lost, see also <a href="#sec.detached-head">Sec. 3.2.1, &#8220;Detached HEAD&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>HEAD</code> determines which files are found in the working tree, which commit becomes the predecessor when a new one is created, which commit is displayed by <code>git show</code>, and so on.
@@ -3163,7 +3163,7 @@ Attention: Commits of the overwritten branch may be lost!</p>
 <p>Delete <code>&lt;branch&gt;</code>.
 You can specify several branches at once.
 Git refuses to delete a branch if it is not yet fully integrated into its upstream branch, or, if it does not exist, into <code>HEAD</code>, the current branch.
-(For more on upstream branches, see <a href="#sec.pull">Section 5.3.2, &#8220;git pull&#8221;</a>).</p>
+(For more on upstream branches, see <a href="#sec.pull">Sec. 5.3.2, &#8220;git pull&#8221;</a>).</p>
 </dd>
 </dl>
 </div>
@@ -3233,7 +3233,7 @@ The message: <code>A new-file.txt</code> reminds you which files you should stil
 <p>If you&#8217;re sure you don&#8217;t need your changes anymore, you can use <code>git checkout -f</code> to ignore the error messages and run the checkout anyway.</p>
 </div>
 <div class="paragraph">
-<p>If you want to keep the changes and change the branch (e.g., interrupt your work and fix a bug on another branch), <code>git stash</code> will help (<a href="#sec.stash">Section 4.5, &#8220;Outsource changes - git stash&#8221;</a>).</p>
+<p>If you want to keep the changes and change the branch (e.g., interrupt your work and fix a bug on another branch), <code>git stash</code> will help (<a href="#sec.stash">Sec. 4.5, &#8220;Outsource changes - git stash&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect4">
@@ -3257,7 +3257,7 @@ These namespaces are represented by a directory structure, so that a directory <
 Bugfixes are often managed on a branch <code>maint</code> (short for &#8220;maintenance&#8221;).
 The next release is usually prepared for <code>next</code>.
 Features that are still in an experimental state should be developed in <code>pu</code> (for &#8220;proposed updates&#8221;) or in <code>pu/&lt;feature&gt;</code>.
-For a more detailed description of how to use branches to structure development and organize release cycles, see <a href="#ch.workflows">Chapter 6, <em>Workflows</em></a> on Workflows.</p>
+For a more detailed description of how to use branches to structure development and organize release cycles, see <a href="#ch.workflows">Ch. 6, <em>Workflows</em></a> on Workflows.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3291,7 +3291,7 @@ $ <strong>git branch test e32bf29</strong></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Another way to retrieve deleted commits is the <em>reflog</em> (see <a href="#sec.reflog">Section 3.7, &#8220;Reflog&#8221;</a>).</p>
+<p>Another way to retrieve deleted commits is the <em>reflog</em> (see <a href="#sec.reflog">Sec. 3.7, &#8220;Reflog&#8221;</a>).</p>
 </div>
 </div>
 </div>
@@ -3338,7 +3338,7 @@ In the Git project, for example, a tag message consists of the current version d
 </div>
 <div class="paragraph">
 <p>In the following, let&#8217;s first look at how you manage tags locally.
-<a href="#sec.remote-tags">Section 5.8, &#8220;Exchanging Tags&#8221;</a> describes how you exchange tags between repositories.</p>
+<a href="#sec.remote-tags">Sec. 5.8, &#8220;Exchanging Tags&#8221;</a> describes how you exchange tags between repositories.</p>
 </div>
 <div class="sect4">
 <h5 id="sec.managing-tags"><a class="anchor" href="#sec.managing-tags"></a>3.1.3.1. Managing Tags</h5>
@@ -3487,7 +3487,7 @@ Deleted tag '0.2' (was 4773c73)</pre>
 <div class="paragraph">
 <p>The options should be used with caution, especially if you use the tags not only locally, but also publish them.
 Under certain circumstances, tags may indicate different commits&#8201;&#8212;&#8201;version <code>1.0</code> in repository X points to a different commit than version <code>1.0</code> in repository Y.
-But see also <a href="#sec.remote-tags">Section 5.8, &#8220;Exchanging Tags&#8221;</a>.</p>
+But see also <a href="#sec.remote-tags">Sec. 5.8, &#8220;Exchanging Tags&#8221;</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3499,7 +3499,7 @@ Users of software can also find out who has approved a particular version.
 For example, it&#8217;s clear that Junio C. Hamano has tagged Git version 1.7.1&#8201;&#8212;&#8201;so it has his &#8220;seal of approval&#8221;.
 The statement also confirms the cryptographic signature, of course.
 Lightweight tags, on the other hand, are particularly suitable for applying local markers, for example to identify certain commits relevant to the current task.
-However, make sure not to upload such tags to a public repository (see <a href="#sec.remote-tags">Section 5.8, &#8220;Exchanging Tags&#8221;</a>), as they might spread.
+However, make sure not to upload such tags to a public repository (see <a href="#sec.remote-tags">Sec. 5.8, &#8220;Exchanging Tags&#8221;</a>), as they might spread.
 If you only use the tags locally, you can also delete them once they have fulfilled their service (see above).</p>
 </div>
 </div>
@@ -3649,7 +3649,7 @@ So the separation only makes it clear that you want to recover the file(s) in qu
 <td class="content">
 <div class="paragraph">
 <p>Use <code>--patch</code> or <code>-p</code> to call <code>git checkout</code> in interactive mode.
-The procedure is the same as for <code>git add -p</code> (see <a href="#sec.add-p">Section 2.1.2, &#8220;Creating Commits Step by Step&#8221;</a>), but here you can reset hunks of a file step-by-step.</p>
+The procedure is the same as for <code>git add -p</code> (see <a href="#sec.add-p">Sec. 2.1.2, &#8220;Creating Commits Step by Step&#8221;</a>), but here you can reset hunks of a file step-by-step.</p>
 </div>
 </td>
 </tr>
@@ -3768,7 +3768,7 @@ You therefore only undo the <em>changes</em>, but do not delete any information 
 </div>
 <div class="paragraph">
 <p>You should therefore only use <code>revert</code> if you need to undo a change that has already been published.
-However, if you are developing locally in a separate branch, it makes more sense to delete these commits completely (see the following section on <code>reset</code> and the topic <em>Rebase</em>, <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
+However, if you are developing locally in a separate branch, it makes more sense to delete these commits completely (see the following section on <code>reset</code> and the topic <em>Rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>If you want to perform a rebase, but not for all changes to the commit, but only for those to a file, you can use this procedure:</p>
@@ -3873,7 +3873,7 @@ $ <strong>git branch master HEAD^^</strong></pre>
 <p>With <code>reset</code> you do not delete any commits, but only move references.
 As a result, the commits that are no longer referenced are lost, and are therefore deleted (<em>unreachable</em>).
 So you can use <code>reset</code> to delete only the topmost commits on a branch, not arbitrary commits &#8220;somewhere in the middle,&#8221; as this would destroy the commit graph.
-(For the somewhat more complicated deletion of commits &#8220;in the middle,&#8221; see <em>rebase</em>, <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
+(For the somewhat more complicated deletion of commits &#8220;in the middle,&#8221; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>Git always stores the original <code>HEAD</code> under <code>ORIG_HEAD</code>.
@@ -3930,7 +3930,7 @@ $ <strong>git reset --soft HEAD^</strong>
 <p>The command <code>git reset --soft HEAD^</code> resets the <code>HEAD</code> one commit, but leaves the index and the working tree untouched.
 So all changes from your temporary commit are still in the index and working tree, but the actual commit is lost.
 You can now make further changes and create a new commit later.
-Similar functionality is provided by the <code>--amend</code> option for <code>git commit</code>, as well as the <code>git stash</code> command, which is explained in <a href="#sec.stash">Section 4.5, &#8220;Outsource changes - git stash&#8221;</a>.</p>
+Similar functionality is provided by the <code>--amend</code> option for <code>git commit</code>, as well as the <code>git stash</code> command, which is explained in <a href="#sec.stash">Sec. 4.5, &#8220;Outsource changes - git stash&#8221;</a>.</p>
 </div>
 </div>
 </div>
@@ -3992,7 +3992,7 @@ The referenced blob or tree is therefore the same as the one referenced in the m
 </li>
 <li>
 <p>A file was changed <em>on both sides</em> and <em>equivalently</em> (same blobs).
-This happens, for example, if all changes to a file were copied from one branch using <code>git cherry-pick</code> (see <a href="#sec.cherry-pick">Section 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).
+This happens, for example, if all changes to a file were copied from one branch using <code>git cherry-pick</code> (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).
 The referenced blob is then <em>not</em> the same as in the merge base.</p>
 </li>
 </ol>
@@ -4022,7 +4022,7 @@ This happens, for example, if the context in version A of the file was changed j
 </div>
 <div class="paragraph">
 <p>Such a case is called a <em>merge conflict</em>.
-Git merges all the files as best it can, and then presents the conflicting changes to the user so they can manually merge them (and thus resolve the conflict) (see <a href="#sec.merge-conflicts">Section 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>).</p>
+Git merges all the files as best it can, and then presents the conflicting changes to the user so they can manually merge them (and thus resolve the conflict) (see <a href="#sec.merge-conflicts">Sec. 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>Although it is basically possible to generate a syntactically correct resolution with an algorithm that is specially designed for the respective programming language, an algorithm cannot look beyond the <em>semantics</em> of the code, i.e., cannot grasp the meaning of the code.
@@ -4065,7 +4065,7 @@ A trivial case, but one that does occur frequently, is the so-called <em>fast-fo
 <p>You want to integrate upstream changes, that is, changes from another Git repository.
 You typically use a command like <code>git merge origin/master</code> to do this.
 A <code>git pull</code> will also perform a merge.
-To learn how to merge changes between git repositories, see <a href="#ch.distributed-git">Chapter 5, <em>Distributed Git</em></a>.</p>
+To learn how to merge changes between git repositories, see <a href="#ch.distributed-git">Ch. 5, <em>Distributed Git</em></a>.</p>
 </li>
 <li>
 <p>You want to add an experimental branch.
@@ -4119,7 +4119,7 @@ Since nothing was developed in parallel, the merge commit would in principle be 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>So instead of relying on the magic of <code>git merge</code>, it makes sense to create two aliases (see <a href="#sec.git-alias">Section 1.3.1, &#8220;Git Aliases&#8221;</a>) that force or forbid fast forward merge:</p>
+<p>So instead of relying on the magic of <code>git merge</code>, it makes sense to create two aliases (see <a href="#sec.git-alias">Sec. 1.3.1, &#8220;Git Aliases&#8221;</a>) that force or forbid fast forward merge:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4210,7 +4210,7 @@ This strategy is mainly used when you want to overwrite old developments with th
 <p>Works like <code>recursive</code>, but the strategy does not compare the trees &#8220;on equal footing,&#8221; but tries to find the tree of one side as a subtree of the other side and only then merge them.
 This strategy is useful, for example, if you manage the <code>Documentation/</code> subdirectory of your project in a separate repository.
 Then you can merge the changes from that repository into the master repository by using <code>git pull -s subtree &lt;documentation-repo&gt;</code> to apply the <code>subtree</code> strategy, which recognizes the contents of <code>&lt;documentation-repo&gt;</code> as a subdirectory of the master repository and applies the merge process only to that subdirectory.
-This topic is discussed in more detail in <a href="#sec.subprojects">Section 5.11, &#8220;Managing Subprojects&#8221;</a>.</p>
+This topic is discussed in more detail in <a href="#sec.subprojects">Sec. 5.11, &#8220;Managing Subprojects&#8221;</a>.</p>
 </dd>
 </dl>
 </div>
@@ -4670,7 +4670,7 @@ This way you can successively develop your feature, knowing that it is in confli
 But at the time of the integration of the feature the conflicts are all automatically resolvable (because you have occasionally saved conflict solutions with Rerere).</p>
 </div>
 <div class="paragraph">
-<p>In addition, Rerere is also called automatically in conflict cases that arise in a rebase process (see <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).
+<p>In addition, Rerere is also called automatically in conflict cases that arise in a rebase process (see <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).
 Again, once conflicts have been resolved, they can be automatically resolved again.
 Once you have merged a branch into the mainline for test purposes and resolved a conflict, this solution is automatically applied when you rebuild this branch on the mainline via rebase.</p>
 </div>
@@ -4749,7 +4749,7 @@ Git <em>can&#8217;t</em> know that these commits are actually the same.</p>
 </div>
 <div class="paragraph">
 <p>So if you are merging two branches that you have cherry-picked changes between, conflicts can occur.&#8288;<sup class="footnote">[<a id="_footnoteref_48" class="footnote" href="#_footnotedef_48" title="View footnote.">48</a>]</sup>
-These are usually trivial to resolve, and the strategy options <code>ours</code> and <code>theirs</code> might be helpful (see <a href="#sec.recursive-options">Section 3.3.4, &#8220;Options for the Recursive Strategy&#8221;</a>).
+These are usually trivial to resolve, and the strategy options <code>ours</code> and <code>theirs</code> might be helpful (see <a href="#sec.recursive-options">Sec. 3.3.4, &#8220;Options for the Recursive Strategy&#8221;</a>).
 The rebase command, on the other hand, recognizes such commit duplications,&#8288;<sup class="footnote">[<a id="_footnoteref_49" class="footnote" href="#_footnotedef_49" title="View footnote.">49</a>]</sup> and omits the duplicated commits.
 This allows you to take some commits &#8220;from the middle&#8221; and then rebuild the branch the commits came from.</p>
 </div>
@@ -4997,7 +4997,7 @@ Tags are shown as yellow arrows.</p>
 <div class="paragraph">
 <p>You can delete or check out a branch with a right click on it.
 Right-clicking on commits opens a menu in which you can perform actions on the selected commit.
-The only thing that might be easier to do with Gitk than from the command line is <em>cherry picking</em>, i.e. transferring individual commits to another branch (see also <a href="#sec.cherry-pick">Section 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).</p>
+The only thing that might be easier to do with Gitk than from the command line is <em>cherry picking</em>, i.e. transferring individual commits to another branch (see also <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).</p>
 </div>
 <div id="fig.gitk" class="imageblock text-center">
 <div class="content">
@@ -5081,7 +5081,7 @@ In fact, the <code>-g</code> option causes the command not to show the predecess
 The command <code>git log -g</code> will now first show the <code>HEAD</code>, then the deleted commit, and then the <code>HEAD</code> again.</p>
 </div>
 <div class="paragraph">
-<p>The reflog thus also references commits that are otherwise no longer referenced, i.e. are &#8220;lost&#8221; (see <a href="#sec.branch-management">Section 3.1.2, &#8220;Managing Branches&#8221;</a>).
+<p>The reflog thus also references commits that are otherwise no longer referenced, i.e. are &#8220;lost&#8221; (see <a href="#sec.branch-management">Sec. 3.1.2, &#8220;Managing Branches&#8221;</a>).
 The reflog might help you if you have deleted a branch that you would have needed after all.
 Although a <code>git branch -D</code> also deletes the branch&#8217;s reflog.
 However, you had to check out the branch to commit to it, so use <code>git log -g HEAD</code> to find the last time you checked out the branch you were looking for.
@@ -5301,7 +5301,7 @@ To check out the original branch and stop rebasing, run "git rebase --abort".</p
 </div>
 </div>
 <div class="paragraph">
-<p>You proceed as with a regular merge conflict (see <a href="#sec.merge-conflicts">Section 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>) - <code>git mergetool</code> is very helpful here.
+<p>You proceed as with a regular merge conflict (see <a href="#sec.merge-conflicts">Sec. 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>) - <code>git mergetool</code> is very helpful here.
 Then simply add the changed file via <code>git add</code> and let the process continue via <code>git rebase --continue</code>.&#8288;<sup class="footnote">[<a id="_footnoteref_54" class="footnote" href="#_footnotedef_54" title="View footnote.">54</a>]</sup></p>
 </div>
 <div class="paragraph">
@@ -5322,7 +5322,7 @@ The command also helps if at some point you forget to finish a rebase process, a
 For example, a developer might be working on a feature, but then have something else to do for a few weeks.
 Meanwhile, however, development on the project has progressed, there&#8217;s been a new release, etc.
 Only now does the developer get to finish a feature.
-(Even if you want to send patches via email, rebase helps to avoid conflicts, see <a href="#sec.patch-queue">Section 5.9, &#8220;Patches via E-mail&#8221;</a>.)</p>
+(Even if you want to send patches via email, rebase helps to avoid conflicts, see <a href="#sec.patch-queue">Sec. 5.9, &#8220;Patches via E-mail&#8221;</a>.)</p>
 </div>
 <div class="paragraph">
 <p>For the version history it is now much more logical if his feature was not &#8220;dragged along&#8221; unfinished for a long period of time alongside the actual development, but if the development branches off from the last stable release.</p>
@@ -5523,7 +5523,7 @@ Therefore the command is</p>
 <div class="sect3">
 <h4 id="sec.rebase-onto-ci-amend"><a class="anchor" href="#sec.rebase-onto-ci-amend"></a>4.1.9. Improving a commit</h4>
 <div class="paragraph">
-<p>You have learned about the <code>commit --amend</code> command in <a href="#sec.basics">Section 2.1, &#8220;Git Commands&#8221;</a>, which you can use to improve a commit.
+<p>You have learned about the <code>commit --amend</code> command in <a href="#sec.basics">Sec. 2.1, &#8220;Git Commands&#8221;</a>, which you can use to improve a commit.
 However, it only refers to the current (last) commit.
 With <code>rebase --onto</code> you can also adjust commits that are further back in the past.</p>
 </div>
@@ -5552,7 +5552,7 @@ The faulty commit <code>21d8691</code> is no longer referenced, and therefore no
 The <code>fix-master</code> branch is now obsolete and can be deleted.</p>
 </div>
 <div class="paragraph">
-<p>An equivalent way to edit a commit is with the <code>edit</code> action in the interactive rebase (see <a href="#sec.rebase-i-edit">Section 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>).</p>
+<p>An equivalent way to edit a commit is with the <code>edit</code> action in the interactive rebase (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -5564,7 +5564,7 @@ rebase may try to mimic these instead of linearizing the commits.
 The <code>-p' or `--preserve-merges</code> option is responsible for this. &#8288;<sup class="footnote">[<a id="_footnoteref_59" class="footnote" href="#_footnotedef_59" title="View footnote.">59</a>]</sup></p>
 </div>
 <div class="paragraph">
-<p>With the <code>-m</code> or <code>--merge</code> option, you can tell <code>git rebase</code> to use merge strategies (see also <a href="#sec.merge-strategies">Section 3.3.3, &#8220;Merging Strategies&#8221;</a>).
+<p>With the <code>-m</code> or <code>--merge</code> option, you can tell <code>git rebase</code> to use merge strategies (see also <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a>).
 When using these strategies, keep in mind that rebase internally commits commit by commit to the new branch via <code>cherry-pick</code>; therefore the roles of <code>ours</code> and <code>theirs</code> are reversed:
 <code>theirs</code> refers to the branch you are building on a new base!</p>
 </div>
@@ -5586,7 +5586,7 @@ $ <strong>git rebase -m -Xtheirs master</strong></pre>
 <div class="paragraph">
 <p>A small, very useful option that rebase passes directly to <code>git apply</code> is <code>--whitespace=fix</code>.
 It causes Git to automatically correct whitespace errors (such as trailing spaces).
-If you have merge conflicts due to whitespace (for example, due to changed indentation), you can also use the strategy options presented in <a href="#sec.recursive-options">Section 3.3.4, &#8220;Options for the Recursive Strategy&#8221;</a> to have solutions generated automatically (for example, by specifying <code>-Xignore-space-change</code>).</p>
+If you have merge conflicts due to whitespace (for example, due to changed indentation), you can also use the strategy options presented in <a href="#sec.recursive-options">Sec. 3.3.4, &#8220;Options for the Recursive Strategy&#8221;</a> to have solutions generated automatically (for example, by specifying <code>-Xignore-space-change</code>).</p>
 </div>
 </div>
 </div>
@@ -5861,7 +5861,7 @@ But this way, the version history is available to other developers - and to your
 </div>
 <div class="paragraph">
 <p>By the way, it is not only helpful for developers to proceed this way.
-Also the automated debugging using <code>git bisect</code> works better and more accurate the smaller and more useful the commits are (see `<a href="#sec.bisect">Section 4.8, &#8220;Find regressions - git bisect&#8221;</a>).</p>
+Also the automated debugging using <code>git bisect</code> works better and more accurate the smaller and more useful the commits are (see `<a href="#sec.bisect">Sec. 4.8, &#8220;Find regressions - git bisect&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>With a little experience, you can split a commit very quickly.
@@ -5873,7 +5873,7 @@ rebase stops there, <code>HEAD</code> points to that commit.</p>
 </div>
 <div class="paragraph">
 <p>You then reset <code>HEAD</code> a commit, but without discarding the changes from <code>HEAD</code> (the commit to be split).
-This is done with the <code>reset</code> command (see also <a href="#sec.reset">Section 3.2.3, &#8220;Reset and the Index&#8221;</a>; note that if you still need the commit description, you should copy it first):</p>
+This is done with the <code>reset</code> command (see also <a href="#sec.reset">Sec. 3.2.3, &#8220;Reset and the Index&#8221;</a>; note that if you still need the commit description, you should copy it first):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6170,7 +6170,7 @@ So to delete unknown as well as ignored files and directories, enter</p>
 <p>The stash is a mechanism used to temporarily store changes in the working tree that have not yet been saved.
 A classic use case: your boss asks you to fix a critical bug as soon as possible, but you have just started to implement a new feature.
 With the <code>git stash</code> command, you can temporarily <code>clean out</code> the unfinished lines without creating a commit, and thus address the bug with a clean working tree.
-The stash also provides a workaround if you cannot change the branch because this would result in losing changes (see also <a href="#sec.branch-management">Section 3.1.2, &#8220;Managing Branches&#8221;</a>).</p>
+The stash also provides a workaround if you cannot change the branch because this would result in losing changes (see also <a href="#sec.branch-management">Sec. 3.1.2, &#8220;Managing Branches&#8221;</a>).</p>
 </div>
 <div class="sect3">
 <h4 id="sec.stash-benutzung"><a class="anchor" href="#sec.stash-benutzung"></a>4.5.1. Basic usage</h4>
@@ -6235,7 +6235,7 @@ The <code>--index</code> option also restores the stored state of the index.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The configuration setting <code>interactive.singlekey</code> (see <a href="#sec.add-p">Section 2.1.2, &#8220;Creating Commits Step by Step&#8221;</a>) also applies here.</p>
+<p>The configuration setting <code>interactive.singlekey</code> (see <a href="#sec.add-p">Sec. 2.1.2, &#8220;Creating Commits Step by Step&#8221;</a>) also applies here.</p>
 </div>
 </td>
 </tr>
@@ -6255,7 +6255,7 @@ CONFLICT (content): Merge conflict in hello.pl</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In this case, use the usual recipes to solve the conflict, see <a href="#sec.merge-conflicts">Section 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>.
+<p>In this case, use the usual recipes to solve the conflict, see <a href="#sec.merge-conflicts">Sec. 3.4, &#8220;Resolving Merge Conflicts&#8221;</a>.
 It is important, however, that the conflict markers are labeled <code>Updated Upstream</code> (the version in the current working tree) and <code>Stashed Changes</code> (changes in the stash):</p>
 </div>
 <div class="listingblock">
@@ -6373,7 +6373,7 @@ HEAD is now at b529e34 new spec how the script should behave</pre>
 <h4 id="sec.multi-stash"><a class="anchor" href="#sec.multi-stash"></a>4.5.5. View stashes</h4>
 <div class="paragraph">
 <p>Git manages all stashes as a stack, i.e. more recent states are on top and are processed first.
-The stashes are named with a reflog syntax (see also <a href="#sec.reflog">Section 3.7, &#8220;Reflog&#8221;</a>):</p>
+The stashes are named with a reflog syntax (see also <a href="#sec.reflog">Sec. 3.7, &#8220;Reflog&#8221;</a>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6487,7 +6487,7 @@ This makes a stash in Gitk appear as a triangle, which is a bit confusing at fir
 <div class="title">Figure 29. A stash in Gitk</div>
 </div>
 <div class="paragraph">
-<p>With the alias <code>git tree</code> (see <a href="#rev-list">Section 3.6.1, &#8220;Revision Parameters&#8221;</a>) this looks like this:</p>
+<p>With the alias <code>git tree</code> (see <a href="#rev-list">Sec. 3.6.1, &#8220;Revision Parameters&#8221;</a>) this looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6504,7 +6504,7 @@ This makes a stash in Gitk appear as a triangle, which is a bit confusing at fir
 <div class="paragraph">
 <p>Since the stash objects are not referenced by a branch, the working tree object is kept alive with a special reference, <code>refs/stash</code>.
 However, this only applies to the latest stash.
-Older stashes are only referenced in the Reflog (see ` <a href="#sec.reflog">Section 3.7, &#8220;Reflog&#8221;</a>) and therefore do not appear in Gitk.
+Older stashes are only referenced in the Reflog (see ` <a href="#sec.reflog">Sec. 3.7, &#8220;Reflog&#8221;</a>) and therefore do not appear in Gitk.
 In contrast to normal reflog entries, stored stashes do not expire and are therefore not deleted by the normal maintenance mechanisms.</p>
 </div>
 </div>
@@ -6583,7 +6583,7 @@ For more information, see the <code>git-notes(1)</code> man page.</p>
 These could automatically create notes and thus possibly store helpful additional information in the repository.</p>
 </div>
 <div class="paragraph">
-<p>To automatically download the notes at each <code>git fetch</code>, add a refspec of the following form to the file <code>git/config</code> (see also <a href="#sec.git-fetch">Section 5.3.1, &#8220;git fetch&#8221;</a>):</p>
+<p>To automatically download the notes at each <code>git fetch</code>, add a refspec of the following form to the file <code>git/config</code> (see also <a href="#sec.git-fetch">Sec. 5.3.1, &#8220;git fetch&#8221;</a>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6608,7 +6608,7 @@ This can be useful in the following cases:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>You want to merge two independent projects that were previously developed in separate repositories (see also subtree-merges in <a href="#sec.subtrees">Section 5.11.2, &#8220;Subtrees&#8221;</a>).</p>
+<p>You want to merge two independent projects that were previously developed in separate repositories (see also subtree-merges in <a href="#sec.subtrees">Sec. 5.11.2, &#8220;Subtrees&#8221;</a>).</p>
 </li>
 </ul>
 </div>
@@ -6638,7 +6638,7 @@ The repository now has two root commits.</p>
 </div>
 <div class="paragraph">
 <p>Note that a merge between two branches that do not share commits will fail since a file exists on both sides and is not equal.
-This may be remedied by subtree-merges, see <a href="#sec.subtrees">Section 5.11.2, &#8220;Subtrees&#8221;</a>.</p>
+This may be remedied by subtree-merges, see <a href="#sec.subtrees">Sec. 5.11.2, &#8220;Subtrees&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>You can also, instead of importing another repository, create a completely detached branch, ``a second root commit.
@@ -6701,7 +6701,7 @@ $ <strong>git bisect good &lt;funktioniert&gt;</strong></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Once you&#8217;ve defined the two points, Git checks out a commit in the middle, so you&#8217;re now in <em>detached-head</em> mode (see <a href="#sec.detached-head">Section 3.2.1, &#8220;Detached HEAD&#8221;</a>).
+<p>Once you&#8217;ve defined the two points, Git checks out a commit in the middle, so you&#8217;re now in <em>detached-head</em> mode (see <a href="#sec.detached-head">Sec. 3.2.1, &#8220;Detached HEAD&#8221;</a>).
 After you have checked whether the regression is still present, you can mark it with <code>git bisect good</code> or <code>git bisect bad</code>.
 Git will automatically check out the next commit.</p>
 </div>
@@ -6785,7 +6785,7 @@ This very centralized approach is often used in practice.
 For an illustration, see <a href="#fig.central-workflow">Figure 30, &#8220;Central workflow with distributed version management&#8221;</a>.</p>
 </div>
 <div class="paragraph">
-<p>However, there are two noteworthy alternatives in the Git environment that we will introduce in this chapter: the <em>Integration Manager</em> workflow, which uses multiple public repositories (<a href="#sec.multi-remote">Section 5.6, &#8220;Distributed Workflow with Multiple Remotes&#8221;</a>), and patch exchange by e-mail (<a href="#sec.patch-queue">Section 5.9, &#8220;Patches via E-mail&#8221;</a>).</p>
+<p>However, there are two noteworthy alternatives in the Git environment that we will introduce in this chapter: the <em>Integration Manager</em> workflow, which uses multiple public repositories (<a href="#sec.multi-remote">Sec. 5.6, &#8220;Distributed Workflow with Multiple Remotes&#8221;</a>), and patch exchange by e-mail (<a href="#sec.patch-queue">Sec. 5.9, &#8220;Patches via E-mail&#8221;</a>).</p>
 </div>
 <div id="fig.central-workflow" class="imageblock text-center">
 <div class="content">
@@ -7043,7 +7043,7 @@ When you clone a repository, Git initializes a remote tracking branch for each r
 The <code>origin</code> remote repository has three branches: <code>pu</code>, <code>maint</code>, and <code>master</code>.
 Git creates a <em>remote tracking branch</em> in the cloned repository for each of these <em>remote branches</em>.
 It also creates a local branch <code>master</code> in the clone that corresponds to the remote branch <code>master</code>.
-This is checked out and is the branch you should work in if you plan to upload commits to the <code>master</code> (but see <a href="#sec.git-fetch">Section 5.3.1, &#8220;git fetch&#8221;</a>).</p>
+This is checked out and is the branch you should work in if you plan to upload commits to the <code>master</code> (but see <a href="#sec.git-fetch">Sec. 5.3.1, &#8220;git fetch&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>In the git fetch example, there is only one branch on the remote side, master.
@@ -7092,7 +7092,7 @@ If you have enabled color output, the different branches will also be color-code
 </div>
 <div class="paragraph">
 <p>Remote Tracking Branches are also references only and are therefore stored under <code>.git/refs</code> like all references.
-However, since they are special references that are also linked to a remote repository, they end up under <code>.git/refs/remotes/&lt;remote-name&gt;</code> (see <a href="#sec.branch-refs">Section 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>).
+However, since they are special references that are also linked to a remote repository, they end up under <code>.git/refs/remotes/&lt;remote-name&gt;</code> (see <a href="#sec.branch-refs">Sec. 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>).
 In Gitk, the remote tracking branches are displayed with the prefix <code>remotes/&lt;remote-name&gt;/</code>, which is also colored dark yellow (<a href="#fig.remote-tracking-gitk">Figure 32, &#8220;Branch <code>next</code> and the corresponding remote tracking branch in Gitk&#8221;</a>).</p>
 </div>
 <div id="fig.remote-tracking-gitk" class="imageblock text-center">
@@ -7111,7 +7111,7 @@ Synchronization in this context means two things: first, downloading commits and
 As far as the commit graph is concerned, the local graph needs to be synchronized with the one on the remote side, so that both have the same structure.
 In this section, we first discuss how to download commits and references from a remote.
 There are two commands for this: <code>git fetch</code> and <code>git pull</code>.
-We&#8217;ll first introduce both commands, and in <a href="#sec.fetch-vs-pull">Section 5.3.3, &#8220;git fetch vs. git pull&#8221;</a> we&#8217;ll describe which command is preferable under which circumstances.</p>
+We&#8217;ll first introduce both commands, and in <a href="#sec.fetch-vs-pull">Sec. 5.3.3, &#8220;git fetch vs. git pull&#8221;</a> we&#8217;ll describe which command is preferable under which circumstances.</p>
 </div>
 <div class="sect3">
 <h4 id="sec.git-fetch"><a class="anchor" href="#sec.git-fetch"></a>5.3.1. git fetch</h4>
@@ -7198,7 +7198,7 @@ For example, if you use namespaces for all developers and you are only intereste
 </div>
 <div class="paragraph">
 <p>With regard to the commit graph, Git only downloads those commits that are necessary to get references in the commit graph.
-This makes sense, because commits that are not &#8220;secured&#8221; by a reference are considered unreachable, and will eventually be deleted (see also <a href="#sec.branch-management">Section 3.1.2, &#8220;Managing Branches&#8221;</a>).
+This makes sense, because commits that are not &#8220;secured&#8221; by a reference are considered unreachable, and will eventually be deleted (see also <a href="#sec.branch-management">Sec. 3.1.2, &#8220;Managing Branches&#8221;</a>).
 In the last example, Git therefore does not need to download commits that are referenced by the branches that are not in the refspec.
 In terms of distribution, Git does not necessarily need to synchronize the entire commit graph, the &#8220;relevant&#8221; parts are sufficient.</p>
 </div>
@@ -7232,7 +7232,7 @@ $ <strong>git merge FETCH_HEAD</strong></pre>
 <div class="sect4">
 <h5 id="sec.prune"><a class="anchor" href="#sec.prune"></a>5.3.1.2. Deleting Expired Remote Tracking Branches</h5>
 <div class="paragraph">
-<p>If a Remote Branch is deleted (as described in <a href="#sec.push-delete">Section 5.4.1, &#8220;Deleting Remote References&#8221;</a>), the corresponding Remote Tracking Branch is referred to as <em>stale</em> (&#8220;expired&#8221;).
+<p>If a Remote Branch is deleted (as described in <a href="#sec.push-delete">Sec. 5.4.1, &#8220;Deleting Remote References&#8221;</a>), the corresponding Remote Tracking Branch is referred to as <em>stale</em> (&#8220;expired&#8221;).
 Since such branches usually have no further use, delete them (<em>prune</em>):</p>
 </div>
 <div class="listingblock">
@@ -7279,12 +7279,12 @@ Switched to a new branch <em>next</em></pre>
 <div class="paragraph">
 <p>The <code>set up to track</code> message indicates that Git is configuring the branch <code>next</code> from the remote <code>origin</code> as the <em>upstream branch</em> for the local branch <code>next</code>.
 This is a kind of &#8220;shortcut&#8221; that benefits other Git commands.
-For more details, see <a href="#sec.pull">Section 5.3.2, &#8220;git pull&#8221;</a>.</p>
+For more details, see <a href="#sec.pull">Sec. 5.3.2, &#8220;git pull&#8221;</a>.</p>
 </div>
 <div class="paragraph">
 <p>You can work in the local branch as usual.
 Note, however, that you only ever commit <em>locally</em>.
-To publish your work, i.e. upload it to a remote branch, you still need the <code>git push</code> command (<a href="#sec.uploading-commits">Section 5.4, &#8220;Uploading Commits: git push&#8221;</a>).</p>
+To publish your work, i.e. upload it to a remote branch, you still need the <code>git push</code> command (<a href="#sec.uploading-commits">Sec. 5.4, &#8220;Uploading Commits: git push&#8221;</a>).</p>
 </div>
 </div>
 </div>
@@ -7363,7 +7363,7 @@ In addition, the <code>merge</code> call contained in the <code>pull</code> has 
 <p>The initial situation is the same as in <a href="#fig.pull">Figure 34, &#8220;What happens with a pull&#8221;</a>.
 The <code>fetch</code> contained in the <code>pull</code> moves the remote tracking branch <code>origin/master</code> to commit C.
 However, <code>rebase</code> does not create a merge commit; instead, a call to <code>rebase</code> gives the commit D a new base, and the local <code>master</code> is set to the new commit D'.
-(Rebase is described in detail in <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
+(Rebase is described in detail in <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
 </div>
 <div class="sect4">
 <h5 id="sec.upstream"><a class="anchor" href="#sec.upstream"></a>5.3.2.1. Upstream Branches</h5>
@@ -7557,7 +7557,7 @@ The <code>--ff-only</code> option prevents accidental merge commits from occurri
 </table>
 </div>
 <div class="paragraph">
-<p>In this context, <a href="#ch.workflows">Chapter 6, <em>Workflows</em></a> is also helpful, where it is described how to work clearly with many Topic Branches.</p>
+<p>In this context, <a href="#ch.workflows">Ch. 6, <em>Workflows</em></a> is also helpful, where it is described how to work clearly with many Topic Branches.</p>
 </div>
 </div>
 </div>
@@ -7667,7 +7667,7 @@ So you replace an existing reference with the empty one.</p>
 </div>
 <div class="paragraph">
 <p>Note that in other clones, the remote tracking branch <code>origin/bugfix</code>, if present, does <em>not</em> automatically disappear!
-See the section on <em>pruning</em> above (<a href="#sec.downloading-commits">Section 5.3, &#8220;Downloading Commits&#8221;</a>).</p>
+See the section on <em>pruning</em> above (<a href="#sec.downloading-commits">Sec. 5.3, &#8220;Downloading Commits&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -7925,7 +7925,7 @@ Such maintainers often have several remotes configured, one for each contributor
 They don&#8217;t have to wait until the code has found its way into the official repository, but can try out the improvements immediately after deployment.
 The hosting platform Github in particular relies heavily on this workflow.
 The web interface used there offers a lot of features to support this workflow, e.g. a visualization that shows all available clones of a project and the commits contained in them, as well as the possibility to perform merges directly in the web interface.
-For a detailed description of this service, see <a href="#ch.github">Chapter 11, <em>GitHub</em></a>.</p>
+For a detailed description of this service, see <a href="#ch.github">Ch. 11, <em>GitHub</em></a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8110,7 +8110,7 @@ You need to pass them explicitly to <code>git push</code>, similar to the branch
 </div>
 <div class="paragraph">
 <p>If you want to upload all tags at once, use the <code>--tags</code> option.
-But be careful: Avoid this option if you use Annotated Tags to mark versions and Lightweight Tags to mark something locally, as described in <a href="#sec.tags">Section 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>, because with this option you would upload <em>all</em> tags, as already mentioned.</p>
+But be careful: Avoid this option if you use Annotated Tags to mark versions and Lightweight Tags to mark something locally, as described in <a href="#sec.tags">Sec. 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>, because with this option you would upload <em>all</em> tags, as already mentioned.</p>
 </div>
 <div class="paragraph">
 <p>Attention: Once you have uploaded a tag, you should never change it!
@@ -8437,7 +8437,7 @@ CommitDate: Tue Apr 26 11:48:34 2011 -0700
 </div>
 </div>
 <div class="paragraph">
-<p>With the <em>Dictator and Lieutenants</em> Workflow (<a href="#sec.dictator">Section 5.10, &#8220;A Distributed, Hierarchical Workflow&#8221;</a>), it can happen that more than two people are involved in a commit.
+<p>With the <em>Dictator and Lieutenants</em> Workflow (<a href="#sec.dictator">Sec. 5.10, &#8220;A Distributed, Hierarchical Workflow&#8221;</a>), it can happen that more than two people are involved in a commit.
 In this case, it makes sense that everyone who reviews the patch also &#8220;approves&#8221; it, especially the author.
 For this purpose, there is a <code>--signoff</code> option (<code>-s</code> for short) for the <code>git commit</code> and <code>git am</code> commands, which appends the committer&#8217;s name and email to the commit message:</p>
 </div>
@@ -8702,7 +8702,7 @@ Submodules get the flexibility of the sub-repository&#8201;&#8212;&#8201;so the 
 A comparison of the two approaches follows.</p>
 </div>
 <div class="paragraph">
-<p>Essentially, this technique is based on so-called subtree-merges, which were briefly discussed in <a href="#sec.merge-strategies">Section 3.3.3, &#8220;Merging Strategies&#8221;</a> about merge strategies.
+<p>Essentially, this technique is based on so-called subtree-merges, which were briefly discussed in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a> about merge strategies.
 In our example, a subtree-merge is done by merging regular commits from the <code>libgit2</code> repository under the <code>libgit2/</code> <em>tree</em> (directory)&#8201;&#8212;&#8201;a top-level file in the library repository thus becomes a top-level file in the <code>libgit2/</code> tree, which in turn is part of the repository.</p>
 </div>
 <div class="paragraph">
@@ -8726,7 +8726,7 @@ The merge commit now links the previous version history to that of <code>libgit2
 </div>
 <div class="paragraph">
 <p>The result of this procedure is that your repository now contains all relevant commits from <code>libgit2</code>.
-Your repository now has two root commits (see also multi-root repositories in <a href="#sec.multi-root">Section 4.7, &#8220;Multiple root commits&#8221;</a>).</p>
+Your repository now has two root commits (see also multi-root repositories in <a href="#sec.multi-root">Sec. 4.7, &#8220;Multiple root commits&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>The files are now stored inseparably linked to the project.
@@ -8802,7 +8802,7 @@ If you want to use the <code>--squash</code> option instead, omit <code>--rejoin
 The decisive criterion should be the affiliation of the subproject to the superordinate one: If you include third-party software, it is probably more likely to be submodules, your own with limited commits and a direct relationship to the main project rather than a subtree.</p>
 </div>
 <div class="paragraph">
-<p>For example, when you install CGit (see <a href="#sec.cgit">Section 7.5, &#8220;CGit&#8201;&#8212;&#8201;CGI for Git&#8221;</a>), you must initialize and update a submodule to compile <code>libgit.a</code>.
+<p>For example, when you install CGit (see <a href="#sec.cgit">Sec. 7.5, &#8220;CGit&#8201;&#8212;&#8201;CGI for Git&#8221;</a>), you must initialize and update a submodule to compile <code>libgit.a</code>.
 So CGit needs the source code of Git, but doesn&#8217;t want to merge the development history with that of Git (the comparatively few CGit commits would be lost in this!).
 You can, however, compile CGit against another version of Git if you wish&#8201;&#8212;&#8201;the flexibility of the sub-repository is preserved.</p>
 </div>
@@ -8879,7 +8879,7 @@ In a central repository you can create your own namespace using your initials (e
 This is convenient for you and other developers and helps to split the actual programming process into logical units.</p>
 <div class="paragraph">
 <p>Merge small commits when they belong together.
-If necessary, take the time to split up large commits again in a sensible way (see <a href="#sec.rebase-i-edit">Section 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>).</p>
+If necessary, take the time to split up large commits again in a sensible way (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>However, only use Rebase for your own commits:
@@ -8894,7 +8894,7 @@ do not modify already published commits or other developers' commits.</p>
 <dd>
 <p>Integrate changes from upstream always via fast-forward (you simply fast forward the local copy of the branches).
 In contrast, integrate new features through regular merges.
-The aliases presented in <a href="#sec.merge-ff">Section 3.3.2, &#8220;Fast Forward Merges: Fast Forwarding One Branch&#8221;</a> are also helpful for differentiation.</p>
+The aliases presented in <a href="#sec.merge-ff">Sec. 3.3.2, &#8220;Fast Forward Merges: Fast Forwarding One Branch&#8221;</a> are also helpful for differentiation.</p>
 </dd>
 </dl>
 </div>
@@ -8933,9 +8933,9 @@ Here are a few general solution strategies:</p>
 <dt class="hdlist1"><em>Fix a small bug</em></dt>
 <dd>
 <p>If you notice a small bug that you want to fix quickly, you can do this in two ways:
-stash existing changes (see <a href="#sec.stash">Section 4.5, &#8220;Outsource changes - git stash&#8221;</a>), check out the corresponding branch, fix the bug, change the branch again, and apply the stash.</p>
+stash existing changes (see <a href="#sec.stash">Sec. 4.5, &#8220;Outsource changes - git stash&#8221;</a>), check out the corresponding branch, fix the bug, change the branch again, and apply the stash.</p>
 <div class="paragraph">
-<p>The other possibility is to fix the bug on the branch you are currently working on and to subsequently transfer the corresponding commit(s) via Cherry Pick or Rebase-Onto (see <a href="#sec.cherry-pick">Section 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>) to the designated bugfix or topic branch.</p>
+<p>The other possibility is to fix the bug on the branch you are currently working on and to subsequently transfer the corresponding commit(s) via Cherry Pick or Rebase-Onto (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>) to the designated bugfix or topic branch.</p>
 </div>
 </dd>
 </dl>
@@ -8947,7 +8947,7 @@ stash existing changes (see <a href="#sec.stash">Section 4.5, &#8220;Outsource c
 <p>With <code>git commit --amend</code> you can customize the last commit.
 The <code>--no-edit</code> option causes the description to be retained and not offered again for editing.</p>
 <div class="paragraph">
-<p>To fix deeper commits, either use interactive rebase and the <code>edit</code> keyword (see <a href="#sec.rebase-i-edit">Section 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>), or create a small commit for each fix, then arrange them accordingly in the interactive rebase, and apply the <code>fixup</code> action to them to correct the original commit.</p>
+<p>To fix deeper commits, either use interactive rebase and the <code>edit</code> keyword (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit commits arbitrarily&#8221;</a>), or create a small commit for each fix, then arrange them accordingly in the interactive rebase, and apply the <code>fixup</code> action to them to correct the original commit.</p>
 </div>
 </dd>
 </dl>
@@ -9031,7 +9031,7 @@ $ <strong>git tag -a v0.2-rc1</strong></pre>
 <li>
 <p>From now on, only so-called <em>release critical bugs</em> (RC bugs) are corrected directly in the <code>master</code>.
 These are &#8220;show-stoppers&#8221;, i.e. bugs that significantly limit the functionality of the software or make new features unusable.
-If necessary, you can undo merges of problematic branches (see <a href="#sec.revert">Section 3.2.2, &#8220;Rolling Back Commits&#8221;</a>).</p>
+If necessary, you can undo merges of problematic branches (see <a href="#sec.revert">Sec. 3.2.2, &#8220;Rolling Back Commits&#8221;</a>).</p>
 <div class="paragraph">
 <p>What happens to <code>next</code> during the release phase depends on the size of the project.
 If all developers are busy fixing the RC bugs, a development stop for <code>next</code> is a good idea.
@@ -9105,7 +9105,7 @@ $ <strong>git merge --ff-only master</strong></pre>
 </div>
 <div class="paragraph">
 <p>You can extend the branching model as you wish.
-One approach that is often encountered is the use of <em>namespaces</em> (see <a href="#sec.branches">Section 3.1, &#8220;References: Branches and Tags&#8221;</a>) in addition to the <code>pu/*</code> branches.
+One approach that is often encountered is the use of <em>namespaces</em> (see <a href="#sec.branches">Sec. 3.1, &#8220;References: Branches and Tags&#8221;</a>) in addition to the <code>pu/*</code> branches.
 This has the advantage that each developer uses his own namespace, which is delimited by convention.
 Another very popular extension is to have a separate <code>maint</code> branch for each previous version.
 This makes it possible to maintain any number of older versions.
@@ -9303,7 +9303,7 @@ But you can take the output as a basis, delete unimportant changes and combine t
 <td class="content">
 <div class="paragraph">
 <p>Often the question arises for the maintainer what has changed since the last release.
-This is where <code>git-describe</code> (see <a href="#sec.tags">Section 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>) comes in handy.
+This is where <code>git-describe</code> (see <a href="#sec.tags">Sec. 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>) comes in handy.
 In conjunction with --abbrev=0, it outputs the first accessible tag from the HEAD:</p>
 </div>
 <div class="listingblock">
@@ -9401,11 +9401,11 @@ Archive:  wiki2beamer-0.9.3.zip
 <td class="content">
 <div class="paragraph">
 <p>One problem you should keep in mind is that for example <code>.gitignore</code> files are automatically packed.
-But since they have no meaning outside a git repository, it is worth excluding them with the git attribute (see <a href="#sec.attributes">Section 8.1, &#8220;Git attributes - treat files separately&#8221;</a>) <code>export-ignore</code>.
+But since they have no meaning outside a git repository, it is worth excluding them with the git attribute (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git attributes - treat files separately&#8221;</a>) <code>export-ignore</code>.
 This is done with an entry <code>.gitignore export-ignore</code> in <code>.git/info/attributes</code>.</p>
 </div>
 <div class="paragraph">
-<p>You can also perform automatic keyword substitutions before packing the archive (see <a href="#sec.smudge-clean-keywords">Section 8.1.2, &#8220;Keywords in files&#8221;</a>).</p>
+<p>You can also perform automatic keyword substitutions before packing the archive (see <a href="#sec.smudge-clean-keywords">Sec. 8.1.2, &#8220;Keywords in files&#8221;</a>).</p>
 </div>
 </td>
 </tr>
@@ -9434,7 +9434,7 @@ And how does Git exchange the changes?</p>
 <p>Git is designed for decentralized repository management; the smallest unit for exchanging changes between repositories is commits.
 However, since there are sometimes thousands of commits between two versions of a piece of software, and a single commit-by-commit transfer would generate a lot of overhead, commits are grouped together into so-called <em>packfiles</em> before being transferred.
 These packfiles are a simple but effective format.&#8288;<sup class="footnote">[<a id="_footnoteref_92" class="footnote" href="#_footnotedef_92" title="View footnote.">92</a>]</sup>
-They are also used to store (older) commits on the hard disk in a space-saving way (<code>git gc</code> or <code>git repack</code>, see <a href="#sec.gc">Section B.1, &#8220;Cleaning up&#8221;</a>).</p>
+They are also used to store (older) commits on the hard disk in a space-saving way (<code>git gc</code> or <code>git repack</code>, see <a href="#sec.gc">Sec. B.1, &#8220;Cleaning up&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>These packfiles are usually transmitted via the Git protocol, which runs on port 9418/TCP by default.
@@ -9450,7 +9450,7 @@ Instead, Git uses an already existing, secure and simple authentication structur
 <div class="paragraph">
 <p>Git also supports transport via HTTP(S), FTP(S), and Rsync.
 Although Rsync is now considered <em>deprecated</em>, and should not be used anymore, there are some use cases for HTTP(S): In particularly restrictive environments with very restrictive firewall rules, you may be able to access a repository via HTTP(S) (i.e. only on port 80 or 443) for both read and write operations.
-Platforms like GitHub (see <a href="#ch.github">Chapter 11, <em>GitHub</em></a>) therefore offer HTTPS as default transport method.</p>
+Platforms like GitHub (see <a href="#ch.github">Ch. 11, <em>GitHub</em></a>) therefore offer HTTPS as default transport method.</p>
 </div>
 </div>
 <div class="sect3">
@@ -9980,7 +9980,7 @@ repo Projekt
 </div>
 <div class="paragraph">
 <p>However, the following pitfalls must be taken into account: Once the keyword <code>VREF/NAME</code> appears once, the file-based rules are applied to <em>all</em> users.
-If none of them apply, access is allowed&#8201;&#8212;&#8201;so the second rule is important, which prohibits access for <code>@doc</code> unless the commit only modifies files under <code>doc/</code> (see also <a href="#sec.gl-deny">Section 7.2.7, &#8220;Explicitly Prohibiting Actions&#8221;</a> below).</p>
+If none of them apply, access is allowed&#8201;&#8212;&#8201;so the second rule is important, which prohibits access for <code>@doc</code> unless the commit only modifies files under <code>doc/</code> (see also <a href="#sec.gl-deny">Sec. 7.2.7, &#8220;Explicitly Prohibiting Actions&#8221;</a> below).</p>
 </div>
 <div class="paragraph">
 <p>Access control checks at the commit level which files are modified; if a commit contains changes to a file that the user is not allowed to edit, the entire <code>push</code> process is aborted.
@@ -10009,7 +10009,7 @@ Again, the rules are passed through from top to bottom.</p>
 <p>This directive prohibits members of <code>@developers</code> from making commits that modify the <code>Makefile</code>.&#8288;<sup class="footnote">[<a id="_footnoteref_98" class="footnote" href="#_footnotedef_98" title="View footnote.">98</a>]</sup></p>
 </div>
 <div class="paragraph">
-<p>By convention, you should never upload forced updates to the <code>master</code> or <code>maint</code> branches (see also <a href="#sec.branches">Section 3.1, &#8220;References: Branches and Tags&#8221;</a>).
+<p>By convention, you should never upload forced updates to the <code>master</code> or <code>maint</code> branches (see also <a href="#sec.branches">Sec. 3.1, &#8220;References: Branches and Tags&#8221;</a>).
 You can now force this policy with Gitolite:</p>
 </div>
 <div class="listingblock">
@@ -10032,7 +10032,7 @@ Note the missing plus sign, though: A forced update is not covered by the first 
 <p>With the means presented here and others, which you can take from the documentation, &#8288;<sup class="footnote">[<a id="_footnoteref_99" class="footnote" href="#_footnotedef_99" title="View footnote.">99</a>]</sup> you are able to force policies very flexibly.
 However, it may not be useful to control everything down to the smallest detail.
 As mentioned above, especially a control on file name level is problematic.
-Then, if hours of work go into a commit, but it can&#8217;t be uploaded because one of those restrictions prohibits it, the frustration is great (and fixing that commit is not trivial, either; see <em>rebase</em>, <a href="#sec.rebase">Section 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
+Then, if hours of work go into a commit, but it can&#8217;t be uploaded because one of those restrictions prohibits it, the frustration is great (and fixing that commit is not trivial, either; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits - Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>At the branch level, it makes sense to give only a limited group of developers access to &#8220;important&#8221; branches (such as <code>master</code>).
@@ -10566,7 +10566,7 @@ The most important ones are listed below:</p>
 <dt class="hdlist1"><code>enable-gitweb-owner</code> </dt>
 <dd>
 <p>If set to 1, the owner is read from the Git repository&#8217;s <code>gitweb.owner</code> configuration.
-Gitolite sets this option automatically when you specify a name, see <a href="#sec.gitweb-name">Section 7.2.3, &#8220;Ownership and Description&#8221;</a>.</p>
+Gitolite sets this option automatically when you specify a name, see <a href="#sec.gitweb-name">Sec. 7.2.3, &#8220;Ownership and Description&#8221;</a>.</p>
 </dd>
 <dt class="hdlist1"><code>enable-log-filecount</code> </dt>
 <dd>
@@ -10621,7 +10621,7 @@ If you want to run CGit in a subdirectory instead, you should adjust this option
 </dl>
 </div>
 <div class="paragraph">
-<p>With the following configuration, any repository you have allowed Gitweb access to in Gitolite will appear in the listing&#8201;&#8212;&#8201;and the description and author (if specified, see <a href="#sec.gitweb-name">Section 7.2.3, &#8220;Ownership and Description&#8221;</a>) will also be displayed:</p>
+<p>With the following configuration, any repository you have allowed Gitweb access to in Gitolite will appear in the listing&#8201;&#8212;&#8201;and the description and author (if specified, see <a href="#sec.gitweb-name">Sec. 7.2.3, &#8220;Ownership and Description&#8221;</a>) will also be displayed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -10712,7 +10712,7 @@ This is not very fast though.</p>
 </div>
 <div class="paragraph">
 <p>It&#8217;s more practical to use one file per repository, indicating when the last commit was uploaded.
-This is best done with hooks (see <a href="#sec.hooks">Section 8.2, &#8220;Hooks&#8221;</a>).
+This is best done with hooks (see <a href="#sec.hooks">Sec. 8.2, &#8220;Hooks&#8221;</a>).
 Use this command in the <code>post-update</code> hook:</p>
 </div>
 <div class="listingblock">
@@ -10905,7 +10905,7 @@ Once the files are distributed (e.g. as a tarball), you can clean up with <code>
 <div class="paragraph">
 <p>Alternatively, the <code>export-subst</code> attribute ensures that an expansion of the form <code>$Format:&lt;Pretty&gt;$</code> is performed.
 Where <code>&lt;Pretty&gt;</code> must be a format that is valid for <code>git log --pretty=format:&lt;Pretty&gt;</code>, e.g.&#160;`%h` for the shortened commit hash sum.
-Git will only expand these attributes if the file is packaged via <code>git archive</code> (see <a href="#sec.release-create">Section 6.3.2, &#8220;Create Release&#8221;</a>).</p>
+Git will only expand these attributes if the file is packaged via <code>git archive</code> (see <a href="#sec.release-create">Sec. 6.3.2, &#8220;Create Release&#8221;</a>).</p>
 </div>
 </div>
 </div>
@@ -11196,7 +11196,7 @@ true</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The names of all files modified in the index (diff filter <code>modified</code> and <code>added</code>, see also <a href="#sec.scripting-find-changes">Section 8.3.4, &#8220;Find changes&#8221;</a>) are passed to a subshell that checks per file whether the first line is a Perl script.
+<p>The names of all files modified in the index (diff filter <code>modified</code> and <code>added</code>, see also <a href="#sec.scripting-find-changes">Sec. 8.3.4, &#8220;Find changes&#8221;</a>) are passed to a subshell that checks per file whether the first line is a Perl script.
 If so, the file is checked with <code>perl -c</code>.
 If there is a syntax error in the file, the command will issue an appropriate error message, and <code>exit 1</code> will terminate the hook, so Git will abort the commit process before an editor is opened to enter the commit message.</p>
 </div>
@@ -11231,7 +11231,7 @@ If warnings are inappropriate, you can always skip the hook <code>pre-commit</co
 <p>The following hooks are called on the receiver side of <code>git receive-pack</code> after the user enters <code>git push</code> in the local repository.</p>
 </div>
 <div class="paragraph">
-<p>For a push operation, <code>git send-pack</code> creates <em>one</em> packfile on the local side (see also <a href="#sec.od">Section 2.2.3, &#8220;The Object Database&#8221;</a>), which is received by <code>git receive-pack</code> on the recipient side.
+<p>For a push operation, <code>git send-pack</code> creates <em>one</em> packfile on the local side (see also <a href="#sec.od">Sec. 2.2.3, &#8220;The Object Database&#8221;</a>), which is received by <code>git receive-pack</code> on the recipient side.
 Such a packfile contains the new values of one or more references as well as the commits required by the recipient repository to completely map the version history.
 The two sides negotiate which commits these are in advance (similar to a merge base).</p>
 </div>
@@ -11349,7 +11349,7 @@ More options are documented in the comments of the hooks.</p>
 It is therefore particularly well suited to implement a kind of "access control" to certain branches.</p>
 </div>
 <div class="paragraph">
-<p>In fact, the <code>update</code> hook is used by Gitolite (see <a href="#sec.gitolite">Section 7.2, &#8220;Gitolite: Simple Git Hosting&#8221;</a>) to decide whether a branch may be modified or not.
+<p>In fact, the <code>update</code> hook is used by Gitolite (see <a href="#sec.gitolite">Sec. 7.2, &#8220;Gitolite: Simple Git Hosting&#8221;</a>) to decide whether a branch may be modified or not.
 Gitolite implements the hook as a Perl script that checks whether the appropriate permission is present and terminates with a zero or non-zero return value accordingly.</p>
 </div>
 </div>
@@ -12452,7 +12452,7 @@ Ref _refs/heads/master_ was rewritten</pre>
 Any error messages are neither issued nor do they cause the <code>filter-branch</code> call to be aborted.</p>
 </div>
 <div class="paragraph">
-<p>After the references have been rewritten, you can use the pickaxe tool (<code>-G&lt;expression&gt;</code>, see <a href="#sec.git-log">Section 2.1.6, &#8220;Examining the Project History&#8221;</a>) to verify that no commit really introduces the string <code>v3rYs3cr1T</code> anymore:</p>
+<p>After the references have been rewritten, you can use the pickaxe tool (<code>-G&lt;expression&gt;</code>, see <a href="#sec.git-log">Sec. 2.1.6, &#8220;Examining the Project History&#8221;</a>) to verify that no commit really introduces the string <code>v3rYs3cr1T</code> anymore:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -12504,7 +12504,7 @@ Commits that have not changed anything in the new subdirectory are also dropped.
 </div>
 <div class="paragraph">
 <p>In this way, you can, for example, extract the version history of a library from a larger project.
-The exchange between the outsourced project and the base project can work via submodules or subtree-merges (see <a href="#sec.subprojects">Section 5.11, &#8220;Managing Subprojects&#8221;</a>).</p>
+The exchange between the outsourced project and the base project can work via submodules or subtree-merges (see <a href="#sec.subprojects">Sec. 5.11, &#8220;Managing Subprojects&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>To split the directory <code>t/</code> (containing the test suite) from the git source repository, the following command is sufficient:</p>
@@ -12704,7 +12704,7 @@ As a first starting point we recommend the Git-Wiki.&#8288;<sup class="footnote"
 </div>
 <div class="paragraph">
 <p>In addition to its immediate communication capabilities with other systems, Git has its own simple plain-text protocol that lets you translate the version history from any system in such a way that Git creates a repository from it.
-For a detailed description including an example, see <a href="#sec.fast-import">Section 9.2, &#8220;Custom Importers&#8221;</a> about <em>Fast Import</em>.</p>
+For a detailed description including an example, see <a href="#sec.fast-import">Sec. 9.2, &#8220;Custom Importers&#8221;</a> about <em>Fast Import</em>.</p>
 </div>
 <div class="sect2">
 <h3 id="sec.subversion"><a class="anchor" href="#sec.subversion"></a>9.1. Subversion</h3>
@@ -12906,7 +12906,7 @@ For others (<code>svn+ssh</code>), you must specify the username as part of the 
 <p>If several independent projects are managed in one repository, we recommend that you create a separate Git repository for each project.
 Unlike Subversion, Git is not suitable for managing multiple projects in one repository.
 The object model means that the development histories (commit graphs) would become inextricably linked.
-How to &#8220;link&#8221; projects from different Git repositories is described in <a href="#sec.subprojects">Section 5.11, &#8220;Managing Subprojects&#8221;</a>.</p>
+How to &#8220;link&#8221; projects from different Git repositories is described in <a href="#sec.subprojects">Sec. 5.11, &#8220;Managing Subprojects&#8221;</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -13388,7 +13388,7 @@ The file will still be needed in the future when you download new commits from t
 <p>In the section on conversion we described how to use <code>create-ignore</code> to create <code>.gitignore</code> files.
 However, if you want to continue working with the Subversion repository, there is little point in checking in the <code>.gitignore</code> files there.
 They have no effect on Subversion and only confuse other developers who continue to work with the native Subversion client (<code>svn</code>).
-Instead, there is an option to store the patterns to ignore in the <code>.git/info/excludes</code> file (see <a href="#sec.ignore">Section 4.4, &#8220;Ignore files&#8221;</a>), which is not part of the repository.
+Instead, there is an option to store the patterns to ignore in the <code>.git/info/excludes</code> file (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignore files&#8221;</a>), which is not part of the repository.
 The <code>git svn show-ignore</code> command, which searches for and outputs all <code>svn-ignore</code> properties, can help here:</p>
 </div>
 <div class="listingblock">
@@ -14603,7 +14603,7 @@ For a hook to really work it has to change a value in the associative array <cod
 In both examples we change the value of the entry <code>staged</code> by appending additional characters to mark certain states.
 We use the percent sign (<code>%</code>) to indicate unknown files and the dollar sign (<code>$</code>) for created stashes.
 The percent sign must be specified twice to prevent the Z-Shell from mistakenly interpreting it as formatting.
-For the hooks we use various plumbing commands (see <a href="#sec.scripting">Section 8.3, &#8220;Writing your own Git commands&#8221;</a>).</p>
+For the hooks we use various plumbing commands (see <a href="#sec.scripting">Sec. 8.3, &#8220;Writing your own Git commands&#8221;</a>).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -14790,7 +14790,7 @@ As you can see in <a href="#fig.github-downloads">Figure 61, &#8220;Downloads cr
 </div>
 <div class="paragraph">
 <p>For developers who often work with images, GitHub offers so-called <em>Image View Modes</em>.&#8288;<sup class="footnote">[<a id="_footnoteref_149" class="footnote" href="#_footnotedef_149" title="View footnote.">149</a>]</sup>
-They show differences between two versions of an image, similar to the script introduced in <a href="#sec.external-diff">Section 8.1.3, &#8220;Own diff programs&#8221;</a>.
+They show differences between two versions of an image, similar to the script introduced in <a href="#sec.external-diff">Sec. 8.1.3, &#8220;Own diff programs&#8221;</a>.
 There are the following modes:</p>
 </div>
 <div class="dlist">
@@ -14994,7 +14994,7 @@ Among other things, it contains the following entries:</p>
 <code>HEAD</code> 
 </td>
 <td class="hdlist2">
-<p>The <code>HEAD</code>, see <a href="#sec.branch-refs">Section 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>.
+<p>The <code>HEAD</code>, see <a href="#sec.branch-refs">Sec. 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>.
 Besides <code>HEAD</code>, other important symbolic references may be stored on the top level, e.g.&#160;<code>ORIG_HEAD</code> or <code>FETCH_HEAD</code>.</p>
 </td>
 </tr>
@@ -15003,7 +15003,7 @@ Besides <code>HEAD</code>, other important symbolic references may be stored on 
 <code>config</code> 
 </td>
 <td class="hdlist2">
-<p>The repository configuration file, see <a href="#chap.git-config">Section 1.3, &#8220;Configuring Git&#8221;</a>.</p>
+<p>The repository configuration file, see <a href="#chap.git-config">Sec. 1.3, &#8220;Configuring Git&#8221;</a>.</p>
 </td>
 </tr>
 <tr>
@@ -15011,7 +15011,7 @@ Besides <code>HEAD</code>, other important symbolic references may be stored on 
 <code>hooks/</code> 
 </td>
 <td class="hdlist2">
-<p>Contains the hooks set for this repository, see <a href="#sec.hooks">Section 8.2, &#8220;Hooks&#8221;</a>.</p>
+<p>Contains the hooks set for this repository, see <a href="#sec.hooks">Sec. 8.2, &#8220;Hooks&#8221;</a>.</p>
 </td>
 </tr>
 <tr>
@@ -15019,7 +15019,7 @@ Besides <code>HEAD</code>, other important symbolic references may be stored on 
 <code>index</code> 
 </td>
 <td class="hdlist2">
-<p>The index or stage, see <a href="#sec.index">Section 2.1.1, &#8220;Index&#8221;</a>.</p>
+<p>The index or stage, see <a href="#sec.index">Sec. 2.1.1, &#8220;Index&#8221;</a>.</p>
 </td>
 </tr>
 <tr>
@@ -15027,8 +15027,8 @@ Besides <code>HEAD</code>, other important symbolic references may be stored on 
 <code>info/</code> 
 </td>
 <td class="hdlist2">
-<p>Additional repository information, such as patterns to be ignored (see <a href="#sec.ignore">Section 4.4, &#8220;Ignore files&#8221;</a>) and also grafts (see <a href="#sec.fb-grafts">Section 8.4.3, &#8220;Grafts: Subsequent Merges&#8221;</a>).
-You can put your own information there if other tools can handle it (see e.g. the section on caching of CGit, <a href="#sec.cgit-cache">Section 7.5.4, &#8220;Exploiting Caching&#8221;</a>).</p>
+<p>Additional repository information, such as patterns to be ignored (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignore files&#8221;</a>) and also grafts (see <a href="#sec.fb-grafts">Sec. 8.4.3, &#8220;Grafts: Subsequent Merges&#8221;</a>).
+You can put your own information there if other tools can handle it (see e.g. the section on caching of CGit, <a href="#sec.cgit-cache">Sec. 7.5.4, &#8220;Exploiting Caching&#8221;</a>).</p>
 </td>
 </tr>
 <tr>
@@ -15036,7 +15036,7 @@ You can put your own information there if other tools can handle it (see e.g. th
 <code>logs/</code> 
 </td>
 <td class="hdlist2">
-<p>Log of changes to references; accessible via Reflog, see <a href="#sec.reflog">Section 3.7, &#8220;Reflog&#8221;</a>.
+<p>Log of changes to references; accessible via Reflog, see <a href="#sec.reflog">Sec. 3.7, &#8220;Reflog&#8221;</a>.
 Contains a log file for each reference under <code>refs/</code> and <code>HEAD</code>.</p>
 </td>
 </tr>
@@ -15045,7 +15045,7 @@ Contains a log file for each reference under <code>refs/</code> and <code>HEAD</
 <code>objects/</code> 
 </td>
 <td class="hdlist2">
-<p>The object database, see <a href="#sec.od">Section 2.2.3, &#8220;The Object Database&#8221;</a>.
+<p>The object database, see <a href="#sec.od">Sec. 2.2.3, &#8220;The Object Database&#8221;</a>.
 For performance reasons, the objects are sorted into subdirectories that correspond to a two-character prefix of their SHA-1 sum (the commit <code>0a7ba55&#8230;&#8203;</code> is stored below <code>0a/7ba55&#8230;&#8203;</code>).
 In the subdirectory <code>pack/</code> you will find the packfiles and associated indices, which are created by the garbage collection (see below).
 In the <code>info/</code> subdirectory, Git will store a list of existing pack files if required.</p>
@@ -15056,7 +15056,7 @@ In the <code>info/</code> subdirectory, Git will store a list of existing pack f
 <code>refs/</code> 
 </td>
 <td class="hdlist2">
-<p>All references, including branches in <code>refs/heads/</code>, see <a href="#sec.branch-refs">Section 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>, tags in <code>refs/tags/</code>, see <a href="#sec.tags">Section 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>, and remote tracking branches under <code>refs/remotes/</code>, see <a href="#sec.remote-tracking-branches">Section 5.2.2, &#8220;Remote-Tracking-Branches&#8221;</a>.</p>
+<p>All references, including branches in <code>refs/heads/</code>, see <a href="#sec.branch-refs">Sec. 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>, tags in <code>refs/tags/</code>, see <a href="#sec.tags">Sec. 3.1.3, &#8220;Tags&#8201;&#8212;&#8201;Marking Important Versions&#8221;</a>, and remote tracking branches under <code>refs/remotes/</code>, see <a href="#sec.remote-tracking-branches">Sec. 5.2.2, &#8220;Remote-Tracking-Branches&#8221;</a>.</p>
 </td>
 </tr>
 </table>
@@ -15073,7 +15073,7 @@ In the <code>info/</code> subdirectory, Git will store a list of existing pack f
 <div class="sect2">
 <h3 id="sec.gc"><a class="anchor" href="#sec.gc"></a>B.1. Cleaning up</h3>
 <div class="paragraph">
-<p>As mentioned in <a href="#sec.branch-management">Section 3.1.2, &#8220;Managing Branches&#8221;</a>, for example, commits that are no longer referenced (whether by branches or other commits) are no longer accessible.
+<p>As mentioned in <a href="#sec.branch-management">Sec. 3.1.2, &#8220;Managing Branches&#8221;</a>, for example, commits that are no longer referenced (whether by branches or other commits) are no longer accessible.
 This is usually the case if you wanted to delete a commit (or have rebuilt commits with Rebase).
 Git does not delete them from the object database immediately, but leaves them there for two weeks by default, even if they are no longer accessible.</p>
 </div>
@@ -15111,7 +15111,7 @@ If necessary, several small packfiles are combined to large ones.</p>
 <ul>
 <li>
 <p>Packing references.
-This results in so-called <em>Packed Refs</em>, see also <a href="#sec.branches">Section 3.1, &#8220;References: Branches and Tags&#8221;</a>.</p>
+This results in so-called <em>Packed Refs</em>, see also <a href="#sec.branches">Sec. 3.1, &#8220;References: Branches and Tags&#8221;</a>.</p>
 </li>
 </ul>
 </div>
@@ -15126,7 +15126,7 @@ By default this happens after 90 days.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Old conflict resolutions (see Rerere, <a href="#sec.rerere">Section 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>) are discarded (15/60 days hold time for unresolved/solved).</p>
+<p>Old conflict resolutions (see Rerere, <a href="#sec.rerere">Sec. 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>) are discarded (15/60 days hold time for unresolved/solved).</p>
 </li>
 </ul>
 </div>
@@ -15312,7 +15312,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_18">18</a>. In fact, Git creates a new commit whose changes are a combination of the changes made to the old commit and the index. The new commit then <em>replaces</em> the old one.
 </div>
 <div class="footnote" id="_footnotedef_19">
-<a href="#_footnoteref_19">19</a>. <code>git rm</code> deletes a file with the next commit, but it remains in the commit history. For information on how to delete a file completely, including from the version history, see <a href="#sec.fb-censor">Section 8.4.1, &#8220;Remove sensitive information afterwards&#8221;</a>.
+<a href="#_footnoteref_19">19</a>. <code>git rm</code> deletes a file with the next commit, but it remains in the commit history. For information on how to delete a file completely, including from the version history, see <a href="#sec.fb-censor">Sec. 8.4.1, &#8220;Remove sensitive information afterwards&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_20">
 <a href="#_footnoteref_20">20</a>. This and the following examples are from the Git repository.
@@ -15345,13 +15345,13 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_29">29</a>. Of course, this does not prevent you from setting a branch to a commit &#8220;somewhere in the middle,&#8221; which can also be useful.
 </div>
 <div class="footnote" id="_footnotedef_30">
-<a href="#_footnoteref_30">30</a>. Due to the fact that the order of the direct ancestors is stored during a merge, it is important to always merge from the smaller <em>to</em> the larger branch, e.g. <code>topic</code> to <code>master</code>. If you then want to use <code>master^^</code> to examine commits in the master branch, don&#8217;t land on commits from the topic branch all at once (see also <a href="#sec.merge">Section 3.3, &#8220;Merging Branches&#8221;</a>).
+<a href="#_footnoteref_30">30</a>. Due to the fact that the order of the direct ancestors is stored during a merge, it is important to always merge from the smaller <em>to</em> the larger branch, e.g. <code>topic</code> to <code>master</code>. If you then want to use <code>master^^</code> to examine commits in the master branch, don&#8217;t land on commits from the topic branch all at once (see also <a href="#sec.merge">Sec. 3.3, &#8220;Merging Branches&#8221;</a>).
 </div>
 <div class="footnote" id="_footnotedef_31">
 <a href="#_footnoteref_31">31</a>. To find out how Git checks a reference for validity, see the <code>git-check-ref-format(1)</code> man page.
 </div>
 <div class="footnote" id="_footnotedef_32">
-<a href="#_footnoteref_32">32</a>. How long they stay there is determined by corresponding settings for the <em>garbage collection</em> (maintenance mechanisms), see <a href="#sec.gc">Section B.1, &#8220;Cleaning up&#8221;</a>.
+<a href="#_footnoteref_32">32</a>. How long they stay there is determined by corresponding settings for the <em>garbage collection</em> (maintenance mechanisms), see <a href="#sec.gc">Sec. B.1, &#8220;Cleaning up&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_33">
 <a href="#_footnoteref_33">33</a>. A detailed overview of the advantages and disadvantages of both schemes as well as a description of the release process etc. can be found in chapter 6 of the book <em>Open Source Projektmanagement</em> by Michael Prokop (Open Source Press, Munich, 2010).
@@ -15366,10 +15366,10 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_36">36</a>. To verify that the changes in your new branch are the same as the old one, use <code>git diff &lt;reorder-feature&gt; &lt;feature&gt;</code>&#8201;&#8212;&#8201;if the command does not produce output, the branches will contain identical changes.
 </div>
 <div class="footnote" id="_footnotedef_37">
-<a href="#_footnoteref_37">37</a>. It is not absolutely necessary that a merge base exists; for example, if you manage multiple root commits in a repository (see <a href="#sec.multi-root">Section 4.7, &#8220;Multiple root commits&#8221;</a>) and then merge the branches built on top of them, there will be no common base if no merge has taken place before. In this case, a file that exists in different versions on both sides creates a conflict.
+<a href="#_footnoteref_37">37</a>. It is not absolutely necessary that a merge base exists; for example, if you manage multiple root commits in a repository (see <a href="#sec.multi-root">Sec. 4.7, &#8220;Multiple root commits&#8221;</a>) and then merge the branches built on top of them, there will be no common base if no merge has taken place before. In this case, a file that exists in different versions on both sides creates a conflict.
 </div>
 <div class="footnote" id="_footnotedef_38">
-<a href="#_footnoteref_38">38</a>. The following description explains the approach of the <code>resolve</code> strategy. It differs only slightly from the standard <code>recursive</code> strategy, see also the detailed description of this strategy in <a href="#sec.merge-strategies">Section 3.3.3, &#8220;Merging Strategies&#8221;</a>.
+<a href="#_footnoteref_38">38</a>. The following description explains the approach of the <code>resolve</code> strategy. It differs only slightly from the standard <code>recursive</code> strategy, see also the detailed description of this strategy in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_39">
 <a href="#_footnoteref_39">39</a>. The <code>recursive</code> strategy is therefore only much more intelligent than <code>resolve</code> if the <em>topology</em> of the commits (i.e., the order in which they branched and merged) is much more complicated than simply branching and then merging.
@@ -15390,16 +15390,16 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_44">44</a>. The message <code>Automatic merge failed</code> simply means that a conflict occurred that could <em>not</em> be solved by a 3-way merge. Since Rerere cannot guarantee a meaningful solution, the solution is only &#8220;provided,&#8221; but not considered the ultimate solution of the conflict.
 </div>
 <div class="footnote" id="_footnotedef_45">
-<a href="#_footnoteref_45">45</a>. More useful tips can be found in <a href="#ch.workflows">Chapter 6, <em>Workflows</em></a>.
+<a href="#_footnoteref_45">45</a>. More useful tips can be found in <a href="#ch.workflows">Ch. 6, <em>Workflows</em></a>.
 </div>
 <div class="footnote" id="_footnotedef_46">
 <a href="#_footnoteref_46">46</a>. AsciiDoc is a simple, wiki-like markup language: <a href="https://asciidoc.org" class="bare" target="_blank" rel="noopener">https://asciidoc.org</a>. The Git documentation is in this format and is converted to HTML pages and man pages, and this book was also written in AsciiDoc!
 </div>
 <div class="footnote" id="_footnotedef_47">
-<a href="#_footnoteref_47">47</a>. For example, the repository of the Git project itself manages the autogenerated HTML documentation in a branch <code>html</code>, which is completely separated from the development branches. This way, merges between the code branches cannot lead to conflicts due to differently compiled HTML documentation. How to create such &#8220;decoupled&#8221; branches is described in <a href="#sec.multi-root">Section 4.7, &#8220;Multiple root commits&#8221;</a>.
+<a href="#_footnoteref_47">47</a>. For example, the repository of the Git project itself manages the autogenerated HTML documentation in a branch <code>html</code>, which is completely separated from the development branches. This way, merges between the code branches cannot lead to conflicts due to differently compiled HTML documentation. How to create such &#8220;decoupled&#8221; branches is described in <a href="#sec.multi-root">Sec. 4.7, &#8220;Multiple root commits&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_48">
-<a href="#_footnoteref_48">48</a>. This is because the merge command does not examine each commit individually. Instead, it compares three trees that contain these changes <em>among others</em>, see <a href="#sec.merge-detail">Section 3.3.1, &#8220;Two-Branches Merge&#8221;</a>.
+<a href="#_footnoteref_48">48</a>. This is because the merge command does not examine each commit individually. Instead, it compares three trees that contain these changes <em>among others</em>, see <a href="#sec.merge-detail">Sec. 3.3.1, &#8220;Two-Branches Merge&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_49">
 <a href="#_footnoteref_49">49</a>. This is because rebase works internally with <code>cherry-pick</code>, which recognizes when the changes that would be introduced by the commit are already present. A similar functionality is provided by <code>git cherry</code> or <code>git patch-id</code>, which can detect almost identical patches.
@@ -15411,19 +15411,19 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_51">51</a>. This is not necessarily a commit&#8201;&#8212;&#8201;these can also be tags or blobs.
 </div>
 <div class="footnote" id="_footnotedef_52">
-<a href="#_footnoteref_52">52</a>. Whether or not the commits have fallen out because of their age depends, of course, on how often you perform a <em>garbage collection</em> via <code>git gc</code>. See also <a href="#sec.gc">Section B.1, &#8220;Cleaning up&#8221;</a>.
+<a href="#_footnoteref_52">52</a>. Whether or not the commits have fallen out because of their age depends, of course, on how often you perform a <em>garbage collection</em> via <code>git gc</code>. See also <a href="#sec.gc">Sec. B.1, &#8220;Cleaning up&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_53">
 <a href="#_footnoteref_53">53</a>. If you want to list all commits in the last two weeks, use <code>git log --since='two weeks ago'</code> instead.
 </div>
 <div class="footnote" id="_footnotedef_54">
-<a href="#_footnoteref_54">54</a>. If you&#8217;re managing patch stacks with Git that have potential conflicts, you should definitely take a look at the <em>Reuse Recorded Resolution</em> feature, in short, <em>rerere</em>. <em>Rerere</em> saves conflict resolutions and automatically corrects conflicts if a resolution has already been saved, see also <a href="#sec.rerere">Section 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>.
+<a href="#_footnoteref_54">54</a>. If you&#8217;re managing patch stacks with Git that have potential conflicts, you should definitely take a look at the <em>Reuse Recorded Resolution</em> feature, in short, <em>rerere</em>. <em>Rerere</em> saves conflict resolutions and automatically corrects conflicts if a resolution has already been saved, see also <a href="#sec.rerere">Sec. 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_55">
-<a href="#_footnoteref_55">55</a>. For example, by uploading the branch to a publicly available repository, see <a href="#sec.uploading-commits">Section 5.4, &#8220;Uploading Commits: git push&#8221;</a>.
+<a href="#_footnoteref_55">55</a>. For example, by uploading the branch to a publicly available repository, see <a href="#sec.uploading-commits">Sec. 5.4, &#8220;Uploading Commits: git push&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_56">
-<a href="#_footnoteref_56">56</a>. In the latter case, for example, you simply do a <code>git remote update</code> (the new commits are loaded into the <code>origin/master</code> branch) and then build your own branch from scratch to <code>origin/master</code>. See also <a href="#sec.distributed-systems">Section 5.1, &#8220;How Does Distributed Version Control Work?&#8221;</a>.
+<a href="#_footnoteref_56">56</a>. In the latter case, for example, you simply do a <code>git remote update</code> (the new commits are loaded into the <code>origin/master</code> branch) and then build your own branch from scratch to <code>origin/master</code>. See also <a href="#sec.distributed-systems">Sec. 5.1, &#8220;How Does Distributed Version Control Work?&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_57">
 <a href="#_footnoteref_57">57</a>. You can find the source code at <a href="https://repo.or.cz/w/topgit.git" class="bare" target="_blank" rel="noopener">https://repo.or.cz/w/topgit.git</a>.
@@ -15441,7 +15441,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_61">61</a>. This behavior can be prevented by setting the <code>clean.requireForce</code> setting to <code>false</code>.
 </div>
 <div class="footnote" id="_footnotedef_62">
-<a href="#_footnoteref_62">62</a>. The command first selects all commit objects that are no longer accessible, and then restricts the list to those that are merge commits and whose commit message contains the string <code>WIP</code>&#8201;&#8212;&#8201;the properties that a commit object created as a stash has, see <a href="#sec.stash-implementation">Section 4.5.7, &#8220;How is the stash implemented?&#8221;</a>.
+<a href="#_footnoteref_62">62</a>. The command first selects all commit objects that are no longer accessible, and then restricts the list to those that are merge commits and whose commit message contains the string <code>WIP</code>&#8201;&#8212;&#8201;the properties that a commit object created as a stash has, see <a href="#sec.stash-implementation">Sec. 4.5.7, &#8220;How is the stash implemented?&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_63">
 <a href="#_footnoteref_63">63</a>. That&#8217;s not quite true; you can only store one note per commit under <code>refs/notes/commits</code>, but you can store additional notes under e.g. <code>refs/notes/bts</code> that relate to the bug tracking system, and only one per commit there.
@@ -15450,13 +15450,13 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_64">64</a>. Of course, this commit need not be the core of the regression, it may have been prepared by a completely different commit.
 </div>
 <div class="footnote" id="_footnotedef_65">
-<a href="#_footnoteref_65">65</a>. We developed the cheat sheet in connection with various Git workshops. It is licensed under a Creative Commons License and is managed with the Git hosting platform GitHub, which we describe in <a href="#ch.github">Chapter 11, <em>GitHub</em></a> beschreiben, verwaltet.
+<a href="#_footnoteref_65">65</a>. We developed the cheat sheet in connection with various Git workshops. It is licensed under a Creative Commons License and is managed with the Git hosting platform GitHub, which we describe in <a href="#ch.github">Ch. 11, <em>GitHub</em></a> beschreiben, verwaltet.
 </div>
 <div class="footnote" id="_footnotedef_66">
 <a href="#_footnoteref_66">66</a>. Strictly speaking, Git does not &#8220;blindly&#8221; check out the <code>master</code> branch. In fact, Git looks up which branch the <code>HEAD</code> of the other side references and checks it out.
 </div>
 <div class="footnote" id="_footnotedef_67">
-<a href="#_footnoteref_67">67</a>. For more information on the Git protocol, see <a href="#sec.git-protocol">Section 7.1.1, &#8220;The Git Protocol&#8221;</a> (see also <a href="#sec.branch-refs">Section 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>).
+<a href="#_footnoteref_67">67</a>. For more information on the Git protocol, see <a href="#sec.git-protocol">Sec. 7.1.1, &#8220;The Git Protocol&#8221;</a> (see also <a href="#sec.branch-refs">Sec. 3.1.1, &#8220;HEAD and Other Symbolic References&#8221;</a>).
 </div>
 <div class="footnote" id="_footnotedef_68">
 <a href="#_footnoteref_68">68</a>. For a complete list of possible URLs, see the <code>git-clone(1)</code> man page in the &#8220;Git URLs&#8221; section.
@@ -15471,7 +15471,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_71">71</a>. Merging from <code>origin/master</code> to <code>master</code> is a normal merging process. In the example above, no further local commits have been made in the meantime and therefore no merge commits have been created. The <code>master</code> has been fast-forwarded to <code>origin/master</code>.
 </div>
 <div class="footnote" id="_footnotedef_72">
-<a href="#_footnoteref_72">72</a>. But the &#8220;forcing&#8221; only takes place locally: The recipient server can prevent the upload despite the specification of the option <code>-f</code>. This is done with the <code>receive.denyNonFastForwards</code> option, or the <code>RW</code> rights assignment for Gitolite (see <a href="#sec.gitolite-config">Section 7.2.2, &#8220;Configuring Gitolite&#8221;</a>).
+<a href="#_footnoteref_72">72</a>. But the &#8220;forcing&#8221; only takes place locally: The recipient server can prevent the upload despite the specification of the option <code>-f</code>. This is done with the <code>receive.denyNonFastForwards</code> option, or the <code>RW</code> rights assignment for Gitolite (see <a href="#sec.gitolite-config">Sec. 7.2.2, &#8220;Configuring Gitolite&#8221;</a>).
 </div>
 <div class="footnote" id="_footnotedef_73">
 <a href="#_footnoteref_73">73</a>. This is the default behavior since version 2.0 (<code>push.default=simple</code>). Earlier Git versions used the <code>push.default=matching</code> setting without any further configuration, which can be buggy, especially for beginners.
@@ -15621,7 +15621,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_121">121</a>. The script is included in the script collection for this book. See: <a href="https://github.com/gitbuch/buch-scripte" class="bare" target="_blank" rel="noopener">https://github.com/gitbuch/buch-scripte</a>.
 </div>
 <div class="footnote" id="_footnotedef_122">
-<a href="#_footnoteref_122">122</a>. Basically you can also perform these operations directly with the command <code>mv</code> below <code>.git/refs/</code>. However, the plumbing commands make it possible to handle &#8220;exotic&#8221; cases like &#8220;Packed Refs&#8221; or references that are symlinks correctly. In addition, <code>git update-ref</code> writes corresponding entries in the reflog and issues error messages if something goes wrong. See also <a href="#sec.scripting">Section 8.3, &#8220;Writing your own Git commands&#8221;</a>.
+<a href="#_footnoteref_122">122</a>. Basically you can also perform these operations directly with the command <code>mv</code> below <code>.git/refs/</code>. However, the plumbing commands make it possible to handle &#8220;exotic&#8221; cases like &#8220;Packed Refs&#8221; or references that are symlinks correctly. In addition, <code>git update-ref</code> writes corresponding entries in the reflog and issues error messages if something goes wrong. See also <a href="#sec.scripting">Sec. 8.3, &#8220;Writing your own Git commands&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_123">
 <a href="#_footnoteref_123">123</a>. You can also find this script in the script collection: <a href="https://github.com/gitbuch/buch-scripte" class="bare" target="_blank" rel="noopener">https://github.com/gitbuch/buch-scripte</a>.
@@ -15717,7 +15717,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_153">153</a>. <a href="https://gitforwindows.org" class="bare" target="_blank" rel="noopener">https://gitforwindows.org</a>
 </div>
 <div class="footnote" id="_footnotedef_154">
-<a href="#_footnoteref_154">154</a>. Since a bare repository (see <a href="#sec.bare-repos">Section 7.1.3, &#8220;Bare Repositories: Repositories Without Working Tree&#8221;</a>) does not have a working tree, the contents normally located in <code>.git</code> form the top level in the directory structure, and there is no additional <code>.git</code> directory.
+<a href="#_footnoteref_154">154</a>. Since a bare repository (see <a href="#sec.bare-repos">Sec. 7.1.3, &#8220;Bare Repositories: Repositories Without Working Tree&#8221;</a>) does not have a working tree, the contents normally located in <code>.git</code> form the top level in the directory structure, and there is no additional <code>.git</code> directory.
 </div>
 <div class="footnote" id="_footnotedef_155">
 <a href="#_footnoteref_155">155</a>. This is not to be confused with version control systems that store incremental versions of a file. Within packfiles, objects are packed independently of their semantic context, i.e. especially their temporal sequence.

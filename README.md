@@ -1,5 +1,6 @@
-[![CC BY-NC-SA 4.0 License][license badge]][CC BY-NC-SA 4.0]&nbsp;
+[![Build Status][Travis badge]][Travis link]&nbsp;
 ![project status][status badge]&nbsp;
+[![CC BY-NC-SA 4.0 License][license badge]][LICENSE]&nbsp;
 ![project branch][branch badge]&nbsp;
 
 # Git-Buch, English Translation
@@ -17,55 +18,33 @@ English translation by [Tristano Ajmone] and [Alexander Bolli].
 
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
-- [Repository Info](#repository-info)
-    - [Contents](#contents)
-    - [Branches](#branches)
-    - [Status](#status)
-- [About](#about)
+- [Contents](#contents)
+- [Book Info](#book-info)
+- [Project Status](#project-status)
 - [License](#license)
+- [Repository Info](#repository-info)
+    - [Branches](#branches)
+    - [System Requirements](#system-requirements)
 - [Links](#links)
 
 <!-- /MarkdownTOC -->
 
 -----
 
+# Contents
 
-# Repository Info
-
-Summary info on the repository and its current status.
-
-The current development branch is [`alpha-dev`][alpha-dev].
-
-
-## Contents
-
-- [`/assets_src/`][assets_src] — Assets source files.
-- [`/docs_src/`][docs_src] — AsciiDoc sources.
+- [`/assets_src/`][assets_src] — Assets source files:
+    + [`/img/`][img/]
+        * [`/dia/`][dia/] — Dia diagrams source projects.
+- [`/docs/`][docs/] — GitHub Pages static website.
+- [`/docs_src/`][docs_src/] — AsciiDoc sources.
+    + [`/images/`][images/] — Book images.
+- [`LICENSE`][LICENSE] — full text of the [CC BY-NC-SA 4.0].
 - [`README_DE.md`][README_DE] — Upstream README file, German original.
 - [`README_EN.md`][README_EN] — Upstream README file, English translation.
 
 
-## Branches
-
-|                   branch                   |                            description                             |
-|--------------------------------------------|--------------------------------------------------------------------|
-| [`alpha-dev`][alpha-dev] &ast;             | Current dev branch, until Beta stage.                              |
-| [`master`][master]                         | Contains only README and LICENSE, frozen until 1st release.        |
-| [`upstream-de-master`][upstream-de-master] | Orphan mirror of `master` from `gitbuch/gitbuch_cc` upstream repo. |
-
-The [`alpha-dev`][alpha-dev] branch is the current development branch.
-Once the project has been adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) workflow, and we have a buildable English draft, development will switch to the Beta stage and another branch.
-
-The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the `master` branch from the upstream repository, kept as a reference to the original files and in case we'll need to integrate future updates from the upstream project.
-
-
-## Status
-
-The project is currently being adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) toolchain.
-
-Once the Asciidoctor toolchain is up and running, we'll first translate all the section titles, then start working on the book translation section by section.
-
-# About
+# Book Info
 
 This is the English translation of the German book _Git, Verteilte Versionskontrolle für Code und Dokumente_ (Git, Distributed version control for code and documents) by [Valentin Haenel] and [Julius Plenz], 2nd Ed. 2014 — aka _Das Git-Buch_.
 
@@ -85,9 +64,24 @@ This repository is dedicated to the English translation of the book, based on th
 Since in the German world the book is commonly referred to as _Das Git-Buch_ (The Git Book), I've opted to name the translation project as __Git-Buch EN__ as a way to emphasize the link to original German edition and to avoid confusion with other similarly titled books already available in English.
 
 
+# Project Status
+
+Although the book is still in its Beta stage, it has been entirely translated and therefore readers can start enjoying it without further ado.
+
+There is still some polishing work to be done before the English book will reach v1.0.0:
+
+- The entire translation of the text and its footnotes is still a draft that needs revising and proofreading.
+- The book was ported to from AsciiDoc (Python) to our custom Asciidoctor (Ruby) toolchain, and there are still some formatting and styles issues to be dealt with.
+- Currently, only the HTML version of the book is available, but we're planning to add a PDF version too, but still need to chose which backend to use and then setup its toolchain, templates, etc.
+
+In the meantime, the book will be updated regularly during its Beta stage, to ensure that all improvements are available to the reader.
+
+
 # License
 
-- [`LICENSE`][LICENSE]
+- [`LICENSE`][LICENSE] — full text of the [CC BY-NC-SA 4.0].
+
+This book is the English translation of the German book _[Das Git-Buch]_ (The Git Book) by [Valentin Haenel] and [Julius Plenz], released under [CC BY-NC-SA 4.0] license; it's therefore a derivative work of the original book and bound by the same license terms.
 
 ```
 "Git, Verteilte Versionskontrolle für Code und Dokumente"
@@ -100,6 +94,46 @@ You should have received a copy of the license along with this
 work. If not, see <http://creativecommons.org/licenses/by-nc/4.0/>.
 ```
 
+
+# Repository Info
+
+Summary info on the repository and its current status.
+
+The current development branch is [`alpha-dev`][alpha-dev].
+
+
+## Branches
+
+|                   branch                   |                            description                             |
+|--------------------------------------------|--------------------------------------------------------------------|
+| [`alpha-dev`][alpha-dev] &ast;             | Current dev branch, until Beta stage.                              |
+| [`master`][master]                         | Contains only README and LICENSE, frozen until 1st release.        |
+| [`upstream-de-master`][upstream-de-master] | Orphan mirror of `master` from `gitbuch/gitbuch_cc` upstream repo. |
+
+The [`alpha-dev`][alpha-dev] branch is the current development branch.
+Once the project has been adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) workflow, and we have a buildable English draft, development will switch to the Beta stage and another branch.
+
+The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the `master` branch from the upstream repository, kept as a reference to the original files and in case we'll need to integrate future updates from the upstream project.
+
+
+## System Requirements
+
+In order to build this repository you'll need:
+
+- [Ruby] v3
+- [Asciidoctor] v2 (Ruby version)
+
+Optionally, in order to edit and build the SVG diagrams:
+
+- [Dia] v0.97 — diagram editor (see [Dia README]).
+- [SVGO] ([Node.js]) — SVG optimizer.
+
+In order to contribute to the repository, you'll also need:
+
+- [EClint] ([Node.js]) — [EditorConfig] validation tool.
+- An [EditorConfig] compliant editor/IDE.
+
+-------------------------------------------------------------------------------
 
 # Links
 
@@ -144,9 +178,11 @@ Open Source Press:
 
 <!-- badges -->
 
-[license badge]: https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-00b5da.svg
-[status badge]: https://img.shields.io/badge/status-WIP-orange "Project Status: Work-In-Progress"
+[license badge]: https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-00b5da.svg
+[status badge]: https://img.shields.io/badge/status-beta-orange "Project Status: Beta (polishing in progress)"
 [branch badge]: https://img.shields.io/badge/branch-alpha--dev-yellow "Current Branch: alpha-dev"
+[Travis badge]: https://img.shields.io/travis/com/tajmone/Git-Buch_EN/master?logo=travis
+[Travis link]: https://travis-ci.com/tajmone/Git-Buch_EN "Travis CI: EditorConfig validation status"
 
 <!-- repo files -->
 
@@ -156,14 +192,31 @@ Open Source Press:
 
 <!-- repo folders -->
 
-[docs_src]: ./docs_src/ "Navigate to AsciiDoc sources folder"
+[docs/]: ./docs/ "Navigate to GitHub Pages website folder"
+
+[docs_src/]: ./docs_src/ "Navigate to AsciiDoc sources folder"
+[images/]: ./docs_src/images/ "Navigate to book images folder"
+
 [assets_src]: ./assets_src/ "Navigate to assets sources folder"
+[img/]: ./assets_src/img/ "Navigate to source images folder"
+[dia/]: ./assets_src/img/dia/ "Navigate to diagrams sources folder"
+[Dia README]: ./assets_src/img/dia/README.md "View README doc from Dia sources folder"
 
 <!-- repo branches -->
 
 [alpha-dev]: https://github.com/tajmone/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
 [master]: https://github.com/tajmone/Git-Buch_EN/tree/master "View the 'master' branch on GitHub"
 [upstream-de-master]: https://github.com/tajmone/Git-Buch_EN/tree/upstream-de-master "View the 'upstream-de-master' branch on GitHub"
+
+<!-- 3rd party tools -->
+
+[Asciidoctor]: https://asciidoctor.org "Visit Asciidoctor (Ruby) website"
+[Dia]: http://dia-installer.de/ "Visit Dia's website"
+[Node.js]: https://nodejs.org/ "Visit Node.js website"
+[Ruby]: https://www.ruby-lang.org "Visit Ruby website"
+[SVGO]: https://www.npmjs.com/package/svgo "SVGO page at NPM"
+[EClint]: https://www.npmjs.com/package/eclint "EClint page at NPM"
+[EditorConfig]: https://editorconfig.org  "Visit EditorConfig website"
 
 <!-- people -->
 

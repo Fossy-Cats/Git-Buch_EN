@@ -3,7 +3,7 @@
 Valentin Haenel; Julius Plenz
 :doctype: book
 :revnumber: 3.0
-:revremark: WIP Translation
+:revremark: Beta
 :lang: en
 // Sections Numbering:
 :sectnums:
@@ -11,9 +11,9 @@ Valentin Haenel; Julius Plenz
 // Cross References:
 :idprefix:
 :xrefstyle: full
-// :chapter-refsig: Ch.
-// :section-refsig: Sec.
-// :appendix-refsig: App.
+:chapter-refsig: Ch.
+:section-refsig: Sec.
+:appendix-refsig: App.
 
 
 include::gitbuch_custom-attributes.adoc[]
