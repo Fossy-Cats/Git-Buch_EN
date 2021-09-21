@@ -3,8 +3,15 @@
 #  https://github.com/tajmone/Git-Buch_EN                #
 ##########################################################
 
+*.html
+!docinfo.html
+!docs/*.html
+
 ## TMP Work Files
 #################
+
+# Temporary/backup or removed files and folders:
+___*
 ___*.*
 
 # Links and URLs:
@@ -13,10 +20,15 @@ ___*.*
 
 ## Third Party Tools Temporary Files
 ####################################
+
+# Chrome's debug logs for local HTML pages:
+debug.log
+
 # Dia Diagram Editor: http://dia-installer.de/
 *.dia~
 assets_src/img/dia/*.zip
 assets_src/img/dia/Dia/
+
 
 ############################
 ## COMMON IGNORE PATTERNS ##

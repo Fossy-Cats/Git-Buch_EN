@@ -33,10 +33,21 @@ insert_final_newline = true
 
 ## AsciiDoc
 ###########
-[*.{ad,adoc,asciidoc}]
-indent_size = 1
+[*.{asc,adoc,asciidoc}]
 indent_style = space
+indent_size = unset
 end_of_line = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Ruby
+#######
+[{*.rb,*.gemspec,*.rake,Rakefile,rakefile}]
+indent_size = 2
+indent_style = space
+end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true

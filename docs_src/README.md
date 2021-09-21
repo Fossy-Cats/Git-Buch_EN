@@ -11,6 +11,8 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
 - [Folder Contents](#folder-contents)
+- [Developers' Notes](#developers-notes)
+    - [HTML Preview Document](#html-preview-document)
 - [Translation Status](#translation-status)
     - [Pending Tasks Overview](#pending-tasks-overview)
     - [Chapters WIP Status](#chapters-wip-status)
@@ -28,8 +30,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 # Folder Contents
 
 - [`/images/`][images] — required book images.
-- [`build.sh`][build.sh] — generates HTML5 book via Asciidoctor:
-    + [`Git-Buch_EN.html`][gb.html] — [HTML5 book].
+- `GitBook_Preview.html` — developer's HTML5 book preview (untracked), build via `rake preview`.
 - [`gitbuch.asciidoc`][gb.adoc] — main book source that imports all others:
     + [`gitbuch_00.adoc`][gb00] — [_Preface_][Preface]
     + [`gitbuch_01.adoc`][gb01] — [1. _Introduction and First Steps_][Ch1]
@@ -46,6 +47,33 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [`gitbuch_12.adoc`][gb12] — [App. A. _Installation_][AppA]
     + [`gitbuch_13.adoc`][gb13] — [App. B. _Repository Structure_][AppB]
 
+# Developers' Notes
+
+To build the final HTML book type
+
+    rake publish
+
+which will generate the final [HTML book] which is served on the web via GHPages:
+
+- [`../docs/index.html`][HTML book]
+
+The generated document is tracked by Git, so don't include it in your commits or pull requests unless you're intentionally willing to update it.
+
+
+## HTML Preview Document
+
+To quickly preview your changes to the document type
+
+    rake preview
+
+which will generate the `GitBook_Preview.html` document in this folder.
+
+This preview document is ignored by Git and will not end up in your commits. Furthermore, it offers a few advantages over the published HTML book:
+
+- **NO EMBEDDED IMAGES** — It doesn't embed images via Data URIs, so if you change any image you'll only need to refresh the HTML document in the browser to see changed images, without having to rebuild the HTML doc from source.
+- **DEEPER TOC** — Its TOC is always set to maximum level, so you can see every section in the TOC sidebar.
+
+
 # Translation Status
 
 ## Pending Tasks Overview
@@ -54,7 +82,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [ ] Book figures:
     + [ ] Image diagrams need:
         * [ ] Their text translated.
-        * [ ] Their background colors tweaked to improve accessibility to the color blind.
+        * [x] Their background colors tweaked to improve accessibility to the color blind.
     + [ ] All images need:
         * [ ] Outer padding.
         * [ ] Proper alignment.
@@ -74,14 +102,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [2. _The Basics_][Ch2]
     + [ ] Adapt images (1-8):
-        * [ ] Fig. 1: `index.svg`
+        * [x] Fig. 1: `index.svg`
         * [ ] Fig. 2: `objektmodell-programm-crop.png`
-        * [ ] Fig. 3: `sha.svg`
-        * [ ] Fig. 4: `git-objects.svg`
-        * [ ] Fig. 5: `git-objects-hierarchy.svg`
-        * [ ] Fig. 6: `repository-content.svg`
-        * [ ] Fig. 7: `commit-graph.svg`
-        * [ ] Fig. 8: `commit-graph-with-refs.svg`
+        * [x] Fig. 3: `sha.svg`
+        * [ ] Fig. 4: `git-objects.svg` (translate?)
+        * [x] Fig. 5: `git-objects-hierarchy.svg`
+        * [ ] Fig. 6: `repository-content.svg` (translate?)
+        * [x] Fig. 7: `commit-graph.svg`
+        * [x] Fig. 8: `commit-graph-with-refs.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -89,14 +117,14 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [ ]  [3. _Practical Version Control_][Ch3]
     + [ ] Adapt images (9-21):
         * [ ] Fig. 9: `gitk-basic.png`
-        * [ ] Fig. 10: `commit.svg`
-        * [ ] Fig. 11: `relative-refs.svg`
-        * [ ] Fig. 12: `tags.svg`
+        * [x] Fig. 10: `commit.svg`
+        * [x] Fig. 11: `relative-refs.svg`
+        * [ ] Fig. 12: `tags.svg` (translate?)
         * [ ] Fig. 13: `tag-screenshot.png`
         * [ ] Fig. 14: `describe-screenshot.png`
-        * [ ] Fig. 15: `merge-base-commit.svg`
-        * [ ] Fig. 16: `ff-before.svg`
-        * [ ] Fig. 17: `ff-after.svg`
+        * [x] Fig. 15: `merge-base-commit.svg`
+        * [x] Fig. 16: `ff-before.svg`
+        * [x] Fig. 17: `ff-after.svg`
         * [ ] Fig. 18: `ff-no-ff-vergleich.png`
         * [ ] Fig. 19: `meld-example.png`
         * [ ] Fig. 20: `revision-list-commit-graph-gitk.png`
@@ -107,12 +135,12 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [4. _Advanced Concepts_][Ch4]
     + [ ] Adapt images (22-29):
-        * [ ] Fig. 22: `rebase-before.svg`
-        * [ ] Fig. 23: `rebase-after.svg`
+        * [x] Fig. 22: `rebase-before.svg`
+        * [x] Fig. 23: `rebase-after.svg`
         * [ ] Fig. 24: `screenshot-rebase-vorher.png`
         * [ ] Fig. 25: `screenshot-rebase-nachher.png`
-        * [ ] Fig. 26: `rebase-onto-before.svg`
-        * [ ] Fig. 27: `rebase-onto-after.svg`
+        * [x] Fig. 26: `rebase-onto-before.svg`
+        * [x] Fig. 27: `rebase-onto-after.svg`
         * [ ] Fig. 28: `git-gui-blame.png`
         * [ ] Fig. 29: `stash-screenshot.png`
     + [ ] Polish:
@@ -121,24 +149,24 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Remove commented German text.
 - [ ]  [5. _Distributed Git_][Ch5]
     + [ ] Adapt images (30-40):
-        * [ ] Fig. 30: `central-workflow.svg`
-        * [ ] Fig. 31: `clone.svg`
+        * [x] Fig. 30: `central-workflow.svg`
+        * [x] Fig. 31: `clone.svg`
         * [ ] Fig. 32: `remote-tracking-gitk.png`
-        * [ ] Fig. 33: `fetch.svg`
-        * [ ] Fig. 34: `pull.svg`
-        * [ ] Fig. 35: `pull-rebase.svg`
-        * [ ] Fig. 36: `push.svg`
-        * [ ] Fig. 37: `integration-manager-workflow.svg`
+        * [x] Fig. 33: `fetch.svg`
+        * [x] Fig. 34: `pull.svg`
+        * [x] Fig. 35: `pull-rebase.svg`
+        * [x] Fig. 36: `push.svg`
+        * [x] Fig. 37: `integration-manager-workflow.svg`
         * [ ] Fig. 38: `gitk-screen-format-patch.png`
         * [ ] Fig. 39: `mail-thread.png`
-        * [ ] Fig. 40: `patches-via-email.svg`
+        * [x] Fig. 40: `patches-via-email.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
         * [ ] Remove commented German text.
 - [ ]  [6. _Workflows_][Ch6]
     + [ ] Adapt images (41):
-        * [ ] Fig. 41: `branch-model.svg`
+        * [x] Fig. 41: `branch-model.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -171,8 +199,8 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
         * [ ] Fig. 53: `git-svn-tag-fix-before.png`
         * [ ] Fig. 54: `git-svn-tag-fix-after.png`
         * [ ] Fig. 55: `git-svn-merge-demo.png`
-        * [ ] Fig. 56: `svn-rebase.svg`
-        * [ ] Fig. 57: `svn-dcommit.svg`
+        * [x] Fig. 56: `svn-rebase.svg`
+        * [x] Fig. 57: `svn-dcommit.svg`
     + [ ] Polish:
         * [ ] Manually revise translation.
         * [ ] Adapt or remove German-specific contents.
@@ -185,7 +213,7 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [ ]  [11. _GitHub_][Ch11]
     + [ ] Adapt images (58-63):
         * [ ] Fig. 58: `github-gollum.png`
-        * [ ] Fig. 59: `github-workflow.svg`
+        * [x] Fig. 59: `github-workflow.svg`
         * [ ] Fig. 60: `github-network.png`
         * [ ] Fig. 61: `github-download.png`
         * [ ] Fig. 62: `github-image-diff-2up.png`
@@ -372,11 +400,9 @@ There are 156 footnotes in the book.
 <!-- project files -->
 
 [images]: ./images/ "Navigate to book images folder"
-[build.sh]: ./build.sh "View script source"
 
 <!-- ADoc sources & HTML -->
 
-[gb.html]: ./Git-Buch_EN.html "View HTML document"
 [gb.adoc]: ./gitbuch.asciidoc "View AsciiDoc source file"
 [gb00]: ./gitbuch_00.adoc "View AsciiDoc source file"
 [gb01]: ./gitbuch_01.adoc "View AsciiDoc source file"
@@ -395,22 +421,22 @@ There are 156 footnotes in the book.
 
 <!-- HTML Local Previews -->
 
-[HTML5 book]: ./Git-Buch_EN.html "Local HTML Preview"
+[HTML book]: ../docs/index.html "Local HTML Preview"
 
-[Preface]: ./Git-Buch_EN.html#ch.preface "Local HTML Preview"
-[Ch1]: ./Git-Buch_EN.html#ch.intro "Local HTML Preview"
-[Ch2]: ./Git-Buch_EN.html#ch.basics "Local HTML Preview"
-[Ch3]: ./Git-Buch_EN.html#ch.praxis "Local HTML Preview"
-[Ch4]: ./Git-Buch_EN.html#ch.advanced "Local HTML Preview"
-[Ch5]: ./Git-Buch_EN.html#ch.distributed-git "Local HTML Preview"
-[Ch6]: ./Git-Buch_EN.html#ch.workflows "Local HTML Preview"
-[Ch7]: ./Git-Buch_EN.html#ch.server "Local HTML Preview"
-[Ch8]: ./Git-Buch_EN.html#ch.automation "Local HTML Preview"
-[Ch9]: ./Git-Buch_EN.html#sec.git-svn-cvs "Local HTML Preview"
-[Ch10]: ./Git-Buch_EN.html#ch.shell-integration "Local HTML Preview"
-[Ch11]: ./Git-Buch_EN.html#ch.github "Local HTML Preview"
-[AppA]: ./Git-Buch_EN.html#app.installation "Local HTML Preview"
-[AppB]: ./Git-Buch_EN.html#app.git-repository-layout "Local HTML Preview"
+[Preface]: ../docs/index.html#ch.preface "Local HTML Preview"
+[Ch1]: ../docs/index.html#ch.intro "Local HTML Preview"
+[Ch2]: ../docs/index.html#ch.basics "Local HTML Preview"
+[Ch3]: ../docs/index.html#ch.praxis "Local HTML Preview"
+[Ch4]: ../docs/index.html#ch.advanced "Local HTML Preview"
+[Ch5]: ../docs/index.html#ch.distributed-git "Local HTML Preview"
+[Ch6]: ../docs/index.html#ch.workflows "Local HTML Preview"
+[Ch7]: ../docs/index.html#ch.server "Local HTML Preview"
+[Ch8]: ../docs/index.html#ch.automation "Local HTML Preview"
+[Ch9]: ../docs/index.html#sec.git-svn-cvs "Local HTML Preview"
+[Ch10]: ../docs/index.html#ch.shell-integration "Local HTML Preview"
+[Ch11]: ../docs/index.html#ch.github "Local HTML Preview"
+[AppA]: ../docs/index.html#app.installation "Local HTML Preview"
+[AppB]: ../docs/index.html#app.git-repository-layout "Local HTML Preview"
 
 <!-- upstream sources -->
 

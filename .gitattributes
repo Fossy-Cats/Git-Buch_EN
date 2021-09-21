@@ -18,7 +18,7 @@
 
 ## Documentation Files
 ######################
-*.ad         text
+*.asc        text
 *.adoc       text
 *.asciidoc   text
 *.md         text
@@ -27,12 +27,23 @@
 LICENSE      text
 
 
+## Ruby Files
+#############
+[attr]Ruby text eol=lf
+*.rb        Ruby
+*.rake      Ruby
+*.gemspec   Ruby
+Rakefile    Ruby
+rakefile    Ruby
+
+
 ## Shell Scripts
 ################
 *.bat   text eol=crlf
 *.cmd   text eol=crlf
 *.sh    text eol=lf
 *.ps1   text eol=crlf
+
 
 ## Image & Graphics Files
 #########################
