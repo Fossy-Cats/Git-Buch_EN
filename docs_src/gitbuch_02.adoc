@@ -240,9 +240,10 @@ Sie sammeln einige Änderungen im Index und verpacken sie in einem Commit -- all
 Git's index provides the flexibility you need for this.
 You collect some changes in the index and pack them into a commit -- but all other changes are still preserved in the files.
 
-
+////
 Wir wollen das anhand des "`Hello World!`"-Beispiels aus dem vorigen Kapitel illustrieren.
 Zur Erinnerung der Inhalt der Datei `hello.pl`:
+////
 
 We'll illustrate this using the "`Hello World!`" example from the previous chapter.
 As a reminder, the contents of the `hello.pl` file
@@ -325,9 +326,11 @@ Some of the options we have at this point include the following:
 Stage this hunk[y,n,q,a,d,/,s,e,?]?
 --------
 
+////
 Die Optionen sind jeweils nur einen Buchstaben lang und schwierig zu merken.
 Eine kleine Erinnerung erhalten Sie immer durch _[?]_.
 Die wichtigsten Optionen haben wir im Folgenden zusammengefasst.
+////
 
 The options are each only one letter long and difficult to remember.
 A small reminder is always given by _[?]_.
@@ -1331,8 +1334,9 @@ Bisher haben wir lediglich Kommandos betrachtet, die nur einen einzelnen Commit 
 
 So far, we've only looked at commands that require only a single commit as an argument, explicitly identified by its commit ID, or implicitly by the symbolic name `HEAD`, which references the most recent commit.
 
-
+////
 Das Kommando `git show` zeigt Informationen zu einem Commit an, das Kommando `git log` beginnt bei einem Commit, und geht dann so weit in der Versionsgeschichte zurück, bis der Anfang des Repositorys (der sogenannte _Root-Commit_) erreicht ist.
+////
 
 The `git show` command displays information about a commit, while the `git log` command starts at a commit, and then goes back in the version history until the beginning of the repository (called the `root commit`) is reached.
 
