@@ -3,7 +3,7 @@
 Valentin Haenel; Julius Plenz
 :doctype: book
 :revnumber: 3.0
-:revremark: Beta
+:revremark: Beta Preview
 :lang: en
 // Sections Numbering:
 :sectnums:
@@ -15,8 +15,31 @@ Valentin Haenel; Julius Plenz
 :section-refsig: Sec.
 :appendix-refsig: App.
 
-
 include::gitbuch_custom-attributes.adoc[]
+
+// Preamble
+
+================================================================================
+[WARNING]
+===============================
+This document is still in Beta version, but fully translated; so enjoy reading it and leave us some feedback on how we might improve it.
+
+This is the English translation of
+http://gitbu.ch[_Das Git-Buch_^, title="Visit the Git-Buch website"]
+(The Git Book) by
+https://github.com/esc[Valentin Haenel^]
+and
+https://github.com/Feh[Julius Plenz^],
+released under the
+https://creativecommons.org/licenses/by-nc-sa/4.0/[CC BY-NC-SA 4.0^, title="Learn morea bout the Creative Common BY-NC-SA 4.0 license"]
+license.
+
+We're currently proofreading and polishing the entire text, and fixing some styling and formatting issues.
+Any help with proofreading is much appreciated; if you wish to contribute submit your changes via pull request on the `beta-dev` branch of the project repository:
+
+* https://github.com/tajmone/Git-Buch_EN
+===============================
+================================================================================
 
 :leveloffset: +1
 

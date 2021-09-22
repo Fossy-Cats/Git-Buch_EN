@@ -1,7 +1,7 @@
 [![Build Status][Travis badge]][Travis link]&nbsp;
 ![project status][status badge]&nbsp;
 [![CC BY-NC-SA 4.0 License][license badge]][LICENSE]&nbsp;
-![project branch][branch badge]&nbsp;
+[![project branch][branch badge]][beta-dev]&nbsp;
 
 # Git-Buch, English Translation
 
@@ -99,19 +99,21 @@ work. If not, see <http://creativecommons.org/licenses/by-nc/4.0/>.
 
 Summary info on the repository and its current status.
 
-The current development branch is [`alpha-dev`][alpha-dev].
+The current development branch is [`beta-dev`][beta-dev], all pull requests should be submitted there.
 
 
 ## Branches
 
 |                   branch                   |                            description                             |
 |--------------------------------------------|--------------------------------------------------------------------|
-| [`alpha-dev`][alpha-dev] &ast;             | Current dev branch, until Beta stage.                              |
-| [`master`][master]                         | Contains only README and LICENSE, frozen until 1st release.        |
+| [`alpha-dev`][alpha-dev]                   | Current dev branch, until v1.0.0 is ready.                         |
+| [`beta-dev`][beta-dev] &ast;               | Old dev branch for the Alpha stage, no longer used.                |
+| [`master`][master]                         | Main branch, no pull request allowed.                              |
 | [`upstream-de-master`][upstream-de-master] | Orphan mirror of `master` from `gitbuch/gitbuch_cc` upstream repo. |
 
-The [`alpha-dev`][alpha-dev] branch is the current development branch.
-Once the project has been adapted from AsciiDoc (Python) to our custom Asciidoctor (Ruby) workflow, and we have a buildable English draft, development will switch to the Beta stage and another branch.
+The [`beta-dev`][beta-dev] branch is the current development branch (until the book reaches v1.0.0); any pull requests should be submitted there.
+
+The [`alpha-dev`][alpha-dev] branch is no longer active, it's kept for reference purposes only.
 
 The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the `master` branch from the upstream repository, kept as a reference to the original files and in case we'll need to integrate future updates from the upstream project.
 
@@ -180,7 +182,7 @@ Open Source Press:
 
 [license badge]: https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-00b5da.svg
 [status badge]: https://img.shields.io/badge/status-beta-orange "Project Status: Beta (polishing in progress)"
-[branch badge]: https://img.shields.io/badge/branch-alpha--dev-yellow "Current Branch: alpha-dev"
+[branch badge]: https://img.shields.io/badge/PRs_Branch-beta--dev-yellow "Pull Requests Branch: beta-dev"
 [Travis badge]: https://img.shields.io/travis/com/tajmone/Git-Buch_EN/master?logo=travis
 [Travis link]: https://travis-ci.com/tajmone/Git-Buch_EN "Travis CI: EditorConfig validation status"
 
@@ -205,6 +207,7 @@ Open Source Press:
 <!-- repo branches -->
 
 [alpha-dev]: https://github.com/tajmone/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
+[beta-dev]: https://github.com/tajmone/Git-Buch_EN/tree/beta-dev "View the 'beta-dev' branch on GitHub"
 [master]: https://github.com/tajmone/Git-Buch_EN/tree/master "View the 'master' branch on GitHub"
 [upstream-de-master]: https://github.com/tajmone/Git-Buch_EN/tree/upstream-de-master "View the 'upstream-de-master' branch on GitHub"
 
