@@ -92,8 +92,10 @@ Platforms like GitHub (see <<ch.github>>) therefore offer HTTPS as default trans
 === Repositories on the Same Computer
 //  Repositories auf dem gleichen Rechner
 
+////
 Wollen Sie Änderungen an Repositories auf dem gleichen Rechner synchronisieren, muss dies nicht über Umwege erfolgen: Git kommuniziert direkt über Unix-Pipes mit der Gegenseite, handelt eine gemeinsame Basis aus und synchronisiert die Daten.
 (Dafür ist es natürlich nötig, dass der Nutzer, der das Git-Kommando aufruft, zumindest Leseberechtigung auf die Packfiles des anderen Repositorys hat.)
+////
 
 If you want to synchronize changes to repositories on the same computer, this does not have to be done via detours: Git communicates directly with the other side via Unix pipes, negotiates a common basis and synchronizes the data.
 (Of course, this requires that the user invoking the Git command has at least read permission to the other repository's pack files).
@@ -328,10 +330,11 @@ $ *git init --bare --shared /var/repositories/git-beispiel*
 $ *chown -R nobody:git /var/repositories/git-beispiel*
 --------
 
-
+////
 Als nächstes erstellen wir die beiden Nutzer.
 Beachten Sie, dass bei diesem Aufruf _kein_ Homeverzeichnis für die Nutzer unter `/home/` erstellt wird.
 Außerdem werden beide der Gruppe `git` und `git-beispiel` hinzugefügt:
+////
 
 Next we create the two users.
 Note that this call will _not_ create a home directory for the users under `/home/`.
@@ -924,10 +927,11 @@ repo Projekt
 --------
 
 
-
+////
 Nun können alle Developer unterhalb von `p/<user>/` beliebig ihre Branches verwalten.
 Die untere Direktive sorgt dafür, dass alle diese Branches auch lesen können.
 Nun kann `max` z.B. `p/max/bugfixes` erstellen, aber `moritz` kann nur lesend darauf zugreifen.
+////
 
 Now all developers under `p/<user>/` can manage their branches as they like.
 The lower directive makes sure that all developers can read these branches.
@@ -1186,9 +1190,10 @@ $ *git daemon --base-path=/var/git/repositories /var/git/repositories*
 --------
 
 
-
+////
 wird jeder Anfrage nach einem Git-Repository der _Base Path_ vorangestellt.
 Nun können Nutzer ein Repository mit der Adresse `git://<server>/<projekt>.git` klonen, anstatt das umständliche `git://<server>/var/git/repositories/<projekt>.git` zu verwenden.
+////
 
 every request for a git repository is preceded by the _base path_.
 Now users can clone a repository with the address `git://<server>/<project>.git` instead of using the cumbersome `git://<server>/var/git/repositories/<project>.git`.

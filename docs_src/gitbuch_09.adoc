@@ -297,9 +297,11 @@ git-svn-id: file:///demo/trunk@8 2423f1c7-8de6-44f9-ab07-c0d4e8840b78
 ==== Specify a Username
 //   Benutzernamen angeben
 
+////
 Wie Sie den Benutzernamen angeben, hängt vom Transport-Protokoll ab.
 Für solche, bei denen Subversion die Authentifizierung regelt (z.B. `http`, `https` und `svn`), nutzen Sie die Option `--username`.
 Für andere (`svn+ssh`) müssen Sie den Benutzernamen als Teil der URL angeben, also beispielsweise `svn+ssh://USER@svn.example.com`.
+////
 
 
 How you specify the user name depends on the transport protocol.

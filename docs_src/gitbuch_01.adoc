@@ -319,8 +319,10 @@ Initial commit
 nothing to commit (create/copy files and use "git add" to track)
 --------
 
+////
 Git weist uns darauf hin, dass wir vor dem ersten Commit stehen (`Initial commit`), hat aber nichts gefunden, was in diesen Commit einfließen könnte (`nothing to commit`).
 Dafür liefert es einen Hinweis, welche Schritte sich als nächste anbieten (das tun übrigens die meisten Git-Kommandos): "`Erstellen oder kopieren Sie Dateien, und verwenden Sie `git add`, um diese mit Git zu verwalten.`"
+////
 
 Git tells us that we're about to commit (`Initial commit`), but hasn't found anything to commit (`nothing to commit`).
 Instead, it gives a hint as to what the next steps should be (most Git commands do that, by the way): "`Create or copy files, and use `git add` to manage them with Git.`"
