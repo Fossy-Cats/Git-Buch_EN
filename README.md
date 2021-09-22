@@ -7,6 +7,7 @@
 
 English translation of _[Das Git-Buch]_ (The Git Book) by [Valentin Haenel] and [Julius Plenz], released under [CC BY-NC-SA 4.0].
 
+- https://tajmone.github.io/Git-Buch_EN
 - https://github.com/tajmone/Git-Buch_EN
 
 Translation project created by [Tristano Ajmone] in 2020/06/14.
