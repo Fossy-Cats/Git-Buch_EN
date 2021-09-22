@@ -5,13 +5,17 @@
 
 # Git-Buch, English Translation
 
+- https://tajmone.github.io/Git-Buch_EN
+
 English translation of _[Das Git-Buch]_ (The Git Book) by [Valentin Haenel] and [Julius Plenz], released under [CC BY-NC-SA 4.0].
 
-- https://tajmone.github.io/Git-Buch_EN
-- https://github.com/tajmone/Git-Buch_EN
+You can preview the full book in HTML5 at the repository website:
+
+- [git.io/git-book]
 
 Translation project created by [Tristano Ajmone] in 2020/06/14.
 English translation by [Tristano Ajmone] and [Alexander Bolli].
+
 
 -----
 
@@ -164,6 +168,8 @@ Open Source Press:
 [github.com/gitbuch/gitbuch_cc]: https://github.com/gitbuch/gitbuch_cc "View the upstream repository of the Git-Buch"
 
 [76af76a]: https://github.com/gitbuch/gitbuch_cc/tree/76af76a303a6111d3a5910d612980fc4c597e05f/ "View upstream repository, commit 76af76a"
+
+[git.io/git-book]: https://git.io/git-book "View 'The Git Book' online in HTML"
 
 <!-- Open Source Press -->
 
