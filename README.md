@@ -111,8 +111,8 @@ The current development branch is [`beta-dev`][beta-dev], all pull requests shou
 
 |                   branch                   |                            description                             |
 |--------------------------------------------|--------------------------------------------------------------------|
-| [`alpha-dev`][alpha-dev]                   | Current dev branch, until v1.0.0 is ready.                         |
-| [`beta-dev`][beta-dev] &ast;               | Old dev branch for the Alpha stage, no longer used.                |
+| [`beta-dev`][beta-dev] &ast;               | Current dev branch, until v1.0.0 is ready.                         |
+| [`alpha-dev`][alpha-dev]                   | Old dev branch for the Alpha stage, no longer used.                |
 | [`master`][master]                         | Main branch, no pull request allowed.                              |
 | [`upstream-de-master`][upstream-de-master] | Orphan mirror of `master` from `gitbuch/gitbuch_cc` upstream repo. |
 
