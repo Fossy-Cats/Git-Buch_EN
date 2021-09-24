@@ -543,6 +543,7 @@ We'll first introduce both commands, and in <<sec.fetch-vs-pull>> we'll describe
 
 
 
+// @NOTE: Should we leave this title lowercase, since it's a Git command?
 [[sec.git-fetch]]
 === git fetch
 
@@ -600,7 +601,6 @@ To do this, Git downloads the missing commit C and then sets the remote tracking
 // .Remote-Tracking-Branches werden aktualisiert
 .Remote Tracking Branches are updated
 image::fetch.svg[id="fig.fetch",scaledwidth="100%",width="100%",align="center"]
-
 
 
 
@@ -839,6 +839,7 @@ To publish your work, i.e. upload it to a remote branch, you still need the `git
 
 
 
+// @NOTE: Should we leave this title lowercase, since it's a Git command?
 [[sec.pull]]
 === git pull
 
@@ -1053,6 +1054,7 @@ $ *git config branch.master.rebase true*
 
 
 
+// @NOTE: Should we leave this title lowercase, since it's a Git command?
 [[sec.fetch-vs-pull]]
 === git fetch vs. git pull
 

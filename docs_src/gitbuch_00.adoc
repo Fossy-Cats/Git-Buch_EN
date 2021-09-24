@@ -110,7 +110,7 @@ Many projects, some of them very large, now use Git and benefit from the flexibi
 
 
 [[sec.reader]]
-== Who is this book intended for?
+== Who Is This Book Intended For?
 // An wen richtet sich dieses Buch?
 
 ////
@@ -377,7 +377,7 @@ The process takes a few minutes, depending on the connection speed and server lo
 
 //\label{sec:hilfe}
 [[sec.docs]]
-== Documentation and help
+== Documentation and Help
 // Dokumentation und Hilfe
 
 ////
@@ -453,7 +453,7 @@ Also worth mentioning is _Stack Overflow_{fn7}, a platform by programmers for pr
 
 
 [[sec.contact]]
-== Downloads and contacts
+== Downloads and Contacts
 // Downloads und Kontakt
 
 ////
@@ -516,7 +516,7 @@ Valentin Haenel and Julius Plenz -- Berlin, June 2011
 
 
 [[sec.preface-2nd-edition]]
-== Preface to the 2nd edition
+== Preface to the 2nd Edition
 // Vorwort zur 2. Auflage
 
 ////
@@ -546,7 +546,7 @@ Valentin Haenel and Julius Plenary Session -- Berlin, September 2014
 
 
 [[sec.preface-cc-edition]]
-== Preface to the CreativeCommons edition
+== Preface to the Creative Commons Edition
 // Vorwort zur CreativeCommons-Ausgabe
 
 

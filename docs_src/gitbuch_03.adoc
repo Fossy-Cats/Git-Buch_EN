@@ -423,7 +423,7 @@ Note: These commits may be lost unless they are referenced differently.
 
 
 [[sec.branch-checkout]]
-==== Changing Branches: checkout
+==== Changing Branches: Checkout
 //   Branches wechseln: checkout
 
 ////
@@ -1562,7 +1562,7 @@ $ *git branch master HEAD^^*
 
 
 [[sec.reset-usage]]
-==== Using reset
+==== Using Reset
 //   reset benutzen
 
 ////

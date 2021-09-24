@@ -105,7 +105,7 @@ image::git-dir-crop.png[id="fig.git-dir-listing",scaledwidth="17%",width="17%",a
 
 
 [[sec.gc]]
-== Cleaning up
+== Cleaning Up
 // Aufräumen
 
 ////

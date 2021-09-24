@@ -464,7 +464,7 @@ Each project has its own requirements for the release process.
 Below are some general tips on how to monitor development and partially automate the release process.{fn90}
 
 [[sec.release-check-branches]]
-=== Exploring tasks
+=== Exploring Tasks
 // === Aufgaben sondieren
 
 ////

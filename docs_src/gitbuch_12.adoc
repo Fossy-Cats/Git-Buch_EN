@@ -129,8 +129,9 @@ To install via Portage, type the following command:
 $ *sudo emerge dev-vcs/git*
 --------
 
+// @FIXME: Rename anchor ID -> sec.sourcecode-installation
 [[sec.quellcode-installation]]
-=== Installation from the sources
+=== Installation from Sources
 // === Installation aus den Quellen
 
 ////
