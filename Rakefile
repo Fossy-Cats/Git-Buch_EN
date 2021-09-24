@@ -1,7 +1,6 @@
-=begin "Rakefile" v0.1.0 | 2021/09/14 | by Tristano Ajmone
+=begin "Rakefile" v0.1.1 | 2021/09/24 | by Tristano Ajmone
 ================================================================================
-Rakefile draft. Currently only builds the HTML Book preview, replacing the old
-`docs_src/build.sh` script.
+Rakefile draft. Requires Asciidoctor and Rouge.
 ================================================================================
 =end
 
@@ -54,6 +53,8 @@ file 'docs/index.html' => BOOK_DEPS do |t|
       'linkattrs' => true,
       'reproducible' => true,
       'sectanchors' => true,
+      'source-highlighter' => 'rouge',
+      'rouge-style' => 'monokai.sublime',
       'toc' => 'left',
       'toclevels' => 2
     }
@@ -80,6 +81,8 @@ file HTML_PREV => BOOK_DEPS do |t|
       'linkattrs' => true,
       'reproducible' => true,
       'sectanchors' => true,
+      'source-highlighter' => 'rouge',
+      'rouge-style' => 'monokai.sublime',
       'toc' => 'left',
       'toclevels' => 5
     }

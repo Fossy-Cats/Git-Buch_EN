@@ -76,11 +76,12 @@ Ein Beispiel:
 
 An example:
 
---------
+// @TODO: SYNTAX HIGHLIGHTING -> GIT CONFIG
+---------------------
 *.eps   binary
 *.tex   -text
 *.c     filter=indent
---------
+---------------------
 
 ////
 In der Regel können Attribute gesetzt (z.B.{empty}{nbsp}`binary`), aufgehoben (`-text`) oder auf einen Wert gesetzt werden (`filter=indent`).
@@ -120,10 +121,11 @@ Unabhängig von der Einstellung `core.eol` des Nutzers können Sie so für einig
 The `eol` attribute, on the other hand, determines what happens during a checkout.
 Regardless of the user's `core.eol` setting, you can specify e.g. CRLF for some files (because the format requires it).
 
---------
+// @TODO: SYNTAX HIGHLIGHTING -> GIT CONFIG
+----------------
 *.txt   text
 *.csv   eol=crlf
---------
+----------------
 
 ////
 Mit diesen Attributen werden `.txt`-Dateien intern immer mit LF gespeichert und bei Bedarf (plattform- bzw. nutzerabhängig) als CRLF ausgecheckt.
@@ -435,10 +437,11 @@ The command needs to be able to handle the above mentioned seven arguments.
 Now you have to use the git-attribute `diff` to define, which diff-program is called.
 To do this, write e.g. the following lines in the `.gitattributes` file:
 
---------
+// @TODO: SYNTAX HIGHLIGHTING -> GIT CONFIG
+------------------
 *.jpg diff=imgdiff
 *.pdf diff=pdfdiff
---------
+------------------
 
 ////
 Wenn Sie die Datei einchecken, müssen andere Nutzer auch entsprechende Kommandos für `imgdiff` bzw. `pdfdiff` gesetzt haben, sonst sehen sie die reguläre Ausgabe.

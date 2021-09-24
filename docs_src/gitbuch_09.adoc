@@ -501,10 +501,10 @@ If you want to keep the Subversion branches and tags, you should translate the S
 The following shell script git-convert-refs will help you in the first step:{fn121}
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> BASH
 //\label{code:git-convert-refs}
+[source,shell]
 [[code.git-convert-refs]]
---------
+----------------------------------------------------------------------
 #!/bin/sh
 
 . $(git --exec-path)/git-sh-setup
@@ -534,7 +534,7 @@ do
   new_ref=$(echo $svn_branch | sed -e "s|remotes/$svn_prefix|heads/|")
   convert_ref $svn_branch $new_ref
 done
---------
+----------------------------------------------------------------------
 
 
 
@@ -612,8 +612,8 @@ However, unless the Subversion tag has been modified afterwards, the tagged comm
 The following shell script `git-fix-tags`{fn123} will help here:
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> BASH
---------
+[source,shell]
+------------------------------------------------------------
 #!/bin/sh
 
 . $(git --exec-path)/git-sh-setup
@@ -639,7 +639,7 @@ do
     git update-ref $tag $new
     echo 'done'
 done
---------
+------------------------------------------------------------
 
 
 
@@ -1737,8 +1737,8 @@ Als Referenz das vollständige Script[133]:
 
 For reference the complete script:{fn133}
 
-// @TODO: SYNTAX HIGHLIGHTING -> BASH
---------
+[source,shell]
+---------------------------------------------------------------
 #!/bin/sh
 
 while read ar; do
@@ -1768,7 +1768,7 @@ while read archive; do
     echo
     rm -fr "$dir"
 done
---------
+---------------------------------------------------------------
 
 
 ////

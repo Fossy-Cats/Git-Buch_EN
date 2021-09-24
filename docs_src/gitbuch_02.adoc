@@ -249,11 +249,11 @@ We'll illustrate this using the "`Hello World!`" example from the previous chapt
 As a reminder, the contents of the `hello.pl` file
 
 
-// @TODO: PERL SYNTAX HIGHLIGHTING
---------
+[source,perl]
+-----------------------
 # Hello World! in Perl
 print "Hello World!\n";
---------
+-----------------------
 
 
 ////
@@ -269,14 +269,14 @@ We also add a line naming the author, and the Perl statement `use strict`, which
 It is important for our example that the file has been changed in several places:
 
 
-// @TODO: PERL SYNTAX HIGHLIGHTING
---------
+[source,perl]
+-------------------------
 #!/usr/bin/perl
 # Hello World! in Perl
 # Author: Valentin Haenel
 use strict;
 print "Hello World!\n";
---------
+-------------------------
 
 
 ////

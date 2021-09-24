@@ -346,9 +346,10 @@ Wir erstellen zunächst die Datei `hello.pl` mit folgendem Inhalt
 
 We'll first create the `hello.pl` file with the following content
 
---------
+[source,perl]
+-----------------------
 print "Hello World!\n";
---------
+-----------------------
 
 
 ////

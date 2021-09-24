@@ -1357,8 +1357,9 @@ Ein Beispiel:{fn60}
 
 An example:{fn60}
 
+// @TODO: SYNTAX HIGHLIGHTING -> GIT CONFIG
 [subs="macros,quotes"]
---------
+--------------------
 $ *cat ~/.gitignore*
 # vim swap files
 .*.sw[nop]
@@ -1373,7 +1374,7 @@ $ *cat ~/.gitignore*
 # miscellaneous
 pass:quotes[\*.*~]
 *.out
---------
+--------------------
 
 [[sec.retroactive-ignore]]
 === Ignore or Version Later

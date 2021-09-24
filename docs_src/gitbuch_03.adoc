@@ -2282,15 +2282,15 @@ Take a look at the following `output.c` file:
 
 
 
-// @TODO: C SYNTAX HIGHLIGHTING
---------
+[source,c]
+----------------------------------
 int i;
 
 for(i = 0; i < nr_of_lines(); i++)
     output_line(i);
 
 print_stats();
---------
+----------------------------------
 
 
 
@@ -2313,8 +2313,8 @@ The first one, Axel, writes a function that wraps the lines before they are outp
 
 
 
-// @TODO: C SYNTAX HIGHLIGHTING
---------
+[source,c]
+----------------------------------
 int i;
 int tw = 72;
 
@@ -2322,7 +2322,7 @@ for(i = 0; i < nr_of_lines(); i++)
     output_wrapped_line(i, tw);
 
 print_stats();
---------
+----------------------------------
 
 
 ////
@@ -2332,8 +2332,8 @@ Die zweite Entwicklerin, Beatrice, modifiziert den Code, damit ihre neu eingefü
 The second developer, Beatrice, modifies the code so that her newly introduced configuration setting `max_output_lines` is honored and not too many lines are output:
 
 
-// @TODO: C SYNTAX HIGHLIGHTING
---------
+[source,c]
+------------------------------------------
 int i;
 
 for(i = 0; i < nr_of_lines(); i++) {
@@ -2343,7 +2343,7 @@ for(i = 0; i < nr_of_lines(); i++) {
 }
 
 print_stats();
---------
+------------------------------------------
 
 
 ////
@@ -2421,8 +2421,8 @@ This is done by first editing the file directly, modifying the code as it should
 If Axel has documented in detail in his commit message{fn40} how his new function works, this should be done quickly:
 
 
-// @TODO: C SYNTAX HIGHLIGHTING
---------
+[source,c]
+------------------------------------------
 int i;
 int tw = 72;
 
@@ -2433,7 +2433,7 @@ for(i = 0; i < nr_of_lines(); i++) {
 }
 
 print_stats();
---------
+------------------------------------------
 
 
 ////

@@ -128,7 +128,8 @@ The [`upstream-de-master`][upstream-de-master] orphan branch is a mirror of the 
 In order to build this repository you'll need:
 
 - [Ruby] v3
-- [Asciidoctor] v2 (Ruby version)
+    + [Asciidoctor] v2 (Ruby version)
+    + [Rouge]
 
 Optionally, in order to edit and build the SVG diagrams:
 
@@ -227,6 +228,7 @@ Open Source Press:
 [SVGO]: https://www.npmjs.com/package/svgo "SVGO page at NPM"
 [EClint]: https://www.npmjs.com/package/eclint "EClint page at NPM"
 [EditorConfig]: https://editorconfig.org  "Visit EditorConfig website"
+[Rouge]: http://rouge.jneen.net "Visit Rouge website"
 
 <!-- people -->
 

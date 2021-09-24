@@ -438,6 +438,206 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .sr {
+  color: #f6aa11;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .nb {
+  color: #f6aa11;
+}
+pre.rouge .cm {
+  color: #75715e;
+}
+pre.rouge .cp {
+  color: #75715e;
+}
+pre.rouge .c1 {
+  color: #75715e;
+}
+pre.rouge .cs {
+  color: #75715e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #75715e;
+}
+pre.rouge .err {
+  color: #960050;
+}
+pre.rouge .gr {
+  color: #960050;
+}
+pre.rouge .gt {
+  color: #960050;
+}
+pre.rouge .gd {
+  color: #49483e;
+}
+pre.rouge .gi {
+  color: #49483e;
+}
+pre.rouge .ge {
+  color: #49483e;
+}
+pre.rouge .kc {
+  color: #66d9ef;
+}
+pre.rouge .kd {
+  color: #66d9ef;
+}
+pre.rouge .kr {
+  color: #66d9ef;
+}
+pre.rouge .no {
+  color: #66d9ef;
+}
+pre.rouge .kt {
+  color: #66d9ef;
+}
+pre.rouge .mf {
+  color: #ae81ff;
+}
+pre.rouge .mh {
+  color: #ae81ff;
+}
+pre.rouge .il {
+  color: #ae81ff;
+}
+pre.rouge .mi {
+  color: #ae81ff;
+}
+pre.rouge .mo {
+  color: #ae81ff;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #ae81ff;
+}
+pre.rouge .sc {
+  color: #ae81ff;
+}
+pre.rouge .se {
+  color: #ae81ff;
+}
+pre.rouge .ss {
+  color: #ae81ff;
+}
+pre.rouge .sd {
+  color: #e6db74;
+}
+pre.rouge .s2 {
+  color: #e6db74;
+}
+pre.rouge .sb {
+  color: #e6db74;
+}
+pre.rouge .sh {
+  color: #e6db74;
+}
+pre.rouge .si {
+  color: #e6db74;
+}
+pre.rouge .sx {
+  color: #e6db74;
+}
+pre.rouge .s1 {
+  color: #e6db74;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .dl {
+  color: #e6db74;
+}
+pre.rouge .na {
+  color: #a6e22e;
+}
+pre.rouge .nc {
+  color: #a6e22e;
+}
+pre.rouge .nd {
+  color: #a6e22e;
+}
+pre.rouge .ne {
+  color: #a6e22e;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #a6e22e;
+}
+pre.rouge .vc {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .nn {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .nl {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .ni {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .bp {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .vg {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .vi {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .w {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .n, pre.rouge .py, pre.rouge .nx {
+  color: #ffffff;
+  background-color: #272822;
+}
+pre.rouge .ow {
+  color: #f92672;
+}
+pre.rouge .nt {
+  color: #f92672;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #f92672;
+}
+pre.rouge .kn {
+  color: #f92672;
+}
+pre.rouge .kp {
+  color: #f92672;
+}
+pre.rouge .o {
+  color: #f92672;
+}
+</style>
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
@@ -1068,7 +1268,7 @@ Of course, you can write any program in the programming language of your choice 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>print "Hello World!\n";</pre>
+<pre class="rouge highlight"><code data-lang="perl"><span class="k">print</span> <span class="p">"</span><span class="s2">Hello World!</span><span class="se">\n</span><span class="p">";</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1219,7 +1419,7 @@ So let&#8217;s add the following comment line to the &#8220;Hello World!&#8221; 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-perl" data-lang="perl"># Hello World! in Perl</code></pre>
+<pre class="rouge highlight"><code data-lang="perl"><span class="c1"># Hello World! in Perl</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1738,8 +1938,8 @@ As a reminder, the contents of the <code>hello.pl</code> file</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># Hello World! in Perl
-print "Hello World!\n";</pre>
+<pre class="rouge highlight"><code data-lang="perl"><span class="c1"># Hello World! in Perl</span>
+<span class="k">print</span> <span class="p">"</span><span class="s2">Hello World!</span><span class="se">\n</span><span class="p">";</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1750,11 +1950,11 @@ It is important for our example that the file has been changed in several places
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#!/usr/bin/perl
-# Hello World! in Perl
-# Author: Valentin Haenel
-use strict;
-print "Hello World!\n";</pre>
+<pre class="rouge highlight"><code data-lang="perl"><span class="c1">#!/usr/bin/perl</span>
+<span class="c1"># Hello World! in Perl</span>
+<span class="c1"># Author: Valentin Haenel</span>
+<span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
+<span class="k">print</span> <span class="p">"</span><span class="s2">Hello World!</span><span class="se">\n</span><span class="p">";</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4332,12 +4532,12 @@ Take a look at the following <code>output.c</code> file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int i;
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 
-for(i = 0; i &lt; nr_of_lines(); i++)
-    output_line(i);
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_of_lines</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">output_line</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-print_stats();</pre>
+<span class="n">print_stats</span><span class="p">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4350,13 +4550,13 @@ The first one, Axel, writes a function that wraps the lines before they are outp
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int i;
-int tw = 72;
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">tw</span> <span class="o">=</span> <span class="mi">72</span><span class="p">;</span>
 
-for(i = 0; i &lt; nr_of_lines(); i++)
-    output_wrapped_line(i, tw);
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_of_lines</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">output_wrapped_line</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tw</span><span class="p">);</span>
 
-print_stats();</pre>
+<span class="n">print_stats</span><span class="p">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4364,15 +4564,15 @@ print_stats();</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int i;
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 
-for(i = 0; i &lt; nr_of_lines(); i++) {
-    if(i &gt; config_get("max_output_lines"))
-        break;
-    output_line(i);
-}
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_of_lines</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">config_get</span><span class="p">(</span><span class="s">"max_output_lines"</span><span class="p">))</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="n">output_line</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
 
-print_stats();</pre>
+<span class="n">print_stats</span><span class="p">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4426,16 +4626,16 @@ If Axel has documented in detail in his commit message&#8288;<sup class="footnot
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int i;
-int tw = 72;
+<pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">tw</span> <span class="o">=</span> <span class="mi">72</span><span class="p">;</span>
 
-for(i = 0; i &lt; nr_of_lines(); i++) {
-    if(i &gt; config_get("max_output_lines"))
-        break;
-    output_wrapped_line(i, tw);
-}
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_of_lines</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">config_get</span><span class="p">(</span><span class="s">"max_output_lines"</span><span class="p">))</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="n">output_wrapped_line</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tw</span><span class="p">);</span>
+<span class="p">}</span>
 
-print_stats();</pre>
+<span class="n">print_stats</span><span class="p">();</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10171,11 +10371,11 @@ Modify the former to run the Git daemon in the directory where your repositories
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#!/bin/sh
-exec 2&gt;&amp;1
-echo _git-daemon starting._
-exec git-daemon --verbose --listen=203.0.113.1 --user=git --group=git \
-  --reuseaddr --base-path=/var/git/repositories /var/git/repositories</pre>
+<pre class="rouge highlight"><code data-lang="shell"><span class="c">#!/bin/sh</span>
+<span class="nb">exec </span>2&gt;&amp;1
+<span class="nb">echo </span>_git-daemon starting._
+<span class="nb">exec </span>git-daemon <span class="nt">--verbose</span> <span class="nt">--listen</span><span class="o">=</span>203.0.113.1 <span class="nt">--user</span><span class="o">=</span>git <span class="nt">--group</span><span class="o">=</span>git <span class="se">\</span>
+  <span class="nt">--reuseaddr</span> <span class="nt">--base-path</span><span class="o">=</span>/var/git/repositories /var/git/repositories</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10402,19 +10602,19 @@ $export_ok = "git-daemon-export-ok";
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;VirtualHost *:80&gt;
-  ServerName    git.example.com
-  ServerAdmin   admins@example.com
+<pre class="rouge highlight"><code data-lang="apache"><span class="p">&lt;</span><span class="nl">VirtualHost</span><span class="sr"> *:80</span><span class="p">&gt;
+</span>  <span class="nc">ServerName</span>    git.example.com
+  <span class="nc">ServerAdmin</span>   admins@example.com
 
-  SetEnv GITWEB_CONFIG /etc/gitweb.conf
+  <span class="nc">SetEnv</span> GITWEB_CONFIG /etc/gitweb.conf
 
-  Alias /gitweb.css         /usr/share/gitweb/gitweb.css
-  Alias /git-logo.png       /usr/share/gitweb/git-logo.png
-  Alias /git-favicon.png    /usr/share/gitweb/git-favicon.png
-  Alias /                   /usr/lib/cgi-bin/gitweb.cgi
+  <span class="nc">Alias</span> /gitweb.css         /usr/share/gitweb/gitweb.css
+  <span class="nc">Alias</span> /git-logo.png       /usr/share/gitweb/git-logo.png
+  <span class="nc">Alias</span> /git-favicon.png    /usr/share/gitweb/git-favicon.png
+  <span class="nc">Alias</span> /                   /usr/lib/cgi-bin/gitweb.cgi
 
-  Options +ExecCGI
-&lt;/VirtualHost&gt;</pre>
+  <span class="nc">Options</span> +ExecCGI
+<span class="p">&lt;/</span><span class="nl">VirtualHost</span><span class="p">&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10522,7 +10722,7 @@ However, since CGit uses &#8220;nicer&#8221; URLs (like <code><a href="http://gi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;VirtualHost *:80&gt;
+<pre class="rouge highlight"><code data-lang="Apache">&lt;VirtualHost *:80&gt;
   ServerName git.example.com
 
   AcceptPathInfo On
@@ -10531,7 +10731,7 @@ However, since CGit uses &#8220;nicer&#8221; URLs (like <code><a href="http://gi
   Alias /cgit.css /usr/share/cgit/cgit.css
   Alias /cgit.png /usr/share/cgit/cgit.png
   AliasMatch ^/(.*) /usr/lib/cgi-bin/cgit.cgi/$1
-&lt;/VirtualHost&gt;</pre>
+&lt;/VirtualHost&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10727,12 +10927,12 @@ Use this command in the <code>post-update</code> hook:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>mkdir -p info/web || exit 1
-git for-each-ref \
-    --sort=-committerdate \
-    --format='%(committerdate:iso8601)' \
-    --count=1 'refs/heads/*' \
-    &gt; info/web/last-modified</pre>
+<pre class="rouge highlight"><code data-lang="shell"><span class="nb">mkdir</span> <span class="nt">-p</span> info/web <span class="o">||</span> <span class="nb">exit </span>1
+git <span class="k">for</span><span class="nt">-each-ref</span> <span class="se">\</span>
+    <span class="nt">--sort</span><span class="o">=</span><span class="nt">-committerdate</span> <span class="se">\</span>
+    <span class="nt">--format</span><span class="o">=</span><span class="s1">'%(committerdate:iso8601)'</span> <span class="se">\</span>
+    <span class="nt">--count</span><span class="o">=</span>1 <span class="s1">'refs/heads/*'</span> <span class="se">\</span>
+    <span class="o">&gt;</span> info/web/last-modified</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -12986,35 +13186,35 @@ The following shell script git-convert-refs will help you in the first step:&#82
 </div>
 <div id="code.git-convert-refs" class="listingblock">
 <div class="content">
-<pre>#!/bin/sh
+<pre class="rouge highlight"><code data-lang="shell"><span class="c">#!/bin/sh</span>
 
-. $(git --exec-path)/git-sh-setup
-svn_prefix='svn/'
+<span class="nb">.</span> <span class="si">$(</span>git <span class="nt">--exec-path</span><span class="si">)</span>/git-sh-setup
+<span class="nv">svn_prefix</span><span class="o">=</span><span class="s1">'svn/'</span>
 
-convert_ref(){
-  echo -n "converting: $1 to: $2 ..."
-  git update-ref $2 $1
-  git update-ref -d $1
-  echo "done"
-}
+convert_ref<span class="o">(){</span>
+  <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"converting: </span><span class="nv">$1</span><span class="s2"> to: </span><span class="nv">$2</span><span class="s2"> ..."</span>
+  git update-ref <span class="nv">$2</span> <span class="nv">$1</span>
+  git update-ref <span class="nt">-d</span> <span class="nv">$1</span>
+  <span class="nb">echo</span> <span class="s2">"done"</span>
+<span class="o">}</span>
 
-get_refs(){
-  git for-each-ref $1 --format='%(refname)'
-}
+get_refs<span class="o">(){</span>
+  git <span class="k">for</span><span class="nt">-each-ref</span> <span class="nv">$1</span> <span class="nt">--format</span><span class="o">=</span><span class="s1">'%(refname)'</span>
+<span class="o">}</span>
 
-echo 'Converting svn tags'
-get_refs refs/remotes/${svn_prefix}tags | while read svn_tag
-do
-  new_ref=$(echo $svn_tag | sed -e "s|remotes/$svn_prefix||")
-  convert_ref $svn_tag $new_ref
-done
+<span class="nb">echo</span> <span class="s1">'Converting svn tags'</span>
+get_refs refs/remotes/<span class="k">${</span><span class="nv">svn_prefix</span><span class="k">}</span>tags | <span class="k">while </span><span class="nb">read </span>svn_tag
+<span class="k">do
+  </span><span class="nv">new_ref</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$svn_tag</span> | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s|remotes/</span><span class="nv">$svn_prefix</span><span class="s2">||"</span><span class="si">)</span>
+  convert_ref <span class="nv">$svn_tag</span> <span class="nv">$new_ref</span>
+<span class="k">done
 
-echo "Converting svn branches"
-get_refs refs/remotes/${svn_prefix} | while read svn_branch
-do
-  new_ref=$(echo $svn_branch | sed -e "s|remotes/$svn_prefix|heads/|")
-  convert_ref $svn_branch $new_ref
-done</pre>
+</span><span class="nb">echo</span> <span class="s2">"Converting svn branches"</span>
+get_refs refs/remotes/<span class="k">${</span><span class="nv">svn_prefix</span><span class="k">}</span> | <span class="k">while </span><span class="nb">read </span>svn_branch
+<span class="k">do
+  </span><span class="nv">new_ref</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$svn_branch</span> | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s|remotes/</span><span class="nv">$svn_prefix</span><span class="s2">|heads/|"</span><span class="si">)</span>
+  convert_ref <span class="nv">$svn_branch</span> <span class="nv">$new_ref</span>
+<span class="k">done</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -13063,31 +13263,31 @@ The following shell script <code>git-fix-tags</code>&#8288;<sup class="footnote"
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#!/bin/sh
+<pre class="rouge highlight"><code data-lang="shell"><span class="c">#!/bin/sh</span>
 
-. $(git --exec-path)/git-sh-setup
-get_tree(){ git rev-parse $1^{tree}; }
+<span class="nb">.</span> <span class="si">$(</span>git <span class="nt">--exec-path</span><span class="si">)</span>/git-sh-setup
+get_tree<span class="o">(){</span> git rev-parse <span class="nv">$1</span>^<span class="o">{</span>tree<span class="o">}</span><span class="p">;</span> <span class="o">}</span>
 
-git for-each-ref refs/tags --format='%(refname)' \
-| while read tag
-do
-    sha1=$(git rev-parse $tag)
-    tree=$(get_tree $tag )
-    new=$sha1
-    while true
-    do
-        parent=$(git rev-parse $new^)
-        git rev-parse $new^2 &gt; /dev/null 2&gt;&amp;1 &amp;&amp; break
-        parent_tree=$(get_tree $parent)
-        [ "$parent_tree" != "$tree" ] &amp;&amp; break
-        new=$parent
-    done
-    [ "$sha1" = "$new" ] &amp;&amp; break
-    echo -n "Found new commit for tag ${tag#refs/tags/}: " \
-        $(git rev-parse --short $new)", resetting..."
-    git update-ref $tag $new
-    echo 'done'
-done</pre>
+git <span class="k">for</span><span class="nt">-each-ref</span> refs/tags <span class="nt">--format</span><span class="o">=</span><span class="s1">'%(refname)'</span> <span class="se">\</span>
+| <span class="k">while </span><span class="nb">read </span>tag
+<span class="k">do
+    </span><span class="nv">sha1</span><span class="o">=</span><span class="si">$(</span>git rev-parse <span class="nv">$tag</span><span class="si">)</span>
+    <span class="nv">tree</span><span class="o">=</span><span class="si">$(</span>get_tree <span class="nv">$tag</span> <span class="si">)</span>
+    <span class="nv">new</span><span class="o">=</span><span class="nv">$sha1</span>
+    <span class="k">while </span><span class="nb">true
+    </span><span class="k">do
+        </span><span class="nv">parent</span><span class="o">=</span><span class="si">$(</span>git rev-parse <span class="nv">$new</span>^<span class="si">)</span>
+        git rev-parse <span class="nv">$new</span>^2 <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 <span class="o">&amp;&amp;</span> <span class="nb">break
+        </span><span class="nv">parent_tree</span><span class="o">=</span><span class="si">$(</span>get_tree <span class="nv">$parent</span><span class="si">)</span>
+        <span class="o">[</span> <span class="s2">"</span><span class="nv">$parent_tree</span><span class="s2">"</span> <span class="o">!=</span> <span class="s2">"</span><span class="nv">$tree</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">break
+        </span><span class="nv">new</span><span class="o">=</span><span class="nv">$parent</span>
+    <span class="k">done</span>
+    <span class="o">[</span> <span class="s2">"</span><span class="nv">$sha1</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$new</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">break
+    echo</span> <span class="nt">-n</span> <span class="s2">"Found new commit for tag </span><span class="k">${</span><span class="nv">tag</span><span class="p">#refs/tags/</span><span class="k">}</span><span class="s2">: "</span> <span class="se">\</span>
+        <span class="si">$(</span>git rev-parse <span class="nt">--short</span> <span class="nv">$new</span><span class="si">)</span><span class="s2">", resetting..."</span>
+    git update-ref <span class="nv">$tag</span> <span class="nv">$new</span>
+    <span class="nb">echo</span> <span class="s1">'done'</span>
+<span class="k">done</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -13848,35 +14048,35 @@ bde105d import vim-4.1
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>#!/bin/sh
+<pre class="rouge highlight"><code data-lang="shell"><span class="c">#!/bin/sh</span>
 
-while read ar; do
-    [ -f "$ar" ] || { echo "not a file: $ar" &gt;&amp;2; exit 1; }
-    readlink -f "$ar"
-done |
-while read archive; do
-    dir="$(mktemp -d /dev/shm/fi.XXXXXXXX)"
-    version="$(basename $archive | sed _s/\.tar\.gz$//_)"
-    mod="$(stat -c %Y $archive) +0200"
-    now="$(date +%s) +0200"
-    msg="import $version"
+<span class="k">while </span><span class="nb">read </span>ar<span class="p">;</span> <span class="k">do</span>
+    <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$ar</span><span class="s2">"</span> <span class="o">]</span> <span class="o">||</span> <span class="o">{</span> <span class="nb">echo</span> <span class="s2">"not a file: </span><span class="nv">$ar</span><span class="s2">"</span> <span class="o">&gt;</span>&amp;2<span class="p">;</span> <span class="nb">exit </span>1<span class="p">;</span> <span class="o">}</span>
+    <span class="nb">readlink</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$ar</span><span class="s2">"</span>
+<span class="k">done</span> |
+<span class="k">while </span><span class="nb">read </span>archive<span class="p">;</span> <span class="k">do
+    </span><span class="nb">dir</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">mktemp</span> <span class="nt">-d</span> /dev/shm/fi.XXXXXXXX<span class="si">)</span><span class="s2">"</span>
+    <span class="nv">version</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">basename</span> <span class="nv">$archive</span> | <span class="nb">sed </span>_s/<span class="se">\.</span><span class="nb">tar</span><span class="se">\.</span>gz<span class="nv">$/</span>/_<span class="si">)</span><span class="s2">"</span>
+    <span class="nv">mod</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">stat</span> <span class="nt">-c</span> %Y <span class="nv">$archive</span><span class="si">)</span><span class="s2"> +0200"</span>
+    <span class="nv">now</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">date</span> +%s<span class="si">)</span><span class="s2"> +0200"</span>
+    <span class="nv">msg</span><span class="o">=</span><span class="s2">"import </span><span class="nv">$version</span><span class="s2">"</span>
 
-    cd "$dir" &amp;&amp;
-    tar xfz "$archive" &amp;&amp;
-    echo "commit refs/heads/master" &amp;&amp;
-    echo "author Bram Moolenaar &lt;bram@vim.org&gt; $mod" &amp;&amp;
-    echo "committer Julius Plenz &lt;julius@plenz.com&gt; $now" &amp;&amp;
-    echo -n "data " &amp;&amp; echo -n "$msg" | wc -c &amp;&amp; echo "$msg" &amp;&amp;
-    echo "deleteall" &amp;&amp;
-    find . -type f |
-    while read f; do
-        echo -n "M 644 inline "
-        echo "$f" | sed -e _s,^\./[^/]*/,,_
-        echo -n "data " &amp;&amp; wc -c &lt; "$f" &amp;&amp; cat "$f"
-    done &amp;&amp;
-    echo
-    rm -fr "$dir"
-done</pre>
+    <span class="nb">cd</span> <span class="s2">"</span><span class="nv">$dir</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">tar </span>xfz <span class="s2">"</span><span class="nv">$archive</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo</span> <span class="s2">"commit refs/heads/master"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo</span> <span class="s2">"author Bram Moolenaar &lt;bram@vim.org&gt; </span><span class="nv">$mod</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo</span> <span class="s2">"committer Julius Plenz &lt;julius@plenz.com&gt; </span><span class="nv">$now</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"data "</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$msg</span><span class="s2">"</span> | <span class="nb">wc</span> <span class="nt">-c</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$msg</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo</span> <span class="s2">"deleteall"</span> <span class="o">&amp;&amp;</span>
+    find <span class="nb">.</span> <span class="nt">-type</span> f |
+    <span class="k">while </span><span class="nb">read </span>f<span class="p">;</span> <span class="k">do
+        </span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"M 644 inline "</span>
+        <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="nt">-e</span> _s,^<span class="se">\.</span>/[^/]<span class="k">*</span>/,,_
+        <span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"data "</span> <span class="o">&amp;&amp;</span> <span class="nb">wc</span> <span class="nt">-c</span> &lt; <span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">cat</span> <span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span>
+    <span class="k">done</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">echo
+    rm</span> <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$dir</span><span class="s2">"</span>
+<span class="k">done</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

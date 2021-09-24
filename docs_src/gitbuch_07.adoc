@@ -1287,14 +1287,14 @@ The package essentially creates a `gitlog` user and two executable shell scripts
 Modify the former to run the Git daemon in the directory where your repositories are located:
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> BASH
---------
+[source,shell]
+-----------------------------------------------------------------------
 #!/bin/sh
 exec 2>&1
 echo _git-daemon starting._
 exec git-daemon --verbose --listen=203.0.113.1 --user=git --group=git \
   --reuseaddr --base-path=/var/git/repositories /var/git/repositories
---------
+-----------------------------------------------------------------------
 
 
 ////
@@ -1674,8 +1674,8 @@ Erstellen Sie `/etc/apache2/sites-available/git.example.com` mit folgendem Inhal
 Create `/etc/apache2/sites-available/git.example.com` with the following content:
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> APACHE SETTINGS
---------
+[source,apache]
+-------------------------------------------------------------
 <VirtualHost *:80>
   ServerName    git.example.com
   ServerAdmin   admins@example.com
@@ -1689,7 +1689,7 @@ Create `/etc/apache2/sites-available/git.example.com` with the following content
 
   Options +ExecCGI
 </VirtualHost>
---------
+-------------------------------------------------------------
 
 
 ////
@@ -1851,8 +1851,8 @@ Die folgenden Konfigurationen lassen CGit auf `git.example.com` laufen:
 The following configurations run CGit on `git.example.com`:
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> APACHE SETTINGS
---------
+[source,Apache]
+------------------------------------------------
 <VirtualHost *:80>
   ServerName git.example.com
 
@@ -1863,7 +1863,7 @@ The following configurations run CGit on `git.example.com`:
   Alias /cgit.png /usr/share/cgit/cgit.png
   AliasMatch ^/(.*) /usr/lib/cgi-bin/cgit.cgi/$1
 </VirtualHost>
---------
+------------------------------------------------
 
 
 ////
@@ -2172,15 +2172,15 @@ This is best done with hooks (see <<sec.hooks>>).
 Use this command in the `post-update` hook:
 
 
-// @TODO: SYNTAX HIGHLIGHTING -> BASH
---------
+[source,shell]
+-----------------------------------------
 mkdir -p info/web || exit 1
 git for-each-ref \
     --sort=-committerdate \
     --format='%(committerdate:iso8601)' \
     --count=1 'refs/heads/*' \
     > info/web/last-modified
---------
+-----------------------------------------
 
 
 ////
