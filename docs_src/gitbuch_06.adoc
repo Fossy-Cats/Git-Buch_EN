@@ -620,7 +620,7 @@ Two of the patches were already applied after `master`.
 `git cherry` recognizes this, although the commit IDs have changed.
 
 [[sec.release-create]]
-=== Create Release
+=== Creating Releases
 // === Release erstellen
 
 ////

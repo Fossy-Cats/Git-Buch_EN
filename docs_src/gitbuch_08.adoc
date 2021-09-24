@@ -33,7 +33,7 @@ Zum Abschluss stellen wir das mächtige `filter-branch`-Kommando vor, mit dem Si
 Finally, we will introduce the powerful `filter-branch` command, which you can use to rewrite the project history on a large scale, for example to remove a file with a password from _all_ commits.
 
 [[sec.attributes]]
-== Git Attributes -- Treat Files Separately
+== Git Attributes -- Treating Files Separately
 // == Git-Attribute – Dateien gesondert behandeln
 
 ////
@@ -395,8 +395,9 @@ If one of the two files does not exist (newly added or deleted), then `/dev/null
 The corresponding blob is then `00000`..., even if a file does not yet exist as a fixed object in the object database (i.e. only in the working tree or index).
 The Diff command must be able to handle these cases accordingly.
 
+// @CHECK: Maybe "Configuring External Diff Tools"?
 [[sec.diff-config]]
-==== Configure External Diffs
+==== Configuring External Diffs
 // ==== Externe Diffs konfigurieren
 
 ////
@@ -452,7 +453,7 @@ When you check the file in, other users must also have set corresponding command
 If you want to set this for one repository only, write this information to `.git/info/attributes`.
 
 [[sec.diff-immages]]
-==== Compare Pictures
+==== Comparing Pictures
 // ==== Bilder vergleichen
 
 ////
@@ -974,7 +975,7 @@ Sobald Sie also neue Commits per `git push` in den Master-Branch des Servers hoc
 So as soon as you upload new commits via `git push` to the server's master branch, this hook will automatically update the web presence.
 
 [[sec.hooks-am]]
-=== Apply Patches
+=== Applying Patches
 // === Patches anwenden
 
 ////
@@ -1476,7 +1477,7 @@ For details see the `git-rev-parse(1)` man page, section "Parseopt".
 ========
 
 [[sec.scripting-find-changes]]
-=== Find Changes
+=== Finding Changes
 // === Änderungen finden
 
 ////
@@ -1752,7 +1753,7 @@ With dozens or even hundreds of references, the single call is resource-saving a
 ========
 
 [[sec.for-each-ref]]
-=== Iterate References: for-each-ref
+=== Iterating References: for-each-ref
 // === Referenzen iterieren: for-each-ref
 
 ////
@@ -2182,7 +2183,7 @@ Weitere interessante Ideen und Anregungen finden sich im Git-Wiki auf der Seite 
 Further interesting ideas and suggestions can be found in the Git-Wiki on the page about aliases.{fn115}
 
 [[sec.filter-branch]]
-== Rewrite Version History
+== Rewriting Version History
 // == Versionsgeschichte umschreiben
 
 ////
@@ -2323,7 +2324,7 @@ In den folgenden Beispielen geht es um einige typische Anwendungsfälle des `fil
 The following examples deal with some typical use cases of the `filter-branch` command.
 
 [[sec.fb-censor]]
-=== Remove Sensitive Information Afterwards
+=== Removing Sensitive Information Afterwards
 // === Sensitive Informationen nachträglich entfernen
 
 ////
@@ -2420,7 +2421,7 @@ To check this, use the command `git log --name-status --follow - <file>` to dete
 ========
 
 [[sec.fb-censor-string]]
-==== Remove Strings from Files
+==== Removing Strings from Files
 // ==== Strings aus Dateien entfernen
 
 ////
@@ -2514,7 +2515,7 @@ If you use a `tmpfs` here (especially `/dev/shm` or `/tmp`), the files are only 
 ========
 
 [[sec.fb-developer]]
-==== Rename a Developer
+==== Renaming a Developer
 // ==== Einen Entwickler umbenennen
 
 ////
@@ -2533,7 +2534,7 @@ $ *git filter-branch -f --env-filter \*
 --------
 
 [[sec.fb-subdir]]
-=== Extract Subdirectory
+=== Extracting a Subdirectory
 // === Unterverzeichnis extrahieren
 
 ////
@@ -2680,7 +2681,7 @@ Außerdem müssen Sie natürlich noch die verbleibenden Backup-Referenzen lösch
 Of course you also have to delete the remaining backup references (see below).
 
 [[sec.fb-clean]]
-=== Delete Old Commits
+=== Deleting Old Commits
 // === Alte Commits löschen
 
 ////

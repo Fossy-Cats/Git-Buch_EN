@@ -21,7 +21,7 @@ We'll also look at how to stash changes to the working tree and annotate commits
 Finally, we show you how to quickly and automatically find commits that introduce a bug (_Bisect_).
 
 [[sec.rebase]]
-== Move commits -- Rebase
+== Moving commits -- Rebase
 // Commits verschieben – Rebase
 
 ////
@@ -253,7 +253,7 @@ This will discard all changes to the repository (including successfully copied c
 The command also helps if at some point you forget to finish a rebase process, and other commands complain that they can't do their job because a rebase is in progress.
 
 [[sec.rebase-sense]]
-=== Why Rebase Makes Sense
+=== Why Rebasing Makes Sense
 //  Warum Rebase sinnvoll ist
 
 ////
@@ -307,7 +307,7 @@ A _merge_ of the `master` branch does not make sense semantically, because then 
 Instead, you rebase the branch on a new commit that already contains the required feature, and then use that in further development.
 
 [[sec.rebase-vs-merge]]
-=== When Rebase Is _Not_ Useful -- Rebase vs. Merge
+=== When Rebasing Is _Not_ Useful -- Rebase vs. Merge
 //  Wann Rebase _nicht_ sinnvoll ist – Rebase vs. Merge
 
 ////
@@ -446,7 +446,7 @@ Another possibility is offered by private branches, i.e. those that start with `
 If you make an agreement that developers will do their own development on these branches, but always base their features on "`official`" branches, then the developers may rewrite their branches as they wish.
 
 [[sec.rebase-cp]]
-=== Avoid Code Duplication
+=== Avoiding Code Duplication
 //  Code-Dopplungen vermeiden
 
 ////
@@ -466,7 +466,7 @@ This way, commits do not appear twice in the version history of a project.
 If the branch had simply been merged, the same commits with different SHA-1 sums would sometimes be present in different places in the commit graph.
 
 [[sec.rebase-ps]]
-=== Manage Patch Stacks
+=== Managing Patch Stacks
 //  Patch-Stacks verwalten
 
 ////
@@ -490,7 +490,7 @@ For example, _TopGit_{empty}{fn57} allows You can define dependencies between br
 An alternative to TopGit is _Stacked Git_{empty}{fn58}.
 
 [[sec.rebase-onto]]
-=== Restrict Rebase with --onto
+=== Restricting Rebase via --onto
 //  Rebase einschränken mit --onto
 
 ////
@@ -629,6 +629,7 @@ Eine äquivalente Möglichkeit, einen Commit zu editieren, haben Sie mit der Akt
 
 An equivalent way to edit a commit is with the `edit` action in the interactive rebase (see <<sec.rebase-i-edit>>).
 
+// @CHECK: Maybe "Fine-Tuning Rebase"?
 [[sec.rebase-options]]
 === Fine Adjustment of Rebase
 //  Rebase feinjustieren
@@ -850,7 +851,7 @@ The rebase process is stopped at the process marked `reword`, and Git starts an 
 Once you exit the editor (don't forget to save!), Git will enter the new description and let the rebase process continue.
 
 [[sec.rebase-i-squash]]
-=== Correct Small Errors: Bug Squashing
+=== Correcting Small Errors: Bug Squashing
 //  Kleine Fehler korrigieren: Bug Squashing
 
 ////
@@ -990,7 +991,7 @@ If you frequently work with this option, you can also make this behavior the def
 To do this, set the `rebase.autosquash` setting to `true`.
 
 [[sec.rebase-i-edit]]
-=== Edit Commits Arbitrarily
+=== Editing Commits Arbitrarily
 //  Commits beliebig editieren
 
 ////
@@ -1023,7 +1024,7 @@ Einen häufigen Anwendungsfall beschreibt folgendes "`Rezept`".
 ////
 
 [[sec.rebase-split-cmmits]]
-==== Split Commits
+==== Splitting Commits
 //   Commits aufteilen
 
 ////
@@ -1179,7 +1180,7 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
 --------
 
 [[sec.blame-gui]]
-=== Blame Graphically
+=== Blaming with Graphics
 //  Blame grafisch
 
 ////
@@ -1221,7 +1222,7 @@ You can go back several steps this way.
 Use the green arrow in the upper left corner to jump back into the future again.
 
 [[sec.ignore]]
-== Ignore Files
+== Ignoring Files
 // Dateien ignorieren
 
 ////
@@ -1284,7 +1285,7 @@ Zuletzt lässt sich die Datei `.git/info/exclude` für repositoryspezifische Ein
 Finally, the `.git/info/exclude` file can be used for repository-specific settings that should not be delivered with a clone, i.e. settings that are both project and user specific.
 
 [[sec.pattern]]
-=== Syntax for Pattern
+=== Pattern Syntax
 //  Syntax für Muster
 
 ////
@@ -1376,8 +1377,9 @@ pass:quotes[\*.*~]
 *.out
 --------------------
 
+
 [[sec.retroactive-ignore]]
-=== Ignore or Version Later
+=== Ignoring and Tracking Later
 //  Nachträglich ignorieren oder versionieren
 
 ////
@@ -1423,7 +1425,7 @@ $ *git add -f documentation.pdf*
 --------
 
 [[sec.git-clean]]
-=== Delete Ignored and Unknown Files
+=== Deleting Ignored and Unknown Files
 //  Ignorierte und unbekannte Dateien löschen
 
 ////
@@ -1452,7 +1454,7 @@ $ *git clean -dfx*
 --------
 
 [[sec.stash]]
-== Outsource Changes -- Git Stash
+== Outsourcing Changes -- Git Stash
 // Veränderungen auslagern – git stash
 
 ////
@@ -1560,7 +1562,7 @@ The configuration setting `interactive.singlekey` (see <<sec.add-p>>) also appli
 
 
 [[sec.stash-conflicts]]
-=== Solve Conflicts
+=== Solving Conflicts
 //  Konflikte lösen
 
 ////
@@ -1664,7 +1666,7 @@ For this recipe you use several stashes.
 First you store the changes in the working tree into a new stash, then you get the changes you actually want from the previous stash and delete it after the application.
 
 [[sec.stash-message]]
-=== Adjust Message
+=== Adjusting Messages
 //  Nachricht anpassen
 
 ////
@@ -1709,7 +1711,7 @@ HEAD is now at b529e34 new spec how the script should behave
 --------
 
 [[sec.multi-stash]]
-=== View Stashes
+=== Viewing Stashes
 //  Stashes einsehen
 
 ////
@@ -1795,7 +1797,7 @@ stash@{1}: WIP on master: b1ee2cf start and end date in one place only
 --------
 
 [[sec.stash-delete]]
-=== Delete Stashes
+=== Deleting Stashes
 //  Stashes löschen
 
 ////
@@ -1877,7 +1879,7 @@ Older stashes are only referenced in the Reflog (see ` <<sec.reflog>>) and there
 In contrast to normal reflog entries, stored stashes do not expire and are therefore not deleted by the normal maintenance mechanisms.
 
 [[sec.notes]]
-== Annotate Commits -- Git Notes
+== Annotating Commits -- Git Notes
 // Commits annotieren – git notes
 
 ////
@@ -2098,7 +2100,7 @@ Sie können jetzt mit dem Kommando `git add` Dateien zum neuen Root-Commit hinzu
 You can now use the `git add` command to add files to the new root commit and then create it with `git commit`.
 
 [[sec.bisect]]
-== Find Regressions -- Git Bisect
+== Finding Regressions -- Git Bisect
 // Regressionen finden – git bisect
 
 ////

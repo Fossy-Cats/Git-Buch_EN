@@ -533,7 +533,7 @@ If you want to keep the changes and change the branch (e.g., interrupt your work
 
 
 [[sec.branch-naming]]
-====  Conventions for Naming Branches
+==== Branch Naming Conventions
 //    Konventionen zur Benennung von Branches
 
 ////
@@ -1733,7 +1733,7 @@ Zunächst schauen wir uns einen Merge-Vorgang auf Objektebene an.
 First, we will look at an object-level merge process.
 
 
-
+// @CHECK: Maybe "Two-Branch Merge" or "Merging Two Branches"?
 [[sec.merge-detail]]
 === Two-Branches Merge
 //  Zwei Branches verschmelzen
@@ -2045,7 +2045,7 @@ In the above example, `-m 1` would cause the changes made by the four commits fr
 
 
 [[sec.merge-strategies]]
-=== Merging Strategies
+=== Merge Strategies
 //  Merge-Strategien
 
 ////
@@ -2715,7 +2715,7 @@ So to try Meld, during a merge conflict, simply type `git mergetool -t meld` -- 
 
 
 [[sec.rerere]]
-=== rerere: Reuse Recorded Resolution
+=== Rerere: Reuse Recorded Resolution
 //  rerere: Reuse Recorded Resolution
 
 ////
@@ -2943,7 +2943,7 @@ Instead, it makes sense to provide appropriate Makefile targets or scripts to ge
 
 
 [[sec.cherry-pick]]
-== Taking over Individual Commits: Cherry Pick
+== Taking over Individual Commits: Cherry Picking
 // Einzelne Commits übernehmen: Cherry-Pick
 
 ////

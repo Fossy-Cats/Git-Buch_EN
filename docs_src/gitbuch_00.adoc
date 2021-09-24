@@ -166,7 +166,7 @@ Although most of the examples and techniques presented refer to source code, the
 
 
 [[sec.structure]]
-== How to read the book?
+== How to Read the Book?
 // Wie ist das Buch zu lesen?
 
 ////

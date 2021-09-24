@@ -93,7 +93,7 @@ In Gentoo, you install the file via the USE flag `bash-completion` of `dev-vcs/g
 The current maintainer is Shawn O. Pearce.
 
 [[sec.bash-completion]]
-=== Completion
+=== Completions
 // === Completion
 
 ////
@@ -243,7 +243,7 @@ If only the Branch `feature` exists, typing `git checkout fe[TAB]` will cause `f
 Only when the input is ambiguous does the bash display the possible completions.
 
 [[sec.bash-prompt]]
-=== Prompt
+=== The Prompt
 // === Prompt
 
 ////
@@ -492,7 +492,7 @@ $ git rebase[ESC]+[h]
 ========
 
 [[sec.zsh-completion]]
-=== Completion
+=== Completions
 // === Completion
 
 ////
@@ -671,7 +671,7 @@ Möglich wird dies durch die Completion-Funktionen der Z-Shell für `ssh`.
 This is made possible by the completion functions of the Z-shell for `ssh`.
 
 [[sec.zsh-prompt]]
-=== Prompt
+=== The Prompt
 // === Prompt
 
 ////

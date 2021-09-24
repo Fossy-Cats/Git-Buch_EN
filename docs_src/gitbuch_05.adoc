@@ -1624,7 +1624,7 @@ $ *git remote show origin*
 
 
 [[sec.remote-branch-vv]]
-=== Comparison with the Upstream
+=== Comparing with the Upstream
 //  Vergleich mit dem Upstream
 
 ////

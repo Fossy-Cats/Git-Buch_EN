@@ -268,7 +268,7 @@ This is a trip hazard, especially for beginners, because Git does not output an 
 
 
 [[sec.first-repo]]
-=== The First Repository
+=== Our First Repository
 // Das erste Repository
 
 ////
@@ -329,7 +329,7 @@ Instead, it gives a hint as to what the next steps should be (most Git commands 
 
 
 [[sec.first-commit]]
-=== The First Commit
+=== Our First Commit
 // Der erste Commit
 
 ////

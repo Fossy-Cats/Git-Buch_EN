@@ -294,7 +294,7 @@ git-svn-id: file:///demo/trunk@8 2423f1c7-8de6-44f9-ab07-c0d4e8840b78
 
 
 [[sec.git-svn-username]]
-==== Specify a Username
+==== Specifying a Username
 //   Benutzernamen angeben
 
 ////
