@@ -769,9 +769,9 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 
 <!-- Issues -->
 
-[Issue #1]: https://github.com/tajmone/Git-Buch_EN/issues/1 "TTranslating Commits, Files and Folders Names #1"
-[Issue #12]: https://github.com/tajmone/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
-[Issue #13]: https://github.com/tajmone/Git-Buch_EN/issues/13 "Diagrams: Cairo SVG Enforcing Document Sizes? #13"
-[Issue #15]: https://github.com/tajmone/Git-Buch_EN/issues/15 "Diagrams Colors Accessibility Problems #15"
+[Issue #1]: https://github.com/Fossy-Cats/Git-Buch_EN/issues/1 "TTranslating Commits, Files and Folders Names #1"
+[Issue #12]: https://github.com/Fossy-Cats/Git-Buch_EN/issues/12 "Text-Alignment Problems in SVG Diagrams #12"
+[Issue #13]: https://github.com/Fossy-Cats/Git-Buch_EN/issues/13 "Diagrams: Cairo SVG Enforcing Document Sizes? #13"
+[Issue #15]: https://github.com/Fossy-Cats/Git-Buch_EN/issues/15 "Diagrams Colors Accessibility Problems #15"
 
 <!-- EOF -->

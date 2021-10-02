@@ -654,7 +654,7 @@ pre.rouge .o {
 <li><a href="#ch.preface">Preface</a>
 <ul class="sectlevel2">
 <li><a href="#sec.reader">Who Is This Book Intended For?</a></li>
-<li><a href="#sec.structure">How to read the book?</a></li>
+<li><a href="#sec.structure">How to Read the Book?</a></li>
 <li><a href="#sec.conventions">Conventions</a></li>
 <li><a href="#sec.install-git-repo">Installation and &#8220;The Git-Repository&#8221;</a></li>
 <li><a href="#sec.docs">Documentation and Help</a></li>
@@ -683,21 +683,21 @@ pre.rouge .o {
 <li><a href="#sec.undo">3.2. Restoring Versions</a></li>
 <li><a href="#sec.merge">3.3. Merging Branches</a></li>
 <li><a href="#sec.merge-conflicts">3.4. Resolving Merge Conflicts</a></li>
-<li><a href="#sec.cherry-pick">3.5. Taking over Individual Commits: Cherry Pick</a></li>
+<li><a href="#sec.cherry-pick">3.5. Taking over Individual Commits: Cherry Picking</a></li>
 <li><a href="#sec.visualization">3.6. Visualizing Repositories</a></li>
 <li><a href="#sec.reflog">3.7. Reflog</a></li>
 </ul>
 </li>
 <li><a href="#ch.advanced">4. Advanced Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#sec.rebase">4.1. Move commits&#8201;&#8212;&#8201;Rebase</a></li>
+<li><a href="#sec.rebase">4.1. Moving commits&#8201;&#8212;&#8201;Rebase</a></li>
 <li><a href="#sec.rebase-i">4.2. Rewriting History&#8201;&#8212;&#8201;Interactive Rebase</a></li>
 <li><a href="#sec.blame">4.3. Who Made These Changes?&#8201;&#8212;&#8201;Git Blame</a></li>
-<li><a href="#sec.ignore">4.4. Ignore Files</a></li>
-<li><a href="#sec.stash">4.5. Outsource Changes&#8201;&#8212;&#8201;Git Stash</a></li>
-<li><a href="#sec.notes">4.6. Annotate Commits&#8201;&#8212;&#8201;Git Notes</a></li>
+<li><a href="#sec.ignore">4.4. Ignoring Files</a></li>
+<li><a href="#sec.stash">4.5. Outsourcing Changes&#8201;&#8212;&#8201;Git Stash</a></li>
+<li><a href="#sec.notes">4.6. Annotating Commits&#8201;&#8212;&#8201;Git Notes</a></li>
 <li><a href="#sec.multi-root">4.7. Multiple Root Commits</a></li>
-<li><a href="#sec.bisect">4.8. Find Regressions&#8201;&#8212;&#8201;Git Bisect</a></li>
+<li><a href="#sec.bisect">4.8. Finding Regressions&#8201;&#8212;&#8201;Git Bisect</a></li>
 </ul>
 </li>
 <li><a href="#ch.distributed-git">5. Distributed Git</a>
@@ -733,10 +733,10 @@ pre.rouge .o {
 </li>
 <li><a href="#ch.automation">8. Git Automation</a>
 <ul class="sectlevel2">
-<li><a href="#sec.attributes">8.1. Git Attributes&#8201;&#8212;&#8201;Treat Files Separately</a></li>
+<li><a href="#sec.attributes">8.1. Git Attributes&#8201;&#8212;&#8201;Treating Files Separately</a></li>
 <li><a href="#sec.hooks">8.2. Hooks</a></li>
 <li><a href="#sec.scripting">8.3. Writing Your Own Git Commands</a></li>
-<li><a href="#sec.filter-branch">8.4. Rewrite Version History</a></li>
+<li><a href="#sec.filter-branch">8.4. Rewriting Version History</a></li>
 </ul>
 </li>
 <li><a href="#sec.git-svn-cvs">9. Interacting with Other Version Control Systems</a>
@@ -801,7 +801,7 @@ Any help with proofreading is much appreciated; if you wish to contribute submit
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/tajmone/Git-Buch_EN" class="bare">https://github.com/tajmone/Git-Buch_EN</a></p>
+<p><a href="https://fossy-cats.github.io/Git-Buch_EN" class="bare">https://fossy-cats.github.io/Git-Buch_EN</a></p>
 </li>
 </ul>
 </div>
@@ -875,7 +875,7 @@ Git also makes it much easier for newcomers to get started.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.structure"><a class="anchor" href="#sec.structure"></a>How to read the book?</h3>
+<h3 id="sec.structure"><a class="anchor" href="#sec.structure"></a>How to Read the Book?</h3>
 <div class="paragraph">
 <p><a href="#ch.intro">Ch. 1, <em>Introduction and First Steps</em></a> gives a brief overview: How do you initialize a git repository and manage files in it?
 It also covers the most important configuration settings.</p>
@@ -1220,7 +1220,7 @@ The following call is therefore <em>incorrect</em>:</p>
 <p>This is a trip hazard, especially for beginners, because Git does not output an error message, but takes the equals sign as the value to set.</p>
 </div>
 <div class="sect3">
-<h4 id="sec.first-repo"><a class="anchor" href="#sec.first-repo"></a>1.2.1. The First Repository</h4>
+<h4 id="sec.first-repo"><a class="anchor" href="#sec.first-repo"></a>1.2.1. Our First Repository</h4>
 <div class="paragraph">
 <p>Before we use Git to manage files, we need to create a repository for the sample project.
 The repository will be created <em>locally</em>, so it will only be on the file system of the machine you are working on.</p>
@@ -1258,7 +1258,7 @@ Instead, it gives a hint as to what the next steps should be (most Git commands 
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.first-commit"><a class="anchor" href="#sec.first-commit"></a>1.2.2. The First Commit</h4>
+<h4 id="sec.first-commit"><a class="anchor" href="#sec.first-commit"></a>1.2.2. Our First Commit</h4>
 <div class="paragraph">
 <p>Now let&#8217;s give Git a first file to manage, which is a &#8220;Hello World!&#8221; program in Perl.
 Of course, you can write any program in the programming language of your choice instead.</p>
@@ -1671,7 +1671,7 @@ For this, the <code>core.safecrlf</code> option provides a mechanism to warn the
 Your editor must then be able to handle LF line endings accordingly.</p>
 </div>
 <div class="paragraph">
-<p>You can also specify these settings explicitly per file or subdirectory, so that the format is the same across all platforms (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git Attributes&#8201;&#8212;&#8201;Treat Files Separately&#8221;</a>).</p>
+<p>You can also specify these settings explicitly per file or subdirectory, so that the format is the same across all platforms (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git Attributes&#8201;&#8212;&#8201;Treating Files Separately&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -2182,7 +2182,7 @@ The following configuration setting will save you this extra keystroke.</p>
 <div class="paragraph">
 <p>A word of warning: A <code>git add -p</code> may tempt you to check in versions of a file that are not executable or syntactically correct (e.g. because you forgot an essential line).
 So don&#8217;t rely on your commit being correct just because <code>make</code>&#8201;&#8212;&#8201;which works on working tree files! -- runs successfully.
-Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <a href="#sec.bisect">Sec. 4.8, &#8220;Find Regressions&#8201;&#8212;&#8201;Git Bisect&#8221;</a>).</p>
+Even if a later commit fixes the problem, it will still be a problem, among other things, with automated debugging via bisect (see <a href="#sec.bisect">Sec. 4.8, &#8220;Finding Regressions&#8201;&#8212;&#8201;Git Bisect&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -2212,7 +2212,7 @@ Let&#8217;s turn to the <code>git commit</code> command, which you use to &#8220
 </div>
 <div class="paragraph">
 <p>In fact, the name of the author <em>does not</em> have to be the name of the committer (who commits).
-Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).
+Often, commits are integrated or edited by maintainers (for example, by rebase, which also adjusts the committer information, see <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).
 The committer information is usually of secondary importance, though&#8201;&#8212;&#8201;most programs only show the author and the date the commit was made.</p>
 </div>
 <div class="paragraph">
@@ -3461,11 +3461,11 @@ The message: <code>A new-file.txt</code> reminds you which files you should stil
 <p>If you&#8217;re sure you don&#8217;t need your changes anymore, you can use <code>git checkout -f</code> to ignore the error messages and run the checkout anyway.</p>
 </div>
 <div class="paragraph">
-<p>If you want to keep the changes and change the branch (e.g., interrupt your work and fix a bug on another branch), <code>git stash</code> will help (<a href="#sec.stash">Sec. 4.5, &#8220;Outsource Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>).</p>
+<p>If you want to keep the changes and change the branch (e.g., interrupt your work and fix a bug on another branch), <code>git stash</code> will help (<a href="#sec.stash">Sec. 4.5, &#8220;Outsourcing Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.branch-naming"><a class="anchor" href="#sec.branch-naming"></a>3.1.2.2. Conventions for Naming Branches</h5>
+<h5 id="sec.branch-naming"><a class="anchor" href="#sec.branch-naming"></a>3.1.2.2. Branch Naming Conventions</h5>
 <div class="paragraph">
 <p>In principle, you can name branches almost arbitrarily.
 Exceptions are spaces, some special characters with special meaning for Git (e.g. <code>*</code>, <code>^</code>, <code>:</code>, <code>~</code>), as well as two consecutive dots (<code>..</code>) or a dot at the beginning of the name.&#8288;<sup class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnotedef_31" title="View footnote.">31</a>]</sup></p>
@@ -3996,7 +3996,7 @@ You therefore only undo the <em>changes</em>, but do not delete any information 
 </div>
 <div class="paragraph">
 <p>You should therefore only use <code>revert</code> if you need to undo a change that has already been published.
-However, if you are developing locally in a separate branch, it makes more sense to delete these commits completely (see the following section on <code>reset</code> and the topic <em>Rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
+However, if you are developing locally in a separate branch, it makes more sense to delete these commits completely (see the following section on <code>reset</code> and the topic <em>Rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>If you want to perform a rebase, but not for all changes to the commit, but only for those to a file, you can use this procedure:</p>
@@ -4101,7 +4101,7 @@ $ <strong>git branch master HEAD^^</strong></pre>
 <p>With <code>reset</code> you do not delete any commits, but only move references.
 As a result, the commits that are no longer referenced are lost, and are therefore deleted (<em>unreachable</em>).
 So you can use <code>reset</code> to delete only the topmost commits on a branch, not arbitrary commits &#8220;somewhere in the middle,&#8221; as this would destroy the commit graph.
-(For the somewhat more complicated deletion of commits &#8220;in the middle,&#8221; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
+(For the somewhat more complicated deletion of commits &#8220;in the middle,&#8221; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>Git always stores the original <code>HEAD</code> under <code>ORIG_HEAD</code>.
@@ -4158,7 +4158,7 @@ $ <strong>git reset --soft HEAD^</strong>
 <p>The command <code>git reset --soft HEAD^</code> resets the <code>HEAD</code> one commit, but leaves the index and the working tree untouched.
 So all changes from your temporary commit are still in the index and working tree, but the actual commit is lost.
 You can now make further changes and create a new commit later.
-Similar functionality is provided by the <code>--amend</code> option for <code>git commit</code>, as well as the <code>git stash</code> command, which is explained in <a href="#sec.stash">Sec. 4.5, &#8220;Outsource Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>.</p>
+Similar functionality is provided by the <code>--amend</code> option for <code>git commit</code>, as well as the <code>git stash</code> command, which is explained in <a href="#sec.stash">Sec. 4.5, &#8220;Outsourcing Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>.</p>
 </div>
 </div>
 </div>
@@ -4220,7 +4220,7 @@ The referenced blob or tree is therefore the same as the one referenced in the m
 </li>
 <li>
 <p>A file was changed <em>on both sides</em> and <em>equivalently</em> (same blobs).
-This happens, for example, if all changes to a file were copied from one branch using <code>git cherry-pick</code> (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).
+This happens, for example, if all changes to a file were copied from one branch using <code>git cherry-pick</code> (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Picking&#8221;</a>).
 The referenced blob is then <em>not</em> the same as in the merge base.</p>
 </li>
 </ol>
@@ -4376,7 +4376,7 @@ In the above example, <code>-m 1</code> would cause the changes made by the four
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.merge-strategies"><a class="anchor" href="#sec.merge-strategies"></a>3.3.3. Merging Strategies</h4>
+<h4 id="sec.merge-strategies"><a class="anchor" href="#sec.merge-strategies"></a>3.3.3. Merge Strategies</h4>
 <div class="paragraph">
 <p>Git has five different merge strategies, some of which can be further adjusted by strategy options.
 You determine the strategy by <code>-s</code>, so a merge call is as follows:</p>
@@ -4829,7 +4829,7 @@ So to try Meld, during a merge conflict, simply type <code>git mergetool -t meld
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rerere"><a class="anchor" href="#sec.rerere"></a>3.4.2. rerere: Reuse Recorded Resolution</h4>
+<h4 id="sec.rerere"><a class="anchor" href="#sec.rerere"></a>3.4.2. Rerere: Reuse Recorded Resolution</h4>
 <div class="paragraph">
 <p>Git has a relatively unknown (and poorly documented), but very helpful feature: Rerere, short for <em>Reuse Recorded Resolution</em>.
 You need to set the <code>rerere.enabled</code> option to <code>true</code> to have the command called automatically (note the <code>d</code> at the end of <code>enabled</code>).</p>
@@ -4898,7 +4898,7 @@ This way you can successively develop your feature, knowing that it is in confli
 But at the time of the integration of the feature the conflicts are all automatically resolvable (because you have occasionally saved conflict solutions with Rerere).</p>
 </div>
 <div class="paragraph">
-<p>In addition, Rerere is also called automatically in conflict cases that arise in a rebase process (see <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).
+<p>In addition, Rerere is also called automatically in conflict cases that arise in a rebase process (see <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).
 Again, once conflicts have been resolved, they can be automatically resolved again.
 Once you have merged a branch into the mainline for test purposes and resolved a conflict, this solution is automatically applied when you rebuild this branch on the mainline via rebase.</p>
 </div>
@@ -4950,7 +4950,7 @@ Instead, it makes sense to provide appropriate Makefile targets or scripts to ge
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.cherry-pick"><a class="anchor" href="#sec.cherry-pick"></a>3.5. Taking over Individual Commits: Cherry Pick</h3>
+<h3 id="sec.cherry-pick"><a class="anchor" href="#sec.cherry-pick"></a>3.5. Taking over Individual Commits: Cherry Picking</h3>
 <div class="paragraph">
 <p>It will happen that you don&#8217;t want to integrate an entire branch directly, but rather parts, i.e. individual commits, first.
 The <code>cherry-pick</code> (&#8220;pick the good cherries&#8221;) git command is responsible for this.</p>
@@ -5225,7 +5225,7 @@ Tags are shown as yellow arrows.</p>
 <div class="paragraph">
 <p>You can delete or check out a branch with a right click on it.
 Right-clicking on commits opens a menu in which you can perform actions on the selected commit.
-The only thing that might be easier to do with Gitk than from the command line is <em>cherry picking</em>, i.e. transferring individual commits to another branch (see also <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>).</p>
+The only thing that might be easier to do with Gitk than from the command line is <em>cherry picking</em>, i.e. transferring individual commits to another branch (see also <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Picking&#8221;</a>).</p>
 </div>
 <div id="fig.gitk" class="imageblock text-center">
 <div class="content">
@@ -5380,7 +5380,7 @@ We&#8217;ll also look at how to stash changes to the working tree and annotate c
 Finally, we show you how to quickly and automatically find commits that introduce a bug (<em>Bisect</em>).</p>
 </div>
 <div class="sect2">
-<h3 id="sec.rebase"><a class="anchor" href="#sec.rebase"></a>4.1. Move commits&#8201;&#8212;&#8201;Rebase</h3>
+<h3 id="sec.rebase"><a class="anchor" href="#sec.rebase"></a>4.1. Moving commits&#8201;&#8212;&#8201;Rebase</h3>
 <div class="paragraph">
 <p>In the section on Git&#8217;s internals, we mentioned earlier that you can move and modify commits in a Git repository (graphically speaking) at will.
 In practice, this is made possible primarily by the git command <code>rebase</code>.
@@ -5544,7 +5544,7 @@ The command also helps if at some point you forget to finish a rebase process, a
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-sense"><a class="anchor" href="#sec.rebase-sense"></a>4.1.3. Why Rebase Makes Sense</h4>
+<h4 id="sec.rebase-sense"><a class="anchor" href="#sec.rebase-sense"></a>4.1.3. Why Rebasing Makes Sense</h4>
 <div class="paragraph">
 <p>Rebase is primarily useful for keeping the commit history of a project simple and easy to understand.
 For example, a developer might be working on a feature, but then have something else to do for a few weeks.
@@ -5572,7 +5572,7 @@ Instead, you rebase the branch on a new commit that already contains the require
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-vs-merge"><a class="anchor" href="#sec.rebase-vs-merge"></a>4.1.4. When Rebase Is <em>Not</em> Useful&#8201;&#8212;&#8201;Rebase vs. Merge</h4>
+<h4 id="sec.rebase-vs-merge"><a class="anchor" href="#sec.rebase-vs-merge"></a>4.1.4. When Rebasing Is <em>Not</em> Useful&#8201;&#8212;&#8201;Rebase vs. Merge</h4>
 <div class="paragraph">
 <p>The concept of rebase is initially a little difficult to understand.
 But once you have understood what is possible with it, the question arises:
@@ -5673,7 +5673,7 @@ If you make an agreement that developers will do their own development on these 
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-cp"><a class="anchor" href="#sec.rebase-cp"></a>4.1.6. Avoid Code Duplication</h4>
+<h4 id="sec.rebase-cp"><a class="anchor" href="#sec.rebase-cp"></a>4.1.6. Avoiding Code Duplication</h4>
 <div class="paragraph">
 <p>If a feature is being developed over a long period of time, and parts of the feature are already flowing into a mainstream release (e.g. via <code>cherry-pick</code>), the rebase command will detect these commits and omit them when copying or rebuilding the commits, because the change is already contained in the branch.</p>
 </div>
@@ -5684,7 +5684,7 @@ If the branch had simply been merged, the same commits with different SHA-1 sums
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-ps"><a class="anchor" href="#sec.rebase-ps"></a>4.1.7. Manage Patch Stacks</h4>
+<h4 id="sec.rebase-ps"><a class="anchor" href="#sec.rebase-ps"></a>4.1.7. Managing Patch Stacks</h4>
 <div class="paragraph">
 <p>There are situations where there is a vanilla version (&#8220;simplest version&#8221;) of a piece of software and also a certain number of patches applied to it before the vanilla version is shipped.
 For example, your company builds software, but before each delivery to the customer, some adjustments have to be made (depending on the customer).
@@ -5697,7 +5697,7 @@ An alternative to TopGit is <em>Stacked Git</em>&#8288;<sup class="footnote">[<a
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-onto"><a class="anchor" href="#sec.rebase-onto"></a>4.1.8. Restrict Rebase with --onto</h4>
+<h4 id="sec.rebase-onto"><a class="anchor" href="#sec.rebase-onto"></a>4.1.8. Restricting Rebase via --onto</h4>
 <div class="paragraph">
 <p>Now, you may have wondered:
 <code>git rebase &lt;reference&gt;</code> always copies <em>all</em> commits that are between <code>reference&gt;</code> and <code>HEAD</code>.
@@ -5780,7 +5780,7 @@ The faulty commit <code>21d8691</code> is no longer referenced, and therefore no
 The <code>fix-master</code> branch is now obsolete and can be deleted.</p>
 </div>
 <div class="paragraph">
-<p>An equivalent way to edit a commit is with the <code>edit</code> action in the interactive rebase (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit Commits Arbitrarily&#8221;</a>).</p>
+<p>An equivalent way to edit a commit is with the <code>edit</code> action in the interactive rebase (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Editing Commits Arbitrarily&#8221;</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -5792,7 +5792,7 @@ rebase may try to mimic these instead of linearizing the commits.
 The <code>-p' or `--preserve-merges</code> option is responsible for this. &#8288;<sup class="footnote">[<a id="_footnoteref_59" class="footnote" href="#_footnotedef_59" title="View footnote.">59</a>]</sup></p>
 </div>
 <div class="paragraph">
-<p>With the <code>-m</code> or <code>--merge</code> option, you can tell <code>git rebase</code> to use merge strategies (see also <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a>).
+<p>With the <code>-m</code> or <code>--merge</code> option, you can tell <code>git rebase</code> to use merge strategies (see also <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merge Strategies&#8221;</a>).
 When using these strategies, keep in mind that rebase internally commits commit by commit to the new branch via <code>cherry-pick</code>; therefore the roles of <code>ours</code> and <code>theirs</code> are reversed:
 <code>theirs</code> refers to the branch you are building on a new base!</p>
 </div>
@@ -5963,7 +5963,7 @@ The rebase process is stopped at the process marked <code>reword</code>, and Git
 Once you exit the editor (don&#8217;t forget to save!), Git will enter the new description and let the rebase process continue.</p>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-i-squash"><a class="anchor" href="#sec.rebase-i-squash"></a>4.2.1. Correct Small Errors: Bug Squashing</h4>
+<h4 id="sec.rebase-i-squash"><a class="anchor" href="#sec.rebase-i-squash"></a>4.2.1. Correcting Small Errors: Bug Squashing</h4>
 <div class="paragraph">
 <p>The <code>squash</code> and <code>fixup</code> commands allow two or more commits to be merged together.</p>
 </div>
@@ -6061,7 +6061,7 @@ To do this, set the <code>rebase.autosquash</code> setting to <code>true</code>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.rebase-i-edit"><a class="anchor" href="#sec.rebase-i-edit"></a>4.2.2. Edit Commits Arbitrarily</h4>
+<h4 id="sec.rebase-i-edit"><a class="anchor" href="#sec.rebase-i-edit"></a>4.2.2. Editing Commits Arbitrarily</h4>
 <div class="paragraph">
 <p>If you mark a commit with <code>edit</code>, it can be edited as you wish.
 rebase will go through the commits sequentially, as in the other cases.
@@ -6080,7 +6080,7 @@ $ <strong>git rebase --continue</strong></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.rebase-split-cmmits"><a class="anchor" href="#sec.rebase-split-cmmits"></a>4.2.2.1. Split Commits</h5>
+<h5 id="sec.rebase-split-cmmits"><a class="anchor" href="#sec.rebase-split-cmmits"></a>4.2.2.1. Splitting Commits</h5>
 <div class="paragraph">
 <p>Every programmer knows this:
 Checking in every change in a disciplined and meticulous way is exhausting and often interrupts the workflow.
@@ -6089,7 +6089,7 @@ But this way, the version history is available to other developers - and to your
 </div>
 <div class="paragraph">
 <p>By the way, it is not only helpful for developers to proceed this way.
-Also the automated debugging using <code>git bisect</code> works better and more accurate the smaller and more useful the commits are (see `<a href="#sec.bisect">Sec. 4.8, &#8220;Find Regressions&#8201;&#8212;&#8201;Git Bisect&#8221;</a>).</p>
+Also the automated debugging using <code>git bisect</code> works better and more accurate the smaller and more useful the commits are (see `<a href="#sec.bisect">Sec. 4.8, &#8220;Finding Regressions&#8201;&#8212;&#8201;Git Bisect&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>With a little experience, you can split a commit very quickly.
@@ -6179,7 +6179,7 @@ eb9d47cf http.c 129) void end_url_with_slash(struct strbuf *buf, const
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.blame-gui"><a class="anchor" href="#sec.blame-gui"></a>4.3.1. Blame Graphically</h4>
+<h4 id="sec.blame-gui"><a class="anchor" href="#sec.blame-gui"></a>4.3.1. Blaming with Graphics</h4>
 <div class="paragraph">
 <p>A convenient alternative to <code>git blame</code> on the console is the graphical tool <code>git gui blame</code> (you may need to install the <code>git-gui</code> package for this).</p>
 </div>
@@ -6206,7 +6206,7 @@ Use the green arrow in the upper left corner to jump back into the future again.
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.ignore"><a class="anchor" href="#sec.ignore"></a>4.4. Ignore Files</h3>
+<h3 id="sec.ignore"><a class="anchor" href="#sec.ignore"></a>4.4. Ignoring Files</h3>
 <div class="paragraph">
 <p>In almost every project there are files that you do not want to version.
 Be it the binary output of the compiler, the autogenerated documentation in HTML format or the backup files generated by your editor.
@@ -6252,7 +6252,7 @@ You store these settings in the file <code>.gitignore</code>, which you check in
 <p>Finally, the <code>.git/info/exclude</code> file can be used for repository-specific settings that should not be delivered with a clone, i.e. settings that are both project and user specific.</p>
 </div>
 <div class="sect3">
-<h4 id="sec.pattern"><a class="anchor" href="#sec.pattern"></a>4.4.1. Syntax for Pattern</h4>
+<h4 id="sec.pattern"><a class="anchor" href="#sec.pattern"></a>4.4.1. Pattern Syntax</h4>
 <div class="paragraph">
 <p>The syntax for patterns is based on the shell syntax:</p>
 </div>
@@ -6340,7 +6340,7 @@ For example, the expression <code>/*.sh</code> includes <code>upload.sh</code> b
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.retroactive-ignore"><a class="anchor" href="#sec.retroactive-ignore"></a>4.4.2. Ignore or Version Later</h4>
+<h4 id="sec.retroactive-ignore"><a class="anchor" href="#sec.retroactive-ignore"></a>4.4.2. Ignoring and Tracking Later</h4>
 <div class="paragraph">
 <p>Files that are already versioned are not automatically ignored.
 To ignore such a file anyway, explicitly tell Git to &#8220;forget&#8221; the file:</p>
@@ -6374,7 +6374,7 @@ $ <strong>git add -f documentation.pdf</strong></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.git-clean"><a class="anchor" href="#sec.git-clean"></a>4.4.3. Delete Ignored and Unknown Files</h4>
+<h4 id="sec.git-clean"><a class="anchor" href="#sec.git-clean"></a>4.4.3. Deleting Ignored and Unknown Files</h4>
 <div class="paragraph">
 <p>The <code>git clean</code> command deletes ignored as well as unknown (so-called <em>untracked</em>) files.
 Since files may be irretrievably lost, the command has the <code>--dry-run</code> (or <code>-n</code>) option; it tells you what would be deleted.
@@ -6393,7 +6393,7 @@ So to delete unknown as well as ignored files and directories, enter</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.stash"><a class="anchor" href="#sec.stash"></a>4.5. Outsource Changes&#8201;&#8212;&#8201;Git Stash</h3>
+<h3 id="sec.stash"><a class="anchor" href="#sec.stash"></a>4.5. Outsourcing Changes&#8201;&#8212;&#8201;Git Stash</h3>
 <div class="paragraph">
 <p>The stash is a mechanism used to temporarily store changes in the working tree that have not yet been saved.
 A classic use case: your boss asks you to fix a critical bug as soon as possible, but you have just started to implement a new feature.
@@ -6471,7 +6471,7 @@ The <code>--index</code> option also restores the stored state of the index.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.stash-conflicts"><a class="anchor" href="#sec.stash-conflicts"></a>4.5.2. Solve Conflicts</h4>
+<h4 id="sec.stash-conflicts"><a class="anchor" href="#sec.stash-conflicts"></a>4.5.2. Solving Conflicts</h4>
 <div class="paragraph">
 <p>Conflicts can occur if you apply a stash to a commit other than the one on which it was created:</p>
 </div>
@@ -6553,7 +6553,7 @@ First you store the changes in the working tree into a new stash, then you get t
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.stash-message"><a class="anchor" href="#sec.stash-message"></a>4.5.4. Adjust Message</h4>
+<h4 id="sec.stash-message"><a class="anchor" href="#sec.stash-message"></a>4.5.4. Adjusting Messages</h4>
 <div class="paragraph">
 <p>By default, Git sets the following message for a stash</p>
 </div>
@@ -6598,7 +6598,7 @@ HEAD is now at b529e34 new spec how the script should behave</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.multi-stash"><a class="anchor" href="#sec.multi-stash"></a>4.5.5. View Stashes</h4>
+<h4 id="sec.multi-stash"><a class="anchor" href="#sec.multi-stash"></a>4.5.5. Viewing Stashes</h4>
 <div class="paragraph">
 <p>Git manages all stashes as a stack, i.e. more recent states are on top and are processed first.
 The stashes are named with a reflog syntax (see also <a href="#sec.reflog">Sec. 3.7, &#8220;Reflog&#8221;</a>):</p>
@@ -6671,7 +6671,7 @@ stash@{1}: WIP on master: b1ee2cf start and end date in one place only</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.stash-delete"><a class="anchor" href="#sec.stash-delete"></a>4.5.6. Delete Stashes</h4>
+<h4 id="sec.stash-delete"><a class="anchor" href="#sec.stash-delete"></a>4.5.6. Deleting Stashes</h4>
 <div class="paragraph">
 <p>Individual stashes can be deleted with the command <code>git stash drop</code>, all with <code>git stash clear</code>.
 If you delete a stash by mistake, you won&#8217;t find it again via the usual reflog mechanisms!
@@ -6738,7 +6738,7 @@ In contrast to normal reflog entries, stored stashes do not expire and are there
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.notes"><a class="anchor" href="#sec.notes"></a>4.6. Annotate Commits&#8201;&#8212;&#8201;Git Notes</h3>
+<h3 id="sec.notes"><a class="anchor" href="#sec.notes"></a>4.6. Annotating Commits&#8201;&#8212;&#8201;Git Notes</h3>
 <div class="paragraph">
 <p>In general, it is not easy to modify or extend commits once they have been published.
 Sometimes, however, you wish you could &#8220;attach&#8221; information to commits afterwards, without the commit changing.
@@ -6888,7 +6888,7 @@ So now you have an index that doesn&#8217;t contain anything and a branch that d
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.bisect"><a class="anchor" href="#sec.bisect"></a>4.8. Find Regressions&#8201;&#8212;&#8201;Git Bisect</h3>
+<h3 id="sec.bisect"><a class="anchor" href="#sec.bisect"></a>4.8. Finding Regressions&#8201;&#8212;&#8201;Git Bisect</h3>
 <div class="paragraph">
 <p>In software development, a regression refers to the point in time from which a certain feature of a program no longer functions.
 This can be after an update of libraries, after the introduction of new features that cause side effects etc.</p>
@@ -7591,7 +7591,7 @@ In addition, the <code>merge</code> call contained in the <code>pull</code> has 
 <p>The initial situation is the same as in <a href="#fig.pull">Figure 34, &#8220;What happens with a pull&#8221;</a>.
 The <code>fetch</code> contained in the <code>pull</code> moves the remote tracking branch <code>origin/master</code> to commit C.
 However, <code>rebase</code> does not create a merge commit; instead, a call to <code>rebase</code> gives the commit D a new base, and the local <code>master</code> is set to the new commit D'.
-(Rebase is described in detail in <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
+(Rebase is described in detail in <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
 </div>
 <div class="sect4">
 <h5 id="sec.upstream"><a class="anchor" href="#sec.upstream"></a>5.3.2.1. Upstream Branches</h5>
@@ -8040,7 +8040,7 @@ The option <code>-n</code> prevents the query.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.remote-branch-vv"><a class="anchor" href="#sec.remote-branch-vv"></a>5.5.2. Comparison with the Upstream</h4>
+<h4 id="sec.remote-branch-vv"><a class="anchor" href="#sec.remote-branch-vv"></a>5.5.2. Comparing with the Upstream</h4>
 <div class="paragraph">
 <p>If you have configured an upstream branch, when you change the branch (<code>git checkout</code>) and query the status (<code>git status</code>), you will receive a notification about the status of the branch compared to the upstream, for example:</p>
 </div>
@@ -8930,7 +8930,7 @@ Submodules get the flexibility of the sub-repository&#8201;&#8212;&#8201;so the 
 A comparison of the two approaches follows.</p>
 </div>
 <div class="paragraph">
-<p>Essentially, this technique is based on so-called subtree-merges, which were briefly discussed in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a> about merge strategies.
+<p>Essentially, this technique is based on so-called subtree-merges, which were briefly discussed in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merge Strategies&#8221;</a> about merge strategies.
 In our example, a subtree-merge is done by merging regular commits from the <code>libgit2</code> repository under the <code>libgit2/</code> <em>tree</em> (directory)&#8201;&#8212;&#8201;a top-level file in the library repository thus becomes a top-level file in the <code>libgit2/</code> tree, which in turn is part of the repository.</p>
 </div>
 <div class="paragraph">
@@ -9107,7 +9107,7 @@ In a central repository you can create your own namespace using your initials (e
 This is convenient for you and other developers and helps to split the actual programming process into logical units.</p>
 <div class="paragraph">
 <p>Merge small commits when they belong together.
-If necessary, take the time to split up large commits again in a sensible way (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit Commits Arbitrarily&#8221;</a>).</p>
+If necessary, take the time to split up large commits again in a sensible way (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Editing Commits Arbitrarily&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>However, only use Rebase for your own commits:
@@ -9161,9 +9161,9 @@ Here are a few general solution strategies:</p>
 <dt class="hdlist1"><em>Fix a small bug</em></dt>
 <dd>
 <p>If you notice a small bug that you want to fix quickly, you can do this in two ways:
-stash existing changes (see <a href="#sec.stash">Sec. 4.5, &#8220;Outsource Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>), check out the corresponding branch, fix the bug, change the branch again, and apply the stash.</p>
+stash existing changes (see <a href="#sec.stash">Sec. 4.5, &#8220;Outsourcing Changes&#8201;&#8212;&#8201;Git Stash&#8221;</a>), check out the corresponding branch, fix the bug, change the branch again, and apply the stash.</p>
 <div class="paragraph">
-<p>The other possibility is to fix the bug on the branch you are currently working on and to subsequently transfer the corresponding commit(s) via Cherry Pick or Rebase-Onto (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Pick&#8221;</a>) to the designated bugfix or topic branch.</p>
+<p>The other possibility is to fix the bug on the branch you are currently working on and to subsequently transfer the corresponding commit(s) via Cherry Pick or Rebase-Onto (see <a href="#sec.cherry-pick">Sec. 3.5, &#8220;Taking over Individual Commits: Cherry Picking&#8221;</a>) to the designated bugfix or topic branch.</p>
 </div>
 </dd>
 </dl>
@@ -9175,7 +9175,7 @@ stash existing changes (see <a href="#sec.stash">Sec. 4.5, &#8220;Outsource Chan
 <p>With <code>git commit --amend</code> you can customize the last commit.
 The <code>--no-edit</code> option causes the description to be retained and not offered again for editing.</p>
 <div class="paragraph">
-<p>To fix deeper commits, either use interactive rebase and the <code>edit</code> keyword (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Edit Commits Arbitrarily&#8221;</a>), or create a small commit for each fix, then arrange them accordingly in the interactive rebase, and apply the <code>fixup</code> action to them to correct the original commit.</p>
+<p>To fix deeper commits, either use interactive rebase and the <code>edit</code> keyword (see <a href="#sec.rebase-i-edit">Sec. 4.2.2, &#8220;Editing Commits Arbitrarily&#8221;</a>), or create a small commit for each fix, then arrange them accordingly in the interactive rebase, and apply the <code>fixup</code> action to them to correct the original commit.</p>
 </div>
 </dd>
 </dl>
@@ -9471,7 +9471,7 @@ This looks like this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.release-create"><a class="anchor" href="#sec.release-create"></a>6.3.2. Create Release</h4>
+<h4 id="sec.release-create"><a class="anchor" href="#sec.release-create"></a>6.3.2. Creating Releases</h4>
 <div class="paragraph">
 <p>Git provides the following two useful tools to help you prepare for a release:</p>
 </div>
@@ -9629,7 +9629,7 @@ Archive:  wiki2beamer-0.9.3.zip
 <td class="content">
 <div class="paragraph">
 <p>One problem you should keep in mind is that for example <code>.gitignore</code> files are automatically packed.
-But since they have no meaning outside a git repository, it is worth excluding them with the git attribute (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git Attributes&#8201;&#8212;&#8201;Treat Files Separately&#8221;</a>) <code>export-ignore</code>.
+But since they have no meaning outside a git repository, it is worth excluding them with the git attribute (see <a href="#sec.attributes">Sec. 8.1, &#8220;Git Attributes&#8201;&#8212;&#8201;Treating Files Separately&#8221;</a>) <code>export-ignore</code>.
 This is done with an entry <code>.gitignore export-ignore</code> in <code>.git/info/attributes</code>.</p>
 </div>
 <div class="paragraph">
@@ -10246,7 +10246,7 @@ Note the missing plus sign, though: A forced update is not covered by the first 
 <p>With the means presented here and others, which you can take from the documentation, &#8288;<sup class="footnote">[<a id="_footnoteref_99" class="footnote" href="#_footnotedef_99" title="View footnote.">99</a>]</sup> you are able to force policies very flexibly.
 However, it may not be useful to control everything down to the smallest detail.
 As mentioned above, especially a control on file name level is problematic.
-Then, if hours of work go into a commit, but it can&#8217;t be uploaded because one of those restrictions prohibits it, the frustration is great (and fixing that commit is not trivial, either; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Move commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
+Then, if hours of work go into a commit, but it can&#8217;t be uploaded because one of those restrictions prohibits it, the frustration is great (and fixing that commit is not trivial, either; see <em>rebase</em>, <a href="#sec.rebase">Sec. 4.1, &#8220;Moving commits&#8201;&#8212;&#8201;Rebase&#8221;</a>).</p>
 </div>
 <div class="paragraph">
 <p>At the branch level, it makes sense to give only a limited group of developers access to &#8220;important&#8221; branches (such as <code>master</code>).
@@ -10959,7 +10959,7 @@ In the first section about <em>Git attributes</em>, we&#8217;ll show you how to 
 <p>Finally, we will introduce the powerful <code>filter-branch</code> command, which you can use to rewrite the project history on a large scale, for example to remove a file with a password from <em>all</em> commits.</p>
 </div>
 <div class="sect2">
-<h3 id="sec.attributes"><a class="anchor" href="#sec.attributes"></a>8.1. Git Attributes&#8201;&#8212;&#8201;Treat Files Separately</h3>
+<h3 id="sec.attributes"><a class="anchor" href="#sec.attributes"></a>8.1. Git Attributes&#8201;&#8212;&#8201;Treating Files Separately</h3>
 <div class="paragraph">
 <p><em>Git attributes</em> allow you to assign specific properties to individual files or a group of files so that Git treats them with special care; examples would be forcing the end of lines or marking certain files as binary.</p>
 </div>
@@ -11115,7 +11115,7 @@ Once the files are distributed (e.g. as a tarball), you can clean up with <code>
 <div class="paragraph">
 <p>Alternatively, the <code>export-subst</code> attribute ensures that an expansion of the form <code>$Format:&lt;Pretty&gt;$</code> is performed.
 Where <code>&lt;Pretty&gt;</code> must be a format that is valid for <code>git log --pretty=format:&lt;Pretty&gt;</code>, e.g.&#160;`%h` for the shortened commit hash sum.
-Git will only expand these attributes if the file is packaged via <code>git archive</code> (see <a href="#sec.release-create">Sec. 6.3.2, &#8220;Create Release&#8221;</a>).</p>
+Git will only expand these attributes if the file is packaged via <code>git archive</code> (see <a href="#sec.release-create">Sec. 6.3.2, &#8220;Creating Releases&#8221;</a>).</p>
 </div>
 </div>
 </div>
@@ -11179,7 +11179,7 @@ The Diff command must be able to handle these cases accordingly.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.diff-config"><a class="anchor" href="#sec.diff-config"></a>8.1.3.2. Configure External Diffs</h5>
+<h5 id="sec.diff-config"><a class="anchor" href="#sec.diff-config"></a>8.1.3.2. Configuring External Diffs</h5>
 <div class="paragraph">
 <p>There are two ways to call an external diff program.
 The first method is temporary:
@@ -11216,7 +11216,7 @@ If you want to set this for one repository only, write this information to <code
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.diff-immages"><a class="anchor" href="#sec.diff-immages"></a>8.1.3.3. Compare Pictures</h5>
+<h5 id="sec.diff-immages"><a class="anchor" href="#sec.diff-immages"></a>8.1.3.3. Comparing Pictures</h5>
 <div class="paragraph">
 <p>A common use case are pictures:
 What has changed between two versions of an image?
@@ -11406,7 +11406,7 @@ true</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The names of all files modified in the index (diff filter <code>modified</code> and <code>added</code>, see also <a href="#sec.scripting-find-changes">Sec. 8.3.4, &#8220;Find Changes&#8221;</a>) are passed to a subshell that checks per file whether the first line is a Perl script.
+<p>The names of all files modified in the index (diff filter <code>modified</code> and <code>added</code>, see also <a href="#sec.scripting-find-changes">Sec. 8.3.4, &#8220;Finding Changes&#8221;</a>) are passed to a subshell that checks per file whether the first line is a Perl script.
 If so, the file is checked with <code>perl -c</code>.
 If there is a syntax error in the file, the command will issue an appropriate error message, and <code>exit 1</code> will terminate the hook, so Git will abort the commit process before an editor is opened to enter the commit message.</p>
 </div>
@@ -11584,7 +11584,7 @@ env GIT_WORK_TREE=/var/www/www.example.com git checkout -f</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.hooks-am"><a class="anchor" href="#sec.hooks-am"></a>8.2.3. Apply Patches</h4>
+<h4 id="sec.hooks-am"><a class="anchor" href="#sec.hooks-am"></a>8.2.3. Applying Patches</h4>
 <div class="paragraph">
 <p>The following hooks are each called by <code>git am</code> when one or more patches are applied.</p>
 </div>
@@ -11941,7 +11941,7 @@ For details see the <code>git-rev-parse(1)</code> man page, section "Parseopt".<
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.scripting-find-changes"><a class="anchor" href="#sec.scripting-find-changes"></a>8.3.4. Find Changes</h4>
+<h4 id="sec.scripting-find-changes"><a class="anchor" href="#sec.scripting-find-changes"></a>8.3.4. Finding Changes</h4>
 <div class="paragraph">
 <p><code>git diff</code> and <code>git log</code> tell you to display information about the files that a commit has changed, using the <code>--name-status</code> option:</p>
 </div>
@@ -12169,7 +12169,7 @@ With dozens or even hundreds of references, the single call is resource-saving a
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.for-each-ref"><a class="anchor" href="#sec.for-each-ref"></a>8.3.6. Iterate References: for-each-ref</h4>
+<h4 id="sec.for-each-ref"><a class="anchor" href="#sec.for-each-ref"></a>8.3.6. Iterating References: for-each-ref</h4>
 <div class="paragraph">
 <p>A common task is to iterate references.
 Here, Git provides the general-purpose command <code>for-each-ref</code>.
@@ -12460,7 +12460,7 @@ The final call to <code>head</code> limits the output to the top ten authors:</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="sec.filter-branch"><a class="anchor" href="#sec.filter-branch"></a>8.4. Rewrite Version History</h3>
+<h3 id="sec.filter-branch"><a class="anchor" href="#sec.filter-branch"></a>8.4. Rewriting Version History</h3>
 <div class="paragraph">
 <p>The previously introduced <code>git rebase</code> command and its interactive mode allows developers to edit commits at will.
 Code that is still in development can be "cleaned up" before it is integrated (e.g. via merge) and thus permanently merged with the software.</p>
@@ -12573,7 +12573,7 @@ However, if you like the result, you can easily make the new repository the mast
 <p>The following examples deal with some typical use cases of the <code>filter-branch</code> command.</p>
 </div>
 <div class="sect3">
-<h4 id="sec.fb-censor"><a class="anchor" href="#sec.fb-censor"></a>8.4.1. Remove Sensitive Information Afterwards</h4>
+<h4 id="sec.fb-censor"><a class="anchor" href="#sec.fb-censor"></a>8.4.1. Removing Sensitive Information Afterwards</h4>
 <div class="paragraph">
 <p>Ideally, sensitive data such as keys, certificates or passwords are not part of a repository.
 Even large binary files or other data junk unnecessarily inflate the size of the repository.</p>
@@ -12636,7 +12636,7 @@ To check this, use the command <code>git log --name-status --follow - &lt;file&g
 </table>
 </div>
 <div class="sect4">
-<h5 id="sec.fb-censor-string"><a class="anchor" href="#sec.fb-censor-string"></a>8.4.1.1. Remove Strings from Files</h5>
+<h5 id="sec.fb-censor-string"><a class="anchor" href="#sec.fb-censor-string"></a>8.4.1.1. Removing Strings from Files</h5>
 <div class="paragraph">
 <p>If you don&#8217;t want to change whole files, but only certain lines in all commits, a filter at index level is not sufficient.
 You must use a tree filter.</p>
@@ -12691,7 +12691,7 @@ If you use a <code>tmpfs</code> here (especially <code>/dev/shm</code> or <code>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.fb-developer"><a class="anchor" href="#sec.fb-developer"></a>8.4.1.2. Rename a Developer</h5>
+<h5 id="sec.fb-developer"><a class="anchor" href="#sec.fb-developer"></a>8.4.1.2. Renaming a Developer</h5>
 <div class="paragraph">
 <p>If you want to rename a developer, you can do this by changing the variable <code>GIT_AUTHOR_NAME</code> in an environment filter, if necessary.
 For example like this:</p>
@@ -12706,7 +12706,7 @@ For example like this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.fb-subdir"><a class="anchor" href="#sec.fb-subdir"></a>8.4.2. Extract Subdirectory</h4>
+<h4 id="sec.fb-subdir"><a class="anchor" href="#sec.fb-subdir"></a>8.4.2. Extracting a Subdirectory</h4>
 <div class="paragraph">
 <p>The Subdirectory filter allows you to rewrite the commits so that a subdirectory of the current repository becomes the new top-level directory.
 All other directories and the former top-level directory are dropped.
@@ -12799,7 +12799,7 @@ $ <strong>rm .git/info/grafts</strong></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.fb-clean"><a class="anchor" href="#sec.fb-clean"></a>8.4.4. Delete Old Commits</h4>
+<h4 id="sec.fb-clean"><a class="anchor" href="#sec.fb-clean"></a>8.4.4. Deleting Old Commits</h4>
 <div class="paragraph">
 <p>After you have removed any sensitive data from all commits, you still need to make sure that these old commits do not reappear.
 In the repository you rewrote, this is done in three steps:</p>
@@ -13058,7 +13058,7 @@ For example:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="sec.git-svn-username"><a class="anchor" href="#sec.git-svn-username"></a>9.1.1.3. Specify a Username</h5>
+<h5 id="sec.git-svn-username"><a class="anchor" href="#sec.git-svn-username"></a>9.1.1.3. Specifying a Username</h5>
 <div class="paragraph">
 <p>How you specify the user name depends on the transport protocol.
 For those where Subversion handles authentication (e.g. <code>http</code>, <code>https</code>, and <code>svn</code>), use the <code>--username</code> option.
@@ -13593,7 +13593,7 @@ The file will still be needed in the future when you download new commits from t
 <p>In the section on conversion we described how to use <code>create-ignore</code> to create <code>.gitignore</code> files.
 However, if you want to continue working with the Subversion repository, there is little point in checking in the <code>.gitignore</code> files there.
 They have no effect on Subversion and only confuse other developers who continue to work with the native Subversion client (<code>svn</code>).
-Instead, there is an option to store the patterns to ignore in the <code>.git/info/excludes</code> file (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignore Files&#8221;</a>), which is not part of the repository.
+Instead, there is an option to store the patterns to ignore in the <code>.git/info/excludes</code> file (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignoring Files&#8221;</a>), which is not part of the repository.
 The <code>git svn show-ignore</code> command, which searches for and outputs all <code>svn-ignore</code> properties, can help here:</p>
 </div>
 <div class="listingblock">
@@ -14143,7 +14143,7 @@ In Gentoo, you install the file via the USE flag <code>bash-completion</code> of
 The current maintainer is Shawn O. Pearce.</p>
 </div>
 <div class="sect3">
-<h4 id="sec.bash-completion"><a class="anchor" href="#sec.bash-completion"></a>10.1.1. Completion</h4>
+<h4 id="sec.bash-completion"><a class="anchor" href="#sec.bash-completion"></a>10.1.1. Completions</h4>
 <div class="paragraph">
 <p>To activate the completion, load the script with the command <code>source</code> and pass the corresponding file as argument, e.g:</p>
 </div>
@@ -14289,7 +14289,7 @@ Only when the input is ambiguous does the bash display the possible completions.
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.bash-prompt"><a class="anchor" href="#sec.bash-prompt"></a>10.1.2. Prompt</h4>
+<h4 id="sec.bash-prompt"><a class="anchor" href="#sec.bash-prompt"></a>10.1.2. The Prompt</h4>
 <div class="paragraph">
 <p>Beside the completion there is another script to display information about the git repository in the prompt.
 For this you have to load the file <code>contrib/completion/git-prompt.sh</code> (maybe it is also installed by your distribution, e.g. under <code>/usr/lib/git-core/git-sh-prompt</code>).
@@ -14480,7 +14480,7 @@ $ git rebase[ESC][h]
 </table>
 </div>
 <div class="sect3">
-<h4 id="sec.zsh-completion"><a class="anchor" href="#sec.zsh-completion"></a>10.2.1. Completion</h4>
+<h4 id="sec.zsh-completion"><a class="anchor" href="#sec.zsh-completion"></a>10.2.1. Completions</h4>
 <div class="paragraph">
 <p>To activate completion for Git, first load the completion system:</p>
 </div>
@@ -14638,7 +14638,7 @@ projekt1.git/ projekt2.git/</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sec.zsh-prompt"><a class="anchor" href="#sec.zsh-prompt"></a>10.2.2. Prompt</h4>
+<h4 id="sec.zsh-prompt"><a class="anchor" href="#sec.zsh-prompt"></a>10.2.2. The Prompt</h4>
 <div class="paragraph">
 <p>The Z-Shell contains functions to add git info to the prompt.
 The functionality is part of the extensive <code>vcs_info</code> system, which knows about a dozen other version control programs besides Git, including Subversion, CVS and Mercurial.
@@ -15232,7 +15232,7 @@ Besides <code>HEAD</code>, other important symbolic references may be stored on 
 <code>info/</code> 
 </td>
 <td class="hdlist2">
-<p>Additional repository information, such as patterns to be ignored (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignore Files&#8221;</a>) and also grafts (see <a href="#sec.fb-grafts">Sec. 8.4.3, &#8220;Grafts: Subsequent Merges&#8221;</a>).
+<p>Additional repository information, such as patterns to be ignored (see <a href="#sec.ignore">Sec. 4.4, &#8220;Ignoring Files&#8221;</a>) and also grafts (see <a href="#sec.fb-grafts">Sec. 8.4.3, &#8220;Grafts: Subsequent Merges&#8221;</a>).
 You can put your own information there if other tools can handle it (see e.g. the section on caching of CGit, <a href="#sec.cgit-cache">Sec. 7.5.4, &#8220;Exploiting Caching&#8221;</a>).</p>
 </td>
 </tr>
@@ -15331,7 +15331,7 @@ By default this happens after 90 days.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Old conflict resolutions (see Rerere, <a href="#sec.rerere">Sec. 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>) are discarded (15/60 days hold time for unresolved/solved).</p>
+<p>Old conflict resolutions (see Rerere, <a href="#sec.rerere">Sec. 3.4.2, &#8220;Rerere: Reuse Recorded Resolution&#8221;</a>) are discarded (15/60 days hold time for unresolved/solved).</p>
 </li>
 </ul>
 </div>
@@ -15517,7 +15517,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_18">18</a>. In fact, Git creates a new commit whose changes are a combination of the changes made to the old commit and the index. The new commit then <em>replaces</em> the old one.
 </div>
 <div class="footnote" id="_footnotedef_19">
-<a href="#_footnoteref_19">19</a>. <code>git rm</code> deletes a file with the next commit, but it remains in the commit history. For information on how to delete a file completely, including from the version history, see <a href="#sec.fb-censor">Sec. 8.4.1, &#8220;Remove Sensitive Information Afterwards&#8221;</a>.
+<a href="#_footnoteref_19">19</a>. <code>git rm</code> deletes a file with the next commit, but it remains in the commit history. For information on how to delete a file completely, including from the version history, see <a href="#sec.fb-censor">Sec. 8.4.1, &#8220;Removing Sensitive Information Afterwards&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_20">
 <a href="#_footnoteref_20">20</a>. This and the following examples are from the Git repository.
@@ -15574,7 +15574,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_37">37</a>. It is not absolutely necessary that a merge base exists; for example, if you manage multiple root commits in a repository (see <a href="#sec.multi-root">Sec. 4.7, &#8220;Multiple Root Commits&#8221;</a>) and then merge the branches built on top of them, there will be no common base if no merge has taken place before. In this case, a file that exists in different versions on both sides creates a conflict.
 </div>
 <div class="footnote" id="_footnotedef_38">
-<a href="#_footnoteref_38">38</a>. The following description explains the approach of the <code>resolve</code> strategy. It differs only slightly from the standard <code>recursive</code> strategy, see also the detailed description of this strategy in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merging Strategies&#8221;</a>.
+<a href="#_footnoteref_38">38</a>. The following description explains the approach of the <code>resolve</code> strategy. It differs only slightly from the standard <code>recursive</code> strategy, see also the detailed description of this strategy in <a href="#sec.merge-strategies">Sec. 3.3.3, &#8220;Merge Strategies&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_39">
 <a href="#_footnoteref_39">39</a>. The <code>recursive</code> strategy is therefore only much more intelligent than <code>resolve</code> if the <em>topology</em> of the commits (i.e., the order in which they branched and merged) is much more complicated than simply branching and then merging.
@@ -15622,7 +15622,7 @@ You can speed this up by regularly calling <code>git repack -A -d -b</code> from
 <a href="#_footnoteref_53">53</a>. If you want to list all commits in the last two weeks, use <code>git log --since='two weeks ago'</code> instead.
 </div>
 <div class="footnote" id="_footnotedef_54">
-<a href="#_footnoteref_54">54</a>. If you&#8217;re managing patch stacks with Git that have potential conflicts, you should definitely take a look at the <em>Reuse Recorded Resolution</em> feature, in short, <em>rerere</em>. <em>Rerere</em> saves conflict resolutions and automatically corrects conflicts if a resolution has already been saved, see also <a href="#sec.rerere">Sec. 3.4.2, &#8220;rerere: Reuse Recorded Resolution&#8221;</a>.
+<a href="#_footnoteref_54">54</a>. If you&#8217;re managing patch stacks with Git that have potential conflicts, you should definitely take a look at the <em>Reuse Recorded Resolution</em> feature, in short, <em>rerere</em>. <em>Rerere</em> saves conflict resolutions and automatically corrects conflicts if a resolution has already been saved, see also <a href="#sec.rerere">Sec. 3.4.2, &#8220;Rerere: Reuse Recorded Resolution&#8221;</a>.
 </div>
 <div class="footnote" id="_footnotedef_55">
 <a href="#_footnoteref_55">55</a>. For example, by uploading the branch to a publicly available repository, see <a href="#sec.uploading-commits">Sec. 5.4, &#8220;Uploading Commits: git push&#8221;</a>.

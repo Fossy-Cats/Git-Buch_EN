@@ -5,13 +5,13 @@
 
 # Git-Buch, English Translation
 
-- https://tajmone.github.io/Git-Buch_EN
+- https://github.com/Fossy-Cats/Git-Buch_EN
 
 English translation of _[Das Git-Buch]_ (The Git Book) by [Valentin Haenel] and [Julius Plenz], released under [CC BY-NC-SA 4.0].
 
 You can preview the full book in HTML5 at the repository website:
 
-- [git.io/git-book]
+- [git.io/gitbook]
 
 Translation project created by [Tristano Ajmone] in 2020/06/14.
 English translation by [Tristano Ajmone] and [Alexander Bolli].
@@ -170,7 +170,7 @@ Open Source Press:
 
 [76af76a]: https://github.com/gitbuch/gitbuch_cc/tree/76af76a303a6111d3a5910d612980fc4c597e05f/ "View upstream repository, commit 76af76a"
 
-[git.io/git-book]: https://git.io/git-book "View 'The Git Book' online in HTML"
+[git.io/gitbook]: https://git.io/gitbook "View 'The Git Book' online in HTML"
 
 <!-- Open Source Press -->
 
@@ -191,8 +191,8 @@ Open Source Press:
 [license badge]: https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-00b5da.svg
 [status badge]: https://img.shields.io/badge/status-beta-orange "Project Status: Beta (polishing in progress)"
 [branch badge]: https://img.shields.io/badge/PRs_Branch-beta--dev-yellow "Pull Requests Branch: beta-dev"
-[Travis badge]: https://img.shields.io/travis/com/tajmone/Git-Buch_EN/master?logo=travis
-[Travis link]: https://travis-ci.com/tajmone/Git-Buch_EN "Travis CI: EditorConfig validation status"
+[Travis badge]: https://img.shields.io/travis/com/Fossy-Cats/Git-Buch_EN/master?logo=travis
+[Travis link]: https://app.travis-ci.com/github/Fossy-Cats/Git-Buch_EN "Travis CI: EditorConfig validation status"
 
 <!-- repo files -->
 
@@ -214,10 +214,10 @@ Open Source Press:
 
 <!-- repo branches -->
 
-[alpha-dev]: https://github.com/tajmone/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
-[beta-dev]: https://github.com/tajmone/Git-Buch_EN/tree/beta-dev "View the 'beta-dev' branch on GitHub"
-[master]: https://github.com/tajmone/Git-Buch_EN/tree/master "View the 'master' branch on GitHub"
-[upstream-de-master]: https://github.com/tajmone/Git-Buch_EN/tree/upstream-de-master "View the 'upstream-de-master' branch on GitHub"
+[alpha-dev]: https://github.com/Fossy-Cats/Git-Buch_EN/tree/alpha-dev "View the 'alpha-dev' branch on GitHub"
+[beta-dev]: https://github.com/Fossy-Cats/Git-Buch_EN/tree/beta-dev "View the 'beta-dev' branch on GitHub"
+[master]: https://github.com/Fossy-Cats/Git-Buch_EN/tree/master "View the 'master' branch on GitHub"
+[upstream-de-master]: https://github.com/Fossy-Cats/Git-Buch_EN/tree/upstream-de-master "View the 'upstream-de-master' branch on GitHub"
 
 <!-- 3rd party tools -->
 

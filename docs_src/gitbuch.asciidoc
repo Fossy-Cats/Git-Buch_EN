@@ -37,7 +37,7 @@ license.
 We're currently proofreading and polishing the entire text, and fixing some styling and formatting issues.
 Any help with proofreading is much appreciated; if you wish to contribute submit your changes via pull request on the `beta-dev` branch of the project repository:
 
-* https://github.com/tajmone/Git-Buch_EN
+* https://fossy-cats.github.io/Git-Buch_EN
 ===============================
 ================================================================================
 

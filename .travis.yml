@@ -1,7 +1,7 @@
-############################################
-#  "Git-Buch" English translation:         #
-#  https://github.com/tajmone/Git-Buch_EN  #
-############################################
+##########################################################
+#  English translation of "Das Git-Buch" (the Git Book)  #
+#  https://github.com/Fossy-Cats/Git-Buch_EN             #
+##########################################################
 
 dist: trusty
 
