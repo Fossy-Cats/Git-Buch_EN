@@ -1,0 +1,44 @@
+/*
+
+  padding: 40px, 40px, 40px, 40px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+*/
+body {
+  width: 100%;
+  background-color: #000;
+  font-style: 14px;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+div#main {
+  width: 840px;
+  min-width: 840px !important;
+  max-width: 840px !important;
+  margin: 20px auto 20px auto;
+  padding: 0 20px 0 20px;
+  background:
+    transparent
+    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAArklEQVR42mJcu3btfyBgwAcYGRkZDA0Nf4FoAuA3QACxgAwjZCAUsBGjCCCAmBioDAACiOoGAgQQ1Q0ECCCqGwgQQFQ3ECCAqG4gQABR3UCAAGIhIrGCEzaRaZUBIIBYQDmAUKIFGXbhwgUGInIUG0AAEeVCmKHEuBIggKgehgABRHUDAQKI6gYCBBDVDQQIIKobCBBAVDcQIICobiBAALGAim1iFIISLTE5CiDAAM2ZItDrCdZCAAAAAElFTkSuQmCC)
+    repeat;
+}
+/*
+*/
+img {
+  width: 800px;
+  min-width: 800px !important;
+  max-width: 800px !important;
+  border: 3px #f00 solid;
+}
+#main h1 {
+  width: 800px;
+  min-width: 800px !important;
+  max-width: 800px !important;
+  background-color: #000;
+  color:  #fff;
+  padding: 0.5em;
+  margin: 10px 0;
+}

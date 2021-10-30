@@ -70,6 +70,9 @@ Source files to generate the diagram images in SVG using [Dia].
 # Folder Contents
 
 - [`build.sh`][build.sh] — converts all `*.dia` projects to `*.svg` images into [`../../../docs_src/images/`][doc imgs].
+- [`preview-generator.sh`][preview-generator.sh] — creates an HTML page to preview generated SVGs:
+    + [`preview.html`][preview.html] — not tracked by Git! (need to generate)
+    + [`preview.css`][preview.css] — CSS for previewing diagrams.
 - [`get-dia.bat`][get-dia.bat] — Dia download and unpack script for Windows 10.
 - `*.dia` — [Dia] source project files.
 
@@ -331,6 +334,8 @@ Similar images are gathered according to their group of belonging in the preview
 
 
 # Diagrams Previews
+
+> **IMPORTANT** — for correct diagrams preview, run [`preview-generator.sh`][preview-generator.sh] and then open [`preview.html`][preview.html].
 
 
 ## `branch-model.svg`
@@ -697,6 +702,10 @@ Resources and articles on which fonts are safe to use based on common OSs' avail
 [doc imgs]: ../../../docs_src/images/ "Navigate to book images folder"
 
 <!-- project files -->
+
+[preview-generator.sh]: ./preview-generator.sh "View source script"
+[preview.html]: ./preview.html "View HTML file"
+[preview.css]: ./preview.css "View CSS file"
 
 [build.sh]: ./build.sh "View source script"
 [diagrams-palette.html]: ./diagrams-palette.html "View diagrams palette color spec (HTML)"
