@@ -64,4 +64,10 @@ rakefile    Ruby
 *.cifc   binary
 
 
+## GitHub Linguist Settings
+###########################
+assets/**  linguist-vendored
+*.asciidoc linguist-detectable
+*.adoc     linguist-detectable
+
 # EOF #
