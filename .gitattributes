@@ -26,6 +26,11 @@
 *.txt        text
 LICENSE      text
 
+## HTML Related Files
+#####################
+*.html             text
+/docs/index.html   text eol=lf
+/docs/*.css        text eol=lf
 
 ## Ruby Files
 #############

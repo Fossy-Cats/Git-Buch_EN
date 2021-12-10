@@ -1,0 +1,1132 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="author" content="Valentin Haenel, Julius Plenz">
+<title>Git Book &mdash; 10. Shell Integration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="style0.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style1.css" type="text/css">
+<link rel="stylesheet" href="asciidoctor-chunker.css" type="text/css"></head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Git: Distributed Version Control for Code and Documents</h1>
+<div class="details">
+<span id="author" class="author">Valentin Haenel</span><br>
+<span id="author2" class="author">Julius Plenz</span><br>
+<span id="revnumber">version 3.0</span>
+<br><span id="revremark">Beta Preview</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="index.html">Title Page</a></li><li><a href="Git-Book_1.html">Preface</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_1.html#sec.reader">Who Is This Book Intended For?</a></li>
+<li><a href="Git-Book_1.html#sec.structure">How to Read the Book?</a></li>
+<li><a href="Git-Book_1.html#sec.conventions">Conventions</a></li>
+<li><a href="Git-Book_1.html#sec.install-git-repo">Installation and “The Git-Repository”</a></li>
+<li><a href="Git-Book_1.html#sec.docs">Documentation and Help</a></li>
+<li><a href="Git-Book_1.html#sec.contact">Downloads and Contacts</a></li>
+<li><a href="Git-Book_1.html#sec.acknowledgements">Acknowledgements</a></li>
+<li><a href="Git-Book_1.html#sec.preface-2nd-edition">Preface to the 2nd Edition</a></li>
+<li><a href="Git-Book_1.html#sec.preface-cc-edition">Preface to the Creative Commons Edition</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_2.html">1. Introduction and First Steps</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_2.html#sec.terminology">1.1. Basic Terminology</a></li>
+<li><a href="Git-Book_2.html#sec.first-steps">1.2. First Steps with Git</a></li>
+<li><a href="Git-Book_2.html#chap.git-config">1.3. Configuring Git</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_3.html">2. The Basics</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_3.html#sec.basics">2.1. Git Commands</a></li>
+<li><a href="Git-Book_3.html#sec.object-model">2.2. The Object Model</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_4.html">3. Practical Version Control</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_4.html#sec.branches">3.1. References: Branches and Tags</a></li>
+<li><a href="Git-Book_4.html#sec.undo">3.2. Restoring Versions</a></li>
+<li><a href="Git-Book_4.html#sec.merge">3.3. Merging Branches</a></li>
+<li><a href="Git-Book_4.html#sec.merge-conflicts">3.4. Resolving Merge Conflicts</a></li>
+<li><a href="Git-Book_4.html#sec.cherry-pick">3.5. Taking over Individual Commits: Cherry Picking</a></li>
+<li><a href="Git-Book_4.html#sec.visualization">3.6. Visualizing Repositories</a></li>
+<li><a href="Git-Book_4.html#sec.reflog">3.7. Reflog</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_5.html">4. Advanced Concepts</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_5.html#sec.rebase">4.1. Moving commits — Rebase</a></li>
+<li><a href="Git-Book_5.html#sec.rebase-i">4.2. Rewriting History — Interactive Rebase</a></li>
+<li><a href="Git-Book_5.html#sec.blame">4.3. Who Made These Changes? — Git Blame</a></li>
+<li><a href="Git-Book_5.html#sec.ignore">4.4. Ignoring Files</a></li>
+<li><a href="Git-Book_5.html#sec.stash">4.5. Outsourcing Changes — Git Stash</a></li>
+<li><a href="Git-Book_5.html#sec.notes">4.6. Annotating Commits — Git Notes</a></li>
+<li><a href="Git-Book_5.html#sec.multi-root">4.7. Multiple Root Commits</a></li>
+<li><a href="Git-Book_5.html#sec.bisect">4.8. Finding Regressions — Git Bisect</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_6.html">5. Distributed Git</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_6.html#sec.distributed-systems">5.1. How Does Distributed Version Control Work?</a></li>
+<li><a href="Git-Book_6.html#sec.clone">5.2. Cloning Repositories</a></li>
+<li><a href="Git-Book_6.html#sec.downloading-commits">5.3. Downloading Commits</a></li>
+<li><a href="Git-Book_6.html#sec.uploading-commits">5.4. Uploading Commits: git push</a></li>
+<li><a href="Git-Book_6.html#sec.remotes-check">5.5. Examining Remotes</a></li>
+<li><a href="Git-Book_6.html#sec.multi-remote">5.6. Distributed Workflow with Multiple Remotes</a></li>
+<li><a href="Git-Book_6.html#sec.managing-remotes">5.7. Managing Remotes</a></li>
+<li><a href="Git-Book_6.html#sec.remote-tags">5.8. Exchanging Tags</a></li>
+<li><a href="Git-Book_6.html#sec.patch-queue">5.9. Patches via E-mail</a></li>
+<li><a href="Git-Book_6.html#sec.dictator">5.10. A Distributed, Hierarchical Workflow</a></li>
+<li><a href="Git-Book_6.html#sec.subprojects">5.11. Managing Subprojects</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_7.html">6. Workflows</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_7.html#sec.workflows-user">6.1. User</a></li>
+<li><a href="Git-Book_7.html#sec.branching-model">6.2. A Branching Model</a></li>
+<li><a href="Git-Book_7.html#sec.releases-management">6.3. Release Management</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_8.html">7. Git Servers</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_8.html#sec.server">7.1. Hosting a Git Server</a></li>
+<li><a href="Git-Book_8.html#sec.gitolite">7.2. Gitolite: Simple Git Hosting</a></li>
+<li><a href="Git-Book_8.html#sec.git-daemon">7.3. Git Daemon: Anonymous Read-Only Access</a></li>
+<li><a href="Git-Book_8.html#sec.gitweb">7.4. Gitweb: The Integrated Web Frontend</a></li>
+<li><a href="Git-Book_8.html#sec.cgit">7.5. CGit — CGI for Git</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_9.html">8. Git Automation</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_9.html#sec.attributes">8.1. Git Attributes — Treating Files Separately</a></li>
+<li><a href="Git-Book_9.html#sec.hooks">8.2. Hooks</a></li>
+<li><a href="Git-Book_9.html#sec.scripting">8.3. Writing Your Own Git Commands</a></li>
+<li><a href="Git-Book_9.html#sec.filter-branch">8.4. Rewriting Version History</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_10.html">9. Interacting with Other Version Control Systems</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_10.html#sec.subversion">9.1. Subversion</a></li>
+<li><a href="Git-Book_10.html#sec.fast-import">9.2. Custom Importers</a></li>
+</ul>
+</li>
+<li class="current"><a href="Git-Book_11.html">10. Shell Integration</a>
+<ul class="sectlevel2">
+<li class="current"><a href="Git-Book_11.html#sec.bash-integration">10.1. Git and the Bash</a></li>
+<li class="current"><a href="Git-Book_11.html#sec.zsh-integration">10.2. Git and the Z-Shell</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_12.html">11. GitHub</a></li>
+<li><a href="Git-Book_13.html">Appendix A: Installation</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_13.html#linux">A.1. Linux</a></li>
+<li><a href="Git-Book_13.html#sec.osx">A.2. Mac OS X</a></li>
+<li><a href="Git-Book_13.html#sec.windows">A.3. Windows</a></li>
+</ul>
+</li>
+<li><a href="Git-Book_14.html">Appendix B: Repository Structure</a>
+<ul class="sectlevel2">
+<li><a href="Git-Book_14.html#sec.gc">B.1. Cleaning Up</a></li>
+<li><a href="Git-Book_14.html#sec.gc-performance">B.2. Performance</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content"><div class="sect1">
+<h2 id="ch.shell-integration"><a class="anchor" href="Git-Book_11.html"></a>10. Shell Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since you usually run Git commands on the shell, you should add functionality to them to interact with Git.
+Especially for Git beginners, such interaction between shell and Git is very helpful to keep track of things.</p>
+</div>
+<div class="paragraph">
+<p>There are two areas in which the shell can help you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Display important information about a repository at the <em>prompt</em>.</p>
+</li>
+<li>
+<p>This way you don’t have to call <code>git status</code> and consorts too often.</p>
+</li>
+<li>
+<p>A custom <em>completion</em> helps you to enter git commands correctly, even if you don’t know the exact syntax.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A good prompt should signal the state of the working tree in addition to the current branch.
+Are there any changes that are not yet saved?
+Are there already changes in the index?</p>
+</div>
+<div class="paragraph">
+<p>A good completion should, for example, when entering <code>git checkout</code> and then pressing the Tab key, only offer branches from the repository for completion.
+But if you type <code>git checkout --</code> only files should be completed.
+This saves time and protects against typos.
+Other completions are also useful, such as the existing remotes for <code>git push</code> and <code>git pull</code>.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we will introduce basic recipes for two popular shells: the <em>Bash</em> and the <em>Z-Shell</em>.
+Instructions for other interactive shells can be found on the Internet.</p>
+</div>
+<div class="paragraph">
+<p>The topic of shell integration is very extensive, so the tutorials presented here are only guidelines and ideas and do not claim to be complete.
+To make matters worse, the git community is developing the user interface - i.e. the existing subcommands and their options - very quickly.
+So please don’t be surprised if the completion is “lagging behind” and brand new subcommands and options are not (yet) available.</p>
+</div>
+<div class="sect2">
+<h3 id="sec.bash-integration"><a class="anchor" href="Git-Book_11.html#sec.bash-integration"></a>10.1. Git and the Bash</h3>
+<div class="paragraph">
+<p>Both the functionality for completion and the status commands for the prompt are implemented in a script called <code>git-completion.bash</code>.
+It is managed together with the sources for Git.
+You can find the file in the <code>contrib/completion</code> directory of the Git project.
+Often the completion is already provided by your distribution or the git installer for your operating system.
+If you have installed the <code>git</code> package in Debian or Ubuntu, the file should already be in <code>/usr/share/bash-completion/completions/git</code>.
+In Gentoo, you install the file via the USE flag <code>bash-completion</code> of <code>dev-vcs/git</code>.
+The current maintainer is Shawn O. Pearce.</p>
+</div>
+<div class="sect3">
+<h4 id="sec.bash-completion"><a class="anchor" href="Git-Book_11.html#sec.bash-completion"></a>10.1.1. Completions</h4>
+<div class="paragraph">
+<p>To activate the completion, load the script with the command <code>source</code> and pass the corresponding file as argument, e.g:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>source ~/Downloads/git-2.1.0/contrib/completion/git-completion.bash</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The completion completes among other things:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Git subcommands</dt>
+<dd>
+<p>For example, if you type <code>git pu[TAB]</code>, the bash will offer you <code>pull</code> and <code>push</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git pu[TAB]</strong>
+pull push</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: Only the <em>porcelain</em> commands and user aliases are available.
+External and <em>plumbing</em> commands are not implemented.
+Subcommands that have additional subcommands themselves, e.g.&nbsp;<code>git remote</code> or <code>git stash</code>, are also completed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git remote [TAB]</strong>
+add     prune     rename     rm     set-head     show     update</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Local Branches and Tags</dt>
+<dd>
+<p>Useful for subcommands, such as <code>checkout</code> and <code>rebase</code>, that expect a local reference:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git branch</strong>
+* master
+  refactor-cmd-line
+  refactor-profiling
+$ <strong>git checkout refactor-[TAB]</strong>
+refactor-cmd-line    refactor-profiling</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Configured Remotes</dt>
+<dd>
+<p>Commands like <code>git fetch</code> and <code>git remote</code> are often called with a remote as argument.
+Completion helps here too:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git remote show [TAB]</strong>
+github        sourceforge</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Remote Branches and Tags</dt>
+<dd>
+<p>The Completion can also “check” on the remote page to see which references are available.
+This is done for example with the command <code>git pull</code>, which expects a remote reference or a refspec:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git pull origin v1.7.1[TAB]</strong>
+v1.7.1       v1.7.1.2     v1.7.1.4     v1.7.1-rc1
+v1.7.1.1     v1.7.1.3     v1.7.1-rc0   v1.7.1-rc2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Of course this only works if the remote repository is available.
+In most cases a network connection and at least read access is required.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Options</dt>
+<dd>
+<p>Most subcommands have several <em>long options</em> like&nbsp;<code>--bare</code>.
+The completion usually knows these and completes them accordingly:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git diff --color[TAB]</strong>
+--color         --color-words</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Short options</em>, such as&nbsp;<code>-a</code>, are not completed.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Files</dt>
+<dd>
+<p>For Git commands that expect file names.
+Good examples are <code>git add</code> and <code>git checkout</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git add [TAB]</strong>
+.git/     hello.py  README    test/
+$ <strong>git checkout -- [TAB]</strong>
+.git/     hello.py  README    test/</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Git configuration options</dt>
+<dd>
+<p>The bash completion for Git also completes configuration options that you set with <code>git config</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git config user.[TAB]</strong>
+user.email        user.name         user.signingkey</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As usual with bash completion, the input is automatically completed when it is unique.
+If only the Branch <code>feature</code> exists, typing <code>git checkout fe[TAB]</code> will cause <code>fe</code> to be completed; the command <code>git checkout feature</code> will then appear on the command line - press Enter to execute the command.
+Only when the input is ambiguous does the bash display the possible completions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sec.bash-prompt"><a class="anchor" href="Git-Book_11.html#sec.bash-prompt"></a>10.1.2. The Prompt</h4>
+<div class="paragraph">
+<p>Beside the completion there is another script to display information about the git repository in the prompt.
+For this you have to load the file <code>contrib/completion/git-prompt.sh</code> (maybe it is also installed by your distribution, e.g. under <code>/usr/lib/git-core/git-sh-prompt</code>).
+Then, as in the following example, place a call to the <code>__git_ps1</code> function in the <code>PS1</code> variable.
+The function takes a so-called _format string expression_ as argument - i.e. the string <code>%s</code> is replaced by git infos, all other characters are taken over.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>source /usr/lib/git-core/git-sh-prompt
+PS1=_\u@\h \w$(__git_ps1 " (%s)") $ _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The characters are replaced as follows: <code>\u</code> is the username, <code>\h</code> is the hostname, <code>\w</code> is the current working directory and <code>$(__git_ps1 " (%s)")</code> are the git infos, which without additional configuration (see below) consist only of the branch name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche \~ $ <strong>cd git-working/git</strong>
+esc@creche ~/git-working/git (master) $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The format string expression allows you to customize the display of the git info by using additional characters or color codes, e.g. with the following prompt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PS1=_\u@\h \w$(__git_ps1 " (git)-[%s]") $ _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the current commit is not referenced by a branch (Detached-HEAD), either the tag or the abbreviated SHA-1 sum is displayed, each surrounded by a pair of brackets:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[(v1.7.1.4)] $
+esc@creche ~/git-working/git (git)-[(e760924...)] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are inside the <code>$GIT_DIR</code> or in a bare repository, this is signaled accordingly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git/.git (git)-[GIT_DIR!] $
+esc@creche ~/git-working/git.git/.git (git)-[BARE:master] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It also indicates when you are in the middle of a merge, rebase or similar state where only certain operations are possible:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master|REBASE-i] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also expand the display to show the status of the Working Trees using different icons.
+To do this, you must set the following environment variables to a <em>non-empty</em> value, e.g. to 1.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>GIT_PS1_SHOWDIRTYSTATE</code></dt>
+<dd>
+<p>For changes that are not yet in the index (<em>unstaged</em>), an asterisk (<code>*</code>) is displayed.
+For changes that are already in the index (<em>staged</em>), a plus (<code>+</code>) is displayed.
+The display requires the working tree to be read - this may slow down the shell for large repositories (Git has to check every file for modifications).
+You can therefore disable this behavior for individual repositories with the Git variable <code>bash.showDirtyState</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git config bash.showDirtyState false</strong></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>GIT_PS1_SHOWSTASHSTATE</code></dt>
+<dd>
+<p>If you have created one or more stashes, this is indicated by the dollar sign (<code>$</code>) in the prompt.</p>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>GIT_PS1_SHOWUNTRACKEDFILES</code></dt>
+<dd>
+<p>The existence of (<em>untracked files</em>) is indicated by a percentage sign (<code>%</code>).</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>You can activate all this additional information as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything in the repository matches (i.e. <em>unstaged</em>, <em>staged</em>, <em>stashed</em> and <em>untracked</em>), four additional characters (<code>*</code>, <code>+</code>, <code>$</code> and <code>%</code>) are displayed in the prompt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master *+$%] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In newer Git versions, the script has a new feature that shows the relationship to the upstream branch (<code>@{upstream}</code>).
+Enable this feature by setting <code>GIT_PS1_SHOWUPSTREAM</code> to the value <code>git</code>.⁠<sup class="footnote">[<a id="_footnoteref_134" class="footnote" href="#_footnotedef_134" title="View footnote.">134</a>]</sup> The prompt then signals all states described in Section 5.5.2, "Comparison with the Upstream": <em>up-to-date</em> with the equal sign (<code>=</code>); <em>ahead</em> with the greater-than sign (<code>&gt;</code>); <em>behind</em> with the less-than sign (<code>&lt;</code>); <em>diverged</em> with both a greater-than sign and a less-than sign (<code>&gt;&lt;</code>).
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master &gt;] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This function is implemented with the <code>--count</code> option of the <code>git rev-list</code> plumbing command, which does not exist in old git versions, like 1.7.1.
+If you have such an old git version, but a current script and want to use this display anyway, set the value of the environment variable to <code>legacy</code> - the script will then use an alternative implementation that works without the said option.
+If you also want to know how far ahead or behind the branch is, add the value <code>verbose</code>.
+The prompt will also show the number of different commits:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master u+2] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The desired values are to be assigned to the environment variable as a list:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GIT_PS1_SHOWUPSTREAM="legacy verbose git"</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sec.zsh-integration"><a class="anchor" href="Git-Book_11.html#sec.zsh-integration"></a>10.2. Git and the Z-Shell</h3>
+<div class="paragraph">
+<p>Both completion and prompt functions are always included with the Z-Shell.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Z-Shell has a very useful feature to call man pages: the <code>run-help</code> function.
+It is called by default with <code>Esc+H</code> in Emacs mode and displays the man page for the command that is already on the command line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>man[ESC]+[h]</strong>
+#Man-Page man(1) is displayed</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, since Git consists of subcommands and each subcommand has its own man page, <code>run-help</code> does not work very well - only the man page <code>git(1)</code> is displayed.
+The included <code>run-help-git</code> function can help here:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git rebase[ESC][h]
+#Man-Page git(1) is displayed
+$ unalias run-help
+$ autoload run-help
+$ autoload run-help-git
+$ git rebase[ESC][h]
+#Man-Page git-rebase(1) is displayed</pre>
+</div>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="sect3">
+<h4 id="sec.zsh-completion"><a class="anchor" href="Git-Book_11.html#sec.zsh-completion"></a>10.2.1. Completions</h4>
+<div class="paragraph">
+<p>To activate completion for Git, first load the completion system:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>autoload -Uz compinit &amp;&amp; compinit</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The completion completes among other things:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Git subcommands</dt>
+<dd>
+<p>Subcommands are also completed in the Z-Shell.
+The difference to Bash is that the Z-Shell displays a short description in addition to the actual command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git pu[TAB]</strong>
+pull     -- fetch from and merge with a remote repository
+push     -- update remote refs along with associated objects</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same applies to subcommands, which themselves have subcommands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git remote [TAB]</strong>
+add      -- add a new remote
+prune    -- delete all stale tracking branches for a given remote
+rename   -- rename a remote from .git/config and update all...
+rm       -- remove a remote from .git/config and all...
+show     -- show information about a given remote
+update   -- fetch updates for a set of remotes</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As well as user aliases:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git t[TAB]</strong>
+tag           -- create tag object signed with GPG
+tree          -- alias for _log --oneline --graph --decorate -23_</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Local Branches and Tags</dt>
+<dd>
+<p>The Z-Shell also completes local branches and tags - no difference to Bash.</p>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Configured Remotes</dt>
+<dd>
+<p>Configured remotes are known to the Z-Shell.
+For subcommands where only a configured remote is possible, e.g.&nbsp;<code>git remote show</code>, only configured remotes are displayed.
+If this is not clear, e.g. <code>git pull</code>, additional mechanisms of the Z-Shell take effect and usually a long list is displayed, which consists of the entries in the files <code>.ssh/config</code> (the configured SSH hosts) and <code>.ssh/known_hosts</code> (hosts you have already logged in to).</p>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Options</dt>
+<dd>
+<p>Unlike Bash, Z-Shell knows both long and short options and shows them including a short description of the option.
+Here is an excerpt:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git branch -[TAB]</strong>
+-a              -- list both remote-tracking branches and local branches
+--contains      -- only list branches which contain the specified commit
+--force     -f  -- force the creation of a new branch</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Files</dt>
+<dd>
+<p>The Z-Shell is also able to complete file names - but it is a bit smarter than Bash.
+For example, for <code>git add</code> and <code>git checkout</code>, only files that actually have changes are offered - files that can either be added to the index or reset.
+Files that do not qualify are not offered either.</p>
+</dd>
+</dl>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Git configuration options</dt>
+<dd>
+<p>Like Bash, the Z-Shell completion for Git completes all configuration options for Git.
+The difference is that it also includes a short description of the options:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git config user.[TAB]</strong>
+email        -- email address used for commits
+name         -- full name used for commits
+signingkey   -- default GPG key to use when creating signed tags</pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>A big difference with the Z-Shell is the way it is completed.
+The Z-Shell uses the so-called <em>menu completion</em>.
+This means that the Z-Shell offers you the next possible completion by pressing the Tab key again.⁠<sup class="footnote">[<a id="_footnoteref_135" class="footnote" href="#_footnotedef_135" title="View footnote.">135</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git pu[TAB]</strong>
+pull  -- fetch from and merge with another repository or local branch
+push  -- update remote refs along with associated objects
+$ <strong>git pu[TAB]</strong>
+$ <strong>git pull[TAB]</strong>
+$ git push</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Z-Shell is not (yet) able to complete references on the remote side - but this is on the to-do list.
+But the Z-Shell is already able to complete files over an SSH connection.
+This is especially useful in connection with public key authentication and preconfigured SSH hosts.
+Assume you have configured the following host in <code>.ssh/config</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Host example
+    HostName git.example.com
+    User max</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the server in your home directory your projects are located as bare repositories: <code>project1.git</code> and <code>project2.git</code>.
+You also generated an SSH key and stored it in the <code>.ssh/authorized_keys</code> file on the server.
+You can now use completion across the SSH connection.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git clone example:[TAB]</strong>
+projekt1.git/ projekt2.git/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is made possible by the completion functions of the Z-shell for <code>ssh</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sec.zsh-prompt"><a class="anchor" href="Git-Book_11.html#sec.zsh-prompt"></a>10.2.2. The Prompt</h4>
+<div class="paragraph">
+<p>The Z-Shell contains functions to add git info to the prompt.
+The functionality is part of the extensive <code>vcs_info</code> system, which knows about a dozen other version control programs besides Git, including Subversion, CVS and Mercurial.
+Detailed documentation can be found in the <code>zshcontrib(1)</code> man page, in the “Gathering Information From Version Control Systems” section.
+Here we will only present the settings and customization options relevant to Git.</p>
+</div>
+<div class="paragraph">
+<p>First, you need to load <code>vcs_info</code> and adjust the prompt to display Git info.
+It’s important that the Z-Shell option <code>prompt_subst</code> is set; it ensures that variables in the prompt are actually replaced, and you must call <code>vcs_info</code> in the <code>precmd</code> function.
+<code>precmd</code> is called just before the prompt is displayed.
+The call <code>vcs_info</code> in it makes sure that the git info is actually stored in the variable <code>${vcs_info_msg_0_}</code>.
+Add the following lines to your <code>.zshrc</code> if they are not already included:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># load vcs_info
+autoload -Uz vcs_info
+# activate prompt_subst
+setopt prompt_subst
+# define precmd
+precmd () { vcs_info }
+# Set prompt
+PS1=_%n@%m %~${vcs_info_msg_0_} $ _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The prompt is composed as follows: <code>%n</code> is the username, <code>%m</code> is the hostname, <code>%~</code> is the current working directory, and the variable <code>${vcs_info_msg_0_}</code> contains the git info.
+It is important that the prompt is specified with single quotes.
+This saves the <em>string</em>&nbsp;<code>${vcs_info_msg_0_}</code> and not the value of the variable.
+Only when the prompt is displayed is the value of the variable - i.e. the git info - substituted.</p>
+</div>
+<div class="paragraph">
+<p>The above setting for <code>PS1</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master]- $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since <code>vcs_info</code> works with a lot of version control systems, it’s worth activating only those you actually use:⁠<sup class="footnote">[<a id="_footnoteref_136" class="footnote" href="#_footnotedef_136" title="View footnote.">136</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:*_ enable git</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To customize <code>vcs_info</code>, use a so-called <code>zstyle</code>, a hierarchical configuration mechanism of the z-shell described in the <code>zshmodules(1)</code> man page.</p>
+</div>
+<div class="paragraph">
+<p>Special states like merge or rebase operations are signaled accordingly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master|bisect]- $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also in case of a Detached-HEAD either the tag or the abbreviated SHA-1 sum is displayed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[v1.7.1.4] $
+esc@creche ~/git-working/git (git)-[e760924...] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Z-Shell, like the Bash, can display states of the working tree.
+Switch this on with the following line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:git*:*_ check-for-changes true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example, <code>vcs_info</code> shows a <code>U</code> for changes that are not yet in the index (<em>unstaged</em>) and an <code>S</code> for changes that you have included in the index (<em>staged</em>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master]US- $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A big advantage of <code>vcs_info</code> is that it can be adapted very easily.
+For example, if you do not like the letters <code>U</code> and <code>S</code>, you can replace them with other characters, e.g.&nbsp;<code>*</code> and <code>+</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:git*:*_ unstagedstr _*_
+zstyle _:vcs_info:git*:*_ stagedstr _+_</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thus the Zsh prompt now looks more and more like the example from the section on bash:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master]*+- $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To display such not yet stored information <code>vcs_info</code> must always examine the working tree. Since this is known to cause problems with large repositories, you can exclude certain patterns:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:*_ disable-patterns "/home/esc/git-working/linux-2.6(|/*)"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maybe you want to change the order of the characters.
+In this case you need to adjust two format string expressions: <code>formats</code> and <code>actionformats</code>.
+The first is the default format, the second is the format when you are in the middle of a merge, rebase or similar process:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:git*:*_ formats " (%s)-[%b%u%c]"
+zstyle _:vcs_info:git*:*_ actionformats " (%s)-[%b|%a%u%c]"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A selection of the most important characters can be found in the following table.
+For a detailed list, please refer to the above mentioned man page.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>%s</code></dt>
+<dd>
+<p>version management system, in our case always <code>git</code></p>
+</dd>
+<dt class="hdlist1"><code>%b</code></dt>
+<dd>
+<p>Current branch, e.g.&nbsp;<code>master</code></p>
+</dd>
+<dt class="hdlist1"><code>%a</code></dt>
+<dd>
+<p>Current process, e.g.&nbsp;<code>merge</code> or <code>rebase-i</code> (only for <code>actionformats</code>)</p>
+</dd>
+<dt class="hdlist1"><code>%u</code></dt>
+<dd>
+<p>Character to indicate changes that are not yet in the index, e.g.&nbsp;<code>U</code></p>
+</dd>
+<dt class="hdlist1"><code>%c</code></dt>
+<dd>
+<p>Character to indicate changes that are already in the index, e.g.&nbsp;<code>S</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>With the above setting the prompt will look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master*+] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unfortunately <code>vcs_info</code> cannot signal the existence of unknown files and created stashes by default.
+But since Z-Shell version 4.3.11 the system supports so called <em>hooks</em> — extensions, which inject additional information into the prompt.
+We will now introduce two such hooks, which implement the two missing features mentioned above.</p>
+</div>
+<div class="paragraph">
+<p>The hooks for <code>vcs_info</code> are written as shell functions.
+Note that the function name has the prefix <code>+vi-</code> to avoid possible collisions.
+For a hook to really work it has to change a value in the associative array <code>hook_com</code>.
+In both examples we change the value of the entry <code>staged</code> by appending additional characters to mark certain states.
+We use the percent sign (<code>%</code>) to indicate unknown files and the dollar sign (<code>$</code>) for created stashes.
+The percent sign must be specified twice to prevent the Z-Shell from mistakenly interpreting it as formatting.
+For the hooks we use various plumbing commands (see <a href="Git-Book_9.html#sec.scripting">Sec. 8.3, “Writing Your Own Git Commands”</a>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>+vi-untracked(){
+    if [[ $(git rev-parse --is-inside-work-tree 2&gt; /dev/null) == _true_ ]] &amp;&amp; \
+        [[ -n $(git ls-files --others --exclude-standard) ]] ; then
+        hook_com[staged]+=_%%_
+    fi
+}
++vi-stashed(){
+    if git rev-parse --verify refs/stash &amp;&gt; /dev/null ; then
+        hook_com[staged]+=_$_
+    fi
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We activate the hooks so that they are evaluated when the git info is set (<code>+set-message</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>zstyle _:vcs_info:git*+set-message:*_ hooks stashed untracked</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As in the bash example above, four additional characters (<code>*</code>, <code>+</code>, <code>$</code> and <code>%</code>) may be displayed in the prompt (<em>unstaged</em>, <em>staged</em>, <em>stashed</em> and <em>untracked</em>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>esc@creche ~/git-working/git (git)-[master*+$%] $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With such hooks it is possible to extend the prompt as desired.
+For example, <code>vcs_info</code> does not show by default whether you are inside the <code>$GIT_DIR</code> or in a bare repository.
+With an appropriate hook you can include these signals in the prompt.</p>
+</div>
+<div class="paragraph">
+<p>For more examples, see the <code>Misc/vcs_info-examples</code> file in the Z-Shell repository, including a hook that indicates the upstream branch relationship (section “Compare local changes to remote changes”).
+A minimal configuration for the Z-Shell according to the examples in this section can be found in the Scripts Collection for this book.⁠<sup class="footnote">[<a id="_footnoteref_137" class="footnote" href="#_footnotedef_137" title="View footnote.">137</a>]</sup></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div id="footnotes">
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnote" id="_footnotedef_134">
+<a href="#_footnoteref_134">134</a>. If you use <code>git-svn</code>, you can tell the script to use the SVN upstream (<code>remotes/git-svn</code>) for comparison (if it exists) instead of the upstream branch by setting the variable to the value <code>auto</code>.
+</div>
+<div class="footnote" id="_footnotedef_135">
+<a href="#_footnoteref_135">135</a>. The <code>zshcompsys(1)</code> man page describes how to further customize the completion. Especially the options <code>group-name</code> and <code>menu-select</code> are recommended.
+</div>
+<div class="footnote" id="_footnotedef_136">
+<a href="#_footnoteref_136">136</a>. A list of available systems can be obtained by calling the <code>vcs_info_printsys</code> function.
+</div>
+<div class="footnote" id="_footnotedef_137">
+<a href="#_footnoteref_137">137</a>. <a href="https://github.com/gitbuch/buch-scripte" class="bare" target="_blank" rel="noopener">https://github.com/gitbuch/buch-scripte</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<nav>
+  <a rel="prev" href="Git-Book_10.html" class="nav nav-prev" title="Previous page" aria-label="Previous page" aria-keyshortcuts="Left">
+        <i class="fa fa-angle-left"></i>
+     </a>
+  <a rel="next" href="Git-Book_12.html" class="nav nav-next" title="Next page" aria-label="Next page" aria-keyshortcuts="Right">
+        <i class="fa fa-angle-right"></i>
+     </a>
+  <div style="clear: both"></div>
+</nav>
+<div id="footer">
+<div id="footer-text">
+Version 3.0<br>
+</div>
+</div>
+
+</body>
+  <script>
+  function isInViewport(ele) {
+    const rect = ele.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    );
+  }
+  function yPosition (ele) {
+    const rect = ele.getBoundingClientRect();
+    return (rect.top - 20); // 20px above
+  }
+  let curr = document.getElementsByClassName('current');
+  if (!isInViewport(curr[curr.length - 1])) {
+    document.getElementById('toc').scrollTo({
+      top: yPosition(curr[0]),
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  /* For page navigation */
+  function gotoPage(selector) {
+    const button = document.querySelector(selector);
+    if (button)
+      window.location.href = button.href;
+  }
+  document.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'ArrowRight':
+        e.preventDefault();
+        gotoPage('.nav-next');
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        gotoPage('.nav-prev');
+        break;
+    }
+  });
+  </script>
+  </html>

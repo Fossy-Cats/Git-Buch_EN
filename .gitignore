@@ -5,7 +5,7 @@
 
 *.html
 !docinfo.html
-!docs/*.html
+!docs/**/*.html
 
 ## TMP Work Files
 #################

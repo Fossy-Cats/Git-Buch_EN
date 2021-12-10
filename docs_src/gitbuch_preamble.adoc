@@ -1,0 +1,47 @@
+// *****************************************************************************
+// *                                                                           *
+// *                             P R E A M B L E                               *
+// *                                                                           *
+// *****************************************************************************
+
+--
+****
+This is the English translation of
+http://gitbu.ch[_Das Git-Buch_^, title="Visit the Git-Buch website"]
+(The Git Book) by
+https://github.com/esc[Valentin Haenel^]
+and
+https://github.com/Feh[Julius Plenz^],
+2nd Ed.2014, released under
+https://creativecommons.org/licenses/by-nc-sa/4.0/[CC BY-NC-SA 4.0^, title="Learn morea bout the Creative Common BY-NC-SA 4.0 license"]
+license.
+Translated from German by
+https://github.com/SicroAtGit[Alexander Bolli^] and
+https://github.com/tajmone[Tristano Ajmone^] in 2020.
+****
+
+ifdef::web-edition[]
+.E-Book Download
+[TIP]
+==============================
+A self-contained, single HTML file version of this book is
+https://fossy-cats.github.io/Git-Buch_EN/download/Git-Book.html[available for download at this link,title="'The Git Book', stand alone HTML edition"].
+
+To save a copy to your device, right-click on the link and choose "`Save link as...`", or visit the page and save it from there.
+==============================
+endif::[]
+
+.Book Status
+[WARNING]
+===============================
+This document is still in Beta version, but fully translated; so enjoy reading it and leave us some feedback on how we might improve it.
+
+
+We're currently proofreading and polishing the entire text, fixing some styling and formatting issues.
+Any help with proofreading is much appreciated; if you wish to contribute submit your changes via pull request on the `beta-dev` branch of the project repository:
+
+* https://fossy-cats.github.io/Git-Buch_EN
+===============================
+--
+
+// EOF //

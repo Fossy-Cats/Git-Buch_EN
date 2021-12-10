@@ -15,31 +15,33 @@ Valentin Haenel; Julius Plenz
 :section-refsig: Sec.
 :appendix-refsig: App.
 
+////
+================================================================================
+-------------------{  O R I G I N A L   B O O K   I N F O  }--------------------
+================================================================================
+TITLE     : Git, Verteilte Versionskontrolle für Code und Dokumente
+AUTHORS   : Valentin Haenel and Julius Plenz
+LANGUAGE  : German
+EDITION   : 2nd Ed. 2014
+PUBLISHER : Open Source Press (2003–2015), Munich
+ISBN-10   : 3941841424
+ISBN-13   : 978-3941841420
+--------------------------------------------------------------------------------
+Adapted from the German online edition available at:
+
+    http://gitbu.ch
+
+Original link at Open Source Press (via WayBack Machine):
+
+    https://web.archive.org/web/20150711115809/
+    http://www.opensourcepress.de/de/produkte/Git/33227/978-3-95539-119-5
+================================================================================
+////
+
+
 include::gitbuch_custom-attributes.adoc[]
 
-// Preamble
-
-================================================================================
-[WARNING]
-===============================
-This document is still in Beta version, but fully translated; so enjoy reading it and leave us some feedback on how we might improve it.
-
-This is the English translation of
-http://gitbu.ch[_Das Git-Buch_^, title="Visit the Git-Buch website"]
-(The Git Book) by
-https://github.com/esc[Valentin Haenel^]
-and
-https://github.com/Feh[Julius Plenz^],
-released under the
-https://creativecommons.org/licenses/by-nc-sa/4.0/[CC BY-NC-SA 4.0^, title="Learn morea bout the Creative Common BY-NC-SA 4.0 license"]
-license.
-
-We're currently proofreading and polishing the entire text, and fixing some styling and formatting issues.
-Any help with proofreading is much appreciated; if you wish to contribute submit your changes via pull request on the `beta-dev` branch of the project repository:
-
-* https://fossy-cats.github.io/Git-Buch_EN
-===============================
-================================================================================
+include::gitbuch_preamble.adoc[]
 
 :leveloffset: +1
 

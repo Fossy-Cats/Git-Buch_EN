@@ -1,153 +1,193 @@
-=begin "Rakefile" v0.2.0 | 2021/10/30 | by Tristano Ajmone
+=begin "Rakefile" v0.3.0 | 2021/12/10 | by Tristano Ajmone
 ================================================================================
-Rakefile draft. Requires Asciidoctor and Rouge.
+Rakefile draft.
+System Requirements:
+
+  * Ruby:
+    * Asciidoctor
+    * Rouge
+  * Node.js
 ================================================================================
 =end
 
-require 'open3'
-
-$repo_root = pwd
-
-# ==============================================================================
-#                     C U S T O M   R U B Y   M E T H O D S
-# ==============================================================================
-
-def TaskHeader(text)
-  hstr = "## #{text}"
-  puts "\n#{hstr}"
-  puts '#' * hstr.length
-end
-
-def PrintTaskFailureMessage(our_msg, app_msg)
-    err_head = "\n*** TASK FAILED! "
-    STDERR.puts err_head << '*' * (73 - err_head.length) << "\n\n"
-    if our_msg != ''
-      STDERR.puts our_msg
-      STDERR.puts '-' * 72
-    end
-    STDERR.puts app_msg
-    STDERR.puts '*' * 72
-end
-
-def SetFileTimeToZero(file)
-  # ----------------------------------------------------------------------------
-  # Set the last accessed and modified dates of 'file' to Epoch 00:00:00.
-  # Sometimes we need to trick Rake into seeing a generated file as outdated,
-  # e.g. because we're aborting the build when a tool raises warnings which
-  # didn't prevent generating the target file, but we'd rather keep the file
-  # for manual inspection -- since we're not sure whether it's malformed or not.
-  # ----------------------------------------------------------------------------
-  ts = Time.at 0
-  File.utime(ts, ts, file)
-end
-
-def AsciidoctorConvert(source_file, output_file, adoc_opts)
-  TaskHeader("Asciidoctor Conversion: #{output_file}")
-  src_dir = source_file.pathmap("%d")
-  src_file = File.expand_path(source_file)
-  out_file = File.expand_path(output_file)
-  cd "#{$repo_root}/#{src_dir}"
-  begin
-    stdout, stderr, status = Open3.capture3("asciidoctor #{adoc_opts}")
-    puts stderr if status.success? # Even success is logged to STDERR!
-    raise unless status.success?
-  rescue
-    rake_msg = our_msg = "Asciidoctor conversion failed: #{output_file}"
-    if File.file?(out_file)
-      our_msg = "Asciidoctor reported some problems during conversion.\n" \
-        "The generated HTML file should not be considered safe to deploy."
-
-      # Since we're invoking Asciidoctor with failure-level WARN, if the HTML
-      # file was created we must set its modification time to 00:00:00 to trick
-      # Rake into seeing it as an outdated target. (we're not 100% sure whether
-      # it was re-created or it's the HTML from a previous run, but we're 100%
-      # sure that it's outdated.)
-      SetFileTimeToZero(out_file)
-    end
-    PrintTaskFailureMessage(our_msg, stderr)
-    # Abort Rake execution with error description:
-    raise rake_msg
-  ensure
-    cd $repo_root, verbose: false
-  end
-end
+# Custom helpers:
+require './assets/rake/globals.rb'
+require './assets/rake/asciidoc.rb'
+require './assets/rake/html_chunker.rb'
 
 # ==============================================================================
-#                              R A K E   T A S K S
+# -----------------:{  T O O L C H A I N   S E T T I N G S  }:------------------
 # ==============================================================================
+
+SRC_DIR = 'docs_src'
+WWW_DIR = 'docs'
+PUB_DIR = "#{WWW_DIR}/download"
+
+BOOK_SRC = "#{SRC_DIR}/gitbuch.asciidoc"
+BOOK_DEPS = FileList[
+  BOOK_SRC,
+  "#{SRC_DIR}/*.adoc",
+  "#{SRC_DIR}/images/*.svg",
+  "#{SRC_DIR}/images/*.png"
+]
+
+BOOK_PREV = "#{SRC_DIR}/Git-Book_Preview.html"
+BOOK_HTML = "#{PUB_DIR}/Git-Book.html"
+
+CHUNKER_SRC = "#{SRC_DIR}/Git-Book_Chunker-Input.html"
+
+## Asciidoctor Options
+######################
+
+# Options common to all docs (let's keep it DRY):
+
+ADOC_OPTS_SHARED = <<~HEREDOC
+  --failure-level WARN \
+  --verbose \
+  --timings \
+  --safe-mode unsafe \
+  -a source-highlighter=rouge \
+  -a rouge-style=monokai.sublime \
+  -a imagesdir=images \
+  -a experimental \
+  -a icons=font \
+  -a linkattrs \
+  -a reproducible \
+  -a sectanchors \
+  -a toc=left
+HEREDOC
+
+## Asciidoctor-Chunker
+######################
+CHUNKER_JS = "#{$repo_root}/assets/node-js/asciidoctor-chunker_mod.js"
+
+
+# ==============================================================================
+# -------------------------:{  M A I N   T A S K S  }:--------------------------
+# ==============================================================================
+
+# Building a local preview of the book (ignored by Git)
+# is the most useful task for project maintainers:
 
 task :default => :preview
 
+
+## All Tasks
+############
 desc "Run all tasks"
-task :all => [:preview, :publish]
+task :all => [:clobber, :preview, :publish]
 
-BOOK_SRC = 'docs_src/gitbuch.asciidoc'
 
-BOOK_DEPS = FileList[
-  BOOK_SRC,
-  "docs_src/*.adoc",
-  "docs_src/images/*.svg",
-  "docs_src/images/*.png"
-]
+## Preview
+##########
+desc "Local book (default task)"
+task :preview => BOOK_PREV
+
 
 ## Publish
 ##########
+desc "Publish book (all editions)"
+task :publish => %w[publish:www publish:html]
 
-desc "Publish HTML book"
-task :publish => 'docs/index.html'
+namespace "publish" do
 
-file 'docs/index.html' => BOOK_DEPS do |t|
+  desc "Publish book: online edition (chunked)"
+  task :www => CHUNKER_SRC
+
+  desc "Publish book: HTML edition (single file)"
+  task :html => BOOK_HTML
+end
+
+
+## Clean & Clobber
+##################
+require 'rake/clean'
+CLOBBER.include('**/*.html').exclude('assets*/**/*.html')
+
+# ==============================================================================
+# -------------------------:{  F I L E   T A S K S  }:--------------------------
+# ==============================================================================
+
+file BOOK_PREV => BOOK_DEPS do |t|
   src_file = BOOK_SRC.pathmap("%f")
   out_file = File.expand_path(t.name)
-  adoc_opts = <<~HEREDOC
-    --failure-level WARN \
-    --verbose \
-    --timings \
-    --safe-mode unsafe \
+  adoc_opts = ADOC_OPTS_SHARED.chomp + " "
+  adoc_opts += <<~HEREDOC
+    -a toclevels=5 \
     --out-file=#{out_file} \
-    -a source-highlighter=rouge \
-    -a rouge-style=monokai.sublime \
-    -a toc=left \
-    -a toclevels=2 \
-    -a data-uri \
-    -a experimental \
-    -a icons=font \
-    -a imagesdir=images \
-    -a linkattrs \
-    -a reproducible \
-    -a sectanchors \
     #{src_file}
   HEREDOC
   AsciidoctorConvert(BOOK_SRC, t.name, adoc_opts)
 end
 
 
-## Preview
-##########
+file CHUNKER_SRC => BOOK_DEPS do |t|
+  # ------------------------------------
+  # Create Temporary Single HTML for WWW
+  # ------------------------------------
+  adoc_src = BOOK_SRC.pathmap("%f")
+  adoc_out = File.expand_path(t.name)
+  adoc_opts = ADOC_OPTS_SHARED.chomp + " "
+  adoc_opts += <<~HEREDOC
+    -a web-edition \
+    -a toclevels=2 \
+    -a data-uri \
+    --out-file=#{adoc_out} \
+    #{adoc_src}
+  HEREDOC
+  AsciidoctorConvert(BOOK_SRC, t.name, adoc_opts)
+  TaskHeader("Chunking Website Edition")
+  # ------------------------
+  # Delete Old Chunked Files
+  # ------------------------
+  puts "Chunker input file: #{CHUNKER_SRC}"
+  puts "Chunker out folder: #{CHUNKER_SRC}"
+  puts "\n1. Deleting old chunked files."
+  cd "#{$repo_root}/#{WWW_DIR}", verbose: false
+  FileUtils.rm Dir.glob('*.{html,css}'), force: true
+  # ---------------------------
+  # Create Chunked Book for WWW
+  # ---------------------------
+  puts "\n2. Invoking Asciidoctor-Chunker."
+  cd "#{$repo_root}/#{SRC_DIR}", verbose: false
+  begin
+    chunk_src = t.name.pathmap("%f")
+    stdout, stderr, status = Open3.capture3 <<~HEREDOC
+        node #{CHUNKER_JS} \
+        --outdir=#{$repo_root}/#{WWW_DIR} \
+        --titlePage="Title Page" \
+        #{chunk_src}
+      HEREDOC
+    puts stderr if status.success? # Even success is logged to STDERR!
+    raise unless status.success?
+  rescue
+    rake_msg = "Asciidoctor-Chunker failed: #{CHUNKER_SRC}"
+    our_msg = "Asciidoctor-Chunker reported some errors.\n" \
+      "The generated HTML files should not be considered safe to deploy."
+    PrintTaskFailureMessage(our_msg, stderr)
+    # Abort Rake execution with error description:
+    raise rake_msg
+  else
+    # ----------------------------
+    # Fix <title> of Chunked Files
+    # ----------------------------
+    puts "3. Invoking <title> tags fixer."
+    FixChuncksTitles("#{WWW_DIR}", "Git-Book_", "Git Book &mdash; ")
+  ensure
+    cd $repo_root, verbose: false
+  end
+end
 
-HTML_PREV = 'docs_src/GitBook_Preview.html'
-desc "Create HTML book preview"
-task :preview => HTML_PREV
 
-file HTML_PREV => BOOK_DEPS do |t|
+file BOOK_HTML => BOOK_DEPS do |t|
+  directory "#{PUB_DIR}"
   src_file = BOOK_SRC.pathmap("%f")
   out_file = File.expand_path(t.name)
-  adoc_opts = <<~HEREDOC
-    --failure-level WARN \
-    --verbose \
-    --timings \
-    --safe-mode unsafe \
+  adoc_opts = ADOC_OPTS_SHARED.chomp + " "
+  adoc_opts += <<~HEREDOC
+    -a toclevels=2 \
+    -a data-uri \
     --out-file=#{out_file} \
-    -a source-highlighter=rouge \
-    -a rouge-style=monokai.sublime \
-    -a toc=left \
-    -a toclevels=5 \
-    -a experimental \
-    -a icons=font \
-    -a imagesdir=images \
-    -a linkattrs \
-    -a reproducible \
-    -a sectanchors \
     #{src_file}
   HEREDOC
   AsciidoctorConvert(BOOK_SRC, t.name, adoc_opts)

@@ -13,9 +13,6 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 - [Folder Contents](#folder-contents)
 - [Developers' Notes](#developers-notes)
     - [HTML Preview Document](#html-preview-document)
-- [Translation Status](#translation-status)
-    - [Pending Tasks Overview](#pending-tasks-overview)
-    - [Chapters WIP Status](#chapters-wip-status)
     - [Methodology Notes](#methodology-notes)
 - [Sources Adaptation](#sources-adaptation)
     - [Upstream Correspondences](#upstream-correspondences)
@@ -30,8 +27,10 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
 # Folder Contents
 
 - [`/images/`][images] — required book images.
-- `GitBook_Preview.html` — developer's HTML5 book preview (untracked), build via `rake preview`.
+- `Git-Book_Preview.html` — developer's HTML5 book preview (untracked), built via `rake preview`.
+- `Git-Book_Chunker-Input.html` — intermediate doc (untracked) for website chunking, built via `rake publish`.
 - [`gitbuch.asciidoc`][gb.adoc] — main book source that imports all others:
+    + [`gitbuch_preamble.asciidoc`][gb_preamble] — preamble.
     + [`gitbuch_00.adoc`][gb00] — [_Preface_][Preface]
     + [`gitbuch_01.adoc`][gb01] — [1. _Introduction and First Steps_][Ch1]
     + [`gitbuch_02.adoc`][gb02] — [2. _The Basics_][Ch2]
@@ -46,27 +45,35 @@ This folder contains the AsciiDoc sources of the English translation of the _Git
     + [`gitbuch_11.adoc`][gb11] — [11. _GitHub_][Ch11]
     + [`gitbuch_12.adoc`][gb12] — [App. A. _Installation_][AppA]
     + [`gitbuch_13.adoc`][gb13] — [App. B. _Repository Structure_][AppB]
+    + [`gitbuch_custom-attributes.adoc`][gb_attribs] — attributes definitions for inline substitutions.
+    + [`gitbuch_footnotes.adoc`][gb_fnotes] — all the book's footnotes externalized via attributes.
 
 # Developers' Notes
 
-To build the final HTML book type
+To build and publish the book type
 
     rake publish
 
-which will generate the final [HTML book] which is served on the web via GHPages:
+which will generate:
 
-- [`../docs/index.html`][HTML book]
+1. **The [online book] edition** — served on the web via GHPages as a multi-page chunked document:
 
-The generated document is tracked by Git, so don't include it in your commits or pull requests unless you're intentionally willing to update it.
+    [`../docs/index.html`][chunked book]
+
+2. **The [HTML book] edition** — for end users download, as a fully standalone single-file document:
+
+    [`../docs/download/Git-Book.html`][standalone book]
+
+The generated documents are tracked by Git, so don't include them in your commits or pull requests unless you're intentionally willing to update them.
 
 
 ## HTML Preview Document
 
-To quickly preview your changes to the document type
+To quickly preview your changes to the document, just type
 
-    rake preview
+    rake
 
-which will generate the `GitBook_Preview.html` document in this folder.
+which will generate the `Git-Book_Preview.html` document in this folder.
 
 This preview document is ignored by Git and will not end up in your commits. Furthermore, it offers a few advantages over the published HTML book:
 
@@ -74,173 +81,12 @@ This preview document is ignored by Git and will not end up in your commits. Fur
 - **DEEPER TOC** — Its TOC is always set to maximum level, so you can see every section in the TOC sidebar.
 
 
-# Translation Status
-
-## Pending Tasks Overview
-
-- [ ] The draft text needs to be revised.
-- [ ] Book figures:
-    + [ ] Image diagrams need:
-        * [ ] Their text translated.
-        * [x] Their background colors tweaked to improve accessibility to the color blind.
-    + [ ] All images need:
-        * [ ] Outer padding.
-        * [ ] Proper alignment.
-        * [ ] Their size fixed according to context.
-
-## Chapters WIP Status
-
-- [ ]  [_Preface_][Preface]
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [1. _Introduction and First Steps_][Ch1]
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [2. _The Basics_][Ch2]
-    + [ ] Adapt images (1-8):
-        * [x] Fig. 1: `index.svg`
-        * [ ] Fig. 2: `objektmodell-programm-crop.png`
-        * [x] Fig. 3: `sha.svg`
-        * [ ] Fig. 4: `git-objects.svg` (translate?)
-        * [x] Fig. 5: `git-objects-hierarchy.svg`
-        * [ ] Fig. 6: `repository-content.svg` (translate?)
-        * [x] Fig. 7: `commit-graph.svg`
-        * [x] Fig. 8: `commit-graph-with-refs.svg`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [3. _Practical Version Control_][Ch3]
-    + [ ] Adapt images (9-21):
-        * [ ] Fig. 9: `gitk-basic.png`
-        * [x] Fig. 10: `commit.svg`
-        * [x] Fig. 11: `relative-refs.svg`
-        * [ ] Fig. 12: `tags.svg` (translate?)
-        * [ ] Fig. 13: `tag-screenshot.png`
-        * [ ] Fig. 14: `describe-screenshot.png`
-        * [x] Fig. 15: `merge-base-commit.svg`
-        * [x] Fig. 16: `ff-before.svg`
-        * [x] Fig. 17: `ff-after.svg`
-        * [ ] Fig. 18: `ff-no-ff-vergleich.png`
-        * [ ] Fig. 19: `meld-example.png`
-        * [ ] Fig. 20: `revision-list-commit-graph-gitk.png`
-        * [ ] Fig. 21: `gitk.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [4. _Advanced Concepts_][Ch4]
-    + [ ] Adapt images (22-29):
-        * [x] Fig. 22: `rebase-before.svg`
-        * [x] Fig. 23: `rebase-after.svg`
-        * [ ] Fig. 24: `screenshot-rebase-vorher.png`
-        * [ ] Fig. 25: `screenshot-rebase-nachher.png`
-        * [x] Fig. 26: `rebase-onto-before.svg`
-        * [x] Fig. 27: `rebase-onto-after.svg`
-        * [ ] Fig. 28: `git-gui-blame.png`
-        * [ ] Fig. 29: `stash-screenshot.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [5. _Distributed Git_][Ch5]
-    + [ ] Adapt images (30-40):
-        * [x] Fig. 30: `central-workflow.svg`
-        * [x] Fig. 31: `clone.svg`
-        * [ ] Fig. 32: `remote-tracking-gitk.png`
-        * [x] Fig. 33: `fetch.svg`
-        * [x] Fig. 34: `pull.svg`
-        * [x] Fig. 35: `pull-rebase.svg`
-        * [x] Fig. 36: `push.svg`
-        * [x] Fig. 37: `integration-manager-workflow.svg`
-        * [ ] Fig. 38: `gitk-screen-format-patch.png`
-        * [ ] Fig. 39: `mail-thread.png`
-        * [x] Fig. 40: `patches-via-email.svg`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [6. _Workflows_][Ch6]
-    + [ ] Adapt images (41):
-        * [x] Fig. 41: `branch-model.svg`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [7. _Git Servers_][Ch7]
-    + [ ] Adapt images (42-45):
-        * [ ] Fig. 42: `gitweb-overview.png`
-        * [ ] Fig. 43: `gitweb-commitdiff.png`
-        * [ ] Fig. 44: `cgit-overview.png`
-        * [ ] Fig. 45: `cgit-commitdiff.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [8. _Git Automation_][Ch8]
-    + [ ] Adapt images (46):
-        * [ ] Fig. 46: `tux-diff.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [9. _Interacting with Other Version Control Systems_][Ch9]
-    + [ ] Adapt images (47-57):
-        * [ ] Fig. 47: `svn-stdlayout-crop.png`
-        * [ ] Fig. 48: `svn-nonstdlayout-crop.png`
-        * [ ] Fig. 49: `svn-branches-crop.png`
-        * [ ] Fig. 50: `git-branches-crop.png`
-        * [ ] Fig. 51: `git-convert-refs-before.png`
-        * [ ] Fig. 52: `git-convert-refs-after.png`
-        * [ ] Fig. 53: `git-svn-tag-fix-before.png`
-        * [ ] Fig. 54: `git-svn-tag-fix-after.png`
-        * [ ] Fig. 55: `git-svn-merge-demo.png`
-        * [x] Fig. 56: `svn-rebase.svg`
-        * [x] Fig. 57: `svn-dcommit.svg`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [10. _Shell-Integration_][Ch10]
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [11. _GitHub_][Ch11]
-    + [ ] Adapt images (58-63):
-        * [ ] Fig. 58: `github-gollum.png`
-        * [x] Fig. 59: `github-workflow.svg`
-        * [ ] Fig. 60: `github-network.png`
-        * [ ] Fig. 61: `github-download.png`
-        * [ ] Fig. 62: `github-image-diff-2up.png`
-        * [ ] Fig. 63: `github-image-diff-swipe.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [App. A. _Installation_][AppA]
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-- [ ]  [App. B. _Repository Structure_][AppB]
-    + [ ] Adapt images (64):
-        * [ ] Fig. 64: `git-dir-crop.png`
-    + [ ] Polish:
-        * [ ] Manually revise translation.
-        * [ ] Adapt or remove German-specific contents.
-        * [ ] Remove commented German text.
-
 ## Methodology Notes
 
 The translation work for each book section is divided into two separate stages:
 
-- [x] _Draft_
-- [ ] _Polishing_
+- _Draft_
+- _Polishing_
 
 In the _draft_ stage the automated translation via [DeepL] is added to the document with minor adjustments, and the focus is on restoring all the lost formatting styles, footnotes and cross references, translating anchors' identifiers and validating all links:
 
@@ -267,23 +113,24 @@ Some unbalanced block delimiters errors had to be fixed in the original sources 
 
 The following table shows the correspondence between the current sources and their original counterparts on the upstream repository.
 
-|          source file          |                 adapted from                 |              chapter title / file description              |
-|-------------------------------|----------------------------------------------|------------------------------------------------------------|
-| [`gitbuch.asciidoc`][gb.adoc] | [`git.txt`][git.txt]                         | main entry file.                                           |
-| [`gitbuch_00.adoc`][gb00]     | [`vorwort.txt`][vorwort.txt]                 | [_Preface_][Preface]                                       |
-| [`gitbuch_01.adoc`][gb01]     | [`erste_schritte.txt`][erste_schritte.txt]   | [1. _Introduction and First Steps_][Ch1]                   |
-| [`gitbuch_02.adoc`][gb02]     | [`grundlagen.txt`][grundlagen.txt]           | [2. _The Basics_][Ch2]                                     |
-| [`gitbuch_03.adoc`][gb03]     | [`praxis.txt`][praxis.txt]                   | [3. _Practical Version Control_][Ch3]                      |
-| [`gitbuch_04.adoc`][gb04]     | [`advanced.txt`][advanced.txt]               | [4. _Advanced Concepts_][Ch4]                              |
-| [`gitbuch_05.adoc`][gb05]     | [`remote.txt`][remote.txt]                   | [5. _Distributed Git_][Ch5]                                |
-| [`gitbuch_06.adoc`][gb06]     | [`workflows.txt`][workflows.txt]             | [6. _Workflows_][Ch6]                                      |
-| [`gitbuch_07.adoc`][gb07]     | [`server.txt`][server.txt]                   | [7. _Git Servers_][Ch7]                                    |
-| [`gitbuch_08.adoc`][gb08]     | [`automatisierung.txt`][automatisierung.txt] | [8. _Git Automation_][Ch8]                                 |
-| [`gitbuch_09.adoc`][gb09]     | [`zusammenspiel.txt`][zusammenspiel.txt]     | [9. _Interacting with Other Version Control Systems_][Ch9] |
-| [`gitbuch_10.adoc`][gb10]     | [`shell.txt`][shell.txt]                     | [10. _Shell-Integration_][Ch10]                            |
-| [`gitbuch_11.adoc`][gb11]     | [`github.txt`][github.txt]                   | [11. _GitHub_][Ch11]                                       |
-| [`gitbuch_12.adoc`][gb12]     | [`installation.txt`][installation.txt]       | [App. A. _Installation_][AppA]                             |
-| [`gitbuch_13.adoc`][gb13]     | [`gitdir.txt`][gitdir.txt]                   | [App. B. _Repository Structure_][AppB]                     |
+|                source file                 |                 adapted from                 |              chapter title / file description              |
+|--------------------------------------------|----------------------------------------------|------------------------------------------------------------|
+| [`gitbuch.asciidoc`][gb.adoc]              | [`git.txt`][git.txt]                         | main entry file.                                           |
+| [`gitbuch_preamble.asciidoc`][gb_preamble] | _none_                                       | preamble                                                   |
+| [`gitbuch_00.adoc`][gb00]                  | [`vorwort.txt`][vorwort.txt]                 | [_Preface_][Preface]                                       |
+| [`gitbuch_01.adoc`][gb01]                  | [`erste_schritte.txt`][erste_schritte.txt]   | [1. _Introduction and First Steps_][Ch1]                   |
+| [`gitbuch_02.adoc`][gb02]                  | [`grundlagen.txt`][grundlagen.txt]           | [2. _The Basics_][Ch2]                                     |
+| [`gitbuch_03.adoc`][gb03]                  | [`praxis.txt`][praxis.txt]                   | [3. _Practical Version Control_][Ch3]                      |
+| [`gitbuch_04.adoc`][gb04]                  | [`advanced.txt`][advanced.txt]               | [4. _Advanced Concepts_][Ch4]                              |
+| [`gitbuch_05.adoc`][gb05]                  | [`remote.txt`][remote.txt]                   | [5. _Distributed Git_][Ch5]                                |
+| [`gitbuch_06.adoc`][gb06]                  | [`workflows.txt`][workflows.txt]             | [6. _Workflows_][Ch6]                                      |
+| [`gitbuch_07.adoc`][gb07]                  | [`server.txt`][server.txt]                   | [7. _Git Servers_][Ch7]                                    |
+| [`gitbuch_08.adoc`][gb08]                  | [`automatisierung.txt`][automatisierung.txt] | [8. _Git Automation_][Ch8]                                 |
+| [`gitbuch_09.adoc`][gb09]                  | [`zusammenspiel.txt`][zusammenspiel.txt]     | [9. _Interacting with Other Version Control Systems_][Ch9] |
+| [`gitbuch_10.adoc`][gb10]                  | [`shell.txt`][shell.txt]                     | [10. _Shell-Integration_][Ch10]                            |
+| [`gitbuch_11.adoc`][gb11]                  | [`github.txt`][github.txt]                   | [11. _GitHub_][Ch11]                                       |
+| [`gitbuch_12.adoc`][gb12]                  | [`installation.txt`][installation.txt]       | [App. A. _Installation_][AppA]                             |
+| [`gitbuch_13.adoc`][gb13]                  | [`gitdir.txt`][gitdir.txt]                   | [App. B. _Repository Structure_][AppB]                     |
 
 
 # Look-Up Tables
@@ -400,10 +247,12 @@ There are 156 footnotes in the book.
 <!-- project files -->
 
 [images]: ./images/ "Navigate to book images folder"
+[chunker.js]: ../assets/node-js/asciidoctor-chunker_mod.js "View modded asciidoctor-chunker script"
 
-<!-- ADoc sources & HTML -->
+<!-- ADoc sources -->
 
 [gb.adoc]: ./gitbuch.asciidoc "View AsciiDoc source file"
+[gb_preamble]: ./gitbuch_preamble.adoc "View AsciiDoc source file"
 [gb00]: ./gitbuch_00.adoc "View AsciiDoc source file"
 [gb01]: ./gitbuch_01.adoc "View AsciiDoc source file"
 [gb02]: ./gitbuch_02.adoc "View AsciiDoc source file"
@@ -418,25 +267,32 @@ There are 156 footnotes in the book.
 [gb11]: ./gitbuch_11.adoc "View AsciiDoc source file"
 [gb12]: ./gitbuch_12.adoc "View AsciiDoc source file"
 [gb13]: ./gitbuch_13.adoc "View AsciiDoc source file"
+[gb_attribs]: ./gitbuch_custom-attributes.adoc
+[gb_fnotes]: ./gitbuch_footnotes.adoc
+
+<!-- Book Links -->
+
+[online book]: https://fossy-cats.github.io/Git-Buch_EN/ "Online book: Chunked HTML  (website link)"
+[HTML book]: https://fossy-cats.github.io/Git-Buch_EN/download/Git-Book.html "Online book: Standalone HTML file (website link)"
+[chunked book]: ../docs/index.html "Chunked HTML book (local preview)"
+[standalone book]: ../docs/download/Git-Book.html "Standalone HTML book (local preview)"
 
 <!-- HTML Local Previews -->
 
-[HTML book]: ../docs/index.html "Local HTML Preview"
-
-[Preface]: ../docs/index.html#ch.preface "Local HTML Preview"
-[Ch1]: ../docs/index.html#ch.intro "Local HTML Preview"
-[Ch2]: ../docs/index.html#ch.basics "Local HTML Preview"
-[Ch3]: ../docs/index.html#ch.praxis "Local HTML Preview"
-[Ch4]: ../docs/index.html#ch.advanced "Local HTML Preview"
-[Ch5]: ../docs/index.html#ch.distributed-git "Local HTML Preview"
-[Ch6]: ../docs/index.html#ch.workflows "Local HTML Preview"
-[Ch7]: ../docs/index.html#ch.server "Local HTML Preview"
-[Ch8]: ../docs/index.html#ch.automation "Local HTML Preview"
-[Ch9]: ../docs/index.html#sec.git-svn-cvs "Local HTML Preview"
-[Ch10]: ../docs/index.html#ch.shell-integration "Local HTML Preview"
-[Ch11]: ../docs/index.html#ch.github "Local HTML Preview"
-[AppA]: ../docs/index.html#app.installation "Local HTML Preview"
-[AppB]: ../docs/index.html#app.git-repository-layout "Local HTML Preview"
+[Preface]: ../docs/download/Git-Book.html#ch.preface "Local HTML Preview"
+[Ch1]: ../docs/download/Git-Book.html#ch.intro "Local HTML Preview"
+[Ch2]: ../docs/download/Git-Book.html#ch.basics "Local HTML Preview"
+[Ch3]: ../docs/download/Git-Book.html#ch.praxis "Local HTML Preview"
+[Ch4]: ../docs/download/Git-Book.html#ch.advanced "Local HTML Preview"
+[Ch5]: ../docs/download/Git-Book.html#ch.distributed-git "Local HTML Preview"
+[Ch6]: ../docs/download/Git-Book.html#ch.workflows "Local HTML Preview"
+[Ch7]: ../docs/download/Git-Book.html#ch.server "Local HTML Preview"
+[Ch8]: ../docs/download/Git-Book.html#ch.automation "Local HTML Preview"
+[Ch9]: ../docs/download/Git-Book.html#sec.git-svn-cvs "Local HTML Preview"
+[Ch10]: ../docs/download/Git-Book.html#ch.shell-integration "Local HTML Preview"
+[Ch11]: ../docs/download/Git-Book.html#ch.github "Local HTML Preview"
+[AppA]: ../docs/download/Git-Book.html#app.installation "Local HTML Preview"
+[AppB]: ../docs/download/Git-Book.html#app.git-repository-layout "Local HTML Preview"
 
 <!-- upstream sources -->
 
@@ -456,8 +312,8 @@ There are 156 footnotes in the book.
 [workflows.txt]: https://github.com/gitbuch/gitbuch_cc/blob/master/workflows.txt "View upstream source file"
 [zusammenspiel.txt]: https://github.com/gitbuch/gitbuch_cc/blob/master/zusammenspiel.txt "View upstream source file"
 
-<!-- cross references -->
+<!-- Issues & Discussions -->
 
-[STATUS]: #translation-status "Jump to the 'Translation Status' section"
+[STATUS]: https://github.com/Fossy-Cats/Git-Buch_EN/issues/36 "Track translation status at Issue #36"
 
 <!-- EOF -->

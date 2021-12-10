@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
 <meta name="author" content="Valentin Haenel, Julius Plenz">
-<title>Git: Distributed Version Control for Code and Documents</title>
+<title>Git Book &mdash; Appendix A: Installation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="style0.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,7 +22,7 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li class="current"><a href="index.html">Title Page</a></li><li><a href="Git-Book_1.html">Preface</a>
+<li><a href="index.html">Title Page</a></li><li><a href="Git-Book_1.html">Preface</a>
 <ul class="sectlevel2">
 <li><a href="Git-Book_1.html#sec.reader">Who Is This Book Intended For?</a></li>
 <li><a href="Git-Book_1.html#sec.structure">How to Read the Book?</a></li>
@@ -123,11 +123,11 @@
 </ul>
 </li>
 <li><a href="Git-Book_12.html">11. GitHub</a></li>
-<li><a href="Git-Book_13.html">Appendix A: Installation</a>
+<li class="current"><a href="Git-Book_13.html">Appendix A: Installation</a>
 <ul class="sectlevel2">
-<li><a href="Git-Book_13.html#linux">A.1. Linux</a></li>
-<li><a href="Git-Book_13.html#sec.osx">A.2. Mac OS X</a></li>
-<li><a href="Git-Book_13.html#sec.windows">A.3. Windows</a></li>
+<li class="current"><a href="Git-Book_13.html#linux">A.1. Linux</a></li>
+<li class="current"><a href="Git-Book_13.html#sec.osx">A.2. Mac OS X</a></li>
+<li class="current"><a href="Git-Book_13.html#sec.windows">A.3. Windows</a></li>
 </ul>
 </li>
 <li><a href="Git-Book_14.html">Appendix B: Repository Structure</a>
@@ -139,82 +139,320 @@
 </ul>
 </div>
 </div>
-<div id="content"><div id="preamble">
+<div id="content"><div class="sect1">
+<h2 id="app.installation"><a class="anchor" href="Git-Book_13.html"></a>Appendix A: Installation</h2>
 <div class="sectionbody">
-<div class="openblock">
+<div class="paragraph">
+<p>Installing Git is easy and fast, as it comes with pre-configured packages for most systems.
+For the sake of completeness, however, we’ll document the most important steps under Linux, Mac OS X, and Windows.</p>
+</div>
+<div class="sect2">
+<h3 id="linux"><a class="anchor" href="Git-Book_13.html#linux"></a>A.1. Linux</h3>
+<div class="paragraph">
+<p>Due to the large number of Linux distributions only the installation on Debian, Fedora and Gentoo systems is described here.
+For other distributions, please refer to the documentation or the package management system, if necessary; of course, you can also compile and install Git from source code.</p>
+</div>
+<div class="sect3">
+<h4 id="sec.debian-ubuntu"><a class="anchor" href="Git-Book_13.html#sec.debian-ubuntu"></a>A.1.1. Debian/Ubuntu</h4>
+<div class="paragraph">
+<p>Debian and Ubuntu provide ready-to-use packages that can be installed comfortably and quickly with the Debian package management system.
+The git installation is modularized, so you can install only certain parts of git if necessary.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>git</code></dt>
+<dd>
+<p>main package, contains core commands (formerly <code>git-core</code>)</p>
+</dd>
+<dt class="hdlist1"><code>git-email</code> </dt>
+<dd>
+<p>Add-on for sending patches by e-mail</p>
+</dd>
+<dt class="hdlist1"><code>git-gui</code> </dt>
+<dd>
+<p>Graphical user interface</p>
+</dd>
+<dt class="hdlist1"><code>git-svn</code></dt>
+<dd>
+<p>subcommand <code>svn</code> to interact with Subversion repositories</p>
+</dd>
+<dt class="hdlist1"><code>git-cvs</code> </dt>
+<dd>
+<p>Interaction with CVS</p>
+</dd>
+<dt class="hdlist1"><code>git-doc</code></dt>
+<dd>
+<p>documentation (will be installed under <code>/usr/share/doc</code>)</p>
+</dd>
+<dt class="hdlist1"><code>gitk</code> </dt>
+<dd>
+<p>Program Gitk</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>There is also a meta-package <code>git-all</code> which installs all relevant packages.
+So on a regular workstation you should install Git as follows:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<div class="sidebarblock">
+<pre>$ <strong>sudo aptitude install git-all</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Under Ubuntu you can install the package <code>git-all</code> via the graphical package manager <em>Synaptic</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sec.fedora"><a class="anchor" href="Git-Book_13.html#sec.fedora"></a>A.1.2. Fedora</h4>
+<div class="paragraph">
+<p>On a Fedora system, you should install Git using the package manager <code>yum</code>:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>This is the English translation of
-<a href="http://gitbu.ch" title="Visit the Git-Buch website" target="_blank" rel="noopener"><em>Das Git-Buch</em></a>
-(The Git Book) by
-<a href="https://github.com/esc" target="_blank" rel="noopener">Valentin Haenel</a>
-and
-<a href="https://github.com/Feh" target="_blank" rel="noopener">Julius Plenz</a>,
-2nd Ed.2014, released under
-<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="Learn morea bout the Creative Common BY-NC-SA 4.0 license" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
-license.
-Translated from German by
-<a href="https://github.com/SicroAtGit" target="_blank" rel="noopener">Alexander Bolli</a> and
-<a href="https://github.com/tajmone" target="_blank" rel="noopener">Tristano Ajmone</a> in 2020.</p>
+<pre>$ <strong>sudo yum install git</strong></pre>
 </div>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tbody><tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title">E-Book Download</div>
-<div class="paragraph">
-<p>A self-contained, single HTML file version of this book is
-<a href="https://fossy-cats.github.io/Git-Buch_EN/download/Git-Book.html" title="'The Git Book', stand alone HTML edition">available for download at this link</a>.</p>
 </div>
 <div class="paragraph">
-<p>To save a copy to your device, right-click on the link and choose “Save link as…​”, or visit the page and save it from there.</p>
+<p>Analogous to the division into smaller packages as in Debian, certain additional features for Git are available in separate packages.
+To install all commands, you should install the <code>git-all</code> package.</p>
 </div>
-</td>
-</tr>
-</tbody></table>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tbody><tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="title">Book Status</div>
+<div class="sect3">
+<h4 id="sec.gentoo"><a class="anchor" href="Git-Book_13.html#sec.gentoo"></a>A.1.3. Gentoo</h4>
 <div class="paragraph">
-<p>This document is still in Beta version, but fully translated; so enjoy reading it and leave us some feedback on how we might improve it.</p>
+<p>Gentoo provides the ebuild <code>dev-vcs/git</code>.
+The graphical tool for creating commits (<code>git gui</code>) and the add-on for sending emails (<code>git send-email</code>) are installed by default.
+If you want to have a graphical user interface for viewing and editing the history (<code>gitk</code>) in addition, enable the <em>USE flag</em>&nbsp;`tk`.
+If you plan to use the Subversion interface, enable the <code>subversion</code> USE flag.
+To install via Portage, type the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>sudo emerge dev-vcs/git</strong></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sec.quellcode-installation"><a class="anchor" href="Git-Book_13.html#sec.quellcode-installation"></a>A.1.4. Installation from Sources</h4>
+<div class="paragraph">
+<p>If your distribution doesn’t provide a package for Git, it’s outdated, or you don’t have root privileges on the system, you should install Git directly from source.</p>
 </div>
 <div class="paragraph">
-<p>We’re currently proofreading and polishing the entire text, fixing some styling and formatting issues.
-Any help with proofreading is much appreciated; if you wish to contribute submit your changes via pull request on the <code>beta-dev</code> branch of the project repository:</p>
+<p>Git depends on the five libraries <code>expat</code> (XML parser), <code>curl</code> (data transfer), <code>zlib</code> (compression), <code>pcre</code> (regular expressions) and <code>openssl</code> (encryption/hashing).
+You may need to compile their sources and install the libraries accordingly before proceeding.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://fossy-cats.github.io/Git-Buch_EN" class="bare">https://fossy-cats.github.io/Git-Buch_EN</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>First download the tarball of the current Git version⁠<sup class="footnote">[<a id="_footnoteref_151" class="footnote" href="#_footnotedef_151" title="View footnote.">151</a>]</sup> and unzip it:</p>
 </div>
-</td>
-</tr>
-</tbody></table>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>wget https://www.kernel.org/pub/software/scm/git/git-2.1.0.tar.gz</strong>
+$ <strong>tar xvf git-2.1.0.tar.gz</strong></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Now change to the <code>git-2.1.0/</code> directory and compile the source code; then run <code>make install</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd git-2.1.0/</strong>
+$ <strong>make -j8</strong>
+$ <strong>make install</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With <code>make prefix=&lt;prefix&gt;</code> you can install Git to <code>&lt;prefix&gt;</code> (default: <code>$HOME</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sec.osx"><a class="anchor" href="Git-Book_13.html#sec.osx"></a>A.2. Mac OS X</h3>
+<div class="paragraph">
+<p>The <em>Git for OS X</em> project provides an installation program in disk image format (DMG).⁠<sup class="footnote">[<a id="_footnoteref_152" class="footnote" href="#_footnotedef_152" title="View footnote.">152</a>]</sup>
+So you can install it as usual.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sec.windows"><a class="anchor" href="Git-Book_13.html#sec.windows"></a>A.3. Windows</h3>
+<div class="paragraph">
+<p>The project <em>Git for Windows</em> provides an installation program for Microsoft Windows: <em>msysGit</em>.
+You can download the program⁠<sup class="footnote">[<a id="_footnoteref_153" class="footnote" href="#_footnotedef_153" title="View footnote.">153</a>]</sup> and install it as usual.</p>
 </div>
 </div>
 </div>
 </div></div>
-<div id="footnotes"></div>
+<div id="footnotes">
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnote" id="_footnotedef_151">
+<a href="#_footnoteref_151">151</a>. <a href="https://www.kernel.org/pub/software/scm/git/" class="bare" target="_blank" rel="noopener">https://www.kernel.org/pub/software/scm/git/</a>
+</div>
+<div class="footnote" id="_footnotedef_152">
+<a href="#_footnoteref_152">152</a>. <a href="https://code.google.com/p/git-osx-installer/" class="bare" target="_blank" rel="noopener">https://code.google.com/p/git-osx-installer/</a>
+</div>
+<div class="footnote" id="_footnotedef_153">
+<a href="#_footnoteref_153">153</a>. <a href="https://gitforwindows.org" class="bare" target="_blank" rel="noopener">https://gitforwindows.org</a>
+</div>
+
+
+
+</div>
 
 <nav>
-  
-  <a rel="next" href="Git-Book_1.html" class="nav nav-next" title="Next page" aria-label="Next page" aria-keyshortcuts="Right">
+  <a rel="prev" href="Git-Book_12.html" class="nav nav-prev" title="Previous page" aria-label="Previous page" aria-keyshortcuts="Left">
+        <i class="fa fa-angle-left"></i>
+     </a>
+  <a rel="next" href="Git-Book_14.html" class="nav nav-next" title="Next page" aria-label="Next page" aria-keyshortcuts="Right">
         <i class="fa fa-angle-right"></i>
      </a>
   <div style="clear: both"></div>
