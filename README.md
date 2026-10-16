@@ -279,7 +279,7 @@ In order to contribute to the repository, you'll also need:
 
 Git-Buch:
 
-- [gitbu.ch] — official _Git-Buch_ website (German).
+- [https://gitbuch.github.io/] — official _Git-Buch_ website (German).
 - [github.com/gitbuch/gitbuch_cc] — upstream repository of the original German edition.
 
 Open Source Press:
@@ -296,8 +296,8 @@ Open Source Press:
                                REFERENCE LINKS
 ------------------------------------------------------------------------------>
 
-[Das Git-Buch]: http://gitbu.ch "'Git-Buch' official website (German)"
-[gitbu.ch]: http://gitbu.ch "'Git-Buch' official website (German)"
+[Das Git-Buch]: https://gitbuch.github.io/ "'Git-Buch' official website (German)"
+[https://gitbuch.github.io/]: https://gitbuch.github.io/ "'Git-Buch' official website (German)"
 [github.com/gitbuch/gitbuch_cc]: https://github.com/gitbuch/gitbuch_cc "View the upstream repository of the Git-Buch"
 
 [76af76a]: https://github.com/gitbuch/gitbuch_cc/tree/76af76a303a6111d3a5910d612980fc4c597e05f/ "View upstream repository, commit 76af76a"
