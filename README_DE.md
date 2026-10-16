@@ -14,7 +14,7 @@ Eine gerenderte Version findet sich auf [gitbuch.github.io](https://gitbuch.gith
 Pull-Requests sind willkommen; es handelt sich allerdings um ein Buch, das
 wiederholt professionell lektoriert wurde. Diesen Qualitäts-Standard wollen wir
 natürlich halten. Bevor Du also tiefgreifende Änderungen/Erweiterungen
-vornimmst, [kontaktiere uns](mailto:kontakt@gitbu.ch), damit wir entscheiden
+vornimmst, kontaktiere uns, damit wir entscheiden
 können, wie wir vorgehen. Fehlerkorrekturen oder kleine Updates sind natürlich
 immer gerne gesehen!
 
