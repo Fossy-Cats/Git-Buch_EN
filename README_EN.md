@@ -10,7 +10,7 @@ Translated using the __[DeepL/Translator]__ free online service, and manually po
 
 # Source code for the Git Book
 
-A rendered version can be found on [gitbu.ch].
+A rendered version can be found on [gitbuch.github.io].
 
 Pull-requests are welcome; however, this is a book that has been professionally edited repeatedly.
 Of course we want to maintain this quality standard.
@@ -51,9 +51,8 @@ Licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 In
 ------------------------------------------------------------------------------>
 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License]: https://creativecommons.org/licenses/by-nc-sa/4.0/
-[gitbu.ch]: http://gitbu.ch/pr01.html
+[gitbuch.github.io]: https://gitbuch.github.io/pr01.html
 [Homebrew]: https://brew.sh/
-[please contact us]: <mailto:kontakt@gitbu.ch>
 [xmllint fix]: https://groups.google.com/forum/#!topic/asciidoc/FC-eOwU8rYg
 
 [README_DE]: ./README_DE.md "View original German document (local copy)"
